@@ -1,6 +1,5 @@
 package cn.gson.oasys.controller;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,6 +30,7 @@ public class IndexController {
 			log.info("{}",blog);
 		}
 		System.out.println("fdsa");
+		
 		return "index/index";
 	}
 
