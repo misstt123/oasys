@@ -30,6 +30,7 @@ public class IndexController {
 		for (Blog blog : rows) {
 			log.info("{}",blog);
 		}
+		System.out.println("fdsa");
 		return "index/index";
 	}
 
