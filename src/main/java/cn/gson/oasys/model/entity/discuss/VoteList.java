@@ -1,4 +1,4 @@
-package cn.gson.oasys.model.entity;
+package cn.gson.oasys.model.entity.discuss;
 
 import java.util.Date;
 

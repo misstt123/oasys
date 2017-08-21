@@ -1,4 +1,4 @@
-package cn.gson.oasys.model.entity;
+package cn.gson.oasys.model.entity.discuss;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
