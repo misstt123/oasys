@@ -1,7 +1,7 @@
 
 /**
  * 控制层 controller
- * @author luoxiang
+ * @author luoxiang刚好
  *
  */
 package cn.gson.oasys.controller;
