@@ -39,10 +39,10 @@ public class Mailnumber {
 	
 	public Mailnumber(){}
 	
-	public Mailnumber(Long mailNumberId, Long mailType, Long status, Long mailUserId, String mailUserName,
+	public Mailnumber( Long mailType, Long status, Long mailUserId, String mailUserName,
 			Date mailCreateTime, String mailAccount, String password, String mailDes) {
 		super();
-		this.mailNumberId = mailNumberId;
+		
 		this.mailType = mailType;
 		this.status = status;
 		this.mailUserId = mailUserId;

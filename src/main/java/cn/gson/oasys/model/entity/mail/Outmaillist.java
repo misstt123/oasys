@@ -47,6 +47,25 @@ public class Outmaillist {
 	private Integer isRead;//是否已读
 	
 	public Outmaillist(){}
+	
+	
+
+	public Outmaillist( Long mailType, Long mailStatusid, Long mailNumberid, String title,
+			String mailContent, Long mailFileid, String outReceiver, Date mailCreateTime, Integer isRead) {
+		super();
+		
+		this.mailType = mailType;
+		this.mailStatusid = mailStatusid;
+		this.mailNumberid = mailNumberid;
+		this.title = title;
+		this.mailContent = mailContent;
+		this.mailFileid = mailFileid;
+		this.outReceiver = outReceiver;
+		this.mailCreateTime = mailCreateTime;
+		this.isRead = isRead;
+	}
+
+
 
 	public Long getMailId() {
 		return mailId;
