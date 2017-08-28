@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/homelist.css" />
+
 <link rel="stylesheet" href="css/controlpanel.css" />
 <div class="nothing">
 	<!-- 自己的jie'm -->

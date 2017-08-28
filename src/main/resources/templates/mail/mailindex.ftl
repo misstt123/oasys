@@ -21,16 +21,17 @@ maximum-scale=1, user-scalable=no">
 				<#include "/common/menulist.ftl"> 
 				<!--右侧内容--> 
 				<div class="col-md-10 list-right" id="changgebox"
-					style="background: #ecf0f5; position: relative;">
+					style="background: #ecf0f5; position: relative;min-height:720px">
 					<!--下面就是自己的内容块-->
-					<#include "/systemcontrol/control.ftl">
+					<#include "/mail/mail.ftl">
 				</div>
 			</div>
 			<!-- 底部栏界面 --> 
 			<#include "/common/footer.ftl">
 		</div>
 	</div>
-	
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 		/* 菜单向左向下箭头变化 */

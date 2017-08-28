@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/homelist.css" />
 <div class="col-md-2 list-left" style="background: #222d32;">
 	<div class="user-panel">
 		<div class="pull-left">
@@ -162,7 +163,7 @@
 					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
 							<span>账号管理</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="mail"> <span class="glyphicon glyphicon-record"></span>
 							<span>邮件管理</span>
 					</a></li>
 				</ul>
