@@ -2,16 +2,21 @@ package cn.gson.oasys.model.entity.attendce;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import cn.gson.oasys.model.entity.user.User;
+
 /**
- * 状态id
- * 类型id
+
  * 用户id
  * 外键没有连接
  * 
@@ -28,6 +33,12 @@ public class Attends {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long attendsId; 
 	
+	@Column(name="type_id")
+	private Long typeId; //类型id
+	
+	@Column(name="status_id")
+	private Long statusId; //状态id
+	
 	@Column(name="attends_time")
 	private Date attendsTime;   //考勤时间
 	
@@ -37,6 +48,11 @@ public class Attends {
 	@Column(name="attends_remark")
 	private Long attendsRemark;  //考勤备注
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="attends_id")
+	private User user;
+	
+	
 	public Long getAttendsId() {
 		return attendsId;
 	}

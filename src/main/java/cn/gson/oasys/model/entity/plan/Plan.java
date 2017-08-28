@@ -4,15 +4,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 /**
  * 用户id
- * 状态id
- * 类型id
- * 没有连接外键
+* 没有连接外键
  * @author admin
  *
  */
@@ -24,6 +27,13 @@ public class Plan {
 	@Column(name="plan_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long planId; 
+	
+	@Column(name="type_id")
+	private Long typeId; //类型id
+	
+	@Column(name="status_id")
+	private Long statusId; //状态id
+	
 	
 	@Column(name="start_time")
 	private Date startTime;   //开始时间
@@ -47,6 +57,10 @@ public class Plan {
 	@Column(name="plan_comment")
 	private String planComment;   //计划评论
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="plan_id")
+	private User user;
+	
 	public Long getPlanId() {
 		return planId;
 	}

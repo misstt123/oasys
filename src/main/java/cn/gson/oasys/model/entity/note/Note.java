@@ -1,18 +1,27 @@
 package cn.gson.oasys.model.entity.note;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import cn.gson.oasys.model.entity.user.User;
+
+
 /**
- * catalog_id
- * type_id 
- * status_id
+ * 
  * attach_id
  * publisher_id就是用户id
  * 外键没有连
@@ -33,9 +42,32 @@ public class Note {
 	
 	private String content;//内容
 	
+	
+	
+	@Column(name="type_id")
+	private Long typeId; //类型id
+	
+	@Column(name="status_id")
+	private Long statusId; //状态id
+	
 	@Column(name="create_time")
 	private Date createTime;//发布时间
 
+	@OneToMany(mappedBy="note",fetch=FetchType.EAGER)
+	private Set<Catalog>  Catalogs;
+	
+	@ManyToMany
+	@JoinTable(
+			name="receiver_note"
+			,joinColumns={
+					@JoinColumn(name="note_id")
+			}
+			,inverseJoinColumns={
+					@JoinColumn(name="user_id")
+			}
+			)
+	private Set<User> users;
+	
 	public Note() {
 		super();
 		// TODO Auto-generated constructor stub

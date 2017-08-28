@@ -1,8 +1,13 @@
 package cn.gson.oasys.model.entity.user;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.plan.Plan;
 /**
  * 备注：position_id	职位
 		role_id		角色
@@ -83,6 +88,14 @@ public class User {
 	@Column(name="father_id")
 	private Long fatherId;		//上司id
 
+	@ManyToMany(mappedBy="note_id")
+	private Set<Note> notes;
+	
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	private Set<Attends> Attendces;
+	
+	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+	private Set<Plan> plans;
 	public User() {}		
 
 

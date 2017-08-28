@@ -9,8 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 /**
- * 类型id
- * 状态id
+
  * 用户id
  * 投票id
  * 没有外键
@@ -26,6 +25,12 @@ public class Discuss {
 	@Column(name="discuss_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long discussId; //主键id
+	
+	@Column(name="type_id")
+	private Long typeId; //类型id
+	
+	@Column(name="status_id")
+	private Long statusId; //状态id
 	
 	@Column(name="create_time")
 	private Date createTime; //创建时间
