@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/homelist.css" />
 <div class="row disappear">
 	<!--把最顶上左侧的logo，栅格系统分2份-->
 	<div class="col-lg-2 col-md-2" style="background: #008d4c;">
