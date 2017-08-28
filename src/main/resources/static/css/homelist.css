@@ -1,0 +1,177 @@
+a:hover{
+	text-decoration: none;
+}
+
+.moredeep li .white:hover,
+.moredeep li .white:visited,
+.moredeep li .white:focus {
+	background: #008d4c;
+	color: white;
+}
+
+.moredeep li .badge {
+	position: absolute;
+	margin-top: -10px;
+	margin-left: -4px;
+	padding: 2px 4px;
+}
+
+.yellow {
+	background: #f39c12;
+}
+
+.blue {
+	background: #00c0ef;
+}
+
+.red {
+	background: #dd4b39;
+}
+
+.white {
+	color: white;
+}
+
+.nav .open>a,
+.nav .open>a:focus,
+.nav .open>a:hover {
+	background: #008d4c;
+}
+
+
+.user-header {
+	height: 175px;
+	width: 280px;
+	padding: 10px;
+	text-align: center;
+	background-color: #00a65a;
+}
+
+.user-footer div {
+	padding: 10px;
+}
+
+.user-image {
+	width: 30px;
+	height: 30px;
+	float: left;
+	border-radius: 50%;
+	margin-right: 10px;
+	margin-top: -5px;
+}
+
+.user-panel {
+	height: 60px;
+	margin-top: 5px;
+	padding: 15px 5px 15px 5px;
+}
+
+.user-image-left {
+	max-width: 45px;
+	height: 45px;
+	border-radius: 50%;
+}
+
+.info {
+	padding: 5px 5px 5px 15px;
+}
+
+.search-input {
+	border: 1px solid transparent;
+	height: 35px;
+	width: 85%;
+	border-bottom-left-radius: 2px;
+	border-top-left-radius: 2px;
+	background: #374850;
+	text-indent: 10px;
+	font-size: 13px;
+	outline: none;
+}
+
+.search-input:focus {
+	background: white;
+}
+
+.panel-heading {
+	padding: 0;
+	;
+}
+
+.open-menu {
+	display: block;
+	border: 0px solid red;
+	height: 40px;
+	padding: 10px 0 10px 20px;
+}
+
+.open-menu span {
+	margin-right: 5px;
+}
+
+li {
+	list-style: none;
+	text-align: left;
+}
+
+#accordion li a .glyphicon {
+	margin-right: 5px;
+}
+
+#accordion li a {
+	display: block;
+	height: 26px;
+	width: 160px;
+	border: 0px solid green;
+}
+
+#accordion ul {
+	margin-bottom: -6px;
+}
+
+#accordion a:hover,
+#accordion a:focus {
+	text-decoration: none;
+}
+
+#accordion .panel-default>.panel-heading,
+.panel {
+	background-color: #222d32;
+}
+
+#accordion a {
+	color: #b8c7ce;
+	font-size: 13px;
+}
+
+#accordion a:hover,
+#accordion .panel-collapse a:hover {
+	color: white;
+	font-size: 13px;
+}
+
+#accordion .panel .panel-collapse {
+	background: #2c3b41;
+	/*padding: 6px;*/
+}
+#accordion .panel .panel-collapse li{
+	padding: 2px;
+}
+
+.panel-default {
+	border: none;
+}
+
+.panel-heading .open-menu{
+	border-left: 3px solid transparent!important;
+}
+
+#accordion .open-menu:hover,
+#accordion .open-menu:focus,
+#accordion .open-menu:visited {
+	background: #18252b;
+	color: white;
+	border-left: 3px solid #00a65a!important;
+}
+.list-left{
+	min-height:720px;
+}
