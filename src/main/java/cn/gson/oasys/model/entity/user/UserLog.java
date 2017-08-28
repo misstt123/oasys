@@ -28,7 +28,7 @@ public class UserLog {
 	
 	private String url;		//操作菜单url
 	
-	@Column(name = "log_id")
+	@Column(name = "log_time")
 	private Date logTime;	//日志记录时间
 
 	public UserLog() {

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.entity.Blog;
@@ -22,16 +23,14 @@ public class IndexController {
 	@Autowired
 	private BlogDao bDao;
 	
-	@RequestMapping
+	@RequestMapping("index")
 	public String index(HttpServletRequest req){
-		Iterable<Blog> rows=bDao.findAll();
-		req.setAttribute("rows", rows);
-		for (Blog blog : rows) {
-			log.info("{}",blog);
-		}
-		System.out.println("fdsa");
-		
 		return "index/index";
+	}
+	
+	@RequestMapping("test")
+	public String test(){
+		return "index/test";
 	}
 
 }
