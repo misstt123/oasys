@@ -1,189 +1,167 @@
+<link rel="stylesheet" type="text/css" href="css/box.css" />
+<style type="text/css">
+	a {
+		color: black;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	.bgc-w {
+		background-color: #fff;
+	}
+</style>
 <div class="row">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-2">
-				<h1 style="font-size: 24px; margin: 0;" class="">ÎÄ¼ş¹ÜÀí</h1>
-			</div>
-			<div class="col-md-10 text-right">
-				<a href="##"><span class="glyphicon glyphicon-home"></span> Ê×Ò³</a> >
-				<a disabled="disabled">ÎÄ¼ş¹ÜÀí</a>
-			</div>
-		</div>
-		<div class="row" style="padding-top: 15px;">
-			<div class="col-md-3">
-				<a class="btn btn-primary" href="##"
-					style="width: 100%; margin-bottom: 20px;"><span
-					class="glyphicon glyphicon-open"></span> ÉÏ´«</a>
-				<div class="bgc-w box box-solid">
-					<div class="box-header">
-						<h3 class="box-title">ÔÆÅÌ</h3>
-						<span class="btn btn-default pull-right btn-xs des mm"> <i
-							class="glyphicon glyphicon-minus"></i>
-						</span>
+			<div class="container">
+				<div class="row" style="padding-top: 10px;">
+					<div class="col-md-2">
+						<h1 style="font-size:24px;margin: 0;" class="">ç”¨æˆ·ç®¡ç†</h1>
 					</div>
-					<ul class="nav nav-pills nav-stacked mm">
-						<li class="activee"><a href="##"> <span
-								class="glyphicon glyphicon-time"> ×î½ü</span></a></li>
-						<li>
-							<!--<a class="pjax" href="box.html">--> <a href="##"><span
-								class="glyphicon glyphicon-file"></span> ÎÄµµ</a>
-						</li>
-						<li><a href="##"><span
-								class="glyphicon glyphicon-picture"></span> Í¼Æ¬</a></li>
-						<li><a href="##"><span class="glyphicon glyphicon-music"></span>
-								ÒôÀÖ</a></li>
-						<li><a href="##"><span
-								class="glyphicon glyphicon-facetime-video"></span> ÊÓÆµ</a></li>
-						<li><a href="##"><span
-								class="glyphicon glyphicon-briefcase"></span> Ñ¹Ëõ°ü</a></li>
-					</ul>
+					<div class="col-md-10 text-right">
+						<a href="##"><span class="glyphicon glyphicon-home"></span> é¦–é¡µ</a>
+						>
+						<a disabled="disabled">ç”¨æˆ·ç®¡ç†</a>
+					</div>
 				</div>
+				<div class="row" style="padding-top: 15px;">
+					<div class="col-md-12">
+						<!--id="container"-->
+						<div class="bgc-w box box-primary">
+							<!--ç›’å­å¤´-->
+							<div class="box-header">
+								<h3 class="box-title">
+									<a href="##" class="label label-success" style="padding: 5px;">
+										<span class="glyphicon glyphicon-plus">æ–°å¢</span>
+									</a>
+									<a href="##" class="label label-primary" style="padding: 5px;margin-left: 5px;">
+										<span class="glyphicon glyphicon-gift">ç”Ÿæ—¥</span>
+									</a>
+								</h3>
+								<div class="box-tools">
+									<div class="input-group" style="width: 150px;">
+										<input type="text" class="form-control input-sm" placeholder="æŸ¥æ‰¾..." />
+										<div class="input-group-btn">
+											<a class="btn btn-sm btn-default"><span class="glyphicon glyphicon-search"></span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--ç›’å­èº«ä½“-->
+							<div class="box-body no-padding">
+									<div class="table-responsive">
+										<table class="table table-hover table-striped">
+											<tr>
+												<th scope="col">ID</th>
+												<th scope="col">&nbsp;</th>
+												<th scope="col">éƒ¨é—¨</th>
+												<th scope="col">çœŸå®å§“å</th>
+												<th scope="col">ç”¨æˆ·å</th>
+												<th scope="col">è§’è‰²</th>
+												<th scope="col">ç”µè¯</th>
+												<th scope="col">å·¥èµ„</th>
+												<th scope="col">æ“ä½œ</th>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>
+													<img src="img/1.jpg" class="img-circle" style="width: 25px;height: 25px;" />
+												</td>
+												<td>
+													<span>æ€»å…¬å¸</span>
+												</td>
+												<td>
+													<span>ç½—ç¿”</span>
+												</td>
+												<td>
+													<span>luoxiang</span>
+												</td>
+												<td>
+													<span>è¶…çº§ç®¡ç†å‘˜</span>
+												</td>
+												<td>
+													<span>111122223333</span>
+												</td>
+												<td >
+													<span>3000.0</span>
+												</td>
+												<td>
+													<a title="ä¿®æ”¹" href="##" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> ä¿®æ”¹</a>
+													<a title="æŸ¥çœ‹è¯¦ç»†ä¿¡æ¯" href="##" class="label label-default"><span class="glyphicon glyphicon-search"></span> æŸ¥çœ‹</a>
+													<a onclick="{return confirm('åˆ é™¤è¯¥è®°å½•å°†ä¸èƒ½æ¢å¤ï¼Œç¡®å®šåˆ é™¤å—ï¼Ÿ');};" title="åˆ é™¤" href="" class="label label-danger"><span class="glyphicon glyphicon-remove"></span> åˆ é™¤</a>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<!--ç›’å­å°¾-->
+								<div class="box-footer no-padding" style="margin-top: -20px;">
+									<div style="padding: 5px;">
+										<div id="page" style="background:#fff;border:0px;margin-top:0px;padding:2px;height: 25px;">
+											<div style="width: 40%; float: left;">
+												<div class="pageInfo" style="margin-left: 5px;">
+													å…±<span>2</span>æ¡ | æ¯é¡µ<span>20</span>æ¡ | å…±<span>1</span>é¡µ
+												</div>
+											</div>
+											<div style="width: 60%; float: left;">
+												<div class="pageOperation">
+													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
+														<span class="glyphicon glyphicon-backward"></span>
+													</a>
+													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
+														<span class="glyphicon glyphicon-triangle-left"></span>
+													</a>
+													<a disabled="disabled" class="btn btn-default no-padding" style="width:30px;height: 20px;">
+														1
+													</a>
+													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
+														<span class="glyphicon glyphicon-triangle-right"></span>
+													</a>
+													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
+														<span class="glyphicon glyphicon-forward"></span>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<script type="text/javascript">
+	$(function() {
+		$(".des").click(function() {
 
-				<div class="bgc-w box box-solid">
-					<div class="box-header">
-						<h3 class="box-title">ÀàĞÍ</h3>
-						<span class="btn btn-default pull-right btn-xs des"> <i
-							class="glyphicon glyphicon-minus"></i>
-						</span>
-					</div>
-					<ul class="nav nav-pills nav-stacked">
-						<li><a href="##"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> ÎÒµÄÎÄ¼ş
-						</a></li>
-						<li><a href="##"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> ¹«Ë¾ÎÄ¼ş
-						</a></li>
-						<li><a href="##"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> ¹²Ïí
-						</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-9">
-				<!--id="container"-->
-				<div class="bgc-w box box-primary">
-					<!--ºĞ×ÓÍ·-->
-					<div class="box-header">
-						<h3 class="box-title">×î½ü</h3>
-						<div class="box-tools">
-							<div class="input-group" style="width: 150px;">
-								<input type="text" class="form-control input-sm"
-									placeholder="²éÕÒ..." />
-								<div class="input-group-btn">
-									<a class="btn btn-sm btn-default"><span
-										class="glyphicon glyphicon-search"></span></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--ºĞ×ÓÉíÌå-->
-					<div class="box-body no-padding">
-						<div style="padding: 5px;">
-							<a class="btn btn-sm btn-default" href="" title="È«Ñ¡/·´Ñ¡"><span
-								class="glyphicon glyphicon-unchecked"></span></a>
-							<div class="btn-group">
-								<a class="btn btn-sm btn-default" href="" title="É¾³ı"><span
-									class="glyphicon glyphicon-trash"></span></a> <a
-									class="btn btn-sm btn-default" href="" title="ĞÂ½¨ÎÄ¼ş¼Ğ"><span
-									class="glyphicon glyphicon-folder-open"></a>
-							</div>
-							<a class="btn btn-sm btn-default" href="" title="Ë¢ĞÂ"><span
-								class="glyphicon glyphicon-refresh"></span></a>
-						</div>
-						<div class="table-responsive">
-							<table class="table table-hover table-striped">
-								<tr>
-									<th scope="col">Ñ¡Ôñ</th>
-									<th scope="col">&nbsp;</th>
-									<th scope="col">ÀàĞÍ</th>
-									<th scope="col">±êÌâ</th>
-									<th scope="col">¸ñÊ½</th>
-									<th scope="col">´óĞ¡</th>
-									<th scope="col">¸üĞÂ</th>
-									<th scope="col">×´Ì¬</th>
-									<th scope="col">²Ù×÷</th>
-								</tr>
-								<tr>
-									<td style="text-align: center;"><input type="checkbox"
-										value="" /></td>
-									<td><img src="img/folder.png" style="width: 25px;" /></td>
-									<td><span>ÎÒµÄÎÄ¼ş</span></td>
-									<td class="mailbox-subject"><span>ĞÂ½¨ÎÄ¼ş¼Ğsfsf</span></td>
-									<td></td>
-									<td></td>
-									<td><span>2017/8/16 19:24:04</span></td>
-									<td>
-										<div class="label label-info">Ò»°ã</div>
-									</td>
-									<td><a title="ĞŞ¸Ä" href="##" class="label label-primary"><span
-											class="glyphicon glyphicon-edit"></span> ĞŞ¸Ä</a> <a title="´ò¿ªÎÄ¼ş¼Ğ"
-										href="##" class="label label-default"><span
-											class="glyphicon glyphicon-folder-open"></span> ´ò¿ª</a> <a
-										onclick="{return confirm('É¾³ı¸Ã¼ÇÂ¼½«²»ÄÜ»Ö¸´£¬È·¶¨É¾³ıÂğ£¿');};" title="É¾³ı"
-										href="" class="label label-danger"><span
-											class="glyphicon glyphicon-remove"></span> É¾³ı</a></td>
-								</tr>
-								<tr>
-									<td style="text-align: center;"><input type="checkbox"
-										value="" /></td>
-									<td><img src="img/folder.png" style="width: 25px;" /></td>
-									<td><span>ÎÒµÄÎÄ¼ş</span></td>
-									<td class="mailbox-subject"><span>ĞÂ½¨ÎÄ¼ş¼Ğsfsf</span></td>
-									<td></td>
-									<td></td>
-									<td><span>2017/8/16 19:24:04</span></td>
-									<td>
-										<div class="label label-warning">ÖØÒª</div>
-									</td>
-									<!--style="padding: 0.4em .6em .3em;"-->
-									<td><a title="ĞŞ¸Ä" href="" class="label label-primary"><span
-											class="glyphicon glyphicon-edit"></span> ĞŞ¸Ä</a> <a title="´ò¿ªÎÄ¼ş¼Ğ"
-										href="##" class="label label-default"><span
-											class="glyphicon glyphicon-folder-open"></span> ´ò¿ª</a> <a
-										onclick="{return confirm('É¾³ı¸Ã¼ÇÂ¼½«²»ÄÜ»Ö¸´£¬È·¶¨É¾³ıÂğ£¿');};" title="É¾³ı"
-										href="" class="label label-danger"><span
-											class="glyphicon glyphicon-remove"></span> É¾³ı</a></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<!--ºĞ×ÓÎ²-->
-					<div class="box-footer no-padding" style="margin-top: -20px;">
-						<div style="padding: 5px;">
-							<div id="page"
-								style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-								<div style="width: 40%; float: left;">
-									<div class="pageInfo" style="margin-left: 5px;">
-										¹²<span>2</span>Ìõ | Ã¿Ò³<span>20</span>Ìõ | ¹²<span>1</span>Ò³
-									</div>
-								</div>
-								<div style="width: 60%; float: left;">
-									<div class="pageOperation">
-										<a class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-backward"></span>
-										</a> <a class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-triangle-left"></span>
-										</a> <a disabled="disabled" class="btn btn-default no-padding"
-											style="width: 30px; height: 20px;"> 1 </a> <a
-											class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-triangle-right"></span>
-										</a> <a class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-forward"></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+					var $this = $(this).children();
+
+					var $ul = $(this).parents(".box-header").next();
+
+					if ($(this).hasClass("mm")) {
+						if ($this.hasClass("glyphicon-minus")) {
+							$this.removeClass("glyphicon-minus").addClass(
+									"glyphicon-plus");
+						} else {
+
+							$this.removeClass("glyphicon-plus").addClass(
+									"glyphicon-minus");
+						}
+						$ul.slideToggle(1000);
+					} else {
+						if ($this.hasClass("glyphicon-minus")) {
+							$this.removeClass("glyphicon-minus").addClass(
+									"glyphicon-plus");
+						} else {
+
+							$this.removeClass("glyphicon-plus").addClass(
+									"glyphicon-minus");
+						}
+						$ul.slideToggle(1000);
+					}
+				});
+
+		$(".nav").on("click", "li", function() {
+			$(this).parent().children(".activee").removeClass("activee");
+			$(this).addClass("activee");
+		})
+	})
+</script>
