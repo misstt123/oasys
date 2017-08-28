@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="out_mail_list")
+@Table(name="aoa_out_mail_list")
 //外部邮件表
 public class Outmaillist {
 	

@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="in_mail_list")
+@Table(name="aoa_in_mail_list")
+//内部邮件
 public class Inmaillist {
 
 	@Id
@@ -24,7 +25,7 @@ public class Inmaillist {
 	@Column(name="mail_user_id")
 	private Long mailUserid;//发件人id
 	
-	@Column(name="mail_title")
+	@Column(name="mail_title",nullable=false)
 	private String mailTitle;//邮件主题
 	
 	@Column(name="mail_content")
