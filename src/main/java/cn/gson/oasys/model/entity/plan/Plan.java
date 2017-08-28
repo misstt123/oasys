@@ -57,9 +57,9 @@ public class Plan {
 	@Column(name="plan_comment")
 	private String planComment;   //计划评论
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="plan_id")
-	private User user;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="plan_id")
+//	private User user;
 	
 	public Long getPlanId() {
 		return planId;

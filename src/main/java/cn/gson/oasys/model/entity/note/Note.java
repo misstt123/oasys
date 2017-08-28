@@ -53,10 +53,10 @@ public class Note {
 	@Column(name="create_time")
 	private Date createTime;//发布时间
 
-	@OneToMany(mappedBy="note",fetch=FetchType.EAGER)
-	private Set<Catalog>  Catalogs;
+//	@OneToMany(mappedBy="note",fetch=FetchType.EAGER)
+//	private Set<Catalog>  Catalogs;
 	
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(
 			name="receiver_note"
 			,joinColumns={
@@ -66,7 +66,7 @@ public class Note {
 					@JoinColumn(name="user_id")
 			}
 			)
-	private Set<User> users;
+	private Set<User> users;*/
 	
 	public Note() {
 		super();

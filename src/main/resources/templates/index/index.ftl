@@ -102,7 +102,6 @@ maximum-scale=1, user-scalable=no">
 		});
 	</script>
 
->>>>>>> branch 'yqs' of https://git.oschina.net/aaluoxiang/oa_system.git
 </body>
 
 </html>

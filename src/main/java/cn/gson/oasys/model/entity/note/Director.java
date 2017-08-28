@@ -54,8 +54,8 @@ public class Director {
 	@Column(name="image_path")
 	private String  imagePath; 
 	
-	@OneToMany(mappedBy="director",fetch=FetchType.EAGER)
-	private Set<Catalog>  catalogs;
+//	@OneToMany(mappedBy="director",fetch=FetchType.EAGER)
+//	private Set<Catalog>  catalogs;
 	
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;

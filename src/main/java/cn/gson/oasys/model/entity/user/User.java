@@ -88,14 +88,14 @@ public class User {
 	@Column(name="father_id")
 	private Long fatherId;		//上司id
 
-	@ManyToMany(mappedBy="note_id")
-	private Set<Note> notes;
+//	@ManyToMany(mappedBy="note_id")
+//	private Set<Note> notes;
+//	
+//	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+//	private Set<Attends> Attendces;
 	
-	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
-	private Set<Attends> Attendces;
-	
-	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
-	private Set<Plan> plans;
+//	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
+//	private Set<Plan> plans;
 	public User() {}		
 
 

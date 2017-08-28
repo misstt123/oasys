@@ -35,5 +35,11 @@ public class IndexController {
 	public String test(){
 		return "index/test";
 	}
+	
+	@RequestMapping("attendce")
+	public String test2(){
+		return "index/attendceview";
+	}
+	
 
 }

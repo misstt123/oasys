@@ -48,9 +48,9 @@ public class Attends {
 	@Column(name="attends_remark")
 	private Long attendsRemark;  //考勤备注
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="attends_id")
-	private User user;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="attends_id")
+//	private User user;
 	
 	
 	public Long getAttendsId() {
