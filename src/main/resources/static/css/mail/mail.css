@@ -1,0 +1,63 @@
+.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow: hidden;
+			}
+			
+			a {
+				color: black;
+			}
+			
+			a:hover {
+				text-decoration: none;
+			}
+			
+			
+			.bgc-w {
+				background-color: #fff;
+			}
+			
+			.nav-stacked>li {
+				border-bottom: 1px solid #f4f4f4;
+			}
+			
+			.bac{
+				background-color: #eee;
+			}
+			.em{
+				color:#ff9800;
+			}
+			
+			.des{
+				border:none;
+				color:#9e9e9e;
+			}
+			
+			.uncheck{
+				position: absolute;
+			    right: 10px;
+			}
+			
+			.nav>li{
+				border-left: 3px solid transparent;
+				cursor: pointer;
+				width: 263px;
+				height: 40px;
+				line-height: 40px;
+				
+			}
+			.nav>li:hover{
+				background-color: #eee;
+				border-left: 3px solid #eee;
+			}
+			.nav-stacked>li+li {
+				margin-top: 0px;
+			}
+			li .le{
+				margin-left: 16px;
+			}
+			.outside{
+				margin-top: 20px;
+			}

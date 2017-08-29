@@ -1,3 +1,4 @@
+<!--小修改  -->
 <div class="col-md-2 list-left" style="background: #222d32;">
 	<div class="user-panel">
 		<div class="pull-left">

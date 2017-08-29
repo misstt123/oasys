@@ -3,14 +3,11 @@
 
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,
 maximum-scale=1, user-scalable=no">
 <title>控制面板主页</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="main">
@@ -24,14 +21,15 @@ maximum-scale=1, user-scalable=no">
 				<div class="col-md-10 list-right" id="changgebox"
 					style="background: #ecf0f5; position: relative;">
 					<!--下面就是自己的内容块-->
-					<#include "/systemcontrol/control.ftl">
+					<#include "/user/usermanage.ftl">
 				</div>
 			</div>
 			<!-- 底部栏界面 --> 
 			<#include "/common/footer.ftl">
 		</div>
 	</div>
-	
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 		/* 菜单向左向下箭头变化 */
