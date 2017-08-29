@@ -43,6 +43,18 @@ public class MenuSysController {
 	public String chatManage(){
 		return "index/chatindex";
 	}
+	@RequestMapping("newpage")
+	public String newpage(){
+		return "index/newpageindex";
+	}
+	@RequestMapping("addressmanage")
+	public String addressManage(){
+		return "index/addressindex";
+	}
+	@RequestMapping("flowmanage")
+	public String flowManage(){
+		return "index/flowindex";
+	}
 	
 
 }

@@ -120,7 +120,7 @@
 			</div>
 			<div id="collapsefive" class="panel-collapse collapse">
 				<ul>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="flowmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>流程管理</span>
 					</a></li>
 					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
@@ -268,7 +268,7 @@
 			</div>
 			<div id="collapsethirteen" class="panel-collapse collapse">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="addressmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>通讯录</span>
 					</a></li>
 				</ul>

@@ -1,11 +1,11 @@
 <div class="nothing">
 	<div class="head-show">
-		<h3>菜单管理</h3>
+		<h3>通讯录管理</h3>
 		<ol class="breadcrumb pull-right">
 			<li><a href="#"> <span class="glyphicon glyphicon-home"></span>
 					首页
 			</a></li>
-			<li class="active">菜单管理</li>
+			<li class="active">通讯录管理</li>
 		</ol>
 	</div>
 	<div class="container-fluid"

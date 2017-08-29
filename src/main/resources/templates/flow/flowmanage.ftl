@@ -1,11 +1,11 @@
 <div class="nothing">
 	<div class="head-show">
-		<h3>菜单管理</h3>
+		<h3>流程管理</h3>
 		<ol class="breadcrumb pull-right">
 			<li><a href="#"> <span class="glyphicon glyphicon-home"></span>
 					首页
 			</a></li>
-			<li class="active">菜单管理</li>
+			<li class="active">流程管理</li>
 		</ol>
 	</div>
 	<div class="container-fluid"
@@ -18,7 +18,7 @@
 						style="background: white;padding:3px;">
 						<div class="panel-title"
 							style="display: inline-block; padding: 3px 0 0 15px;">
-							<a href="newpage" class="btn btn-success" style="color: white;"><span
+							<a href="#" class="btn btn-success" style="color: white;"><span
 								class="glyphicon glyphicon-plus"></span>新增</a>
 						</div>
 						<div class="pull-right right-btn-group"
