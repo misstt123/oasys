@@ -161,9 +161,14 @@
 					$(".edit").removeClass("active");
 					$(".view").addClass("active");
 				})
+				
+			  	
+			  	$(".back").click(function  () {
+					if($(".view").hasClass("active"))
+					$(".view").removeClass("active");
+					$(".edit").addClass("active");
 				})
-			  	
-			  	
+				})
 			   
 
 		

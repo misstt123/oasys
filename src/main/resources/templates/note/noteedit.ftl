@@ -8,10 +8,6 @@
 		<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 		<link rel="stylesheet" href="css/common/box.css" />
 		
-		<script src="easyui/jquery-1.12.4.js"></script>
-		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 		<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 		<title></title>
@@ -205,8 +201,8 @@
 		<div class="">
 		<div class="container box">
 			<div class="box-header">
-				<a class="label label-back"> 
-					<span class="glyphicon glyphicon-chevron-left" onclick="window.history.back();"></span>返回</a>
+				<a class="label label-back back" href="javascript:void(0);"> 
+					<span class="glyphicon glyphicon-chevron-left " ></span>返回</a>
 			</div>
 			<div class="page-header"></div>
 				<div class="form-group">
