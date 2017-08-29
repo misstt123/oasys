@@ -185,7 +185,7 @@
 				
 				<div class="row" style="padding-top: 15px;">
 					<div class="col-md-3">
-						<a class="btn btn-primary" href="##" style="width: 100%;margin-bottom: 20px;"><span class="glyphicon glyphicon-pencil"></span> 新建</a>
+						<a class="btn btn-primary" href="noteedit?nid=1" style="width: 100%;margin-bottom: 20px;"><span class="glyphicon glyphicon-pencil"></span> 新建</a>
 						<div class="bgc-w box box-solid">
 							<div class="box-header">
 								<h3 class="box-title">笔记</h3>

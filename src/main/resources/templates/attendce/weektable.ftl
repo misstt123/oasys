@@ -159,7 +159,7 @@ var startday,endday;
 					<tr>
 						<td>111</td>
 						<td>111</td>
-						<td><a>111</a></td>
+						<td><a href="attendceedit?nid=1">111</a></td>
 						<td><a>111</a></td>
 						<td><a>111</a></td>
 						<td><a>111</a></td>

@@ -1,4 +1,4 @@
-package cn.gson.oasys.controller;
+package cn.gson.oasys.controller.plan;
 
 
 import javax.servlet.http.HttpServletRequest;

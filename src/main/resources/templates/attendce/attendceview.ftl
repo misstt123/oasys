@@ -6,10 +6,7 @@
 		<title></title>
 	<link href="css/common/checkbox.css" rel="stylesheet"/>
 	<link href="css/common/box.css" rel="stylesheet" />
-	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="js/iconfont.js"></script>
 	<style type="text/css">
 			/* .{
 			width:1100px;
@@ -96,8 +93,15 @@
 					</div>
 				</div>
 				
-				<div class="box ">
-					<div class="box-header">
+				<div class="row">
+			<div class="col-md-12">
+			<!--id="container"-->
+			<div class="bgc-w box box-primary">
+					<div class="box-header" style="padding-bottom:20px">
+						<a class="label label-success" href="attendceedit?aid=1"><span class="glyphicon glyphicon-plus"></span>
+							新增
+						</a>
+						
 						<div class="input-group" style="width:150px;float:right;top:-5px">
 											<input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
 											<div class="input-group-btn" style="top:-1px;">
@@ -189,6 +193,9 @@
 											</div>
 										</div>
 								</div>
+							</div>
+							</div>
+							</div>
 							</div>
 	</body>
 	
