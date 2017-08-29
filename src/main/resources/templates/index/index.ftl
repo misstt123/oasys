@@ -31,6 +31,7 @@ maximum-scale=1, user-scalable=no">
 			<#include "/common/footer.ftl">
 		</div>
 	</div>
+
 </body>
 
 </html>
