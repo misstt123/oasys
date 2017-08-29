@@ -4,17 +4,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/homelist.css" />
-<link rel="stylesheet" href="css/controlpanel.css" />		
-	<link href="../js/checkbox.css" rel="stylesheet"/>
-	<link href="../js/box.css" rel="stylesheet" />
-	<link href="../js/iconfont.css"  rel="stylesheet"/>
-	<script type="text/javascript" src="bootstrap/js/jquery.min.js" ></script>
+	<link href="css/attendce/checkbox.css" rel="stylesheet"/>
+	<link href="css/attendce/box.css" rel="stylesheet" />
+	<link href="css/attendce/iconfont.css"  rel="stylesheet"/>
+	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="../js/iconfont.js"></script>
-	
+	<script type="text/javascript" src="js/iconfont.js"></script>
 	<style type="text/css">
+			/* .container{
+			width:1100px;
+			
+			} */
+			
 			a {
 				color: black;
 			}
@@ -77,27 +78,13 @@
 				var $e1=$(this).addClass("mm").siblings(".commen").removeClass("mm");
 				var $e2=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
 				$("img").appendTo(".mm span");
-				var $img=$("<img src='../img/bottom.png'/>");
+				var $img=$("<img src='images/bottom.png'/>");
 			})
 		})
 		</script>
 	</head>
 
-<body>
-	<div class="main">
-		<div class="container-fluid">
-			<!-- 上边的导航栏 -->
-			<#include "/common/nav.ftl">
-			<div class="row disappear">
-				<!-- 左侧的菜单栏 -->
-				<#include "/common/menulist.ftl"> <!--右侧内容--> <!--下面就是自己的内容块-->
-				<div class="col-md-10 list-right" id="changgebox"
-					style="background: #ecf0f5; position: relative;">
-					<div class="nothing">
-
-<div style="background-color: #ecf0f5;">
-
-			<div class="container">
+<body style="background-color: #ecf0f5;">
 				<div class="row">
 					<div class="col-md-2">
 						<h1 style="font-size:24px;margin: 0;" class="">考勤管理</h1>
@@ -111,8 +98,6 @@
 				
 				<div class="box ">
 					<div class="box-header">
-						
-						
 						<div class="input-group" style="width:150px;float:right;top:-5px">
 											<input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
 											<div class="input-group-btn" style="top:-1px;">
@@ -123,19 +108,18 @@
 					</div>
 					<div class="box-body">
 				<div class="table" style="padding-top: 15px;">
-						<div class="table-responsive">
+						<div class="">
 										<table class="table table-hover table-striped">
 											<tr class="table-header">
 												<th scope="col" class="commen mm">
-												ID<span><img src="../img/bottom.png" /></span>
+												ID<span><img src="images/bottom.png" /></span>
 												</th>
 												<th scope="col" class="commen co">类型<span></span></th>
 												<th scope="col">标题</th>
 												<th scope="col">申请时间</th>
 												<th scope="col">申请人</th>
 												<th scope="col">审核</th>
-												<th scope="col">审核时间</th>
-												<th scope="col">审核人</th>
+												
 												<th scope="col" class="commen co">状态<span></span></th>
 												<th scope="col">操作</th>
 											</tr>
@@ -156,8 +140,12 @@
 													xxx
 												</td>
 												<td>
-													
-													<div class="label label-info">一般</div>
+													<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+
+												</td>
+												
+												<td>
+													<div class="label label-success">一般</div>
 												</td>
 												<td>
 													<a title="修改" href="##" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
@@ -200,20 +188,8 @@
 												</div>
 											</div>
 										</div>
-									</div>
 								</div>
 							</div>
-						
-					</div>
-					</div>
-					
-					</div>
-					</div>
-					</div>
-					</div>
-			<!-- 底部栏界面 --> 
-			<#include "/common/footer.ftl">
-					</div>
 	</body>
 	
 	

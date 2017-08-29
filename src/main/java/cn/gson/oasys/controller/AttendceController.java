@@ -19,21 +19,15 @@ import cn.gson.oasys.model.entity.Blog;
 
 @Controller
 @RequestMapping("/")
-public class IndexController {
+public class AttendceController {
 		
 	Logger log=LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	private BlogDao bDao;
+
 	
-	@RequestMapping("index")
-	public String index(HttpServletRequest req){
-		return "index/index";
-	}
-	
-	@RequestMapping("test")
+	@RequestMapping("attendceatt")
 	public String test(){
-		return "index/test";
+		return "attendce/att";
 	}
 	
 	

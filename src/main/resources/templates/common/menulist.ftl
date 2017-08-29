@@ -98,7 +98,7 @@
 			</div>
 			<div id="collapsefour" class="panel-collapse collapse ">
 				<ul>
-					<li><a href="attendce"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="attendceatt"> <span class="glyphicon glyphicon-record"></span>
 							<span>考勤管理</span>
 					</a></li>
 					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
