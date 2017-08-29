@@ -1,0 +1,28 @@
+			.labels label{
+				font-size: 16px;
+				cursor: pointer;
+			}
+			
+			.labels label i {
+				font-size: 16px;
+				font-style: normal;
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				text-align: center;
+				line-height: 20px;
+				color: transparent;
+				vertical-align: middle;
+				margin: -2px 2px 1px 0px;
+				border: #2489c5 0px solid;
+				border-radius: 3px;
+				background:rgba(158, 158, 158, 0.4);
+			}
+			
+			input[type="checkbox"] {
+				display: none;
+			}
+			input[type="checkbox"]:checked+ i{
+				background: #2489c5;
+				color: #fff;
+			}
