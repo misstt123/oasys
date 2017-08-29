@@ -101,10 +101,10 @@
 					<li><a href="attendceatt"> <span class="glyphicon glyphicon-record"></span>
 							<span>考勤管理</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="attendceweek"> <span class="glyphicon glyphicon-record"></span>
 							<span>考勤周报表</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="attendcemonth"> <span class="glyphicon glyphicon-record"></span>
 							<span>考勤月报表</span>
 					</a></li>
 				</ul>
@@ -217,10 +217,10 @@
 			</div>
 			<div id="collapseten" class="panel-collapse collapse ">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="planview"> <span class="glyphicon glyphicon-record"></span>
 							<span>计划管理</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="myplan"> <span class="glyphicon glyphicon-record"></span>
 							<span>计划报表</span>
 					</a></li>
 				</ul>
@@ -252,7 +252,7 @@
 			</div>
 			<div id="collapsetwelve" class="panel-collapse collapse">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="noteview"> <span class="glyphicon glyphicon-record"></span>
 							<span>笔记管理</span>
 					</a></li>
 				</ul>

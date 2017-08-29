@@ -19,25 +19,20 @@ import cn.gson.oasys.model.entity.Blog;
 
 @Controller
 @RequestMapping("/")
-public class AttendceController {
+public class PlanController {
 		
 	Logger log=LoggerFactory.getLogger(getClass());
 	
 
-	
-	@RequestMapping("attendceatt")
+	//计划管理
+	@RequestMapping("planview")
 	public String test(){
-		return "attendce/att";
+		return "plan/planv";
 	}
-	
-	@RequestMapping("attendcemonth")
+	//我的计划
+	@RequestMapping("myplan")
 	public String test2(){
-		return "attendce/attmonth";
-	}
-	
-	@RequestMapping("attendceweek")
-	public String test3(){
-		return "attendce/attweek";
+		return "plan/plant";
 	}
 	
 	

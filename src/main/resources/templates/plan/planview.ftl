@@ -4,18 +4,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-	<link href="css/common/checkbox.css" rel="stylesheet"/>
+<link href="css/common/checkbox.css" rel="stylesheet"/>
 	<link href="css/common/box.css" rel="stylesheet" />
 	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
+<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
+	
 	<style type="text/css">
-			/* .{
-			width:1100px;
-			
-			} */
-			
 			a {
 				color: black;
 			}
@@ -39,28 +36,21 @@
 			.box-header b:hover{
 				background-color: #E7E7E7;
 			}
-			
+			.box-header{
+				border-bottom: 1px solid dashed !important;
+			}
 			 .box-header a{
 			 	padding: 5px;
 			 }
 			 .box-body{
 				padding: 0 0 0 0 !important;
+				cursor: pointer;
 			}
 			.active{
 				color: #000000;
 				
 			}
-			 .box-body .table-header .status{
-			 	color: #72afd2;
-			 }
-			 .box-body  .table-header  .type{
-			 	color: #72afd2;
-			 }
-			 .box-body .table-header span{
-			 	width: 2px !important;
-			 	height: 2px !important;
-			 }
-			 .commen{
+			.commen{
 				cursor: pointer;
 			}
 			.co{
@@ -78,26 +68,32 @@
 			$(".commen").on("click",function  () {
 				var $e1=$(this).addClass("mm").siblings(".commen").removeClass("mm");
 				var $e2=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
-				$(".mm span").addClass("glyphicon glyphicon-triangle-bottom").siblings(".co span").removeClass("glyphicon glyphicon-triangle-bottom");
+				$("img").appendTo(".mm span");
+				var $img=$("<img src='../img/bottom.png'/>");
 			})
 		})
 		</script>
 	</head>
 
 <body style="background-color: #ecf0f5;">
+			<div class="">
 				<div class="row">
 					<div class="col-md-2">
-						<h1 style="font-size:24px;margin: 0;" class="">考勤管理</h1>
+						<h1 style="font-size:24px;margin: 0;" class="">计划管理</h1>
 					</div>
 					<div class="col-md-10 text-right">
 						<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a>
 						>
-						<a disabled="disabled">考勤管理</a>
+						<a disabled="disabled">计划管理</a>
 					</div>
 				</div>
 				
 				<div class="box ">
 					<div class="box-header">
+						<a class="label label-success"><span class="glyphicon glyphicon-plus"></span>
+							新增
+						</a>
+						
 						<div class="input-group" style="width:150px;float:right;top:-5px">
 											<input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
 											<div class="input-group-btn" style="top:-1px;">
@@ -108,19 +104,19 @@
 					</div>
 					<div class="box-body">
 				<div class="table" style="padding-top: 15px;">
-						<div class="">
+						<div class="table-responsive">
 										<table class="table table-hover table-striped">
 											<tr class="table-header">
 												<th scope="col" class="commen mm">
-												ID<span class="glyphicon glyphicon-triangle-bottom"></span>
+												ID<span >
+												<img src="../img/bottom.png" /></span>
 												</th>
-												<th scope="col" class="commen co">类型<span></span></th>
+												<th scope="col" class="commen co">类型<span ></span></th>
 												<th scope="col">标题</th>
-												<th scope="col">申请时间</th>
-												<th scope="col">申请人</th>
-												<th scope="col">审核</th>
-												
-												<th scope="col" class="commen co">状态<span></span></th>
+												<th scope="col">发布时间</th>
+												<th scope="col">发布人</th>
+												<th scope="col">部门</th>
+												<th scope="col" class="commen co">状态<span ></span></th>
 												<th scope="col">操作</th>
 											</tr>
 											<tr>
@@ -137,15 +133,13 @@
 													<span>2017/8/16 19:24:04</span>
 												</td>
 												<td>
-													xxx
+													sadfaf
 												</td>
 												<td>
-													<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
-
+													xx部
 												</td>
-												
 												<td>
-													<div class="label label-success">一般</div>
+													<div class="label label-info">一般</div>
 												</td>
 												<td>
 													<a title="修改" href="##" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
@@ -169,7 +163,7 @@
 												</div>
 											</div>
 											<div style="width: 60%; float: left;">
-												<div class="pageOperation pull-right">
+												<div class="pageOperation  pull-right">
 													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
 														<span class="glyphicon glyphicon-backward"></span>
 													</a>
@@ -188,8 +182,11 @@
 												</div>
 											</div>
 										</div>
+									</div>
 								</div>
 							</div>
+						
+					
 	</body>
 	
 	
