@@ -1,4 +1,6 @@
-.icon {
+
+
+	.icon {
 				width: 1em;
 				height: 1em;
 				vertical-align: -0.15em;
@@ -40,7 +42,7 @@
 			    right: 10px;
 			}
 			
-			.nav>li{
+			.fff>li,.files>li{
 				border-left: 3px solid transparent;
 				cursor: pointer;
 				width: 263px;
