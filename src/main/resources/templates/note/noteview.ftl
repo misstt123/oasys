@@ -4,13 +4,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-<link href="css/common/checkbox.css" rel="stylesheet"/>
 	<link href="css/common/box.css" rel="stylesheet" />
 	<link href="css/common/iconfont.css"  rel="stylesheet"/>
+	<link href="css/common/checkbox.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
-<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
 	
 	
 		<style type="text/css">
@@ -76,9 +75,9 @@
 			.borderleft{
 				border-left: 3px solid #3c8dbc ;
 			}
-			.box{
-      margin-top: 10px !important;
-  }
+			.active{
+			display:none;
+			}
 		</style>
 		<script>
 		
@@ -157,7 +156,11 @@
 					if(i==$(".singlecheck").length)
 					alert("--");
 				})*/
-				
+				$(".show").click(function  () {
+					if($(".edit").hasClass("active"))
+					$(".edit").removeClass("active");
+					$(".view").addClass("active");
+				})
 				})
 			  	
 			  	
@@ -170,7 +173,7 @@
 	<body style="background-color: #ecf0f5;">
 
 		<div >
-			<div>
+			<div >
 				<div class="row">
 					<div class="col-md-2">
 						<h1 style="font-size:24px;margin: 0;" class="">笔记管理</h1>
@@ -185,7 +188,7 @@
 				
 				<div class="row" style="padding-top: 15px;">
 					<div class="col-md-3">
-						<a class="btn btn-primary" href="noteedit?nid=1" style="width: 100%;margin-bottom: 20px;"><span class="glyphicon glyphicon-pencil"></span> 新建</a>
+						<a class="btn btn-primary show" href="javascript:void(0);" style="width: 100%;margin-bottom: 20px;"><span class="glyphicon glyphicon-pencil"></span> 新建</a>
 						<div class="bgc-w box box-solid">
 							<div class="box-header">
 								<h3 class="box-title">笔记</h3>
@@ -263,7 +266,7 @@
 						</div>
 					</div>
 					<div class="col-md-9">
-						<div class="bgc-w box box-primary" id="container">
+						<div class="bgc-w box box-primary view" id="container">
 							<!--盒子头-->
 							<div class="box-header">
 								<h3 class="box-title">最近</h3>
@@ -300,7 +303,8 @@
 											</tr>
 											<tr>
 												<td >
-													<span class="labels"><label><input type="checkbox" class="singlecheck"><i>✓</i></label></span>
+													<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+
 												</td>
 												<td>
 													<span class="glyphicon glyphicon-star-empty collect"></span>
@@ -328,7 +332,8 @@
 											</tr>
 											<tr>
 												<td >
-													<label><input type="checkbox" class="singlecheck"><i>✓</i></label>
+													<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+
 												</td>
 												<td>
 													<span class="glyphicon glyphicon-star-empty collect"></span>
@@ -367,7 +372,7 @@
 												</div>
 											</div>
 											<div style="width: 60%; float: left;">
-												<div class="pageOperation  pull-right">
+												<div class="pageOperation">
 													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
 														<span class="glyphicon glyphicon-backward"></span>
 													</a>
@@ -389,7 +394,11 @@
 									</div>
 								</div>
 							</div>
+						<div class="edit active">
+						<#include "/note/noteedit.ftl">
 						</div>
+						</div>
+					
 					</div>
 				</div>
 			</div>
