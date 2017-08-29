@@ -80,7 +80,7 @@
 			</div>
 			<div id="collapseThree" class="panel-collapse collapse">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="rolemanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>角色列表</span>
 					</a></li>
 				</ul>
@@ -158,7 +158,7 @@
 			</div>
 			<div id="collapseseven" class="panel-collapse collapse ">
 				<ul>
-					<li><a href="addaccount"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="accountmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>账号管理</span>
 					</a></li>
 					<li><a href="mail"> <span class="glyphicon glyphicon-record"></span>
@@ -177,10 +177,10 @@
 			</div>
 			<div id="collapseeight" class="panel-collapse collapse">
 				<ul>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="taskmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>任务管理</span>
 					</a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="mytask"> <span class="glyphicon glyphicon-record"></span>
 							<span>我的任务</span>
 					</a></li>
 				</ul>

@@ -5,7 +5,7 @@ $(function(){
 					//点击变换字体颜色
 					var $color=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
 					//切换img
-					$("img").appendTo(".mm span");
+					$("#img").appendTo(".mm span");
 				
 				})
 				
@@ -14,17 +14,10 @@ $(function(){
 				 */
 				$(".change-color").each(function(){
 					var $val=$(this).text();
-					if($val=="新任务"){
-						$(this).addClass("label-warning");
-					}else if($val=="已接收"){
-						$(this).addClass("label-info");
-					}else if($val=="进行中"){
-						$(this).addClass("label-primary");
-					}else if($val=="已提交"){
-						$(this).addClass("label-danger");
-					}
-					else if($val=="已完成"){
+					if($val=="有效"){
 						$(this).addClass("label-success");
+					}else if($val=="失效"){
+						$(this).css("background-color","#9E9E9E");
 					}
 					
 				})
