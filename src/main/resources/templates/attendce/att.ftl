@@ -9,8 +9,9 @@
 maximum-scale=1, user-scalable=no">
 <title>控制面板主页</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/homelist.css" />
+<link rel="stylesheet" href="css/controlpanel.css" />
+
 </head>
 <body>
 	<div class="main">
@@ -22,16 +23,17 @@ maximum-scale=1, user-scalable=no">
 				<#include "/common/menulist.ftl"> 
 				<!--右侧内容--> 
 				<div class="col-md-10 list-right" id="changgebox"
-					style="background: #ecf0f5; position: relative;">
+					style="background: #ecf0f5; position: relative;padding-top: 20px;">
 					<!--下面就是自己的内容块-->
-					<#include "/systemcontrol/control.ftl">
+					<#include "/attendce/attendceview.ftl">
 				</div>
 			</div>
 			<!-- 底部栏界面 --> 
 			<#include "/common/footer.ftl">
 		</div>
 	</div>
-	
+	<script type="text/javascript" src="easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 		/* 菜单向左向下箭头变化 */
@@ -91,9 +93,8 @@ maximum-scale=1, user-scalable=no">
 			})
 			//获取右侧内容板的高度；设置面板的高度
 			console.log($('.list-right').height());
-			$('.list-left').height( window.screen.height);
-			$('.list-right').height( window.screen.height);
-			console.log(" window.screen.availHeight",  window.screen.height);
+			$('.list-left').height($('.list-right').height());
+			$('.list-right').height($('.list-right').height());
 
 			//点击按钮，左侧菜单栏收缩，右侧拉伸过去
 			$('.navbar-left li').on('click', function() {
