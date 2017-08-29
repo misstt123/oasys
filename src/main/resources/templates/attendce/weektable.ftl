@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/attendce/checkbox.css" rel="stylesheet"/>
-	<link href="css/attendce/box.css" rel="stylesheet" />
-	<link href="css/attendce/iconfont.css"  rel="stylesheet"/>
+<link href="css/common/checkbox.css" rel="stylesheet"/>
+	<link href="css/common/box.css" rel="stylesheet" />
+	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
@@ -79,6 +79,7 @@ var startday,endday;
     width: 100%;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
      cursor: pointer;
+      margin-top: 10px !important;
 }
 	.label-back {
     background-color: #6C7B8B;

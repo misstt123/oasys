@@ -4,14 +4,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-	<link href="css/attendce/checkbox.css" rel="stylesheet"/>
-	<link href="css/attendce/box.css" rel="stylesheet" />
-	<link href="css/attendce/iconfont.css"  rel="stylesheet"/>
+	<link href="css/common/checkbox.css" rel="stylesheet"/>
+	<link href="css/common/box.css" rel="stylesheet" />
+	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
 	<style type="text/css">
-			/* .container{
+			/* .{
 			width:1100px;
 			
 			} */
@@ -69,6 +69,9 @@
 			.bl{
 				color: black;
 			}
+			.box{
+      margin-top: 10px !important;
+  }
 		</style>
 		<script>
 		$(function () {

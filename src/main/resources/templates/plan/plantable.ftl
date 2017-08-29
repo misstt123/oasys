@@ -4,9 +4,9 @@
 		<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/attendce/checkbox.css" rel="stylesheet"/>
-	<link href="css/attendce/box.css" rel="stylesheet" />
-	<link href="css/attendce/iconfont.css"  rel="stylesheet"/>
+<link href="css/common/checkbox.css" rel="stylesheet"/>
+	<link href="css/common/box.css" rel="stylesheet" />
+	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
@@ -63,10 +63,24 @@
     top: 10px;
     right: 170px;
    }
+  .box{
+      margin-top: 10px !important;
+  }
 </style>
 		<title></title>
 	</head>
 	<body>
+	<div class="">
+				<div class="row">
+					<div class="col-md-2">
+						<h1 style="font-size:24px;margin: 0;" class="">计划报表</h1>
+					</div>
+					<div class="col-md-10 text-right">
+						<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a>
+						>
+						<a disabled="disabled">计划报表</a>
+					</div>
+				</div>
 		<div class="box">
 			<div class="box-header ">
 				<a class="  label  label-back">

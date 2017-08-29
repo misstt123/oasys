@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-<link href="css/attendce/checkbox.css" rel="stylesheet"/>
-	<link href="css/attendce/box.css" rel="stylesheet" />
-	<link href="css/attendce/iconfont.css"  rel="stylesheet"/>
+<link href="css/common/checkbox.css" rel="stylesheet"/>
+	<link href="css/common/box.css" rel="stylesheet" />
+	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
@@ -76,6 +76,9 @@
 			.borderleft{
 				border-left: 3px solid #3c8dbc ;
 			}
+			.box{
+      margin-top: 10px !important;
+  }
 		</style>
 		<script>
 		
@@ -166,8 +169,8 @@
 
 	<body style="background-color: #ecf0f5;">
 
-		<div class="row">
-			<div class="container">
+		<div >
+			<div>
 				<div class="row">
 					<div class="col-md-2">
 						<h1 style="font-size:24px;margin: 0;" class="">笔记管理</h1>

@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-<link href="css/attendce/checkbox.css" rel="stylesheet"/>
-	<link href="css/attendce/box.css" rel="stylesheet" />
-	<link href="css/attendce/iconfont.css"  rel="stylesheet"/>
+<link href="css/common/checkbox.css" rel="stylesheet"/>
+	<link href="css/common/box.css" rel="stylesheet" />
+	<link href="css/common/iconfont.css"  rel="stylesheet"/>
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
@@ -59,6 +59,9 @@
 			.bl{
 				color: black;
 			}
+			.box{
+      margin-top: 10px !important;
+  }
 		</style>
 		<script>
 		$(function () {
@@ -73,7 +76,7 @@
 	</head>
 
 <body style="background-color: #ecf0f5;">
-			<div class="container">
+			<div class="">
 				<div class="row">
 					<div class="col-md-2">
 						<h1 style="font-size:24px;margin: 0;" class="">计划管理</h1>
@@ -160,7 +163,7 @@
 												</div>
 											</div>
 											<div style="width: 60%; float: left;">
-												<div class="pageOperation">
+												<div class="pageOperation  pull-right">
 													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
 														<span class="glyphicon glyphicon-backward"></span>
 													</a>
