@@ -93,7 +93,7 @@
 			<!--id="container"-->
 			<div class="bgc-w box box-primary">
 					<div class="box-header">
-						<a class="label label-success"><span class="glyphicon glyphicon-plus"></span>
+						<a class="label label-success" href="planedit?pid=1"><span class="glyphicon glyphicon-plus"></span>
 							新增
 						</a>
 						
