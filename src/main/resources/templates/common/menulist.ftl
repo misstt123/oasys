@@ -54,16 +54,16 @@
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse">
 				<ul>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="deptmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>部门管理</span>
 					</a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="positionmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>职位管理</span>
 					</a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="usermanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>用户管理</span>
 					</a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="userlogmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>在线用户</span>
 					</a></li>
 				</ul>
@@ -129,7 +129,6 @@
 				</ul>
 			</div>
 			<!--第五部分完-->
-
 			<div class="panel-heading">
 				<a class="open-menu" href="#collapsesix" data-toggle="collapse"
 					data-parent="#accordion"> <span
@@ -198,10 +197,10 @@
 			</div>
 			<div id="collapsenine" class="panel-collapse collapse">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="daymanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>日程管理</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="daycalendar"> <span class="glyphicon glyphicon-record"></span>
 							<span>我的日历</span>
 					</a></li>
 				</ul>
@@ -214,7 +213,6 @@
 					data-parent="#accordion"> <span
 					class="glyphicon glyphicon-plane"></span> <span>工作计划 </span> <span
 					class="glyphicon glyphicon-menu-left pull-right"></span>
-
 				</a>
 			</div>
 			<div id="collapseten" class="panel-collapse collapse ">
@@ -238,7 +236,7 @@
 			</div>
 			<div id="collapseeleven" class="panel-collapse collapse">
 				<ul>
-					<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="filemanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>文件管理</span>
 					</a></li>
 				</ul>
