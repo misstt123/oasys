@@ -166,7 +166,7 @@
 												</div>
 											</div>
 											<div style="width: 60%; float: left;">
-												<div class="pageOperation">
+												<div class="pageOperation pull-right">
 													<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
 														<span class="glyphicon glyphicon-backward"></span>
 													</a>
