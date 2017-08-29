@@ -67,14 +67,20 @@
 
 		/*设定网站的高度，获取到右侧内容框的高度和浏览器的高度；  */
 		var height1 = $('.list-right').height();
-		var height2 = window.screen.height;
+		var height2 = document.body.clientHeight ;
+		console.log("$('.list-right').height()",$('.list-right').height());
+		console.log("window.screen.height",window.screen.height);
+		console.log("document.body.clientHeight ",document.body.clientHeight);
+		console.log("document.body.offsetHeight ",document.body.offsetHeight);
+		console.log("document.body.scrollHeight ",document.body.scrollHeight);
+		console.log(" window.screen.availHeight", window.screen.availHeight);
 		var height;
 		if (height1 > height2) {
 			height = height1;
 		} else {
 			height = height2;
 		}
-
+		console.log("height",height);
 		$('.list-left').height(height);
 		$('.list-right').height(height);
 

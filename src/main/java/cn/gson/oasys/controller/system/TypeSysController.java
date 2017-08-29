@@ -16,19 +16,16 @@ import cn.gson.oasys.model.entity.Blog;
 
 @Controller
 @RequestMapping("/")
-public class MenuSysController {
+public class TypeSysController {
 	
-	@RequestMapping("menusys")
-	public String index(){
-		return "index/menuindex";
+	@RequestMapping("typesys")
+	public String typeSys(){
+		return "index/typeindex";
 	}
 	
-	@RequestMapping("menuedit")
-	public String newpage(){
-		return "index/menueditindex";
+	@RequestMapping("typeedit")
+	public String typeEdit(){
+		return "index/typeeditindex";
 	}
-	
-	
-	
 
 }
