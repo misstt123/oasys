@@ -1,6 +1,4 @@
-
-
-	.icon {
+		.icon {
 				width: 1em;
 				height: 1em;
 				vertical-align: -0.15em;
@@ -63,3 +61,138 @@
 			.outside{
 				margin-top: 20px;
 			}
+			
+		
+		
+			
+			.la {
+				margin-top: 4px;
+				font-size: 16px;
+			}
+			
+			
+			#MoreDiv {
+				display: none;
+				top: 5px;
+			}
+			
+			.reciver {
+				position: relative;
+				top: -27px;
+				float: right;
+				right: 4px;
+				cursor: pointer;
+			}
+			
+			form {
+				margin: 0;
+			}
+			
+			textarea {
+				display: block;
+				font-size: 16px;
+			}
+			
+			#ss .ke-container {
+				border-radius: 5px;
+				width: 770px;
+			}
+			
+			.form-group .btn {
+				background-color: #eee;
+				width: 100px;
+				height: 34px;
+			}
+			
+			#ctl00_cphMain_fuAttachment {
+				opacity: 0;
+				position: relative;
+				top: -22px;
+			}
+			
+			.left1,
+			.right1 {
+				display: inline-block;
+				
+			}
+			
+			.foots{
+				padding-bottom:10px
+			}
+			.right1 .btn-default,
+			.left1 .btn-default {
+				background-color: #eee;
+			}
+	
+	.outsides {
+				border: 0px solid red;
+				min-height: 273px;
+				max-width: 800px;
+				margin-left: 20px;
+				background-color: #FFFFFF;
+				border-radius: 5px;
+				border-top: 3px solid blue;
+				display:none;
+			}
+			
+			.page-header {
+				margin: 0px 0 10px;
+			}
+			
+			.foot {
+				margin-right: 10px;
+			}
+			
+			.foots {
+				padding-bottom: 10px;
+			}
+			.container .bs,.container .bs:hover{
+				background-color: #607D8B;
+				color: white;
+			}
+			.mailbox-read-info{
+				border-bottom: 1px solid #f4f4f4;
+    			
+			}
+			.mailbox-read-message,.mailbox-read-info{
+				margin-left: 20px;
+    			margin-right: 20px;
+			}
+			.mailbox-read-message{
+				margin-top: 10px;
+			}
+			.fonts{
+				color: #9E9E9E;
+			}
+			.progress-bar{
+				background-color: rgba(0, 188, 212, 0.68);
+			}
+			.progress {
+				height: 10px;
+			}
+			.page{
+				margin-left: 20px;
+				margin-right: 20px;
+			}
+			.head{
+				    margin-bottom: 20px;
+			}
+			.right-me{
+				margin-top: 8px;
+			}
+			.right-me a{
+				color: black;
+				text-decoration: none;
+			}
+			.font{
+				color: #444;
+				font-size: 18px;
+				display: block;
+				margin-top: 20px;
+				margin-left: 10px;
+			}
+			.fault{
+				background-color: #eee;
+				margin-left: 10px;
+			}
+	

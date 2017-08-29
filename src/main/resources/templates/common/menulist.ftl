@@ -158,7 +158,7 @@
 			</div>
 			<div id="collapseseven" class="panel-collapse collapse ">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="addaccount"> <span class="glyphicon glyphicon-record"></span>
 							<span>账号管理</span>
 					</a></li>
 					<li><a href="mail"> <span class="glyphicon glyphicon-record"></span>

@@ -91,8 +91,17 @@ maximum-scale=1, user-scalable=no">
 			})
 			//获取右侧内容板的高度；设置面板的高度
 			console.log($('.list-right').height());
-			$('.list-left').height( window.screen.height);
-			$('.list-right').height( window.screen.height);
+			var height1=$('.list-right').height();
+			var height2=window.screen.height;
+			var height;
+			if(height1>height2){
+				height=height1;
+			}else{
+				height=height2;
+			}
+			
+			$('.list-left').height(height);
+			$('.list-right').height(height);
 			console.log(" window.screen.availHeight",  window.screen.height);
 
 			//点击按钮，左侧菜单栏收缩，右侧拉伸过去
