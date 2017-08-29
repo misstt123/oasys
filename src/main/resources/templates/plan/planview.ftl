@@ -88,7 +88,10 @@
 					</div>
 				</div>
 				
-				<div class="box ">
+				<div class="row">
+			<div class="col-md-12">
+			<!--id="container"-->
+			<div class="bgc-w box box-primary">
 					<div class="box-header">
 						<a class="label label-success"><span class="glyphicon glyphicon-plus"></span>
 							新增
@@ -185,7 +188,9 @@
 									</div>
 								</div>
 							</div>
-						
+						</div>
+								</div>
+							</div>
 					
 	</body>
 	
