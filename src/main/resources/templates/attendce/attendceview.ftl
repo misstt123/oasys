@@ -97,7 +97,11 @@
 			<div class="col-md-12">
 			<!--id="container"-->
 			<div class="bgc-w box box-primary">
-					<div class="box-header" style="padding-bottom:30px">
+					<div class="box-header" style="padding-bottom:20px">
+						<a class="label label-success" href="attendceedit?aid=1"><span class="glyphicon glyphicon-plus"></span>
+							新增
+						</a>
+						
 						<div class="input-group" style="width:150px;float:right;top:-5px">
 											<input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
 											<div class="input-group-btn" style="top:-1px;">
