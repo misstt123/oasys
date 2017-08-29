@@ -159,3 +159,4 @@ a:hover {
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>

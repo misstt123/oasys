@@ -28,7 +28,7 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="##" class="label label-success" style="padding: 5px;">
+					<a href="dayedit" class="label label-success" style="padding: 5px;">
 						<span class="glyphicon glyphicon-plus">新增</span>
 					</a>
 				</h3>
@@ -67,7 +67,7 @@ a:hover {
 							<td>
 								<div class="label label-info">一般</div>
 							</td>
-							<td><a title="修改" href="##" class="label label-primary"><span
+							<td><a title="修改" href="dayedit?daymodel=1" class="label label-primary"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
 								href="" class="label label-danger"><span

@@ -16,5 +16,10 @@ public class DaymanageController {
 	private String daycalendar() {
 		return "daymanage/daycalendarindex";
 	}
+	
+	@RequestMapping("dayedit")
+	private String dayedit() {
+		return "daymanage/dayedit";
+	}
 
 }
