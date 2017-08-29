@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/common/box.css" />
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
 <style type="text/css">
 .icon {
 	width: 1em;
@@ -124,13 +125,14 @@ li.activee>a {
 			<!--盒子身体-->
 			<div class="box-body no-padding">
 				<div style="padding: 5px;">
-					<a class="btn btn-sm btn-default" href="" title="全选/反选"><span
+					<a class="btn btn-sm chec btn-default" title="全选/反选"><span
 						class="glyphicon glyphicon-unchecked"></span></a>
 					<div class="btn-group">
 						<a class="btn btn-sm btn-default" href="" title="删除"><span
-							class="glyphicon glyphicon-trash"></span></a> <a
-							class="btn btn-sm btn-default" href="" title="新建文件夹"><span
-							class="glyphicon glyphicon-folder-open"></a>
+							class="glyphicon glyphicon-trash"></span></a> 
+							<a class="btn btn-sm btn-default" href="" title="新建文件夹">
+							<span class="glyphicon glyphicon-folder-open"></span>
+							</a>
 					</div>
 					<a class="btn btn-sm btn-default" href="" title="刷新"><span
 						class="glyphicon glyphicon-refresh"></span></a>
@@ -149,8 +151,9 @@ li.activee>a {
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
-							<td style="text-align: center;"><input type="checkbox"
-								value="" /></td>
+							<td style="text-align: center;">
+								<span class="labels"><label><input name="items" type="checkbox"><i>✓</i></label></span>
+							</td>
 							<td><img src="img/folder.png" style="width: 25px;" /></td>
 							<td><span>我的文件</span></td>
 							<td class="mailbox-subject"><span>新建文件夹sfsf</span></td>
@@ -169,8 +172,9 @@ li.activee>a {
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
-							<td style="text-align: center;"><input type="checkbox"
-								value="" /></td>
+							<td style="text-align: center;">
+								<span class="labels"><label><input name="items" type="checkbox"><i>✓</i></label></span>
+							</td>
 							<td><img src="img/folder.png" style="width: 25px;" /></td>
 							<td><span>我的文件</span></td>
 							<td class="mailbox-subject"><span>新建文件夹sfsf</span></td>
@@ -285,6 +289,46 @@ li.activee>a {
 			$(".nav.mm").on("click", "li", function() {
 				$(this).parent().children(".activee").removeClass("activee");
 				$(this).addClass("activee");
-			})
-		})
+			});
+			
+			$("[name=items]:checkbox").click(function(){
+           		var flag=true;
+           		
+           		$("[name=items]:checkbox").each(function(){
+           			if(!this.checked){
+           				flag=false;
+           			}
+           		});
+           		if(flag){
+           			    $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
+           		}else{
+           			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
+           		}
+           		if ($(this).prop('checked')) {
+           			 $(this).attr("checked","checked");
+           		} else {
+           			$(this).removeAttr("checked");
+           		}
+           
+           	});
+           	
+           	$(".chec").click(function(e){
+           		e.preventDefault();
+           		var $this=$(".chec span");
+           		if($this.hasClass("glyphicon-unchecked")){
+           			 $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
+           		}else{
+           			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
+           		}
+           		$("[name=items]:checkbox").each(function(){
+           			
+           			if($this.hasClass("glyphicon-stop")){
+           				/*$(this).prop("checked","checked");*/
+           				$(this).prop("checked",!$(this).attr("checked"));
+           			}else{
+           				$(this).removeAttr("checked");
+           			}
+           		});
+           	});
+		});
 	</script>
