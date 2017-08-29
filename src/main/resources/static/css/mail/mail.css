@@ -36,8 +36,7 @@
 			}
 			
 			.uncheck{
-				position: absolute;
-			    right: 10px;
+				margin-right: 10px;
 			}
 			
 			.fff>li,.files>li{
@@ -114,6 +113,7 @@
 			
 			.foots{
 				padding-bottom:10px
+				
 			}
 			.right1 .btn-default,
 			.left1 .btn-default {
@@ -133,14 +133,6 @@
 			
 			.page-header {
 				margin: 0px 0 10px;
-			}
-			
-			.foot {
-				margin-right: 10px;
-			}
-			
-			.foots {
-				padding-bottom: 10px;
 			}
 			.container .bs,.container .bs:hover{
 				background-color: #607D8B;
@@ -186,6 +178,6 @@
 			}
 			.fault{
 				background-color: #eee;
-				margin-left: 10px;
+				
 			}
 	

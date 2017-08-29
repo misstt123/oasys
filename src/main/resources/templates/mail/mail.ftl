@@ -4,7 +4,6 @@
 		<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 		<script type="text/javascript" src="js/mail/mail.js" ></script>
-		<link rel="stylesheet" type="text/css" href="css/common/box.css" />
 		<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 		<link rel="stylesheet" href="css/common/iconfont.css" />
 		<link rel="stylesheet" href="css/common/checkbox.css" />
@@ -19,7 +18,7 @@
 					$(".outsides").css("display","none");
 				})
 				
-				$(".nav li").click(function(){
+				$(".nav li,#ctl00_cphMain_lnbDiscard,.fa-back").click(function(){
 					$(".yuan").css("display","block");
 					$(".set").css("display","none");
 					$(".outsides").css("display","none");
@@ -113,7 +112,7 @@
 					<div class="box-header">
 						<h3 class="box-title">最近</h3>
 						<div class="box-tools">
-							<div class="input-group" style="width: 150px;">
+							<div class="input-group" style="width: 150px; margin-top:0px;">
 								<input type="text" class="form-control input-sm" placeholder="查找..." />
 								<div class="input-group-btn">
 									<a class="btn btn-sm btn-default"><span class="glyphicon glyphicon-search"></span></a>
@@ -294,7 +293,7 @@
 
 							<div class="form-group">
 								<form id="ss">
-									<textarea name="content" style="width:828px;height:300px;visibility:hidden;font-size: 20px;"></textarea>
+									<textarea name="content" style="width:899px;height:300px;visibility:hidden;font-size: 20px;"></textarea>
 								</form>
 							</div>
 
@@ -309,8 +308,8 @@
 						</div>
 						<!--盒子尾-->
 						<div class="box-footer foots">
-							<div class="pull-left left1">
-								<a id="ctl00_cphMain_lnbDiscard"  href="javascript:history.back();" class="btn btn-default"><i class="glyphicon glyphicon-remove">放弃</i></a>
+							<div class="left1">
+								<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default"><i class="glyphicon glyphicon-remove">放弃</i></a>
 							</div>
 							<div class="pull-right right1 ">
 								<a id="ctl00_cphMain_lnbDraft" class="btn btn-default"><i class="glyphicon glyphicon-pencil">存草稿</i></a>
@@ -350,7 +349,7 @@
 			</div>
 
 			<div class="box-footer foots">
-				<a class="btn btn-default fault" href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left">返回</span></a>
+				<a class="btn btn-default fault fa-back"  href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left">返回</span></a>
 				<div class="pull-right foot">
 					<a class="btn btn-default fault"><span class="glyphicon glyphicon glyphicon-print">打印</span></a>
 					<a class="btn btn-primary">
