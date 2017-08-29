@@ -33,13 +33,13 @@
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse ">
 				<ul>
-					<li><a href="test"> <span
+					<li><a href="menusys"> <span
 							class="glyphicon glyphicon-record"></span> <span>菜单管理</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="typesys"> <span class="glyphicon glyphicon-record"></span>
 							<span>类型管理</span>
 					</a></li>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="statussys"> <span class="glyphicon glyphicon-record"></span>
 							<span>状态管理</span>
 					</a></li>
 				</ul>
@@ -140,7 +140,7 @@
 			</div>
 			<div id="collapsesix" class="panel-collapse collapse">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="infrommanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>通知管理</span>
 					</a></li>
 					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
@@ -287,7 +287,7 @@
 			</div>
 			<div id="collapsefourteen" class="panel-collapse collapse">
 				<ul>
-					<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="chatmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>讨论区管理</span>
 					</a></li>
 					<li><a href=""> <span class="glyphicon glyphicon-record"></span>

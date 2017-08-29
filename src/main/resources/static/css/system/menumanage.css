@@ -1,0 +1,43 @@
+.menutable .btn {
+	padding: 3px 10px;
+	font-size: 12px;
+}
+
+.right-btn-group .search-btn {
+	background-color: #ccc;
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	padding: 5px 0 0 7px;
+	margin-left: -5px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.right-btn-group input:focus {
+	border: 1px solid #80abd0;
+}
+
+.right-btn-group input {
+	height: 30px;
+	outline: none;
+	color: #666;
+	text-indent: 10px;
+}
+
+.head-show {
+	position: relative;
+	height: 76px;
+}
+
+.head-show h3 {
+	display: inline-block;
+	float: left;
+	margin-left: 16px;
+}
+
+.head-show ol {
+	float: right;
+	margin-top: 20px;
+	background: transparent;
+}

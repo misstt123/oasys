@@ -23,7 +23,7 @@ maximum-scale=1, user-scalable=no">
 				<div class="col-md-10 list-right" id="changgebox"
 					style="background: #ecf0f5; position: relative;">
 					<!--下面就是自己的内容块-->
-					<#include "/systemcontrol/control.ftl">
+					<#include "/inform/informmanage.ftl">
 				</div>
 			</div>
 			<!-- 底部栏界面 --> 
@@ -90,9 +90,8 @@ maximum-scale=1, user-scalable=no">
 			})
 			//获取右侧内容板的高度；设置面板的高度
 			console.log($('.list-right').height());
-			$('.list-left').height( window.screen.height);
-			$('.list-right').height( window.screen.height);
-			console.log(" window.screen.availHeight",  window.screen.height);
+			$('.list-left').height($('.list-right').height());
+			$('.list-right').height($('.list-right').height());
 
 			//点击按钮，左侧菜单栏收缩，右侧拉伸过去
 			$('.navbar-left li').on('click', function() {
