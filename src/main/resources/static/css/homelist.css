@@ -176,6 +176,6 @@ li {
 	color: white;
 	border-left: 3px solid #00a65a!important;
 }
-.list-left{
+.list-left,.list-right{
 	min-height:720px;
 }
