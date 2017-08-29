@@ -30,9 +30,9 @@ a:hover {
 				<!--盒子头-->
 				<div class="box-header">
 					<h3 class="box-title">
-						<a href="##" class="label label-success" style="padding: 5px;">
+						<a href="useredit?where=xz" class="label label-success" style="padding: 5px;">
 							<span class="glyphicon glyphicon-plus">新增</span>
-						</a> <a href="##" class="label label-primary"
+						</a> <a href="daycalendar" class="label label-primary"
 							style="padding: 5px; margin-left: 5px;"> <span
 							class="glyphicon glyphicon-gift">生日</span>
 						</a>
@@ -73,7 +73,7 @@ a:hover {
 								<td><span>超级管理员</span></td>
 								<td><span>111122223333</span></td>
 								<td><span>3000.0</span></td>
-								<td><a title="修改" href="##" class="label label-primary"><span
+								<td><a title="修改" href="useredit?where=xg" class="label label-primary"><span
 										class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看详细信息"
 									href="##" class="label label-default"><span
 										class="glyphicon glyphicon-search"></span> 查看</a> <a
