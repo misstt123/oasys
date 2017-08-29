@@ -43,7 +43,7 @@
 			.fff>li,.files>li{
 				border-left: 3px solid transparent;
 				cursor: pointer;
-				width: 263px;
+				width: 286px;
 				height: 40px;
 				line-height: 40px;
 				
@@ -61,10 +61,6 @@
 			.outside{
 				margin-top: 20px;
 			}
-			
-		
-		
-			
 			.la {
 				margin-top: 4px;
 				font-size: 16px;
@@ -127,7 +123,7 @@
 	.outsides {
 				border: 0px solid red;
 				min-height: 273px;
-				max-width: 800px;
+				 max-width:913px;
 				margin-left: 20px;
 				background-color: #FFFFFF;
 				border-radius: 5px;
@@ -154,10 +150,7 @@
 				border-bottom: 1px solid #f4f4f4;
     			
 			}
-			.mailbox-read-message,.mailbox-read-info{
-				margin-left: 20px;
-    			margin-right: 20px;
-			}
+			
 			.mailbox-read-message{
 				margin-top: 10px;
 			}

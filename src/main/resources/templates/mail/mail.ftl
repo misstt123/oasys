@@ -19,7 +19,7 @@
 					$(".outsides").css("display","none");
 				})
 				
-				$(".nav li,#ctl00_cphMain_lnbDiscard,.fa-back").click(function(){
+				$(".nav li").click(function(){
 					$(".yuan").css("display","block");
 					$(".set").css("display","none");
 					$(".outsides").css("display","none");
@@ -32,9 +32,9 @@
 				})
 			})
 		</script>	
-	<div class="row outside">
-	<div class="container">
-		<div class="row">
+	<!-- <div class="row outside">
+	<div class="container"> -->
+		<div class="row" style="padding-top:10px;">
 			<div class="col-md-2">
 				<h1 style="font-size:24px;margin:0;" class="">邮件管理</h1>
 			</div>
@@ -310,7 +310,7 @@
 						<!--盒子尾-->
 						<div class="box-footer foots">
 							<div class="pull-left left1">
-								<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default"><i class="glyphicon glyphicon-remove">放弃</i></a>
+								<a id="ctl00_cphMain_lnbDiscard"  href="javascript:history.back();" class="btn btn-default"><i class="glyphicon glyphicon-remove">放弃</i></a>
 							</div>
 							<div class="pull-right right1 ">
 								<a id="ctl00_cphMain_lnbDraft" class="btn btn-default"><i class="glyphicon glyphicon-pencil">存草稿</i></a>
@@ -344,15 +344,13 @@
 							</span>
 
 						</div>
-						<div class="page-header page"></div>
-
 					</div>
 
 				</div>
 			</div>
 
 			<div class="box-footer foots">
-				<a class="btn btn-default fault fa-back"><span class="glyphicon glyphicon-chevron-left">返回</span></a>
+				<a class="btn btn-default fault" href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left">返回</span></a>
 				<div class="pull-right foot">
 					<a class="btn btn-default fault"><span class="glyphicon glyphicon glyphicon-print">打印</span></a>
 					<a class="btn btn-primary">
@@ -503,5 +501,5 @@
 				</div>
 
 			</div>
-		</div>
-	</div>
+	<!-- 	</div>
+	</div> -->
