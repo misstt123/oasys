@@ -25,7 +25,7 @@ maximum-scale=1, user-scalable=no">
 				<div class="col-md-10 list-right" id="changgebox"
 					style="background: #ecf0f5; position: relative;padding-top: 20px;">
 					<!--下面就是自己的内容块-->
-					<#include "/note/noteedit.ftl">
+					<#include "/plan/planedit.ftl">
 				</div>
 			</div>
 			<!-- 底部栏界面 --> 
