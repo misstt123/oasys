@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
 <style type="text/css">
 a {

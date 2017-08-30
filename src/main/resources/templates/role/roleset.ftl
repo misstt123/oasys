@@ -1,6 +1,6 @@
 
 		
-		<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+		
 		<link rel="stylesheet" href="css/common/checkbox.css" />
 		<link rel="stylesheet" href="css/role/roleset.css" />
 	

@@ -38,7 +38,7 @@
 						</p></li>
 					<li class="user-footer">
 						<div class="pull-left">
-							<a href="#" class="btn btn-default">用户面板</a>
+							<a href="userpanel" class="btn btn-default">用户面板</a>
 						</div>
 						<div class="pull-right">
 							<a href="#" class="btn btn-danger">退出登录</a>
