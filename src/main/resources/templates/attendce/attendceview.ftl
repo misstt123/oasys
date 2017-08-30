@@ -120,7 +120,7 @@ a:hover {
 			<!--id="container"-->
 			<div class="bgc-w box box-primary">
 				<div class="box-header" style="padding-bottom: 20px">
-					<a class="label label-success" href="attendceedit?aid=1"><span
+					<a class="label label-success" href="attendceedit?aid"><span
 						class="glyphicon glyphicon-plus"></span> 新增 </a>
 
 					<div class="input-group"
@@ -163,7 +163,7 @@ a:hover {
 									<td>
 										<div class="label label-success">一般</div>
 									</td>
-									<td><a title="修改" href="##" class="label label-primary"><span
+									<td><a title="修改" href="attendceedit?aid=1" class="label label-primary"><span
 											class="glyphicon glyphicon-edit"></span> 修改</a> <a
 										onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
 										href="" class="label label-danger"><span

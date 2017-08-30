@@ -168,10 +168,19 @@
 					$(".view").removeClass("active");
 					$(".edit").addClass("active");
 				})
+				
+				$(".info").click(function(){
+					var url="noteinfo";
+					var data={type:1};
+					$.ajax({
+						type:"get",
+						async:false,
+						url:url,
+						
+					})
 				})
-			   
-
-		
+				
+			})
 		</script>
 	</head>
 
@@ -330,8 +339,8 @@
 													<div class="label label-info">一般</div>
 												</td>
 												<td>
-													<a title="修改" href="##" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-													<a title="查看" href="##" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
+													<a title="修改" href="noteedit?nid=1" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
+													<a title="查看"  class="label label-primary info"><span class="glyphicon glyphicon-search"></span> 查看</a>
 													<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除" href="" class="label label-danger"><span class="glyphicon glyphicon-remove"></span> 删除</a>
 												</td>
 											</tr>
