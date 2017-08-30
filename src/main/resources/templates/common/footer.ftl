@@ -89,5 +89,13 @@
 			$('.col-md-2').removeClass('col-md-2').addClass('col-md-0');
 			$('.col-md-10').removeClass('col-md-10').addClass('col-md-12');
 		});
+		/*关闭面板  */
+		$('.glyphicon-remove').on('click',function(){
+			console.log($(this).closest('.box-show'));
+			if(!confirm("确定关闭吗？")){
+				return false;
+			}
+				$(this).closest('.box-show').css('display','none');
+			});
 	});
 </script>

@@ -238,7 +238,6 @@ a:hover {
 																	<a href="" class="raply-name">朱丽叶</a>Everett666:
 																	
 																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
 																	<ul class="list-inline pull-right"
 																		style="display: block;">
 																		<li>2017/8/29 19:08:12</li>
