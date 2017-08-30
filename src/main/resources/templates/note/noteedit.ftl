@@ -201,7 +201,7 @@
 		<div class="">
 		<div class="container box">
 			<div class="box-header">
-				<a class="label label-back back" href="javascript:void(0);"> 
+				<a class="label label-back back" > 
 					<span class="glyphicon glyphicon-chevron-left " ></span>返回</a>
 			</div>
 			<div class="page-header"></div>
