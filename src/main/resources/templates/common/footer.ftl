@@ -80,7 +80,6 @@
 		} else {
 			height = height2;
 		}
-		console.log("height",height);
 		$('.list-left').height(height);
 		$('.list-right').height(height);
 
