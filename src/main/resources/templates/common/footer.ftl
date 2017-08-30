@@ -1,5 +1,5 @@
 <div style="clear: both;"></div>
-<div style="width: 253px;display:inline-block;height: 40px;float:left;margin-left: -15px;    background: #222d32;"></div>
+<div style="width: 240px;display:inline-block;height: 40px;float:left;margin-left: -15px;    background: #222d32;"></div>
 <div style="line-height: 40px;display:inline-block;float:left;">
 	<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
 	</strong> All rights reserved.

@@ -30,7 +30,7 @@ a:hover {
 				<!--盒子头-->
 				<div class="box-header">
 					<h3 class="box-title">
-						<a href="useredit?where=xz" class="label label-success" style="padding: 5px;">
+						<a href="statusedit" class="label label-success" style="padding: 5px;">
 							<span class="glyphicon glyphicon-plus">新增</span>
 						</a>
 					</h3>
