@@ -11,5 +11,10 @@ public class ChatManageController {
 	public String chatManage(){
 		return "index/chatindex";
 	}
+	
+	@RequestMapping("replymanage")
+	public String replyManage(){
+		return "index/replyindex";
+	}
 
 }

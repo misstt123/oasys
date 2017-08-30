@@ -67,7 +67,7 @@
 
 		/*设定网站的高度，获取到右侧内容框的高度和浏览器的高度；  */
 		var height1 = $('.list-right').height();
-		var height2 = document.body.clientHeight ;
+		var height2 = document.body.scrollHeight ;
 		console.log("$('.list-right').height()",$('.list-right').height());
 		console.log("window.screen.height",window.screen.height);
 		console.log("document.body.clientHeight ",document.body.clientHeight);
@@ -86,8 +86,8 @@
 
 		//点击按钮，左侧菜单栏收缩，右侧拉伸过去
 		$('.navbar-left li').on('click', function() {
-			$('.col-md-2').removeClass('col-md-2').addClass('col-md-1');
-			$('.col-md-10').removeClass('col-md-10').addClass('col-md-11');
+			$('.col-md-2').removeClass('col-md-2').addClass('col-md-0');
+			$('.col-md-10').removeClass('col-md-10').addClass('col-md-12');
 		});
 	});
 </script>

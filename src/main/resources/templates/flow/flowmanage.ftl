@@ -31,10 +31,7 @@ a:hover {
 					<h3 class="box-title">
 						<a href="useredit?where=xz" class="label label-success" style="padding: 5px;">
 							<span class="glyphicon glyphicon-plus">新增</span>
-						</a> <a href="daycalendar" class="label label-primary"
-							style="padding: 5px; margin-left: 5px;"> <span
-							class="glyphicon glyphicon-gift">生日</span>
-						</a>
+						</a> 
 					</h3>
 					<div class="box-tools">
 						<div class="input-group" style="width: 150px;">
@@ -50,37 +47,35 @@ a:hover {
 				<!--盒子身体-->
 				<div class="box-body no-padding">
 					<div class="table-responsive">
-						<table class="table table-hover table-striped">
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">&nbsp;</th>
-								<th scope="col">部门</th>
-								<th scope="col">真实姓名</th>
-								<th scope="col">用户名</th>
-								<th scope="col">角色</th>
-								<th scope="col">电话</th>
-								<th scope="col">工资</th>
-								<th scope="col">操作</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><img src="img/1.jpg" class="img-circle"
-									style="width: 25px; height: 25px;" /></td>
-								<td><span>总公司</span></td>
-								<td><span>罗翔</span></td>
-								<td><span>luoxiang</span></td>
-								<td><span>超级管理员</span></td>
-								<td><span>111122223333</span></td>
-								<td><span>3000.0</span></td>
-								<td><a title="修改" href="useredit?where=xg" class="label label-primary"><span
-										class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看详细信息"
-									href="##" class="label label-default"><span
-										class="glyphicon glyphicon-search"></span> 查看</a> <a
-									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-									href="" class="label label-danger"><span
-										class="glyphicon glyphicon-remove"></span> 删除</a></td>
-							</tr>
-						</table>
+						<table class="table table-hover">
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">类型</th>
+							<th scope="col">标题</th>
+							<th scope="col">申请时间</th>
+							<th scope="col">审核</th>
+							<th scope="col">审核时间</th>
+							<th scope="col">审核人</th>
+							<th scope="col">状态</th>
+							<th scope="col">操作</th>
+						</tr>
+						
+						<tr>
+							<td>1</td>
+							<td>加班</td>
+							<td><span>1233</span></td>
+							<td><span>2017/8/26 14:44:33</span></td>
+							<td><span>是</span></td>
+							<td><span>2017/8/26 14:44:33</span></td>
+							<td><span>朱丽叶</span></td>
+							<td><span>未批准</span></td>
+							<td> <a title="修改"
+								href="useredit?where=xg" class="label label-primary"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> 
+									</td>
+						</tr>
+						
+					</table>
 					</div>
 				</div>
 				<!--盒子尾-->
