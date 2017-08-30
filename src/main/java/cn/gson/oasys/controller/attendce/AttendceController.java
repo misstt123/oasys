@@ -1,6 +1,8 @@
 package cn.gson.oasys.controller.attendce;
 
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
@@ -45,7 +47,13 @@ public class AttendceController {
 	@RequestMapping("attendceedit")
 	public String test4(@Param("aid")String aid,Model model ){
 		System.out.println(aid);
-		model.addAttribute("aid", aid);
+		if(aid==null){
+		}
+		else if(aid!=null)
+		{
+		long id=Long.valueOf(aid);
+		model.addAttribute("id", id);
+		}
 		return "attendce/att2";
 	}
 

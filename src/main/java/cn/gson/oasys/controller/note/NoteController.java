@@ -34,9 +34,19 @@ public class NoteController {
 	
 	@RequestMapping("noteedit")
 	public String test2(@Param("nid")String nid,Model model ){
-		System.out.println(nid);
-		model.addAttribute("nid", nid);
+		if(nid==null){
+		}
+		else if(nid!=null)
+		{
+		long id=Long.valueOf(nid);
+		model.addAttribute("id", id);
+		}
 		return "note/notev2";
+	}
+	
+	@RequestMapping("noteinfo")
+	public String test3(){
+		return "note/noteinfo";
 	}
 	
 
