@@ -268,7 +268,7 @@
 			</div>
 			<div id="collapsethirteen" class="panel-collapse collapse">
 				<ul>
-					<li><a href="addressmanage"> <span class="glyphicon glyphicon-record"></span>
+					<li><a href="addrmanage"> <span class="glyphicon glyphicon-record"></span>
 							<span>通讯录</span>
 					</a></li>
 				</ul>
