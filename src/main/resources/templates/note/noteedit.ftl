@@ -4,8 +4,8 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
 		<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
+		<link rel="stylesheet" href="css/tc.css" />
 		<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 		<title></title>
