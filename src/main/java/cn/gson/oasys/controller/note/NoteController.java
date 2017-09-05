@@ -34,28 +34,18 @@ public class NoteController {
 		return "note/notev";
 	}
 	
-	@RequestMapping("noteedit")
-	public String test2(@Param("nid")String nid,Model model ){
-		if(nid==null){
-		}
-		else if(nid!=null)
-		{
-		long id=Long.valueOf(nid);
-		model.addAttribute("id", id);
-		}
-		return "note/notev2";
-	}
-	
 	@RequestMapping("noteinfo")
-	public String test3(){
+	public String test3(@Param("id")String id){
 		return "note/noteinfo";
 	}
 	
-	@RequestMapping("notemodify")
+	@RequestMapping("notewrite")
+	public String test33(){
+		return "note/notewrite";
+	}
+	
+	@RequestMapping("noteedit")
 	public String test4(@Param("id")String id){
-		
-		long nid=Long.valueOf(id);
-		System.out.println(nid);
 		return "note/noteedit";
 	}
 	

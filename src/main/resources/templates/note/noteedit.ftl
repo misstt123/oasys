@@ -198,7 +198,7 @@
 	</head>
 	
 	<body class="panel-heading ">
-		<div class="">
+		<div >
 		<div class="container box">
 			<div class="box-header">
 				<a class="label label-back back" > 

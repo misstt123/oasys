@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-<title>Insert title here</title>
 <style>
 		
 		.box-header {
@@ -59,7 +56,7 @@
 							<a id="ctl00_cphMain_lnbDraft" class="btn btn-default glyphicon glyphicon-print">打印</a>
 							<a id="ctl00_cphMain_lnbSend" class="btn btn-primary glyphicon glyphicon-edit">编辑</a>	
 						</div>
-						<a class="btn btn-default" >
+						<a class="btn btn-default"  onclick="notejump('notewrite')"> 
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							返回
 						</a>
