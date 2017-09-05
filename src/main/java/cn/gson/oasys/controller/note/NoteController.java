@@ -50,8 +50,14 @@ public class NoteController {
 	@RequestMapping("noteedit")
 	public String test4(@Param("id")String id,HttpServletRequest Request){
 		Long nid=Long.valueOf(id);
-		if(nid==-1)
-		System.out.println(nid);
+		//新建
+		if(nid==-1){
+			System.out.println("保存一个对象");
+		}
+		//修改
+		else if(nid>0){
+			System.out.println("取出一个对象 然后保存");
+		}
 		Request.setAttribute("id", nid);
 		return "note/noteedit";
 	}

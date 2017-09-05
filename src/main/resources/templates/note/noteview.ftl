@@ -151,8 +151,7 @@ a:hover {
 						})
 				//全选
 				$(".allcheck").click(
-					
-						function() {
+					function() {
 							
 							if ($(this).hasClass("glyphicon-unchecked")) {
 								$(this).removeClass("glyphicon-unchecked")
