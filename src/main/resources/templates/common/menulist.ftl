@@ -30,7 +30,7 @@
 
 				</a>
 			</div>
-			<div id="collapseOne" class="panel-collapse collapse ">
+			<div id="collapseOne" class="panel-collapse collapse">
 				<ul>
 					<li><a href="menusys"> <span
 							class="glyphicon glyphicon-record"></span> <span>菜单管理</span>

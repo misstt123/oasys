@@ -15,11 +15,11 @@ a:hover {
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
-		<h1 style="font-size: 24px; margin: 0;" class="">用户管理</h1>
+		<h1 style="font-size: 24px; margin: 0;" class="">菜单管理</h1>
 	</div>
 	<div class="col-md-10 text-right">
 		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
-			disabled="disabled">用户管理</a>
+			disabled="disabled">菜单管理</a>
 	</div>
 </div>
 <div class="row" style="padding-top: 15px;">
@@ -62,60 +62,7 @@ a:hover {
 							<label class="control-label"><span>学历</span></label> <input
 								class="form-control" />
 						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"><span>毕业院校</span></label> <input
-								class="form-control" />
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"><span>身份证号</span></label> <input
-								class="form-control" />
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"><span>银行账号</span></label> <input
-								class="form-control" />
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"> <span>部门</span>
-							</label> <select class="form-control">
-								<option value="0">总公司</option>
-								<option value="1">总金办</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"> <span>性别</span>
-							</label> <select class="form-control">
-								<option value="0">男</option>
-								<option value="1">女</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"> <span>职位</span>
-							</label> <select class="form-control">
-								<option value="0">CEO</option>
-								<option value="1">文员</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"> <span>角色</span>
-							</label> <select class="form-control">
-								<option value="0">超级管理员</option>
-								<option value="1">小圆</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"><span>工资</span></label> <input
-								class="form-control" />
-						</div>
-
-						<div class="col-md-6 form-group">
-							<span> <label class="control-label">入职时间</label>
-							</span> <input class="form-control" id="start" onclick="WdatePicker()"
-								value="" />
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label">生日</label> <input
-								class="form-control" id="start" onclick="WdatePicker()" />
-						</div>
+						
 						<div class="col-md-6 form-group">
 							<label class="control-label"> <span>皮肤</span>
 							</label> <select class="form-control">
