@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +28,10 @@ public class Tasklogger {
 	@Column(name="logger_ticking")
 	private String loggerTicking;//任务日志反馈内容
 	
-	@Column(name="task_id")
-	private Long taskId;//任务id外键
+	
+	@ManyToOne
+	@JoinColumn(name="task_id")
+	private Tasklist taskId;//任务id外键
 	
 	@Column(name="username")
 	private String username;//任务日志生成人
@@ -58,11 +62,13 @@ public class Tasklogger {
 		this.loggerTicking = loggerTicking;
 	}
 
-	public Long getTaskId() {
+	
+
+	public Tasklist getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(Long taskId) {
+	public void setTaskId(Tasklist taskId) {
 		this.taskId = taskId;
 	}
 
@@ -77,16 +83,12 @@ public class Tasklogger {
 	@Override
 	public String toString() {
 		return "Tasklogger [loggerId=" + loggerId + ", createTime=" + createTime + ", loggerTicking=" + loggerTicking
-				+ ", taskId=" + taskId + ", username=" + username + "]";
+				+ ", username=" + username + "]";
 	}
 
-	public Tasklogger(Date createTime, String loggerTicking, Long taskId, String username) {
-		super();
-		this.createTime = createTime;
-		this.loggerTicking = loggerTicking;
-		this.taskId = taskId;
-		this.username = username;
-	}
+	
+
+	
 	
 	
 }

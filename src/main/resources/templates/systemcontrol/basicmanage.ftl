@@ -19,7 +19,7 @@
 						<div class="panel-title"
 							style="display: inline-block; padding: 3px 0 0 15px;">
 							<a href="menuedit" class="btn btn-success" style="color: white;"><span
-								class="glyphicon glyphicon-plus"></span>新增</a>
+								class="glyphicon glyphicon-plus"></span> 新增</a>
 						</div>
 						<div class="pull-right right-btn-group"
 							style="display: inline-block;padding: 5px;">
@@ -30,7 +30,7 @@
 					<div id="panelone" class="panel-collapse collapse in" style="background: white;">
 						<table class="table table-hover menutable">
 							<tr>
-								<th>ID</th>
+								
 								<th>名称</th>
 								<th>图标</th>
 								<th>路径</th>
@@ -40,7 +40,29 @@
 								<th>操作</th>
 							</tr>
 							<tr>
+								
+								<td>菜单管理</td>
+								<td>glyphicon glyphicon-asterisk</td>
+								<td>index</td>
+								<td>菜单</td>
 								<td>1</td>
+								<td>是</td>
+								<td><a  href="#"
+									class="btn sheding"><span
+										class="glyphicon glyphicon-arrow-up"></span>上移</a> <a
+									href="#"
+									class="btn sheding"><span
+										class="glyphicon glyphicon-arrow-down"></span>下移</a> <a href="#"
+									class="btn xiugai"><span
+										class="glyphicon glyphicon-edit"></span>修改</a> <a href="#"
+									class="btn shanchu"><span
+										class="glyphicon glyphicon-remove"></span>删除</a> <a href="#"
+									class="btn xinzeng"><span
+										class="glyphicon glyphicon-plus"></span>新增</a></td>
+
+							</tr>
+							<tr>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -62,7 +84,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -84,7 +106,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -106,7 +128,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -128,7 +150,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -150,7 +172,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -172,7 +194,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -194,29 +216,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
-								<td>菜单管理</td>
-								<td>glyphicon glyphicon-asterisk</td>
-								<td>index</td>
-								<td>菜单</td>
-								<td>1</td>
-								<td>是</td>
-								<td><a style="background-color: #6C7B8B" href="#"
-									class="btn btn-primary"><span
-										class="glyphicon glyphicon-arrow-up"></span>上移</a> <a
-									style="background-color: #6C7B8B" href="#"
-									class="btn btn-primary"><span
-										class="glyphicon glyphicon-arrow-down"></span>下移</a> <a href="#"
-									class="btn btn-primary"><span
-										class="glyphicon glyphicon-edit"></span>修改</a> <a href="#"
-									class="btn btn-danger"><span
-										class="glyphicon glyphicon-remove"></span>删除</a> <a href="#"
-									class="btn btn-success"><span
-										class="glyphicon glyphicon-plus"></span>新增</a></td>
-
-							</tr>
-							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -239,7 +239,7 @@
 							</tr>
 
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -261,7 +261,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -283,7 +283,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>
@@ -305,7 +305,7 @@
 
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td>菜单管理</td>
 								<td>glyphicon glyphicon-asterisk</td>
 								<td>index</td>

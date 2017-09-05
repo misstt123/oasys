@@ -49,7 +49,7 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">类型</th>
 							<th scope="col">账号</th>
 							<th scope="col">名称</th>
@@ -58,7 +58,7 @@ a:hover {
 							<th scope="col">登陆时间</th>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td><span>手动</span></td>
 							<td><span>luoxiang</span></td>
 							<td><span>罗翔</span></td>

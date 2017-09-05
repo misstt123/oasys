@@ -9,9 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
+import cn.gson.oasys.model.entity.user.User;
 
 /**
 
@@ -54,8 +58,12 @@ public class Director {
 	@Column(name="image_path")
 	private String  imagePath; 
 	
-//	@OneToMany(mappedBy="director",fetch=FetchType.EAGER)
-//	private Set<Catalog>  catalogs;
+	@ManyToOne
+	@JoinColumn(name="director_catalog_id")
+	private Catalog  catalogId;
+	
+	@ManyToMany(mappedBy="director")
+	private Set<User> user;
 	
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
@@ -128,33 +136,49 @@ public class Director {
 		this.remark = remark;
 	}
 
+
+	
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	public Long getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
+	}
+
+	public Catalog getCatalogId() {
+		return catalogId;
+	}
+
+	public void setCatalogId(Catalog catalogId) {
+		this.catalogId = catalogId;
+	}
+
+	public Set<User> getUser() {
+		return user;
+	}
+
+	public void setUser(Set<User> user) {
+		this.user = user;
+	}
+
+	
+	public Director() {}
+
 	@Override
 	public String toString() {
-		return "Director [directorId=" + directorId + ", sex=" + sex + ", addrName=" + addrName + ", phoneNumber="
-				+ phoneNumber + ", tell=" + tell + ", email=" + email + ", address=" + address + ", remark=" + remark
-				+ ", imagePath=" + imagePath + "]";
+		return "Director [directorId=" + directorId + ", sex=" + sex + ", typeId=" + typeId + ", statusId=" + statusId
+				+ ", addrName=" + addrName + ", phoneNumber=" + phoneNumber + ", tell=" + tell + ", email=" + email
+				+ ", address=" + address + ", remark=" + remark + ", imagePath=" + imagePath + "]";
 	}
 
-	public Director() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Director( String sex, String addrName, String phoneNumber, String tell, String email,
-			String address, String remark, String imagePath) {
-		super();
-		this.sex = sex;
-		this.addrName = addrName;
-		this.phoneNumber = phoneNumber;
-		this.tell = tell;
-		this.email = email;
-		this.address = address;
-		this.remark = remark;
-		this.imagePath = imagePath;
-	}
-	
-	
-	
-	
 	
 }

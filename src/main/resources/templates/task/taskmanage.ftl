@@ -87,13 +87,13 @@ a:hover {
 							<td><span class="label label-primary  change-color">已完成</span>
 							</td>
 
-							<td><a title="修改" href="edittask"
-								class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看"
-								href="seetask" class="label label-primary"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a title="删除"
+							<td><a  href="edittask"
+								class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
+								href="seetask" class="label xiugai"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a
 								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								class="label label-primary label-danger"><span
+								class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
@@ -106,13 +106,13 @@ a:hover {
 							<td><span class="label label-primary change-color">新任务</span>
 							</td>
 
-							<td><a title="修改" href="edittask"
-								class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看"
-								href="seetask" class="label label-primary"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a title="删除"
+							<td><a href="edittask"
+								class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
+								href="seetask" class="label xiugai"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a 
 								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								class="label label-primary label-danger"><span
+								class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
@@ -122,18 +122,17 @@ a:hover {
 							<td><span>2017/8/16 19:24:04</span></td>
 							<td><span>罗密欧</span></td>
 							<td><span>总经办</span></td>
-							<td><span class="label label-primary change-color">已提交</span>
+							<td><span class="label label-primary change-color">新任务</span>
 							</td>
 
-							<td><a title="修改" href="edittask"
-								class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看"
-								href="seetask" class="label label-primary"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a title="删除"
+							<td><a href="edittask"
+								class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
+								href="seetask" class="label xiugai"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a 
 								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								class="label label-primary label-danger"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a>
-							</td>
+								class="label shanchu"><span
+									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 					</table>
 				</div>

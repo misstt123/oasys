@@ -163,12 +163,12 @@ li.activee>a {
 							<td>
 								<div class="label label-info">一般</div>
 							</td>
-							<td><a title="修改" href="##" class="label label-primary"><span
+							<td><a title="修改" href="##" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="打开文件夹"
-								href="##" class="label label-default"><span
+								href="##" class="label sheding"><span
 									class="glyphicon glyphicon-folder-open"></span> 打开</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
@@ -185,12 +185,12 @@ li.activee>a {
 								<div class="label label-warning">重要</div>
 							</td>
 							<!--style="padding: 0.4em .6em .3em;"-->
-							<td><a title="修改" href="" class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="打开文件夹"
-								href="##" class="label label-default"><span
+							<td><a  href="" class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
+								href="##" class="label sheding"><span
 									class="glyphicon glyphicon-folder-open"></span> 打开</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 					</table>

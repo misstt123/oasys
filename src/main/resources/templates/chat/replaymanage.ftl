@@ -64,7 +64,7 @@ a:hover {
 				<h3 class="box-title">
 					<a href="#" class="label label-default" style="padding: 6px;">
 						<span class="glyphicon glyphicon-chevron-left">返回</span>
-					</a> <a href="#" class="label label-success"
+					</a> <a href="#" class="label "
 						style="padding: 6px; margin-left: 8px;"> <span
 						class="glyphicon glyphicon-share-alt">回复</span>
 					</a>
@@ -118,7 +118,7 @@ a:hover {
 														class="glyphicon glyphicon-thumbs-up"></span> 喜欢(0)
 												</a></li>
 												<li class="pull-right"><a href="#commentone"
-													class="label label-primary toggle" data-toggle="collapse"><span
+													class="label xiugai toggle" data-toggle="collapse"><span
 														class="glyphicon glyphicon-triangle-bottom"></span>评论次数(2)</a> <span>1楼</span>
 												</li>
 											</ul>
@@ -141,9 +141,9 @@ a:hover {
 																	<ul class="list-inline pull-right"
 																		style="display: block;">
 																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label label-success"><span
+																		<li><a href="#" class="label xinzeng"><span
 																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label label-danger"><span
+																		<li><a href="#" class="label shanchu"><span
 																				class="glyphicon glyphicon-remove"></span>删除</a></li>
 
 																	</ul>
@@ -162,9 +162,9 @@ a:hover {
 																	<ul class="list-inline pull-right"
 																		style="display: block;">
 																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label label-success"><span
+																		<li><a href="#" class="label xinzeng"><span
 																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label label-danger"><span
+																		<li><a href="#" class="label shanchu"><span
 																				class="glyphicon glyphicon-remove"></span>删除</a></li>
 
 																	</ul>
@@ -200,7 +200,7 @@ a:hover {
 														class="glyphicon glyphicon-thumbs-up"></span> 喜欢(0)
 												</a></li>
 												<li class="pull-right"><a href="#commenttwo"
-													class="label label-primary toggle" data-toggle="collapse"><span
+													class="label xiugai toggle" data-toggle="collapse"><span
 														class="glyphicon glyphicon-triangle-bottom"></span>评论次数(2)</a> <span>1楼</span>
 												</li>
 											</ul>
@@ -219,9 +219,9 @@ a:hover {
 																	<ul class="list-inline pull-right"
 																		style="display: block;">
 																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label label-success"><span
+																		<li><a href="#" class="label xiugai"><span
 																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label label-danger"><span
+																		<li><a href="#" class="label shanchu"><span
 																				class="glyphicon glyphicon-remove"></span>删除</a></li>
 
 																	</ul>
@@ -241,9 +241,9 @@ a:hover {
 																	<ul class="list-inline pull-right"
 																		style="display: block;">
 																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label label-success"><span
+																		<li><a href="#" class="label xinzeng"><span
 																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label label-danger"><span
+																		<li><a href="#" class="label shanchu"><span
 																				class="glyphicon glyphicon-remove"></span>删除</a></li>
 
 																	</ul>

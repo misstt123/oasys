@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.role.Role;
@@ -100,6 +101,15 @@ public class User {
 	@ManyToOne()
 	@JoinColumn(name = "role_id")
 	private Role role;			//外键关联 角色表
+	
+	@ManyToMany
+	@JoinTable(name="aoa_director_user",
+	joinColumns={
+			@JoinColumn(name="user_id")
+	},inverseJoinColumns={
+			@JoinColumn(name="director_id")
+	})
+	private Set<Director> director;
 
 	public User() {}		
 
@@ -296,12 +306,9 @@ public class User {
 		this.fatherId = fatherId;
 	}
 
-	
-	
 	public Position getPosition() {
 		return position;
 	}
-
 
 	public void setPosition(Position position) {
 		this.position = position;
@@ -325,6 +332,16 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+
+	public Set<Director> getDirector() {
+		return director;
+	}
+
+
+	public void setDirector(Set<Director> director) {
+		this.director = director;
 	}
 
 

@@ -94,7 +94,7 @@ a:hover {
 													</td>
 													
 													<td>
-														<a title="查看" href="seetask" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
+														<a title="查看" href="seetask" class="label xiugai"><span class="glyphicon glyphicon-search"></span> 查看</a>
 													</td>
 												</tr>
 												<tr>
@@ -120,7 +120,7 @@ a:hover {
 													
 													<td>
 														
-														<a title="查看" href="seetask" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
+														<a title="查看" href="seetask" class="label xiugai"><span class="glyphicon glyphicon-search"></span> 查看</a>
 													</td>
 												</tr>
 												<tr>
@@ -145,7 +145,7 @@ a:hover {
 													</td>
 													
 													<td>
-														<a title="查看" href="seetask" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
+														<a title="查看" href="seetask" class="label xiugai"><span class="glyphicon glyphicon-search"></span> 查看</a>
 													</td>
 												</tr>
 					</table>

@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_mailnumber")
@@ -25,8 +29,9 @@ public class Mailnumber {
 	@Column(name="status")
 	private Long status;//邮件状态（是否可用）
 	
-	@Column(name="mail_user_id")
-	private Long mailUserId;//用户id
+	@ManyToOne
+	@JoinColumn(name="mail_num_user_id")
+	private User mailUserId;//用户id
 	
 	@Column(name="mail_user_name",nullable=false)
 	private String mailUserName;//用户别名
@@ -39,19 +44,7 @@ public class Mailnumber {
 	
 	public Mailnumber(){}
 	
-	public Mailnumber( Long mailType, Long status, Long mailUserId, String mailUserName,
-			Date mailCreateTime, String mailAccount, String password, String mailDes) {
-		super();
-		
-		this.mailType = mailType;
-		this.status = status;
-		this.mailUserId = mailUserId;
-		this.mailUserName = mailUserName;
-		this.mailCreateTime = mailCreateTime;
-		this.mailAccount = mailAccount;
-		this.password = password;
-		this.mailDes = mailDes;
-	}
+	
 
 	@Column(name="password",nullable=false)
 	private String password;//账号授权码
@@ -84,11 +77,11 @@ public class Mailnumber {
 		this.status = status;
 	}
 
-	public Long getMailUserId() {
+	public User getMailUserId() {
 		return mailUserId;
 	}
 
-	public void setMailUserId(Long mailUserId) {
+	public void setMailUserId(User mailUserId) {
 		this.mailUserId = mailUserId;
 	}
 

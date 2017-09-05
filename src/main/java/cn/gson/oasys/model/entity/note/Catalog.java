@@ -32,13 +32,7 @@ public class Catalog {
 	@Column(name="parent_id")
 	private Integer parentId;
 
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="catalog_id")
-//	private Note note;
-//	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="catalog_id")
-//	private Director director;
+
 	
 	@Override
 	public String toString() {
