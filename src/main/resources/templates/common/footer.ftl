@@ -1,11 +1,10 @@
 <div style="clear: both;"></div>
-<div style="width: 253px;display:inline-block;height: 40px;float:left;margin-left: -15px;    background: #222d32;"></div>
+<div style="width: 253px;display:inline-block;height: 40px;float:left;margin-left: -15px;"></div>
 <div style="line-height: 40px;display:inline-block;float:left;">
 	<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
 	</strong> All rights reserved.
-	
 </div>
-<div class="pull-right" style="display: inline-block;line-height: 40px;"> 2017年08月27日，星期日</div>
+<div class="pull-right" style="display: inline-block;"> 2017年08月27日，星期日</div>
 <script type="text/javascript">
 	$(function() {
 		/* 菜单向左向下箭头变化 */
@@ -55,18 +54,12 @@
 
 				});
 
+	
+
 		//点击按钮，左侧菜单栏收缩，右侧拉伸过去
 		$('.navbar-left li').on('click', function() {
 			$('.col-md-2').removeClass('col-md-2').addClass('col-md-0');
 			$('.col-md-10').removeClass('col-md-10').addClass('col-md-12');
 		});
-		/*关闭面板  */
-		$('.glyphicon-remove').on('click',function(){
-			console.log($(this).closest('.box-show'));
-			if(!confirm("确定关闭吗？")){
-				return false;
-			}
-				$(this).closest('.box-show').css('display','none');
-			});
 	});
 </script>

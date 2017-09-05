@@ -48,7 +48,7 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">类型</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
@@ -58,7 +58,7 @@ a:hover {
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td><span>日程安排</span></td>
 							<td><span>xxxx</span></td>
 							<td><span>2017/8/16 19:24:04</span></td>

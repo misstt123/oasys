@@ -14,7 +14,7 @@ public class Role {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="aoa_role_id")
+	@Column(name="role_id")
 	private Long roleId;//角色id
 	
 	@Column(name="role_name")

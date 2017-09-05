@@ -49,7 +49,7 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
-							<th scope="col">ID</th>
+						
 							<th scope="col">类型</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
@@ -62,7 +62,7 @@ a:hover {
 						</tr>
 
 						<tr>
-							<td>1</td>
+							
 							<td>系统管理</td>
 							<td><span>fa-circle-o</span></td>
 							<td><span>System/Menu.aspx</span></td>

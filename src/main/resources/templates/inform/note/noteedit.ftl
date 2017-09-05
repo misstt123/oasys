@@ -37,17 +37,17 @@
 				color: white !important;
 			}
 			.label {
-    display: inline;
-    padding: 5px 12px  5px 12px;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
+			    display: inline;
+			    padding: 5px 12px  5px 12px;
+			    font-size: 75%;
+			    font-weight: 700;
+			    line-height: 1;
+			    color: #fff;
+			    text-align: center;
+			    white-space: nowrap;
+			    vertical-align: baseline;
+			    border-radius: .25em;
+			}
 
 			.la{
 				    margin-top: 4px;

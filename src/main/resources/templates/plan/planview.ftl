@@ -111,10 +111,9 @@
 										<table class="table table-hover table-striped">
 											<tr class="table-header">
 												<th scope="col" class="commen mm">
-												ID<span >
+												类型<span >
 												<img src="../img/bottom.png" /></span>
 												</th>
-												<th scope="col" class="commen co">类型<span ></span></th>
 												<th scope="col">标题</th>
 												<th scope="col">发布时间</th>
 												<th scope="col">发布人</th>
@@ -123,9 +122,7 @@
 												<th scope="col">操作</th>
 											</tr>
 											<tr>
-												<td >
-													1
-												</td>
+												
 												<td>
 													<span>我的文件</span>
 												</td>
