@@ -42,8 +42,8 @@ public class Tasklist {
 	@Column(name="user_id")
 	private Long userId;//发布人id
 	
-	@Column(name="describe",nullable=false)
-	private String describe;//任务描述
+	@Column(name="task_describe",nullable=false)
+	private String taskDescribe;//任务描述
 	
 	@Column(name="comment")
 	private String comment;//任务评价
@@ -127,12 +127,14 @@ public class Tasklist {
 		this.userId = userId;
 	}
 
-	public String getDescribe() {
-		return describe;
+	
+
+	public String getTaskDescribe() {
+		return taskDescribe;
 	}
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setTaskDescribe(String taskDescribe) {
+		this.taskDescribe = taskDescribe;
 	}
 
 	public String getComment() {
@@ -181,14 +183,15 @@ public class Tasklist {
 	public String toString() {
 		return "Tasklist [taskId=" + taskId + ", typeId=" + typeId + ", publishTime=" + publishTime + ", starTime="
 				+ starTime + ", endTime=" + endTime + ", modifyTime=" + modifyTime + ", title=" + title + ", userId="
-				+ userId + ", describe=" + describe + ", comment=" + comment + ", isTop=" + isTop + ", isCancel="
-				+ isCancel + ", ticking=" + ticking + ", statusId=" + statusId + "]";
+				+ userId + ", taskDescribe=" + taskDescribe + ", comment=" + comment + ", isTop=" + isTop
+				+ ", isCancel=" + isCancel + ", ticking=" + ticking + ", statusId=" + statusId + "]";
 	}
 
-	public Tasklist(Long typeId, Date publishTime, Date starTime, Date endTime, Date modifyTime, String title,
-			Long userId, String describe, String comment, Integer isTop, Integer isCancel, String ticking,
-			Integer statusId) {
+	public Tasklist(Long taskId, Long typeId, Date publishTime, Date starTime, Date endTime, Date modifyTime,
+			String title, Long userId, String taskDescribe, String comment, Integer isTop, Integer isCancel,
+			String ticking, Integer statusId) {
 		super();
+		this.taskId = taskId;
 		this.typeId = typeId;
 		this.publishTime = publishTime;
 		this.starTime = starTime;
@@ -196,7 +199,7 @@ public class Tasklist {
 		this.modifyTime = modifyTime;
 		this.title = title;
 		this.userId = userId;
-		this.describe = describe;
+		this.taskDescribe = taskDescribe;
 		this.comment = comment;
 		this.isTop = isTop;
 		this.isCancel = isCancel;
@@ -204,5 +207,6 @@ public class Tasklist {
 		this.statusId = statusId;
 	}
 
+	
 	
 }

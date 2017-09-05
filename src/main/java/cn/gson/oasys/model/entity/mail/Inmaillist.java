@@ -19,7 +19,7 @@ public class Inmaillist {
     @Column(name="mail_id")
 	private Long mailId;//内部邮件id
 	
-	@Column(name="mail-type")
+	@Column(name="mail_type")
 	private Long mailType;//邮件类型（通知，公告，邮件）
 	
 	@Column(name="mail_user_id")

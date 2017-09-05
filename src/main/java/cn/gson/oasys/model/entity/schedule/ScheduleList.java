@@ -36,6 +36,7 @@ public class ScheduleList {
 	
 	private String title;	//日程标题
 	
+	@Column(name = "miaoshu")
 	private String describe;	//日程描述
 	
 	@Column(name = "user_id")
@@ -109,6 +110,11 @@ public class ScheduleList {
 		this.title = title;
 	}
 
+	
+
+	
+	
+
 	public String getDescribe() {
 		return describe;
 	}
@@ -133,7 +139,28 @@ public class ScheduleList {
 		this.isRemind = isRemind;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "ScheduleList [rcId=" + rcId + ", typeId=" + typeId + ", statusId=" + statusId + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", createTime=" + createTime + ", title=" + title
+				+ ", describe=" + describe + ", userId=" + userId + ", isRemind=" + isRemind + "]";
+	}
+
+	public ScheduleList(Long rcId, Long typeId, Long statusId, Date startTime, Date endTime, Date createTime,
+			String title, String describe, Long userId, Integer isRemind) {
+		super();
+		this.rcId = rcId;
+		this.typeId = typeId;
+		this.statusId = statusId;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.createTime = createTime;
+		this.title = title;
+		this.describe = describe;
+		this.userId = userId;
+		this.isRemind = isRemind;
+	}
+
 	
 	
 	

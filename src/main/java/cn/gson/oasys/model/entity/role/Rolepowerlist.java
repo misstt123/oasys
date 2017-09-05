@@ -5,7 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.system.SystemMenu;
+import cn.gson.oasys.model.entity.user.Position;
 
 @Entity
 @Table(name="aoa_role_power_list")
@@ -17,14 +22,20 @@ public class Rolepowerlist {
 	@Column(name="pk_id")
 	private Long pkId;
 	
-	@Column(name="role_id")
-	private Long roleId;
+
+	@ManyToOne()
+	@JoinColumn(name = "role_id")
+	private Role roleId;
 	
-	@Column(name="menu_id")
-	private Long menuId;
+	@ManyToOne()
+	@JoinColumn(name = "menu_id")
+	private SystemMenu menuId;
+	
 	
 	@Column(name="is_show")
 	private Integer isShow;
+	
+	public Rolepowerlist(){}
 
 	public Long getPkId() {
 		return pkId;
@@ -34,21 +45,6 @@ public class Rolepowerlist {
 		this.pkId = pkId;
 	}
 
-	public Long getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
-
-	public Long getMenuId() {
-		return menuId;
-	}
-
-	public void setMenuId(Long menuId) {
-		this.menuId = menuId;
-	}
 
 	public Integer getIsShow() {
 		return isShow;
@@ -58,18 +54,36 @@ public class Rolepowerlist {
 		this.isShow = isShow;
 	}
 
-	@Override
-	public String toString() {
-		return "Rolepowerlist [pkId=" + pkId + ", roleId=" + roleId + ", menuId=" + menuId + ", isShow=" + isShow + "]";
+	public Role getRoleId() {
+		return roleId;
 	}
 
-	public Rolepowerlist( Long roleId, Long menuId, Integer isShow) {
+	public void setRoleId(Role roleId) {
+		this.roleId = roleId;
+	}
+
+	public SystemMenu getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(SystemMenu menuId) {
+		this.menuId = menuId;
+	}
+
+	@Override
+	public String toString() {
+		return "Rolepowerlist [pkId=" + pkId + ", isShow=" + isShow + "]";
+	}
+
+	public Rolepowerlist(Long pkId, Role roleId, SystemMenu menuId, Integer isShow) {
 		super();
-		
+		this.pkId = pkId;
 		this.roleId = roleId;
 		this.menuId = menuId;
 		this.isShow = isShow;
 	}
+
+	
 	
 	
 }
