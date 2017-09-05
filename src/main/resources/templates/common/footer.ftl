@@ -1,10 +1,23 @@
 <div style="clear: both;"></div>
-<div style="width: 240px;display:inline-block;height: 40px;float:left;margin-left: -15px;    background: #222d32;"></div>
-<div style="line-height: 40px;display:inline-block;float:left;">
-	<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
-	</strong> All rights reserved.
+
+<div class="row">
+	<div class="col-md-2" style="background: #222d32;">
+		<div
+			style=" display: inline-block; height: 40px; float: left; background: #222d32;">
+		</div>
+	</div>
+	<div class="col-md-10">
+		<div style="line-height: 40px; display: inline-block; float: left;">
+			<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
+			</strong> All rights reserved.
+
+		</div>
+		<div class="pull-right"
+			style="display: inline-block; line-height: 40px;">
+			2017年08月27日，星期日</div>
+	</div>
 </div>
-<div class="pull-right" style="display: inline-block;"> 2017年08月27日，星期日</div>
+
 <script type="text/javascript">
 	$(function() {
 		/* 菜单向左向下箭头变化 */
@@ -63,12 +76,16 @@
 <<<<<<< HEAD
 		}); */
 		/*关闭面板  */
-		$('.glyphicon-remove').on('click',function(){
+		$('.glyphicon-remove').on('click', function() {
 			console.log($(this).closest('.box-show'));
-			if(!confirm("确定关闭吗？")){
+			if (!confirm("确定关闭吗？")) {
 				return false;
 			}
+<<<<<<< HEAD
 				$(this).closest('.box-show').css('display','none');
+=======
+			$(this).closest('.box-show').css('display', 'none');
+>>>>>>> refs/remotes/origin/zhx
 		});
 	});
 </script>
