@@ -1,7 +1,10 @@
 package cn.gson.oasys.controller.note;
 
 
+import static org.mockito.Matchers.longThat;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
@@ -32,21 +35,31 @@ public class NoteController {
 		return "note/notev";
 	}
 	
-	@RequestMapping("noteedit")
-	public String test2(@Param("nid")String nid,Model model ){
-		if(nid==null){
-		}
-		else if(nid!=null)
-		{
-		long id=Long.valueOf(nid);
-		model.addAttribute("id", id);
-		}
-		return "note/notev2";
+	@RequestMapping("noteinfo")
+	public String test3(@Param("id")String id,HttpServletRequest Request){
+		Long nid=Long.valueOf(id);
+		Request.setAttribute("id", nid);
+		return "note/noteinfo";
 	}
 	
-	@RequestMapping("noteinfo")
-	public String test3(){
-		return "note/noteinfo";
+	@RequestMapping("notewrite")
+	public String test33(){
+		return "note/notewrite";
+	}
+	
+	@RequestMapping("noteedit")
+	public String test4(@Param("id")String id,HttpServletRequest Request){
+		Long nid=Long.valueOf(id);
+		//新建
+		if(nid==-1){
+			System.out.println("保存一个对象");
+		}
+		//修改
+		else if(nid>0){
+			System.out.println("取出一个对象 然后保存");
+		}
+		Request.setAttribute("id", nid);
+		return "note/noteedit";
 	}
 	
 
