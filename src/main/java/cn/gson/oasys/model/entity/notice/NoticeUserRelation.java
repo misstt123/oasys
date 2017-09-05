@@ -11,7 +11,7 @@ import cn.gson.oasys.model.entity.user.User;
  *
  */
 @Entity
-@Table(name = "notice_user_relation")
+@Table(name = "aoa_notice_user_relation")
 public class NoticeUserRelation {
 
 	@Id
