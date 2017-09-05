@@ -70,11 +70,11 @@
 		<div class="box increase">
 			<form action="" method="post">
 			<div class="box-header">
-				<a class="btn label-back"> 
-					<span class="glyphicon glyphicon-chevron-left" onclick="window.history.back();"></span>返回</a>
+				<a class="btn label-back" href="javascript:void(0);"  onclick="window.history.back();"> 
+					<span class="glyphicon glyphicon-chevron-left" ></span>返回</a>
 			</div>
 			<div class="box-body">
-			<#if aid=="1">
+			
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">
@@ -90,7 +90,7 @@
 						<input class="form-control" />
 					</div>
 				</div>
-				</#if>
+				
 			</div>
 			
 			<div class="box-footer">

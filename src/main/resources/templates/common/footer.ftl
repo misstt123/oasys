@@ -1,14 +1,11 @@
-<div class="container-fluid" style="padding: 0;">
-	<div class="row">
-		<div class="col-md-10 col-md-offset-2"
-			style="background: white; padding: 15px; margin-top: -50px;">
-			<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
-			</strong> All rights reserved.
-			<div class="pull-right" style="display: inline-block;">
-				2017年08月27日，星期日</div>
-		</div>
-	</div>
+<div style="clear: both;"></div>
+<div style="width: 240px;display:inline-block;height: 40px;float:left;margin-left: -15px;    background: #222d32;"></div>
+<div style="line-height: 40px;display:inline-block;float:left;">
+	<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
+	</strong> All rights reserved.
+	
 </div>
+<div class="pull-right" style="display: inline-block;line-height: 40px;"> 2017年08月27日，星期日</div>
 <script type="text/javascript">
 	$(function() {
 		/* 菜单向左向下箭头变化 */
@@ -57,31 +54,6 @@
 					}
 
 				});
-
-		$('.right-btn-group a').on('click', function() {
-			//获取右侧内容板的高度；设置面板的高度
-			console.log($('.list-right').height());
-			$('.list-left').height($('.list-right').height());
-			$('.list-right').height($('.list-right').height());
-		})
-
-		/*设定网站的高度，获取到右侧内容框的高度和浏览器的高度；  */
-		var height1 = $('.list-right').height();
-		var height2 = document.body.scrollHeight ;
-		console.log("$('.list-right').height()",$('.list-right').height());
-		console.log("window.screen.height",window.screen.height);
-		console.log("document.body.clientHeight ",document.body.clientHeight);
-		console.log("document.body.offsetHeight ",document.body.offsetHeight);
-		console.log("document.body.scrollHeight ",document.body.scrollHeight);
-		console.log(" window.screen.availHeight", window.screen.availHeight);
-		var height;
-		if (height1 > height2) {
-			height = height1;
-		} else {
-			height = height2;
-		}
-		$('.list-left').height(height);
-		$('.list-right').height(height);
 
 		//点击按钮，左侧菜单栏收缩，右侧拉伸过去
 		/* $('.navbar-left li').on('click', function() {

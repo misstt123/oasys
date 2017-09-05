@@ -3,7 +3,7 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
 <link rel="stylesheet" type="text/css" href="css/common/box.css" />
-<div class="row disappear">
+<div class="row" style="background: white;">
 	<!--把最顶上左侧的logo，栅格系统分2份-->
 	<div class="col-lg-2 col-md-2" style="background: #008d4c;">
 		<a href="index" class="navbar-brand" style="padding: 8px 40px;"><img

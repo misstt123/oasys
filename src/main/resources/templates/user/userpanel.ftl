@@ -1,5 +1,3 @@
-
-
 <script type="text/javascript" src="js/common/iconfont.js"></script>
 <link rel="stylesheet" href="css/common/iconfont.css" />
 <link rel="stylesheet" href="css/common/checkbox.css" />
@@ -16,6 +14,10 @@
 	margin-bottom: 10px;
 }
 
+a {
+	text-decoration: none !important;
+}
+
 .pa {
 	margin-top: 12px;
 	margin-bottom: 10px;
@@ -23,6 +25,60 @@
 
 .nav-tabs-custom {
 	background-color: #fff;
+}
+
+h1, h3 {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.bo {
+	margin-bottom: 12px;
+}
+
+.nav-tabs-custom>.nav-tabs>li:first-of-type {
+	margin-left: 0;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+	border-top-color: #3c8dbc;
+}
+
+.nav-tabs-custom>.nav-tabs>li {
+	border-top: 3px solid transparent;
+	margin-bottom: -2px;
+	margin-right: 5px;
+}
+
+.nav-tabs-custom>.nav-tabs>li:first-of-type.active>a {
+	border-left-color: transparent;
+}
+
+.nav-tabs-custom>.nav-tabs>li>a, .nav-tabs-custom>.nav-tabs>li>a:hover {
+	background: transparent;
+	margin: 0;
+	color:
+}
+
+.nav-tabs-custom>.nav-tabs>li>a:hover {
+	color: #999;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active>a, .nav-tabs-custom>.nav-tabs>li.active:hover>a
+	{
+	background-color: #fff;
+	color: #444;
+}
+
+.nav-tabs-custom>.nav-tabs>li>a {
+	color: #444;
+	border-radius: 0;
+}
+
+.nav-tabs>li>a {
+	margin-right: 2px;
+	line-height: 1.42857143;
+	border: 0px;
+	border-radius: 4px 4px 0 0;
 }
 </style>
 
@@ -99,13 +155,13 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-9">
+	<div class="col-md-9" style="margin-bottom: 60px;">
 
 
 		<div class=" nav-tabs-custom">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#memo" data-toggle="tab">我的便签</a></li>
-				<li><a href="#settings" data-toggle="tab">个人设置</a></li>
+				<li class="personset"><a href="#settings" data-toggle="tab" >个人设置</a></li>
 			</ul>
 
 
@@ -114,267 +170,276 @@
 				<div class="active tab-pane" id="memo">
 
 					<div class="box-body">
-						
-							<div>
-								<table class="table1" cellspacing="0" border="0"
-									id="ctl00_cphMain_GridView1"
-									style="border-width: 0px; border-collapse: collapse; margin-bottom: 0px; width: 100%;">
-									<tr>
-										<td>
 
-											<div class="post"
-												style="border: dashed 1px #eee; padding: 10px 10px 0 10px; background: #FFFFE0; margin: 0 5px 10px 5px;">
-												<div class="user-block">
+						<div class="bo">
+							<table class="table1" cellspacing="0" border="0"
+								id="ctl00_cphMain_GridView1"
+								style="border-width: 0px; border-collapse: collapse; margin-bottom: 0px; width: 100%;">
+								<tr>
+									<td>
 
-													<a href="#"><span
-														id="ctl00_cphMain_GridView1_ctl02_lblMemoTitle"></span></a> <a
-														onclick="{return confirm(&#39;删除该记录将不能恢复，确定删除吗？&#39;);};"
-														id="ctl00_cphMain_GridView1_ctl02_gvDelete" title="删除"
-														class="pull-right btn-box-tool" href="##"> <i
-														class='glyphicon glyphicon-remove-sign'></i></a> <br /> <span
-														id="ctl00_cphMain_GridView1_ctl02_lblModifyDate"
-														style="font-size: 8pt; color: #999;">2017-8-10
-														9:35:42</span>
-												</div>
-												<p>
-													<span id="ctl00_cphMain_GridView1_ctl02_lblMemoDescription">更多产品请访问魔方动力官方网站：http://www.mojocube.com/</span>
-												</p>
-												<ul class="list-inline">
-													<li>
-														<!--<a id="ctl00_cphMain_GridView1_ctl02_gvStar" title="标记星标" href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl02$gvStar&#39;,&#39;&#39;)">
+										<div class="post"
+											style="border: dashed 1px #eee; padding: 10px 10px 0 10px; background: #FFFFE0; margin: 0 5px 10px 5px;">
+											<div class="user-block">
+
+												<a href="#"><span
+													id="ctl00_cphMain_GridView1_ctl02_lblMemoTitle"></span></a> <a
+													onclick="{return confirm(&#39;删除该记录将不能恢复，确定删除吗？&#39;);};"
+													id="ctl00_cphMain_GridView1_ctl02_gvDelete" title="删除"
+													class="pull-right btn-box-tool" href="##"> <i
+													class='glyphicon glyphicon-remove-sign'></i></a> <br /> <span
+													id="ctl00_cphMain_GridView1_ctl02_lblModifyDate"
+													style="font-size: 8pt; color: #999;">2017-8-10
+													9:35:42</span>
+											</div>
+											<p>
+												<span id="ctl00_cphMain_GridView1_ctl02_lblMemoDescription">更多产品请访问魔方动力官方网站：http://www.mojocube.com/</span>
+											</p>
+											<ul class="list-inline">
+												<li>
+													<!--<a id="ctl00_cphMain_GridView1_ctl02_gvStar" title="标记星标" href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl02$gvStar&#39;,&#39;&#39;)">
 																			<i class="glyphicon glyphicon-edit"></i></a>-->
-													</li>
-													<li class="pull-right"><a
-														id="ctl00_cphMain_GridView1_ctl02_gvEdit" title="便签"
-														class="fancybox link-black text-sm" data-toggle="modal"
-														href="#editModal"> <i class="glyphicon glyphicon-edit"></i>
-															修改
-													</a></li>
-												</ul>
-											</div>
-
-										</td>
-									</tr>
-									<tr>
-										<td>
-
-											<div class="post"
-												style="border: dashed 1px #eee; padding: 10px 10px 0 10px; background: #FFFFE0; margin: 0 5px 10px 5px;">
-												<div class="user-block">
-
-													<a href="#"><span
-														id="ctl00_cphMain_GridView1_ctl03_lblMemoTitle"></span></a> <a
-														onclick="{return confirm(&#39;删除该记录将不能恢复，确定删除吗？&#39;);};"
-														id="ctl00_cphMain_GridView1_ctl03_gvDelete" title="删除"
-														class="pull-right btn-box-tool"
-														href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl03$gvDelete&#39;,&#39;&#39;)">
-														<i class='glyphicon glyphicon-remove-sign'></i>
-													</a> <br /> <span
-														id="ctl00_cphMain_GridView1_ctl03_lblModifyDate"
-														style="font-size: 8pt; color: #999;">2017-2-21
-														11:02:44</span>
-												</div>
-												<p>
-													<span id="ctl00_cphMain_GridView1_ctl03_lblMemoDescription">如需要获得更多功能和支持，请到魔方动力淘宝旗舰店购买正版软件，网址：https://520mc.taobao.com/</span>
-												</p>
-												<ul class="list-inline">
-													<li>
-														<!--<a id="ctl00_cphMain_GridView1_ctl03_gvStar" title="标记星标" href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl03$gvStar&#39;,&#39;&#39;)"><i class="fa fa-star-o text-yellow"></i></a>-->
-													</li>
-													<li class="pull-right"><a
-														id="ctl00_cphMain_GridView1_ctl03_gvEdit" title="便签"
-														class="fancybox link-black text-sm" data-toggle="modal"
-														href="#editModal"> <i class="glyphicon glyphicon-edit"></i>
-															修改
-													</a></li>
-												</ul>
-											</div>
-
-										</td>
-									</tr>
-								</table>
-							</div>
-
-						</div>
-					
-</div>	
-				</div>
-
-
-			</div>
-			<!--盒子尾-->
-			<div class="box-footer no-padding" style="margin-top: -20px;">
-				<div style="padding: 5px;">
-					<div id="page"
-						style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-						<div style="width: 40%; float: left;">
-							<div class="pageInfo" style="margin-left: 5px;">
-								共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-							</div>
-						</div>
-						<div style="width: 60%; float: left;">
-							<div class="pageOperation">
-								<a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-backward"></span>
-								</a> <a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-triangle-left"></span>
-								</a> <a disabled="disabled" class="btn btn-default no-padding"
-									style="width: 30px; height: 20px;"> 1 </a> <a
-									class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-triangle-right"></span>
-								</a> <a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-forward"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-
-
-
-		<!-- 接收人弹窗-->
-		<div class="modal fade" id="myModal" tabindex="-1">
-
-			<!--第二步，窗口声明-->
-			<div class="modal-dialog modal-lg">
-				<!--第三步、内容区的声明-->
-				<div class="modal-content" style="background: #F9F9F9;">
-					<div class="modal-1">
-
-						<div class="modal-2">
-
-							<div class="modal-header" style="margin: 10px;">
-								<button class="close close2" data-dismiss="modal"
-									style="display: block; background-color: black; margin: -90px -82px 0 0; border-radius: 60%;">
-									<span class="glyphicon glyphicon-remove-circle"
-										style="color: white; font-size: 30px;"></span>
-								</button>
-								<div class="row">
-									<div class="col-xs-12" style="height: 30px; margin: 10px 0px;">
-
-										<h4 style="float: left;">
-											<a class="btn btn-success glyphicon glyphicon-plus btn-sm"
-												href="##" onclick="addvalue()"> 新增接收人</a> <a
-												class="btn btn-success glyphicon glyphicon-plus btn-sm"
-												href="##" onclick="addvalue2()"> 追加接收人</a>
-										</h4>
-
-										<div class="input-group">
-											<input type="text" class="form-control input-sm pull-right"
-												placeholder="查找..." />
-											<div class="input-group-btn" style="top: -1px;">
-												<a class="btn btn-sm btn-default glyphicon glyphicon-search"
-													href=""></a>
-											</div>
+												</li>
+												<li class="pull-right"><a
+													id="ctl00_cphMain_GridView1_ctl02_gvEdit" title="便签"
+													class="fancybox link-black text-sm" data-toggle="modal"
+													href="#editModal"> <i class="glyphicon glyphicon-edit"></i>
+														修改
+												</a></li>
+											</ul>
 										</div>
-									</div>
-								</div>
-							</div>
 
-							<div class="modal-body" style="margin: 10px;">
-								<table class="table  table-hover  container-fluid">
-									<tr class="row">
-										<th class=" col-xs-2"><span class="labels"><label><input
-													id="checkedAll" type="checkbox"><i>✓</i></label></span></th>
-										<th class=" col-xs-2 b">部门</th>
-										<th class=" col-xs-2 b">真实姓名</th>
-										<th class="col-xs-2 b">用户名</th>
-										<th class="col-xs-2 b">角色</th>
-										<th class=" col-xs-2">电话</th>
-									</tr>
-									<tr class="row">
-										<th class=" col-xs-2"><span class="labels"><label><input
-													name="id" type="checkbox"><i>✓</i></label></span></th>
-										<th class="col-xs-2">部门</th>
-										<th class=" col-xs-2">真实姓名</th>
-										<th class="col-xs-2">用户名</th>
-										<th class=" col-xs-2">角色</th>
-										<th class=" col-xs-2">电话</th>
+									</td>
+								</tr>
+								<tr>
+									<td>
 
-									</tr>
-									<tr class="row">
+										<div class="post"
+											style="border: dashed 1px #eee; padding: 10px 10px 0 10px; background: #FFFFE0; margin: 0 5px 10px 5px;">
+											<div class="user-block">
 
-										<th class=" col-xs-2"><span class="labels"><label><input
-													name="id" type="checkbox"><i>✓</i></label></span></th>
-										<th class=" col-xs-2">部门</th>
-										<th class=" col-xs-2">真实姓名</th>
-										<th class=" col-xs-2">用户名</th>
-										<th class=" col-xs-2">角色</th>
-										<th class=" col-xs-2">电话</th>
-
-									</tr>
-									<tr class="row">
-
-										<th class=" col-xs-2"><span class="labels"><label><input
-													name="id" type="checkbox"><i>✓</i></label></span></th>
-										<th class=" col-xs-2">部门</th>
-										<th class="col-xs-2">真实姓名</th>
-										<th class=" col-xs-2">用户名</th>
-										<th class="col-xs-2">角色</th>
-										<th class="col-xs-2">电话</th>
-
-									</tr>
-									<tr class="row">
-
-										<th class=" col-xs-2"><span class="labels"><label><input
-													name="id" type="checkbox"><i>✓</i></label></span></th>
-										<th class=" col-xs-2">部门</th>
-										<th class="col-xs-2">真实姓名</th>
-										<th class=" col-xs-2">用户名</th>
-										<th class="col-xs-2">角色</th>
-										<th class="col-xs-2">电话</th>
-
-									</tr>
-								</table>
-
-								<div class="box-footer no-padding"
-									style="margin-top: -20px; background: #FAFAFA; border-top: solid 1px #F5F5F5;">
-									<div style="padding: 5px;">
-										<div id="page"
-											style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-											<div style="width: 40%; float: left;">
-												<div class="pageInfo" style="margin-left: 5px;">
-													共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-												</div>
+												<a href="#"><span
+													id="ctl00_cphMain_GridView1_ctl03_lblMemoTitle"></span></a> <a
+													onclick="{return confirm(&#39;删除该记录将不能恢复，确定删除吗？&#39;);};"
+													id="ctl00_cphMain_GridView1_ctl03_gvDelete" title="删除"
+													class="pull-right btn-box-tool"
+													href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl03$gvDelete&#39;,&#39;&#39;)">
+													<i class='glyphicon glyphicon-remove-sign'></i>
+												</a> <br /> <span
+													id="ctl00_cphMain_GridView1_ctl03_lblModifyDate"
+													style="font-size: 8pt; color: #999;">2017-2-21
+													11:02:44</span>
 											</div>
-											<div style="width: 60%; float: left;">
-												<div class="pageOperation">
-													<a class="btn btn-sm btn-default no-padding"
-														style="width: 30px; height: 20px;"> <span
-														class="glyphicon glyphicon-backward"></span>
-													</a> <a class="btn btn-sm btn-default no-padding"
-														style="width: 30px; height: 20px;"> <span
-														class="glyphicon glyphicon-triangle-left"></span>
-													</a> <a disabled="disabled" class="btn btn-default no-padding"
-														style="width: 30px; height: 20px;"> 1 </a> <a
-														class="btn btn-sm btn-default no-padding"
-														style="width: 30px; height: 20px;"> <span
-														class="glyphicon glyphicon-triangle-right"></span>
-													</a> <a class="btn btn-sm btn-default no-padding"
-														style="width: 30px; height: 20px;"> <span
-														class="glyphicon glyphicon-forward"></span>
-													</a>
-												</div>
-											</div>
+											<p>
+												<span id="ctl00_cphMain_GridView1_ctl03_lblMemoDescription">如需要获得更多功能和支持，请到魔方动力淘宝旗舰店购买正版软件，网址：https://520mc.taobao.com/</span>
+											</p>
+											<ul class="list-inline">
+												<li>
+													<!--<a id="ctl00_cphMain_GridView1_ctl03_gvStar" title="标记星标" href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl03$gvStar&#39;,&#39;&#39;)"><i class="fa fa-star-o text-yellow"></i></a>-->
+												</li>
+												<li class="pull-right"><a
+													id="ctl00_cphMain_GridView1_ctl03_gvEdit" title="便签"
+													class="fancybox link-black text-sm" data-toggle="modal"
+													href="#editModal"> <i class="glyphicon glyphicon-edit"></i>
+														修改
+												</a></li>
+											</ul>
 										</div>
-									</div>
-								</div>
 
-							</div>
-
+									</td>
+								</tr>
+							</table>
 						</div>
 
 					</div>
+					<div class="box-footer no-padding" style="margin-top: -20px;">
+						<div style="padding: 5px;">
+							<div id="page"
+								style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
+								<div style="width: 40%; float: left;">
+									<div class="pageInfo" style="margin-left: 5px;">
+										共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
+									</div>
+								</div>
+								<div style="width: 60%; float: left;">
+									<div class="pageOperation">
+										<a class="btn btn-sm btn-default no-padding"
+											style="width: 30px; height: 20px;"> <span
+											class="glyphicon glyphicon-backward"></span>
+										</a> <a class="btn btn-sm btn-default no-padding"
+											style="width: 30px; height: 20px;"> <span
+											class="glyphicon glyphicon-triangle-left"></span>
+										</a> <a disabled="disabled" class="btn btn-default no-padding"
+											style="width: 30px; height: 20px;"> 1 </a> <a
+											class="btn btn-sm btn-default no-padding"
+											style="width: 30px; height: 20px;"> <span
+											class="glyphicon glyphicon-triangle-right"></span>
+										</a> <a class="btn btn-sm btn-default no-padding"
+											style="width: 30px; height: 20px;"> <span
+											class="glyphicon glyphicon-forward"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
+				
+				<div class="tab-pane" id="settings">
+					<div class="box-body">
+						<div class="row">
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label1">用户名</span></label> <input
+									name="ctl00$cphMain$txtName" type="text" value="admin"
+									id="ctl00_cphMain_txtName" class="form-control"
+									onfocus="this.blur()" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label2">电话</span></label> <input
+									name="ctl00$cphMain$txtPhone1" type="text" value="13800138000"
+									id="ctl00_cphMain_txtPhone1" class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label3">真实姓名</span></label> <input
+									name="ctl00$cphMain$txtFullName" type="text" value="盖茨"
+									id="ctl00_cphMain_txtFullName" class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label4">昵称</span></label> <input
+									name="ctl00$cphMain$txtNickName" type="text"
+									value="Administrator" id="ctl00_cphMain_txtNickName"
+									class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label5">Email</span></label> <input
+									name="ctl00$cphMain$txtEmail1" type="text"
+									value="gates@mojocube.com" id="ctl00_cphMain_txtEmail1"
+									class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label10">地址</span></label> <input
+									name="ctl00$cphMain$txtAddress1" type="text" value="广东省广州市天河区"
+									id="ctl00_cphMain_txtAddress1" class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label6">学历</span></label> <input
+									name="ctl00$cphMain$txtEducation" type="text" value="本科"
+									id="ctl00_cphMain_txtEducation" class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label7">毕业院校</span></label> <input
+									name="ctl00$cphMain$txtSchool" type="text" value="哈佛大学"
+									id="ctl00_cphMain_txtSchool" class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label8">身份证号</span></label> <input
+									name="ctl00$cphMain$txtIDNumber" type="text"
+									value="441891198801082910" id="ctl00_cphMain_txtIDNumber"
+									class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label9">银行账号</span></label> <input
+									name="ctl00$cphMain$txtBankAccount" type="text"
+									value="（工行）88088800008020" id="ctl00_cphMain_txtBankAccount"
+									class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label16">性别</span></label> <select
+									name="ctl00$cphMain$ddlSex" id="ctl00_cphMain_ddlSex"
+									class="form-control select2">
+									<option selected="selected" value="0">男</option>
+									<option value="1">女</option>
+
+								</select>
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label15">皮肤</span></label> <select
+									name="ctl00$cphMain$ddlSkin" id="ctl00_cphMain_ddlSkin"
+									class="form-control select2">
+									<option selected="selected" value="blue">经典蓝</option>
+									<option value="green">青草绿</option>
+									<option value="red">中国红</option>
+									<option value="yellow">商务黄</option>
+									<option value="purple">高贵紫</option>
+
+								</select>
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label14">生日</span></label> <input
+									name="ctl00$cphMain$txtBirthday" type="text" value="1983-06-11"
+									id="ctl00_cphMain_txtBirthday" class="form-control"
+									onfocus="WdatePicker({dateFmt:&#39;yyyy-MM-dd&#39;})" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label13">签名</span></label> <input
+									name="ctl00$cphMain$txtNote" type="text" value="天生我材必有用"
+									id="ctl00_cphMain_txtNote" class="form-control" />
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<hr />
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label11">新的密码</span></label> <input
+									name="ctl00$cphMain$txtPassword1" type="password"
+									id="ctl00_cphMain_txtPassword1" class="form-control" />
+							</div>
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label12">确认密码</span></label> <input
+									name="ctl00$cphMain$txtPassword2" type="password"
+									id="ctl00_cphMain_txtPassword2" class="form-control" />
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<hr />
+
+							<div class="col-md-6 form-group">
+								<label><span id="ctl00_cphMain_Label17">头像</span></label>
+								<div class="form-group">
+									<div class="btn btn-default"
+										style="position: relative; overflow: hidden;">
+										<i class="glyphicon glyphicon-open"></i> 上传头像 <input
+											type="file" name="file"
+											style="opacity: 0; position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%;">
+									</div>
+									<p class="help-block">尺寸在512*512以内，大小在500KB以内</p>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="box-footer" style="position: relative; overflow: hidden;">
+						<input type="submit" name="ctl00$cphMain$btnSave" value="保存"
+							id="ctl00_cphMain_btnSave" class="btn btn-primary" />
+					</div>
+
+				</div>
+
 			</div>
 		</div>
-
 	</div>
+</div>

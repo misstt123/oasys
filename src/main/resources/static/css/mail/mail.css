@@ -42,12 +42,12 @@
 			.fff>li,.files>li{
 				border-left: 3px solid transparent;
 				cursor: pointer;
-				width: 286px;
+				
 				height: 40px;
 				line-height: 40px;
 				
 			}
-			.nav>li:hover{
+			.bgc-w .nav>li:hover{
 				background-color: #eee;
 				border-left: 3px solid #eee;
 			}
