@@ -6,11 +6,10 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import cn.gson.oasys.model.entity.attendce.Attends;
+
 import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.discuss.Reply;
-import cn.gson.oasys.model.entity.note.Note;
-import cn.gson.oasys.model.entity.plan.Plan;
+
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.schedule.ScheduleList;
 /**
