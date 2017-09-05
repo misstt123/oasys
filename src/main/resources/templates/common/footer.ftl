@@ -84,10 +84,10 @@
 		$('.list-right').height(height);
 
 		//点击按钮，左侧菜单栏收缩，右侧拉伸过去
-		$('.navbar-left li').on('click', function() {
+		/* $('.navbar-left li').on('click', function() {
 			$('.col-md-2').removeClass('col-md-2').addClass('col-md-0');
 			$('.col-md-10').removeClass('col-md-10').addClass('col-md-12');
-		});
+		}); */
 		/*关闭面板  */
 		$('.glyphicon-remove').on('click',function(){
 			console.log($(this).closest('.box-show'));

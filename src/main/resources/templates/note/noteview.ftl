@@ -408,8 +408,5 @@
 				</div>
 			</div>
 	</body>
-	
-	
-	
 
 </html>
