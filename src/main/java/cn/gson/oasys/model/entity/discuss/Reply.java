@@ -1,18 +1,24 @@
 package cn.gson.oasys.model.entity.discuss;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 /**
  * 用户id
  * 讨论id
- * 没有连接外键
  * @author admin
  * 回复表
  */
@@ -29,7 +35,29 @@ public class Reply {
 	private Date replayTime;     //回复时间
 	
 	private Date content;     //内容
-
+	
+	@ManyToOne
+	@JoinColumn(name = "reply_user_id")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "discuss_id")
+	private Discuss discuss;
+	
+	@ManyToMany
+	@JoinTable(
+		name = "aoa_love_user",
+		joinColumns = {
+				@JoinColumn(name = "reply_id")
+		},
+		inverseJoinColumns = {
+				@JoinColumn(name = "user_id")
+		}
+			)
+	private List<User> users;
+	
+	
+	
 	public Long getReplyId() {
 		return replyId;
 	}
@@ -54,6 +82,30 @@ public class Reply {
 		this.content = content;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Discuss getDiscuss() {
+		return discuss;
+	}
+
+	public void setDiscuss(Discuss discuss) {
+		this.discuss = discuss;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	@Override
 	public String toString() {
 		return "Reply [replyId=" + replyId + ", replayTime=" + replayTime + ", content=" + content + "]";
@@ -67,10 +119,7 @@ public class Reply {
 	}
 
 	public Reply() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
-	
-	
 
 }

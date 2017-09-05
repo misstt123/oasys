@@ -1,14 +1,17 @@
 package cn.gson.oasys.model.entity.user;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.discuss.Reply;
 import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.role.Role;
+import cn.gson.oasys.model.entity.schedule.ScheduleList;
 /**
  * 备注：position_id	职位
 		role_id		角色
@@ -100,6 +103,12 @@ public class User {
 	@ManyToOne()
 	@JoinColumn(name = "role_id")
 	private Role role;			//外键关联 角色表
+	
+	@ManyToMany(mappedBy = "users")
+	private List<ScheduleList> scheduleLists;
+	
+	@ManyToMany(mappedBy = "users")
+	private List<Reply> replys;
 
 	public User() {}		
 

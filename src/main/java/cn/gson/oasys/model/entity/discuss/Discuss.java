@@ -7,7 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 /**
 
  * 用户id
@@ -44,6 +49,14 @@ public class Discuss {
 	private String title;    //标题
 	
 	private String content;   //内容
+	
+	@ManyToOne
+	@JoinColumn(name = "discuss_user_id")
+	private User user;		//讨论归属人
+	
+	@OneToOne
+	@JoinColumn(name = "vote_id")
+	private VoteList voteList;	// 投票id
 
 	public Long getDiscussId() {
 		return discussId;
@@ -91,6 +104,14 @@ public class Discuss {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public VoteList getVoteList() {
+		return voteList;
+	}
+
+	public void setVoteList(VoteList voteList) {
+		this.voteList = voteList;
 	}
 
 	@Override

@@ -5,7 +5,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name = "aoa_file_list")
@@ -29,16 +34,20 @@ public class FileList {
 	@Column(name = "upload_time")
 	private Date uploadTime;	//上传时间
 	
-	@Column(name = "user_id")
-	private Long userId;		//manytoone 外键 字段user_id
-	
 	private String model;		//所属模块
 	
 	@Column(name = "file_shuffix")
 	private String fileShuffix;	//文件后缀名
 
-	private Long pathId;		//文件路劲id  一对一 外键字段 path_id
-
+	
+	@ManyToOne
+	@JoinColumn(name = "file_user_id")
+	private User user;			//外键关联用户表  -文件上传者
+	
+	@OneToOne
+	@JoinColumn(name = "path_id")
+	private FilePath fpath;
+	
 	public FileList() {
 		
 	}
@@ -91,14 +100,7 @@ public class FileList {
 		this.uploadTime = uploadTime;
 	}
 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
+	
 	public String getModel() {
 		return model;
 	}
@@ -114,21 +116,30 @@ public class FileList {
 	public void setFileShuffix(String fileShuffix) {
 		this.fileShuffix = fileShuffix;
 	}
-
-	public Long getPathId() {
-		return pathId;
+	
+	public User getUser() {
+		return user;
 	}
 
-	public void setPathId(Long pathId) {
-		this.pathId = pathId;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public FilePath getFpath() {
+		return fpath;
+	}
+
+	public void setFpath(FilePath fpath) {
+		this.fpath = fpath;
 	}
 
 	@Override
 	public String toString() {
 		return "FileList [fileId=" + fileId + ", fileName=" + fileName + ", filePath=" + filePath + ", size=" + size
-				+ ", fileType=" + fileType + ", uploadTime=" + uploadTime + ", userId=" + userId + ", model=" + model
-				+ ", fileShuffix=" + fileShuffix + ", pathId=" + pathId + "]";
+				+ ", fileType=" + fileType + ", uploadTime=" + uploadTime + ", model=" + model + ", fileShuffix="
+				+ fileShuffix + "]";
 	}
-	
 
+	
+	
 }

@@ -47,11 +47,10 @@ public class Attends {
 	
 	@Column(name="attends_remark")
 	private Long attendsRemark;  //考勤备注
-
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="attends_id")
-//	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "attends_user_id")
+	private User user;
 	
 	public Long getAttendsId() {
 		return attendsId;
@@ -85,11 +84,6 @@ public class Attends {
 		this.attendsRemark = attendsRemark;
 	}
 
-	@Override
-	public String toString() {
-		return "Attends [attendsId=" + attendsId + ", attendsTime=" + attendsTime + ", attendsIp=" + attendsIp
-				+ ", attendsRemark=" + attendsRemark + "]";
-	}
 
 	public Attends(Long attendsId, Date attendsTime, Long attendsIp, Long attendsRemark) {
 		super();
@@ -103,6 +97,12 @@ public class Attends {
 		super();
 		// TODO Auto-generated constructor stub
 	} 
+	
+	@Override
+	public String toString() {
+		return "Attends [attendsId=" + attendsId + ", attendsTime=" + attendsTime + ", attendsIp=" + attendsIp
+				+ ", attendsRemark=" + attendsRemark + "]";
+	}
 	
 	
 	
