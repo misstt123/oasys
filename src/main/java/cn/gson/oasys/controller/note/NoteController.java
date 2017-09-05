@@ -4,6 +4,7 @@ package cn.gson.oasys.controller.note;
 import static org.mockito.Matchers.longThat;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
@@ -35,7 +36,9 @@ public class NoteController {
 	}
 	
 	@RequestMapping("noteinfo")
-	public String test3(@Param("id")String id){
+	public String test3(@Param("id")String id,HttpServletRequest Request){
+		Long nid=Long.valueOf(id);
+		Request.setAttribute("id", nid);
 		return "note/noteinfo";
 	}
 	
@@ -45,7 +48,11 @@ public class NoteController {
 	}
 	
 	@RequestMapping("noteedit")
-	public String test4(@Param("id")String id){
+	public String test4(@Param("id")String id,HttpServletRequest Request){
+		Long nid=Long.valueOf(id);
+		if(nid==-1)
+		System.out.println(nid);
+		Request.setAttribute("id", nid);
 		return "note/noteedit";
 	}
 	

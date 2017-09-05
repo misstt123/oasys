@@ -169,8 +169,6 @@
 			}
 
 			$(function(){
-				
-				
 				$("#ctl00_cphMain_ddlType").change(function(){
 					var choose=$("#ctl00_cphMain_ddlType option:selected");
 					if(choose.val()==2){
@@ -201,8 +199,8 @@
 		<div >
 		<div class="container box">
 			<div class="box-header">
-				<a class="label label-back back" > 
-					<span class="glyphicon glyphicon-chevron-left " ></span>返回</a>
+			 <a class="label label-back " onclick="notejump('notewrite',${id})"> 
+					<span class="glyphicon glyphicon-chevron-left" ></span>返回</a>
 			</div>
 			<div class="page-header"></div>
 				<div class="form-group">

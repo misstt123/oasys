@@ -176,12 +176,9 @@ a:hover {
 			})
 			
 		//笔记里面跳转 注意里面只存储一个id的数据
-		function notejump(url){
-		   alert($());
-		   var id=$("a .info").attr("id");
-		   console.log(id);
-		   alert(id);
-		   var data={id:id}
+		function notejump(url,id){
+		  var data={id:id}
+		  alert("---"+id);
 		   //显示具体信息
 		   var url = url;
 		   $.ajax({
@@ -218,7 +215,7 @@ a:hover {
 
 			<div class="row" style="padding-top: 15px;">
 				<div class="col-md-3">
-					<a class="btn btn-primary " onclick=""
+					<a class="btn btn-primary " onclick="notejump('noteedit','-1')"
 						style="width: 100%; margin-bottom: 20px;"><span
 						class="glyphicon glyphicon-pencil"></span> 新建</a>
 					<div class="bgc-w box box-solid">

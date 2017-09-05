@@ -56,14 +56,16 @@
 										</td>
 										<td><a 
 										title="修改" 
-										onclick="notejump('noteedit')"
-											id="1" class="label label-primary " >
+										onclick="notejump('noteedit','1')"
+											 class="label label-primary " >
 											<span
 												class="glyphicon glyphicon-edit"></span> 修改</a> 
+												
 												<a  title="查看"
-											 onclick="notejump('noteinfo')"  
-											 id="1" class="label label-primary info"><span
-												class="glyphicon glyphicon-search"></span> 查看</a> <a
+											 onclick="notejump('noteinfo','1')"  
+											 class="label label-primary info"><span
+												class="glyphicon glyphicon-search"></span> 查看</a>
+												 <a
 											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
 											href="" class="label label-danger"><span
 												class="glyphicon glyphicon-remove"></span> 删除</a></td>
