@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,10 @@ public class VoteList{
 	
 	@Column(name="end_time")			//投票结束时间
 	private Date endTime;
+	
+	@OneToOne(mappedBy = "voteList")
+	private Discuss discuss;
+	
 
 	public Long getVoteId() {
 		return voteId;

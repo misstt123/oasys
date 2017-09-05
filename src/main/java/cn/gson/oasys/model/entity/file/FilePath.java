@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +22,9 @@ public class FilePath {
 	
 	@Column(name = "path_name")
 	private String pathName;
+	
+	@OneToOne(mappedBy = "fpath")
+	private FileList fileList;
 
 	public FilePath() {
 
@@ -48,6 +52,15 @@ public class FilePath {
 
 	public void setPathName(String pathName) {
 		this.pathName = pathName;
+	}
+	
+
+	public FileList getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(FileList fileList) {
+		this.fileList = fileList;
 	}
 
 	@Override

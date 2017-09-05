@@ -7,7 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.apache.ibatis.annotations.Many;
+
+import cn.gson.oasys.model.entity.user.User;
 
 /**
  * 用户id
@@ -28,7 +35,17 @@ public class Comment {
 	private Date time; //发布时间
 	
 	private String comment;//发布内容
-
+	
+	@ManyToOne
+	@JoinColumn(name = "comment_user_id")
+	private User user;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "reply_id")
+	private Reply reply;
+	
+	
 	public Long getCommentId() {
 		return commentId;
 	}
@@ -51,6 +68,15 @@ public class Comment {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

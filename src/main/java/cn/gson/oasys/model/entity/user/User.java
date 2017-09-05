@@ -1,15 +1,21 @@
 package cn.gson.oasys.model.entity.user;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
 import cn.gson.oasys.model.entity.attendce.Attends;
+<<<<<<< HEAD
 import cn.gson.oasys.model.entity.note.Director;
+=======
+import cn.gson.oasys.model.entity.discuss.Reply;
+>>>>>>> refs/remotes/origin/zhx
 import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.role.Role;
+import cn.gson.oasys.model.entity.schedule.ScheduleList;
 /**
  * 备注：position_id	职位
 		role_id		角色
@@ -110,6 +116,12 @@ public class User {
 			@JoinColumn(name="director_id")
 	})
 	private Set<Director> director;
+
+	@ManyToMany(mappedBy = "users")
+	private List<ScheduleList> scheduleLists;
+	
+	@ManyToMany(mappedBy = "users")
+	private List<Reply> replys;
 
 	public User() {}		
 
