@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +20,6 @@ public class UserLog {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	//logid
 	
-	@Column(name = "user_id")
-	private Long userId;	//日志所属人  manytoone 外键 user_id
-	
 	@Column(name = "ip_addr")
 	private String ipAddr;	//ip地址
 	
@@ -30,6 +29,10 @@ public class UserLog {
 	
 	@Column(name = "log_time")
 	private Date logTime;	//日志记录时间
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public UserLog() {
 
@@ -41,14 +44,6 @@ public class UserLog {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 
 	public String getIpAddr() {
@@ -82,11 +77,19 @@ public class UserLog {
 	public void setLogTime(Date logTime) {
 		this.logTime = logTime;
 	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public String toString() {
-		return "UserLog [id=" + id + ", userId=" + userId + ", ipAddr=" + ipAddr + ", title=" + title + ", url=" + url
-				+ ", logTime=" + logTime + "]";
+		return "UserLog [id=" + id + ", ipAddr=" + ipAddr + ", title=" + title + ", url=" + url + ", logTime=" + logTime
+				+ "]";
 	}
 
 }

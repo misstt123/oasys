@@ -38,10 +38,10 @@ public class ScheduleList {
 	
 	@Column(name = "miaoshu")
 	private String describe;	//日程描述
-	
-	@Column(name = "user_id")
-	private Long userId;	//关联user表 
-	
+//	
+//	@Column(name = "user_id")
+//	private Long userId;	//关联user表 
+//	
 	@Column(name = "is_remind")
 	private Integer isRemind;
 	
@@ -123,20 +123,19 @@ public class ScheduleList {
 		this.describe = describe;
 	}
 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
 	public Integer getIsRemind() {
 		return isRemind;
 	}
 
 	public void setIsRemind(Integer isRemind) {
 		this.isRemind = isRemind;
+	}
+
+	@Override
+	public String toString() {
+		return "ScheduleList [rcId=" + rcId + ", typeId=" + typeId + ", statusId=" + statusId + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", createTime=" + createTime + ", title=" + title + ", describe="
+				+ describe + ", isRemind=" + isRemind + "]";
 	}
 	
 	@Override
