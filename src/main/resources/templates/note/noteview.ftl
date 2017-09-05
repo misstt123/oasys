@@ -210,7 +210,6 @@ a:hover {
 				</div>
 			</div>
 
-
 			<div class="row" style="padding-top: 15px;">
 				<div class="col-md-3">
 					<a class="btn btn-primary " onclick="notejump('noteedit','-1')"
@@ -288,8 +287,6 @@ a:hover {
 		</div>
 	</div>
 </body>
-
-
 
 
 </html>

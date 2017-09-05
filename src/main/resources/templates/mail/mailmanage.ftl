@@ -43,7 +43,7 @@ a:hover {
 			<div class="box-header">
 				<h3 class="box-title">
 					<a href="addaccount" class="label label-success" style="padding: 5px;">
-						<span class="glyphicon glyphicon-plus">新增</span>
+						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
 				<div class="box-tools">
@@ -62,9 +62,8 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
-							<th scope="col" class="commen mm">ID<span class="block"><img
+							<th scope="col" class="commen mm">类型<span class="block"><img
 									id="img" src="images/desc.gif" /></span></th>
-							<th scope="col" class="co commen">类型<span class="block"></span></th>
 							<th scope="col">账号名</th>
 							<th scope="col">创建时间</th>
 							<th scope="col" class="co commen">状态<span class="block"></span></th>
@@ -72,7 +71,7 @@ a:hover {
 						</tr>
 
 						<tr>
-							<td>10</td>
+							
 							<td><span>系统邮件</span></td>
 							<td><span>罗密欧的邮箱</span></td>
 							<td><span>2017/8/16 19:24:04</span></td>
@@ -87,7 +86,7 @@ a:hover {
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
-							<td>10</td>
+							
 							<td><span>系统邮件</span></td>
 							<td><span>罗密欧的邮箱</span></td>
 							<td><span>2017/8/16 19:24:04</span></td>
@@ -102,7 +101,7 @@ a:hover {
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
-							<td>10</td>
+							
 							<td><span>系统邮件</span></td>
 							<td><span>罗密欧的邮箱</span></td>
 							<td><span>2017/8/16 19:24:04</span></td>
@@ -117,7 +116,7 @@ a:hover {
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
-							<td>10</td>
+							
 							<td><span>系统邮件</span></td>
 							<td><span>罗密欧的邮箱</span></td>
 							<td><span>2017/8/16 19:24:04</span></td>

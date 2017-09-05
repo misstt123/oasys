@@ -36,7 +36,7 @@
 						<h2>3</h2>
 						<p>文件管理</p>
 					</div>
-					<div class="iconfont">
+					<div class="iconfont" style="margin-left: 130px;">
 						<span class="glyphicon glyphicon-folder-open"></span>
 					</div>
 					<a href="#" class="moreduo"> 更多 <span
@@ -68,7 +68,7 @@
 					</div>
 					<div class="iconfont">
 						<span class="glyphicon glyphicon-comment"></span>
-					</div>
+					</div>	
 					<a href="#" class="moreduo"> 更多 <span
 						class="glyphicon glyphicon-circle-arrow-right"></span>
 					</a>

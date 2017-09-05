@@ -139,7 +139,7 @@ li.activee>a {
 						<a class="btn btn-sm btn-default" href="" title="删除"><span
 							class="glyphicon glyphicon-trash"></span></a> <a
 							class="btn btn-sm btn-default" href="" title="标为星标"><span
-							class="glyphicon glyphicon-star"></a>
+							class="glyphicon glyphicon-star"></span></a>
 					</div>
 					<a class="btn btn-sm btn-default" href="" title="刷新"><span
 						class="glyphicon glyphicon-refresh"></span></a>

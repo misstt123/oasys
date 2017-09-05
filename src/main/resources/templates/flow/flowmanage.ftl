@@ -49,7 +49,7 @@ a:hover {
 					<div class="table-responsive">
 						<table class="table table-hover">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">类型</th>
 							<th scope="col">标题</th>
 							<th scope="col">申请时间</th>
@@ -61,7 +61,7 @@ a:hover {
 						</tr>
 						
 						<tr>
-							<td>1</td>
+							
 							<td>加班</td>
 							<td><span>1233</span></td>
 							<td><span>2017/8/26 14:44:33</span></td>

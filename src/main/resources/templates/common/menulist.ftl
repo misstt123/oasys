@@ -1,4 +1,4 @@
-<div class="col-md-2 list-left" style="background: #222d32;">
+<div class="col-md-2 list-left" style="background: #222d32; ">
 	<div class="user-panel">
 		<div class="pull-left">
 			<img src="images/handsome.JPG" class="img-circle user-image-left" />

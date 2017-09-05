@@ -9,7 +9,7 @@ maximum-scale=1, user-scalable=no">
 <title>控制面板主页</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="main">

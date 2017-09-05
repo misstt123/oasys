@@ -59,14 +59,14 @@
 			}
 			
 			.right-btn-group button {
-				background: #3c8dbc;
+				background: #e6e6e6;
 				border: 1px solid transparent;
 				border-radius: 3px;
 				outline-style: none;
 			}
 			
 			.right-btn-group button:hover {
-				background: #336380;
+				background: #adadad;
 			}
 			
 			.right-btn-group a {
@@ -118,12 +118,10 @@
 			
 			.btn-color button {
 				color: #fff;
-				background-color: #00a65a;
-				border-color: #4cae4c;
 			}
 			
 			.btn-color button:hover {
-				background: #3b713b;
+				background: #adadad;
 			}
 			/*右边五个格子的盒子，我的便签*/
 			
@@ -174,4 +172,7 @@
 				width: 32px;
 				border-bottom-right-radius: 3px;
 				border-top-right-radius: 3px;
+			}
+			.panel-title h4{
+				margin-left: 12px;
 			}

@@ -31,10 +31,11 @@ a:hover {
 				<div class="box-header">
 					<h3 class="box-title">
 						<a href="useredit?where=xz" class="label label-success" style="padding: 5px;">
-							<span class="glyphicon glyphicon-plus">新增</span>
-						</a> <a href="daycalendar" class="label label-primary"
+							<span class="glyphicon glyphicon-plus"></span> 新增
+						</a> 
+						<a href="daycalendar" class="label label-primary"
 							style="padding: 5px; margin-left: 5px;"> <span
-							class="glyphicon glyphicon-gift">生日</span>
+							class="glyphicon glyphicon-gift"></span> 生日
 						</a>
 					</h3>
 					<div class="box-tools">
@@ -65,7 +66,7 @@ a:hover {
 							</tr>
 							<tr>
 								<td>1</td>
-								<td><img src="img/1.jpg" class="img-circle"
+								<td><img src="images/handsome.jpg" class="img-circle"
 									style="width: 25px; height: 25px;" /></td>
 								<td><span>总公司</span></td>
 								<td><span>罗翔</span></td>

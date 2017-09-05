@@ -14,7 +14,7 @@ maximum-scale=1, user-scalable=no">
 		<div class="container-fluid">
 			<!-- 上边的导航栏 -->
 			<#include "/common/nav.ftl">
-			<div class="row disappear" style="heihgt:960px" >
+			<div class="row disappear" style=" background: #222d32;">
 				<!-- 左侧的菜单栏 -->
 				<#include "/common/menulist.ftl"> 
 				<!--右侧内容--> 

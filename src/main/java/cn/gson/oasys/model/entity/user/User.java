@@ -8,6 +8,7 @@ import javax.persistence.*;
 import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.plan.Plan;
+import cn.gson.oasys.model.entity.role.Role;
 /**
  * 备注：position_id	职位
 		role_id		角色
@@ -88,14 +89,18 @@ public class User {
 	@Column(name="father_id")
 	private Long fatherId;		//上司id
 
-//	@ManyToMany(mappedBy="note_id")
-//	private Set<Note> notes;
-//	
-//	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
-//	private Set<Attends> Attendces;
+	@ManyToOne()
+	@JoinColumn(name = "position_id")
+	private Position position;
 	
-//	@OneToMany(mappedBy="user",fetch=FetchType.EAGER)
-//	private Set<Plan> plans;
+	@ManyToOne()
+	@JoinColumn(name = "dept_id")
+	private Dept dept;
+	
+	@ManyToOne()
+	@JoinColumn(name = "role_id")
+	private Role role;
+
 	public User() {}		
 
 
@@ -290,6 +295,38 @@ public class User {
 	public void setFatherId(Long fatherId) {
 		this.fatherId = fatherId;
 	}
+
+	
+	
+	public Position getPosition() {
+		return position;
+	}
+
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+
+	public Dept getDept() {
+		return dept;
+	}
+
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 
 	@Override
 	public String toString() {
