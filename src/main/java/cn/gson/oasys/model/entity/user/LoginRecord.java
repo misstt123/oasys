@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,8 +25,8 @@ public class LoginRecord {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;	//记录id
 	
-	@Column(name = "user_id")
-	private Long userId;	//所属用户  Manytoone   外键 user_id
+//	@Column(name = "user_id")
+//	private Long userId;	//所属用户  Manytoone   外键 user_id
 	
 	@Column(name = "ip_addr")
 	private String ipAddr;	//ip地址
@@ -36,6 +38,10 @@ public class LoginRecord {
 	private String sessionId;	//session id
 	
 	private String browser;	//使用浏览器
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public LoginRecord() {
 
@@ -47,14 +53,6 @@ public class LoginRecord {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 
 	public String getIpAddr() {
@@ -89,19 +87,19 @@ public class LoginRecord {
 		this.browser = browser;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
-		return "LoginRecord [id=" + id + ", userId=" + userId + ", ipAddr=" + ipAddr + ", loginTime=" + loginTime
-				+ ", sessionId=" + sessionId + ", browser=" + browser + "]";
+		return "LoginRecord [id=" + id + ", ipAddr=" + ipAddr + ", loginTime=" + loginTime + ", sessionId=" + sessionId
+				+ ", browser=" + browser + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 }

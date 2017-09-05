@@ -91,15 +91,15 @@ public class User {
 
 	@ManyToOne()
 	@JoinColumn(name = "position_id")
-	private Position position;
+	private Position position;	//外键关联 职位表
 	
 	@ManyToOne()
 	@JoinColumn(name = "dept_id")
-	private Dept dept;
+	private Dept dept;			//外键关联 部门表
 	
 	@ManyToOne()
 	@JoinColumn(name = "role_id")
-	private Role role;
+	private Role role;			//外键关联 角色表
 
 	public User() {}		
 
