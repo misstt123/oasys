@@ -1,5 +1,5 @@
 
-<script type="text/javascript" src="js/task/taskmanage.js" ></script>
+<script type="text/javascript" src="js/task/taskmanage.js"></script>
 <style type="text/css">
 a {
 	color: black;
@@ -12,17 +12,21 @@ a:hover {
 .bgc-w {
 	background-color: #fff;
 }
-.block{
+
+.block {
 	display: inline-block;
 	width: 20px;
 }
-.co{
+
+.co {
 	color: blue;
 }
-.bl{
+
+.bl {
 	color: black;
 }
-.commen{
+
+.commen {
 	cursor: pointer;
 }
 </style>
@@ -43,7 +47,7 @@ a:hover {
 			<div class="box-header">
 				<h3 class="box-title">
 					<a href="addtask" class="label label-success" style="padding: 5px;">
-						<span class="glyphicon glyphicon-plus">新增</span>
+						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
 				<div class="box-tools">
@@ -62,106 +66,75 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
-													<th scope="col" class="commen mm">ID<span class="block"><img id="img" src="images/desc.gif"/></span></th>
-													<th scope="col" class="co commen">类型<span class="block"></span></th>
-													<th scope="col">标题</th>
-													<th scope="col">发布时间</th>
-													<th scope="col">发布人</th>
-													<th scope="col">部门</th>
-													<th scope="col" class="co commen">状态<span class="block"></span></th>
-													<th scope="col">操作</th>
-												</tr>
-											
-												<tr>
-													<td>
-														10
-													</td>
-													<td >
-														<span>公事</span>
-													</td>
-													<td>
-														<span>恶徒挺有钱有</span>
-													</td>
-													<td >
-														<span>2017/8/16 19:24:04</span>
-													</td>
-													<td>
-														<span>罗密欧</span>
-													</td>
-													<td>
-														<span>总经办</span>
-													</td>
-													<td>
-														<span class="label label-primary  change-color">已完成</span>
-													</td>
-													
-													<td>
-														<a title="修改" href="edittask" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-														<a title="查看" href="seetask" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
-														<a title="删除" href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"  class="label label-primary label-danger"><span class="glyphicon glyphicon-remove"></span> 删除</a>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														10
-													</td>
-													<td >
-														<span>公事</span>
-													</td>
-													<td>
-														<span>恶徒挺有钱有</span>
-													</td>
-													<td >
-														<span>2017/8/16 19:24:04</span>
-													</td>
-													<td>
-														<span>罗密欧</span>
-													</td>
-													<td>
-														<span>总经办</span>
-													</td>
-													<td>
-														<span class="label label-primary change-color">新任务</span>
-													</td>
-													
-													<td>
-														<a title="修改" href="edittask" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-														<a title="查看" href="seetask" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
-														<a title="删除" href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"  class="label label-primary label-danger"><span class="glyphicon glyphicon-remove"></span> 删除</a>
-														
-													</td>
-												</tr>
-												<tr>
-													<td>
-														10
-													</td>
-													<td >
-														<span>公事</span>
-													</td>
-													<td>
-														<span>恶徒挺有钱有</span>
-													</td>
-													<td >
-														<span>2017/8/16 19:24:04</span>
-													</td>
-													<td>
-														<span>罗密欧</span>
-													</td>
-													<td>
-														<span>总经办</span>
-													</td>
-													<td>
-														<span class="label label-primary change-color">已提交</span>
-													</td>
-													
-													<td>
-														<a title="修改" href="edittask" class="label label-primary"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-														<a title="查看" href="seetask" class="label label-primary"><span class="glyphicon glyphicon-search"></span> 查看</a>
-														<a title="删除" href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"  class="label label-primary label-danger"><span class="glyphicon glyphicon-remove"></span> 删除</a>
-														
-													</td>
-												</tr>
+
+							<th scope="col" class="commen mm">类型<span class="block"><img
+									id="img" src="images/desc.gif" /></span></th>
+							<th scope="col">标题</th>
+							<th scope="col">发布时间</th>
+							<th scope="col">发布人</th>
+							<th scope="col">部门</th>
+							<th scope="col" class="co commen">状态<span class="block"></span></th>
+							<th scope="col">操作</th>
+						</tr>
+
+						<tr>
+
+							<td><span>公事</span></td>
+							<td><span>恶徒挺有钱有</span></td>
+							<td><span>2017/8/16 19:24:04</span></td>
+							<td><span>罗密欧</span></td>
+							<td><span>总经办</span></td>
+							<td><span class="label label-primary  change-color">已完成</span>
+							</td>
+
+							<td><a title="修改" href="edittask"
+								class="label label-primary"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看"
+								href="seetask" class="label label-primary"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a title="删除"
+								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+								class="label label-primary label-danger"><span
+									class="glyphicon glyphicon-remove"></span> 删除</a></td>
+						</tr>
+						<tr>
+
+							<td><span>公事</span></td>
+							<td><span>恶徒挺有钱有</span></td>
+							<td><span>2017/8/16 19:24:04</span></td>
+							<td><span>罗密欧</span></td>
+							<td><span>总经办</span></td>
+							<td><span class="label label-primary change-color">新任务</span>
+							</td>
+
+							<td><a title="修改" href="edittask"
+								class="label label-primary"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看"
+								href="seetask" class="label label-primary"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a title="删除"
+								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+								class="label label-primary label-danger"><span
+									class="glyphicon glyphicon-remove"></span> 删除</a></td>
+						</tr>
+						<tr>
+
+							<td><span>公事</span></td>
+							<td><span>恶徒挺有钱有</span></td>
+							<td><span>2017/8/16 19:24:04</span></td>
+							<td><span>罗密欧</span></td>
+							<td><span>总经办</span></td>
+							<td><span class="label label-primary change-color">已提交</span>
+							</td>
+
+							<td><a title="修改" href="edittask"
+								class="label label-primary"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看"
+								href="seetask" class="label label-primary"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a title="删除"
+								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+								class="label label-primary label-danger"><span
+									class="glyphicon glyphicon-remove"></span> 删除</a>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>

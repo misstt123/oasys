@@ -53,7 +53,7 @@ a:hover {
 			<div class="box-header">
 				<h3 class="box-title">
 					<a href="addrole" class="label label-success" style="padding: 5px;">
-						<span class="glyphicon glyphicon-plus">新增</span>
+						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
 				<div class="box-tools">
@@ -72,14 +72,14 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover ">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">名称</th>
 							<th scope="col">权限值</th>
 							<th scope="col">操作</th>
 						</tr>
 
 						<tr>
-							<td>1</td>
+							
 							<td><span>超级管理员</span></td>
 							<td><span>100</span></td>
 							<td><a title="设定" href="roleset" class="label  label-back"><span
@@ -90,7 +90,7 @@ a:hover {
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td><span>超级管理员</span></td>
 							<td><span>100</span></td>
 							<td><a title="设定" href="roleset" class="label  label-back"><span
@@ -101,7 +101,7 @@ a:hover {
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td><span>超级管理员</span></td>
 							<td><span>100</span></td>
 							<td><a title="设定" href="roleset" class="label  label-back"><span

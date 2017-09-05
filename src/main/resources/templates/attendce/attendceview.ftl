@@ -139,10 +139,9 @@ a:hover {
 						<div class="">
 							<table class="table table-hover table-striped">
 								<tr class="table-header">
-									<th scope="col" class="commen mm">ID<span
+									<th scope="col" class="commen mm">类型<span
 										class="glyphicon glyphicon-triangle-bottom"></span>
 									</th>
-									<th scope="col" class="commen co">类型<span></span></th>
 									<th scope="col">标题</th>
 									<th scope="col">申请时间</th>
 									<th scope="col">申请人</th>
@@ -152,7 +151,7 @@ a:hover {
 									<th scope="col">操作</th>
 								</tr>
 								<tr>
-									<td>1</td>
+									
 									<td><span>我的文件</span></td>
 									<td class="mailbox-subject"><span>新建文件夹sfsf</span></td>
 									<td><span>2017/8/16 19:24:04</span></td>
