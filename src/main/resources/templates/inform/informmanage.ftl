@@ -30,7 +30,7 @@ a:hover {
 				<div class="box-header">
 					<h3 class="box-title">
 						<a href="useredit?where=xz" class="label label-success" style="padding: 5px;">
-							<span class="glyphicon glyphicon-plus">新增</span>
+							<span class="glyphicon glyphicon-plus"></span> 新增
 						</a> 
 					</h3>
 					<div class="box-tools">
@@ -49,7 +49,7 @@ a:hover {
 					<div class="table-responsive">
 						<table class="table table-hover">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">类型</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
@@ -59,34 +59,34 @@ a:hover {
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td>系统管理</td>
 							<td><span>fa-circle-o</span></td>
 							<td><span>System/Menu.aspx</span></td>
 							<td><span>菜单</span></td>
 							<td><span>0</span></td>
 							<td><span>是</span></td>
-							<td><a title="修改"
-								href="useredit?where=xg" class="label label-primary"><span
+							<td><a 
+								href="useredit?where=xg" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
 									</td>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td>系统管理</td>
 							<td><span>fa-circle-o</span></td>
 							<td><span>System/Menu.aspx</span></td>
 							<td><span>菜单</span></td>
 							<td><span>0</span></td>
 							<td><span>是</span></td>
-							<td><a title="修改"
-								href="useredit?where=xg" class="label label-primary"><span
+							<td><a
+								href="useredit?where=xg" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
 									</td>
 						</tr>

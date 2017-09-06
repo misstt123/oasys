@@ -35,6 +35,7 @@ a:hover {
 .commen {
 	cursor: pointer;
 }
+
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
@@ -82,33 +83,36 @@ a:hover {
 							
 							<td><span>超级管理员</span></td>
 							<td><span>100</span></td>
-							<td><a title="设定" href="roleset" class="label  label-back"><span
+							<td>
+							<a href="roleset" class="label sheding">
+							  <span class="glyphicon glyphicon-asterisk"></span> 设定</a>
+							<a href="modifyrole" class="label xiugai">
+							<span class="glyphicon glyphicon-edit"></span> 修改</a>
+							<a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label shanchu"><span
+									class="glyphicon glyphicon-remove"></span> 删除</a></td>
+						</tr>
+						<tr>
+							
+							<td><span>超级管理员</span></td>
+							<td><span>100</span></td>
+							<td><a href="roleset" class="label sheding" ><span
+									class="glyphicon glyphicon-asterisk"></span> 设定</a> 
+								<a href="modifyrole" class="label xiugai">
+								<span class="glyphicon glyphicon-edit"></span> 修改</a>
+								<a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								class="label shanchu" ><span
+									class="glyphicon glyphicon-remove"></span> 删除</a></td>
+						</tr>
+						<tr>
+							
+							<td><span>超级管理员</span></td>
+							<td><span>100</span></td>
+							<td>
+								<a href="roleset" class="label sheding"><span
 									class="glyphicon glyphicon-asterisk"></span> 设定</a>
-									 <a title="修改" href="modifyrole" class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="删除"
-								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label label-primary label-danger"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-						<tr>
-							
-							<td><span>超级管理员</span></td>
-							<td><span>100</span></td>
-							<td><a title="设定" href="roleset" class="label  label-back"><span
-									class="glyphicon glyphicon-asterisk"></span> 设定</a> <a title="修改"
-								href="modifyrole" class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="删除"
-								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label label-primary label-danger"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-						<tr>
-							
-							<td><span>超级管理员</span></td>
-							<td><span>100</span></td>
-							<td><a title="设定" href="roleset" class="label  label-back"><span
-									class="glyphicon glyphicon-asterisk"></span> 设定</a> <a title="修改"
-								href="modifyrole" class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="删除"
-								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label label-primary label-danger"><span
+								<a href="modifyrole" class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> 
+								<a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 					</table>

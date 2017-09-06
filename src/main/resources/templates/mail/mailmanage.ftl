@@ -79,10 +79,10 @@ a:hover {
 							<td><span class="label label-primary  change-color">有效</span>
 							</td>
 
-							<td><a title="修改" href="editaccount" class="label label-primary"><span
+							<td><a  href="editaccount" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-									title="删除" href="##" class="label label-primary label-danger"><span
+									href="##" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
@@ -94,10 +94,10 @@ a:hover {
 							<td><span class="label label-primary  change-color">有效</span>
 							</td>
 
-							<td><a title="修改" href="editaccount" class="label label-primary"><span
+							<td><a  href="editaccount" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-									title="删除" href="##" class="label label-primary label-danger"><span
+									href="##" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
@@ -109,10 +109,10 @@ a:hover {
 							<td><span class="label label-primary  change-color">失效</span>
 							</td>
 
-							<td><a title="修改" href="editaccount" class="label label-primary"><span
+							<td><a href="editaccount" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
 									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-									title="删除" href="##" class="label label-primary label-danger"><span
+									href="##" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 						<tr>
@@ -121,12 +121,13 @@ a:hover {
 							<td><span>罗密欧的邮箱</span></td>
 							<td><span>2017/8/16 19:24:04</span></td>
 
-							<td><span class="label label-primary  change-color">有效</span>
+							<td><span class="label label-primary  change-color">失效</span>
 							</td>
 
-							<td><a title="修改" href="##" class="label label-primary"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a title="删除"
-								href="##" class="label label-primary label-danger"><span
+							<td><a href="editaccount" class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
+									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+									href="##" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 					</table>

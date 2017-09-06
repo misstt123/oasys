@@ -8,8 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_task_list")
@@ -39,11 +43,13 @@ public class Tasklist {
 	@Column(name="title",nullable=false)
 	private String title;//任务主题
 	
-	@Column(name="user_id")
-	private Long userId;//发布人id
 	
-	@Column(name="describe",nullable=false)
-	private String describe;//任务描述
+	@ManyToOne
+	@JoinColumn(name="task_push_user_id")
+	private User userId;//发布人id
+	
+	@Column(name="task_describe",nullable=false)
+	private String taskDescribe;//任务描述
 	
 	@Column(name="comment")
 	private String comment;//任务评价
@@ -119,20 +125,22 @@ public class Tasklist {
 		this.title = title;
 	}
 
-	public Long getUserId() {
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
 	}
 
-	public String getDescribe() {
-		return describe;
+	
+
+	public String getTaskDescribe() {
+		return taskDescribe;
 	}
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setTaskDescribe(String taskDescribe) {
+		this.taskDescribe = taskDescribe;
 	}
 
 	public String getComment() {
@@ -180,29 +188,11 @@ public class Tasklist {
 	@Override
 	public String toString() {
 		return "Tasklist [taskId=" + taskId + ", typeId=" + typeId + ", publishTime=" + publishTime + ", starTime="
-				+ starTime + ", endTime=" + endTime + ", modifyTime=" + modifyTime + ", title=" + title + ", userId="
-				+ userId + ", describe=" + describe + ", comment=" + comment + ", isTop=" + isTop + ", isCancel="
+				+ starTime + ", endTime=" + endTime + ", modifyTime=" + modifyTime + ", title=" + title
+				+ ", taskDescribe=" + taskDescribe + ", comment=" + comment + ", isTop=" + isTop + ", isCancel="
 				+ isCancel + ", ticking=" + ticking + ", statusId=" + statusId + "]";
 	}
 
-	public Tasklist(Long typeId, Date publishTime, Date starTime, Date endTime, Date modifyTime, String title,
-			Long userId, String describe, String comment, Integer isTop, Integer isCancel, String ticking,
-			Integer statusId) {
-		super();
-		this.typeId = typeId;
-		this.publishTime = publishTime;
-		this.starTime = starTime;
-		this.endTime = endTime;
-		this.modifyTime = modifyTime;
-		this.title = title;
-		this.userId = userId;
-		this.describe = describe;
-		this.comment = comment;
-		this.isTop = isTop;
-		this.isCancel = isCancel;
-		this.ticking = ticking;
-		this.statusId = statusId;
-	}
-
+	
 	
 }

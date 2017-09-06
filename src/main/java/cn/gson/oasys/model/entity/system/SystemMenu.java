@@ -34,7 +34,10 @@ public class SystemMenu {
 
 	@Column(name = "is_show")
 	private Integer isShow; // 菜单是否显示
-
+	
+	@Column(name = "menu_grade")
+	private Integer menuGrade; //权限值分数
+	
 	public SystemMenu() {
 	}
 
@@ -94,10 +97,21 @@ public class SystemMenu {
 		this.isShow = isShow;
 	}
 
+	public Integer getMenuGrade() {
+		return menuGrade;
+	}
+	
+	public void setMenuGrade(Integer menuGrade) {
+		this.menuGrade = menuGrade;
+	}
+
 	@Override
 	public String toString() {
 		return "SystemMenu [MenuId=" + MenuId + ", parentId=" + parentId + ", menuName=" + menuName + ", menuUrl="
-				+ menuUrl + ", menuIcon=" + menuIcon + ", sortId=" + sortId + ", isShow=" + isShow + "]";
+				+ menuUrl + ", menuIcon=" + menuIcon + ", sortId=" + sortId + ", isShow=" + isShow + ", menuGrade="
+				+ menuGrade + "]";
 	}
+	
+	
 
 }

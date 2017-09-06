@@ -54,7 +54,7 @@ a:hover {
 					<div class="table-responsive">
 						<table class="table table-hover table-striped">
 							<tr>
-								<th scope="col">ID</th>
+								
 								<th scope="col">&nbsp;</th>
 								<th scope="col">部门</th>
 								<th scope="col">真实姓名</th>
@@ -65,7 +65,7 @@ a:hover {
 								<th scope="col">操作</th>
 							</tr>
 							<tr>
-								<td>1</td>
+								
 								<td><img src="images/handsome.jpg" class="img-circle"
 									style="width: 25px; height: 25px;" /></td>
 								<td><span>总公司</span></td>
@@ -74,12 +74,12 @@ a:hover {
 								<td><span>超级管理员</span></td>
 								<td><span>111122223333</span></td>
 								<td><span>3000.0</span></td>
-								<td><a title="修改" href="useredit?where=xg" class="label label-primary"><span
-										class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看详细信息"
-									href="##" class="label label-default"><span
+								<td><a  href="useredit?where=xg" class="label xiugai"><span
+										class="glyphicon glyphicon-edit"></span> 修改</a> <a
+									href="##" class="label xiugai"><span
 										class="glyphicon glyphicon-search"></span> 查看</a> <a
-									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-									href="" class="label label-danger"><span
+									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+									href="" class="label shanchu"><span
 										class="glyphicon glyphicon-remove"></span> 删除</a></td>
 							</tr>
 						</table>

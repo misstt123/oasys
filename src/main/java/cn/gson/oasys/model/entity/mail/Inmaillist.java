@@ -7,7 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.note.Attachment;
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_in_mail_list")
@@ -19,11 +24,13 @@ public class Inmaillist {
     @Column(name="mail_id")
 	private Long mailId;//内部邮件id
 	
-	@Column(name="mail-type")
+	@Column(name="mail_type")
 	private Long mailType;//邮件类型（通知，公告，邮件）
 	
-	@Column(name="mail_user_id")
-	private Long mailUserid;//发件人id
+	
+	@ManyToOne
+	@JoinColumn(name="mail_in_push_user_id")
+	private User mailUserid;//发件人id
 	
 	@Column(name="mail_title",nullable=false)
 	private String mailTitle;//邮件主题
@@ -31,8 +38,10 @@ public class Inmaillist {
 	@Column(name="mail_content")
 	private String mailContent;//邮件内容
 	
-	@Column(name="mail_file_id")
-	private Long mailFileid;//邮件附件id
+	
+	@ManyToOne
+	@JoinColumn(name="mail_file_id")
+	private Attachment mailFileid;//邮件附件id
 	
 	@Column(name="mail_create_time")
 	private Date mailCreateTime;//邮件创建时间
@@ -55,13 +64,6 @@ public class Inmaillist {
 		this.mailType = mailType;
 	}
 
-	public Long getMailUserid() {
-		return mailUserid;
-	}
-
-	public void setMailUserid(Long mailUserid) {
-		this.mailUserid = mailUserid;
-	}
 
 	public String getMailTitle() {
 		return mailTitle;
@@ -79,11 +81,21 @@ public class Inmaillist {
 		this.mailContent = mailContent;
 	}
 
-	public Long getMailFileid() {
+	
+
+	public User getMailUserid() {
+		return mailUserid;
+	}
+
+	public void setMailUserid(User mailUserid) {
+		this.mailUserid = mailUserid;
+	}
+
+	public Attachment getMailFileid() {
 		return mailFileid;
 	}
 
-	public void setMailFileid(Long mailFileid) {
+	public void setMailFileid(Attachment mailFileid) {
 		this.mailFileid = mailFileid;
 	}
 
@@ -95,17 +107,12 @@ public class Inmaillist {
 		this.mailCreateTime = mailCreateTime;
 	}
 
-	public Inmaillist(Long mailType, Long mailUserid, String mailTitle, String mailContent,
-			Long mailFileid, Date mailCreateTime) {
-		super();
-		
-		this.mailType = mailType;
-		this.mailUserid = mailUserid;
-		this.mailTitle = mailTitle;
-		this.mailContent = mailContent;
-		this.mailFileid = mailFileid;
-		this.mailCreateTime = mailCreateTime;
+	@Override
+	public String toString() {
+		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailTitle=" + mailTitle + ", mailContent="
+				+ mailContent + ", mailCreateTime=" + mailCreateTime + "]";
 	}
+
 	
 	
 }

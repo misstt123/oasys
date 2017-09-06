@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_mail_reciver")
@@ -17,11 +21,15 @@ public  class Mailreciver {
 	@Column(name="pk_id")
 	private Long pkId;
 	
-	@Column(name="mail_id")
-	private Long mailId;//内部邮件id
 	
-	@Column(name="reciver_id")
-	private Long reciverId;//内部用户id
+	@ManyToOne
+	@JoinColumn(name="mail_id")
+	private Inmaillist mailId;//内部邮件id
+	
+	
+	@ManyToOne
+	@JoinColumn(name="mail_reciver_id")
+	private User reciverId;//内部用户id
 	
 	@Column(name="is_read",nullable=false)
 	private Integer isRead;//是否已读
@@ -37,19 +45,21 @@ public  class Mailreciver {
 		this.pkId = pkId;
 	}
 
-	public Long getMailId() {
+	
+
+	public Inmaillist getMailId() {
 		return mailId;
 	}
 
-	public void setMailId(Long mailId) {
+	public void setMailId(Inmaillist mailId) {
 		this.mailId = mailId;
 	}
 
-	public Long getReciverId() {
+	public User getReciverId() {
 		return reciverId;
 	}
 
-	public void setReciverId(Long reciverId) {
+	public void setReciverId(User reciverId) {
 		this.reciverId = reciverId;
 	}
 
@@ -63,16 +73,10 @@ public  class Mailreciver {
 
 	@Override
 	public String toString() {
-		return "Mailreciver [pkId=" + pkId + ", mailId=" + mailId + ", reciverId=" + reciverId + ", isRead=" + isRead
-				+ "]";
+		return "Mailreciver [pkId=" + pkId + ", isRead=" + isRead + "]";
 	}
 
-	public Mailreciver(Long mailId, Long reciverId, Integer isRead) {
-		super();
-		this.mailId = mailId;
-		this.reciverId = reciverId;
-		this.isRead = isRead;
-	}
+	
 
 	
 	

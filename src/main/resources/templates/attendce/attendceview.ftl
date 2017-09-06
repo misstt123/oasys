@@ -162,10 +162,10 @@ a:hover {
 									<td>
 										<div class="label label-success">一般</div>
 									</td>
-									<td><a title="修改" href="attendceedit?aid=1" class="label label-primary"><span
+									<td><a  href="attendceedit?aid=1" class="label xiugai"><span
 											class="glyphicon glyphicon-edit"></span> 修改</a> <a
-										onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-										href="" class="label label-danger"><span
+										onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+										href="" class="label shanchu"><span
 											class="glyphicon glyphicon-remove"></span> 删除</a></td>
 								</tr>
 

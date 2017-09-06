@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,14 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.gson.oasys.model.entity.user.User;
-/**
- * 用户id
-* 没有连接外键
- * @author admin
- *
- */
+
 @Entity
 @Table(name="aoa_plan_list")
+/**
+ * 计划表
+ * @author 宋佳
+ *
+ */
 public class Plan {
 
 	@Id
@@ -57,16 +56,34 @@ public class Plan {
 	@Column(name="plan_comment")
 	private String planComment;   //计划评论
 
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="plan_id")
-//	private User user;
+	@ManyToOne
+	@JoinColumn(name="plan_user_id")
+	private User userId; //用户计划外键
 	
+	public Plan() {}
+
 	public Long getPlanId() {
 		return planId;
 	}
 
 	public void setPlanId(Long planId) {
 		this.planId = planId;
+	}
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	public Long getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
 	}
 
 	public Date getStartTime() {
@@ -133,31 +150,24 @@ public class Plan {
 		this.planComment = planComment;
 	}
 
+	public User getUser() {
+		return userId;
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
-		return "Plan [planId=" + planId + ", startTime=" + startTime + ", endTime=" + endTime + ", createTime="
-				+ createTime + ", title=" + title + ", label=" + label + ", planContent=" + planContent
-				+ ", planSummary=" + planSummary + ", planComment=" + planComment + "]";
+		return "Plan [planId=" + planId + ", typeId=" + typeId + ", statusId=" + statusId + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", createTime=" + createTime + ", title=" + title + ", label=" + label
+				+ ", planContent=" + planContent + ", planSummary=" + planSummary + ", planComment=" + planComment
+				+ "]";
 	}
-
-	public Plan(Long planId, Date startTime, Date endTime, Date createTime, String title, String label,
-			String planContent, String planSummary, String planComment) {
-		super();
-		this.planId = planId;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.createTime = createTime;
-		this.title = title;
-		this.label = label;
-		this.planContent = planContent;
-		this.planSummary = planSummary;
-		this.planComment = planComment;
-	}
-
-	public Plan() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	
+	
 	
 	
 }

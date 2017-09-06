@@ -30,7 +30,7 @@ a:hover {
 				<div class="box-header">
 					<h3 class="box-title">
 						<a href="useredit?where=xz" class="label label-success" style="padding: 5px;">
-							<span class="glyphicon glyphicon-plus">新增</span>
+							<span class="glyphicon glyphicon-plus"></span> 新增
 						</a> 
 					</h3>
 					<div class="box-tools">
@@ -69,8 +69,8 @@ a:hover {
 							<td><span>2017/8/26 14:44:33</span></td>
 							<td><span>朱丽叶</span></td>
 							<td><span>未批准</span></td>
-							<td> <a title="修改"
-								href="useredit?where=xg" class="label label-primary"><span
+							<td> <a 
+								href="useredit?where=xg" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> 
 									</td>
 						</tr>

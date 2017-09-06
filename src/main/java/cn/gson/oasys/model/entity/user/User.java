@@ -1,14 +1,18 @@
 package cn.gson.oasys.model.entity.user;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import cn.gson.oasys.model.entity.attendce.Attends;
+
+import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.note.Note;
-import cn.gson.oasys.model.entity.plan.Plan;
+import cn.gson.oasys.model.entity.discuss.Reply;
+
 import cn.gson.oasys.model.entity.role.Role;
+import cn.gson.oasys.model.entity.schedule.ScheduleList;
 /**
  * 备注：position_id	职位
 		role_id		角色
@@ -91,15 +95,33 @@ public class User {
 
 	@ManyToOne()
 	@JoinColumn(name = "position_id")
-	private Position position;
+	private Position position;	//外键关联 职位表
 	
 	@ManyToOne()
 	@JoinColumn(name = "dept_id")
-	private Dept dept;
+	private Dept dept;			//外键关联 部门表
 	
 	@ManyToOne()
 	@JoinColumn(name = "role_id")
-	private Role role;
+	private Role role;			//外键关联 角色表
+	
+	@ManyToMany
+	@JoinTable(name="aoa_director_user",
+	joinColumns={
+			@JoinColumn(name="user_id")
+	},inverseJoinColumns={
+			@JoinColumn(name="director_id")
+	})
+	private Set<Director> director;
+
+	@ManyToMany(mappedBy = "users")
+	private List<ScheduleList> scheduleLists;
+	
+	@ManyToMany(mappedBy = "users")
+	private List<Reply> replys;
+	
+	@ManyToMany(mappedBy = "userss")
+	private List<Note> note;
 
 	public User() {}		
 
@@ -296,12 +318,9 @@ public class User {
 		this.fatherId = fatherId;
 	}
 
-	
-	
 	public Position getPosition() {
 		return position;
 	}
-
 
 	public void setPosition(Position position) {
 		this.position = position;
@@ -325,6 +344,46 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+
+	public Set<Director> getDirector() {
+		return director;
+	}
+
+
+	public void setDirector(Set<Director> director) {
+		this.director = director;
+	}
+
+	
+	public List<ScheduleList> getScheduleLists() {
+		return scheduleLists;
+	}
+
+
+	public void setScheduleLists(List<ScheduleList> scheduleLists) {
+		this.scheduleLists = scheduleLists;
+	}
+
+
+	public List<Reply> getReplys() {
+		return replys;
+	}
+
+
+	public void setReplys(List<Reply> replys) {
+		this.replys = replys;
+	}
+
+
+	public List<Note> getNote() {
+		return note;
+	}
+
+
+	public void setNote(List<Note> note) {
+		this.note = note;
 	}
 
 

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,8 +27,9 @@ public class Outmaillist {
 	@Column(name="mail_status_id")
 	private Long mailStatusid;//邮件状态（一般，紧急，重要）
 	
-	@Column(name="mail_number_id")
-	private Long mailNumberid;//外部邮件账号id
+	@ManyToOne
+	@JoinColumn(name="mail_number_id")
+	private Mailnumber mailNumberid;//外部邮件账号id
 	
 	@Column(name="title",nullable=false)
 	private String title;//邮件主题
@@ -49,23 +52,6 @@ public class Outmaillist {
 	public Outmaillist(){}
 	
 	
-
-	public Outmaillist( Long mailType, Long mailStatusid, Long mailNumberid, String title,
-			String mailContent, Long mailFileid, String outReceiver, Date mailCreateTime, Integer isRead) {
-		super();
-		
-		this.mailType = mailType;
-		this.mailStatusid = mailStatusid;
-		this.mailNumberid = mailNumberid;
-		this.title = title;
-		this.mailContent = mailContent;
-		this.mailFileid = mailFileid;
-		this.outReceiver = outReceiver;
-		this.mailCreateTime = mailCreateTime;
-		this.isRead = isRead;
-	}
-
-
 
 	public Long getMailId() {
 		return mailId;
@@ -91,12 +77,22 @@ public class Outmaillist {
 		this.mailStatusid = mailStatusid;
 	}
 
-	public Long getMailNumberid() {
+	
+
+	public Mailnumber getMailNumberid() {
 		return mailNumberid;
 	}
 
-	public void setMailNumberid(Long mailNumberid) {
+	public void setMailNumberid(Mailnumber mailNumberid) {
 		this.mailNumberid = mailNumberid;
+	}
+
+	public Date getMailCreateTime() {
+		return mailCreateTime;
+	}
+
+	public void setMailCreateTime(Date mailCreateTime) {
+		this.mailCreateTime = mailCreateTime;
 	}
 
 	public String getTitle() {
@@ -140,7 +136,12 @@ public class Outmaillist {
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		return "Outmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailStatusid=" + mailStatusid
+				+ ", title=" + title + ", mailContent=" + mailContent + ", mailFileid=" + mailFileid + ", outReceiver="
+				+ outReceiver + ", mailCreateTime=" + mailCreateTime + ", isRead=" + isRead + "]";
+	}
 	
 
 }

@@ -10,6 +10,7 @@ a:hover {
 .bgc-w {
 	background-color: #fff;
 }
+
 </style>
 
 <div class="row" style="padding-top: 10px;">
@@ -30,7 +31,8 @@ a:hover {
 			<div class="box-header">
 				<h3 class="box-title">
 					<a href="menuedit" class="label label-success"
-						style="padding: 5px;"> <span class="glyphicon glyphicon-plus">新增</span>
+						style="padding: 5px;"> <span class="glyphicon glyphicon-plus"></span>
+						新增
 					</a>
 				</h3>
 				<div class="box-tools">
@@ -49,7 +51,7 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">名称</th>
 							<th scope="col">图标</th>
 							<th scope="col">路径</th>
@@ -59,45 +61,45 @@ a:hover {
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td>系统管理</td>
 							<td><span>fa-circle-o</span></td>
 							<td><span>System/Menu.aspx</span></td>
 							<td><span>菜单</span></td>
 							<td><span>0</span></td>
 							<td><span>是</span></td>
-							<td><a title="查看详细信息" href="##" class="label label-default"><span
-									class="glyphicon glyphicon-arrow-up"></span>上移</a> <a
-								title="查看详细信息" href="##" class="label label-default"><span
-									class="glyphicon glyphicon-arrow-down"></span>下移</a> <a title="修改"
-								href="useredit?where=xg" class="label label-primary"><span
+							<td><a  href="##" class="label sheding"><span
+									class="glyphicon glyphicon-arrow-up"></span> 上移</a> <a
+								 href="##" class="label sheding"><span
+									class="glyphicon glyphicon-arrow-down"></span> 下移</a> <a 
+								href="useredit?where=xg" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
-									<a title="查看详细信息" href="##" class="label label-success"><span
-									class="glyphicon glyphicon-plus"></span>新增</a>
+									<a  href="##" class="label xinzeng"><span
+									class="glyphicon glyphicon-plus"></span> 新增</a>
 									</td>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td>系统管理</td>
 							<td><span>fa-circle-o</span></td>
 							<td><span>System/Menu.aspx</span></td>
 							<td><span>菜单</span></td>
 							<td><span>0</span></td>
 							<td><span>是</span></td>
-							<td><a title="查看详细信息" href="##" class="label label-default"><span
-									class="glyphicon glyphicon-arrow-up"></span>上移</a> <a
-								title="查看详细信息" href="##" class="label label-default"><span
-									class="glyphicon glyphicon-arrow-down"></span>下移</a> <a title="修改"
-								href="useredit?where=xg" class="label label-primary"><span
+							<td><a  href="##" class="label sheding"><span
+									class="glyphicon glyphicon-arrow-up"></span> 上移</a> <a
+								 href="##" class="label sheding"><span
+									class="glyphicon glyphicon-arrow-down"></span> 下移</a> <a 
+								href="useredit?where=xg" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
-									<a title="查看详细信息" href="##" class="label label-success"><span
-									class="glyphicon glyphicon-plus"></span>新增</a>
+									<a  href="##" class="label xinzeng"><span
+									class="glyphicon glyphicon-plus"></span> 新增</a>
 									</td>
 						</tr>
 						

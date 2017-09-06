@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_ProcessList")
@@ -30,8 +34,10 @@ public class ProcessList{
 	@Column(name="process_describe",columnDefinition="text")
 	private String processDescribe;	//流程内容
 	
-	@Column(name="user_id")
-	private Long userId;			//流程发布人
+	
+	@ManyToOne
+	@JoinColumn(name="process_user_id")
+	private User userId;			//流程发布人
 	
 	@Column(name="apply_time")
 	private Date applyTime;			//流程发布时间
@@ -91,11 +97,11 @@ public class ProcessList{
 		this.processDescribe = processDescribe;
 	}
 
-	public Long getUserId() {
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
 	}
 
@@ -156,10 +162,12 @@ public class ProcessList{
 	@Override
 	public String toString() {
 		return "ProcessList [processId=" + processId + ", typeId=" + typeId + ", statusId=" + statusId
-				+ ", processName=" + processName + ", processDescribe=" + processDescribe + ", userId=" + userId
-				+ ", applyTime=" + applyTime + ", checkTime=" + checkTime + ", isChecked=" + isChecked + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", procseeDays=" + procseeDays + "]";
+				+ ", processName=" + processName + ", processDescribe=" + processDescribe + ", applyTime=" + applyTime
+				+ ", checkTime=" + checkTime + ", isChecked=" + isChecked + ", startTime=" + startTime + ", endTime="
+				+ endTime + ", procseeDays=" + procseeDays + "]";
 	}
+
+	
 	
 	
 	

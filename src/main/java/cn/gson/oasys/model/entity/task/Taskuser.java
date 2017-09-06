@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_task_user")
@@ -17,11 +21,14 @@ public class Taskuser {
 	@Column(name="pk_id")
 	private Long pkId;//任务接收人主键id
 	
-	@Column(name="task_id")
-	private Long taskId;//任务id外键
+
+	@ManyToOne
+	@JoinColumn(name="task_id")
+	private Tasklist taskId;//任务id外键
 	
-	@Column(name="user_id")
-	private Long userId;//接收人id外键
+	@ManyToOne
+	@JoinColumn(name="task_recive_user_id")
+	private User userId;//接收人id外键
 	
 	@Column(name="status_id")
 	private Long statusId;//任务状态id
@@ -34,19 +41,20 @@ public class Taskuser {
 		this.pkId = pkId;
 	}
 
-	public Long getTaskId() {
+	
+	public Tasklist getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(Long taskId) {
+	public void setTaskId(Tasklist taskId) {
 		this.taskId = taskId;
 	}
 
-	public Long getUserId() {
+	public User getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(User userId) {
 		this.userId = userId;
 	}
 
@@ -60,15 +68,9 @@ public class Taskuser {
 
 	@Override
 	public String toString() {
-		return "Taskuser [pkId=" + pkId + ", taskId=" + taskId + ", userId=" + userId + ", statusId=" + statusId + "]";
+		return "Taskuser [pkId=" + pkId + ", statusId=" + statusId + "]";
 	}
 
-	public Taskuser(Long taskId, Long userId, Long statusId) {
-		super();
-		this.taskId = taskId;
-		this.userId = userId;
-		this.statusId = statusId;
-	}
 	
 	
 	

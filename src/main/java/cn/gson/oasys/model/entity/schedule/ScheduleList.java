@@ -1,13 +1,20 @@
 package cn.gson.oasys.model.entity.schedule;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name = "aoa_schedule_list")
@@ -36,18 +43,26 @@ public class ScheduleList {
 	
 	private String title;	//日程标题
 	
+	@Column(name = "miaoshu")
 	private String describe;	//日程描述
-	
-	@Column(name = "user_id")
-	private Long userId;	//关联user表 
-	
+
 	@Column(name = "is_remind")
-	private Integer isRemind;
+	private Integer isRemind;	//是否提醒
 	
-	/**
-	 * 多对多关系
-	 * 
-	 */
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;			//日程所属人
+	
+	@ManyToMany
+	@JoinTable(
+		name = "aoa_schedule_user",			//日程联系人关联表
+		joinColumns = {
+			@JoinColumn(name = "rcid")
+		},
+		inverseJoinColumns = {
+			@JoinColumn(name = "user_id")
+		})
+	private List<User> users;	//联系人集合
 
 	public ScheduleList() {
 
@@ -117,14 +132,6 @@ public class ScheduleList {
 		this.describe = describe;
 	}
 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
 	public Integer getIsRemind() {
 		return isRemind;
 	}
@@ -133,12 +140,27 @@ public class ScheduleList {
 		this.isRemind = isRemind;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	@Override
+	public String toString() {
+		return "ScheduleList [rcId=" + rcId + ", typeId=" + typeId + ", statusId=" + statusId + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", createTime=" + createTime + ", title=" + title + ", describe="
+				+ describe + ", isRemind=" + isRemind + "]";
+	}
 	
 }

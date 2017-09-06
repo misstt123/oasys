@@ -29,7 +29,7 @@ a:hover {
 			<div class="box-header">
 				<h3 class="box-title">
 					<a href="##" class="label label-success" style="padding: 5px;">
-						<span class="glyphicon glyphicon-plus">新增</span>
+						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
 				<div class="box-tools">
@@ -48,21 +48,21 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
 						<tr>
-							<th scope="col">ID</th>
+							
 							<th scope="col">名称</th>
 							<th scope="col">电话</th>
 							<th scope="col">邮箱</th>
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
-							<td>1</td>
+							
 							<td><span>xxxx</span></td>
 							<td><span>8888888</span></td>
 							<td><span>1940438844@qq.com</span></td>
-							<td><a title="修改" href="##" class="label label-primary"><span
+							<td><a href="##" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-								href="" class="label label-danger"><span
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
 					</table>

@@ -26,7 +26,7 @@
 								<span
 									class="btn btn-sm btn-default glyphicon glyphicon-unchecked allcheck"></span>
 								<div class="btn-group">
-									<a class="btn btn-sm btn-default" href="" title="删除"><span
+									<a class="btn btn-sm shanchu" href="" title="删除"><span
 										class="glyphicon glyphicon-trash"></span></a> <a
 										class="btn btn-sm btn-default" href="" title="新建文件夹"><span
 										class="glyphicon glyphicon-star"></a>

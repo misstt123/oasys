@@ -169,7 +169,7 @@
 											<div class="label label-info">一般</div>
 										</td>
 										<td>
-											<a title="查看" href="##" class="label label-primary lab"><span class="glyphicon glyphicon-search"></span> 查看</a>
+											<a title="查看" href="##" class="label xiugai lab"><span class="glyphicon glyphicon-search"></span> 查看</a>
 
 										</td>
 									</tr>
@@ -199,7 +199,7 @@
 											<div class="label label-info">一般</div>
 										</td>
 										<td>
-											<a title="查看" href="##" class="label label-primary lab"><span class="glyphicon glyphicon-search"></span> 查看</a>
+											<a title="查看" href="##" class="label xiugai lab"><span class="glyphicon glyphicon-search"></span> 查看</a>
 
 										</td>
 									</tr>
