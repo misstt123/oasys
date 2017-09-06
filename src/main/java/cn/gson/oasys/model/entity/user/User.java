@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 
 import cn.gson.oasys.model.entity.note.Director;
+import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.discuss.Reply;
 
 import cn.gson.oasys.model.entity.role.Role;
@@ -118,6 +119,9 @@ public class User {
 	
 	@ManyToMany(mappedBy = "users")
 	private List<Reply> replys;
+	
+	@ManyToMany(mappedBy = "userss")
+	private List<Note> note;
 
 	public User() {}		
 
@@ -350,6 +354,36 @@ public class User {
 
 	public void setDirector(Set<Director> director) {
 		this.director = director;
+	}
+
+	
+	public List<ScheduleList> getScheduleLists() {
+		return scheduleLists;
+	}
+
+
+	public void setScheduleLists(List<ScheduleList> scheduleLists) {
+		this.scheduleLists = scheduleLists;
+	}
+
+
+	public List<Reply> getReplys() {
+		return replys;
+	}
+
+
+	public void setReplys(List<Reply> replys) {
+		this.replys = replys;
+	}
+
+
+	public List<Note> getNote() {
+		return note;
+	}
+
+
+	public void setNote(List<Note> note) {
+		this.note = note;
 	}
 
 

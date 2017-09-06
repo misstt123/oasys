@@ -53,12 +53,9 @@ public class Note {
 	@Column(name="create_time")
 	private Date createTime;//发布时间
 
-//	@OneToMany(mappedBy="note",fetch=FetchType.EAGER)
-//	private Set<Catalog>  Catalogs;
-	
-	/*@ManyToMany
+	@ManyToMany
 	@JoinTable(
-			name="receiver_note"
+			name="aoa_receiver_note"
 			,joinColumns={
 					@JoinColumn(name="note_id")
 			}
@@ -66,20 +63,11 @@ public class Note {
 					@JoinColumn(name="user_id")
 			}
 			)
-	private Set<User> users;*/
+	private Set<User> userss;
 	
-	public Note() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public Note() {}
 
-	public Note(Long noteId, String title, String content, Date createTime) {
-		super();
-		this.noteId = noteId;
-		this.title = title;
-		this.content = content;
-		this.createTime = createTime;
-	}
+	
 
 	public Long getNoteId() {
 		return noteId;
@@ -113,11 +101,51 @@ public class Note {
 		this.createTime = createTime;
 	}
 
+
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+
+
+	public Long getStatusId() {
+		return statusId;
+	}
+
+
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
+	}
+
+
+
+	public Set<User> getUserss() {
+		return userss;
+	}
+
+
+
+	public void setUserss(Set<User> userss) {
+		this.userss = userss;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", content=" + content + ", createTime=" + createTime
 				+ "]";
 	}
+
+	
 	
 	
 	
