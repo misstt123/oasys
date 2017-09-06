@@ -36,6 +36,32 @@ public class IndexController {
 		return "index/controltest";
 	}
 	
+	@RequestMapping("test2")
+	public String test2(){
+		return "systemcontrol/control";
+	}
+	@RequestMapping("test3")
+	public String test3(){
+		return "note/noteview";
+	}
+	@RequestMapping("test4")
+	public String test4(){
+		return "mail/editaccount";
+	}
+//	测试系统管理
+	@RequestMapping("testsysmenu")
+	public String testsysmenu(){
+		return "systemcontrol/menumanage";
+	}
+	@RequestMapping("testsysstatus")
+	public String testsysstatus(){
+		return "systemcontrol/statusmanage";
+	}
+	@RequestMapping("testsystype")
+	public String testsystype(){
+		return "systemcontrol/typemanage";
+	}
+	
 	
 	
 	

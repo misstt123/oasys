@@ -25,7 +25,7 @@ public class MenuSysController {
 	
 	@RequestMapping("menuedit")
 	public String newpage(){
-		return "index/menueditindex";
+		return "systemcontrol/menuedit";
 	}
 	
 	

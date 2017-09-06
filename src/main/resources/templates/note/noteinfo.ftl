@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<#include "/common/commoncss.ftl">
 <style>
 		
 		.box-header {

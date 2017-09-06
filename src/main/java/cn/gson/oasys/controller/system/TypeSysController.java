@@ -25,7 +25,7 @@ public class TypeSysController {
 	
 	@RequestMapping("typeedit")
 	public String typeEdit(){
-		return "index/typeeditindex";
+		return "systemcontrol/typeedit";
 	}
 
 }

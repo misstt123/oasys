@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<#include "/common/commoncss.ftl">
 <link href="css/common/iconfont.css" rel="stylesheet" />
 <link href="css/common/checkbox.css" rel="stylesheet" />
 <script type="text/javascript" src="easyui/jquery.min.js"></script>

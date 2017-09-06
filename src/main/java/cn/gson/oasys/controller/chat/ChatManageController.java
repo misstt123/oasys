@@ -9,12 +9,12 @@ public class ChatManageController {
 
 	@RequestMapping("chatmanage")
 	public String chatManage(){
-		return "index/chatindex";
+		return "chat/chatmanage";
 	}
 	
 	@RequestMapping("replymanage")
 	public String replyManage(){
-		return "index/replyindex";
+		return "chat/replaymanage";
 	}
 
 }

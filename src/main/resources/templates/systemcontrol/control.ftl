@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <link rel="stylesheet" href="css/controlpanel.css" />
 <div class="head-show" style="position: relative; height: 76px;">
 	<h3 style="display: inline-block; float: left;">控制面板</h3>

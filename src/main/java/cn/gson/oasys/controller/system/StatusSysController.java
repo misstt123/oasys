@@ -25,7 +25,7 @@ public class StatusSysController {
 	
 	@RequestMapping("statusedit")
 	public String typeEdit(){
-		return "index/statuseditindex";
+		return "systemcontrol/statusedit";
 	}
 	
 

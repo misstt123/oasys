@@ -10,7 +10,11 @@ maximum-scale=1, user-scalable=no">
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
-<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+<script>
+function  changepath(path){
+	$('iframe').attr('src',path);
+}
+</script>
 </head>
 <body>
 	<div class="main">
@@ -22,10 +26,11 @@ maximum-scale=1, user-scalable=no">
 					<!-- 导航栏 -->
 					<#include "/common/navlist.ftl"> 
 					<div class="col-md-12 list-right"
-						style="background: #ecf0f5; position: relative;">
+						style="background: #ecf0f5; position: relative;height:845px;">
+						<div style="height:10px"></div>
 						<!--内容区块--> 
-						<iframe src="/index" frameBorder="0"></iframe>
-						<!-- <#include "/systemcontrol/control.ftl"> -->
+						<!-- <iframe src="testsystype" frameBorder="0" width="100%" height="750px"></iframe> -->
+						<iframe src="chatmanage" frameBorder="0" width="100%" height="750px"></iframe>
 						<!-- 底部栏 -->
 						<#include "/common/footerlist.ftl">
 					</div>

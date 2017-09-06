@@ -177,9 +177,7 @@ li {
 	color: white;
 	border-left: 3px solid #00a65a!important;
 }
-.list-left,.list-right{
-	min-height:720px;
-}
+
 
 /* 表格中的抽出来的部分 */
 .menutable .btn {

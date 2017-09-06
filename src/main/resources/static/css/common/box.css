@@ -99,7 +99,7 @@
 	color: #337ab7;
 }
 
-.xiugai:hover {
+.xiugai:hover{
 	background-color: #337ab7;
 	color: #fff !important;
 }
@@ -120,4 +120,11 @@
 .xinzeng:hover {
 	background-color: #5cb85c;
 	color: #fff !important;
+}
+.row{
+	margin-right: 0px;
+	margin-left:0px;
+}
+body{
+	background:none;
 }

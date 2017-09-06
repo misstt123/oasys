@@ -1,8 +1,12 @@
+<#include "/common/commoncss.ftl">
 <style type="text/css">
 a {
 	color: black;
+	
 }
-
+ul li a{
+	font-size:13px;
+}
 a:hover {
 	text-decoration: none;
 }

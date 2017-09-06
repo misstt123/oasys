@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <style type="text/css">
 a {
 	color: black;
@@ -73,8 +74,8 @@ a:hover {
 							<td><span>是</span></td>
 							<td><a  href="#"
 								class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
-								href="replymanage" class="label xiugai"> <span
+									class="glyphicon glyphicon-edit"></span> 修改</a> 
+									<a  href="/replymanage" class="label xiugai"> <span
 									class="glyphicon glyphicon-search"></span>查看</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span
@@ -93,7 +94,7 @@ a:hover {
 							<td><a  href="#"
 								class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
-								href="useredit?where=xg" class="label xiugai"> <span
+								href="#" class="label xiugai"> <span
 									class="glyphicon glyphicon-search"></span>查看</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span

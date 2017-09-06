@@ -18,7 +18,14 @@
 					$('.glyphicon-menu-down').each(function() {
 						$(this).removeClass('glyphicon-menu-down').addClass("glyphicon-menu-left");
 					});
-					$(this).children('.pull-right').removeClass('glyphicon-menu-left').addClass("glyphicon-menu-down");
+					console.log($(this).children('.pull-right').hasClass('glyphicon-menu-down'));
+					if($(this).children('.pull-right').hasClass('glyphicon-menu-left')){
+						$(this).children('.pull-right').removeClass('glyphicon-menu-left').addClass("glyphicon-menu-down");
+					}
+					else{
+						$(this).children('.pull-right').removeClass('glyphicon-menu-down').addClass("glyphicon-menu-left");
+					}
+					
 					$('.open-menu').each(function() {
 						$(this).css("border-left", "3px solid transparent");
 					});
@@ -46,15 +53,21 @@
 
 				});
 
-				$('.right-btn-group a').on('click', function() {
+				/* $('.right-btn-group a').on('click', function() {
 					//获取右侧内容板的高度；设置面板的高度
 					console.log($('.list-right').height());
 					$('.list-left').height($('.list-right').height());
 					$('.list-right').height($('.list-right').height());
-				})
+				}) */
 				//获取右侧内容板的高度；设置面板的高度
-				console.log($('.list-right').height());
-				$('.list-left').height($('.list-right').height());
+				console.log("右边的高度"+$('.list-right').height());
+				console.log(" 网页可见区域高："+ document.body.clientHeight);
+				console.log(" 网页正文全文高："+ document.body.scrollHeight);
+				console.log(" 屏幕分辨率的高："+ window.screen.height);
+				console.log(" 屏幕可用工作区高度："+ window.screen.availHeight);
+				console.log(" 网页正文全文高："+ document.body.scrollHeight);
+				console.log(" 屏幕分辨率的高："+ window.screen.height);
+				/* $('.list-left').height($('.list-right').height()); */
 				//				$('.list-right').height($('.list-right').height());
 
 				//点击按钮，左侧菜单栏收缩，右侧拉伸过去
@@ -78,6 +91,8 @@
 					}
 				
 				});
+				
+				
 
 			});
 		</script>

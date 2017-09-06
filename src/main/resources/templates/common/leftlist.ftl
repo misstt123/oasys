@@ -2,7 +2,7 @@
 	style="width: 3%; background: red; float: left; display: none;">
 	<div
 		style="background: #008d4c; ackground: #008d4c; text-align: center; height: 50px; padding-top: 7px;">
-		<a href="#"><img src="img/logo_1.png" /></a>
+		<a href="#"><img src="images/logo_1.png" /></a>
 	</div>
 	<div class="list-left"
 		style="width: 100%; background: rgb(34, 45, 50);">
@@ -46,9 +46,9 @@
 	style="padding: 0; margin: 0; display: block;">
 	<div style="background: #008d4c;" class="col-md-12">
 		<a href="#" class="navbar-brand" style="padding: 8px 40px;"><img
-			src="img/logo.png" /></a>
+			src="images/logo.png" /></a>
 	</div>
-	<div class="col-md-12 list-left" style="background: #222d32;">
+	<div class="col-md-12 list-left" style="background: #222d32;height:845px">
 		<div class="user-panel">
 			<div class="pull-left">
 				<img src="images/handsome.JPG" class="img-circle user-image-left" />
@@ -77,18 +77,17 @@
 						data-parent="#accordion"> <span
 						class="glyphicon glyphicon-asterisk"></span> <span>系统管理 </span> <span
 						class="glyphicon glyphicon-menu-left pull-right"></span>
-
 					</a>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse ">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('testsysmenu');"> <span class="glyphicon glyphicon-record"></span>
 								<span>菜单管理</span>
 						</a></li>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('testsystype');"> <span class="glyphicon glyphicon-record"></span>
 								<span>类型管理</span>
 						</a></li>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('testsysstatus');"> <span class="glyphicon glyphicon-record"></span>
 								<span>状态管理</span>
 						</a></li>
 					</ul>
