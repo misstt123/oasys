@@ -22,10 +22,10 @@
 								<span
 									class="btn btn-sm btn-default glyphicon glyphicon-unchecked allcheck"></span>
 								<div class="btn-group">
-									<a class="btn btn-sm shanchu" href="" title="删除"><span
+									<a class="btn btn-sm btn-default" href="" title="删除"><span
 										class="glyphicon glyphicon-trash"></span></a> <a
 										class="btn btn-sm btn-default" href="" title="新建文件夹"><span
-										class="glyphicon glyphicon-star"></a>
+										class="glyphicon glyphicon-star"></span></a>
 								</div>
 								<a class="btn btn-sm btn-default" href="" title="刷新"><span
 									class="glyphicon glyphicon-refresh"></span></a>
@@ -55,19 +55,19 @@
 											<div class="label label-info">一般</div>
 										</td>
 										<td><a 
-										title="修改" 
+										
 										onclick="notejump('noteedit','1')"
-											 class="label label-primary " >
+											 class="label xiugai " >
 											<span
 												class="glyphicon glyphicon-edit"></span> 修改</a> 
 												
-												<a  title="查看"
+												<a  
 											 onclick="notejump('noteinfo','1')"  
-											 class="label label-primary info"><span
+											 class="label xiugai info"><span
 												class="glyphicon glyphicon-search"></span> 查看</a>
 												 <a
-											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-											href="" class="label label-danger"><span
+											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+											href="" class="label shanchu"><span
 												class="glyphicon glyphicon-remove"></span> 删除</a></td>
 									</tr>
 									<tr>
@@ -82,19 +82,19 @@
 										<td>
 											<div class="label label-info">一般</div>
 										</td>
-										<td><a title="修改"  
+										<td><a  
 										onclick="notejump('noteedit')"
-										class="label label-primary"
+										class="label xiugai"
 										id="1"
 										><span
 												class="glyphicon glyphicon-edit"></span> 修改</a> 
 												<a title="查看"
 											      onclick="notejump('noteinfo')" 
 											    	  id="1"
-											      class="label label-primary"><span
+											      class="label xiugai"><span
 												class="glyphicon glyphicon-search"></span> 查看</a> <a
 											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-											href="" class="label label-danger"><span
+											href="" class="label shanchu"><span
 												class="glyphicon glyphicon-remove"></span> 删除</a></td>
 									</tr>
 								</table>

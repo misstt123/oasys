@@ -339,7 +339,9 @@
 						<div class="mailbox-read-message">
 							<span id="ctl00_cphMain_lblDescription">邮件描述：</span>
 							<span id="ctl00_cphMain_lblFeedback">
-									<div>让太行山eyjr74k</div>
+									<div>
+										<p>让太行山eyjr74k</p>
+									</div>
 							</span>
 
 						</div>
@@ -349,15 +351,15 @@
 			</div>
 
 			<div class="box-footer foots">
-				<a class="btn btn-default fault fa-back"  href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left">返回</span></a>
+				<a class="btn btn-default fault fa-back"  href="javascript:history.back();"><span class="glyphicon glyphicon-chevron-left"></span> 返回</a>
 				<div class="pull-right foot">
-					<a class="btn btn-default fault"><span class="glyphicon glyphicon glyphicon-print">打印</span></a>
+					<a class="btn btn-default fault"><span class="glyphicon glyphicon glyphicon-print"></span> 打印</a>
 					<a class="btn btn-primary">
 						<svg class="icon" aria-hidden="true" style="color:#fff;">
 							<use xlink:href="#icon-huifu"></use>
-						</svg>回复
+						</svg> 回复
 					</a>
-					<a class="btn btn-primary"><span class="glyphicon glyphicon-share-alt">转发</span></a>
+					<a class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span> 转发</a>
 				</div>
 			</div>
 
