@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+<#include "/common/commoncss.ftl">
 <style type="text/css">
 a {
 	color: black;

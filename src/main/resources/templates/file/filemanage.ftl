@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/common/box.css" />
+<#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
 <style type="text/css">

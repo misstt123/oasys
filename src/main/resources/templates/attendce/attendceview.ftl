@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<#include "/common/commoncss.ftl">
 <link href="css/common/checkbox.css" rel="stylesheet" />
 <style type="text/css">
 /* .{

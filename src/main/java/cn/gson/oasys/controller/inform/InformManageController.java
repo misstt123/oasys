@@ -9,7 +9,7 @@ public class InformManageController {
 	
 	@RequestMapping("infrommanage")
 	public String infromManage(){
-		return "index/infromindex";
+		return "inform/informmanage";
 	}
 
 }

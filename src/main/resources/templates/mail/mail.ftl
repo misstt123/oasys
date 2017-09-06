@@ -1,5 +1,5 @@
 
-		
+		<#include "/common/commoncss.ftl">
 		<script type="text/javascript" src="js/common/iconfont.js" ></script>
 		<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>

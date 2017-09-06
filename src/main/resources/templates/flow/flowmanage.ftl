@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <style type="text/css">
 a {
 	color: black;

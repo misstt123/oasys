@@ -4,13 +4,11 @@
 		<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/common/checkbox.css" rel="stylesheet"/>
-	<link href="css/common/box.css" rel="stylesheet" />
-	<link href="css/common/iconfont.css"  rel="stylesheet"/>
-	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="js/iconfont.js"></script>
-<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
+<#include "/common/commoncss.ftl">
+<link href="css/common/checkbox.css" rel="stylesheet" />
+<link href="css/common/iconfont.css" rel="stylesheet" />
+<script type="text/javascript" src="js/iconfont.js"></script> 
+<script	type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
 <script>
 var startday,endday;
     //变化一周时间

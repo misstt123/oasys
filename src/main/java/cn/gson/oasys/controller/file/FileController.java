@@ -9,7 +9,7 @@ public class FileController {
 	
 	@RequestMapping("filemanage")
 	public String usermanage() {
-		return "file/fileindex";
+		return "file/filemanage";
 	}
 
 }

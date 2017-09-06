@@ -103,16 +103,16 @@
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<ul>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('deptmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>部门管理</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('positionmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>职位管理</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('usermanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>用户管理</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('userlogmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>在线用户</span>
 						</a></li>
 					</ul>
@@ -129,7 +129,7 @@
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('rolemanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>角色列表</span>
 						</a></li>
 					</ul>
@@ -147,13 +147,13 @@
 				</div>
 				<div id="collapsefour" class="panel-collapse collapse ">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('attendceatt');"> <span class="glyphicon glyphicon-record"></span>
 								<span>考勤管理</span>
 						</a></li>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('attendceweek');"> <span class="glyphicon glyphicon-record"></span>
 								<span>考勤周报表</span>
 						</a></li>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('attendcemonth');"> <span class="glyphicon glyphicon-record"></span>
 								<span>考勤月报表</span>
 						</a></li>
 					</ul>
@@ -169,7 +169,7 @@
 				</div>
 				<div id="collapsefive" class="panel-collapse collapse">
 					<ul>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('flowmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>流程管理</span>
 						</a></li>
 						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
@@ -188,7 +188,7 @@
 				</div>
 				<div id="collapsesix" class="panel-collapse collapse">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('infrommanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>通知管理</span>
 						</a></li>
 						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
@@ -208,10 +208,10 @@
 				</div>
 				<div id="collapseseven" class="panel-collapse collapse ">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('mail');"> <span class="glyphicon glyphicon-record"></span>
 								<span>账号管理</span>
 						</a></li>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('accountmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>邮件管理</span>
 						</a></li>
 					</ul>
@@ -227,10 +227,10 @@
 				</div>
 				<div id="collapseeight" class="panel-collapse collapse">
 					<ul>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('taskmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>任务管理</span>
 						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('mytask');"> <span class="glyphicon glyphicon-record"></span>
 								<span>我的任务</span>
 						</a></li>
 					</ul>
@@ -287,7 +287,7 @@
 				</div>
 				<div id="collapseeleven" class="panel-collapse collapse">
 					<ul>
-						<li><a href="#"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('filemanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>文件管理</span>
 						</a></li>
 					</ul>
@@ -303,7 +303,7 @@
 				</div>
 				<div id="collapsetwelve" class="panel-collapse collapse">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('noteview');"> <span class="glyphicon glyphicon-record"></span>
 								<span>笔记管理</span>
 						</a></li>
 					</ul>
@@ -319,7 +319,7 @@
 				</div>
 				<div id="collapsethirteen" class="panel-collapse collapse">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('addrmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>通讯录</span>
 						</a></li>
 					</ul>

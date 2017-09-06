@@ -15,7 +15,7 @@ public class MailController {
 	@RequestMapping("mail")
 	public  String index() {
 		
-		return "mail/mailindex";
+		return "mail/mail";
 	}
 	/**
 	 * 邮件管理
@@ -23,7 +23,7 @@ public class MailController {
 	 */
 	@RequestMapping("accountmanage")
 	public String accountManage(){
-		return "mail/mailmanageindex";
+		return "mail/mailmanage";
 	}
 	
 	/**

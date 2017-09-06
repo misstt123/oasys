@@ -31,17 +31,17 @@ public class AttendceController {
 	
 	@RequestMapping("attendceatt")
 	public String test(){
-		return "attendce/att";
+		return "attendce/attendceview";
 	}
 	
 	@RequestMapping("attendcemonth")
 	public String test2(){
-		return "attendce/attmonth";
+		return "attendce/monthtable";
 	}
 	
 	@RequestMapping("attendceweek")
 	public String test3(){
-		return "attendce/attweek";
+		return "attendce/weektable";
 	}
 	
 	@RequestMapping("attendceedit")

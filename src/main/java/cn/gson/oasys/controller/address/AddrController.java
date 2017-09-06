@@ -9,6 +9,6 @@ public class AddrController {
 	
 	@RequestMapping("addrmanage")
 	private String addrmanage() {
-		return "address/addrindex";
+		return "address/addrmanage";
 	}
 }

@@ -9,7 +9,7 @@ public class FlowManageController {
 
 	@RequestMapping("flowmanage")
 	public String flowManage(){
-		return "index/flowindex";
+		return "flow/flowmanage";
 	}
 
 }

@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
 

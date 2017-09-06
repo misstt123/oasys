@@ -7,8 +7,6 @@
 <#include "/common/commoncss.ftl">
 <link href="css/common/iconfont.css" rel="stylesheet" />
 <link href="css/common/checkbox.css" rel="stylesheet" />
-<script type="text/javascript" src="easyui/jquery.min.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/iconfont.js"></script>
 <script type="text/javascript" src="js/pjax.js"></script>
 <script type="text/javascript">

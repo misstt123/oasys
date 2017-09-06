@@ -63,6 +63,7 @@
 				border: 1px solid transparent;
 				border-radius: 3px;
 				outline-style: none;
+				height: 25px;
 			}
 			
 			.right-btn-group button:hover {
@@ -113,7 +114,7 @@
 			.box-show-heading {
 				background: white;
 				border: 0px;
-				height: 40px;
+				height: 50px;
 			}
 			
 			.btn-color button {

@@ -13,7 +13,7 @@ public class TaskController {
 	 */
 	@RequestMapping("taskmanage")
 	public String  index(){
-		return "task/taskmanageindex";
+		return "task/taskmanage";
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class TaskController {
 	 */
 	@RequestMapping("mytask")
 	public String  index5(){
-		return "task/mytaskindex";
+		return "task/mytask";
 	}
 
 }

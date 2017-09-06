@@ -31,11 +31,6 @@ public class IndexController {
 		return "index/index";
 	}
 	
-	@RequestMapping("test")
-	public String test(){
-		return "index/controltest";
-	}
-	
 	@RequestMapping("test2")
 	public String test2(){
 		return "systemcontrol/control";

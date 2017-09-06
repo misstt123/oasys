@@ -13,8 +13,7 @@ public class RoleController {
 	 */
 	@RequestMapping("rolemanage")
 	public String index(){
-		
-		return "role/rolemanageindex";
+		return "role/rolemanage";
 	}
 	
 	/**

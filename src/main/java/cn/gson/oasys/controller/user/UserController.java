@@ -11,22 +11,22 @@ public class UserController {
 	
 	@RequestMapping("usermanage")
 	public String usermanage() {
-		return "user/userindex";
+		return "user/usermanage";
 	}
 	
 	@RequestMapping("deptmanage")
 	public String deptmanage() {
-		return "user/deptindex";
+		return "user/deptmanage";
 	}
 	
 	@RequestMapping("positionmanage")
 	public String positionmanage() {
-		return "user/positionindex";
+		return "user/positionmanage";
 	}
 	
 	@RequestMapping("userlogmanage")
 	public String userlogmanage() {
-		return "user/userlogindex";
+		return "user/userlogmanage";
 	}
 	
 	@RequestMapping("useredit")

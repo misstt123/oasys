@@ -1,4 +1,4 @@
-
+<#include "/common/commoncss.ftl">
 <script type="text/javascript" src="js/task/taskmanage.js"></script>
 <style type="text/css">
 a {

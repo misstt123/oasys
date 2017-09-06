@@ -32,7 +32,7 @@ public class NoteController {
 	//笔记主界面
 	@RequestMapping("noteview")
 	public String test(){
-		return "note/notev";
+		return "note/noteview";
 	}
 	
 	@RequestMapping("noteinfo")
