@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script type="text/javascript" src="js/note/noteview.js"></script>
+</head>
 <body>
+
 	<div class="bgc-w box box-primary" >
 						<!--盒子头-->
 						<div class="box-header">

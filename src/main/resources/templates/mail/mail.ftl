@@ -11,7 +11,6 @@
 		<link rel="stylesheet" href="css/common/tanchuang.css" />
 	<script>
 			$(function(){
-				
 				$(".write").click(function(){
 					$(".set").css("display","block");
 					$(".yuan").css("display","none");
@@ -56,8 +55,7 @@
 								</span>
 					</div>
 					<ul class="nav nav-pills nav-stacked files ">
-
-						<li style="border-left: 3px solid blue;">
+							<li style="border-left: 3px solid blue;">
 							<span class="glyphicon glyphicon-inbox le"> 收件箱</span>
 							<span class="pull-right uncheck"><i class="btn btn-xs btn-primary">1</i></span>
 						</li>

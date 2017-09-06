@@ -57,7 +57,7 @@
 							<a id="ctl00_cphMain_lnbDraft" class="btn btn-default glyphicon glyphicon-print">打印</a>
 							<a id="ctl00_cphMain_lnbSend" class="btn btn-primary glyphicon glyphicon-edit">编辑</a>	
 						</div>
-						<a class="btn btn-default"  onclick="notejump('notewrite')"> 
+						<a class="btn btn-default"  onclick="notejump('notewrite',${id})"> 
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							返回
 						</a>
