@@ -81,11 +81,7 @@
 			if (!confirm("确定关闭吗？")) {
 				return false;
 			}
-<<<<<<< HEAD
 				$(this).closest('.box-show').css('display','none');
-=======
-			$(this).closest('.box-show').css('display', 'none');
->>>>>>> refs/remotes/origin/zhx
 		});
 	});
 </script>

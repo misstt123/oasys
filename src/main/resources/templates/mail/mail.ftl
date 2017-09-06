@@ -11,7 +11,6 @@
 		<link rel="stylesheet" href="css/common/tanchuang.css" />
 	<script>
 			$(function(){
-				
 				$(".write").click(function(){
 					$(".set").css("display","block");
 					$(".yuan").css("display","none");

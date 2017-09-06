@@ -137,35 +137,7 @@
 					editor.html('');
 				});
 			});
-			/*模态框新增联系人*/
-			function addvalue(){
-				var id_array=new Array();
-				$('input[name="id"]:checked').each(function(){
-					
-					id_array.push($(this).val());//向数组中添加元素
-					var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
-					$("#ctl00_cphMain_txtReceiver").val(idstr);
-					
-				})
-				
-				$(".close").click();
-				
-			}
-			/*追加到联系人*/
-			function addvalue2(){
-				var id_array=new Array();
-				var  idstr=null;
-				$('input[name="id"]:checked').each(function(){
-					id_array.push($(this).val());
-					idstr=id_array.join(';');
-				})
-				
-				var org=$("#ctl00_cphMain_txtReceiver").val();
-				$("#ctl00_cphMain_txtReceiver").val(org+';'+idstr);	
-				$(".close").click();
-				
-			}
-
+			
 			$(function(){
 				$("#ctl00_cphMain_ddlType").change(function(){
 					var choose=$("#ctl00_cphMain_ddlType option:selected");
@@ -188,8 +160,30 @@
 					$("#ctl00_cphMain_txtMailTo").attr("disabled",true);
 				}
 			})
-				
 			})
+			/*模态框新增联系人*/
+			function addvalue(){
+				var id_array=new Array();
+				$('input[name="id"]:checked').each(function(){
+					id_array.push($(this).val());//向数组中添加元素
+					var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
+					$("#ctl00_cphMain_txtReceiver").val(idstr);
+				})
+				$(".close").click();
+			}
+			/*追加到联系人*/
+			function addvalue2(){
+				var id_array=new Array();
+				var  idstr=null;
+				$('input[name="id"]:checked').each(function(){
+					id_array.push($(this).val());
+					idstr=id_array.join(';');
+				})
+				
+				var org=$("#ctl00_cphMain_txtReceiver").val();
+				$("#ctl00_cphMain_txtReceiver").val(org+';'+idstr);	
+				$(".close").click();
+			}
 		</script>
 	</head>
 	
@@ -218,7 +212,7 @@
 				
 				<div class="form-group">
 				<div id="MoreDiv">
-					<input name="ctl00_cphMain_txtShareTo" type="text" id="ctl00_cphMain_txtShareTo" class="form-control"
+					<input name="ctl00_cphMain_txtReceiver" type="text" id="ctl00_cphMain_txtReceiver" class="form-control"
 					 placeholder="分享给：" />
 				<div class="reciver">
 					<a  data-toggle="modal" data-target="#myModal" data-backdrop="static"  >
@@ -273,17 +267,17 @@
 
 									<div class="modal-header" style="margin:10px;">
 										<button class="close close2" data-dismiss="modal" style="display:block;background-color: black; margin:-90px -82px 0 0;
-						border-radius:60%;"><span class="glyphicon glyphicon-remove-circle"style="color:white;font-size: 30px;" ></span></button>
+						border-radius:60%;"><span class="glyphicon glyphicon-remove-circle"style="  color:white;font-size: 30px;" ></span></button>
 										<div class="row">
 											<div class="col-xs-12" style="height:30px;margin:10px 0px;">
 									<h4 style="float:left;">
-                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  href="##" onclick="addvalue()"> 新增接收人</a>
-                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  href="##" onclick="addvalue2()"> 
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"   onclick="addvalue()"> 新增接收人</a>
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  onclick="addvalue2()"> 
                       				追加接收人</a>
                   			</h4>
 
-												<div class="input-group">
-													<input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
+												<div class="input-group" style="width: 150px;float: right;margin-top: 13px;">
+												 <input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
 													<div class="input-group-btn" style="top:-1px;">
 														<a class="btn btn-sm btn-default glyphicon glyphicon-search" href=""></a>
 													</div>
@@ -303,7 +297,7 @@
 										<th class=" col-xs-2">电话</th>
 									</tr>
 									<tr class="row">
-										<th class=" col-xs-2"><input type="checkbox" name="id"  value="dsafas"/></th>
+										<th class=" col-xs-2"><input type="checkbox" name="id"  value="dsafas" style="display:block"/></th>
 										<th class="col-xs-2" >部门</th>
 										<th class=" col-xs-2">真实姓名 </th>
 										<th class="col-xs-2">用户名</th>
