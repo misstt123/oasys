@@ -24,7 +24,8 @@ maximum-scale=1, user-scalable=no">
 					<div class="col-md-12 list-right"
 						style="background: #ecf0f5; position: relative;">
 						<!--内容区块--> 
-						<#include "/systemcontrol/control.ftl">
+						<iframe src="/index" frameBorder="0"></iframe>
+						<!-- <#include "/systemcontrol/control.ftl"> -->
 						<!-- 底部栏 -->
 						<#include "/common/footerlist.ftl">
 					</div>
