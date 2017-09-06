@@ -33,9 +33,8 @@ public class IndexController {
 	
 	@RequestMapping("test")
 	public String test(){
-		return "index/test";
+		return "index/controltest";
 	}
-	
 	
 	
 	

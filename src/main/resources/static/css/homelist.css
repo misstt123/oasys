@@ -226,4 +226,24 @@ li {
 	margin-top: 20px;
 	background: transparent;
 }
+#smallDiv li {
+	text-align: center;
+	border: 3px solid transparent;
+	display: block;
+	width: 100%;
+	height: 40px;
+	padding: 6px;
+	margin-bottom: 2px;
+}
+
+#smallDiv a {
+	color: #b8c7ce;
+	font-size: 16px;
+}
+
+#smallDiv li:hover {
+	border-left: 3px solid #00a65a;
+}
+
+
 
