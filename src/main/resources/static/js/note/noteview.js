@@ -36,12 +36,14 @@ $(function() {
 								$(this).removeClass("glyphicon-minus")
 										.addClass("glyphicon-plus");
 								ul.slideToggle(500);
-							} }
+							} 
 							if ($(this).hasClass("glyphicon-plus")){
 								$(this).removeClass("glyphicon-plus").addClass(
 										"glyphicon-minus");
 								ul.slideToggle(500);
 							}
+							}
+							
 						})
 				//收藏
 				$(".collect").on(
