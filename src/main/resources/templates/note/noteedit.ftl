@@ -169,7 +169,8 @@
 					var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
 					$("#ctl00_cphMain_txtReceiver").val(idstr);
 				})
-				$(".close").click();
+				$(".modal-header button").click();
+				$('#myModal').modal('hide');
 			}
 			/*追加到联系人*/
 			function addvalue2(){
@@ -179,7 +180,6 @@
 					id_array.push($(this).val());
 					idstr=id_array.join(';');
 				})
-				
 				var org=$("#ctl00_cphMain_txtReceiver").val();
 				$("#ctl00_cphMain_txtReceiver").val(org+';'+idstr);	
 				$(".close").click();
@@ -191,7 +191,7 @@
 		<div >
 		<div class="container box">
 			<div class="box-header">
-			 <a class="label label-back " onclick="notejump('notewrite')"> 
+			 <a class="label label-back " onclick="notejump('notewrite',${id})"> 
 					<span class="glyphicon glyphicon-chevron-left" ></span>返回</a>
 			</div>
 			<div class="page-header"></div>
@@ -267,12 +267,12 @@
 
 									<div class="modal-header" style="margin:10px;">
 										<button class="close close2" data-dismiss="modal" style="display:block;background-color: black; margin:-90px -82px 0 0;
-						border-radius:60%;"><span class="glyphicon glyphicon-remove-circle"style="  color:white;font-size: 30px;" ></span></button>
+						border-radius:60%;"><span class="glyphicon glyphicon-remove-circle" style="color:white;font-size: 30px;" ></span></button>
 										<div class="row">
 											<div class="col-xs-12" style="height:30px;margin:10px 0px;">
 									<h4 style="float:left;">
-                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"   onclick="addvalue()"> 新增接收人</a>
-                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  onclick="addvalue2()"> 
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"   onclick="addvalue()"  data-dismiss="modal"> 新增接收人</a>
+                      			<a class="btn btn-success glyphicon glyphicon-plus btn-sm"  onclick="addvalue2()"  data-dismiss="modal"> 
                       				追加接收人</a>
                   			</h4>
 
@@ -307,7 +307,7 @@
 									</tr>
 									<tr class="row">
 
-										<th class=" col-xs-2"><input type="checkbox" /></th>
+										<th class=" col-xs-2"><input type="checkbox" name="id"  value="dsafas" style="display:block"/></th>
 										<th class=" col-xs-2" name="id">部门</th>
 										<th class=" col-xs-2">真实姓名 </th>
 										<th class=" col-xs-2">用户名</th>

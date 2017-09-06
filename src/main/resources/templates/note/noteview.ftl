@@ -8,10 +8,25 @@
 <link href="css/common/checkbox.css" rel="stylesheet" />
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/note/noteview.js"></script>
 <script type="text/javascript" src="js/iconfont.js"></script>
 <script type="text/javascript" src="js/pjax.js"></script>
 <script type="text/javascript">
+$(function(){
+	//收缩
+	$(".change").click(function(){
+						var $this=$(this).children();
+						var $ul=$(this).parents(".box-header").next();
+						if($this.hasClass("glyphicon-minus")){
+								$this.removeClass("glyphicon-minus").addClass("glyphicon-plus");
+								$ul.slideToggle(1000);
+							} 
+							else{
+								$this.removeClass("glyphicon-plus").addClass("glyphicon-minus");	
+								$ul.slideToggle(1000);
+							} 
+					})
+})
+
 //笔记里面跳转 注意里面只存储一个id的数据
 function notejump(url,id){
   var data={id:id}
@@ -87,7 +102,9 @@ a:hover {
 	height: 25px;
 	border: none;
 }
-
+.box-header span{
+border: none;
+}
 .box-header i:hover {
 	background-color: #E7E7E7;
 }
@@ -132,7 +149,9 @@ a:hover {
 					<div class="bgc-w box box-solid">
 						<div class="box-header">
 							<h3 class="box-title">笔记</h3>
-							<i class=" btn btn-xs btn-default  pull-right glyphicon glyphicon-minus change mm"></i>
+							<span class="btn btn-xs btn-default  pull-right  change">
+							<i class="glyphicon glyphicon-minus"></i>
+							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
 							<li class="borderleft"><a href=""> <span
@@ -171,8 +190,9 @@ a:hover {
 					<div class="bgc-w box box-solid">
 						<div class="box-header">
 							<h3 class="box-title">类型</h3>
-							<i
-								class="btn btn-xs btn-default  pull-right glyphicon glyphicon-minus change"></i>
+							<span class="btn btn-xs btn-default  pull-right change">
+							<i class="glyphicon glyphicon-minus "></i>
+								</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="##"> <svg class="icon" aria-hidden="true">
