@@ -27,9 +27,8 @@ function  changepath(path){
 					<#include "/common/navlist.ftl"> 
 					<div class="col-md-12 list-right"
 						style="background: #ecf0f5; position: relative;height:845px;">
-						<div style="height:10px"></div>
 						<!--内容区块--> 
-						<iframe src="test2" frameBorder="0" width="100%" height="750px"></iframe>
+						<iframe src="test2" frameBorder="0" width="100%" height="780px"></iframe>
 						<!-- 底部栏 -->
 						<#include "/common/footerlist.ftl">
 					</div>

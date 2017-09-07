@@ -1,7 +1,7 @@
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" href="css/controlpanel.css" />
 <div class="head-show" style="position: relative; height: 76px;">
-	<h3 style="display: inline-block; float: left;">控制面板</h3>
+	<h3 style="display: inline-block; float: left;margin-left: 16px;">控制面板</h3>
 	<ol class="breadcrumb pull-right"
 		style="float: right; margin-top: 20px; background: transparent;">
 		<li><a href="#"> <span class="glyphicon glyphicon-home"></span>

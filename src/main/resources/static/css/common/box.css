@@ -11,7 +11,7 @@
 .box-header {
 	color: #444;
 	display: block;
-	padding: 10px;
+	padding: 12px;
 	position: relative;
 	border-bottom: 1px solid #f4f4f4;
 }
@@ -57,6 +57,7 @@
 
 .table .label {
 	padding: 0.4em .6em .3em;
+	line-height: 22px;
 }
 
 .no-padding {
@@ -127,4 +128,7 @@
 }
 body{
 	background:none;
+}
+.input-group-btn .btn{
+	padding:8px;
 }
