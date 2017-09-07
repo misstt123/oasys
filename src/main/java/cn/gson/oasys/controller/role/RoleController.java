@@ -1,19 +1,32 @@
 package cn.gson.oasys.controller.role;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import cn.gson.oasys.model.dao.roledao.RoleDao;
+import cn.gson.oasys.model.entity.role.Role;
 
 @Controller
 @RequestMapping("/")
 public class RoleController {
-
+	
+	@Autowired
+	private RoleDao rdao;
+	
+	
 	/**
 	 * 角色管理
 	 * @return
 	 */
 	@RequestMapping("rolemanage")
-	public String index(){
-		return "role/rolemanage";
+	public ModelAndView index(){
+		ModelAndView mav=new ModelAndView("role/rolemanage");
+		Iterable<Role> rolelist=rdao.findAll();
+		System.out.println(rolelist);
+		mav.addObject("rolelist", rolelist);
+		return mav;
 	}
 	
 	/**
