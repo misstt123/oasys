@@ -29,18 +29,18 @@ public class PlanController {
 	//计划管理
 	@RequestMapping("planview")
 	public String test(){
-		return "plan/planv";
+		return "plan/planview";
 	}
-	//我的计划
+	//计划报表
 	@RequestMapping("myplan")
 	public String test2(){
-		return "plan/plant";
+		return "plan/plantable";
 	}
 	//我的编辑
 		@RequestMapping("planedit")
 		public String test3(@Param("pid")String pid,Model model){ 
 			model.addAttribute("pid", pid);
-			return "plan/plane";
+			return "plan/planedit";
 		}
 	
 	

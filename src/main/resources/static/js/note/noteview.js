@@ -86,7 +86,9 @@ $(function() {
 						}
 					})
 				
-						
+					/*$(".row .col-md-3 ul li").click(function(){
+						$(this).addClass("borderleft").sibling().removeClass("borderleft");
+					})	*/
 				
 				
 			})

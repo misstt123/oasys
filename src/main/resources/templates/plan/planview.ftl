@@ -4,9 +4,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<#include "/common/commoncss.ftl">
 <link href="css/common/checkbox.css" rel="stylesheet"/>
 	<link href="css/common/box.css" rel="stylesheet" />
 	<link href="css/common/iconfont.css"  rel="stylesheet"/>
+	
 	<script type="text/javascript" src="easyui/jquery.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script type="text/javascript" src="js/iconfont.js"></script>
@@ -100,7 +102,8 @@
 						<div class="input-group" style="width:150px;float:right;top:-5px">
 											<input type="text" class="form-control input-sm pull-right" placeholder="查找..." />
 											<div class="input-group-btn" style="top:-1px;">
-												<a class="btn btn-sm btn-default glyphicon glyphicon-search" href=""></a>
+												<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change
+												" href=""></a>
 											</div>
 										</div>
 

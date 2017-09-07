@@ -268,10 +268,10 @@
 				</div>
 				<div id="collapseten" class="panel-collapse collapse ">
 					<ul>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('planview');"> <span class="glyphicon glyphicon-record"></span>
 								<span>计划管理</span>
 						</a></li>
-						<li><a href=""> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('myplan');"> <span class="glyphicon glyphicon-record"></span>
 								<span>计划报表</span>
 						</a></li>
 					</ul>
