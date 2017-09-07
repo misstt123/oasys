@@ -14,6 +14,13 @@ a:hover {
 }
 
 </style>
+<script>
+	$(function(){
+		$("#save").click(function(){
+			
+		})
+	})
+</script>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
 		<h1 style="font-size: 24px; margin: 0;" class="">角色管理</h1>
@@ -58,7 +65,7 @@ a:hover {
 			</div>
 			<!--盒子尾-->
 			<div class="box-footer">
-				<input class="btn btn-primary" id="save" type="submit" value="保存" />
+				<a class="btn btn-primary" id="save"  href="#" >保存</a>
 				<input class="btn btn-default" id="cancel" type="submit" value="取消"
 					onclick="window.history.back();" />
 			</div>

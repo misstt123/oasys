@@ -78,11 +78,14 @@ a:hover {
 							<th scope="col">权限值</th>
 							<th scope="col">操作</th>
 						</tr>
-
+						<#list rolelist as item>
 						<tr>
-							
-							<td><span>超级管理员</span></td>
-							<td><span>100</span></td>
+							<td><span>${item.roleName}</span></td>
+							<#if item.roleValue??>
+								<td><span>${item.roleValue}</span></td>
+							<#else>
+								 <td><span>0</span></td>  
+							</#if>
 							<td>
 							<a href="roleset" class="label sheding">
 							  <span class="glyphicon glyphicon-asterisk"></span> 设定</a>
@@ -91,30 +94,8 @@ a:hover {
 							<a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
-						<tr>
-							
-							<td><span>超级管理员</span></td>
-							<td><span>100</span></td>
-							<td><a href="roleset" class="label sheding" ><span
-									class="glyphicon glyphicon-asterisk"></span> 设定</a> 
-								<a href="modifyrole" class="label xiugai">
-								<span class="glyphicon glyphicon-edit"></span> 修改</a>
-								<a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								class="label shanchu" ><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-						<tr>
-							
-							<td><span>超级管理员</span></td>
-							<td><span>100</span></td>
-							<td>
-								<a href="roleset" class="label sheding"><span
-									class="glyphicon glyphicon-asterisk"></span> 设定</a>
-								<a href="modifyrole" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> 
-								<a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
+						</#list>
+						
 					</table>
 				</div>
 			</div>
