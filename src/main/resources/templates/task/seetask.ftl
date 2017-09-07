@@ -1,4 +1,5 @@
-	<link rel="stylesheet" href="css/task/seetask.css" />
+<#include "/common/commoncss.ftl">
+<link rel="stylesheet" href="css/task/seetask.css" />
 	<style type="text/css">
 a {
 	color: #fff;

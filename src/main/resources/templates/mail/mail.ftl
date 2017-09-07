@@ -247,7 +247,7 @@
 							<h3 class="box-title">写信</h3>
 							<div class="box-tools">
 								<div class="pull-right top">
-									<button type="button" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-chevron-down ">展开更多</span></button>
+									<button type="button" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-chevron-down ">展开更多</span></button>
 								</div>
 							</div>
 						</div>
@@ -291,7 +291,7 @@
 
 							<div class="form-group">
 								<form id="ss">
-									<textarea name="content" style="width:899px;height:300px;visibility:hidden;font-size: 20px;"></textarea>
+									<textarea name="content" style="width:100%;height:300px;visibility:hidden;font-size: 20px;"></textarea>
 								</form>
 							</div>
 

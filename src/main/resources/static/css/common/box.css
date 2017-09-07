@@ -87,9 +87,11 @@
 
 /*label样式变换  */
 .sheding {
-	color: #6d7b8a;
+	color: #6d7b8a ;
 }
-
+.sheding:visited {
+	color: #6d7b8a !important;
+}
 .sheding:hover {
 	background-color: #6d7b8a;
 	color: #fff !important;
@@ -98,16 +100,22 @@
 .xiugai {
 	color: #337ab7;
 }
-
+.xiugai:visited {
+	color: #337ab7 !important;
+}
 .xiugai:hover{
 	background-color: #337ab7;
 	color: #fff !important;
 }
 
+
 .shanchu {
 	color: #d9534f;
 }
 
+.shanchu:visited {
+	color: #d9534f !important;
+}
 .shanchu:hover {
 	background-color: #d9534f;
 	color: #fff !important;
@@ -116,7 +124,9 @@
 .xinzeng {
 	color: #5cb85c;
 }
-
+.xinzeng:visited {
+	color:  #5cb85c !important;
+}
 .xinzeng:hover {
 	background-color: #5cb85c;
 	color: #fff !important;
