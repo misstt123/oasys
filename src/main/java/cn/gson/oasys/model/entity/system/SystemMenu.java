@@ -15,7 +15,7 @@ public class SystemMenu {
 	@Id
 	@Column(name = "menu_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long MenuId; // 菜单id
+	private Long menuId; // 菜单id
 
 	@Column(name = "parent_id")
 	private Long parentId; // 父id
@@ -42,11 +42,11 @@ public class SystemMenu {
 	}
 
 	public Long getMenuId() {
-		return MenuId;
+		return menuId;
 	}
 
 	public void setMenuId(Long menuId) {
-		MenuId = menuId;
+		menuId = menuId;
 	}
 
 	public Long getParentId() {
@@ -107,7 +107,7 @@ public class SystemMenu {
 
 	@Override
 	public String toString() {
-		return "SystemMenu [MenuId=" + MenuId + ", parentId=" + parentId + ", menuName=" + menuName + ", menuUrl="
+		return "SystemMenu [MenuId=" + menuId + ", parentId=" + parentId + ", menuName=" + menuName + ", menuUrl="
 				+ menuUrl + ", menuIcon=" + menuIcon + ", sortId=" + sortId + ", isShow=" + isShow + ", menuGrade="
 				+ menuGrade + "]";
 	}

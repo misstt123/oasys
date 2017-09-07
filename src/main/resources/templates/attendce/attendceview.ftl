@@ -129,7 +129,7 @@ a:hover {
 						<input type="text" class="form-control input-sm pull-right"
 							placeholder="查找..." />
 						<div class="input-group-btn" style="top: -1px;">
-							<a class="btn btn-sm btn-default glyphicon glyphicon-search"
+							<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change"
 								href=""></a>
 						</div>
 					</div>

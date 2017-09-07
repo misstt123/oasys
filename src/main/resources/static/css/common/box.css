@@ -142,3 +142,6 @@ body{
 .input-group-btn .btn{
 	padding:8px;
 }
+.input-group-btn .btn-change{
+	padding:5px;
+}

@@ -1,7 +1,10 @@
 package cn.gson.oasys.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.gson.oasys.model.dao.BlogDao;
+import cn.gson.oasys.model.dao.IndexDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.entity.Blog;
+import cn.gson.oasys.model.entity.system.SystemMenu;
 
 
 @Controller
@@ -24,10 +29,17 @@ public class IndexController {
 	Logger log=LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private BlogDao bDao;
+	private IndexDao iDao;
 	
 	@RequestMapping("index")
 	public String index(HttpServletRequest req){
+		HttpSession session=req.getSession();
+		Iterable<SystemMenu> oneMenuAll=iDao.findByParentId(0L);
+		Iterable<SystemMenu> twoMenuAll=iDao.findByParentIdNot(0L);
+		
+		session.setAttribute("oneMenuAll", oneMenuAll);
+		session.setAttribute("twoMenuAll", twoMenuAll);
+		
 		return "index/index";
 	}
 	
