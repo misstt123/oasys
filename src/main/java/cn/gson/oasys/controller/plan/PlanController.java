@@ -31,7 +31,7 @@ public class PlanController {
 	public String test(){
 		return "plan/planview";
 	}
-	//我的计划
+	//计划报表
 	@RequestMapping("myplan")
 	public String test2(){
 		return "plan/plantable";

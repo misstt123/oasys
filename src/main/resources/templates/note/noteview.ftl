@@ -124,6 +124,7 @@ border: none;
 	display: none;
 }
 </style>
+
 </head>
 
 <body style="background-color: #ecf0f5;">
@@ -156,16 +157,9 @@ border: none;
 							<li class="borderleft"><a href=""> <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
-							<li><a class="pjax" href="box.html"><span
-									class="glyphicon glyphicon-file"></span> 文档</a></li>
-							<li><a class="pjax" href="##"><span
-									class="glyphicon glyphicon-picture"></span> 图片</a></li>
-							<li><a href=""><span class="glyphicon glyphicon-music"></span>
-									音乐</a></li>
-							<li><a href=""><span
-									class="glyphicon glyphicon-facetime-video"></span> 视频</a></li>
-							<li><a href="##"><span
-									class="glyphicon glyphicon-briefcase"></span> 压缩包</a></li>
+							<!-- 使用foreach循环 循环出集合-->
+							<li><a  href=""><span
+									class="glyphicon glyphicon-folder-open"></span>文档</a></li>
 						</ul>
 					</div>
 

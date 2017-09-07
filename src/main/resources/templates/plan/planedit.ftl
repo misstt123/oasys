@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="easyui/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
+<#include "/common/commoncss.ftl">
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script><title>Insert title here</title>

@@ -55,7 +55,7 @@
 					<div class="box-footer">
 						<div class="pull-right">
 							<a id="ctl00_cphMain_lnbDraft" class="btn btn-default glyphicon glyphicon-print">打印</a>
-							<a id="ctl00_cphMain_lnbSend" class="btn btn-primary glyphicon glyphicon-edit">编辑</a>	
+							<a id="ctl00_cphMain_lnbSend"  onclick="notejump('noteedit',${id})" class="btn btn-primary glyphicon glyphicon-edit ">编辑</a>	
 						</div>
 						<a class="btn btn-default"  onclick="notejump('notewrite',${id})"> 
 							<span class="glyphicon glyphicon-chevron-left"></span>

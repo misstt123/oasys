@@ -121,7 +121,7 @@ a:hover {
 			<!--id="container"-->
 			<div class="bgc-w box box-primary">
 				<div class="box-header" style="padding-bottom: 20px">
-					<a class="label label-success" href="attendceedit?aid"><span
+					<a class="label label-success" href="attendceedit?aid=1"><span
 						class="glyphicon glyphicon-plus"></span> 新增 </a>
 
 					<div class="input-group"

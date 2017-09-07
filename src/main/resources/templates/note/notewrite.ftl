@@ -10,14 +10,16 @@
 						<div class="box-header">
 							<h3 class="box-title">最近</h3>
 							<div class="box-tools">
-								<div class="input-group" style="width: 150px;">
-									<input type="text" class="form-control input-sm"
-										placeholder="查找..." />
-									<div class="input-group-btn">
-										<a class="btn btn-sm btn-default"><span
-											class="glyphicon glyphicon-search"></span></a>
-									</div>
-								</div>
+								<div class="input-group"
+												style="width: 150px; float: right; top: 1px;">
+												<input type="text" class="form-control input-sm pull-right"
+													placeholder="查找..." />
+												<div class="input-group-btn" style="top: -1px;">
+													<a
+														class="btn-sm btn-default glyphicon glyphicon-search btn-change"
+														href=""></a>
+												</div>
+											</div>
 							</div>
 						</div>
 						<!--盒子身体-->
@@ -68,7 +70,7 @@
 												<a  
 											 onclick="notejump('noteinfo','1')"  
 											 class="label xiugai info"><span
-												class="glyphicon glyphicon-search"></span> 查看</a>
+												class="glyphicon glyphicon-search "></span> 查看</a>
 												 <a
 											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 											href="" class="label shanchu"><span

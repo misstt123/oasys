@@ -54,7 +54,7 @@ public class AttendceController {
 		long id=Long.valueOf(aid);
 		model.addAttribute("id", id);
 		}
-		return "attendce/att2";
+		return "attendce/attendceedit";
 	}
 
 }
