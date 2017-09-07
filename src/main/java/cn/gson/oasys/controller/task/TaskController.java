@@ -21,7 +21,7 @@ public class TaskController {
 	 */
 	@RequestMapping("addtask")
 	public String  index2(){
-		return "task/addtaskindex";
+		return "task/addtask";
 	}
 	
 
@@ -30,7 +30,7 @@ public class TaskController {
 	 */
 	@RequestMapping("edittask")
 	public String  index3(){
-		return "task/addtaskindex";
+		return "task/addtask";
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class TaskController {
 	 */
 	@RequestMapping("seetask")
 	public String  index4(){
-		return "task/seetaskindex";
+		return "task/seetask";
 	}
 	
 	/**

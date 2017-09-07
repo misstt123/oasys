@@ -208,10 +208,10 @@
 				</div>
 				<div id="collapseseven" class="panel-collapse collapse ">
 					<ul>
-						<li><a href="javascript:changepath('mail');"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('accountmanage');"> <span class="glyphicon glyphicon-record"></span>
 								<span>账号管理</span>
 						</a></li>
-						<li><a href="javascript:changepath('accountmanage');"> <span class="glyphicon glyphicon-record"></span>
+						<li><a href="javascript:changepath('mail');"> <span class="glyphicon glyphicon-record"></span>
 								<span>邮件管理</span>
 						</a></li>
 					</ul>

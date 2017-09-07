@@ -23,7 +23,7 @@ public class RoleController {
 	@RequestMapping("roleset")
 	public String index2(){
 		
-		return "role/rolesetindex";
+		return "role/roleset";
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class RoleController {
 	@RequestMapping("addrole")
 	public String index3(){
 		
-		return "role/addroleindex";
+		return "role/addrole";
 	}
 	
 	/**
@@ -43,6 +43,6 @@ public class RoleController {
 	@RequestMapping("modifyrole")
 	public String index4(){
 		
-		return "role/addroleindex";
+		return "role/addrole";
 	}
 }
