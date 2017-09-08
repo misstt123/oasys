@@ -44,7 +44,7 @@ public class FileList {
 	@JoinColumn(name = "file_user_id")
 	private User user;			//外键关联用户表  -文件上传者
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "path_id")
 	private FilePath fpath;
 	

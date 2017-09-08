@@ -1,10 +1,13 @@
 package cn.gson.oasys.model.entity.file;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,8 +26,8 @@ public class FilePath {
 	@Column(name = "path_name")
 	private String pathName;
 	
-	@OneToOne(mappedBy = "fpath")
-	private FileList fileList;
+	@OneToMany(mappedBy = "fpath")
+	private List<FileList> fileList;
 
 	public FilePath() {
 
@@ -55,11 +58,11 @@ public class FilePath {
 	}
 	
 
-	public FileList getFileList() {
+	public List<FileList> getFileList() {
 		return fileList;
 	}
 
-	public void setFileList(FileList fileList) {
+	public void setFileList(List<FileList> fileList) {
 		this.fileList = fileList;
 	}
 

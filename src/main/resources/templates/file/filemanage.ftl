@@ -6,16 +6,10 @@
 <title></title>
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="css/file/filebox.css" />
+
 
 <style type="text/css">
-/* .icon {
-	width: 1.5em;
-	height: 1.5em;
-	vertical-align: -0.15em;
-	fill: currentColor;
-	overflow: hidden;
-} */
-
 a {
 	color: black;
 }
@@ -47,77 +41,6 @@ li.activee>a {
 .des {
 	border: none;
 	color: #9e9e9e;
-}
-
-.file-box {
-	border-top: 1px solid #f4f4f4;
-	position: relative;
-	height: 600px;
-	overflow: hidden;
-}
-
-.file-one {
-	width: 120px;
-	height: 127px;
-	float: left;
-	margin: 4px 0 0 6px;
-	text-align: center;
-	border: 1px solid #fff;
-	position: relative;
-}
-
-.file-one-houver {
-	border: 1px solid #f1f5fa;
-	border-radius: 5px;
-	background: #f1f5fa;
-}
-
-.file-one-check {
-	border: 1px solid #90c3fd;;
-	border-radius: 5px;
-	background: #f1f5fa;
-}
-
-.file-img {
-	position: relative;
-	margin: 9px auto 0;
-	width: 84px;
-	height: 84px;
-	background-repeat: no-repeat;
-	overflow: hidden;
-}
-
-.file-img img {
-	padding-top: 15px;
-}
-
-.file-name {
-	display: block;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	margin: 6px 5px 5px;
-}
-
-.file-check {
-	position: absolute;
-	top: 5px;
-	left: 5px;
-	height: 21px;
-	width: 21px;
-	display: none;
-	cursor: pointer;
-	/*color: #0099CC;*/
-}
-
-.file-one-houver .file-check {
-	display: block;
-	color: #B9DEF0;
-}
-
-.file-one-check .file-check {
-	display: block;
-	color: #00BBEE;
 }
 </style>
 </head>
@@ -203,7 +126,47 @@ li.activee>a {
 					</div>
 					<div class="file-box" style="overflow-y: auto;">
 						<div style="height: auto;">
-							<div class="file-one">
+							<#list paths as path>
+								<div class="file-one">
+									<div class="file-img">
+										<img src="images/fileimg/Folder.png" />
+									</div>
+									<div class="file-name">
+										<a>${path.pathName}</a>
+									</div>
+									<span class="file-check"> 
+										<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
+									</span>
+								</div>
+							</#list>
+							<#list files as file>
+								<div class="file-one">
+									<#if file.fileShuffix == "zip">
+											<div class="file-img">
+												<img src="images/fileimg/ZIP.png" />
+											</div>
+										<#elseif file.fileShuffix == "mp4" || file.fileShuffix == "rmvb">
+											<div class="file-img">
+												<img src="images/fileimg/Video.png" />
+											</div>
+										<#elseif file.fileShuffix == "text" || file.fileShuffix == "word">
+											<div class="file-img">
+												<img src="images/fileimg/Text.png" />
+											</div>
+										<#else>
+											<div class="file-img">
+												<img src="images/fileimg/Folder.png" />
+											</div>
+									</#if>                                   
+									<div class="file-name">
+										<a>${file.fileName}</a>
+									</div>
+									<span class="file-check"> 
+										<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
+									</span>
+								</div>
+							</#list>
+							<!-- <div class="file-one">
 								<div class="file-img">
 									<img src="images/fileimg/Folder.png" />
 								</div>
@@ -211,9 +174,6 @@ li.activee>a {
 									<a>罗翔的私房照</a>
 								</div>
 								<span class="file-check"> 
-									<!-- <svg class="icon" aria-hidden="true">
-										<use xlink:href="#icon-xuanze"></use>
-									</svg> -->
 									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 								</span>
 							</div>
@@ -225,12 +185,9 @@ li.activee>a {
 									<a>罗翔的私房照</a>
 								</div>
 								<span class="file-check"> 
-									<!-- <svg class="icon" aria-hidden="true">
-										<use xlink:href="#icon-xuanze"></use>
-									</svg> -->
 									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 								</span>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -311,6 +268,16 @@ li.activee>a {
 					$(this).addClass("allchecked");
 				}
 			});
+			
+			/**
+			 *  ajax
+			 */
+			 $(".file-img").click(function(){
+				 console.log("111");
+				/*  $.post("shuaxin",function(data){
+					 $
+				 }); */
+			 });
 		})
 	</script>
 
