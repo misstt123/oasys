@@ -8,7 +8,7 @@
 <link href="css/common/iconfont.css" rel="stylesheet" />
 <link href="css/common/checkbox.css" rel="stylesheet" />
 <script type="text/javascript" src="js/iconfont.js"></script>
-<script type="text/javascript" src="js/pjax.js"></script>
+
 <script type="text/javascript">
 $(function(){
 	//收缩
@@ -159,7 +159,7 @@ border: none;
 							</a></li>
 							<!-- 使用foreach循环 循环出集合-->
 							<li><a  href=""><span
-									class="glyphicon glyphicon-folder-open"></span>文档</a></li>
+									class="iconfont icon-icon4"></span> 文档</a></li>
 						</ul>
 					</div>
 

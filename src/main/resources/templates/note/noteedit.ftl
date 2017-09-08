@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<#include "/common/commoncss.ftl">
-<script type="text/javascript" src="/js/note/noteedit.js"></script>
-<script charset="utf-8" src="/plugins/kindeditor/kindeditor-min.js"></script>
-<script charset="utf-8" src="/plugins/kindeditor/lang/zh_CN.js"></script>
-
-<link rel="stylesheet" href="/plugins/kindeditor/themes/default/default.css" />
-<link rel="stylesheet" href="/css/common/tanchuang.css"/>
-<link rel="stylesheet" href="/css/common/box.css" />
-
+<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="js/note/noteedit.js"></script>
+<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <title></title>
 <style>
 .panel-heading {
