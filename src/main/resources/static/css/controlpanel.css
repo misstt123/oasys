@@ -26,12 +26,14 @@
 	padding: 10px;
 }
 
-.iconfont {
-	position: absolute;
+.iconfont .glyphicon{
 	margin-top: -100px;
 	margin-left: 156px;
 	font-size: 76px;
 	color: rgba(0, 0, 0, 0.15);
+}
+.iconfont .glyphicon:hover{
+	font-size: 86px;
 }
 
 .moreduo {

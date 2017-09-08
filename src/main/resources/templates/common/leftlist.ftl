@@ -46,7 +46,7 @@
 <div class="col-lg-2 col-md-2 smallDiv"
 	style="padding: 0; margin: 0; display: block;">
 	<div style="background: #008d4c;" class="col-md-12">
-		<a href="#" class="navbar-brand" style="padding: 8px 40px;"><img
+		<a href="index" class="navbar-brand" style="padding: 8px 40px;"><img
 			src="images/logo.png" /></a>
 	</div>
 	<div class="col-md-12 list-left"

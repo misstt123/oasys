@@ -1,5 +1,4 @@
 <#include "/common/commoncss.ftl">
-<link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
 <style type="text/css">
 a {
 	color: black;
@@ -29,48 +28,69 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="javascript:history.back();" class="label label-default" style="padding: 5px;">
-						<i class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
+					<a href="javascript:history.back();" class="label label-default"
+						style="padding: 5px;"> <i
+						class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
 					</a>
 				</h3>
 			</div>
 			<!--盒子身体-->
 			<div class="box-body no-padding">
+
 				<div class="box-body">
+					<#if menuObj??>
 					<div class="row">
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>用户名</span></label> <input
-								class="form-control" />
+							<label class="control-label"><span>名称</span></label> <input
+								class="form-control" value="${menuObj.menuName}"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>电话</span></label> <input
-								class="form-control" />
+							<label class="control-label"><span>图标</span></label> <input
+								class="form-control" value="${menuObj.menuIcon}"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>真实姓名</span></label> <input
-								class="form-control" />
+							<label class="control-label"><span>路径</span></label> <input
+								class="form-control" value="${menuObj.menuUrl}"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>Email</span></label> <input
-								class="form-control" />
+							<label class="control-label"><span>排序</span></label> <input
+								class="form-control" value="${menuObj.sortId}"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>地址</span></label> <input
-								class="form-control" />
-						</div>
-						<div class="col-md-6 form-group">
-							<label class="control-label"><span>学历</span></label> <input
-								class="form-control" />
+							<label class="control-label"><span>显示</span></label><br>
+							<#if menuObj.isShow==1>
+								<span class="labels"><label><input type="checkbox" checked><i>✓</i></label></span>
+								<#else>
+								<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+							</#if>
 						</div>
 						
-						<div class="col-md-6 form-group">
-							<label class="control-label"> <span>皮肤</span>
-							</label> <select class="form-control">
-								<option value="0">经典蓝</option>
-								<option value="1">原谅绿</option>
-							</select>
-						</div>
 					</div>
+					<#else>
+					<div class="row">
+						<div class="col-md-6 form-group">
+							<label class="control-label"><span>名称</span></label> <input
+								class="form-control" />
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label"><span>图标</span></label> <input
+								class="form-control" />
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label"><span>路径</span></label> <input
+								class="form-control" />
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label"><span>排序</span></label> <input
+								class="form-control" />
+						</div>
+						<div class="col-md-6 form-group">
+							<label class="control-label"><span>显示</span></label><br>
+								<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+						</div>
+						
+					</div>
+					</#if>
 
 				</div>
 			</div>

@@ -20,6 +20,7 @@ import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.entity.Blog;
 import cn.gson.oasys.model.entity.system.SystemMenu;
+import cn.gson.oasys.services.system.MenuSysService;
 
 
 @Controller
@@ -30,16 +31,12 @@ public class IndexController {
 	
 	@Autowired
 	private IndexDao iDao;
+	@Autowired
+	private MenuSysService menuService;
 	
 	@RequestMapping("index")
 	public String index(HttpServletRequest req){
-		HttpSession session=req.getSession();
-		Iterable<SystemMenu> oneMenuAll=iDao.findByParentId(0L);
-		Iterable<SystemMenu> twoMenuAll=iDao.findByParentIdNot(0L);
-		
-		session.setAttribute("oneMenuAll", oneMenuAll);
-		session.setAttribute("twoMenuAll", twoMenuAll);
-		
+		menuService.findMenuSys(req);
 		return "index/index";
 	}
 	
@@ -56,18 +53,7 @@ public class IndexController {
 		return "mail/editaccount";
 	}
 //	测试系统管理
-	@RequestMapping("testsysmenu")
-	public String testsysmenu(){
-		return "systemcontrol/menumanage";
-	}
-	@RequestMapping("testsysstatus")
-	public String testsysstatus(){
-		return "systemcontrol/statusmanage";
-	}
-	@RequestMapping("testsystype")
-	public String testsystype(){
-		return "systemcontrol/typemanage";
-	}
+	
 	
 	
 	

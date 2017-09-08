@@ -18,9 +18,9 @@ import cn.gson.oasys.model.entity.Blog;
 @RequestMapping("/")
 public class StatusSysController {
 	
-	@RequestMapping("statussys")
-	public String statusSys(){
-		return "index/statusindex";
+	@RequestMapping("testsysstatus")
+	public String testsysstatus(){
+		return "systemcontrol/statusmanage";
 	}
 	
 	@RequestMapping("statusedit")

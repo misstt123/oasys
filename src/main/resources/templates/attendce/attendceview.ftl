@@ -158,7 +158,7 @@ a:hover {
 									<td><span>2017/8/16 19:24:04</span></td>
 									<td>xxx</td>
 									<td><span class="labels"><label><input
-												type="checkbox"><i>✓</i></label></span></td>
+												type="checkbox" disabled><i>✓</i></label></span></td>
 
 									<td>
 										<div class="label label-success">一般</div>

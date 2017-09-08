@@ -18,9 +18,9 @@ import cn.gson.oasys.model.entity.Blog;
 @RequestMapping("/")
 public class TypeSysController {
 	
-	@RequestMapping("typesys")
-	public String typeSys(){
-		return "index/typeindex";
+	@RequestMapping("testsystype")
+	public String testsystype(){
+		return "systemcontrol/typemanage";
 	}
 	
 	@RequestMapping("typeedit")
