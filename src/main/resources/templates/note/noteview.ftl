@@ -78,7 +78,7 @@ function increase(){
 		data:data,
 		timeout : 1000,
 		success:function(){
-			window.location.reload();
+			 window.location.reload(); 
 		},
 		error:function(){
 			alert("失败")

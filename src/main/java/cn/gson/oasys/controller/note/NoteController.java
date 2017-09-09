@@ -62,25 +62,24 @@ public class NoteController {
 	
 	//笔记主界面
 	@RequestMapping(value="noteview",method=RequestMethod.GET)
-	public ModelAndView test(ModelAndView mv,HttpServletRequest request){
+	public String test(Model model,HttpServletRequest request){
 		cataloglist=(List<Catalog>) catalogDao.findAll();
 		noteList = (List<Note>) noteDao.findAll();
 //		long typeid=Long.valueOf(typeId);
 //		noteList =noteDao.findByTypeId(typeid);
 		System.out.println(noteList);
-		mv.addObject("nlist", noteList);
+		model.addAttribute("nlist", noteList);
 		System.out.println(cataloglist);
-		mv.addObject("calist", cataloglist);
-		mv.setViewName("note/noteview");
-		return mv;
+		model.addAttribute("calist", cataloglist);
+		return "note/noteview";
 	}
 	
 	//post请求
 		@RequestMapping(value="noteview",method=RequestMethod.POST)
-		public void test3332(Model model,HttpServletRequest request,@Param("title")String title){
+		public String test3332(HttpServletRequest request,@Param("title")String title){
 			String catalogName=request.getParameter("name");
 			catalogDao.save(new Catalog(catalogName));
-//			return "redirect:/noteview";
+			return "redirect:/noteview";
 		}
 	
 	//显示具体信息
