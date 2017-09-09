@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import cn.gson.oasys.model.entity.user.User;
 
 @Entity
@@ -46,6 +49,7 @@ public class FileList {
 	
 	@ManyToOne
 	@JoinColumn(name = "path_id")
+	@JsonIgnore
 	private FilePath fpath;
 	
 	public FileList() {

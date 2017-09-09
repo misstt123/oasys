@@ -96,7 +96,19 @@ li.activee>a {
 			<div class="bgc-w box box-primary" style="height: 695px;">
 				<!--盒子头-->
 				<div class="box-header">
-					<h3 class="box-title" style="font-size: 12px;">全部文件</h3>
+					<#if nowpath.parentId == 1>
+						<h3 class="box-title" style="font-size: 12px;">${nowpath.pathName}</h3>
+					<#else>
+						<h3 class="box-title" style="font-size: 12px;">
+							<a style="font-size: 12px;" href="filetest?pathid=${nowpath.parentId}">返回上一层 </a>
+							>
+							<#list allparentpaths as allparenth>
+							<a style="font-size: 12px;" href="filetest?pathid=${allparenth.id}">${allparenth.pathName}</a>
+							>
+							</#list>
+							${nowpath.pathName}
+						</h3>
+					</#if>
 					<div class="box-tools">
 						<div class="input-group" style="width: 150px;">
 							<input type="text" class="form-control input-sm"
@@ -125,15 +137,18 @@ li.activee>a {
 							class="iconfont icon-shuaxin"></span></a>
 					</div>
 					<div class="file-box" style="overflow-y: auto;">
-						<div style="height: auto;">
+						<div class = "boxcontain" style="height: auto;">
 							<#list paths as path>
 								<div class="file-one">
-									<div class="file-img">
-										<img src="images/fileimg/Folder.png" />
+									<div class="file-img path">
+										<a href="filetest?pathid=${path.id}">
+											<img src="images/fileimg/Folder.png" />
+										</a>
 									</div>
-									<div class="file-name">
+									<div class="file-name path">
 										<a>${path.pathName}</a>
 									</div>
+									<input type="hidden" class = "pathmessage" value="${path.id}">
 									<span class="file-check"> 
 										<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 									</span>
@@ -155,48 +170,43 @@ li.activee>a {
 											</div>
 										<#else>
 											<div class="file-img">
-												<img src="images/fileimg/Folder.png" />
+												<img src="" />
 											</div>
 									</#if>                                   
 									<div class="file-name">
 										<a>${file.fileName}</a>
+										<input type="hidden" class = "filemessge" value="${file.fileId}">
 									</div>
 									<span class="file-check"> 
 										<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 									</span>
 								</div>
 							</#list>
-							<!-- <div class="file-one">
-								<div class="file-img">
-									<img src="images/fileimg/Folder.png" />
-								</div>
-								<div class="file-name">
-									<a>罗翔的私房照</a>
-								</div>
-								<span class="file-check"> 
-									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
-								</span>
-							</div>
-							<div class="file-one">
-								<div class="file-img">
-									<img src="images/fileimg/Folder.png" />
-								</div>
-								<div class="file-name">
-									<a>罗翔的私房照</a>
-								</div>
-								<span class="file-check"> 
-									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
-								</span>
-							</div> -->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<!-- -->
+	<div class="modal">
+		<div class="file-one diplaynone">
+			<div class="file-img">
+				<img src="images/fileimg/Folder.png" />
+			</div>
+			<div class="file-name">
+				<a></a>
+			</div>
+			<input type="hidden" class = "pathmessage" value="">
+			<span class="file-check"> 
+				<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
+			</span>
+		</div> 
+	</div>
 </body>
 <script src="js/common/iconfont.js"></script>
+<!-- <script src="js/file/fileajax.js"></script> -->
+<script src="js/file/filejs.js"></script>
 <script type="text/javascript">
 		$(function() {
 			/*
@@ -231,53 +241,6 @@ li.activee>a {
 				$(this).parent().children(".activee").removeClass("activee");
 				$(this).addClass("activee");
 			});
-			
-			
-			
-			/**
-			 * 文件展示 js
-			 */ 
-			
-			$(".file-box .file-one").hover(function(){
-				//console.log("hover!~");
-				$(this).addClass("file-one-houver");
-			},function(){
-				//console.log("no hover");
-				$(this).removeClass("file-one-houver");
-			});
-			
-			$(".file-box .file-check").click(function(){
-				if($(this).parent(".file-one").hasClass("file-one-check")){
-					$(this).parent(".file-one").removeClass("file-one-check");
-				}else{
-					$(this).parent(".file-one").addClass("file-one-check");
-				}
-			});
-			
-			$(".allcheck").click(function(){
-				var fileone = $(".file-one");
-				if($(this).hasClass("allchecked")){
-					$(".file-one").each(function(){
-						$(".file-one").removeClass("file-one-check");
-					});
-					$(this).removeClass("allchecked");
-				}else{
-					$(".file-one").each(function(){
-						$(".file-one").addClass("file-one-check");
-					});
-					$(this).addClass("allchecked");
-				}
-			});
-			
-			/**
-			 *  ajax
-			 */
-			 $(".file-img").click(function(){
-				 console.log("111");
-				/*  $.post("shuaxin",function(data){
-					 $
-				 }); */
-			 });
 		})
 	</script>
 

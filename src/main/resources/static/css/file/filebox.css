@@ -68,3 +68,7 @@
 	display: block;
 	color: #00BBEE;
 }
+
+.diplaynone{
+	display:none !important;
+}

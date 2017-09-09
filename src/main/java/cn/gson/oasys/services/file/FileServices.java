@@ -17,12 +17,20 @@ public class FileServices {
 	@Autowired
 	private FilePathdao fpdao;
 	
-	public List<FilePath> findpath(Long parentId){
+	public List<FilePath> findpathByparent(Long parentId){
 		return fpdao.findByParentId(parentId);
 	}
 	
 	public List<FileList> findfileBypath(FilePath filePath){
 		return fldao.findByFpath(filePath);
+	}
+	
+	public void findAllParent(FilePath filePath,List<FilePath> parentpaths){
+		if (filePath.getParentId() != 1L) {
+			FilePath filepath1 = fpdao.findOne(filePath.getParentId());
+			parentpaths.add(filepath1);
+			findAllParent(filepath1,parentpaths);
+		}
 	}
 
 }
