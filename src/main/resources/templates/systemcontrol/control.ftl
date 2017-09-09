@@ -303,7 +303,7 @@
 				<div id="panelfive" class="panel-collapse collapse in">
 					<ul class="list-group">
 						<li class="list-group-item list-group-item-li" style=""><img
-							src="img/handsome.JPG" alt="photo" title="wowoowo"
+							src="images/handsome.JPG" alt="photo" title="wowoowo"
 							class="item-li-img" />
 							<p class="item-li-p">
 								<a href="#">标题 <small class="pull-right"
@@ -312,7 +312,7 @@
 								</a><br> 附件可莱丝解放路时代峻峰拉进来设计费拉进来房间发顺丰大师傅阿发顺丰沙发沙发粉色啊打发范德萨发范德萨手动阀打算
 							</p></li>
 						<li class="list-group-item list-group-item-li" style=""><img
-							src="img/handsome.JPG" alt="photo" title="wowoowo"
+							src="images/handsome.JPG" alt="photo" title="wowoowo"
 							class="item-li-img" />
 							<p class="item-li-p">
 								<a href="#">标题 <small class="pull-right"
@@ -321,7 +321,7 @@
 								</a><br> 附件可莱丝解放路时代峻峰拉进来设计费拉进来房间发顺丰大师傅阿发顺丰沙发沙发粉色啊打发范德萨发范德萨手动阀打算
 							</p></li>
 						<li class="list-group-item list-group-item-li" style=""><img
-							src="img/handsome.JPG" alt="photo" title="wowoowo"
+							src="images/handsome.JPG" alt="photo" title="wowoowo"
 							class="item-li-img" />
 							<p class="item-li-p">
 								<a href="#">标题 <small class="pull-right"
@@ -343,3 +343,13 @@
 		</div>
 	</div>
 </div>
+<script>
+//基础图标放大缩小
+	$('.jichu').on('mouseover', function() {
+		$(this).children('.iconfont').children('.glyphicon').css('font-size', '88px');
+	});
+	
+	$('.jichu').on('mouseout', function() {
+		$(this).children('.iconfont').children('.glyphicon').css('font-size', '76px');
+	});
+</script>

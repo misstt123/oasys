@@ -11,6 +11,9 @@ a:hover {
 .bgc-w {
 	background-color: #fff;
 }
+.table>tbody>tr>td{
+    border-top: 1px solid rgba(245, 245, 220, 0.29);
+    }
 
 </style>
 
@@ -61,19 +64,23 @@ a:hover {
 							<th scope="col">显示</th>
 							<th scope="col">操作</th>
 						</tr>
-						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><a  href="##" class="label sheding"><span
+						<#list oneMenuAll as one>
+						<tr style="background:rgba(255, 235, 59, 0.19);">
+							<td>${one.menuName}</td>
+							<td><span>${one.menuIcon}</span></td>
+							<td><span>${one.menuUrl}</span></td>
+							<td><span>父级</span></td>
+							<td><span>${one.sortId}</span></td>
+							<#if one.isShow==1>
+								<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
+							<#else>
+								<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>
+							</#if>
+							<td><a  href="changeSortId?parentid=${one.parentId}&sortid=${one.sortId}&menuid=${one.menuId}&num=1" class="label sheding"><span
 									class="glyphicon glyphicon-arrow-up"></span> 上移</a> <a
-								 href="##" class="label sheding"><span
+								 href="changeSortId?parentid=${one.parentId}&sortid=${one.sortId}&menuid=${one.menuId}&num=-1" class="label sheding"><span
 									class="glyphicon glyphicon-arrow-down"></span> 下移</a> <a 
-								href="useredit?where=xg" class="label xiugai"><span
+								href="menuedit?id=${one.menuId}" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span
@@ -82,28 +89,34 @@ a:hover {
 									class="glyphicon glyphicon-plus"></span> 新增</a>
 									</td>
 						</tr>
+						<#list twoMenuAll as two>
+						<#if one.menuId==two.parentId>
 						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><a  href="##" class="label sheding"><span
+							<td>${two.menuName}</td>
+							<td><span>${two.menuIcon}</span></td>
+							<td><span>${two.menuUrl}</span></td>
+							<td><span>子级菜单栏</span></td>
+							<td><span>${two.sortId}</span></td>
+							<#if two.isShow==1>
+								<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
+							<#else>
+								<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>
+							</#if>
+							<td><a  href="changeSortId?parentid=${two.parentId}&sortid=${two.sortId}&menuid=${two.menuId}&num=1" class="label sheding"><span
 									class="glyphicon glyphicon-arrow-up"></span> 上移</a> <a
-								 href="##" class="label sheding"><span
+								 href="changeSortId?parentid=${two.parentId}&sortid=${two.sortId}&menuid=${two.menuId}&num=-1" class="label sheding"><span
 									class="glyphicon glyphicon-arrow-down"></span> 下移</a> <a 
-								href="useredit?where=xg" class="label xiugai"><span
+								href="menuedit?id=${two.menuId}" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
-									<a  href="##" class="label xinzeng"><span
-									class="glyphicon glyphicon-plus"></span> 新增</a>
+									
 									</td>
 						</tr>
-						
+						</#if>
+						</#list>
+						</#list>
 					</table>
 				</div>
 			</div>

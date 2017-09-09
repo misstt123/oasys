@@ -1,3 +1,6 @@
+*{
+	font-size: 14px;
+}
 .box {
 	position: relative;
 	border-radius: 3px;
@@ -145,4 +148,7 @@ body{
 
 .input-group-btn .btn-change{
 	padding:5px;
+}
+::-webkit-scrollbar {
+    width: 0;
 }

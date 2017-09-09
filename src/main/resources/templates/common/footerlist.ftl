@@ -32,14 +32,7 @@
 					$(this).css("border-left", "3px solid #00a65a");
 				});
 
-				//基础图标放大缩小
-				$('.jichu').on('mouseover', function() {
-					$(this).children('.iconfont').css('font-size', '88px');
-				});
-
-				$('.jichu').on('mouseout', function() {
-					$(this).children('.iconfont').css('font-size', '76px');
-				});
+				
 
 				$('.right-btn-group').on('click', 'a', function() {
 
