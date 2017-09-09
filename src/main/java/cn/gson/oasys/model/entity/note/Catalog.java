@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  * 此处有一个parentid需要连接
@@ -31,7 +32,8 @@ public class Catalog {
 	//判断id
 	@Column(name="parent_id")
 	private Integer parentId;
-
+    
+	
 
 	
 	@Override
