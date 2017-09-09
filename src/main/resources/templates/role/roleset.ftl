@@ -34,6 +34,11 @@
 		})
 	})
 </script>
+<style>
+table>tbody>tr>td{
+    border-top: 1px solid rgba(245, 245, 220, 0.29);
+    }
+</style>
 </head>
 
 <body style="background-color: #ecf0f5;">
@@ -72,40 +77,43 @@
 										<th scope="col">管理模式</th>
 
 									</tr>
-
-									<tr>
-										<td>10</td>
-										<td><span>系统管理</span></td>
-										<td><span class="widths">#</span></td>
-										<td><span class="menus">菜单</span></td>
+									<#list oneMenuAll as par>
+									<tr style="background-color:rgba(255, 235, 59, 0.19);" >
+										<td>${par.menuId}</td>
+										<td><span>${par.menuName}</span></td>
+										<#if par.menuUrl??>
+										<td><span class="widths">${par.menuUrl}</span></td>
+										<#else>
+										<td><span class="widths">#3</span></td>
+										</#if>
+										<td><span class="menus" style="color:">菜单</span></td>
 										<td><span class="labels"><label><input
 													type="checkbox"><i>✓</i></label></span></td>
 										<td><span class="labels"><label><input
 													type="checkbox"><i>✓</i></label></span></td>
 
 									</tr>
-									<tr>
-										<td>10</td>
-										<td><span>系统管理</span></td>
-										<td><span class="widths">#vwrqg</span></td>
-										<td><span class="menus">页面</span></td>
+									<#list twoMenuAll as son>
+									<#if par.menuId==son.parentId>
+									<tr >
+										<td>${son.menuId}</td>
+										<td><span>${son.menuName}</span></td>
+										<#if son.menuUrl??>
+										<td><span class="widths">${son.menuUrl}</span></td>
+										<#else>
+										<td><span class="widths">#3</span></td>
+										</#if>
+										<td><span class="menus" style="color:">菜单</span></td>
 										<td><span class="labels"><label><input
 													type="checkbox"><i>✓</i></label></span></td>
 										<td><span class="labels"><label><input
 													type="checkbox"><i>✓</i></label></span></td>
 
 									</tr>
-									<tr>
-										<td>10</td>
-										<td><span>系统管理</span></td>
-										<td><span class="widths">#ver</span></td>
-										<td><span class="menus">菜单</span></td>
-										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
-										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
-
-									</tr>
+									</#if>
+									</#list>
+									</#list>
+									
 								</table>
 							</div>
 						</div>
