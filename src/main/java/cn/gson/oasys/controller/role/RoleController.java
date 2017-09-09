@@ -1,12 +1,16 @@
 package cn.gson.oasys.controller.role;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.gson.oasys.model.dao.IndexDao;
 import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.entity.role.Role;
+import cn.gson.oasys.model.entity.system.SystemMenu;
 
 @Controller
 @RequestMapping("/")
@@ -15,6 +19,8 @@ public class RoleController {
 	@Autowired
 	private RoleDao rdao;
 	
+	@Autowired
+	private IndexDao idao;
 	
 	/**
 	 * 角色管理
@@ -34,9 +40,12 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping("roleset")
-	public String index2(){
-		
-		return "role/roleset";
+	public ModelAndView index2(){
+		ModelAndView mav=new ModelAndView("role/roleset");
+	/*	Iterable<SystemMenu> menulist=idao.findAll();
+		System.out.println(menulist);
+		mav.addObject("menulist", menulist);*/
+		return mav;
 	}
 	
 	/**

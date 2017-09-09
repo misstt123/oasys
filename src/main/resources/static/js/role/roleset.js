@@ -1,5 +1,5 @@
 $(function(){
-				$(".widths").each(function(){
+				/*$(".widths").each(function(){
 					var $val=$(this).text();
 					
 					if($val=="#"){
@@ -11,7 +11,7 @@ $(function(){
 							$this.css("background-color","rgba(255, 235, 59, 0.19)");
 						})
 					}
-				})
+				})*/
 				
 				$(".menus").each(function(){
 					var $val=$(this).text();

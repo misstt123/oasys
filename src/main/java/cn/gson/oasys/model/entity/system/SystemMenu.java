@@ -46,7 +46,7 @@ public class SystemMenu {
 	}
 
 	public void setMenuId(Long menuId) {
-		menuId = menuId;
+		this.menuId = menuId;
 	}
 
 	public Long getParentId() {
