@@ -34,6 +34,7 @@ KindEditor.ready(function(K) {
 });
  
 			$(function(){
+				
 				$("#ctl00_cphMain_ddlType").change(function(){
 					var choose=$("#ctl00_cphMain_ddlType option:selected");
 					if(choose.val()==2){

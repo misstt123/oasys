@@ -3,6 +3,9 @@ package cn.gson.oasys.controller.note;
 
 import static org.mockito.Matchers.longThat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +23,7 @@ import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.entity.Blog;
+import cn.gson.oasys.model.entity.note.Note;
 
 
 @Controller
@@ -28,10 +32,20 @@ public class NoteController {
 		
 	Logger log=LoggerFactory.getLogger(getClass());
 	
+	@Autowired 
+	private NoteDao noteDao;
 
 	//笔记主界面
 	@RequestMapping("noteview")
-	public String test(){
+	public String test(Model model,HttpServletRequest request){
+		Iterable<Note> iterable = noteDao.findAll();
+		System.out.println(iterable);
+		List<Note> noteList = new ArrayList<>();
+		iterable.forEach(iter -> {
+			noteList.add(iter);
+		});
+		System.out.println(noteList);
+		model.addAttribute("nlist", noteList);
 		return "note/noteview";
 	}
 	
@@ -43,7 +57,15 @@ public class NoteController {
 	}
 	
 	@RequestMapping("notewrite")
-	public String test33(){
+	public String test33(Model model,HttpServletRequest request){
+		Iterable<Note> iterable = noteDao.findAll();
+		System.out.println(iterable);
+		List<Note> noteList = new ArrayList<>();
+		iterable.forEach(iter -> {
+			noteList.add(iter);
+		});
+		System.out.println(noteList);
+		model.addAttribute("nlist", noteList);
 		return "note/notewrite";
 	}
 	

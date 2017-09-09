@@ -49,13 +49,15 @@
 										<th scope="col">操作</th>
 									</tr>
 									<tr>
+									<#if nlist??>
+									<#list nlist as note>
 										<td><span class="labels"><label><input
 													type="checkbox"><i>✓</i></label></span></td>
 										<td><span class="glyphicon glyphicon-star-empty collect"></span>
 										</td>
-										<td><span>我的文件</span></td>
-										<td class="mailbox-subject"><span>新建文件夹sfsf</span></td>
-										<td><span>2017/8/16 19:24:04</span></td>
+										<td><span>${note.typeId}</span></td>
+										<td class="mailbox-subject"><span>${note.title}</span></td>
+										<td><span>${note.createTime}</span></td>
 										<td><span class="glyphicon glyphicon-paperclip"></span></td>
 										<td>
 											<div class="label label-info">一般</div>
@@ -75,6 +77,8 @@
 											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 											href="" class="label shanchu"><span
 												class="glyphicon glyphicon-remove"></span> 删除</a></td>
+									</#list>
+									</#if>
 									</tr>
 									<tr>
 										<td><span class="labels"><label><input
