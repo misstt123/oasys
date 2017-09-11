@@ -10,4 +10,6 @@ import cn.gson.oasys.model.entity.file.FilePath;
 @Repository
 public interface FilePathdao extends PagingAndSortingRepository<FilePath, Long> {
 	List<FilePath> findByParentId(Long parentId);
+	
+	FilePath findByPathNameAndParentId(String pathname,Long parentId);
 }

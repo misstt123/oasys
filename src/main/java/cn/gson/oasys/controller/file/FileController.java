@@ -1,5 +1,6 @@
 package cn.gson.oasys.controller.file;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,7 +47,10 @@ public class FileController {
 	public String text(@RequestParam("pathid")Long pathid,Model model){
 		FilePath filepath = fpdao.findOne(pathid);
 		List<FilePath> allparentpaths = new ArrayList<>();
+//		List<FilePath> allparentpaths2 = new ArrayList<>();
 		fs.findAllParent(filepath, allparentpaths);
+//		fs.savepath(filepath, allparentpaths2);
+//		fs.savefile(filepath);
 		System.out.println(allparentpaths);
 		Collections.reverse(allparentpaths);
 		model.addAttribute("allparentpaths",allparentpaths);
