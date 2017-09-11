@@ -69,6 +69,7 @@ public class Tasklist {
 	
 	public Tasklist(){}
 
+	
 	public Long getTaskId() {
 		return taskId;
 	}

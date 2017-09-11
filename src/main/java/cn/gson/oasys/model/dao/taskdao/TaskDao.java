@@ -12,4 +12,5 @@ public interface TaskDao extends PagingAndSortingRepository<Tasklist, Long>{
   
 	@Query("select ta from Tasklist ta where ta.usersId.userId=:id")
 	List<Tasklist> findtask(@Param("id")Long id);
+	
 }

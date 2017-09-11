@@ -109,6 +109,7 @@ a:hover {
 					</table>
 				</div>
 			</div>
+			
 			<!--盒子尾-->
 			<div class="box-footer no-padding" style="margin-top: -20px;">
 				<div style="padding: 5px;">
