@@ -46,7 +46,7 @@ public class Tasklist {
 	
 	@ManyToOne
 	@JoinColumn(name="task_push_user_id")
-	private User userId;//发布人id
+	private User usersId;//发布人id
 	
 	@Column(name="task_describe",nullable=false)
 	private String taskDescribe;//任务描述
@@ -69,6 +69,7 @@ public class Tasklist {
 	
 	public Tasklist(){}
 
+	
 	public Long getTaskId() {
 		return taskId;
 	}
@@ -125,12 +126,12 @@ public class Tasklist {
 		this.title = title;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUsersId() {
+		return usersId;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUsersId(User usersId) {
+		this.usersId = usersId;
 	}
 
 	

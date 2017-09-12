@@ -35,7 +35,7 @@
 	})
 </script>
 <style>
-table>tbody>tr>td{
+.table>tbody>tr>td{
     border-top: 1px solid rgba(245, 245, 220, 0.29);
     }
 </style>

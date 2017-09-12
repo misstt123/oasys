@@ -191,24 +191,25 @@ function addvalue(){
 				alert("aaa")
 				var id_array=new Array();
 				$('input[name="id"]:checked').each(function(){
-					alert("cccs")
-					id_array.push($(this).val());//向数组中添加元素
+					var $name=$(this).parents(".col-xs-2").siblings(".na").text();
+					id_array.push($name);//向数组中添加元素
 					var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
 					$("#ctl00_cphMain_txtReceiver").val(idstr);
 					
 				})
-				alert("bbb")
-				$(".close2").click();
-				alert("ccc")
+				
+				$(".close").click();
+				
 			}
 			/*追加到联系人*/
 			function addvalue2(){
 				
 				var id_array=new Array();
-				alert("jingq")
+				
 				var  idstr=null;
 				$('input[name="id"]:checked').each(function(){
-					id_array.push($(this).val());
+					var $name=$(this).parents(".col-xs-2").siblings(".na").text();
+					id_array.push($name);
 					idstr=id_array.join(';');
 				})
 				
