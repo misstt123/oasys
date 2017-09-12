@@ -3,18 +3,15 @@ package cn.gson.oasys.model.entity.note;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.gson.oasys.model.entity.user.User;
@@ -43,6 +40,10 @@ public class Note {
 	private String content;//内容
 	
 	
+//	@Column(name="catalog_id")
+//	private Long catalogId; //目录id
+	
+	
 	
 	@Column(name="type_id")
 	private Long typeId; //类型id
@@ -52,7 +53,11 @@ public class Note {
 	
 	@Column(name="create_time")
 	private Date createTime;//发布时间
-
+    
+	@ManyToOne
+	@JoinColumn(name ="catalog_id")
+	private Catalog cataLog;
+	
 	@ManyToMany
 	@JoinTable(
 			name="aoa_receiver_note"
@@ -136,13 +141,19 @@ public class Note {
 	public void setUserss(Set<User> userss) {
 		this.userss = userss;
 	}
-
-
-
+	
+//	public void setCataLog(Catalog cataLog) {
+//		this.cataLog = cataLog;
+//	}
+//	
+//	public Catalog getCataLog() {
+//		return cataLog;
+//	}
+	
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", content=" + content + ", createTime=" + createTime
-				+ "]";
+				+  "]";
 	}
 
 	

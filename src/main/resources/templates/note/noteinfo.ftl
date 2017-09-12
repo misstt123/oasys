@@ -32,11 +32,11 @@
 					</div>
 					<div class="box-body">
 						<div class="info">
-							<h3>标题</h3>
+							<h3>${note.title}</h3>
 							
 							<h5 class="little">
 								<span >创建：xxx</span>
-								<span class="pull-right">时间</span>
+								<span class="pull-right">时间:${note.createTime}</span>
 							</h5>
 						</div>
 						<div class="message">
@@ -55,9 +55,9 @@
 					<div class="box-footer">
 						<div class="pull-right">
 							<a id="ctl00_cphMain_lnbDraft" class="btn btn-default glyphicon glyphicon-print">打印</a>
-							<a id="ctl00_cphMain_lnbSend"  onclick="notejump('noteedit',${id})" class="btn btn-primary glyphicon glyphicon-edit ">编辑</a>	
+							<a id="ctl00_cphMain_lnbSend"  onclick="notejump('noteedit',${note.noteId})" class="btn btn-primary glyphicon glyphicon-edit ">编辑</a>	
 						</div>
-						<a class="btn btn-default"  onclick="notejump('notewrite',${id})"> 
+						<a class="btn btn-default"  onclick="notejump('notewrite',${note.noteId})"> 
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							返回
 						</a>
