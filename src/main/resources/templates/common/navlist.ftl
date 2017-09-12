@@ -20,9 +20,9 @@
 			<!--设置导航栏头像面板--> <a href="#" class="white" data-toggle="dropdown">
 				<img src="images/handsome.JPG" class="user-image" /> <span>罗祥</span>
 		</a> <!--设置点击按钮弹出用户面板层-->
-			<ul class="dropdown-menu" style="padding: 1px 0;">
+			<ul class="dropdown-menu" style="padding:0;">
 				<li class="user-header"><img src="images/handsome.JPG"
-					class="img-circle" style="width: 90px;" />
+					class="img-circle" style="width: 100px;height:100px;" />
 					<p class="white" style="">
 						<span>CEO </span> / <span> 董事长</span><br> <small>超级管理员</small>
 					</p></li>
