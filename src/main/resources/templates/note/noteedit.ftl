@@ -113,6 +113,22 @@ textarea {
 }
 </style>
 
+<script type="text/javascript">
+$(function(){
+	$('#ctl00_cphMain_lnbDraft').click(function(){
+		alert($('textarea[name="content"]').val())
+		alert($('#ctl00_cphMain_ddlFile option:selected').val());
+		//获取option里面的输入框的值
+		alert($('#ctl00_cphMain_ddlType option:selected').text());
+		alert($('#ctl00_cphMain_txtReceiver option:selected').val());
+		alert($('#ctl00_cphMain_ddlImportance option:selected').text())
+		alert($('#ctl00_cphMain_txtSubject').val())
+		
+	})
+	
+})
+
+</script>
 </head>
 
 <body class="panel-heading ">
@@ -128,7 +144,7 @@ textarea {
 				<select name="ctl00_cphMain_ddlFile" id="ctl00_cphMain_ddlFile"
 					class="form-control select2">
 					<#list calist as ca>
-					<option>✟${ca.catalogName}</option>
+					<option id="catalog">✟${ca.catalogName}</option>
 					</#list>
 				</select>
 			</div>
