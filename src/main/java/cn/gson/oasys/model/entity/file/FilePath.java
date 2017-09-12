@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class FilePath {
 	
 	@Id
-	@Column(name = "path_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "path_id")
 	private Long id;	//路径id
 	
 	@Column(name = "parent_id")

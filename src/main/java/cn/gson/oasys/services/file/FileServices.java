@@ -2,8 +2,10 @@ package cn.gson.oasys.services.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,19 +67,50 @@ public class FileServices {
 		}
 	}
 	
+	/**
+	 * 保存文件
+	 * @param file
+	 * @param user
+	 * @param nowpath
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public FileList savefile(MultipartFile file,User user,FilePath nowpath) throws IllegalStateException, IOException{
-		List<FilePath> allparentpaths = new ArrayList<>();
-		String nowparent = savepath(nowpath,allparentpaths);
-		File savePath = new File(this.rootPath,nowparent);
-		System.out.println(savePath.getPath());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+		File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
+		
+		File savepath = new File(root,user.getUserName());
+		//System.out.println(savePath.getPath());
+		
+		if (!savepath.exists()) {
+			savepath.mkdirs();
+		}
+		
 		String shuffix = FilenameUtils.getExtension(file.getOriginalFilename());
 		log.info("shuffix:{}",shuffix);
 		String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+shuffix;
-		File targetFile = new File(savePath,newFileName);
+		File targetFile = new File(savepath,newFileName);
 		file.transferTo(targetFile);
-		return null;
+		
+		FileList filelist = new FileList();
+		filelist.setFileName(file.getOriginalFilename());
+		filelist.setFilePath(targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
+		filelist.setFileShuffix(shuffix);
+		filelist.setSize(file.getSize());
+		filelist.setUploadTime(new Date());
+		filelist.setFpath(nowpath);
+		filelist.setUser(user);
+		fldao.save(filelist);
+		return filelist;
 	}
 	
+	/**
+	 * 找到父级目录 并 拼接成路径
+	 * @param nowpath
+	 * @param parentpaths
+	 * @return
+	 */
 	public String savepath(FilePath nowpath,List<FilePath> parentpaths){
 		findAllParent(nowpath,parentpaths);
 		Collections.reverse(parentpaths);
@@ -88,6 +121,4 @@ public class FileServices {
 		savepath = savepath.substring(0, savepath.length()-1);
 		return savepath;
 	}
-	
-
 }

@@ -31,3 +31,22 @@ $(".allcheck").click(function(){
 		$(this).addClass("allchecked");
 	}
 });
+
+$(".file-box .file-one").mousedown(function(e){
+	if(3 == e.which){
+	    $(document).bind("contextmenu",function(e){
+	        return false;
+	    });
+		var oX = e.pageX;
+		var oY = e.pageY;
+		console.log(oX);
+		console.log(oY);
+		$(".menu").css("display","block");
+		$(".menu").css("left",oX+"px");
+		$(".menu").css("top",oY+"px");
+	}
+});
+$(document).click(function(e){
+	$(".menu").css("display","none");
+});
+

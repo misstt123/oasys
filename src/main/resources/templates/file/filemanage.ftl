@@ -42,12 +42,23 @@ li.activee>a {
 	border: none;
 	color: #9e9e9e;
 }
+.menu{
+	position: fixed;
+    left:0;
+    top:0;
+    width:200px;
+    height: 400px;
+    background-color: blue;
+    display: none;
+    z-index:30;
+}
 </style>
 </head>
 
 <body style="background-color: #ecf0f5;">
-
-
+	<div class = "menu">
+	
+	</div>
 	<div class="row" style="padding-top: 10px;">
 		<div class="col-md-2">
 			<h1 style="font-size: 24px; margin: 0;" class="">文件管理</h1>
@@ -59,9 +70,17 @@ li.activee>a {
 	</div>
 	<div class="row" style="padding-top: 15px;">
 		<div class="col-md-3">
-			<a class="btn btn-primary" href="##"
+			<form class = "fileuploadform" action="fileupload" method="post" enctype="multipart/form-data">
+			<!-- <a class="btn btn-primary" href="##"
 				style="width: 100%; margin-bottom: 20px;"><span
-				class="glyphicon glyphicon-open"></span> 上传</a>
+				class="glyphicon glyphicon-open"></span> 上传</a> -->
+				<div class="btn btn-primary uploadfile"
+					style="position: relative; overflow: hidden;width: 100%; margin-bottom: 20px;">
+					<i class="glyphicon glyphicon-open"></i> 上传 
+					<input type="file" name="file" style="opacity: 0; position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%;" />
+					<input type="hidden" name="pathid" value="${nowpath.id}"/>
+				</div>
+			</form>
 			<div class="bgc-w box box-solid">
 				<div class="box-header">
 					<h3 class="box-title">云盘</h3>
@@ -85,7 +104,7 @@ li.activee>a {
 					<li><a href="##"><span class="iconfont icon-fenxiang"></span>
 							共享文件</a></li>
 					<li>
-						<!--<a class="pjax" href="box.html">--> <a href="##"><span
+						<a href="##"><span
 							class="iconfont icon-lajitong"></span> 回收战</a>
 					</li>
 				</ul>
@@ -164,9 +183,13 @@ li.activee>a {
 											<div class="file-img">
 												<img src="images/fileimg/Video.png" />
 											</div>
-										<#elseif file.fileShuffix == "text" || file.fileShuffix == "word">
+										<#elseif file.fileShuffix == "txt" || file.fileShuffix == "word">
 											<div class="file-img">
 												<img src="images/fileimg/Text.png" />
+											</div>
+										<#elseif file.fileShuffix == "mp3">
+											<div class="file-img">
+												<img src="images/fileimg/Music.png" />
 											</div>
 										<#else>
 											<div class="file-img">
@@ -241,7 +264,11 @@ li.activee>a {
 				$(this).parent().children(".activee").removeClass("activee");
 				$(this).addClass("activee");
 			});
+			
+			$(".uploadfile input").bind("change",function(){
+				$(".fileuploadform").submit();
+			});
+			
 		})
 	</script>
-
 </html>
