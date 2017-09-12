@@ -36,7 +36,7 @@
 					<p>文件管理</p>
 				</div>
 				<div class="iconfont">
-					<span class="glyphicon glyphicon-folder-open"></span>
+					<span class="glyphicon glyphicon-folder-open" style="margin-left: 130px;"></span>
 				</div>
 				<a href="#" class="moreduo"> 更多 <span
 					class="glyphicon glyphicon-circle-arrow-right"></span>
@@ -87,11 +87,17 @@
 					<div class="panel-title" style="display: inline-block;">
 						<h4>公告通知</h4>
 					</div>
-					<div class="pull-right right-btn-group"
+					<div class="pull-right right-btn-group dropdown"
 						style="display: inline-block;">
-						<button>
-							<span class="glyphicon glyphicon-menu-hamburger"></span>
-						</button>
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="#">下拉菜单项</a></li>
+							</ul>
+						</div>
 						<a href="#panelone" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus"></span>
 							</button></a>
@@ -143,11 +149,17 @@
 					<div class="panel-title" style="display: inline-block;">
 						<h4>流程管理</h4>
 					</div>
-					<div class="pull-right right-btn-group"
+					<div class="pull-right right-btn-group dropdown"
 						style="display: inline-block;">
-						<button>
-							<span class="glyphicon glyphicon-menu-hamburger"></span>
-						</button>
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="#">下拉菜单项</a></li>
+							</ul>
+						</div>
 						<a href="#paneltwo" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus"></span>
 							</button></a>
@@ -199,11 +211,17 @@
 					<div class="panel-title" style="display: inline-block;">
 						<h4>工作计划</h4>
 					</div>
-					<div class="pull-right right-btn-group"
+					<div class="pull-right right-btn-group dropdown"
 						style="display: inline-block;">
-						<button>
-							<span class="glyphicon glyphicon-menu-hamburger"></span>
-						</button>
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="#">下拉菜单项</a></li>
+							</ul>
+						</div>
 						<a href="#panelthree" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus"></span>
 							</button></a>
@@ -260,11 +278,17 @@
 					<div class="panel-title" style="display: inline-block;">
 						<h4>公告通知</h4>
 					</div>
-					<div class="pull-right right-btn-group btn-color"
+					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
-						<button>
-							<span class="glyphicon glyphicon-menu-hamburger"></span>
-						</button>
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="#">下拉菜单项</a></li>
+							</ul>
+						</div>
 						<a href="#panelfour" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus"></span>
 							</button></a>
@@ -287,11 +311,17 @@
 							<span class="glyphicon glyphicon-pushpin"> </span> 我的便签
 						</h4>
 					</div>
-					<div class="pull-right right-btn-group btn-color"
+					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
-						<button>
-							<span class="glyphicon glyphicon-menu-hamburger"></span>
-						</button>
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="#">下拉菜单项</a></li>
+							</ul>
+						</div>
 						<a href="#panelfive" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus"></span>
 							</button></a>
@@ -351,5 +381,13 @@
 	
 	$('.jichu').on('mouseout', function() {
 		$(this).children('.iconfont').children('.glyphicon').css('font-size', '76px');
+	});
+	/* 关闭面板按钮 */
+	$('.glyphicon-remove').parent().on('click',function(){
+		if(confirm("确定关闭此面板吗？")==false){
+			return false;
+		}
+		console.log($(this).parents('.box-show'));
+		$(this).parents('.box-show').css('display','none');
 	});
 </script>

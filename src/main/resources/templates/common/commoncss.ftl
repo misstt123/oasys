@@ -3,8 +3,3 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/common/box.css" />
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
-<script>
-function  changepath(path){
-	$('iframe').attr('src',path);
-}
-</script>

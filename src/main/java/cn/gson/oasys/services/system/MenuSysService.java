@@ -16,24 +16,29 @@ public class MenuSysService {
 	@Autowired
 	private IndexDao iDao;
 	
+//	新增与修改菜单管理的内容
+	public SystemMenu save(SystemMenu menu){
+		return iDao.save(menu);
+	}
+	
+//	1、上移下移按钮先改变其他的排序值
 	public int changeSortId(Integer sortId,Integer arithNum, Long parentId){
 		return iDao.changeSortId(sortId, arithNum, parentId);
 	}
-	
+//	2、上移下移按钮先改变自己的排序值
 	public int changeSortId2(Integer sortId,Integer arithNum, Long menuId){
 		return iDao.changeSortId2(sortId, arithNum, menuId);
 	}
 	
 	
 	public void findMenuSys(HttpServletRequest req){
-		HttpSession session=req.getSession();
 //		查找所有父级
 		Iterable<SystemMenu> oneMenuAll=iDao.findByParentIdOrderBySortId(0L);
 //		查找所有子级
 		Iterable<SystemMenu> twoMenuAll=iDao.findByParentIdNotOrderBySortId(0L);
 		
-		session.setAttribute("oneMenuAll", oneMenuAll);
-		session.setAttribute("twoMenuAll", twoMenuAll);
+		req.setAttribute("oneMenuAll", oneMenuAll);
+		req.setAttribute("twoMenuAll", twoMenuAll);
 		
 	}
 }
