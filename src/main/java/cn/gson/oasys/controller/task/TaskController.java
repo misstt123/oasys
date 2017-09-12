@@ -90,10 +90,29 @@ public class TaskController {
 	 */
 	@RequestMapping("addtasks")
 	public String  addtask(HttpServletRequest request){
-		String ss=request.getParameter("status");
+		String status=request.getParameter("status");
 		String type=request.getParameter("type");
-		System.out.println(ss+"dd");
-		System.out.println(type+"ss");
+		String startDate=request.getParameter("startDate");
+		String endDate=request.getParameter("endDate");
+		String titleName=request.getParameter("titleName");
+		String reciverList=request.getParameter("reciverList");
+		String beizhu=request.getParameter("beizhu");
+		String pingjia=request.getParameter("pingjia");
+		String check=request.getParameter("check");
+		String cancel=request.getParameter("cancel");
+		Integer isTop = Integer.valueOf(check);
+		Integer isCancel = Integer.valueOf(cancel);
+		if(("on").equals(check)){
+			isTop=1;
+		}else if(("on").equals(cancel)){
+			isCancel=1;
+		}else if(("null").equals(check)){
+			isTop=0;
+		}else if(("null").equals(cancel)){
+			isCancel=0;
+		}
+		System.out.println(check+"dd");
+		System.out.println(cancel+"ss");
 		return "redirect:/taskmanage";
 	}
 	

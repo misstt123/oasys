@@ -97,20 +97,20 @@ a:hover {
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">备注</label>
-							<textarea class="form-control text"></textarea>
+							<textarea class="form-control text" name="beizhu"></textarea>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">评价</label>
-							<textarea class="form-control text"></textarea>
+							<textarea class="form-control text" name="pingjia"></textarea>
 						</div>
 						<div class="col-md-6 form-group ">
 							<label class="control-label">置顶</label> <br /> <span
-								class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+								class="labels"><label><input type="checkbox" name="check"><i>✓</i></label></span>
 						</div>
 
 						<div class="col-md-6  form-group">
 							<label class="control-label">取消</label> <br /> <span
-								class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+								class="labels"><label><input type="checkbox" name="cancel"><i>✓</i></label></span>
 
 						</div>
 					
