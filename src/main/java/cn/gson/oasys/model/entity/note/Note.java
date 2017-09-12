@@ -19,7 +19,7 @@ import cn.gson.oasys.model.entity.user.User;
 
 /**
  * 
- * attach_id
+ * 
  * publisher_id就是用户id
  * 外键没有连
  * @author admin
@@ -40,8 +40,8 @@ public class Note {
 	private String content;//内容
 	
 	
-//	@Column(name="catalog_id")
-//	private Long catalogId; //目录id
+	@Column(name="catalog_id")
+	private Long catalogId; //目录id
 	
 	
 	
@@ -51,12 +51,15 @@ public class Note {
 	@Column(name="status_id")
 	private Long statusId; //状态id
 	
+	@Column(name="attach_id")
+	private Long attachId; //附件id
+	
 	@Column(name="create_time")
 	private Date createTime;//发布时间
     
-	@ManyToOne
-	@JoinColumn(name ="catalog_id")
-	private Catalog cataLog;
+	
+	
+	
 	
 	@ManyToMany
 	@JoinTable(
@@ -73,7 +76,12 @@ public class Note {
 	public Note() {}
 
 	
-
+    public void setCatalogId(Long catalogId) {
+		this.catalogId = catalogId;
+	}
+    public Long getCatalogId() {
+		return catalogId;
+	}
 	public Long getNoteId() {
 		return noteId;
 	}

@@ -50,7 +50,7 @@ function notejump(url,id){
 	}
 	
 function searchlike(){
-	var $like=$(".box-solid .box-body .input-group .input-group input").val();
+	var $like=$("#find").val();
 	var data={title:$like};
 	$.ajax({
 		type:"post",
@@ -193,7 +193,7 @@ border: none;
 							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li class="borderleft"><a onclick="notejump('notewrite')"> <span
+							<li ><a onclick="notejump('notewrite','-2')" class="borderleft"> <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
 							
@@ -202,7 +202,7 @@ border: none;
 							<li>
 							<#if calist??>
 							<#list calist as ca>
-							<a  href=""><span
+							<a   onclick="notejump('notewrite',${ca.catalogId})"   class="borderleft"><span
 									class="iconfont icon-icon4"></span>${ca.catalogName}</a>
 									</#list>
 									</#if>

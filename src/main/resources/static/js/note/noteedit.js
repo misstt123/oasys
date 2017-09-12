@@ -38,10 +38,10 @@ var editor;
 				
 				$("#ctl00_cphMain_ddlType").change(function(){
 					var choose=$("#ctl00_cphMain_ddlType option:selected");
-					if(choose.val()==2){
+					if(choose.text()=='共享笔记'){
 						$("#MoreDiv").show();
 					}
-					else if(choose.val()!=2)
+					else if(choose.text()!='共享笔记')
 					{
 						$("#MoreDiv").hide();
 					}

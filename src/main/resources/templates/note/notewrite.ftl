@@ -14,7 +14,7 @@
 								<div class="input-group"
 												style="width: 150px; float: right; top: 1px;">
 												<input  type="text" class="form-control input-sm pull-right"
-													placeholder="查找..." />
+													placeholder="查找..."  id="find"/>
 												<div class="input-group-btn" style="top: -1px;">
 													<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change"
 														onclick="searchlike()"></a>
@@ -56,12 +56,33 @@
 													type="checkbox"><i>✓</i></label></span></td>
 										<td><span class="glyphicon glyphicon-star-empty collect"></span>
 										</td>
-										<td><span>${note.typeId}</span></td>
+										<td><span><#if note.typeId==5>
+										我的笔记
+										</#if>
+										<#if note.typeId==6>
+										公司笔记
+										</#if>
+										<#if note.typeId==7>
+										共享笔记
+										</#if>
+										</span></td>
 										<td class="mailbox-subject"><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
 										<td><span class="glyphicon glyphicon-paperclip"></span></td>
 										<td>
-											<div class="label label-info">一般</div>
+											
+											<#if note.statusId==8>
+											<div class="label label-info">
+										一般
+										</div>
+										</#if>
+										
+										<#if note.statusId==9>
+										<div class="label label-danger">
+										重要
+										</div>
+										</#if>
+											
 										</td>
 										<td><a 
 										

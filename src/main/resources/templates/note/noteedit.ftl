@@ -135,7 +135,7 @@ $(function(){
 	<div>
 		<div class="container box">
 			<div class="box-header">
-				<a class="label label-back " onclick="notejump('notewrite',${id})">
+				<a class="label label-back " onclick="notejump('notewrite','-2')">
 					<span class="glyphicon glyphicon-chevron-left"></span>返回
 				</a>
 			</div>
@@ -144,16 +144,19 @@ $(function(){
 				<select name="ctl00_cphMain_ddlFile" id="ctl00_cphMain_ddlFile"
 					class="form-control select2">
 					<#list calist as ca>
-					<option id="catalog">✟${ca.catalogName}</option>
+					<option id="catalog" ${(note?? && note.catalogId?number==ca.catalogId)?string('selected', '')}
+					>
+					✟${ca.catalogName}
+					</option>
 					</#list>
 				</select>
 			</div>
 			<div class="form-group">
 				<select name="ctl00_cphMain_ddlType" id="ctl00_cphMain_ddlType"
 					class="form-control select2">
-					<option value="0">我的笔记</option>
-					<option value="1">公司笔记</option>
-					<option value="2">共享笔记</option>
+					<option value="0" ${(note?? && note.typeId?number == 5)?string('selected', '')} >我的笔记</option>
+					<option value="1" ${(note?? && note.typeId?number == 6)?string('selected', '')}>公司笔记</option>
+					<option value="2" ${(note?? && note.typeId?number == 7)?string('selected', '')}>共享笔记</option>
 				</select>
 			</div>
 
@@ -173,19 +176,25 @@ $(function(){
 			<div class="form-group">
 				<select name="ctl00_cphMain_ddlImportance"
 					id="ctl00_cphMain_ddlImportance" class="form-control select2">
-					<option value="0">一般</option>
-					<option value="1">重要</option>
+					<option value="0" ${(note?? && note.statusId?number==8)?string('selected','')}>一般</option>
+					<option value="1" ${(note?? && note.statusId?number==9)?string('selected','')}>重要</option>
 				</select>
 			</div>
 			<div class="form-group">
 				<input name="ctl00$cphMain$txtSubject" type="text"
 					id="ctl00_cphMain_txtSubject" class="form-control"
-					placeholder="标题：" />
+					placeholder="标题：" 
+					value="<#if note??>${note.title}</#if>"
+					>
 			</div>
 			
 			<div class="form-group">	
 				<form id="ss">
-			<textarea name="content"  style="width:770px;height:300px;visibility:hidden;font-size: 20px;"></textarea>
+			<textarea name="content"  style="width:770px;height:300px;visibility:hidden;font-size: 20px;">
+			<#if note??>
+			${note.content}
+			</#if>
+			</textarea>
 				</form>
 			</div>
 
