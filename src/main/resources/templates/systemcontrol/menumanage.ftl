@@ -85,7 +85,7 @@ a:hover {
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
-									<a  href="##" class="label xinzeng"><span
+									<a  href="menuedit?id=${one.menuId}&add=this" class="label xinzeng"><span
 									class="glyphicon glyphicon-plus"></span> 新增</a>
 									</td>
 						</tr>

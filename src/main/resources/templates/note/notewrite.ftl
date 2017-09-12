@@ -2,6 +2,7 @@
 <html>
 <head>
 <script type="text/javascript" src="js/note/noteview.js"></script>
+
 </head>
 <body>
 
@@ -12,12 +13,11 @@
 							<div class="box-tools">
 								<div class="input-group"
 												style="width: 150px; float: right; top: 1px;">
-												<input type="text" class="form-control input-sm pull-right"
+												<input  type="text" class="form-control input-sm pull-right"
 													placeholder="查找..." />
 												<div class="input-group-btn" style="top: -1px;">
-													<a
-														class="btn-sm btn-default glyphicon glyphicon-search btn-change"
-														href=""></a>
+													<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change"
+														onclick="searchlike()"></a>
 												</div>
 											</div>
 							</div>
@@ -48,9 +48,10 @@
 										<th scope="col">状态</th>
 										<th scope="col">操作</th>
 									</tr>
-									<tr>
 									<#if nlist??>
 									<#list nlist as note>
+									<tr>
+									
 										<td><span class="labels"><label><input
 													type="checkbox"><i>✓</i></label></span></td>
 										<td><span class="glyphicon glyphicon-star-empty collect"></span>
@@ -64,49 +65,23 @@
 										</td>
 										<td><a 
 										
-										onclick="notejump('noteedit','1')"
+										onclick="notejump('noteedit','${note.noteId}')"
 											 class="label xiugai " >
 											<span
 												class="glyphicon glyphicon-edit"></span> 修改</a> 
-												
 												<a  
-											 onclick="notejump('noteinfo','1')"  
+											 onclick="notejump('noteinfo','${note.noteId}')"  
 											 class="label xiugai info"><span
 												class="glyphicon glyphicon-search "></span> 查看</a>
 												 <a
 											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-											href="" class="label shanchu"><span
+											href="notedelete?nid=${note.noteId}" 
+											class="label shanchu"><span
 												class="glyphicon glyphicon-remove"></span> 删除</a></td>
-									</#list>
+								
+									</tr>
+										</#list>
 									</#if>
-									</tr>
-									<tr>
-										<td><span class="labels"><label><input
-													type="checkbox" ><i>✓</i></label></span></td>
-										<td><span class="glyphicon glyphicon-star-empty collect"></span>
-										</td>
-										<td><span>我的文件</span></td>
-										<td class="mailbox-subject"><span>新建文件夹sfsf</span></td>
-										<td><span>2017/8/16 19:24:04</span></td>
-										<td><span class="glyphicon glyphicon-paperclip"></span></td>
-										<td>
-											<div class="label label-info">一般</div>
-										</td>
-										<td><a  
-										onclick="notejump('noteedit')"
-										class="label xiugai"
-										id="1"
-										><span
-												class="glyphicon glyphicon-edit"></span> 修改</a> 
-												<a title="查看"
-											      onclick="notejump('noteinfo')" 
-											    	  id="1"
-											      class="label xiugai"><span
-												class="glyphicon glyphicon-search"></span> 查看</a> <a
-											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" title="删除"
-											href="" class="label shanchu"><span
-												class="glyphicon glyphicon-remove"></span> 删除</a></td>
-									</tr>
 								</table>
 							</div>
 						</div>

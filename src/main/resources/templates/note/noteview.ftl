@@ -7,25 +7,27 @@
 <#include "/common/commoncss.ftl">
 <link href="css/common/iconfont.css" rel="stylesheet" />
 <link href="css/common/checkbox.css" rel="stylesheet" />
+
 <script type="text/javascript" src="js/iconfont.js"></script>
+<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 
 <script type="text/javascript">
 $(function(){
-	//收缩
-	$(".change").click(function(){
-						var $this=$(this).children();
-						var $ul=$(this).parents(".box-header").next();
-						if($this.hasClass("glyphicon-minus")){
-								$this.removeClass("glyphicon-minus").addClass("glyphicon-plus");
-								$ul.slideToggle(1000);
-							} 
-							else{
-								$this.removeClass("glyphicon-plus").addClass("glyphicon-minus");	
-								$ul.slideToggle(1000);
-							} 
-					})
+//收缩
+$(".change").click(function(){
+		var $this=$(this).children();
+		var $ul=$(this).parents(".box-header").next();
+		if($this.hasClass("glyphicon-minus")){
+				$this.removeClass("glyphicon-minus").addClass("glyphicon-plus");
+				$ul.slideToggle(500);
+			} 
+			else{
+				$this.removeClass("glyphicon-plus").addClass("glyphicon-minus");	
+				$ul.slideToggle(500);
+			} 
+	})
 })
-
 //笔记里面跳转 注意里面只存储一个id的数据
 function notejump(url,id){
   var data={id:id}
@@ -46,6 +48,43 @@ function notejump(url,id){
 	    }
 	})
 	}
+	
+function searchlike(){
+	var $like=$(".box-solid .box-body .input-group .input-group input").val();
+	var data={title:$like};
+	$.ajax({
+		type:"post",
+	    async:false,
+		url : 'notewrite',
+		data:data,
+		timeout : 1000,
+		success:function(dates){
+			$('#container').html(dates);
+		},
+		error:function(){
+			alert("失败")
+		}
+	})
+}
+
+function increase(){
+	var $zengjia=$(".input-group #increase").val();
+	alert($zengjia)
+	var data={name:$zengjia};
+	$.ajax({
+		type:"post",
+	    async:false,
+		url : 'noteview',
+		data:data,
+		timeout : 1000,
+		success:function(){
+			 window.location.reload(); 
+		},
+		error:function(){
+			alert("失败")
+		}
+	}) 
+}
 </script>
 <style type="text/css">
 .icon {
@@ -129,7 +168,7 @@ border: none;
 
 <body style="background-color: #ecf0f5;">
 
-	<div>
+	<div >
 		<div>
 			<div class="row" style="padding-top: 10px">
 				<div class="col-md-2">
@@ -154,12 +193,21 @@ border: none;
 							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li class="borderleft"><a href=""> <span
+							<li class="borderleft"><a onclick="notejump('notewrite')"> <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
+							
+							
 							<!-- 使用foreach循环 循环出集合-->
-							<li><a  href=""><span
-									class="iconfont icon-icon4"></span> 文档</a></li>
+							<li>
+							<#if calist??>
+							<#list calist as ca>
+							<a  href=""><span
+									class="iconfont icon-icon4"></span>${ca.catalogName}</a>
+									</#list>
+									</#if>
+									</li>
+							
 						</ul>
 					</div>
 
@@ -171,9 +219,9 @@ border: none;
 						</div>
 						<div class="box-body">
 							<div class="input-group">
-								<input placeholder="笔记分类" class="form-control" type="text" />
+								<input id="increase" placeholder="笔记分类" class="form-control" type="text" />
 								<div class="input-group-btn">
-									<input type="submit" class="btn btn-primary " value="新增" />
+									<input  onclick="increase()" type="submit" class="btn btn-primary " value="新增" />
 								</div>
 
 							</div>
@@ -188,7 +236,7 @@ border: none;
 								</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li><a href="##"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype',1)"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 我的笔记
 							</a></li>

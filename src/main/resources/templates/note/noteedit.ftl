@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 <script type="text/javascript" src="js/note/noteedit.js"></script>
-<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <title></title>
 <style>
 .panel-heading {
@@ -113,6 +113,22 @@ textarea {
 }
 </style>
 
+<script type="text/javascript">
+$(function(){
+	$('#ctl00_cphMain_lnbDraft').click(function(){
+		alert($('textarea[name="content"]').val())
+		alert($('#ctl00_cphMain_ddlFile option:selected').val());
+		//获取option里面的输入框的值
+		alert($('#ctl00_cphMain_ddlType option:selected').text());
+		alert($('#ctl00_cphMain_txtReceiver option:selected').val());
+		alert($('#ctl00_cphMain_ddlImportance option:selected').text())
+		alert($('#ctl00_cphMain_txtSubject').val())
+		
+	})
+	
+})
+
+</script>
 </head>
 
 <body class="panel-heading ">
@@ -127,9 +143,9 @@ textarea {
 			<div class="form-group">
 				<select name="ctl00_cphMain_ddlFile" id="ctl00_cphMain_ddlFile"
 					class="form-control select2">
-					<option value="0">✟111</option>
-					<option value="1">✟1111</option>
-					<option value="2">✟111</option>
+					<#list calist as ca>
+					<option id="catalog">✟${ca.catalogName}</option>
+					</#list>
 				</select>
 			</div>
 			<div class="form-group">
@@ -166,9 +182,10 @@ textarea {
 					id="ctl00_cphMain_txtSubject" class="form-control"
 					placeholder="标题：" />
 			</div>
-			<div class="form-group">
+			
+			<div class="form-group">	
 				<form id="ss">
-					<textarea name="content" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;"></textarea>
+			<textarea name="content"  style="width:770px;height:300px;visibility:hidden;font-size: 20px;"></textarea>
 				</form>
 			</div>
 
@@ -323,9 +340,12 @@ textarea {
 					</div>
 				</div>
 			</div>
-
-
-		</div>
 	</div>
+	</div>
+	<script type="text/javascript">
+	var event = document.createEvent('HTMLEvents');   
+	event.initEvent("load", true, true);     
+	window.dispatchEvent(event);    
+	</script>
 </body>
 </html>

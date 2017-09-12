@@ -416,7 +416,7 @@
 												</th>
 												<th class="col-xs-2">部门</th>
 												<th class=" col-xs-2">真实姓名 </th>
-												<th class="col-xs-2">用户名</th>
+												<th class="col-xs-2 na">用户名</th>
 												<th class=" col-xs-2">角色</th>
 												<th class=" col-xs-2">电话</th>
 
@@ -428,7 +428,7 @@
 												</th>
 												<th class=" col-xs-2">部门</th>
 												<th class=" col-xs-2">真实姓名 </th>
-												<th class=" col-xs-2">用户名</th>
+												<th class=" col-xs-2 na">用户名</th>
 												<th class=" col-xs-2">角色</th>
 												<th class=" col-xs-2">电话</th>
 
@@ -440,7 +440,7 @@
 												</th>
 												<th class=" col-xs-2">部门</th>
 												<th class="col-xs-2">真实姓名 </th>
-												<th class=" col-xs-2">用户名</th>
+												<th class=" col-xs-2 na">用户名</th>
 												<th class="col-xs-2">角色</th>
 												<th class="col-xs-2">电话</th>
 
@@ -452,7 +452,7 @@
 												</th>
 												<th class=" col-xs-2">部门</th>
 												<th class="col-xs-2">真实姓名 </th>
-												<th class=" col-xs-2">用户名</th>
+												<th class=" col-xs-2 na">用户名</th>
 												<th class="col-xs-2">角色</th>
 												<th class="col-xs-2">电话</th>
 
@@ -500,5 +500,3 @@
 				</div>
 
 			</div>
-	<!-- 	</div>
-	</div> -->

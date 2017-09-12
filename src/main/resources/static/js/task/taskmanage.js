@@ -12,7 +12,7 @@ $(function(){
 				/**
 				 * 根据不同的内容，显示不同的颜色
 				 */
-				$(".change-color").each(function(){
+				/*$(".change-color").each(function(){
 					var $val=$(this).text();
 					if($val=="新任务"){
 						$(this).addClass("label-warning");
@@ -27,5 +27,5 @@ $(function(){
 						$(this).addClass("label-success");
 					}
 					
-				})
+				})*/
 			})

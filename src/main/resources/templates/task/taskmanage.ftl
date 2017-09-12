@@ -76,17 +76,25 @@ a:hover {
 							<th scope="col" class="co commen">状态<span class="block"></span></th>
 							<th scope="col">操作</th>
 						</tr>
-
+						<#list tasklist as task>
 						<tr>
-
-							<td><span>公事</span></td>
-							<td><span>恶徒挺有钱有</span></td>
-							<td><span>2017/8/16 19:24:04</span></td>
-							<td><span>罗密欧</span></td>
-							<td><span>总经办</span></td>
-							<td><span class="label label-primary  change-color">已完成</span>
-							</td>
-
+							<#list typelist as type>
+							<#if type.typeId==task.typeId>
+							<td><span>${type.typeName}</span></td>
+							</#if>
+							</#list>
+							<td><span>${task.title}</span></td>
+							<td><span>${task.publishTime}</span></td>
+							
+							<td><span>${username}</span></td>
+							<td><span>${deptname}</span></td>
+							<#list statuslist as status>
+							<#if status.statusId==task.statusId>
+							<#if status.statusColor??>
+							<td><span class="label ${status.statusColor} <!-- change-color -->">${status.statusName}</span></td>
+							</#if>
+							</#if>
+							</#list>
 							<td><a  href="edittask"
 								class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
@@ -96,47 +104,12 @@ a:hover {
 								class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
-						<tr>
-
-							<td><span>公事</span></td>
-							<td><span>恶徒挺有钱有</span></td>
-							<td><span>2017/8/16 19:24:04</span></td>
-							<td><span>罗密欧</span></td>
-							<td><span>总经办</span></td>
-							<td><span class="label label-primary change-color">新任务</span>
-							</td>
-
-							<td><a href="edittask"
-								class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
-								href="seetask" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a 
-								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-						<tr>
-
-							<td><span>公事</span></td>
-							<td><span>恶徒挺有钱有</span></td>
-							<td><span>2017/8/16 19:24:04</span></td>
-							<td><span>罗密欧</span></td>
-							<td><span>总经办</span></td>
-							<td><span class="label label-primary change-color">新任务</span>
-							</td>
-
-							<td><a href="edittask"
-								class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
-								href="seetask" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a 
-								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
+						</#list>
+						
 					</table>
 				</div>
 			</div>
+			
 			<!--盒子尾-->
 			<div class="box-footer no-padding" style="margin-top: -20px;">
 				<div style="padding: 5px;">

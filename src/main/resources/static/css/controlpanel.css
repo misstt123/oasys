@@ -178,6 +178,18 @@
 .panel-title h4 {
 	margin-left: 12px;
 }
-.container-fluid{
+
+.container-fluid {
 	padding: 0px;
+}
+
+.dropdown-menu>li>a {
+	padding: 3px 13px;
+	color: #6f6f6f;
+}
+
+.dropdown-menu {
+	min-width: 110px;
+	border: 1px solid #eaecec;
+	margin-left: -80px;
 }
