@@ -1,8 +1,10 @@
 package cn.gson.oasys.controller.task;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,30 +91,17 @@ public class TaskController {
 	 * 新增任务
 	 */
 	@RequestMapping("addtasks")
-	public String  addtask(HttpServletRequest request){
-		String status=request.getParameter("status");
-		String type=request.getParameter("type");
-		String startDate=request.getParameter("startDate");
-		String endDate=request.getParameter("endDate");
-		String titleName=request.getParameter("titleName");
-		String reciverList=request.getParameter("reciverList");
-		String beizhu=request.getParameter("beizhu");
-		String pingjia=request.getParameter("pingjia");
-		String check=request.getParameter("check");
-		String cancel=request.getParameter("cancel");
-		Integer isTop = Integer.valueOf(check);
-		Integer isCancel = Integer.valueOf(cancel);
-		if(("on").equals(check)){
-			isTop=1;
-		}else if(("on").equals(cancel)){
-			isCancel=1;
-		}else if(("null").equals(check)){
-			isTop=0;
-		}else if(("null").equals(cancel)){
-			isCancel=0;
-		}
-		System.out.println(check+"dd");
-		System.out.println(cancel+"ss");
+	public String  addtask(HttpSession session,HttpServletRequest request){
+		String userId=((String) session.getAttribute("userId")).trim();
+		Long userid=Long.parseLong(userId);
+		User userlist=udao.findOne(userid);
+		Tasklist list=(Tasklist) request.getAttribute("tasklist");
+		list.setUsersId(userlist);
+		list.setPublishTime(new Date());
+		tdao.save(list);
+		
+		System.out.println(list.getReciverlist()+"aaaaaaa");
+		System.out.println(list);
 		return "redirect:/taskmanage";
 	}
 	

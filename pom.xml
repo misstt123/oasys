@@ -64,6 +64,14 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson -->
+		<dependency>
+		    <groupId>com.squareup.retrofit2</groupId>
+		    <artifactId>converter-gson</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+			
 
 		<!-- 导入fastjson -->
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->

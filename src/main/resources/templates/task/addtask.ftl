@@ -1,3 +1,4 @@
+
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
 <link rel="stylesheet" href="css/common/tanchuang.css" />
@@ -24,6 +25,29 @@ a:hover {
     cursor: pointer;
 }
 </style>
+<script>
+	$(function(){
+		$("[name=isTop]:checkbox").click(function(){
+			console.log($(this).prop("checked"));
+			if($(this).prop("checked")){
+				$(this).val("1");
+			}else{
+				$(this).val("0");
+			}
+		})
+		
+		$("[name=isCancel]:checkbox").click(function(){
+			console.log($(this).prop("checked"));
+			console.log($("#recive_list").val());
+			if($(this).prop("checked")){
+				$(this).val("1");
+			}else{
+				$(this).val("0");
+			}
+		})
+	})
+
+</script>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
 		<h1 style="font-size: 24px; margin: 0;" class="">任务管理</h1>
@@ -41,20 +65,20 @@ a:hover {
 			<div class="box-header">
 				<h3 class="box-title">
 					<a href="javascript:history.back();" class="label label-default"
-						style="padding: 5px;"> <i
-						class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
+						style="padding: 5px;">
+						 <i class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
 					</a>
 				</h3>
 			</div>
 			<!--盒子身体-->
-			<form action="addtasks">
+			<form action="ck_addtask" method="post">
 			<div class="box-body no-padding">
 				<div class="box-body">
 					<div class="row">
 					
 						<div class="col-md-6 form-group">
 							<label class="control-label"> <span>类型</span></label>
-							 <select class="form-control" name="type">
+							 <select class="form-control" name="typeId">
 							<#list typelist as type>
 							  <#if type.typeModel=="aoa_task_list">
 								<option value="${type.typeId}">${type.typeName}</option>
@@ -64,7 +88,7 @@ a:hover {
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">状态</label> 
-							<select class="form-control" name="status">
+							<select class="form-control" name="statusId">
 								<#list statuslist as status>
 								<#if status.statusModel=="aoa_task_list">
 							     <option value="${status.statusId}">${status.statusName}</option>
@@ -73,23 +97,22 @@ a:hover {
 							</select>
 						</div>
 						<div class="col-md-6 form-group">
-
-							<label class="control-label">开始日期</label> <input name="startDate"
+							<label class="control-label">开始日期</label> <input name="starTime"
 								class="form-control" onclick="WdatePicker()" />
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">结束日期</label> <input name="endDate"
+							<label class="control-label">结束日期</label> <input name="endTime"
 								class="form-control" onclick="WdatePicker()" />
 						</div>
 						<div class="col-md-6 form-group">
 
-							<label class="control-label">标题</label> <input name="titleName"
+							<label class="control-label">标题</label> <input name="title"
 								type="text" id="title_Name" class="form-control" />
 						</div>
 						<div class="col-md-6 form-group" style="position: relative;">
 							<label class="control-label" data-toggle="modal" data-target="#myModal">接收人</label>
-							 <input name="reciverList" type="text" id="recive_list"
-								class="form-control " disabled="disabled" style="background-color:#fff;"/>
+							 <input name="reciverlist" type="text" id="recive_list"
+								class="form-control " readonly="readonly" style="background-color:#fff;"/>
 							<div class="reciver">
 								<span class="label label-success glyphicon glyphicon-plus"
 									data-toggle="modal" data-target="#myModal">通讯录</span>
@@ -97,25 +120,22 @@ a:hover {
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">备注</label>
-							<textarea class="form-control text" name="beizhu"></textarea>
+							<textarea class="form-control text" name="taskDescribe"></textarea>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">评价</label>
-							<textarea class="form-control text" name="pingjia"></textarea>
+							<textarea class="form-control text" name="comment"></textarea>
 						</div>
 						<div class="col-md-6 form-group ">
 							<label class="control-label">置顶</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="check"><i>✓</i></label></span>
+								class="labels"><label><input type="checkbox" name="isTop" class="val" ><i>✓</i></label></span>
 						</div>
 
-						<div class="col-md-6  form-group">
+						<div class="col-md-6  form-group"> 
 							<label class="control-label">取消</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="cancel"><i>✓</i></label></span>
-
+								class="labels"><label><input type="checkbox" name="isCancel" class="val"><i>✓</i></label></span>
 						</div>
-					
 					</div>
-					
 				</div>
 			</div>
 			<!--盒子尾-->
