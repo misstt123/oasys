@@ -74,9 +74,34 @@ public class Note {
 	private Set<User> userss;
 	
 	public Note() {}
+	
+	
 
 	
-    public void setCatalogId(Long catalogId) {
+   
+
+
+
+	public Note(String title, String content, Long catalogId, Long typeId, Long statusId, Long attachId,
+			Date createTime) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.catalogId = catalogId;
+		this.typeId = typeId;
+		this.statusId = statusId;
+		this.attachId = attachId;
+		this.createTime = createTime;
+	}
+
+
+
+
+
+
+
+
+	public void setCatalogId(Long catalogId) {
 		this.catalogId = catalogId;
 	}
     public Long getCatalogId() {

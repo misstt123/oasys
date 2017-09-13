@@ -3,6 +3,7 @@ package cn.gson.oasys.model.entity.system;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,10 +25,6 @@ public class SystemMenu {
 	private Long menuId; // 菜单id
 
 	@Column(name = "parent_id")
-	@NotEmpty(message = "{sysMenu.parent.NotNull}")
-//	@Length(min = 5, message = "{sysMenu.parent.Length}")
-//	@Min(value=10000,message = "{sysMenu.parent.Length}")
-//	@Range(min=5,max=10,message = "{sysMenu.parent.Length}")
 	private Long parentId; // 父id
 
 	@Column(name = "menu_name")
@@ -42,6 +39,7 @@ public class SystemMenu {
 	private String menuIcon; // 菜单图标
 
 	@Column(name = "sort_id")
+	
 	private Integer sortId; // 菜单排序id
 
 	@Column(name = "is_show")

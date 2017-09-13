@@ -164,8 +164,8 @@ textarea {
 			<div class="form-group">
 				<select name="status"
 					id="ctl00_cphMain_ddlImportance" class="form-control select2">
-					<option value="0" ${(note?? && note.statusId?number==8)?string('selected','')}>一般</option>
-					<option value="1" ${(note?? && note.statusId?number==9)?string('selected','')}>重要</option>
+					<option  ${(note?? && note.statusId?number==8)?string('selected','')}>一般</option>
+					<option  ${(note?? && note.statusId?number==9)?string('selected','')}>重要</option>
 				</select>
 			</div>
 			<div class="form-group">
