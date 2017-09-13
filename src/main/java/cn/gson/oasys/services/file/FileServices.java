@@ -36,7 +36,6 @@ public class FileServices {
 	@Value("${file.root.path}")
 	private String rootPath;
 	
-	private int filenamemun=1;
 	
 	/**
 	 * 根据父	ID 查询 到路径
@@ -97,8 +96,9 @@ public class FileServices {
 		
 		if(isfile){
 			FileList filelist = new FileList();
-			System.out.println(file.getOriginalFilename());
-			filelist.setFileName(file.getOriginalFilename());
+			String filename = file.getOriginalFilename();
+			filename = onlyname(filename,nowpath,shuffix,1,true);
+			filelist.setFileName(filename);
 			filelist.setFilePath(targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
 			filelist.setFileShuffix(shuffix);
 			filelist.setSize(file.getSize());
@@ -113,14 +113,28 @@ public class FileServices {
 		return null;
 	}
 	
-	public String onlyfilename(String filename,FilePath filepath){
-		FileList fileList = fldao.findByFileNameAndFpath(filename, filepath);
-		String newname="";
-		if(fileList != null){
-			newname += fileList.getFileName()+"("+this.filenamemun+")";
-			this.filenamemun += 1;
+	/**
+	 * 文件以及路径得同名处理
+	 * @param name
+	 * @param filepath
+	 * @param shuffix
+	 * @param num
+	 * @return
+	 */
+	public String onlyname(String name,FilePath filepath,String shuffix,int num,boolean isfile){
+		Object f = null;
+		if (isfile) {
+			f = fldao.findByFileNameAndFpath(name, filepath);
+		}else{
+			//f = fpdao.
 		}
-		return newname;
+		if(f != null){
+			int num2 = num -1;
+			name = name.replace("."+shuffix,"").replace("("+num2+")", "")+"("+num+")"+"."+shuffix;
+			num += 1;
+			return onlyname(name,filepath,shuffix,num,isfile);
+		}
+		return name;
 	}
 	
 	/**
