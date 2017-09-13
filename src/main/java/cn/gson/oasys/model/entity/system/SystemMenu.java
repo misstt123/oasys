@@ -31,6 +31,7 @@ public class SystemMenu {
 	private Long parentId; // 父id
 
 	@Column(name = "menu_name")
+	@NotEmpty(message="菜单名字不能为空")
 	private String menuName; // 菜单名字
 
 	@Column(name = "menu_url")
