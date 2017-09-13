@@ -203,8 +203,8 @@ border: none;
 							<#if calist??>
 							<#list calist as ca>
 							<li class="editable">
-							<a   onclick="notejump('notewrite',${ca.catalogId})"   ><span
-									class="iconfont icon-icon4"></span>
+							<a   onclick="notejump('notewrite',${ca.catalogId})"  id=${ca.catalogId}><span
+									class="iconfont icon-icon4" ></span>
 									${ca.catalogName}</a>
 									</li>
 									</#list>

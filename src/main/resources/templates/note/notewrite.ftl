@@ -2,7 +2,29 @@
 <html>
 <head>
 <script type="text/javascript" src="js/note/noteview.js"></script>
-
+<script type="text/javascript">
+function cdelete(){
+	if(confirm("是否确认删除")){
+	var $cid=$(".cdelete").attr("id");
+	var data={cid:$cid}
+	var url = 'catadelete';
+	  $.ajax({
+			type : "get",
+			async : false,
+			url : url,
+			data:data,
+			timeout : 1000,
+			success : function(dates) {
+				alert("删除成功")
+				window.location.reload();
+			},
+		    error:function(){
+		    	alert("失败了")
+		    }
+		})
+		}
+}
+</script>
 </head>
 <body>
 
@@ -10,8 +32,17 @@
 						<!--盒子头-->
 						<div class="box-header write">
 							<h3 class="box-title">最近</h3>
-							<span style="display:none"><i class="glyphicon glyphicon-edit xiugai"></i>
-							<i class="glyphicon glyphicon-trash xiugai"></i></span>
+							<span style="display:none">
+							<a onclick="notejump('noteedit',-1)">
+							<i class="glyphicon glyphicon-edit" style="color:#337ab7">
+							</i>
+							</a>
+							<a class="cdelete"
+							onclick="cdelete()" >
+							<i class="glyphicon glyphicon-trash" style="color:#337ab7">
+							</i>
+							</a>
+							</span>
 							<div class="box-tools">
 								<div class="input-group"
 												style="width: 150px; float: right; top: 1px;">

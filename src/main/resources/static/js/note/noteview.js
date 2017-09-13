@@ -50,6 +50,8 @@ $(function() {
 							$(".write h3").text($spanval);
 							if($(this).hasClass("editable")){
 								$(".write span").show();
+								var $id=$(this).children("a").attr("id")
+								$(".write span .cdelete").attr("id",$id)
 							}
 						})
 				//全选

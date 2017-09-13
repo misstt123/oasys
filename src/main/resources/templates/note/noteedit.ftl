@@ -113,22 +113,7 @@ textarea {
 }
 </style>
 
-<script type="text/javascript">
-$(function(){
-	$('#ctl00_cphMain_lnbDraft').click(function(){
-		alert($('textarea[name="content"]').val())
-		alert($('#ctl00_cphMain_ddlFile option:selected').val());
-		//获取option里面的输入框的值
-		alert($('#ctl00_cphMain_ddlType option:selected').text());
-		alert($('#ctl00_cphMain_txtReceiver option:selected').val());
-		alert($('#ctl00_cphMain_ddlImportance option:selected').text())
-		alert($('#ctl00_cphMain_txtSubject').val())
-		
-	})
-	
-})
 
-</script>
 </head>
 
 <body class="panel-heading ">
@@ -139,9 +124,12 @@ $(function(){
 					<span class="glyphicon glyphicon-chevron-left"></span>返回
 				</a>
 			</div>
-			<div class="page-header"></div>
+			<div class="page-header">
+			</div>
+			
+			<form action="notesave" method="post" enctype="multipart/form-data">
 			<div class="form-group">
-				<select name="ctl00_cphMain_ddlFile" id="ctl00_cphMain_ddlFile"
+				<select name="catalogname" id="ctl00_cphMain_ddlFile"
 					class="form-control select2">
 					<#list calist as ca>
 					<option id="catalog" ${(note?? && note.catalogId?number==ca.catalogId)?string('selected', '')}
@@ -152,17 +140,17 @@ $(function(){
 				</select>
 			</div>
 			<div class="form-group">
-				<select name="ctl00_cphMain_ddlType" id="ctl00_cphMain_ddlType"
+				<select name="type" id="ctl00_cphMain_ddlType"
 					class="form-control select2">
-					<option value="0" ${(note?? && note.typeId?number == 5)?string('selected', '')} >我的笔记</option>
-					<option value="1" ${(note?? && note.typeId?number == 6)?string('selected', '')}>公司笔记</option>
-					<option value="2" ${(note?? && note.typeId?number == 7)?string('selected', '')}>共享笔记</option>
+					<option  ${(note?? && note.typeId?number == 5)?string('selected', '')} >我的笔记</option>
+					<option  ${(note?? && note.typeId?number == 6)?string('selected', '')}>公司笔记</option>
+					<option  ${(note?? && note.typeId?number == 7)?string('selected', '')}>共享笔记</option>
 				</select>
 			</div>
 
 			<div class="form-group">
 				<div id="MoreDiv">
-					<input name="ctl00_cphMain_txtReceiver" type="text"
+					<input name="receiver" type="text"
 						id="ctl00_cphMain_txtReceiver" class="form-control"
 						placeholder="分享给：" />
 					<div class="reciver">
@@ -174,14 +162,14 @@ $(function(){
 				</div>
 			</div>
 			<div class="form-group">
-				<select name="ctl00_cphMain_ddlImportance"
+				<select name="status"
 					id="ctl00_cphMain_ddlImportance" class="form-control select2">
 					<option value="0" ${(note?? && note.statusId?number==8)?string('selected','')}>一般</option>
 					<option value="1" ${(note?? && note.statusId?number==9)?string('selected','')}>重要</option>
 				</select>
 			</div>
 			<div class="form-group">
-				<input name="ctl00$cphMain$txtSubject" type="text"
+				<input name="title" type="text"
 					id="ctl00_cphMain_txtSubject" class="form-control"
 					placeholder="标题：" 
 					value="<#if note??>${note.title}</#if>"
@@ -189,31 +177,29 @@ $(function(){
 			</div>
 			
 			<div class="form-group">	
-				<form id="ss">
 			<textarea name="content"  style="width:770px;height:300px;visibility:hidden;font-size: 20px;">
 			<#if note??>
 			${note.content}
 			</#if>
 			</textarea>
-				</form>
 			</div>
 
 			<div class="form-group">
 				<div class="btn btn-default ">
 					<span class="glyphicon glyphicon-paperclip">增加附件</span> <input
-						type="file" name="ctl00$cphMain$fuAttachment"
+						type="file" name="file"
 						id="ctl00_cphMain_fuAttachment" />
 				</div>
-				<p class="help-block">5MB以内</p>
-			</div>
+				<p class="help-block">5MB以内</p></div>
 
 
 
 			<div class="pull-right right1 bottom1">
-				<a id="ctl00_cphMain_lnbDraft" class="btn btn-primary">保存</a> <a
+				<button id="ctl00_cphMain_lnbDraft"   class="btn btn-primary">保存</button> 
+				<a
 					id="ctl00_cphMain_lnbSend" class="btn btn-default">取消</a>
 			</div>
-
+</form>
 
 
 			<!-- 接收人弹窗-->
@@ -352,9 +338,9 @@ $(function(){
 	</div>
 	</div>
 	<script type="text/javascript">
-	var event = document.createEvent('HTMLEvents');   
-	event.initEvent("load", true, true);     
-	window.dispatchEvent(event);    
+			var event = document.createEvent('HTMLEvents');   
+			event.initEvent("load", true, true);     
+			window.dispatchEvent(event);    
 	</script>
 </body>
 </html>

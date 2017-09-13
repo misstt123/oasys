@@ -23,6 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.gson.oasys.model.dao.BlogDao;
@@ -47,6 +50,20 @@ public class NoteController {
 	List<Note> noteList;
 	List<Catalog> cataloglist;
     
+	//保存的get方法
+	@RequestMapping(value="notesave",method=RequestMethod.GET)
+	public void testdfd(@RequestParam("file") MultipartFile file,HttpServletRequest request){
+	}
+	
+	//保存的post方法
+		@RequestMapping(value="notesave",method=RequestMethod.POST)
+		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+			String type=request.getParameter("type");
+			System.out.println(type);
+			System.out.println("---"+file.getOriginalFilename());
+			return "redirect:/noteview";
+		}
+	
 	//查找类型
 	@RequestMapping("notetype")
 	public String test43(Model model,HttpServletRequest request,@Param("typeid")String id){
@@ -57,11 +74,21 @@ public class NoteController {
 		return "note/notewrite";
 	}
 	
-	//删除
+	//笔记删除
 	@RequestMapping("notedelete")
-	public String testrw(Model model,HttpServletRequest request,@Param("nid")String nid){
+	public String testrw(Model model,HttpServletRequest request){
+		String nid=request.getParameter("nid");
 		long noteid=Long.valueOf(nid);
 		noteDao.delete(noteid);
+		return "redirect:/noteview";
+	}
+	
+	//目录删除
+	@RequestMapping("catadelete")
+	public String testrwd(Model model,HttpServletRequest request){
+		String cid=request.getParameter("cid");
+		long catalogid=Long.valueOf(cid);
+		catalogDao.delete(catalogid);
 		return "redirect:/noteview";
 	}
 	
@@ -106,6 +133,7 @@ public class NoteController {
 			System.out.println(noteList);
 		}
 		else if(request.getParameter("id").equals("-2")){
+			//返回的时候跳-2 
 		noteList = (List<Note>) noteDao.findAll();
 		System.out.println(noteList);}
 		model.addAttribute("nlist", noteList);
