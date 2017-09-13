@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.taskdao.TaskDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.task.Tasklist;
@@ -36,6 +38,8 @@ public class TaskController {
 	private UserDao udao; 
 	@Autowired
 	private DeptDao ddao; 
+	@Autowired
+	private RoleDao rdao;
 	
 	
 	
@@ -44,10 +48,13 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("taskmanage")
-	public ModelAndView  index(){
+	public ModelAndView  index(HttpSession session){
+		
+		String userId=((String) session.getAttribute("userId")).trim();
+		Long userid=Long.parseLong(userId);
 		ModelAndView mav=new  ModelAndView("task/taskmanage");
 		//根据发布人id查询任务
-		List<Tasklist> tasklist=tdao.findtask(1L);
+		List<Tasklist> tasklist=tdao.findtask(userid);
 		
 		//查询类型表
 		Iterable<SystemTypeList> typelist=tydao.findAll();
@@ -55,7 +62,7 @@ public class TaskController {
 		//查询状态表
 		Iterable<SystemStatusList> statuslist=sdao.findAll();
 		//查询用户
-		List<User> userlist=udao.findByUserId(1L);
+		List<User> userlist=udao.findByUserId(userid);
 		String  username=userlist.get(0).getUserName();
 		//从用户表里面得到deptid
 		Long ss=userlist.get(0).getDept().getDeptId();
@@ -76,14 +83,27 @@ public class TaskController {
 	 * 新增任务
 	 */
 	@RequestMapping("addtask")
-	public ModelAndView  index2(){
+	public ModelAndView  index2(HttpSession session){
+		String userId=((String) session.getAttribute("userId")).trim();
+		Long userid=Long.parseLong(userId);
+		
 		ModelAndView mav=new  ModelAndView("task/addtask");
 		//查询类型表
 		Iterable<SystemTypeList> typelist=tydao.findAll();
 		//查询状态表
 		Iterable<SystemStatusList> statuslist=sdao.findAll();
+		//查询部门下面的员工
+		List<User> emplist=udao.findByFatherId(userid);
+		
+		//查询部门表
+		Iterable<Dept> deptlist=ddao.findAll();
+		//查角色表
+		Iterable<Role> rolelist=rdao.findAll();
 		mav.addObject("typelist", typelist);
 		mav.addObject("statuslist", statuslist);
+		mav.addObject("emplist", emplist);
+		mav.addObject("deptlist", deptlist);
+		mav.addObject("rolelist", rolelist);
 		return mav;
 	}
 	
@@ -100,7 +120,7 @@ public class TaskController {
 		list.setPublishTime(new Date());
 		tdao.save(list);
 		
-		System.out.println(list.getReciverlist()+"aaaaaaa");
+		System.out.println(list.getReciverlist());
 		System.out.println(list);
 		return "redirect:/taskmanage";
 	}
