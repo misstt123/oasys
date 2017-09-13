@@ -37,7 +37,7 @@ public class User {
 	private String userTel;		//用户电话
 	
 	@Column(name="real_name")
-	private String realName;    //真是姓名
+	private String realName;    //真实姓名
 	
 	private String eamil;		//
 	
