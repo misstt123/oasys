@@ -2,6 +2,7 @@ package cn.gson.oasys.controller.task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -119,9 +120,14 @@ public class TaskController {
 		list.setUsersId(userlist);
 		list.setPublishTime(new Date());
 		tdao.save(list);
-		
-		System.out.println(list.getReciverlist());
-		System.out.println(list);
+		StringTokenizer st=new StringTokenizer(list.getReciverlist(),";");
+		while(st.hasMoreElements()){
+			Long ss=udao.findid(st.nextToken());
+			
+			
+		}
+		/*System.out.println(list.getReciverlist());
+		System.out.println(list);*/
 		return "redirect:/taskmanage";
 	}
 	
