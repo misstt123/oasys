@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.alibaba.fastjson.JSONArray;
 
 import cn.gson.oasys.model.dao.filedao.FilePathdao;
-import cn.gson.oasys.model.dao.userdao.Userdao;
+import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.file.FilePath;
 import cn.gson.oasys.model.entity.user.User;
@@ -39,7 +40,7 @@ public class FileController {
 	@Autowired
 	private FilePathdao fpdao;
 	@Autowired
-	private Userdao udao;
+	private UserDao udao;
 	
 	@RequestMapping("filemanage")
 	public String usermanage(Model model) {
@@ -68,10 +69,12 @@ public class FileController {
 	}
 	
 	@RequestMapping("fileupload")
-	public String uploadfile(@RequestParam("file") MultipartFile file,@RequestParam("pathid")Long pathid,Model model) throws IllegalStateException, IOException{
-		User user = udao.findOne(1L);
+	public String uploadfile(@RequestParam("file") MultipartFile file,@RequestParam("pathid")Long pathid,HttpSession session,Model model) throws IllegalStateException, IOException{
+		Long userid = Long.parseLong(session.getAttribute("userId")+"");
+		User user = udao.findOne(userid);
 		FilePath nowpath = fpdao.findOne(pathid);
-		FileList uploadfile = fs.savefile(file, user, nowpath);
+		//true 表示从文件使用上传
+		FileList uploadfile = (FileList) fs.savefile(file, user, nowpath,true);
 		System.out.println(uploadfile);
 		model.addAttribute("pathid",pathid);
 		return "forward:/filetest";
