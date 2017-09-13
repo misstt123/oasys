@@ -1,5 +1,7 @@
 package cn.gson.oasys.model.entity.task;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +14,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_task_list")
 //任务表
-public class Tasklist {
+public class Tasklist implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,20 +36,26 @@ public class Tasklist {
 	private Long typeId;//任务类型（公事，私事）
 	
 	@Column(name="publish_time")
+	@JSONField(format = "yyyy-MM-dd")
 	private Date publishTime;//发布时间
 	
 	@Column(name="star_time")
+	@JSONField(format = "yyyy-MM-dd")
 	private Date starTime;//任务开始时间
 	
 	@Column(name="end_time")
+	@JSONField(format = "yyyy-MM-dd")
 	private Date endTime;//任务结束时间
 	
 	@Column(name="modify_time")
+	@JSONField(format = "yyyy-MM-dd")
 	private Date modifyTime;//任务修改时间
 	
 	@Column(name="title",nullable=false)
 	private String title;//任务主题
 	
+	@Transient
+	private String reciverlist;
 	
 	@ManyToOne
 	@JoinColumn(name="task_push_user_id")
@@ -68,7 +81,6 @@ public class Tasklist {
 	
 	
 	public Tasklist(){}
-
 	
 	public Long getTaskId() {
 		return taskId;
@@ -184,6 +196,39 @@ public class Tasklist {
 
 	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
+	}
+	
+	
+
+	public String getReciverlist() {
+		return reciverlist;
+	}
+
+
+	public void setReciverlist(String reciverlist) {
+		this.reciverlist = reciverlist;
+	}
+
+	
+
+	public Tasklist(Long typeId, Date starTime, Date endTime, String title, String reciverlist, String taskDescribe,
+			String comment, Integer isTop, Integer isCancel, Integer statusId) {
+		super();
+		this.typeId = typeId;
+		this.starTime = starTime;
+		this.endTime = endTime;
+		this.title = title;
+		this.reciverlist = reciverlist;
+		this.taskDescribe = taskDescribe;
+		this.comment = comment;
+		this.isTop = isTop;
+		this.isCancel = isCancel;
+		this.statusId = statusId;
+	}
+
+	public Tasklist(String comment, String taskDescribe, String title, Date starTime, Date endTime, Long typeId,
+			Integer statusId, Integer isCancel, Integer isTop, Date publishTime, Long userid) {
+		
 	}
 
 	@Override
