@@ -1,9 +1,14 @@
 package cn.gson.oasys.controller.note;
 
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Matchers.longThat;
+import static org.mockito.Mockito.mockingDetails;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.gson.oasys.model.dao.BlogDao;
@@ -42,6 +50,20 @@ public class NoteController {
 	List<Note> noteList;
 	List<Catalog> cataloglist;
     
+	//保存的get方法
+	@RequestMapping(value="notesave",method=RequestMethod.GET)
+	public void testdfd(@RequestParam("file") MultipartFile file,HttpServletRequest request){
+	}
+	
+	//保存的post方法
+		@RequestMapping(value="notesave",method=RequestMethod.POST)
+		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+			String type=request.getParameter("type");
+			System.out.println(type);
+			System.out.println("---"+file.getOriginalFilename());
+			return "redirect:/noteview";
+		}
+	
 	//查找类型
 	@RequestMapping("notetype")
 	public String test43(Model model,HttpServletRequest request,@Param("typeid")String id){
@@ -52,11 +74,21 @@ public class NoteController {
 		return "note/notewrite";
 	}
 	
-	//删除
+	//笔记删除
 	@RequestMapping("notedelete")
-	public String testrw(Model model,HttpServletRequest request,@Param("nid")String nid){
+	public String testrw(Model model,HttpServletRequest request){
+		String nid=request.getParameter("nid");
 		long noteid=Long.valueOf(nid);
 		noteDao.delete(noteid);
+		return "redirect:/noteview";
+	}
+	
+	//目录删除
+	@RequestMapping("catadelete")
+	public String testrwd(Model model,HttpServletRequest request){
+		String cid=request.getParameter("cid");
+		long catalogid=Long.valueOf(cid);
+		catalogDao.delete(catalogid);
 		return "redirect:/noteview";
 	}
 	
@@ -74,7 +106,7 @@ public class NoteController {
 		return "note/noteview";
 	}
 	
-	//post请求
+	//post请求 添加类型
 		@RequestMapping(value="noteview",method=RequestMethod.POST)
 		public String test3332(HttpServletRequest request,@Param("title")String title){
 			String catalogName=request.getParameter("name");
@@ -94,23 +126,34 @@ public class NoteController {
 	//显示所有
 	@RequestMapping(value = "notewrite", method = RequestMethod.GET)
 	public String test33(Model model,HttpServletRequest request){
+		if(!request.getParameter("id").equals("-2")){
+			String cid=request.getParameter("id");
+			Long id=Long.valueOf(cid);
+			noteList=noteDao.findByCatalogId(id);
+			System.out.println(noteList);
+		}
+		else if(request.getParameter("id").equals("-2")){
+			//返回的时候跳-2 
 		noteList = (List<Note>) noteDao.findAll();
-		System.out.println(noteList);
+		System.out.println(noteList);}
 		model.addAttribute("nlist", noteList);
 		return "note/notewrite";
 	}
 	
-	//模糊查询
+	//模糊查询或者是根据目录查找
 	@RequestMapping(value="notewrite",method=RequestMethod.POST)
-	public String test333(Model model,HttpServletRequest request,@Param("title")String title){
-		noteList =noteDao.findBytitle(title,title);
+	public String test333(Model model,HttpServletRequest request){
+		//模糊查找
+		String title=request.getParameter("title");
+		noteList =noteDao.findBytitle(title);
 		System.out.println(noteList);
+		//根据目录
 		model.addAttribute("nlist", noteList);
 		return "note/notewrite";
 	}
 	
 	//编辑
-	@RequestMapping("noteedit")
+	@RequestMapping(value="noteedit",method=RequestMethod.GET)
 	public String test4(@Param("id")String id,HttpServletRequest Request){
 		//目录
 		cataloglist=(List<Catalog>) catalogDao.findAll();
@@ -119,15 +162,26 @@ public class NoteController {
 		Long nid=Long.valueOf(id);
 		//新建
 		if(nid==-1){
+			Request.setAttribute("note",null);
 			System.out.println("保存一个对象");
 		}
+		
 		//修改
 		else if(nid>0){
-			System.out.println("取出一个对象 然后保存");
+			Note note=noteDao.findOne(nid);
+			Request.setAttribute("note", note);
+			System.out.println(note);
 		}
 		Request.setAttribute("id", nid);
 		return "note/noteedit";
 	}
 	
-
+	//编辑提交数据
+		@RequestMapping(value="noteedit",method=RequestMethod.POST)
+		public String test4e(@Param("id")String id,HttpServletRequest Request){
+			
+			return "note/noteedit";
+		}
+		
+	
 }

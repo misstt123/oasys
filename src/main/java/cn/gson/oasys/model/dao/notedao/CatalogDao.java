@@ -9,4 +9,5 @@ import cn.gson.oasys.model.entity.note.Note;
 @Repository
 public interface CatalogDao  extends PagingAndSortingRepository<Catalog, Long>{
 
+	
 }

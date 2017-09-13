@@ -2,19 +2,52 @@
 <html>
 <head>
 <script type="text/javascript" src="js/note/noteview.js"></script>
-
+<script type="text/javascript">
+function cdelete(){
+	if(confirm("是否确认删除")){
+	var $cid=$(".cdelete").attr("id");
+	var data={cid:$cid}
+	var url = 'catadelete';
+	  $.ajax({
+			type : "get",
+			async : false,
+			url : url,
+			data:data,
+			timeout : 1000,
+			success : function(dates) {
+				alert("删除成功")
+				window.location.reload();
+			},
+		    error:function(){
+		    	alert("失败了")
+		    }
+		})
+		}
+}
+</script>
 </head>
 <body>
 
 	<div class="bgc-w box box-primary" >
 						<!--盒子头-->
-						<div class="box-header">
+						<div class="box-header write">
 							<h3 class="box-title">最近</h3>
+							<span style="display:none">
+							<a onclick="notejump('noteedit',-1)">
+							<i class="glyphicon glyphicon-edit" style="color:#337ab7">
+							</i>
+							</a>
+							<a class="cdelete"
+							onclick="cdelete()" >
+							<i class="glyphicon glyphicon-trash" style="color:#337ab7">
+							</i>
+							</a>
+							</span>
 							<div class="box-tools">
 								<div class="input-group"
 												style="width: 150px; float: right; top: 1px;">
 												<input  type="text" class="form-control input-sm pull-right"
-													placeholder="查找..." />
+													placeholder="查找..."  id="find"/>
 												<div class="input-group-btn" style="top: -1px;">
 													<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change"
 														onclick="searchlike()"></a>
@@ -56,12 +89,33 @@
 													type="checkbox"><i>✓</i></label></span></td>
 										<td><span class="glyphicon glyphicon-star-empty collect"></span>
 										</td>
-										<td><span>${note.typeId}</span></td>
+										<td><span><#if note.typeId==5>
+										我的笔记
+										</#if>
+										<#if note.typeId==6>
+										公司笔记
+										</#if>
+										<#if note.typeId==7>
+										共享笔记
+										</#if>
+										</span></td>
 										<td class="mailbox-subject"><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
 										<td><span class="glyphicon glyphicon-paperclip"></span></td>
 										<td>
-											<div class="label label-info">一般</div>
+											
+											<#if note.statusId==8>
+											<div class="label label-info">
+										一般
+										</div>
+										</#if>
+										
+										<#if note.statusId==9>
+										<div class="label label-danger">
+										重要
+										</div>
+										</#if>
+											
 										</td>
 										<td><a 
 										
