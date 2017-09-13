@@ -39,6 +39,7 @@ public class SystemMenu {
 	private String menuIcon; // 菜单图标
 
 	@Column(name = "sort_id")
+	
 	private Integer sortId; // 菜单排序id
 
 	@Column(name = "is_show")
