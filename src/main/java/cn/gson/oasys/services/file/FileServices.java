@@ -97,6 +97,7 @@ public class FileServices {
 		
 		if(isfile){
 			FileList filelist = new FileList();
+			System.out.println(file.getOriginalFilename());
 			filelist.setFileName(file.getOriginalFilename());
 			filelist.setFilePath(targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
 			filelist.setFileShuffix(shuffix);
@@ -116,7 +117,8 @@ public class FileServices {
 		FileList fileList = fldao.findByFileNameAndFpath(filename, filepath);
 		String newname="";
 		if(fileList != null){
-			newname  = fileList.getFileName()+"("+this.filenamemun+")";
+			newname += fileList.getFileName()+"("+this.filenamemun+")";
+			this.filenamemun += 1;
 		}
 		return newname;
 	}
