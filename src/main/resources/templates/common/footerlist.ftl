@@ -4,7 +4,7 @@
 			style="background: white; padding: 15px; position: absolute; bottom: 0;height:50px;">
 			<strong> Copyright © 2017 <a href="http://www.zxyoo.cn">zxyoo</a>.
 			</strong> All rights reserved.
-			<div class="pull-right" style="display: inline-block;">
+			<div class="pull-right currt-time" style="display: inline-block;margin-right: 20px;">
 				2017年08月27日，星期日</div>
 		</div>
 	</div>
@@ -12,6 +12,19 @@
 <script type="text/javascript">
 
 			$(function() {
+				/*通过改变iframe来改变里面的内容块  */
+				function changepath(path) {
+					$('iframe').attr('src', path);
+				}
+				/*获取当前时间并显示在底部栏  */
+				var day = new Date();
+				var week = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+				s = day.getFullYear() + "年";
+				s = s + (day.getMonth()+1) + "月";
+				s = s + day.getDate() + "日,";
+				s = s + week[day.getDay()];
+				console.log(s);
+				$(".currt-time").text(s);
 
 				
 				$('.open-menu').on('click', function() {

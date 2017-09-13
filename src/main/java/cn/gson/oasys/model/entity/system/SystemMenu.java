@@ -1,6 +1,12 @@
 package cn.gson.oasys.model.entity.system;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 /**
  * 系统菜单实体类表
@@ -18,12 +24,17 @@ public class SystemMenu {
 	private Long menuId; // 菜单id
 
 	@Column(name = "parent_id")
+	@NotEmpty(message = "{sysMenu.parent.NotNull}")
+//	@Length(min = 5, message = "{sysMenu.parent.Length}")
+//	@Min(value=10000,message = "{sysMenu.parent.Length}")
+//	@Range(min=5,max=10,message = "{sysMenu.parent.Length}")
 	private Long parentId; // 父id
 
 	@Column(name = "menu_name")
 	private String menuName; // 菜单名字
 
 	@Column(name = "menu_url")
+	@NotEmpty(message="{sysMenu.menuUrl.NotNull}")
 	private String menuUrl; // 菜单链接
 
 	@Column(name = "menu_icon")
@@ -34,10 +45,10 @@ public class SystemMenu {
 
 	@Column(name = "is_show")
 	private Integer isShow; // 菜单是否显示
-	
+
 	@Column(name = "menu_grade")
-	private Integer menuGrade; //权限值分数
-	
+	private Integer menuGrade; // 权限值分数
+
 	public SystemMenu() {
 	}
 
@@ -100,7 +111,7 @@ public class SystemMenu {
 	public Integer getMenuGrade() {
 		return menuGrade;
 	}
-	
+
 	public void setMenuGrade(Integer menuGrade) {
 		this.menuGrade = menuGrade;
 	}
@@ -111,7 +122,5 @@ public class SystemMenu {
 				+ menuUrl + ", menuIcon=" + menuIcon + ", sortId=" + sortId + ", isShow=" + isShow + ", menuGrade="
 				+ menuGrade + "]";
 	}
-	
-	
 
 }

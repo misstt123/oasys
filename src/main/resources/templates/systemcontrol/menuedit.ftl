@@ -11,6 +11,11 @@ a:hover {
 .bgc-w {
 	background-color: #fff;
 }
+.red{
+	color:#d9534f;
+	font-weight:100;
+	font-size:1px;
+}
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
@@ -48,25 +53,25 @@ a:hover {
 							<div class="row">
 							<div class="col-md-6 form-group has-error has-feedback">
 								<label class="control-label"><span>名称</span></label> <input required="required"
-									class="form-control"  name="name"/>
+									class="form-control"  name="menuName"/>
 									<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 							</div>
 							<div class="col-md-6 form-group has-error has-feedback">
 								<label class="control-label"><span>图标</span></label> <input required="required"
-									class="form-control" name="icon"/>
+									class="form-control" name="menuIcon"/>
 									<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>路径</span></label> <input
-									class="form-control" name="url"/>
+									class="form-control" name="menuUrl"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>排序</span></label> <input 
-									class="form-control" name="sort"/>
+									class="form-control" name="sortId"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>父级</span></label> <input
-									class="form-control" name="parent" value="${menuObj.menuId}" readonly="readonly"/>
+									class="form-control" name="parentId" value="${menuObj.menuId}" readonly="readonly"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>显示</span></label><br>
@@ -79,23 +84,23 @@ a:hover {
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>名称</span></label> <input
-									class="form-control" value="${menuObj.menuName}" name="name"/>
+									class="form-control" value="${menuObj.menuName}" name="menuName"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>图标</span></label> <input
-									class="form-control" value="${menuObj.menuIcon}" name="icon"/>
+									class="form-control" value="${menuObj.menuIcon}" name="menuIcon"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>路径</span></label> <input
-									class="form-control" value="${menuObj.menuUrl}" name="url"/>
+									class="form-control" value="${menuObj.menuUrl}" name="menuUrl"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>排序</span></label> <input
-									class="form-control" value="${menuObj.sortId}" name="sort"/>
+									class="form-control" value="${menuObj.sortId}" name="sortId"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>父级</span></label> <input
-									class="form-control" value="${menuObj.parentId}" name="parent"/>
+									class="form-control" value="${menuObj.parentId}" name="parentId"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>显示</span></label><br>
@@ -111,24 +116,24 @@ a:hover {
 					<#else>
 					<div class="row">
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>名称</span></label> <input
-								class="form-control"  name="name"/>
+							<label class="control-label"><span>名称 </span><span class="red glyphicon glyphicon-asterisk"></span></label> <input
+								class="form-control"  name="menuName"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>图标</span></label> <input
-								class="form-control" name="icon"/>
+							<label class="control-label"><span>图标</span> <span class="red glyphicon glyphicon-asterisk"></span></label> <input
+								class="form-control" name="menuIcon"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>路径</span></label> <input
-								class="form-control" name="url"/>
+							<label class="control-label"><span>路径 </span><span class="red glyphicon glyphicon-asterisk"> </span></label> <input
+								class="form-control" name="menuUrl"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>排序</span></label> <input
-								class="form-control" name="sort"/>
+							<label class="control-label"><span>排序</span><span class="red glyphicon glyphicon-asterisk"></span></label> <input
+								class="form-control" name="sortId"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label"><span>父级</span></label> <input
-								class="form-control" name="parent"/>
+							<label class="control-label"><span>父级</span><span class="red glyphicon glyphicon-asterisk"></span></label> <input
+								class="form-control" name="parentId"/>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label"><span>显示</span></label><br>

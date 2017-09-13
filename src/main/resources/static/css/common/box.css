@@ -49,8 +49,11 @@
 	padding: 10px;
 	background-color: #fff;
 }
+.box-footer  .btn-primary{
+	margin-left: 16px;
+}
 
-.box.box-primary {
+.box .box-primary {
 	border-top-color: #3c8dbc;
 }
 
