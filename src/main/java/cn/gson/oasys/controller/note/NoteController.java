@@ -31,6 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
+import cn.gson.oasys.model.dao.system.StatusDao;
+import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.entity.Blog;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;
@@ -46,6 +48,12 @@ public class NoteController {
 	private NoteDao noteDao;
 	@Autowired
 	private CatalogDao catalogDao;
+	@Autowired
+	private TypeDao typeDao;
+	@Autowired
+	private StatusDao statusDao;
+	
+	
 	
 	List<Note> noteList;
 	List<Catalog> cataloglist;
@@ -58,9 +66,19 @@ public class NoteController {
 	//保存的post方法
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
 		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request){
-			String type=request.getParameter("type");
-			System.out.println(type);
-			System.out.println("---"+file.getOriginalFilename());
+			
+			
+			String catalogname=request.getParameter("catalogname");
+			String catalogName=catalogname.substring(1,catalogname.length());
+			long catalogId=catalogDao.findByCatalogName(catalogName);
+			String typename=request.getParameter("type");
+			long typeId=typeDao.findByTypeName(typename);
+			String statusName=request.getParameter("status");
+			long statusId=statusDao.findByStatusName(statusName);
+			String title=request.getParameter("title");
+			String content=request.getParameter("content");
+			noteDao.save(new Note(title, content, catalogId, typeId, statusId, 1l, new Date()));
+			
 			return "redirect:/noteview";
 		}
 	
