@@ -16,12 +16,14 @@ import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.taskdao.TaskDao;
+import cn.gson.oasys.model.dao.taskdao.TaskuserDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.task.Tasklist;
+import cn.gson.oasys.model.entity.task.Taskuser;
 import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.User;
 
@@ -41,7 +43,8 @@ public class TaskController {
 	private DeptDao ddao; 
 	@Autowired
 	private RoleDao rdao;
-	
+	@Autowired
+	private TaskuserDao tudao;
 	
 	
 	/**
@@ -120,14 +123,19 @@ public class TaskController {
 		list.setUsersId(userlist);
 		list.setPublishTime(new Date());
 		tdao.save(list);
+		//分割任务接收人
 		StringTokenizer st=new StringTokenizer(list.getReciverlist(),";");
 		while(st.hasMoreElements()){
-			Long ss=udao.findid(st.nextToken());
-			
+			User reciver=udao.findid(st.nextToken());
+			Taskuser task=new Taskuser();
+			task.setTaskId(list);
+			task.setUserId(reciver);
+			task.setStatusId(list.getStatusId());
+			//存任务中间表
+			tudao.save(task);
 			
 		}
-		/*System.out.println(list.getReciverlist());
-		System.out.println(list);*/
+		
 		return "redirect:/taskmanage";
 	}
 	
