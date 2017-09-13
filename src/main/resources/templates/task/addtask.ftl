@@ -194,53 +194,28 @@ a:hover {
 												<th class="col-xs-2 b">角色</th>
 												<th class=" col-xs-2">电话</th>
 											</tr>
+											<#list emplist as emp>
 											<tr class="row">
-												<th class=" col-xs-2">
+												<td class=" col-xs-2">
 													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
-												</th>
-												<th class="col-xs-2">部门</th>
-												<th class=" col-xs-2">真实姓名 </th>
-												<th class="col-xs-2 na">用户名</th>
-												<th class=" col-xs-2">角色</th>
-												<th class=" col-xs-2">电话</th>
+												</td>
+												<#list deptlist as dept>
+												<#if emp.dept.deptId==dept.deptId>
+												<td class="col-xs-2">${dept.deptName}</td>
+												</#if>
+												</#list>
+												<td class=" col-xs-2">${emp.realName} </td>
+												<td class="col-xs-2 na">${emp.userName}</td>
+												<#list rolelist as role>
+												<#if emp.role.roleId=role.roleId>
+												<td class=" col-xs-2">${role.roleName}</td>
+												</#if>
+												</#list>
+												<td class=" col-xs-2">${emp.userTel}</td>
 
 											</tr>
-											<tr class="row">
-
-												<th class=" col-xs-2">
-													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
-												</th>
-												<th class=" col-xs-2">部门</th>
-												<th class=" col-xs-2">真实姓名 </th>
-												<th class=" col-xs-2 na">用户名</th>
-												<th class=" col-xs-2">角色</th>
-												<th class=" col-xs-2">电话</th>
-
-											</tr>
-											<tr class="row">
-
-												<th class=" col-xs-2">
-													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
-												</th>
-												<th class=" col-xs-2">部门</th>
-												<th class="col-xs-2">真实姓名 </th>
-												<th class=" col-xs-2 na">用户名</th>
-												<th class="col-xs-2">角色</th>
-												<th class="col-xs-2">电话</th>
-
-											</tr>
-											<tr class="row">
-
-												<th class=" col-xs-2">
-													<span class="labels"><label><input name="id" type="checkbox"><i>✓</i></label></span>
-												</th>
-												<th class=" col-xs-2">部门</th>
-												<th class="col-xs-2">真实姓名 </th>
-												<th class=" col-xs-2 na">用户名</th>
-												<th class="col-xs-2">角色</th>
-												<th class="col-xs-2">电话</th>
-
-											</tr>
+											</#list>
+											
 										</table>
 
 										<div class="box-footer no-padding" style="margin-top: -20px;background: #FAFAFA;border-top: solid 1px #F5F5F5;">
