@@ -12,23 +12,20 @@ maximum-scale=1, user-scalable=no">
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
 <script>
-function  changepath(path){
-	$('iframe').attr('src',path);
-}
+	
 </script>
 </head>
 <body>
 	<div class="main">
 		<div class="container-fluid">
 			<div class="row">
-				<#include "/common/leftlist.ftl"> 
-				<!--顶层右侧的导航栏，栅格系统分10份-->
+				<#include "/common/leftlist.ftl"> <!--顶层右侧的导航栏，栅格系统分10份-->
 				<div class="col-md-10 moredeep" style="padding: 0; margin: 0;">
 					<!-- 导航栏 -->
-					<#include "/common/navlist.ftl"> 
+					<#include "/common/navlist.ftl">
 					<div class="col-md-12 list-right"
-						style="background: #ecf0f5; position: relative;height:845px;">
-						<!--内容区块--> 
+						style="background: #ecf0f5; position: relative; height: 845px;">
+						<!--内容区块-->
 						<iframe src="test2" frameBorder="0" width="100%" height="780px"></iframe>
 						<!-- 底部栏 -->
 						<#include "/common/footerlist.ftl">
