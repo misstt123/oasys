@@ -8,7 +8,7 @@ import cn.gson.oasys.model.entity.system.SystemTypeList;
 
 @Repository
 public interface TypeDao extends PagingAndSortingRepository<SystemTypeList, Long>{
-
+	//通过名称找到id
 	@Query("select typeId from SystemTypeList s where s.typeName=?1")
 	Long findByTypeName(String typename);
 }

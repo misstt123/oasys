@@ -66,15 +66,18 @@ public class NoteController {
 	//保存的post方法
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
 		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+			
+			
 			String catalogname=request.getParameter("catalogname");
-			long catalogid=catalogDao.findByCatalogName(catalogname);
+			String catalogName=catalogname.substring(1,catalogname.length());
+			long catalogId=catalogDao.findByCatalogName(catalogName);
 			String typename=request.getParameter("type");
-			long typeid=typeDao.findByTypeName(typename);
+			long typeId=typeDao.findByTypeName(typename);
 			String statusName=request.getParameter("status");
-			long statusid=statusDao.findByStatusName(statusName);
+			long statusId=statusDao.findByStatusName(statusName);
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
-			
+			noteDao.save(new Note(title, content, catalogId, typeId, statusId, 1l, new Date()));
 			
 			return "redirect:/noteview";
 		}

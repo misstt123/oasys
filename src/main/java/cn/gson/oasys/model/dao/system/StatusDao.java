@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 @Repository
 public interface StatusDao extends PagingAndSortingRepository<SystemStatusList, Long>{
-	
+	//通过名称找到id
 	@Query("select statusId from SystemStatusList s where s.statusName=?1")
 	Long findByStatusName(String statusName);
 }

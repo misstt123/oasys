@@ -10,6 +10,6 @@ import cn.gson.oasys.model.entity.note.Note;
 @Repository
 public interface CatalogDao  extends PagingAndSortingRepository<Catalog, Long>{
 
-	@Query("select catalogId from Note n where n.catalogName=?1")
+	@Query("select catalogId from Catalog c where c.catalogName=?1")
 	Long findByCatalogName(String catalogname);
 }

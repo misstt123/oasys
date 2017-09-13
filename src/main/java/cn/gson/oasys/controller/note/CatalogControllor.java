@@ -14,8 +14,7 @@ import cn.gson.oasys.model.dao.notedao.NoteDao;
 public class CatalogControllor {
 Logger log=LoggerFactory.getLogger(getClass());
 	
-	@Autowired 
-	private CatalogDao catalogDao;
+
 	
 	
 	
