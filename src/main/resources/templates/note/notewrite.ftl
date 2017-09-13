@@ -8,8 +8,10 @@
 
 	<div class="bgc-w box box-primary" >
 						<!--盒子头-->
-						<div class="box-header">
+						<div class="box-header write">
 							<h3 class="box-title">最近</h3>
+							<span style="display:none"><i class="glyphicon glyphicon-edit xiugai"></i>
+							<i class="glyphicon glyphicon-trash xiugai"></i></span>
 							<div class="box-tools">
 								<div class="input-group"
 												style="width: 150px; float: right; top: 1px;">

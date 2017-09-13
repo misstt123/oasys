@@ -31,7 +31,7 @@ $(".change").click(function(){
 //笔记里面跳转 注意里面只存储一个id的数据
 function notejump(url,id){
   var data={id:id}
-  alert("---"+id);
+ /*  alert("---"+id); */
    //显示具体信息
    var url = url;
    $.ajax({
@@ -69,7 +69,7 @@ function searchlike(){
 
 function increase(){
 	var $zengjia=$(".input-group #increase").val();
-	alert($zengjia)
+	/* alert($zengjia) */
 	var data={name:$zengjia};
 	$.ajax({
 		type:"post",
@@ -193,20 +193,23 @@ border: none;
 							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li ><a onclick="notejump('notewrite','-2')" class="borderleft"> <span
+							<li class="borderleft"><a onclick="notejump('notewrite','-2')" > <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
 							
 							
 							<!-- 使用foreach循环 循环出集合-->
-							<li>
+							
 							<#if calist??>
 							<#list calist as ca>
-							<a   onclick="notejump('notewrite',${ca.catalogId})"   class="borderleft"><span
-									class="iconfont icon-icon4"></span>${ca.catalogName}</a>
+							<li class="editable">
+							<a   onclick="notejump('notewrite',${ca.catalogId})"   ><span
+									class="iconfont icon-icon4"></span>
+									${ca.catalogName}</a>
+									</li>
 									</#list>
 									</#if>
-									</li>
+									
 							
 						</ul>
 					</div>

@@ -42,12 +42,15 @@ $(function() {
 								alert("已经取消收藏了")
 							}
 						})
-				//左边的边框样式
-				$(".bgc-w ul li").on(
-						"click",
+				//左边的边框样式 以及触发右边事件
+				$(".bgc-w ul li ").click(
 						function() {
-							$(this).addClass("borderleft").siblings()
-									.removeClass("borderleft");
+							$(this).addClass("borderleft").siblings().removeClass("borderleft");
+							var $spanval=$(this).children("a").text();
+							$(".write h3").text($spanval);
+							if($(this).hasClass("editable")){
+								$(".write span").show();
+							}
 						})
 				//全选
 				$(".allcheck").click(
@@ -87,10 +90,7 @@ $(function() {
 					})
 				
 					
-					/*$(".row .col-md-3 ul li").click(function(){
-						$(this).addClass("borderleft").sibling().removeClass("borderleft");
-					})	*/
-				
+					
 				
 			})
 			
