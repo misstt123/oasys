@@ -32,6 +32,9 @@ $(".allcheck").click(function(){
 	}
 });
 
+/**
+ * 右键菜单JS
+ */
 $(".file-box .file-one").mousedown(function(e){
 	if(3 == e.which){
 	    $(document).bind("contextmenu",function(e){
@@ -40,6 +43,11 @@ $(".file-box .file-one").mousedown(function(e){
 	    if(!$(this).hasClass("file-one-check")){
 	    	$(this).addClass("file-one-check");
 	    	$(this).siblings(".file-one").removeClass("file-one-check");
+	    }
+	    if($(this).find(".file-img").hasClass("path")){
+	    	var href = $(this).find(".path a").attr("href");
+	    	$(".menu .open").attr("href",href);
+	    	
 	    }
 		var oX = e.pageX;
 		var oY = e.pageY;

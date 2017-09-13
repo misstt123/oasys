@@ -62,7 +62,7 @@ li.activee>a {
 <body style="background-color: #ecf0f5;">
 	<div class = "menu">
 		<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
-			<li><a>打开</a></li>
+			<li><a class="open">打开</a></li>
 			<li><a>下载</a></li>
 			<li><a>分享</a></li>
 			<li><a>移动到</a></li>
