@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Matchers.longThat;
 import static org.mockito.Mockito.mockingDetails;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,9 +34,13 @@ import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.Blog;
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.file.FileServices;
 
 
 @Controller
@@ -44,6 +49,8 @@ public class NoteController {
 		
 	Logger log=LoggerFactory.getLogger(getClass());
 	
+	@Autowired
+	private FileServices fs;
 	@Autowired 
 	private NoteDao noteDao;
 	@Autowired
@@ -52,7 +59,8 @@ public class NoteController {
 	private TypeDao typeDao;
 	@Autowired
 	private StatusDao statusDao;
-	
+	@Autowired
+	private UserDao userDao;
 	
 	
 	List<Note> noteList;
@@ -65,8 +73,11 @@ public class NoteController {
 	
 	//保存的post方法
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
-		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
+			Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 			
+		    User user=userDao.findOne(userid);
+			Attachment att =(Attachment) fs.savefile(file, user, null, false);
 			
 			String catalogname=request.getParameter("catalogname");
 			String catalogName=catalogname.substring(1,catalogname.length());
@@ -77,8 +88,7 @@ public class NoteController {
 			long statusId=statusDao.findByStatusName(statusName);
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
-			noteDao.save(new Note(title, content, catalogId, typeId, statusId, 1l, new Date()));
-			
+			noteDao.save(new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date()));
 			return "redirect:/noteview";
 		}
 	

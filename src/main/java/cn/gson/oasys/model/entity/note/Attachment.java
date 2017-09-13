@@ -34,7 +34,7 @@ public class Attachment {
 	
 	
 	@Column(name="attachment_size")
-	private String attachmentSize; //附件大小
+	private long attachmentSize; //附件大小
 	
 	@Column(name="attachment_type")
 	private String attachmentType;  //附件类型
@@ -79,11 +79,11 @@ public class Attachment {
 		this.attachmentPath = attachmentPath;
 	}
 
-	public String getAttachmentSize() {
+	public long getAttachmentSize() {
 		return attachmentSize;
 	}
 
-	public void setAttachmentSize(String attachmentSize) {
+	public void setAttachmentSize(long attachmentSize) {
 		this.attachmentSize = attachmentSize;
 	}
 
@@ -126,7 +126,7 @@ public class Attachment {
 				+ ", uploadTime=" + uploadTime + ", model=" + model + ", attachmentShuffix=" + attachmentShuffix + "]";
 	}
 
-	public Attachment(Long attachmentId, String attachmentName, String attachmentPath, String attachmentSize,
+	public Attachment(Long attachmentId, String attachmentName, String attachmentPath, long attachmentSize,
 			String attachmentType, Date uploadTime, String model, String attachmentShuffix) {
 		super();
 		this.attachmentId = attachmentId;
