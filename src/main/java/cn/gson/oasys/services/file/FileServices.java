@@ -36,6 +36,8 @@ public class FileServices {
 	@Value("${file.root.path}")
 	private String rootPath;
 	
+	private int filenamemun=1;
+	
 	/**
 	 * 根据父	ID 查询 到路径
 	 * @param parentId
@@ -76,7 +78,7 @@ public class FileServices {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public FileList savefile(MultipartFile file,User user,FilePath nowpath) throws IllegalStateException, IOException{
+	public Object savefile(MultipartFile file,User user,FilePath nowpath,boolean isfile) throws IllegalStateException, IOException{
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
 		File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
 		
@@ -93,16 +95,30 @@ public class FileServices {
 		File targetFile = new File(savepath,newFileName);
 		file.transferTo(targetFile);
 		
-		FileList filelist = new FileList();
-		filelist.setFileName(file.getOriginalFilename());
-		filelist.setFilePath(targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
-		filelist.setFileShuffix(shuffix);
-		filelist.setSize(file.getSize());
-		filelist.setUploadTime(new Date());
-		filelist.setFpath(nowpath);
-		filelist.setUser(user);
-		fldao.save(filelist);
-		return filelist;
+		if(isfile){
+			FileList filelist = new FileList();
+			filelist.setFileName(file.getOriginalFilename());
+			filelist.setFilePath(targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
+			filelist.setFileShuffix(shuffix);
+			filelist.setSize(file.getSize());
+			filelist.setUploadTime(new Date());
+			filelist.setFpath(nowpath);
+			filelist.setUser(user);
+			fldao.save(filelist);
+			return filelist;
+		}else{
+			
+		}
+		return null;
+	}
+	
+	public String onlyfilename(String filename,FilePath filepath){
+		FileList fileList = fldao.findByFileNameAndFpath(filename, filepath);
+		String newname="";
+		if(fileList != null){
+			newname  = fileList.getFileName()+"("+this.filenamemun+")";
+		}
+		return newname;
 	}
 	
 	/**
