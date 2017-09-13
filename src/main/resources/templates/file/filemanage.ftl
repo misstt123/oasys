@@ -35,7 +35,7 @@ a:hover {
 }
 
 li.activee>a {
-	border-left-color: #3c8dbc;
+	border-left-color: #3c8dbc !important;
 }
 
 .des {
@@ -46,18 +46,30 @@ li.activee>a {
 	position: fixed;
     left:0;
     top:0;
-    width:200px;
-    height: 400px;
-    background-color: blue;
+    min-width:114px;
+    background-color: #fff;
     display: none;
     z-index:30;
+    box-shadow:0 0 10px #999999;
+    border-radius: 5px;
+}
+.menu .nav li a{
+	padding:5px 15px;
 }
 </style>
 </head>
 
 <body style="background-color: #ecf0f5;">
 	<div class = "menu">
-	
+		<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
+			<li><a>打开</a></li>
+			<li><a>下载</a></li>
+			<li><a>分享</a></li>
+			<li><a>移动到</a></li>
+			<li><a>复制到</a></li>
+			<li><a>重命名</a></li>
+			<li><a>删除</a></li>
+		</ul>
 	</div>
 	<div class="row" style="padding-top: 10px;">
 		<div class="col-md-2">
@@ -165,7 +177,7 @@ li.activee>a {
 										</a>
 									</div>
 									<div class="file-name path">
-										<a>${path.pathName}</a>
+										<a href="filetest?pathid=${path.id}">${path.pathName}</a>
 									</div>
 									<input type="hidden" class = "pathmessage" value="${path.id}">
 									<span class="file-check"> 

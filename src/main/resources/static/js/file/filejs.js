@@ -37,10 +37,14 @@ $(".file-box .file-one").mousedown(function(e){
 	    $(document).bind("contextmenu",function(e){
 	        return false;
 	    });
+	    if(!$(this).hasClass("file-one-check")){
+	    	$(this).addClass("file-one-check");
+	    	$(this).siblings(".file-one").removeClass("file-one-check");
+	    }
 		var oX = e.pageX;
 		var oY = e.pageY;
-		console.log(oX);
-		console.log(oY);
+//		console.log(oX);
+//		console.log(oY);
 		$(".menu").css("display","block");
 		$(".menu").css("left",oX+"px");
 		$(".menu").css("top",oY+"px");
