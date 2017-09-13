@@ -12,6 +12,9 @@ maximum-scale=1, user-scalable=no">
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
 <script>
+	function changepath(path){
+		$('iframe').attr('src',path);
+	}
 	
 </script>
 </head>
