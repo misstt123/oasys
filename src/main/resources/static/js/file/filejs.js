@@ -47,6 +47,8 @@ $(".file-box .file-one").mousedown(function(e){
 	    if($(this).find(".file-img").hasClass("path")){
 	    	var href = $(this).find(".path a").attr("href");
 	    	$(".menu .open").attr("href",href);
+	    }else{
+	    	$(".menu .open").addClass("disabled");
 	    }
 		var oX = e.pageX;
 		var oY = e.pageY;
