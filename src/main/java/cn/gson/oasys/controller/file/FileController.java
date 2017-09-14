@@ -42,6 +42,11 @@ public class FileController {
 	@Autowired
 	private UserDao udao;
 	
+	/**
+	 * 第一次进入
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("filemanage")
 	public String usermanage(Model model) {
 		FilePath filepath = fpdao.findOne(6L);
@@ -51,16 +56,22 @@ public class FileController {
 		return "file/filemanage";
 	}
 	
+	/**
+	 * 进入指定目录 的controller方法
+	 * @param pathid
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("filetest")
 	public String text(@RequestParam("pathid")Long pathid,Model model){
+		//查询当前目录
 		FilePath filepath = fpdao.findOne(pathid);
+		
+		//查询当前目录的所有父级目录
 		List<FilePath> allparentpaths = new ArrayList<>();
-//		List<FilePath> allparentpaths2 = new ArrayList<>();
 		fs.findAllParent(filepath, allparentpaths);
-//		fs.savepath(filepath, allparentpaths2);
-//		fs.savefile(filepath);
-		System.out.println(allparentpaths);
 		Collections.reverse(allparentpaths);
+		
 		model.addAttribute("allparentpaths",allparentpaths);
 		model.addAttribute("nowpath",filepath);
 		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
@@ -68,6 +79,16 @@ public class FileController {
 		return "file/filemanage";
 	}
 	
+	/**
+	 * 文件上传 controller方法
+	 * @param file
+	 * @param pathid
+	 * @param session
+	 * @param model
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@RequestMapping("fileupload")
 	public String uploadfile(@RequestParam("file") MultipartFile file,@RequestParam("pathid")Long pathid,HttpSession session,Model model) throws IllegalStateException, IOException{
 		Long userid = Long.parseLong(session.getAttribute("userId")+"");
@@ -76,6 +97,16 @@ public class FileController {
 		//true 表示从文件使用上传
 		FileList uploadfile = (FileList) fs.savefile(file, user, nowpath,true);
 		System.out.println(uploadfile);
+		model.addAttribute("pathid",pathid);
+		return "forward:/filetest";
+	}
+	
+	@RequestMapping("deletefile")
+	public String deletefile(@RequestParam("pathid")Long pathid,@RequestParam("checkpathids")List checkpathids,@RequestParam("checkfileids")List checkfileids,Model model){
+		System.out.println("啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊");
+		System.out.println(checkpathids);
+		System.out.println(checkfileids);
+		
 		model.addAttribute("pathid",pathid);
 		return "forward:/filetest";
 	}
