@@ -92,6 +92,14 @@ public class MenuSysController {
 
 		return "systemcontrol/menuedit";
 	}
+	
+	@RequestMapping("test111")
+	public String testMess(HttpServletRequest req,SystemMenu menu){
+		req.setAttribute("errormess", "错误信息Error");
+		System.out.println(menu);
+		
+		return "systemcontrol/menuedit";
+	}
 
 	@RequestMapping("changemess")
 	public String changeMess(HttpServletRequest req, @Valid SystemMenu menu, BindingResult br) {
@@ -105,6 +113,7 @@ public class MenuSysController {
 			log.info("getCode:{}", res.getCode());
 			log.info("getMsg:{}", res.getMsg());
 		}
+		
 		HttpSession session = req.getSession();
 		Integer isShow = null;
 		Long menuId = null;
