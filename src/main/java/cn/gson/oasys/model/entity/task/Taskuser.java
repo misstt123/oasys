@@ -31,7 +31,12 @@ public class Taskuser {
 	private User userId;//接收人id外键
 	
 	@Column(name="status_id")
-	private Long statusId;//任务状态id
+	private Integer statusId;//任务状态id
+
+
+	public Taskuser() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Long getPkId() {
 		return pkId;
@@ -58,11 +63,11 @@ public class Taskuser {
 		this.userId = userId;
 	}
 
-	public Long getStatusId() {
+	public Integer getStatusId() {
 		return statusId;
 	}
 
-	public void setStatusId(Long statusId) {
+	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
 	}
 

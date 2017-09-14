@@ -39,7 +39,7 @@ public class User {
 	@Column(name="real_name")
 	private String realName;    //真实姓名
 	
-	private String eamil;		//
+	private String eamil;		//邮件
 	
 	private String address;		//地址
 	
