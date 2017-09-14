@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.filedao.FilePathdao;
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.file.FilePath;
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.user.User;
 
 @Service
@@ -32,6 +34,9 @@ public class FileServices {
 	private FileListdao fldao;
 	@Autowired
 	private FilePathdao fpdao;
+	@Autowired
+	private AttachmentDao AttDao;
+	
 	
 	@Value("${file.root.path}")
 	private String rootPath;
@@ -108,9 +113,17 @@ public class FileServices {
 			fldao.save(filelist);
 			return filelist;
 		}else{
-			
+			Attachment attachment=new Attachment();
+			attachment.setAttachmentName(file.getOriginalFilename());
+			attachment.setAttachmentPath(targetFile.getAbsolutePath());
+			attachment.setAttachmentShuffix(shuffix);
+			attachment.setAttachmentSize(file.getSize());
+			attachment.setAttachmentType(file.getContentType());
+			attachment.setUploadTime(new Date());
+			attachment.setUserId(user.getUserId()+"");
+			AttDao.save(attachment);
+			return attachment;
 		}
-		return null;
 	}
 	
 	/**
