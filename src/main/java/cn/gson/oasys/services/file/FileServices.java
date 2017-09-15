@@ -128,8 +128,11 @@ public class FileServices {
 	}
 	
 	@Transactional
-	public void deleteFile(){
-		
+	public void deleteFile(List<Long> fileids){
+		for (Long fileid : fileids) {
+			FileList filelist = fldao.findOne(fileid);
+			fldao.delete(fileid);
+		}
 	}
 	
 	/**

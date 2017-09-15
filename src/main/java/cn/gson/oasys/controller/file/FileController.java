@@ -102,7 +102,7 @@ public class FileController {
 	}
 	
 	@RequestMapping("deletefile")
-	public String deletefile(@RequestParam("pathid")Long pathid,@RequestParam("checkpathids")List checkpathids,@RequestParam("checkfileids")List checkfileids,Model model){
+	public String deletefile(@RequestParam("pathid")Long pathid,@RequestParam("checkpathids")List<Long> checkpathids,@RequestParam("checkfileids")List<Long> checkfileids,Model model){
 		System.out.println(checkpathids);
 		System.out.println(checkfileids);
 		
