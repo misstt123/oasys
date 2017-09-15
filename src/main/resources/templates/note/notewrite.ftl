@@ -92,7 +92,6 @@ function somenotedelete(){
 										
 										<a
 										class="btn btn-sm btn-default" >
-										
 										<span
 										class="glyphicon glyphicon-star-empty choose_collect" data-type="${collect!0}"></span>
 										</a>

@@ -34,7 +34,13 @@ $(function() {
 						data:{iscollect:this.dataset.type},
 						success:function(dates){
 							$('#container').html(dates);
-							
+							if ($(".choose_collect").attr("data-type")==0) {
+								$(".choose_collect").removeClass("glyphicon-star-empty")
+										.addClass("glyphicon-star")
+							} else if ($(".choose_collect").attr("data-type")==1) {
+								$(".choose_collect").removeClass("glyphicon-star").addClass(
+										"glyphicon-star-empty")
+							}
 						},
 						errror:function(){
 							alert("失败")
@@ -43,17 +49,7 @@ $(function() {
 					})
 				})
 				
-				if ($(".choose_collect").dataset.type==1) {
-								$(".choose_collect").removeClass("glyphicon-star-empty")
-										.addClass("glyphicon-star")
-										//已经收藏
-										iscollect=1;
-							} else if ($(".choose_collect").dataset.type==0) {
-								$(".choose_collect").removeClass("glyphicon-star").addClass(
-										"glyphicon-star-empty")
-										//取消收藏
-										iscollect=0;
-				}
+				
 				
 				//收藏
 				$(".collect").on(
