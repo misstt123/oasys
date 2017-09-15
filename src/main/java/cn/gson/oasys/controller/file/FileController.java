@@ -103,7 +103,6 @@ public class FileController {
 	
 	@RequestMapping("deletefile")
 	public String deletefile(@RequestParam("pathid")Long pathid,@RequestParam("checkpathids")List checkpathids,@RequestParam("checkfileids")List checkfileids,Model model){
-		System.out.println("啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊");
 		System.out.println(checkpathids);
 		System.out.println(checkfileids);
 		
