@@ -27,6 +27,9 @@ public class SystemStatusList {
 
 	@Column(name = "status_color")
 	private String statusColor; // 状态颜色
+	
+	@Column(name = "sort_precent")
+	private String statusPrecent;//百分比
 
 	public SystemStatusList() {
 	}
@@ -70,11 +73,24 @@ public class SystemStatusList {
 	public void setStatusColor(String statusColor) {
 		this.statusColor = statusColor;
 	}
+	
+	
+
+	public String getStatusPrecent() {
+		return statusPrecent;
+	}
+
+	public void setStatusPrecent(String statusPrecent) {
+		this.statusPrecent = statusPrecent;
+	}
 
 	@Override
 	public String toString() {
 		return "SystemStatusList [statusId=" + statusId + ", statusName=" + statusName + ", statusSortValue="
-				+ statusSortValue + ", statusModel=" + statusModel + ", statusColor=" + statusColor + "]";
+				+ statusSortValue + ", statusModel=" + statusModel + ", statusColor=" + statusColor + ", statusPrecent="
+				+ statusPrecent + "]";
 	}
+
+	
 
 }

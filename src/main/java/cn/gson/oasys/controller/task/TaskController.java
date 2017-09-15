@@ -147,9 +147,9 @@ public class TaskController {
 	/**
 	 * 修改任务
 	 */
-	@RequestMapping("edittask")
+	@RequestMapping("edittasks")
 	public String  index3(){
-		return "task/addtask";
+		return "task/edittask";
 	}
 	
 	/**

@@ -76,7 +76,7 @@ a:hover {
 										<small class="pull-right">100%</small>
 									</h5>
 									<div class="progress xs" style="margin: 10px 0;">
-										<div class="progress-bar progress-bar-aqua" style="width: 100%" role="progressbar" 
+										<div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" 
 											aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
 											</div>
 									</div>
