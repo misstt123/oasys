@@ -89,6 +89,7 @@ public class Note {
 		this.attachId = attachId;
 		this.createTime = createTime;
 		this.isCollected=isCollected;
+		
 	}
 
    

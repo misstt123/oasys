@@ -129,8 +129,9 @@ public class NoteController {
 			long statusId=statusDao.findByStatusName(statusName);
 			String content=request.getParameter("content");
 			Note note=new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l);
-			if(request.getParameter("receiver")!=null||request.getParameter("receiver")!="")
-			{   Set<User> userss=new HashSet<>();
+			if(request.getParameter("receiver")!=null&&(request.getParameter("receiver").trim().length()>0))
+			{  
+				Set<User> userss=new HashSet<>();
 				String receivers=request.getParameter("receiver");
 				String[] receiver=receivers.split(";");
 				for (String re : receiver) {
@@ -141,8 +142,12 @@ public class NoteController {
 				note.setUserss(userss);
 				noteDao.save(note);
 			}
-			else if(request.getParameter("receiver")==null)
-			{
+			else 
+			{ 
+				//保存为该用户的笔记 绑定用户id
+				Set<User> userss=new HashSet<>();
+			    userss.add(user);
+			    note.setUserss(userss);
 				noteDao.save(note);
 			}
 			return "redirect:/noteview";

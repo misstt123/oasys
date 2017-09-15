@@ -153,7 +153,7 @@ textarea {
 				<div id="MoreDiv">
 					<input name="receiver" type="text"
 						id="ctl00_cphMain_txtReceiver" class="form-control"
-						placeholder="分享给：" />
+						placeholder="分享给：" value=""/>
 					<div class="reciver">
 						<a data-toggle="modal" data-target="#myModal"
 							data-backdrop="static"> <span
@@ -175,7 +175,7 @@ textarea {
 					placeholder="标题：" 
 					value="<#if note??>${note.title}</#if>"
 					>
-					<span class="warn" style="color:red;">*这是必填项不能为空</span>
+					<span class="warn" style="color:red;display:none;">*这是必填项不能为空</span>
 			</div>
 			
 			<div class="form-group">	
