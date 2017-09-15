@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="css/tc.css" />
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 <script type="text/javascript" src="js/note/noteedit.js"></script>
@@ -253,47 +254,21 @@ textarea {
 											<th class="col-xs-2 b">角色</th>
 											<th class=" col-xs-2">电话</th>
 										</tr>
+										
+										<#if users??>
+										<#list users as user>
 										<tr class="row">
 											<th class=" col-xs-2"><input type="checkbox" name="id"
-												value="dsafas" style="display: block" /></th>
-											<th class="col-xs-2">部门</th>
-											<th class=" col-xs-2">真实姓名</th>
-											<th class="col-xs-2">用户名</th>
-											<th class=" col-xs-2">角色</th>
-											<th class=" col-xs-2">电话</th>
+												value=${user.userName}  style="display: block" /></th>
+											<th class="col-xs-2">${user.dept.deptName}</th>
+											<th class=" col-xs-2">${user.realName}</th>
+											<th class="col-xs-2">${user.userName}</th>
+											<th class=" col-xs-2">${user.role.roleName}</th>
+											<th class=" col-xs-2">${user.userTel}</th>
 
 										</tr>
-										<tr class="row">
-
-											<th class=" col-xs-2"><input type="checkbox" name="id"
-												value="dsafas" style="display: block" /></th>
-											<th class=" col-xs-2" name="id">部门</th>
-											<th class=" col-xs-2">真实姓名</th>
-											<th class=" col-xs-2">用户名</th>
-											<th class=" col-xs-2">角色</th>
-											<th class=" col-xs-2">电话</th>
-
-										</tr>
-										<tr class="row">
-
-											<th class=" col-xs-2"><input type="checkbox" /></th>
-											<th class=" col-xs-2">部门</th>
-											<th class="col-xs-2">真实姓名</th>
-											<th class=" col-xs-2">用户名</th>
-											<th class="col-xs-2">角色</th>
-											<th class="col-xs-2">电话</th>
-
-										</tr>
-										<tr class="row">
-
-											<th class=" col-xs-2"><input type="checkbox" /></th>
-											<th class=" col-xs-2">部门</th>
-											<th class="col-xs-2">真实姓名</th>
-											<th class=" col-xs-2">用户名</th>
-											<th class="col-xs-2">角色</th>
-											<th class="col-xs-2">电话</th>
-
-										</tr>
+										</#list>
+										</#if>
 									</table>
 									<div class="box-footer no-padding"
 										style="margin-top: -20px; background: #FAFAFA; border-top: solid 1px #F5F5F5;">

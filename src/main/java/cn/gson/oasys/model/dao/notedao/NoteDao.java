@@ -4,6 +4,7 @@ package cn.gson.oasys.model.dao.notedao;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +13,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.user.User;
 
 @Repository
 public interface NoteDao  extends PagingAndSortingRepository<Note, Long>{

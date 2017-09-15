@@ -12,7 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -113,6 +115,7 @@ public class NoteController {
 	//保存的post方法
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
 		public String testdfddf(@RequestParam("file") MultipartFile file,@Valid @RequestParam("title")String title,  HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
+			
 			Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 			User user=userDao.findOne(userid);
 			Attachment att =(Attachment) fs.savefile(file, user, null, false);
@@ -125,7 +128,23 @@ public class NoteController {
 			String statusName=request.getParameter("status");
 			long statusId=statusDao.findByStatusName(statusName);
 			String content=request.getParameter("content");
-			noteDao.save(new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l));
+			Note note=new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l);
+			if(request.getParameter("receiver")!=null||request.getParameter("receiver")!="")
+			{   Set<User> userss=new HashSet<>();
+				String receivers=request.getParameter("receiver");
+				String[] receiver=receivers.split(";");
+				for (String re : receiver) {
+					System.out.println(re);
+					User user2=userDao.findid(re);
+					userss.add(user2);
+				}
+				note.setUserss(userss);
+				noteDao.save(note);
+			}
+			else if(request.getParameter("receiver")==null)
+			{
+				noteDao.save(note);
+			}
 			return "redirect:/noteview";
 		}
 	
@@ -270,10 +289,15 @@ public class NoteController {
 		cataloglist=(List<Catalog>) catalogDao.findAll();
 		Request.setAttribute("calist", cataloglist);
 		
+		//用户 就是联系人
+		List<User> users=(List<User>) userDao.findAll();
+		
+		
 		Long nid=Long.valueOf(id);
 		//新建
 		if(nid==-1){
 			Request.setAttribute("note",null);
+			Request.setAttribute("users", users);
 			System.out.println("保存一个对象");
 		}
 		
@@ -281,6 +305,7 @@ public class NoteController {
 		else if(nid>0){
 			Note note=noteDao.findOne(nid);
 			Request.setAttribute("note", note);
+			Request.setAttribute("users", users);
 			System.out.println(note);
 		}
 		Request.setAttribute("id", nid);
