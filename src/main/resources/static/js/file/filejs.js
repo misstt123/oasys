@@ -15,6 +15,18 @@ $(".file-box .file-check").click(function(){
 	}else{
 		$(this).parent(".file-one").addClass("file-one-check");
 	}
+	var checkpathids = new Array();
+	var checkfileids = new Array();
+	checkedpaths(checkpathids,checkfileids);
+	console.log("checkpathids:"+checkpathids);
+	console.log("checkfileids:"+checkfileids);
+	
+	var href = $(".box-body .topdelete").attr("href").split("&");
+	console.log(href);
+	newhref = href[0]+"&checkpathids="+checkpathids+"&checkfileids="+checkfileids;
+	console.log(newhref);
+	$(".box-body .topdelete").attr("href",newhref);
+	
 });
 
 $(".allcheck").click(function(){
@@ -47,8 +59,21 @@ $(".file-box .file-one").mousedown(function(e){
 	    if($(this).find(".file-img").hasClass("path")){
 	    	var href = $(this).find(".path a").attr("href");
 	    	$(".menu .open").attr("href",href);
+	    	$(".menu .open").removeClass("disabled");
+	    	$(".menu .rename").removeClass("disabled");
+	    	$(".menu .download").addClass("disabled");
 	    }else{
 	    	$(".menu .open").addClass("disabled");
+	    	$(".menu .download").removeClass("disabled");
+	    	$(".menu .rename").removeClass("disabled");
+	    }
+	    /**
+	     * 选择超过一个禁用右键菜单中的部分a链接
+	     */
+	    if($(".file-one-check").length>1){
+	    	$(".menu .open").addClass("disabled");
+	    	$(".menu .download").addClass("disabled");
+	    	$(".menu .rename").addClass("disabled");
 	    }
 		var oX = e.pageX;
 		var oY = e.pageY;
@@ -63,3 +88,32 @@ $(document).click(function(e){
 	$(".menu").css("display","none");
 });
 
+//$(".topdelete").click(function(){
+//	var pathid = new Array();
+//	checkedpaths(pathid);
+//	console.log(pathid);
+//});
+
+function checkedpaths(pathids,fileids){
+	var checkedpaths =$(".file-one.file-one-check");
+	var i = 0;
+	var j = 0;
+	checkedpaths.each(function(){
+		if($(this).find(".file-img").hasClass("path")){
+			console.log("haspath!!~~");
+			pathids[i] = $(this).find(".pathmessage").val();
+			i += 1;
+		}else{
+			console.log("nopath!!~~");
+			fileids[j] = $(this).find(".filemessage").val();
+			console.log($(this).find(".filemessage").val());
+			j += 1;
+		}
+	});
+//	console.log(pathids);
+//	return topdelete;
+}
+
+function checkedfiles(){
+	
+}
