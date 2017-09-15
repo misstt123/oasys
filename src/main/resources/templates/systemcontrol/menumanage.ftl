@@ -67,11 +67,11 @@ a:hover {
 						<#list oneMenuAll as one>
 						<tr style="background:rgba(255, 235, 59, 0.19);">
 							<td>${one.menuName}</td>
-							<td><span>${one.menuIcon}</span></td>
+							<td><span class="glyphicon ${one.menuIcon}"></span></td>
 							<td><span>${one.menuUrl}</span></td>
 							<td><span>父级</span></td>
 							<td><span>${one.sortId}</span></td>
-							<#if one.isShow==1>
+							<#if one.isShow==true>
 								<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
 							<#else>
 								<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>
@@ -93,11 +93,11 @@ a:hover {
 						<#if one.menuId==two.parentId>
 						<tr>
 							<td>${two.menuName}</td>
-							<td><span>${two.menuIcon}</span></td>
+							<td><span class="glyphicon ${two.menuIcon}"></span></td>
 							<td><span>${two.menuUrl}</span></td>
 							<td><span>子级菜单栏</span></td>
 							<td><span>${two.sortId}</span></td>
-							<#if two.isShow==1>
+							<#if two.isShow==true>
 								<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
 							<#else>
 								<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>

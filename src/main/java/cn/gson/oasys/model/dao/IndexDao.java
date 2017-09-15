@@ -17,12 +17,14 @@ public interface IndexDao extends CrudRepository<SystemMenu, Long> {
 
 	// 查找二级菜单栏
 	List<SystemMenu> findByParentIdNotOrderBySortId(Long parentId);
-
+	
+//	1、上移下移按钮先改变其他的排序值
 	@Query("update SystemMenu menu set menu.sortId=(:sortId) where menu.parentId = :parentId and menu.sortId=(:sortId - :arithNum)")
 	@Modifying
 	int changeSortId(@Param("sortId") Integer sortId, @Param("arithNum") Integer arithNum,
 			@Param("parentId") Long parentId);
-
+	
+//	2、上移下移按钮先改变自己的排序值
 	@Query("update SystemMenu menu set menu.sortId=(:sortId -:arithNum) where menu.menuId= :menuId")
 	@Modifying
 	int changeSortId2(@Param("sortId") Integer sortId, @Param("arithNum") Integer arithNum,

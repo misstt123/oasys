@@ -1,6 +1,7 @@
 <style type="text/css">
 .modal-dialog {
 	width: 500px;
+	top:20%;
 }
 
 .modal-body .icon {
@@ -81,3 +82,29 @@
 </div>
 <!-- /.modal -->
 <script type="text/javascript" src="js/modalTip.js" ></script>
+
+<#-- 这里是执行返回成功的参数； -->
+<#if success??>
+	<script type="text/javascript">
+		console.log("成功的");
+		modalShow(1);
+	</script>
+</#if>
+
+<!-- 这里是执行返回失败的参数，并显示详细的信息； -->
+<#if errormess??>
+	<input type="hidden" value="${errormess}" class="hide-error">
+	<script type="text/javascript">
+		console.log("失败的");
+		$('.alert-danger').css('display', 'block');
+		modalShow(0);
+		//获取后台传过来的错误信息值；
+		var errormess='${errormess}';
+		console.log("errormess:"+errormess);
+		 // 提示框的错误信息显示
+		$('.error-mess').text(errormess);
+		// 模态框的错误信息显示
+		$('.modal-error-mess').text(errormess); 
+	</script>
+
+</#if>
