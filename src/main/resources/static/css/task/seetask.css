@@ -47,7 +47,7 @@
 			.containers .back,
 			.containers .print {
 				width: 50px;
-				height: 20px;
+				height: 25px;
 				line-height:20px;
 			}
 			
@@ -56,7 +56,7 @@
 			}
 			
 			.foot {
-				margin-left: 20px;
+				margin-left:7px;
     			padding-bottom: 12px;
 			}
 			
@@ -74,10 +74,7 @@
 				border-bottom: 1px solid #f4f4f4;
     			
 			}
-			.mailbox-read-message,.mailbox-read-info{
-				margin-left: 20px;
-    			margin-right: 20px;
-			}
+			
 			.mailbox-read-message{
 				margin-top: 10px;
 			}
@@ -90,10 +87,7 @@
 			.progress {
 				height: 10px;
 			}
-			.page{
-				margin-left: 20px;
-				margin-right: 20px;
-			}
+		
 			.head{
 				    margin-bottom: 20px;
 			}

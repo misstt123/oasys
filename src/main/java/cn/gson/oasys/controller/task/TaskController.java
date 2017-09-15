@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +28,7 @@ import cn.gson.oasys.model.entity.task.Tasklist;
 import cn.gson.oasys.model.entity.task.Taskuser;
 import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.task.TaskService;
 
 @Controller
 @RequestMapping("/")
@@ -45,7 +48,8 @@ public class TaskController {
 	private RoleDao rdao;
 	@Autowired
 	private TaskuserDao tudao;
-	
+	@Autowired
+	private TaskService tservice;
 	
 	/**
 	 * 任务管理表格
@@ -74,7 +78,7 @@ public class TaskController {
 		List<Dept> dept=ddao.findByDeptId(ss);
 		//获取部门名称
 		String deptname=dept.get(0).getDeptName();
-		
+		System.out.println(statuslist);
 		mav.addObject("tasklist", tasklist);
 		mav.addObject("typelist", typelist);
 		mav.addObject("statuslist", statuslist);
@@ -151,9 +155,35 @@ public class TaskController {
 	/**
 	 * 查看任务
 	 */
-	@RequestMapping("seetask")
-	public String  index4(){
-		return "task/seetask";
+	@RequestMapping("seetasks")
+	public ModelAndView  index4(HttpServletRequest req){
+		ModelAndView mav=new ModelAndView("task/seetask");
+		String taskid=req.getParameter("id");
+		Long  ltaskid=Long.parseLong(taskid);
+		Tasklist task=tdao.findOne(ltaskid);
+		Long statusid=task.getStatusId().longValue();
+		Long taskids=task.getTaskId();
+		//查看状态表
+		SystemStatusList status=sdao.findOne(statusid);
+		//查看发布人
+		User user=udao.findOne(task.getUsersId().getUserId());
+		//通过任务id查看总状态
+		List<Integer> statu=tudao.findByTaskId(taskids);
+		//选出最小的状态id
+		Integer min=statu.get(0);
+		for (Integer integer : statu) {
+			if(integer.intValue()<min){
+				min=integer;
+			}
+		}
+		int up=tservice.updateStatusid(taskids, min);
+		if(up>0){
+			System.out.println("任务状态修改成功!");
+		}
+		mav.addObject("task", task);
+		mav.addObject("user", user);
+		mav.addObject("status", status);
+		return mav;
 	}
 	
 	/**
