@@ -10,7 +10,7 @@ public class MapToList<T> {
 	T data;
 	
 //	Map强转成List
-	public List<Object> testMapToList(T data){
+	public List<Object> mapToList(T data){
 		Map<Object, Object> map=(Map<Object, Object>) data;
 		Collection<Object> collects=map.values();
 		final int size=collects.size();

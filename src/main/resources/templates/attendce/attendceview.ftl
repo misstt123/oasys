@@ -121,7 +121,7 @@ a:hover {
 			<!--id="container"-->
 			<div class="bgc-w box box-primary">
 				<div class="box-header" style="padding-bottom: 20px">
-					<a class="label label-success" href="attendceedit?aid=1"><span
+					<a class="label label-success" href="attendceedit"><span
 						class="glyphicon glyphicon-plus"></span> 新增 </a>
 
 					<div class="input-group"
@@ -143,32 +143,61 @@ a:hover {
 									<th scope="col" class="commen mm">类型<span
 										class="glyphicon glyphicon-triangle-bottom"></span>
 									</th>
-									<th scope="col">标题</th>
-									<th scope="col">申请时间</th>
-									<th scope="col">申请人</th>
-									<th scope="col">审核</th>
-
+									<th scope="col">时间</th>
+									<th scope="col">ip</th>
+									<th scope="col">备注</th>
 									<th scope="col" class="commen co">状态<span></span></th>
 									<th scope="col">操作</th>
 								</tr>
-								<tr>
+								    <#if alist??>
+									<#list alist as att>
+									<tr>
+									<td><span>
+									<#if att.typeId??>
+									<#if att.typeId==8>
+									上班
+									</#if>
+									<#if att.typeId==9>
+									下班
+									</#if>
+									<#if att.typeId==10>
+									旷工
+									</#if>
+									</#if>
+									</span></td>
 									
-									<td><span>我的文件</span></td>
-									<td class="mailbox-subject"><span>新建文件夹sfsf</span></td>
-									<td><span>2017/8/16 19:24:04</span></td>
-									<td>xxx</td>
-									<td><span class="labels"><label><input
-												type="checkbox" disabled><i>✓</i></label></span></td>
-
-									<td>
-										<div class="label label-success">一般</div>
+									<td ><span>
+									<#if att.attendsTime??>
+									${att.attendsTime}</#if>
+									</span></td>
+									<td><span><#if att.attendsIp??>
+									${att.attendsIp}</#if>
+									</span></td>
+									<td><#if att.attendsRemark??>
+									${att.attendsRemark}</#if>
 									</td>
-									<td><a  href="attendceedit?aid=1" class="label xiugai"><span
+									<td>
+									<#if att.statusId??>
+									<#if att.statusId==10>
+									<div class="label label-success">正常</div>
+									</#if>
+									<#if att.statusId==11>
+									<div class="label label-danger">迟到</div>
+									</#if>
+									<#if att.statusId==12>
+									<div class="label label-danger">早退</div>
+									</#if>
+									</#if>
+									</td>
+									<td><a  href="attendceedit?aid=${att.attendsId}" class="label xiugai"><span
 											class="glyphicon glyphicon-edit"></span> 修改</a> <a
 										onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-										href="" class="label shanchu"><span
+										href="attdelete?aid=${att.attendsId}" class="label shanchu"><span
 											class="glyphicon glyphicon-remove"></span> 删除</a></td>
-								</tr>
+										</tr>
+									</#list>
+									</#if>
+							
 
 							</table>
 						</div>

@@ -3,6 +3,7 @@
 <head>
 <script type="text/javascript" src="js/note/noteview.js"></script>
 <script type="text/javascript">
+//删除目录
 function cdelete(){
 	if(confirm("是否确认删除")){
 	var $cid=$(".cdelete").attr("id");
@@ -24,6 +25,31 @@ function cdelete(){
 		})
 		}
 }
+
+function somenotedelete(){
+	var array=new Array();
+	var sum=null;
+	$("input[name='checkbox']:checked").each(function(){
+		array.push($(this).attr("id"));
+		sum=array.join(';');
+	});
+	if(confirm("是否要批量删除这些?")){
+	 $.ajax({
+			type : "get",
+			async : false,
+			url : 'notesomedelete',
+			data:{sum:sum},
+			timeout : 1000,
+			success : function(dates) {
+				alert("删除成功")
+				window.location.reload();
+			},
+		    error:function(){
+		    	alert("失败了")
+		    }
+		})
+	}
+}
 </script>
 </head>
 <body>
@@ -32,13 +58,13 @@ function cdelete(){
 						<!--盒子头-->
 						<div class="box-header write">
 							<h3 class="box-title">最近</h3>
-							<span style="display:none">
+							<span style="display:none">	
 							<a onclick="notejump('noteedit',-1)">
 							<i class="glyphicon glyphicon-edit" style="color:#337ab7">
 							</i>
 							</a>
 							<a class="cdelete"
-							onclick="cdelete()" >
+							onclick="cdelete()" >	
 							<i class="glyphicon glyphicon-trash" style="color:#337ab7">
 							</i>
 							</a>
@@ -61,15 +87,20 @@ function cdelete(){
 								<span
 									class="btn btn-sm btn-default glyphicon glyphicon-unchecked allcheck"></span>
 								<div class="btn-group">
-									<a class="btn btn-sm btn-default" href="" title="删除"><span
-										class="glyphicon glyphicon-trash"></span></a> <a
-										class="btn btn-sm btn-default" href="" title="新建文件夹"><span
-										class="glyphicon glyphicon-star"></span></a>
+									<a class="btn btn-sm btn-default" onclick="somenotedelete()" title="删除"><span
+										class="glyphicon glyphicon-trash"></span></a> 
+										
+										<a
+										class="btn btn-sm btn-default" href="javascript:void(0)">
+										<span
+										class="glyphicon glyphicon-star-empty choose_collect" data-type="${collect!0}"></span>
+										</a>
+									
 								</div>
-								<a class="btn btn-sm btn-default" href="" title="刷新"><span
-									class="glyphicon glyphicon-refresh"></span></a>
+								<a  onclick="window.location.reload()" class="btn btn-sm btn-default" title="刷新">
+								<i><span class="glyphicon glyphicon-refresh"></span></i></a>
 							</div>
-							<div class="table-responsive">
+							<div id="table" class="table-responsive">
 								<table class="table table-hover table-striped">
 									<tr>
 										<th scope="col">选择</th>
@@ -84,11 +115,18 @@ function cdelete(){
 									<#if nlist??>
 									<#list nlist as note>
 									<tr>
-									
 										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
-										<td><span class="glyphicon glyphicon-star-empty collect"></span>
+													type="checkbox" name="checkbox"  id=${note.noteId}><i>✓</i></label></span></td>
+													
+										<td >
+										<#if note.isCollected==0>
+										<span id=${note.noteId}   class="glyphicon glyphicon-star-empty collect"></span>
+										</#if>
+										<#if note.isCollected==1>
+										<span id=${note.noteId} class="glyphicon glyphicon-star collect"></span>
+										</#if> 
 										</td>
+										
 										<td><span><#if note.typeId==5>
 										我的笔记
 										</#if>
@@ -101,7 +139,10 @@ function cdelete(){
 										</span></td>
 										<td class="mailbox-subject"><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
-										<td><span class="glyphicon glyphicon-paperclip"></span></td>
+										<td><a style="color:#337ab7;"href="down?nid=${note.noteId}">
+										<span class="glyphicon glyphicon-paperclip"></span>
+										</a>
+										</td>
 										<td>
 											
 											<#if note.statusId==8>

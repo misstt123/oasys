@@ -11,15 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.gson.oasys.model.dao.BlogDao;
+import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.entity.Blog;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
 
 
 @Controller
 @RequestMapping("/")
 public class TypeSysController {
 	
+	Logger log=LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private TypeDao typeDao;
+	
+	
 	@RequestMapping("testsystype")
-	public String testsystype(){
+	public String testsystype(HttpServletRequest req){
+		Iterable<SystemTypeList> typeList=typeDao.findAll();
+		req.setAttribute("typeList", typeList);
 		return "systemcontrol/typemanage";
 	}
 	

@@ -69,11 +69,11 @@ li.activee>a {
 	<div class = "menu">
 		<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
 			<li><a class="open">打开</a></li>
-			<li><a>下载</a></li>
+			<li><a class="download">下载</a></li>
 			<li><a>分享</a></li>
 			<li><a>移动到</a></li>
 			<li><a>复制到</a></li>
-			<li><a>重命名</a></li>
+			<li><a class="rename">重命名</a></li>
 			<li><a>删除</a></li>
 		</ul>
 	</div>
@@ -164,7 +164,7 @@ li.activee>a {
 							href="javascript:void(0);" title="全选/反选"><span
 							class="iconfont icon-xuanze1"></span></a>
 						<div class="btn-group">
-							<a class="btn btn-sm btn-default" href="" title="删除"><span
+							<a class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除"><span
 								class="iconfont icon-lajitong"></span></a> 
 								<a class="btn btn-sm btn-default" href="" title="新建文件夹">
 									<span class="iconfont icon-xinzengwenjian"></span>
@@ -216,8 +216,8 @@ li.activee>a {
 									</#if>                                   
 									<div class="file-name">
 										<a>${file.fileName}</a>
-										<input type="hidden" class = "filemessge" value="${file.fileId}">
 									</div>
+									<input type="hidden" class = "filemessage" value="${file.fileId}">
 									<span class="file-check"> 
 										<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 									</span>

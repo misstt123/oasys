@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.gson.oasys.model.dao.filedao.FileListdao;
@@ -74,7 +75,7 @@ public class FileServices {
 	}
 	
 	/**
-	 * 保存文件
+	 * 保存文件以及附件
 	 * @param file
 	 * @param user
 	 * @param nowpath
@@ -126,6 +127,11 @@ public class FileServices {
 		}
 	}
 	
+	@Transactional
+	public void deleteFile(){
+		
+	}
+	
 	/**
 	 * 文件以及路径得同名处理
 	 * @param name
@@ -165,5 +171,19 @@ public class FileServices {
 		}
 		savepath = savepath.substring(0, savepath.length()-1);
 		return savepath;
+	}
+	
+	/**
+	 * 获取附件
+	 * 
+	 * @param att
+	 * @return
+	 */
+	public File get(Attachment att) {
+		return new File(att.getAttachmentPath());
+	}
+	
+	public Attachment get(String filePath) {
+		return AttDao.findByAttachmentPath(filePath);
 	}
 }
