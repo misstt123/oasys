@@ -34,7 +34,7 @@ public class Attachment {
 	
 	
 	@Column(name="attachment_size")
-	private long attachmentSize; //附件大小
+	private Long attachmentSize; //附件大小
 	
 	@Column(name="attachment_type")
 	private String attachmentType;  //附件类型
@@ -79,7 +79,7 @@ public class Attachment {
 		this.attachmentPath = attachmentPath;
 	}
 
-	public long getAttachmentSize() {
+	public Long getAttachmentSize() {
 		return attachmentSize;
 	}
 

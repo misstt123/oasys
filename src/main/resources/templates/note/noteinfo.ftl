@@ -41,12 +41,12 @@
 						</div>
 						<div class="message">
 							<span>
-								dsfa
+								${note.content}
 								<div>
-									<img src="../img/3.jpg" />
+									<img src="${att.attachmentPath}" />
 								</div>
 								<hr>
-								<a href="#">
+								<a href="down?attrid=${att.attachmentId}">
 									<span class="glyphicon glyphicon-paperclip">下载附件</span>
 								</a>
 							</span>

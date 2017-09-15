@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Matchers.longThat;
 import static org.mockito.Mockito.mockingDetails;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,10 +14,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -31,6 +36,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.gson.oasys.model.dao.BlogDao;
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.notedao.NoteService;
@@ -65,9 +71,11 @@ public class NoteController {
 	private StatusDao statusDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private AttachmentDao attDao;
 	
 	
-	
+	Attachment att;
 	List<Note> noteList;
 	List<Catalog> cataloglist;
     
@@ -117,7 +125,7 @@ public class NoteController {
 			String statusName=request.getParameter("status");
 			long statusId=statusDao.findByStatusName(statusName);
 			String content=request.getParameter("content");
-			noteDao.save(new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date()));
+			noteDao.save(new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l));
 			return "redirect:/noteview";
 		}
 	
@@ -190,8 +198,40 @@ public class NoteController {
 	public String test3(@Param("id")String id,HttpServletRequest Request){
 		Long nid=Long.valueOf(id);
 		Note note=noteDao.findOne(nid);
+		Attachment attachment=attDao.findByAttachmentId(note.getAttachId());
 		Request.setAttribute("note", note);
+		Request.setAttribute("att", attachment);
 		return "note/noteinfo";
+	}
+	
+	//下载文件
+	@RequestMapping("down")
+	public void dsaf(HttpServletResponse response,
+			HttpServletRequest request){
+		if(request.getParameter("attrid")==null||request.getParameter("attrid")==""){
+		Long nid=Long.valueOf(request.getParameter("nid"));
+		Note note=noteDao.findOne(nid);
+		att=attDao.findByAttachmentId(note.getAttachId());
+		}
+		if(request.getParameter("nid")==null||request.getParameter("nid")==""){
+		Long attrid=Long.valueOf(request.getParameter("attrid"));
+		att=attDao.findByAttachmentId(attrid);
+		}
+		File file=fs.get(att);
+		System.out.println(file.getAbsolutePath());
+		try {
+			//在浏览器里面显示
+			response.setContentLength(att.getAttachmentSize().intValue());
+			response.setContentType(att.getAttachmentType());
+			response.setHeader("Content-Disposition", "attachment;filename="+
+			new String(att.getAttachmentName().getBytes("UTF-8"), "ISO8859-1"));  
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] data = new byte[att.getAttachmentSize().intValue()];
+		IOUtils.readFully(new FileInputStream(file), data);
+		IOUtils.write(data, sos);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//显示所有

@@ -139,7 +139,10 @@ function somenotedelete(){
 										</span></td>
 										<td class="mailbox-subject"><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
-										<td><span class="glyphicon glyphicon-paperclip"></span></td>
+										<td><a href="down?nid=${note.noteId}">
+										<span class="glyphicon glyphicon-paperclip"></span>
+										</a>
+										</td>
 										<td>
 											
 											<#if note.statusId==8>

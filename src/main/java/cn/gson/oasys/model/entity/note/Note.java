@@ -47,8 +47,6 @@ public class Note {
 	@Column(name="catalog_id")
 	private Long catalogId; //目录id
 	
-	
-	
 	@Column(name="type_id")
 	private Long typeId; //类型id
 	
@@ -61,8 +59,11 @@ public class Note {
 	@Column(name="create_time")
 	private Date createTime;//发布时间
     
+	
 	@Column(name="is_collected")
 	private Long isCollected; //是否收藏
+	
+	
 	
 	@ManyToMany
 	@JoinTable(
@@ -80,7 +81,7 @@ public class Note {
 	
 	
     public Note(String title, String content, Long catalogId, Long typeId, Long statusId, Long attachId,
-			Date createTime) {
+			Date createTime,Long isCollected) {
 		super();
 		this.title = title;
 		this.content = content;
@@ -89,6 +90,7 @@ public class Note {
 		this.statusId = statusId;
 		this.attachId = attachId;
 		this.createTime = createTime;
+		this.isCollected=isCollected;
 	}
 
    
@@ -165,6 +167,17 @@ public class Note {
 		this.statusId = statusId;
 	}
 
+	
+
+
+	public Long getAttachId() {
+		return attachId;
+	}
+
+
+	public void setAttachId(Long attachId) {
+		this.attachId = attachId;
+	}
 
 
 	public Set<User> getUserss() {
