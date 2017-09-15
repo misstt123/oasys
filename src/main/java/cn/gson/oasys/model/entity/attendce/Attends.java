@@ -43,10 +43,10 @@ public class Attends {
 	private Date attendsTime;   //考勤时间
 	
 	@Column(name="attends_ip")
-	private Long attendsIp;     //登陆ip
+	private String attendsIp;     //登陆ip
 	
 	@Column(name="attends_remark")
-	private Long attendsRemark;  //考勤备注
+	private String attendsRemark;  //考勤备注
 	
 	@ManyToOne
 	@JoinColumn(name = "attends_user_id")
@@ -68,29 +68,47 @@ public class Attends {
 		this.attendsTime = attendsTime;
 	}
 
-	public Long getAttendsIp() {
+	public String getAttendsIp() {
 		return attendsIp;
 	}
 
-	public void setAttendsIp(Long attendsIp) {
+	public void setAttendsIp(String attendsIp) {
 		this.attendsIp = attendsIp;
 	}
 
-	public Long getAttendsRemark() {
+	public String getAttendsRemark() {
 		return attendsRemark;
 	}
 
-	public void setAttendsRemark(Long attendsRemark) {
+	public void setAttendsRemark(String attendsRemark) {
 		this.attendsRemark = attendsRemark;
 	}
 
+	
+	
 
-	public Attends(Long attendsId, Date attendsTime, Long attendsIp, Long attendsRemark) {
-		super();
-		this.attendsId = attendsId;
-		this.attendsTime = attendsTime;
-		this.attendsIp = attendsIp;
-		this.attendsRemark = attendsRemark;
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+
+	public Long getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
 	}
 
 	public Attends() {
@@ -98,6 +116,17 @@ public class Attends {
 		// TODO Auto-generated constructor stub
 	} 
 	
+	
+	public Attends(Long typeId, Long statusId, Date attendsTime, String attendsIp, String attendsRemark, User user) {
+		super();
+		this.typeId = typeId;
+		this.statusId = statusId;
+		this.attendsTime = attendsTime;
+		this.attendsIp = attendsIp;
+		this.attendsRemark = attendsRemark;
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return "Attends [attendsId=" + attendsId + ", attendsTime=" + attendsTime + ", attendsIp=" + attendsIp

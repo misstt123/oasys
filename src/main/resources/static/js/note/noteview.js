@@ -56,7 +56,6 @@ $(function() {
 						"click",
 						function() {
 							var $id=$(this).attr("id");
-							alert($id)
 							var iscollect=0;
 							if ($(this).hasClass("glyphicon-star-empty")) {
 								$(this).removeClass("glyphicon-star-empty")

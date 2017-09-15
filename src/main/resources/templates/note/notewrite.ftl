@@ -91,14 +91,14 @@ function somenotedelete(){
 										class="glyphicon glyphicon-trash"></span></a> 
 										
 										<a
-										class="btn btn-sm btn-default" >
+										class="btn btn-sm btn-default" href="javascript:void(0)">
 										<span
 										class="glyphicon glyphicon-star-empty choose_collect" data-type="${collect!0}"></span>
 										</a>
 									
 								</div>
-								<a class="btn btn-sm btn-default" href="" title="刷新"><span
-									class="glyphicon glyphicon-refresh"></span></a>
+								<a  onclick="window.location.reload()" class="btn btn-sm btn-default" title="刷新">
+								<i><span class="glyphicon glyphicon-refresh"></span></i></a>
 							</div>
 							<div id="table" class="table-responsive">
 								<table class="table table-hover table-striped">
@@ -139,7 +139,7 @@ function somenotedelete(){
 										</span></td>
 										<td class="mailbox-subject"><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
-										<td><a href="down?nid=${note.noteId}">
+										<td><a style="color:#337ab7;"href="down?nid=${note.noteId}">
 										<span class="glyphicon glyphicon-paperclip"></span>
 										</a>
 										</td>

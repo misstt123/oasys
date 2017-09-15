@@ -63,8 +63,6 @@ public class Note {
 	@Column(name="is_collected")
 	private Long isCollected; //是否收藏
 	
-	
-	
 	@ManyToMany
 	@JoinTable(
 			name="aoa_receiver_note"
