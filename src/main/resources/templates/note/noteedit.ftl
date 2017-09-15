@@ -198,7 +198,7 @@ textarea {
 
 			<div class="pull-right right1 bottom1">
 				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary" disabled="disabled">保存</button> 
-				<a
+				<a  onclick="notejump('notewrite','-2')"
 					id="ctl00_cphMain_lnbcancel" class="btn btn-default">取消</a>
 			</div>
 </form>

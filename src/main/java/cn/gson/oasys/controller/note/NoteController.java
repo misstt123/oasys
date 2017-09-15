@@ -214,7 +214,10 @@ public class NoteController {
 	
 	//显示具体信息
 	@RequestMapping("noteinfo")
-	public String test3(@Param("id")String id,HttpServletRequest Request){
+	public String test3(@Param("id")String id,HttpServletRequest Request,HttpSession session){
+		Long userid=Long.valueOf(session.getAttribute("userId")+"");
+		User user=userDao.findOne(userid);
+		Request.setAttribute("user", user);
 		Long nid=Long.valueOf(id);
 		Note note=noteDao.findOne(nid);
 		Attachment attachment=attDao.findByAttachmentId(note.getAttachId());
