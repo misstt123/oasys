@@ -91,16 +91,16 @@ a:hover {
 							<#list statuslist as status>
 							<#if status.statusId==task.statusId>
 							<#if status.statusColor??>
-							<td><span class="label ${status.statusColor} <!-- change-color -->">${status.statusName}</span></td>
+							<td><span class="label ${status.statusColor}">${status.statusName}</span></td>
 							</#if>
 							</#if>
 							</#list>
 							<td><a  href="edittask"
 								class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
-								href="seetask" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a
-								href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+									class="glyphicon glyphicon-edit"></span> 修改</a> 
+									<a href="seetasks?id=${task.taskId}" class="label xiugai"><span
+									class="glyphicon glyphicon-search"></span> 查看</a>
+									 <a href="##" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
 								class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>

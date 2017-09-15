@@ -54,7 +54,7 @@ public class Tasklist implements Serializable {
 	@Column(name="title",nullable=false)
 	private String title;//任务主题
 	
-	@Transient
+	@Column(name="reciverlist")
 	private String reciverlist;
 	
 	@ManyToOne
