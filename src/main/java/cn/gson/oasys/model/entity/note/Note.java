@@ -13,6 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -35,6 +38,7 @@ public class Note {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long noteId; //笔记id
 	
+	@NotBlank
 	private String title;//笔记标题
 	
 	private String content;//内容
@@ -42,8 +46,6 @@ public class Note {
 	
 	@Column(name="catalog_id")
 	private Long catalogId; //目录id
-	
-	
 	
 	@Column(name="type_id")
 	private Long typeId; //类型id
@@ -58,8 +60,8 @@ public class Note {
 	private Date createTime;//发布时间
     
 	
-	
-	
+	@Column(name="is_collected")
+	private Long isCollected; //是否收藏
 	
 	@ManyToMany
 	@JoinTable(
@@ -76,14 +78,8 @@ public class Note {
 	public Note() {}
 	
 	
-
-	
-   
-
-
-
-	public Note(String title, String content, Long catalogId, Long typeId, Long statusId, Long attachId,
-			Date createTime) {
+    public Note(String title, String content, Long catalogId, Long typeId, Long statusId, Long attachId,
+			Date createTime,Long isCollected) {
 		super();
 		this.title = title;
 		this.content = content;
@@ -92,16 +88,22 @@ public class Note {
 		this.statusId = statusId;
 		this.attachId = attachId;
 		this.createTime = createTime;
+		this.isCollected=isCollected;
+	}
+
+   
+    
+    
+   public long getIsCollected() {
+		return isCollected;
 	}
 
 
+	public void setIsCollected(Long isCollected) {
+		this.isCollected = isCollected;
+	}
 
-
-
-
-
-
-	public void setCatalogId(Long catalogId) {
+   public void setCatalogId(Long catalogId) {
 		this.catalogId = catalogId;
 	}
     public Long getCatalogId() {
@@ -163,6 +165,17 @@ public class Note {
 		this.statusId = statusId;
 	}
 
+	
+
+
+	public Long getAttachId() {
+		return attachId;
+	}
+
+
+	public void setAttachId(Long attachId) {
+		this.attachId = attachId;
+	}
 
 
 	public Set<User> getUserss() {
@@ -186,7 +199,7 @@ public class Note {
 	@Override
 	public String toString() {
 		return "Note [noteId=" + noteId + ", title=" + title + ", content=" + content + ", createTime=" + createTime
-				+  "]";
+				+  ",isCollected=" + isCollected + "]";
 	}
 
 	

@@ -172,4 +172,18 @@ public class FileServices {
 		savepath = savepath.substring(0, savepath.length()-1);
 		return savepath;
 	}
+	
+	/**
+	 * 获取附件
+	 * 
+	 * @param att
+	 * @return
+	 */
+	public File get(Attachment att) {
+		return new File(att.getAttachmentPath());
+	}
+	
+	public Attachment get(String filePath) {
+		return AttDao.findByAttachmentPath(filePath);
+	}
 }

@@ -11,6 +11,7 @@
 <script type="text/javascript" src="easyui/jquery.min.js" ></script>
 <script type="text/javascript" src="js/iconfont.js"></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/attendce/attendceedit.js"></script>
 <title>Insert title here</title>
 		<meta charset="UTF-8">
 <style>
@@ -81,14 +82,14 @@
 						<label class="control-label">
 							<span>类型</span>
 						</label>
-						<select class="form-control">
-							<option value="0">上班</option>
-							<option value="1">下班</option>
+						<select class="form-control atttype" data-edit=${write}>
+							<option ${(attends?? && attends.typeId?number==8)?string('selected','')}>上班</option>
+							<option ${(attends?? && attends.typeId?number==9)?string('selected','')}>下班</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">备注</label>
-						<input class="form-control" />
+						<input class="form-control" value="<#if attends??>${attends.attendsRemark}</#if>"/>
 					</div>
 				</div>
 				

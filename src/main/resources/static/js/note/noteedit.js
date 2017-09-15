@@ -56,6 +56,20 @@ var editor;
 					$("#ctl00_cphMain_txtMailTo").attr("disabled",true);
 				}
 			})
+			
+			
+			$('#ctl00_cphMain_txtSubject').change(function(){
+				var title=$('#ctl00_cphMain_txtSubject').val();
+				if(title==''||title==null)
+					{$('.warn').show();
+				$('#ctl00_cphMain_lnbSend').attr("disabled","disabled");
+					}
+				else if(title!=null||title!=""){
+					$('.warn').hide();
+					$('#ctl00_cphMain_lnbSend').removeAttr("disabled");
+				}
+			})
+			
 			})
 			/*模态框新增联系人*/
 			function addvalue(){
