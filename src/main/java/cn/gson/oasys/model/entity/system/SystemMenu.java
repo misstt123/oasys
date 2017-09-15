@@ -35,14 +35,14 @@ public class SystemMenu {
 	@NotEmpty(message="{sysMenu.menuUrl.NotNull}")
 	private String menuUrl; // 菜单链接
 
-	@Column(name = "menu_icon")
+	@Column(name = "menu_icon",columnDefinition="varchar(20) default 'glyphicon-record'")
 	private String menuIcon; // 菜单图标
 
 	@Column(name = "sort_id")
 	private Integer sortId; // 菜单排序id
 
-	@Column(name = "is_show")
-	private Integer isShow; // 菜单是否显示
+	@Column(name = "is_show",columnDefinition="boolean default true")
+	private Boolean isShow; // 菜单是否显示
 
 	@Column(name = "menu_grade")
 	private Integer menuGrade; // 权限值分数
@@ -98,11 +98,11 @@ public class SystemMenu {
 		this.sortId = sortId;
 	}
 
-	public Integer getIsShow() {
+	public Boolean getIsShow() {
 		return isShow;
 	}
 
-	public void setIsShow(Integer isShow) {
+	public void setIsShow(Boolean isShow) {
 		this.isShow = isShow;
 	}
 

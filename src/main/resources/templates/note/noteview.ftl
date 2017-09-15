@@ -239,15 +239,15 @@ border: none;
 								</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li><a onclick="notejump('notetype',1)"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype',5)"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 我的笔记
 							</a></li>
-							<li><a href="##"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype',6)"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 公司笔记
 							</a></li>
-							<li><a href="##"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype',7)"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 共享笔记
 							</a></li>

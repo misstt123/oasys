@@ -174,6 +174,7 @@ textarea {
 					placeholder="标题：" 
 					value="<#if note??>${note.title}</#if>"
 					>
+					<span class="warn" style="color:red;">*这是必填项不能为空</span>
 			</div>
 			
 			<div class="form-group">	
@@ -195,9 +196,9 @@ textarea {
 
 
 			<div class="pull-right right1 bottom1">
-				<button id="ctl00_cphMain_lnbDraft"   class="btn btn-primary">保存</button> 
+				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary" disabled="disabled">保存</button> 
 				<a
-					id="ctl00_cphMain_lnbSend" class="btn btn-default">取消</a>
+					id="ctl00_cphMain_lnbcancel" class="btn btn-default">取消</a>
 			</div>
 </form>
 

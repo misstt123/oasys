@@ -26,21 +26,64 @@ $(function() {
 						}
 					});
 				});
+				//收藏查询
+				$(".choose_collect").click(function(){
+					$.ajax({
+						type:"get",
+						url:'collectfind',
+						data:{iscollect:this.dataset.type},
+						success:function(dates){
+							$('#container').html(dates);
+							if ($(".choose_collect").attr("data-type")==0) {
+								$(".choose_collect").removeClass("glyphicon-star-empty")
+										.addClass("glyphicon-star")
+							} else if ($(".choose_collect").attr("data-type")==1) {
+								$(".choose_collect").removeClass("glyphicon-star").addClass(
+										"glyphicon-star-empty")
+							}
+						},
+						errror:function(){
+							alert("失败")
+						}
+						
+					})
+				})
+				
 				
 				
 				//收藏
 				$(".collect").on(
 						"click",
 						function() {
+							var $id=$(this).attr("id");
+							var iscollect=0;
 							if ($(this).hasClass("glyphicon-star-empty")) {
 								$(this).removeClass("glyphicon-star-empty")
 										.addClass("glyphicon-star")
-								alert("已经收藏了")
+										//已经收藏
+										iscollect=1;
 							} else if ($(this).hasClass("glyphicon-star")) {
 								$(this).removeClass("glyphicon-star").addClass(
 										"glyphicon-star-empty")
-								alert("已经取消收藏了")
+										//取消收藏
+										iscollect=0;
 							}
+							$.ajax({
+								type:"get",
+								async:false,
+								url : 'collect',
+								data:{id:$id,
+									iscollected:iscollect
+								},
+								timeout : 1000,
+								success:function(){
+									
+								},
+								error:function(){
+									alert("失败")
+								}
+								
+							})
 						})
 				//左边的边框样式 以及触发右边事件
 				$(".bgc-w ul li ").click(

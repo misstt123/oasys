@@ -10,4 +10,6 @@ import cn.gson.oasys.model.entity.note.Note;
 public interface AttachmentDao  extends PagingAndSortingRepository<Attachment, Long>{
 
 	Attachment findByAttachmentPath(String AttachmentPath);
+	
+	Attachment findByAttachmentId(long AttachmentId);
 }

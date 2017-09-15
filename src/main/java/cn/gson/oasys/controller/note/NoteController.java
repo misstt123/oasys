@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.mockito.Matchers.longThat;
 import static org.mockito.Mockito.mockingDetails;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,9 +14,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -30,8 +36,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.gson.oasys.model.dao.BlogDao;
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
+import cn.gson.oasys.model.dao.notedao.NoteService;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -54,6 +62,8 @@ public class NoteController {
 	@Autowired 
 	private NoteDao noteDao;
 	@Autowired
+	private NoteService NoteService;
+	@Autowired
 	private CatalogDao catalogDao;
 	@Autowired
 	private TypeDao typeDao;
@@ -61,11 +71,40 @@ public class NoteController {
 	private StatusDao statusDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private AttachmentDao attDao;
 	
 	
+	Attachment att;
 	List<Note> noteList;
 	List<Catalog> cataloglist;
     
+	//收藏查询
+		@RequestMapping("collectfind")
+		public String dsafdsf(Model model,HttpServletRequest request,@RequestParam("iscollect")String iscollected){
+			long collect=Long.valueOf(iscollected);
+			if(collect==1){
+			noteList=noteDao.findByIsCollected(collect);
+			model.addAttribute("collect", 0);
+			}
+			else if(collect==0){
+				noteList=(List<Note>) noteDao.findAll();
+				model.addAttribute("collect", 1);
+			}
+			model.addAttribute("nlist", noteList);
+			return "note/notewrite";
+		}
+	
+	//收藏
+	@RequestMapping("collect")
+	public String dsaf(HttpServletRequest request){
+		String id=request.getParameter("id");
+		String iscollected=request.getParameter("iscollected");
+		NoteService.updatecollect(Long.valueOf(iscollected), Long.valueOf(id));
+		return "note/notewrite";
+	}
+	
+	
 	//保存的get方法
 	@RequestMapping(value="notesave",method=RequestMethod.GET)
 	public void testdfd(@RequestParam("file") MultipartFile file,HttpServletRequest request){
@@ -73,10 +112,9 @@ public class NoteController {
 	
 	//保存的post方法
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
-		public String testdfddf(@RequestParam("file") MultipartFile file, HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
+		public String testdfddf(@RequestParam("file") MultipartFile file,@Valid @RequestParam("title")String title,  HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
 			Long  userid=Long.parseLong(session.getAttribute("userId")+"");
-			
-		    User user=userDao.findOne(userid);
+			User user=userDao.findOne(userid);
 			Attachment att =(Attachment) fs.savefile(file, user, null, false);
 			
 			String catalogname=request.getParameter("catalogname");
@@ -86,9 +124,8 @@ public class NoteController {
 			long typeId=typeDao.findByTypeName(typename);
 			String statusName=request.getParameter("status");
 			long statusId=statusDao.findByStatusName(statusName);
-			String title=request.getParameter("title");
 			String content=request.getParameter("content");
-			noteDao.save(new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date()));
+			noteDao.save(new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l));
 			return "redirect:/noteview";
 		}
 	
@@ -102,12 +139,26 @@ public class NoteController {
 		return "note/notewrite";
 	}
 	
+	//笔记批量删除
+	@RequestMapping("notesomedelete")
+	public String dsafds(HttpServletRequest request){
+		String sum=request.getParameter("sum");
+		String[] strings= sum.split(";");
+		for (String s : strings) {
+			long noteids=Long.valueOf(s);
+			noteDao.delete(noteids);
+		}
+		return "redirect:/noteview";
+	}
+	
 	//笔记删除
 	@RequestMapping("notedelete")
 	public String testrw(Model model,HttpServletRequest request){
 		String nid=request.getParameter("nid");
 		long noteid=Long.valueOf(nid);
-		noteDao.delete(noteid);
+	    noteDao.delete(noteid);
+		
+		
 		return "redirect:/noteview";
 	}
 	
@@ -147,8 +198,40 @@ public class NoteController {
 	public String test3(@Param("id")String id,HttpServletRequest Request){
 		Long nid=Long.valueOf(id);
 		Note note=noteDao.findOne(nid);
+		Attachment attachment=attDao.findByAttachmentId(note.getAttachId());
 		Request.setAttribute("note", note);
+		Request.setAttribute("att", attachment);
 		return "note/noteinfo";
+	}
+	
+	//下载文件
+	@RequestMapping("down")
+	public void dsaf(HttpServletResponse response,
+			HttpServletRequest request){
+		if(request.getParameter("attrid")==null||request.getParameter("attrid")==""){
+		Long nid=Long.valueOf(request.getParameter("nid"));
+		Note note=noteDao.findOne(nid);
+		att=attDao.findByAttachmentId(note.getAttachId());
+		}
+		if(request.getParameter("nid")==null||request.getParameter("nid")==""){
+		Long attrid=Long.valueOf(request.getParameter("attrid"));
+		att=attDao.findByAttachmentId(attrid);
+		}
+		File file=fs.get(att);
+		System.out.println(file.getAbsolutePath());
+		try {
+			//在浏览器里面显示
+			response.setContentLength(att.getAttachmentSize().intValue());
+			response.setContentType(att.getAttachmentType());
+			response.setHeader("Content-Disposition", "attachment;filename="+
+			new String(att.getAttachmentName().getBytes("UTF-8"), "ISO8859-1"));  
+		ServletOutputStream sos = response.getOutputStream();
+		byte[] data = new byte[att.getAttachmentSize().intValue()];
+		IOUtils.readFully(new FileInputStream(file), data);
+		IOUtils.write(data, sos);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//显示所有
