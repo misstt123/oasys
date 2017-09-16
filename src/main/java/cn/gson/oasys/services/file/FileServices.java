@@ -42,7 +42,6 @@ public class FileServices {
 	@Value("${file.root.path}")
 	private String rootPath;
 	
-	
 	/**
 	 * 根据父	ID 查询 到路径
 	 * @param parentId
@@ -126,10 +125,58 @@ public class FileServices {
 			return attachment;
 		}
 	}
-	
+	/**
+	 * 根据文件id 批量 删除文件  同时删除 数据库以及本地文件
+	 * @param fileids
+	 */
 	@Transactional
-	public void deleteFile(){
-		
+	public void deleteFile(List<Long> fileids){
+		for (Long fileid : fileids) {
+			FileList filelist = fldao.findOne(fileid);
+			File file = new File(this.rootPath,filelist.getFilePath());
+			//System.out.println(fileid+":"+file.exists());
+			if(file.exists()&&file.isFile()){
+				System.out.println("现在删除"+filelist.getFileName()+"本地文件    >>>>>>>>>");
+				file.delete();
+				System.out.println("现在删除"+filelist.getFileName()+"数据库存档>>>>>>>>>");
+				fldao.delete(fileid);
+			}
+		}
+	}
+	/**
+	 * 根据文件夹id 批量删除 路径    并删除此路径下的所有文件以及文件夹
+	 * @param pathids
+	 */
+	@Transactional
+	public void deletePath(List<Long> pathids){
+		for (Long pathid : pathids) {
+			FilePath filepath = fpdao.findOne(pathid);
+//			System.out.println("第一个文件夹："+filepath);
+			
+			//首先删除此文件夹下的文件
+			List<FileList> files = fldao.findByFpath(filepath);
+			if(!files.isEmpty()){
+//				System.out.println("找到第一个文件夹下的文件不为空！~~~");
+//				System.out.println(files);
+				List<Long> fileids= new ArrayList<>();
+				for (FileList filelist : files) {
+					fileids.add(filelist.getFileId());
+				}
+				deleteFile(fileids);
+			}
+			
+			//然后删除此文件夹下的文件夹
+			List<FilePath> filepaths = fpdao.findByParentId(pathid);
+			if(!filepaths.isEmpty()){
+				List<Long> pathids2 = new ArrayList<>();
+				for (FilePath filePath : filepaths) {
+					pathids2.add(filePath.getId());
+				}
+				deletePath(pathids2);
+			}
+			
+			fpdao.delete(filepath);
+		}
 	}
 	
 	/**

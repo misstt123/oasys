@@ -164,9 +164,9 @@ li.activee>a {
 							href="javascript:void(0);" title="全选/反选"><span
 							class="iconfont icon-xuanze1"></span></a>
 						<div class="btn-group">
-							<a class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除"><span
+							<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除"><span
 								class="iconfont icon-lajitong"></span></a> 
-								<a class="btn btn-sm btn-default" href="" title="新建文件夹">
+								<a class="btn btn-sm btn-default createpath" href="javascript:void(0);" title="新建文件夹">
 									<span class="iconfont icon-xinzengwenjian"></span>
 								</a>
 						</div>
@@ -175,6 +175,19 @@ li.activee>a {
 					</div>
 					<div class="file-box" style="overflow-y: auto;">
 						<div class = "boxcontain" style="height: auto;">
+							<div class="file-one ">
+								<div class="file-img">
+									<img src="images/fileimg/Folder.png" />
+								</div>
+								<div class="file-name" style="text-align: left;">
+									<form action="createpath">
+										<input type="text" name = "pathname" style="height:26px;width:85px;"/>
+									</form>
+								</div>
+								<span class="file-check"> 
+									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
+								</span>
+							</div>
 							<#list paths as path>
 								<div class="file-one">
 									<div class="file-img path">
