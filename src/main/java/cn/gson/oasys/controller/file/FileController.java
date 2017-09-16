@@ -106,6 +106,11 @@ public class FileController {
 		System.out.println(checkpathids);
 		System.out.println(checkfileids);
 		
+		//删除文件
+		fs.deleteFile(checkfileids);
+		
+		//删除文件夹
+		fs.deletePath(checkpathids);
 		model.addAttribute("pathid",pathid);
 		return "forward:/filetest";
 	}
