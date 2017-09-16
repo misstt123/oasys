@@ -34,6 +34,13 @@ public class FilePath {
 	public FilePath() {
 
 	}
+	
+	public FilePath(Long parentId, String pathName) {
+		super();
+		this.parentId = parentId;
+		this.pathName = pathName;
+	}
+
 
 	public Long getId() {
 		return id;

@@ -62,6 +62,28 @@ li.activee>a {
     -moz-opacity: 0.5; /*Firefox私有，透明度50%*/
     opacity: 0.5; /*其他，透明度50%*/
 }
+.creatpath .creatpathinput{
+	height:23px;
+	width:78px;
+	font-size: 12px;
+	border: 1px solid rgba(58,140,255,.3);
+	border-radius: 2px;
+	padding-top: 0px;
+    padding-left: 4px;
+}
+ .creatpath .creatpathinput:focus{
+	outline: none; 
+	border: 1px solid #0099CC;
+	border-radius: 2px;
+} 
+.creatpath .btn-default{
+	padding: 0px 4px 0px 4px;
+	border:1px solid rgba(58,140,255,.3);
+	color: #3b8cff;
+}
+.creatpath .btn-default:hover{
+	background-color: #fff !important;
+}
 </style>
 </head>
 
@@ -74,7 +96,7 @@ li.activee>a {
 			<li><a>移动到</a></li>
 			<li><a>复制到</a></li>
 			<li><a class="rename">重命名</a></li>
-			<li><a>删除</a></li>
+			<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
 		</ul>
 	</div>
 	<div class="row" style="padding-top: 10px;">
@@ -164,24 +186,32 @@ li.activee>a {
 							href="javascript:void(0);" title="全选/反选"><span
 							class="iconfont icon-xuanze1"></span></a>
 						<div class="btn-group">
-							<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除"><span
-								class="iconfont icon-lajitong"></span></a> 
-								<a class="btn btn-sm btn-default createpath" href="javascript:void(0);" title="新建文件夹">
-									<span class="iconfont icon-xinzengwenjian"></span>
-								</a>
+							<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除">
+								<span class="iconfont icon-lajitong"></span>
+							</a> 
+							<a class="btn btn-sm btn-default topcreatepath" href="javascript:void(0);" title="新建文件夹">
+								<span class="iconfont icon-xinzengwenjian"></span>
+							</a>
 						</div>
 						<a class="btn btn-sm btn-default" href="" title="刷新"><span
 							class="iconfont icon-shuaxin"></span></a>
 					</div>
 					<div class="file-box" style="overflow-y: auto;">
 						<div class = "boxcontain" style="height: auto;">
-							<div class="file-one ">
+							<div class="file-one creatpath diplaynone" style="width: 144px;">
 								<div class="file-img">
 									<img src="images/fileimg/Folder.png" />
 								</div>
 								<div class="file-name" style="text-align: left;">
 									<form action="createpath">
-										<input type="text" name = "pathname" style="height:26px;width:85px;"/>
+										<input class="creatpathinput" type="text" name="pathname" value="新建文件夹"/>
+										<input type="hidden" name="pathid" value="${nowpath.id}"/>
+										<button class="btn btn-default">
+											<em class="glyphicon glyphicon-ok" style="font-size: 12px;"></em>
+										</button>
+										<span class="btn btn-default">
+											<em class="glyphicon glyphicon-remove cansalcreate" style="font-size: 12px;"></em>
+										</span>
 									</form>
 								</div>
 								<span class="file-check"> 
@@ -196,7 +226,7 @@ li.activee>a {
 										</a>
 									</div>
 									<div class="file-name path">
-										<a href="filetest?pathid=${path.id}">${path.pathName}</a>
+										<a href="filetest?pathid=${path.id}" style="font-size: 12px;">${path.pathName}</a>
 									</div>
 									<input type="hidden" class = "pathmessage" value="${path.id}">
 									<span class="file-check"> 
@@ -221,6 +251,10 @@ li.activee>a {
 										<#elseif file.fileShuffix == "mp3">
 											<div class="file-img">
 												<img src="images/fileimg/Music.png" />
+											</div>
+										<#elseif file.fileShuffix == "jpg" || file.fileShuffix == "png">
+											<div class="file-img">
+												<img src="imgshow?fileid=${file.fileId}" style="height:71px;width:56px;"/>
 											</div>
 										<#else>
 											<div class="file-img">
