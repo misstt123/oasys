@@ -58,11 +58,11 @@ a:hover {
 							</tr>
 							<#list typeList as type>
 								<tr>
-									<td><span>${type.typeModel}</span></td>
-									<td><span>${type.typeName}</span></td>
-									<td><span>${type.typeSortValue}</span></td>
-									<td><span>${type.typeColor}</span></td>
-									<td><a href="useredit?where=xg" class="label xiugai"><span
+									<td><span>${(type.typeModel)!''}</span></td>
+									<td><span>${(type.typeName)!''}</span></td>
+									<td><span>${(type.typeSortValue)!''}</span></td>
+									<td><span>${(type.typeColor)!''}</span></td>
+									<td><a href="typeedit?typeid=${type.typeId}" class="label xiugai"><span
 											class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看详细信息"
 										href="##" class="label xiugai"><span
 											class="glyphicon glyphicon-search"></span> 查看</a> <a

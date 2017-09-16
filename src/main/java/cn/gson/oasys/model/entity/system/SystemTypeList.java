@@ -2,6 +2,8 @@ package cn.gson.oasys.model.entity.system;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name="aoa_type_list")
 public class SystemTypeList {
@@ -12,6 +14,7 @@ public class SystemTypeList {
 	private Long typeId;			//类型id
 	
 	@Column(name="type_name")
+	@NotEmpty(message="类型名称不能为空")
 	private String typeName;		//类型名字
 	
 	@Column(name="sort_value")

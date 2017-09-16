@@ -85,12 +85,10 @@ public class MenuSysController {
 	@RequestMapping("menuedit")
 	public String newpage(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		String getId = null;
 		SystemMenu menuObj = null;
 		if (!StringUtils.isEmpty(req.getParameter("id"))) {
-			getId = req.getParameter("id");
-			Long id = Long.parseLong(getId);
-			menuObj = iDao.findOne(id);
+			Long getId = Long.parseLong(req.getParameter("id"));
+			menuObj = iDao.findOne(getId);
 			if (!StringUtils.isEmpty(req.getParameter("add"))) {
 				Long getAdd = menuObj.getMenuId();
 				req.setAttribute("getAdd", getAdd);
@@ -141,8 +139,8 @@ public class MenuSysController {
 		else {
 			// 判断是否从编辑界面进来的，前面有"session.setAttribute("getId",getId);",在这里获取，并remove掉；
 			if (!StringUtils.isEmpty(session.getAttribute("getId"))) {
-				menuId = Long.parseLong((String) session.getAttribute("getId")); // 获取进入编辑界面的menuID值
-				menu = iDao.findOne(menuId);
+				menuId = (Long)session.getAttribute("getId"); // 获取进入编辑界面的menuID值
+				menu.setMenuId(menuId);
 				log.info("getId:{}", session.getAttribute("getId"));
 				session.removeAttribute("getId");
 			}

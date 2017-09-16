@@ -114,8 +114,11 @@ function check() {
 			if (index == 3 || index == 4) {
 				return true;
 			}
+			if(index == 3){
+				
+			}
 			// 获取到input框的兄弟的文本信息，并对应提醒；
-			var brother = $(this).siblings('.control-label').text();
+			 var brother = $(this).siblings('.control-label').text();
 			var errorMess = "[" + brother + "输入框信息不能为空]";
 			// 对齐设置错误信息提醒；红色边框
 			$(this).parent().addClass("has-error has-feedback");
@@ -125,7 +128,7 @@ function check() {
 			// 模态框的错误信息显示
 			$('.modal-error-mess').text(errorMess);
 			isRight = 0;
-			return false; 
+			return false;
 		} else {
 			// 在这个里面进行其他的判断；不为空的错误信息提醒
 			return true;
