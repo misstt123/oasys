@@ -17,8 +17,7 @@ import cn.gson.oasys.model.entity.user.User;
 
 /**
 
- * 用户id
- * 外键没有连接
+
  * 
  * 考勤表
  * @author admin

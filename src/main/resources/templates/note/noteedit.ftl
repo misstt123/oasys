@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="css/tc.css" />
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 <script type="text/javascript" src="js/note/noteedit.js"></script>
@@ -152,7 +153,7 @@ textarea {
 				<div id="MoreDiv">
 					<input name="receiver" type="text"
 						id="ctl00_cphMain_txtReceiver" class="form-control"
-						placeholder="分享给：" />
+						placeholder="分享给：" value=""/>
 					<div class="reciver">
 						<a data-toggle="modal" data-target="#myModal"
 							data-backdrop="static"> <span
@@ -174,7 +175,7 @@ textarea {
 					placeholder="标题：" 
 					value="<#if note??>${note.title}</#if>"
 					>
-					<span class="warn" style="color:red;">*这是必填项不能为空</span>
+					<span class="warn" style="color:red;display:none;">*这是必填项不能为空</span>
 			</div>
 			
 			<div class="form-group">	
@@ -197,7 +198,7 @@ textarea {
 
 			<div class="pull-right right1 bottom1">
 				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary" disabled="disabled">保存</button> 
-				<a
+				<a  onclick="notejump('notewrite','-2')"
 					id="ctl00_cphMain_lnbcancel" class="btn btn-default">取消</a>
 			</div>
 </form>
@@ -253,47 +254,21 @@ textarea {
 											<th class="col-xs-2 b">角色</th>
 											<th class=" col-xs-2">电话</th>
 										</tr>
+										
+										<#if users??>
+										<#list users as user>
 										<tr class="row">
 											<th class=" col-xs-2"><input type="checkbox" name="id"
-												value="dsafas" style="display: block" /></th>
-											<th class="col-xs-2">部门</th>
-											<th class=" col-xs-2">真实姓名</th>
-											<th class="col-xs-2">用户名</th>
-											<th class=" col-xs-2">角色</th>
-											<th class=" col-xs-2">电话</th>
+												value=${user.userName}  style="display: block" /></th>
+											<th class="col-xs-2">${user.dept.deptName}</th>
+											<th class=" col-xs-2">${user.realName}</th>
+											<th class="col-xs-2">${user.userName}</th>
+											<th class=" col-xs-2">${user.role.roleName}</th>
+											<th class=" col-xs-2">${user.userTel}</th>
 
 										</tr>
-										<tr class="row">
-
-											<th class=" col-xs-2"><input type="checkbox" name="id"
-												value="dsafas" style="display: block" /></th>
-											<th class=" col-xs-2" name="id">部门</th>
-											<th class=" col-xs-2">真实姓名</th>
-											<th class=" col-xs-2">用户名</th>
-											<th class=" col-xs-2">角色</th>
-											<th class=" col-xs-2">电话</th>
-
-										</tr>
-										<tr class="row">
-
-											<th class=" col-xs-2"><input type="checkbox" /></th>
-											<th class=" col-xs-2">部门</th>
-											<th class="col-xs-2">真实姓名</th>
-											<th class=" col-xs-2">用户名</th>
-											<th class="col-xs-2">角色</th>
-											<th class="col-xs-2">电话</th>
-
-										</tr>
-										<tr class="row">
-
-											<th class=" col-xs-2"><input type="checkbox" /></th>
-											<th class=" col-xs-2">部门</th>
-											<th class="col-xs-2">真实姓名</th>
-											<th class=" col-xs-2">用户名</th>
-											<th class="col-xs-2">角色</th>
-											<th class="col-xs-2">电话</th>
-
-										</tr>
+										</#list>
+										</#if>
 									</table>
 									<div class="box-footer no-padding"
 										style="margin-top: -20px; background: #FAFAFA; border-top: solid 1px #F5F5F5;">

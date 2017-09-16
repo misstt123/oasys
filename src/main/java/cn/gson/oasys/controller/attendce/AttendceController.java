@@ -40,6 +40,9 @@ public class AttendceController {
 	@RequestMapping("attendceatt")
 	public String test(HttpServletRequest request){
 		alist=(List<Attends>) attenceDao.findAll();
+		for (Attends attends : alist) {
+			System.out.println("---"+attends.getUser().getUserName());
+		}
 		request.setAttribute("alist", alist);
 		return "attendce/attendceview";
 	}

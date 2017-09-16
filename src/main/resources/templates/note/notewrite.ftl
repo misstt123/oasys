@@ -91,7 +91,7 @@ function somenotedelete(){
 										class="glyphicon glyphicon-trash"></span></a> 
 										
 										<a
-										class="btn btn-sm btn-default" href="javascript:void(0)">
+										class="btn btn-sm btn-default" >
 										<span
 										class="glyphicon glyphicon-star-empty choose_collect" data-type="${collect!0}"></span>
 										</a>
@@ -137,7 +137,7 @@ function somenotedelete(){
 										共享笔记
 										</#if>
 										</span></td>
-										<td class="mailbox-subject"><span>${note.title}</span></td>
+										<td ><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
 										<td><a style="color:#337ab7;"href="down?nid=${note.noteId}">
 										<span class="glyphicon glyphicon-paperclip"></span>

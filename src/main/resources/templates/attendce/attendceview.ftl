@@ -140,6 +140,7 @@ a:hover {
 						<div class="">
 							<table class="table table-hover table-striped">
 								<tr class="table-header">
+									<th scope="col">用户名</th>
 									<th scope="col" class="commen mm">类型<span
 										class="glyphicon glyphicon-triangle-bottom"></span>
 									</th>
@@ -152,6 +153,10 @@ a:hover {
 								    <#if alist??>
 									<#list alist as att>
 									<tr>
+									<td ><span>
+									<#if att.user.userName??>
+									${att.user.userName}</#if>
+									</span></td>
 									<td><span>
 									<#if att.typeId??>
 									<#if att.typeId==8>

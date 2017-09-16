@@ -16,4 +16,5 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>{
 	
 	@Query("select u from User u where u.userName=:name")
 	User findid(@Param("name")String name);
+	
 }
