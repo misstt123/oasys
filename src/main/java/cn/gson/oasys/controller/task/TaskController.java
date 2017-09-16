@@ -18,6 +18,7 @@ import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.taskdao.TaskDao;
+import cn.gson.oasys.model.dao.taskdao.TaskloggerDao;
 import cn.gson.oasys.model.dao.taskdao.TaskuserDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -25,6 +26,7 @@ import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.task.Tasklist;
+import cn.gson.oasys.model.entity.task.Tasklogger;
 import cn.gson.oasys.model.entity.task.Taskuser;
 import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.User;
@@ -50,7 +52,8 @@ public class TaskController {
 	private TaskuserDao tudao;
 	@Autowired
 	private TaskService tservice;
-	
+	@Autowired
+	private TaskloggerDao tldao;
 	/**
 	 * 任务管理表格
 	 * @return
@@ -78,7 +81,7 @@ public class TaskController {
 		List<Dept> dept=ddao.findByDeptId(ss);
 		//获取部门名称
 		String deptname=dept.get(0).getDeptName();
-		System.out.println(statuslist);
+		
 		mav.addObject("tasklist", tasklist);
 		mav.addObject("typelist", typelist);
 		mav.addObject("statuslist", statuslist);
@@ -147,9 +150,9 @@ public class TaskController {
 	/**
 	 * 修改任务
 	 */
-	@RequestMapping("edittask")
+	@RequestMapping("edittasks")
 	public String  index3(){
-		return "task/addtask";
+		return "task/edittask";
 	}
 	
 	/**
@@ -160,6 +163,7 @@ public class TaskController {
 		ModelAndView mav=new ModelAndView("task/seetask");
 		String taskid=req.getParameter("id");
 		Long  ltaskid=Long.parseLong(taskid);
+		//通过任务id得到相应的任务
 		Tasklist task=tdao.findOne(ltaskid);
 		Long statusid=task.getStatusId().longValue();
 		Long taskids=task.getTaskId();
@@ -168,7 +172,7 @@ public class TaskController {
 		//查看发布人
 		User user=udao.findOne(task.getUsersId().getUserId());
 		//通过任务id查看总状态
-		List<Integer> statu=tudao.findByTaskId(taskids);
+		/*List<Integer> statu=tudao.findByTaskId(taskids);
 		//选出最小的状态id
 		Integer min=statu.get(0);
 		for (Integer integer : statu) {
@@ -176,14 +180,36 @@ public class TaskController {
 				min=integer;
 			}
 		}
+		
 		int up=tservice.updateStatusid(taskids, min);
 		if(up>0){
 			System.out.println("任务状态修改成功!");
-		}
+		}*/
+		
 		mav.addObject("task", task);
 		mav.addObject("user", user);
 		mav.addObject("status", status);
 		return mav;
+	}
+	/**
+	 * 存反馈日志
+	 * @return
+	 */
+	@RequestMapping("tasklogger")
+	public String tasklogger(Tasklogger logger,HttpSession session){
+		String userId=((String) session.getAttribute("userId")).trim();
+		Long userid=Long.parseLong(userId);
+		User userlist=udao.findOne(userid);
+		logger.setCreateTime(new Date());
+		logger.setUsername(userlist.getUserName());
+		//存日志
+		tldao.save(logger);
+		//修改任务状态
+		tservice.updateStatusid(logger.getTaskId().getTaskId(), logger.getLoggerStatusid());
+		tservice.updateUStatusid(logger.getTaskId().getTaskId(), logger.getLoggerStatusid());
+		
+		return "redirect:/taskmanage";
+		
 	}
 	
 	/**

@@ -17,7 +17,7 @@ a:hover {
 		<script>
 			$(function(){
 				
-				$("#ctl00_cphMain_ddlStatus").append("<option value='${status.statusId}'>"+${status.statusName}+"</option>");
+				
 				$("#ctl00_cphMain_ddlStatus").change(function(){
 				var options=$("#ctl00_cphMain_ddlStatus option:selected");
 				if(options.val()=="2"){
@@ -53,7 +53,7 @@ a:hover {
 					<span class="glyphicon glyphicon-print print">打印</span>
 				</button>
 				<div class="page-header"></div>
-				
+				<form action="tasklogger">
 					<div class="row">
 						<div class="box-body" style="margin-left:20px;margin-right: 20px;">
 							<div class=" mailbox-read-info">
@@ -73,10 +73,10 @@ a:hover {
 								<span id="ctl00_cphMain_lblFeedback">
 									<h5 style="margin-top: 20px;">
 										任务进度（${task.starTime}至 ${task.endTime}）
-										<small class="pull-right">100%</small>
+										<small class="pull-right">${status.statusPrecent}</small>
 									</h5>
 									<div class="progress xs" style="margin: 10px 0;">
-										<div class="progress-bar progress-bar-aqua" style="width: 100%" role="progressbar" 
+										<div class="progress-bar progress-bar-aqua" style="width: ${status.statusPrecent}" role="progressbar" 
 											aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
 											</div>
 									</div>
@@ -95,10 +95,9 @@ a:hover {
 										<span id="ctl00_cphMain_Label1">状态</span>
 								</label>
 								<div class="form-group">
-									<select name="ctl00$cphMain$ddlStatus" id="ctl00_cphMain_ddlStatus" class="form-control select2">
-										<option value="0">已接收</option>
-										<option value="1">进行中</option>
-										<option value="2">已提交</option>
+									<select name="loggerStatusid" id="ctl00_cphMain_ddlStatus" class="form-control select2">
+										<option value="${status.statusId}">${status.statusName}</option>
+										<option value="7">已完成</option>
 									</select>
 								</div>
 							</div>
@@ -106,7 +105,9 @@ a:hover {
 								<label>
 										<span id="ctl00_cphMain_Label2">反馈</span>
 								</label>
-								<input name="ctl00$cphMain$txtPowerValue" type="text" id="ctl00_cphMain_txtPowerValue" class="form-control" />
+								<input name="loggerTicking" type="text" id="ctl00_cphMain_txtPowerValue" class="form-control" />
+								<input name="taskId" type="text" id="ctl00_cphMain_txtPowerValue" class="form-control" value="${task.taskId}" style="display:none;"/>
+								
 							</div>
 						</div>
 
@@ -118,5 +119,7 @@ a:hover {
 					<input class="btn btn-default" id="cancel" type="submit" value="取消"
 					onclick="window.history.back();" />
 				</div>
+				
+			</form>	
 			</div>
 	</div>

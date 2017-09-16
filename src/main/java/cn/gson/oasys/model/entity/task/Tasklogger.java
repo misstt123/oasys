@@ -36,6 +36,9 @@ public class Tasklogger {
 	@Column(name="username")
 	private String username;//任务日志生成人
 	
+	@Column(name="logger_statusid")
+	private Integer loggerStatusid; //状态id
+	
 	public Tasklogger(){}
 
 	public Long getLoggerId() {
@@ -80,10 +83,19 @@ public class Tasklogger {
 		this.username = username;
 	}
 
+	
+	public Integer getLoggerStatusid() {
+		return loggerStatusid;
+	}
+
+	public void setLoggerStatusid(Integer loggerStatusid) {
+		this.loggerStatusid = loggerStatusid;
+	}
+
 	@Override
 	public String toString() {
 		return "Tasklogger [loggerId=" + loggerId + ", createTime=" + createTime + ", loggerTicking=" + loggerTicking
-				+ ", username=" + username + "]";
+				+ ", username=" + username + ", loggerStatusid=" + loggerStatusid + "]";
 	}
 
 	

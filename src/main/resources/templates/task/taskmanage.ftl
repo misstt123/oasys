@@ -90,12 +90,10 @@ a:hover {
 							<td><span>${deptname}</span></td>
 							<#list statuslist as status>
 							<#if status.statusId==task.statusId>
-							<#if status.statusColor??>
 							<td><span class="label ${status.statusColor}">${status.statusName}</span></td>
 							</#if>
-							</#if>
 							</#list>
-							<td><a  href="edittask"
+							<td><a  href="edittasks"
 								class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> 
 									<a href="seetasks?id=${task.taskId}" class="label xiugai"><span
