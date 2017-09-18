@@ -189,9 +189,6 @@ a:hover {
 									<#if att.statusId==11>
 									<div class="label label-danger">迟到</div>
 									</#if>
-									<#if att.statusId==12>
-									<div class="label label-danger">早退</div>
-									</#if>
 									</#if>
 									</td>
 									<td><a  href="attendceedit?aid=${att.attendsId}" class="label xiugai"><span

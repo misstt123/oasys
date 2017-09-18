@@ -150,7 +150,8 @@ textarea {
 			</div>
 
 			<div class="form-group">
-				<div id="MoreDiv">
+			   
+			   <div id="MoreDiv" >
 					<input name="receiver" type="text"
 						id="ctl00_cphMain_txtReceiver" class="form-control"
 						placeholder="分享给：" value=""/>
@@ -193,8 +194,8 @@ textarea {
 						id="ctl00_cphMain_fuAttachment" />
 				</div>
 				<p class="help-block">5MB以内</p></div>
-
-
+             
+            <input type="hidden" name="nid" value=${nid}>
 
 			<div class="pull-right right1 bottom1">
 				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary" disabled="disabled">保存</button> 
@@ -314,9 +315,11 @@ textarea {
 	</div>
 	</div>
 	<script type="text/javascript">
+	      
 			var event = document.createEvent('HTMLEvents');   
 			event.initEvent("load", true, true);     
 			window.dispatchEvent(event);    
+			
 	</script>
 </body>
 </html>

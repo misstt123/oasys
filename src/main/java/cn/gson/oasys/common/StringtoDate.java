@@ -19,6 +19,7 @@ public class StringtoDate implements Converter<String, Date> {
 		public Date convert(String source) {
 			patterns.add("yyyy-MM-dd HH:mm:ss");
 			   patterns.add("yyyy-MM-dd");
+			   patterns.add("HH:mm");
 			Date date=null;
 			for (String p : patterns) {
 				try {

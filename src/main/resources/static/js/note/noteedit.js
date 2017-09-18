@@ -34,7 +34,7 @@ var editor;
 			});
  
 			$(function(){
-				
+				 
 				
 				$("#ctl00_cphMain_ddlType").change(function(){
 					var choose=$("#ctl00_cphMain_ddlType option:selected");
@@ -45,9 +45,9 @@ var editor;
 					{
 						$("#MoreDiv").hide();
 					}
-	
+	     
 				})
-			
+				
 			$("#ctl00_cphMain_ddlAccount").change(function(){
 				var options=$("#ctl00_cphMain_ddlAccount option:selected");
 				if(options.val()!="0"){

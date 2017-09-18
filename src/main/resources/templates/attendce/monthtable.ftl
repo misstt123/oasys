@@ -58,6 +58,7 @@
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	cursor: pointer;
 	margin-top: 10px !important;
+	
 }
 
 .label-back {
@@ -99,6 +100,8 @@
 			<a disabled="disabled">考勤月报表</a>
 		</div>
 	</div>
+	<div class="row">
+	<div class="col-md-12">
 	<div class="box">
 		<div class="box-header ">
 			<a class="label  label-back lastmonth"> <span
@@ -142,5 +145,6 @@
 				</tr>
 			</table>
 		</div>
-
+         </div>
+         </div>
 	</div>

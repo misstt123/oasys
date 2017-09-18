@@ -115,11 +115,12 @@ public class NoteController {
 	//保存的post方法
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
 		public String testdfddf(@RequestParam("file") MultipartFile file,@Valid @RequestParam("title")String title,  HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
+			Note note = null;
 			
 			Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 			User user=userDao.findOne(userid);
-			Attachment att =(Attachment) fs.savefile(file, user, null, false);
-			
+			Long nid=Long.valueOf(request.getParameter("nid"));
+			//接下来就是获取的数据
 			String catalogname=request.getParameter("catalogname");
 			String catalogName=catalogname.substring(1,catalogname.length());
 			long catalogId=catalogDao.findByCatalogName(catalogName);
@@ -128,7 +129,19 @@ public class NoteController {
 			String statusName=request.getParameter("status");
 			long statusId=statusDao.findByStatusName(statusName);
 			String content=request.getParameter("content");
-			Note note=new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l);
+			//nid为-1就是新建
+			if(nid==-1){
+			Attachment att =(Attachment) fs.savefile(file, user, null, false);
+			 note=new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l);
+			}
+			//nid大于0就是修改某个对象
+			if(nid>0){
+				note=noteDao.findOne(nid);
+				fs.updateatt(file, user, null, note.getAttachId());
+				NoteService.updatenote(catalogId, typeId, statusId, title, content, nid);
+				
+			}
+			//判断是否共享
 			if(request.getParameter("receiver")!=null&&(request.getParameter("receiver").trim().length()>0))
 			{  
 				Set<User> userss=new HashSet<>();
@@ -306,6 +319,8 @@ public class NoteController {
 		if(nid==-1){
 			Request.setAttribute("note",null);
 			Request.setAttribute("users", users);
+			//新建id
+			Request.setAttribute("nid", nid);
 			System.out.println("保存一个对象");
 		}
 		
@@ -314,6 +329,8 @@ public class NoteController {
 			Note note=noteDao.findOne(nid);
 			Request.setAttribute("note", note);
 			Request.setAttribute("users", users);
+			//修改id
+			Request.setAttribute("nid", nid);
 			System.out.println(note);
 		}
 		Request.setAttribute("id", nid);

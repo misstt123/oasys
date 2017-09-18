@@ -1,5 +1,6 @@
 package cn.gson.oasys.model.dao.notedao;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,11 @@ public class NoteService {
 	
 	public int updatecollect(long isCollected,long noteId) {
 		return noteDao.updatecollect(isCollected, noteId);
+	}
+	
+	
+	public int updatenote(Long catalogId,Long typeId,Long statusId,String title,String content,Long noteId) {
+		return noteDao.updatecollect(catalogId, typeId, statusId, title, content, noteId);
 	}
 	
 	
