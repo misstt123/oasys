@@ -70,10 +70,16 @@ a:hover {
 					</a>
 				</h3>
 			</div>
+			
 			<!--盒子身体-->
-			<form action="ck_addtask" method="post">
+			<form action="ck_addtask" method="post" onsubmit="return check();">
 			<div class="box-body no-padding">
 				<div class="box-body">
+						<!--錯誤信息提示  -->
+					<div class="alert alert-danger alert-dismissable" role="alert"style="display: none;">
+						错误信息:<button class="thisclose" type="button">&times;</button>
+						<span class="error-mess"></span>
+					</div>
 					<div class="row">
 					
 						<div class="col-md-6 form-group">
@@ -97,12 +103,12 @@ a:hover {
 							</select>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">开始日期</label> <input name="starTime"
-								class="form-control" onclick="WdatePicker()" />
+							<label class="control-label">开始日期</label> <input id="starTime" name="starTime"
+								class="form-control"  />
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">结束日期</label> <input name="endTime"
-								class="form-control" onclick="WdatePicker()" />
+							<label class="control-label">结束日期</label> <input id="endTime" name="endTime"
+								class="form-control"  />
 						</div>
 						<div class="col-md-6 form-group">
 
@@ -119,7 +125,7 @@ a:hover {
 							</div>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">备注</label>
+							<label class="control-label">描述</label>
 							<textarea class="form-control text" name="taskDescribe"></textarea>
 						</div>
 						<div class="col-md-6 form-group">
@@ -128,12 +134,12 @@ a:hover {
 						</div>
 						<div class="col-md-6 form-group ">
 							<label class="control-label">置顶</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="isTop" class="val" ><i>✓</i></label></span>
+								class="labels"><label><input type="checkbox" name="top" class="val" ><i>✓</i></label></span>
 						</div>
 
 						<div class="col-md-6  form-group"> 
 							<label class="control-label">取消</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="isCancel" class="val"><i>✓</i></label></span>
+								class="labels"><label><input type="checkbox" name="cancel" class="val"><i>✓</i></label></span>
 						</div>
 					</div>
 				</div>
@@ -152,9 +158,9 @@ a:hover {
 <!-- 接收人弹窗-->
 				<div class="modal fade" id="myModal" tabindex="-1">
 
-					<!--第二步，窗口声明-->
+					<!-- 第二步，窗口声明 -->
 					<div class="modal-dialog modal-lg">
-						<!--第三步、内容区的声明-->
+					<!-- 	第三步、内容区的声明 -->
 						<div class="modal-content" style="background: #F9F9F9;">
 							<div class="modal-1">
 
@@ -186,7 +192,7 @@ a:hover {
 										<table class="table  table-hover  container-fluid">
 											<tr class="row">
 												<th class=" col-xs-2">
-													<span class="labels"><label><input id="checkedAll" type="checkbox"><i>✓</i></label></span>
+													<span class="labels" style="display:none;"><label><input id="checkedAll" type="checkbox" ><i>✓</i></label></span>
 												</th>
 												<th class=" col-xs-2 b">部门</th>
 												<th class=" col-xs-2 b">真实姓名 </th>
@@ -258,5 +264,50 @@ a:hover {
 					</div>
 				</div>
 			
+<!--校验模态框 -->
 
+<#include "/common/modalTip.ftl"> 
+<script type="text/javascript">
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function check() {
+	console.log("开始进入了");
+	//提示框可能在提交之前是block状态，所以在这之前要设置成none
+	$('.alert-danger').css('display', 'none');
+	var isRight = 1;
+	$('.form-control').each(function(index) {
+		// 如果在这些input框中，判断是否能够为空
+		if ($(this).val() == "") {
+			// 排除哪些字段是可以为空的，在这里排除
+			if (index == 7 ||index == 8||index == 9) {
+				return true;
+			}
+			
+			// 获取到input框的兄弟的文本信息，并对应提醒；
+			/*  var brother = $(this).siblings('.control-label').text();
+			var errorMess = "[" + brother + "输入框信息不能为空]";
+			// 对齐设置错误信息提醒；红色边框
+			$(this).parent().addClass("has-error has-feedback");
+			$('.alert-danger').css('display', 'block');
+			// 提示框的错误信息显示
+			$('.error-mess').text(errorMess);
+			// 模态框的错误信息显示
+			$('.modal-error-mess').text(errorMess);
+			isRight = 0;
+			return false; */
+		} else {
+			// 在这个里面进行其他的判断；不为空的错误信息提醒
+			return true;
+		}
+	});
+	if (isRight == 0) {
+		//modalShow(0);
+		 return true;
+	} else if (isRight == 1) {
+		//modalShow(1);
+		 return true;
+	}
+//	return false;
+}
+</script>
+<script type="text/javascript" src="js/common/data.js"></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
