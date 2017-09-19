@@ -15,18 +15,7 @@ $(".file-box .file-check").click(function(){
 	}else{
 		$(this).parent(".file-one").addClass("file-one-check");
 	}
-	var checkpathids = new Array();
-	var checkfileids = new Array();
-	checkedpaths(checkpathids,checkfileids);
-	console.log("checkpathids:"+checkpathids);
-	console.log("checkfileids:"+checkfileids);
-	
-	var href = $(".box-body .topdelete").attr("href").split("&");
-	console.log(href);
-	newhref = href[0]+"&checkpathids="+checkpathids+"&checkfileids="+checkfileids;
-	console.log(newhref);
-	$(".box-body .topdelete").attr("href",newhref);
-	
+	changedeletehref();
 });
 
 $(".allcheck").click(function(){
@@ -55,6 +44,7 @@ $(".file-box .file-one").mousedown(function(e){
 	    if(!$(this).hasClass("file-one-check")){
 	    	$(this).addClass("file-one-check");
 	    	$(this).siblings(".file-one").removeClass("file-one-check");
+	    	changedeletehref();
 	    }
 	    if($(this).find(".file-img").hasClass("path")){
 	    	var href = $(this).find(".path a").attr("href");
@@ -94,6 +84,13 @@ $(document).click(function(e){
 //	console.log(pathid);
 //});
 
+$(".topcreatepath").on("click",function(){
+	$(".creatpath").removeClass("diplaynone");
+});
+$(".creatpath .cansalcreate").on("click",function(){
+	$(".creatpath").addClass("diplaynone");
+});
+
 function checkedpaths(pathids,fileids){
 	var checkedpaths =$(".file-one.file-one-check");
 	var i = 0;
@@ -114,6 +111,17 @@ function checkedpaths(pathids,fileids){
 //	return topdelete;
 }
 
-function checkedfiles(){
+function changedeletehref(){
+	var checkpathids = new Array();
+	var checkfileids = new Array();
+	checkedpaths(checkpathids,checkfileids);
+	console.log("checkpathids:"+checkpathids);
+	console.log("checkfileids:"+checkfileids);
 	
+	var href = $(".box-body .topdelete").attr("href").split("&");
+	console.log(href);
+	newhref = href[0]+"&checkpathids="+checkpathids+"&checkfileids="+checkfileids;
+	console.log(newhref);
+	$(".box-body .topdelete").attr("href",newhref);
+	$(".menu .delete").attr("href",newhref);
 }
