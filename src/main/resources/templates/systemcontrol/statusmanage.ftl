@@ -58,11 +58,11 @@ a:hover {
 							</tr>
 							<#list statusList as status>
 								<tr>
-									<td><span>${status.statusModel}</span></td>
-									<td><span>${status.statusName}</span></td>
-									<td><span>${status.statusSortValue}</span></td>
-									<td><span>${status.statusColor}</span></td>
-									<td><a  href="useredit?where=xg" class="label xiugai"><span
+									<td><span>${(status.statusModel)!''}</span></td>
+									<td><span>${(status.statusName)!''}</span></td>
+									<td><span>${(status.statusSortValue)!''}</span></td>
+									<td><span>${(status.statusColor)!''}</span></td>
+									<td><a  href="statusedit?statusid=${status.statusId}" class="label xiugai"><span
 											class="glyphicon glyphicon-edit"></span> 修改</a> <a 
 										href="##" class="label xiugai"><span
 											class="glyphicon glyphicon-search"></span> 查看</a> <a

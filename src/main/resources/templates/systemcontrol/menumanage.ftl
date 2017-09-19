@@ -55,7 +55,6 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
-							
 							<th scope="col">名称</th>
 							<th scope="col">图标</th>
 							<th scope="col">路径</th>
@@ -66,12 +65,12 @@ a:hover {
 						</tr>
 						<#list oneMenuAll as one>
 						<tr style="background:rgba(255, 235, 59, 0.19);">
-							<td>${one.menuName}</td>
-							<td><span class="glyphicon ${one.menuIcon}"></span></td>
-							<td><span>${one.menuUrl}</span></td>
+							<td>${(one.menuName)!''}</td>
+							<td><span class="glyphicon ${(one.menuIcon)!''}"></span></td>
+							<td><span>${(one.menuUrl)!''}</span></td>
 							<td><span>父级</span></td>
-							<td><span>${one.sortId}</span></td>
-							<#if one.isShow==true>
+							<td><span>${(one.sortId)!''}</span></td>
+							<#if one.show==true>
 								<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
 							<#else>
 								<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>
@@ -92,12 +91,12 @@ a:hover {
 						<#list twoMenuAll as two>
 						<#if one.menuId==two.parentId>
 						<tr>
-							<td>${two.menuName}</td>
-							<td><span class="glyphicon ${two.menuIcon}"></span></td>
-							<td><span>${two.menuUrl}</span></td>
+							<td>${(two.menuName)!''}</td>
+							<td><span class="glyphicon ${(two.menuIcon)!''}"></span></td>
+							<td><span>${(two.menuUrl)!''}</span></td>
 							<td><span>子级菜单栏</span></td>
-							<td><span>${two.sortId}</span></td>
-							<#if two.isShow==true>
+							<td><span>${(two.sortId)!''}</span></td>
+							<#if two.show==true>
 								<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
 							<#else>
 								<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>

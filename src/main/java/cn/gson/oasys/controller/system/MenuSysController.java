@@ -85,23 +85,21 @@ public class MenuSysController {
 	@RequestMapping("menuedit")
 	public String newpage(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		SystemMenu menuObj = null;
+		session.removeAttribute("getId");
 		if (!StringUtils.isEmpty(req.getParameter("id"))) {
 			Long getId = Long.parseLong(req.getParameter("id"));
-			menuObj = iDao.findOne(getId);
+			SystemMenu menuObj = iDao.findOne(getId);
 			if (!StringUtils.isEmpty(req.getParameter("add"))) {
 				Long getAdd = menuObj.getMenuId();
 				req.setAttribute("getAdd", getAdd);
-				menuObj = new SystemMenu();
 				log.info("getAdd:{}", getAdd);
 			} else {
+				
 				session.setAttribute("getId", getId);
 				log.info("getId:{}", getId);
+				req.setAttribute("menuObj", menuObj);
 			}
-		} else {
-			menuObj = new SystemMenu();
 		}
-		req.setAttribute("menuObj", menuObj);
 		return "systemcontrol/menuedit";
 	}
 	

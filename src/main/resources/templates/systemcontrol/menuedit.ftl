@@ -73,14 +73,14 @@ a:hover {
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>显示</span></label><br>
-								<#if menuObj.isShow??>
-									<#if menuObj.isShow==true>
-										<span class="labels"><label><input name="isShow" type="checkbox" checked><i>✓</i></label></span>
+								<#if menuObj??>
+									<#if menuObj.show==true>
+										<span class="labels"><label><input name="show" type="checkbox" checked><i>✓</i></label></span>
 										<#else>
-										<span class="labels"><label><input name="isShow" type="checkbox"><i>✓</i></label></span>
+										<span class="labels"><label><input name="show" type="checkbox"><i>✓</i></label></span>
 									</#if>
 								<#else>
-										<span class="labels"><label><input name="isShow" type="checkbox"><i>✓</i></label></span>
+										<span class="labels"><label><input name="show" type="checkbox"><i>✓</i></label></span>
 								</#if>
 							</div>
 						</div>
@@ -101,6 +101,10 @@ a:hover {
 
 <#include "/common/modalTip.ftl"> 
 <script type="text/javascript">
+
+$('.successToUrl').on('click',function(){
+	window.location.href='/testsysmenu';
+});
 //表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
 function check() {
 	console.log("开始进入了");
