@@ -19,5 +19,8 @@ public interface TaskuserDao extends PagingAndSortingRepository<Taskuser, Long> 
 	@Query("update Taskuser ta set ta.statusId=:statusid where ta.taskId.taskId=:taskid")
 	@Modifying
 	int updatestatus(@Param("taskid")Long taskid,@Param("statusid")Integer statusid);
+	
+	@Query("select tu.taskId.taskId from Taskuser tu where tu.userId.userId=:userid ")
+	List<Long> findByUserId(@Param("userid")Long userid);
 
 }

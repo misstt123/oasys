@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -36,42 +39,44 @@ public class Tasklist implements Serializable {
 	private Long typeId;//任务类型（公事，私事）
 	
 	@Column(name="publish_time")
-	@JSONField(format = "yyyy-MM-dd")
+	@JSONField(format = "yyyy-MM-dd hh:mm:ss")
 	private Date publishTime;//发布时间
 	
 	@Column(name="star_time")
-	@JSONField(format = "yyyy-MM-dd")
+	@JSONField(format = "yyyy-MM-dd hh:mm:ss")
 	private Date starTime;//任务开始时间
 	
 	@Column(name="end_time")
-	@JSONField(format = "yyyy-MM-dd")
+	@JSONField(format = "yyyy-MM-dd hh:mm:ss")
 	private Date endTime;//任务结束时间
 	
 	@Column(name="modify_time")
-	@JSONField(format = "yyyy-MM-dd")
+	@JSONField(format = "yyyy-MM-dd hh:mm:ss")
 	private Date modifyTime;//任务修改时间
 	
 	@Column(name="title",nullable=false)
+	@NotEmpty(message="主题名字不能为空")
 	private String title;//任务主题
 	
 	@Column(name="reciverlist")
+	@NotEmpty(message="接收人不能为空")
 	private String reciverlist;
 	
 	@ManyToOne
 	@JoinColumn(name="task_push_user_id")
 	private User usersId;//发布人id
 	
-	@Column(name="task_describe",nullable=false)
+	@Column(name="task_describe")
 	private String taskDescribe;//任务描述
 	
 	@Column(name="comment")
 	private String comment;//任务评价
 	
 	@Column(name="is_top")
-	private Integer isTop;//任务是否置顶
+	private Boolean top;//任务是否置顶
 	
 	@Column(name="is_cancel")
-	private Integer isCancel;//是否取消任务
+	private Boolean cancel;//是否取消任务
 	
 	@Column(name="ticking")
 	private String ticking;//任务结束后反馈
@@ -163,21 +168,24 @@ public class Tasklist implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	
+	
 
-	public Integer getIsTop() {
-		return isTop;
+	public Boolean getTop() {
+		return top;
 	}
 
-	public void setIsTop(Integer isTop) {
-		this.isTop = isTop;
+	public void setTop(Boolean top) {
+		this.top = top;
 	}
 
-	public Integer getIsCancel() {
-		return isCancel;
+	public Boolean getCancel() {
+		return cancel;
 	}
 
-	public void setIsCancel(Integer isCancel) {
-		this.isCancel = isCancel;
+	public void setCancel(Boolean cancel) {
+		this.cancel = cancel;
 	}
 
 	public String getTicking() {
@@ -212,7 +220,7 @@ public class Tasklist implements Serializable {
 	
 
 	public Tasklist(Long typeId, Date starTime, Date endTime, String title, String reciverlist, String taskDescribe,
-			String comment, Integer isTop, Integer isCancel, Integer statusId) {
+			String comment, Boolean top, Boolean cancel, Integer statusId) {
 		super();
 		this.typeId = typeId;
 		this.starTime = starTime;
@@ -221,13 +229,13 @@ public class Tasklist implements Serializable {
 		this.reciverlist = reciverlist;
 		this.taskDescribe = taskDescribe;
 		this.comment = comment;
-		this.isTop = isTop;
-		this.isCancel = isCancel;
+		this.top = top;
+		this.cancel = cancel;
 		this.statusId = statusId;
 	}
 
 	public Tasklist(String comment, String taskDescribe, String title, Date starTime, Date endTime, Long typeId,
-			Integer statusId, Integer isCancel, Integer isTop, Date publishTime, Long userid) {
+			Integer statusId, Boolean Cancel, Boolean Top, Date publishTime, Long userid) {
 		
 	}
 
@@ -235,8 +243,8 @@ public class Tasklist implements Serializable {
 	public String toString() {
 		return "Tasklist [taskId=" + taskId + ", typeId=" + typeId + ", publishTime=" + publishTime + ", starTime="
 				+ starTime + ", endTime=" + endTime + ", modifyTime=" + modifyTime + ", title=" + title
-				+ ", taskDescribe=" + taskDescribe + ", comment=" + comment + ", isTop=" + isTop + ", isCancel="
-				+ isCancel + ", ticking=" + ticking + ", statusId=" + statusId + "]";
+				+ ", taskDescribe=" + taskDescribe + ", comment=" + comment + ", cancel=" + cancel + ", top="
+				+ top + ", ticking=" + ticking + ", statusId=" + statusId + "]";
 	}
 
 	

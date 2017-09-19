@@ -1,12 +1,12 @@
-.b {
+#myModal .b {
 	color: #72afd2;
 }
 
-.b:hover {
+#myModal .b:hover {
 	color: #23527c;
 }
 
-#pager {
+#myModal #pager {
 	border-top: solid 1px #F5F5F5;
 	padding: 10px 0;
 	margin-top: -10px;
@@ -14,29 +14,29 @@
 	overflow: hidden;
 }
 
-div.Pager .CustomInfo span {
+#myModal div.Pager .CustomInfo span {
 	color: #000;
 	font-weight: bold;
 	padding: 5px;
 }
 
-.modal-1 {
+#myModal .modal-1 {
 	margin: 20px;
 	padding: 20px;
 	background: #ECF0F5;
 }
 
-.modal-2 {
+#myModal .modal-2 {
 	background: white;
 	border-top: 3px solid #D2D6DE;
 }
 
-.closespan {
+#myModal .closespan {
 	color: white;
 	font-size: 45px;
 }
 
-.input-group {
+#myModal .input-group {
 	width: 150px;
 	float: right;
 	margin-top: 13px;
