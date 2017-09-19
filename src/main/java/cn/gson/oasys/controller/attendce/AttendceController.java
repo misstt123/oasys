@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
+import cn.gson.oasys.model.dao.attendcedao.AttendceService;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -47,6 +48,8 @@ public class AttendceController {
 	
 	@Autowired 
 	AttendceDao attenceDao;
+	@Autowired
+	AttendceService attendceService;
 	@Autowired
 	UserDao uDao;
 	
@@ -90,25 +93,20 @@ public class AttendceController {
 	}
 	
 	@RequestMapping("realmonthtable")
-	public String dfshe(HttpServletRequest request){
+	public String dfshe(HttpServletRequest request, Model model){
 		String month=request.getParameter("month");
 	    uList= (List<User>) uDao.findAll();
-	    Map<User,int[]> uMap=new HashMap<User,int[]>();
-	    int[]result=new int[4];
+	    Map<String,List<Integer>> uMap=new HashMap<>();
+	    List<Integer> result=null;
 	    	 for (User user : uList) {
+	    		 result=new ArrayList<>();
 	    		 for (long statusId = 10; statusId < 14; statusId++) {
-	    		result[(int) (statusId-10)]=attenceDao.countnum(month, statusId,user.getUserId());
-	    	 }
-	    		 uMap.put(user, result);
-	    		 result=null;
+		    		result.add(attenceDao.countnum(month, statusId,user.getUserId()));
+		    	 }
+	    		 uMap.put(user.getUserName(), result);
 	    	}
-	    	 
-	    for(User user:uMap.keySet()){
-	    	System.out.println(user+":"+uMap.get(user));
-	    }
-	
-	     request.setAttribute("result", result);	 
-	    request.setAttribute("ulist", uList);
+	    model.addAttribute("uMap", uMap);	 
+	    model.addAttribute("ulist", uList);
 		return "attendce/realmonthtable";
 	}
 	
@@ -166,8 +164,10 @@ public class AttendceController {
 	
 	@RequestMapping(value="attendceedit",method=RequestMethod.POST)
 	public String test4(Model model,HttpSession session,HttpServletRequest request){
-		Long userid=Long.valueOf(session.getAttribute("userId")+"");
-		
+		Long userid=(Long)session.getAttribute("userId");
+		String remark=request.getParameter("remark");
+		long id=Long.parseLong(request.getParameter("id"));
+		attendceService.updatereamrk(remark, id);
 		return "attendce/attendceedit";
 	}
 	

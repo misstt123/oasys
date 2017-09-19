@@ -17,24 +17,25 @@
 					<th>旷工</th>
 				</tr>
 				
-				<#if ulist??>
-				  		<#list ulist as user>
-				  <tr>
-				  	
-					 		<td>${user.dept.deptName}</td>
+				<#if uMap??>
+					<#list uMap?keys as userName>
+						<#list ulist as user>
+						<tr>
+						  <#if userName==user.userName>
+						    <td>${user.dept.deptName}</td>
 							<td>${user.userName}</td>
-						
-				  	
-				  	<#if result??>
-				  		<#list result as r1>
-				  			<#list r1 as r2>
-				  				<td><a>${r2}</a></td>
-							</#list>
-				  		</#list>
-				  	</#if>
-				</tr>
-				 </#list>
-				  	</#if>
+						 	<#list uMap["${userName}"] as result>
+					     	    <#if result==0>
+					     	     	<td>-</td>
+					     	    		<#else>
+					     	    		<td>${result}</td>
+					     	    </#if>
+				  			</#list>
+				  			 </#if>
+						</tr> 	
+						</#list>
+					</#list>
+				</#if>
 			</table>
 </body>
 </html>

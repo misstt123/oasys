@@ -89,14 +89,14 @@
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">备注</label>
-						<input class="form-control" value="<#if attends??>${attends.attendsRemark}</#if>"/>
+						<input name="remark" id=${attends.attendsId}  class="form-control remark" value="<#if attends??>${attends.attendsRemark}</#if>"/>
 					</div>
 				</div>
 				
 			</div>
 			
 			<div class="box-footer">
-				<input class="btn btn-primary" id="save" type="submit" value="保存"/>
+				<input class="btn btn-primary" id="save" type="submit" value="保存"  />
 				<input class="btn btn-default active" id="cancel" type="submit" value="取消" onclick="window.history.back();"/>
 			</div>
 			</form>
