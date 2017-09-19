@@ -1,10 +1,10 @@
 <style type="text/css">
-.modal-dialog {
+#thismodal .modal-dialog {
 	width: 500px;
 	top:20%;
 }
 
-.modal-body .icon {
+#thismodal .modal-body .icon {
 	height: 80px;
 	width: 80px;
 	margin: 20px auto;
@@ -15,20 +15,20 @@
 	font-size: 44px;
 }
 
-.modal-body .icon .glyphicon {
+#thismodal .modal-body .icon .glyphicon {
 	font-size: 46px;
 	top: 14px;
 }
 
-.modal-p {
+#thismodal .modal-p {
 	margin: 20px auto;
 }
 
-.modal-body .modal-p h2 {
+#thismodal .modal-body .modal-p h2 {
 	text-align: center;
 }
 
-.modal-body .modal-p p {
+#thismodal .modal-body .modal-p p {
 	text-align: center;
 	color: #666;
 	font-size: 16px;
@@ -36,18 +36,19 @@
 	font-weight: 300;
 }
 
-.modal-p .btn {
+#thismodal .modal-p .btn {
 	margin-left: 40%;
 	width: 100px;
 	height: 40px;
 }
 
-.modal-error .icon {
+#thismodal .modal-error .icon {
 	color: #f27474;
 	border: 3px solid #f27474;
 }
 </style>
-<div class="modal fade in" id="mymodal" data-backdrop="static">
+
+<div class="modal fade in" id="thismodal" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body modal-success" style="display: none;">
@@ -58,7 +59,7 @@
 					<h2>操作成功</h2>
 					<!--<p style="">已回复</p>-->
 					<div class="modal-p">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+						<button type="button" class="btn btn-primary successToUrl" data-dismiss="modal">确定</button>
 					</div>
 				</div>
 			</div>
@@ -80,6 +81,7 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
 <!-- /.modal -->
 <script type="text/javascript" src="js/modalTip.js" ></script>
 
@@ -104,7 +106,8 @@
 		 // 提示框的错误信息显示
 		$('.error-mess').text(errormess);
 		// 模态框的错误信息显示
-		$('.modal-error-mess').text(errormess); 
+		$('#thismodal .modal-error-mess').text(errormess); 
+		console.log("errormess+thismodal:"+$('#thismodal .modal-error-mess').text());
 	</script>
 
 </#if>

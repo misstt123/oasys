@@ -223,15 +223,27 @@ public class FileServices {
 		if (isfile) {
 			f = fldao.findByFileNameAndFpath(name, filepath);
 		}else{
-			//f = fpdao.
+			f = fpdao.findByPathNameAndParentId(name, filepath.getId());
 		}
 		if(f != null){
 			int num2 = num -1;
-			name = name.replace("."+shuffix,"").replace("("+num2+")", "")+"("+num+")"+"."+shuffix;
+			if(shuffix == null){
+				name = name.replace("("+num2+")", "")+"("+num+")";
+			}else{
+				name = name.replace("."+shuffix,"").replace("("+num2+")", "")+"("+num+")"+"."+shuffix;
+			}
 			num += 1;
 			return onlyname(name,filepath,shuffix,num,isfile);
 		}
 		return name;
+	}
+	/**
+	 * 得到文件
+	 * @param filepath
+	 * @return
+	 */
+	public File getFile(String filepath){
+		return new File(this.rootPath,filepath);
 	}
 	
 	/**
@@ -250,6 +262,7 @@ public class FileServices {
 		savepath = savepath.substring(0, savepath.length()-1);
 		return savepath;
 	}
+	
 	
 	/**
 	 * 获取附件

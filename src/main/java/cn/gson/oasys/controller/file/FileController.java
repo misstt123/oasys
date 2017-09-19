@@ -1,6 +1,7 @@
 package cn.gson.oasys.controller.file;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,9 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 
+import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.filedao.FilePathdao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.file.FileList;
@@ -39,6 +44,8 @@ public class FileController {
 	private FileServices fs;
 	@Autowired
 	private FilePathdao fpdao;
+	@Autowired
+	private FileListdao fldao;
 	@Autowired
 	private UserDao udao;
 	
@@ -57,7 +64,7 @@ public class FileController {
 	}
 	
 	/**
-	 * 进入指定目录 的controller方法
+	 * 进入指定文件夹 的controller方法
 	 * @param pathid
 	 * @param model
 	 * @return
@@ -100,19 +107,82 @@ public class FileController {
 		model.addAttribute("pathid",pathid);
 		return "forward:/filetest";
 	}
-	
+	/**
+	 * 删除前台选择的文件以及文件夹
+	 * @param pathid
+	 * @param checkpathids
+	 * @param checkfileids
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("deletefile")
 	public String deletefile(@RequestParam("pathid")Long pathid,@RequestParam("checkpathids")List<Long> checkpathids,@RequestParam("checkfileids")List<Long> checkfileids,Model model){
-		System.out.println(checkpathids);
 		System.out.println(checkfileids);
+		System.out.println(checkpathids);
 		
-		//删除文件
-		fs.deleteFile(checkfileids);
+		if(!checkfileids.isEmpty()){
+			//删除文件
+			fs.deleteFile(checkfileids);
+		}
+		if(!checkpathids.isEmpty()){
+			//删除文件夹
+			fs.deletePath(checkpathids);
+		}
 		
-		//删除文件夹
-		fs.deletePath(checkpathids);
 		model.addAttribute("pathid",pathid);
 		return "forward:/filetest";
+	}
+	
+	/**
+	 * 新建文件夹
+	 * @param pathid
+	 * @param pathname
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("createpath")
+	public String createpath(@RequestParam("pathid")Long pathid,@RequestParam("pathname")String pathname,Model model){
+		System.out.println(pathid+"aaaaaa"+pathname);
+		FilePath filepath = fpdao.findOne(pathid);
+		String newname = fs.onlyname(pathname, filepath, null, 1, false);
+		
+		
+		FilePath newfilepath= new FilePath(pathid,newname);
+		
+		
+		System.out.println(newname);
+		System.out.println(newfilepath);
+		fpdao.save(newfilepath);
+		
+		model.addAttribute("pathid",pathid);
+		return "forward:/filetest";
+	}
+	
+	@RequestMapping("imgshow")
+	public void imgshow(HttpServletResponse response,@RequestParam("fileid")Long fileid){
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+		FileList filelist = fldao.findOne(fileid);
+		File file= fs.getFile(filelist.getFilePath());
+		writefile(response,file);
+	}
+	
+	/**
+	 * 写文件
+	 * @param response
+	 * @param file
+	 */
+	public void writefile(HttpServletResponse response,File file){
+		try {
+			ServletOutputStream sos = response.getOutputStream();
+			// 读取文件问字节码
+			byte[] data = new byte[(int) file.length()];
+			IOUtils.readFully(new FileInputStream(file), data);
+			//将文件流输出到浏览器
+			IOUtils.write(data, sos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 //	@RequestMapping(value = "pathin",method = RequestMethod.POST)

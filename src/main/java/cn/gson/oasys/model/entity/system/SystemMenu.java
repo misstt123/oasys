@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.util.StringUtils;
 
 /**
  * 系统菜单实体类表
@@ -24,7 +25,7 @@ public class SystemMenu {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long menuId; // 菜单id
 
-	@Column(name = "parent_id")
+	@Column(name = "parent_id",columnDefinition="int default 0 not null",nullable=true)
 	private Long parentId; // 父id
 
 	@Column(name = "menu_name")
@@ -35,20 +36,40 @@ public class SystemMenu {
 	@NotEmpty(message="{sysMenu.menuUrl.NotNull}")
 	private String menuUrl; // 菜单链接
 
-	@Column(name = "menu_icon",columnDefinition="varchar(20) default 'glyphicon-record'")
+	@Column(name = "menu_icon",columnDefinition="varchar(20) default 'glyphicon-record' not null",nullable=true)
 	private String menuIcon; // 菜单图标
 
 	@Column(name = "sort_id")
-	private Integer sortId; // 菜单排序id
+	private Integer sortId=999; // 菜单排序id
 
-	@Column(name = "is_show",columnDefinition="boolean default true")
-	private Boolean isShow; // 菜单是否显示
+	@Column(name = "is_show",columnDefinition="boolean default true not nul",nullable=true)
+	private Boolean show=false; // 菜单是否显示
 
 	@Column(name = "menu_grade")
 	private Integer menuGrade; // 权限值分数
 
 	public SystemMenu() {
 	}
+	
+
+	public SystemMenu(Long menuId, Long parentId, String menuName, String menuUrl, String menuIcon, Integer sortId,
+			Boolean show, Integer menuGrade) {
+		super();
+		System.out.println("parentId"+parentId);
+		if(parentId!=null){
+			
+			this.parentId = parentId;
+		}
+		this.menuId = menuId;
+		
+		this.menuName = menuName;
+		this.menuUrl = menuUrl;
+		this.menuIcon = menuIcon;
+		this.sortId = sortId;
+		this.show = show;
+		this.menuGrade = menuGrade;
+	}
+
 
 	public Long getMenuId() {
 		return menuId;
@@ -59,6 +80,7 @@ public class SystemMenu {
 	}
 
 	public Long getParentId() {
+		
 		return parentId;
 	}
 
@@ -98,13 +120,16 @@ public class SystemMenu {
 		this.sortId = sortId;
 	}
 
-	public Boolean getIsShow() {
-		return isShow;
+
+	public Boolean getShow() {
+		return show;
 	}
 
-	public void setIsShow(Boolean isShow) {
-		this.isShow = isShow;
+
+	public void setShow(Boolean show) {
+		this.show = show;
 	}
+
 
 	public Integer getMenuGrade() {
 		return menuGrade;
@@ -117,7 +142,7 @@ public class SystemMenu {
 	@Override
 	public String toString() {
 		return "SystemMenu [MenuId=" + menuId + ", parentId=" + parentId + ", menuName=" + menuName + ", menuUrl="
-				+ menuUrl + ", menuIcon=" + menuIcon + ", sortId=" + sortId + ", isShow=" + isShow + ", menuGrade="
+				+ menuUrl + ", menuIcon=" + menuIcon + ", sortId=" + sortId + ", show=" + show + ", menuGrade="
 				+ menuGrade + "]";
 	}
 

@@ -53,7 +53,7 @@ a:hover {
 					<span class="glyphicon glyphicon-print print">打印</span>
 				</button>
 				<div class="page-header"></div>
-				<form action="tasklogger">
+				<form action="uplogger">
 					<div class="row">
 						<div class="box-body" style="margin-left:20px;margin-right: 20px;">
 							<div class=" mailbox-read-info">
@@ -88,8 +88,8 @@ a:hover {
 											<span style="font-size:8pt; color:#999; margin-left:3px;">${logger.createTime}</span>
 											：将状态改为【${status.statusName}】
 									</div>
-									</#if>
 									<!-- </#if> -->
+									</#if>
 									<#if logger.loggerTicking!=''>
 									<div>
 										${logger.username}
@@ -109,13 +109,21 @@ a:hover {
 								<div class="form-group">
 									<select name="loggerStatusid" id="ctl00_cphMain_ddlStatus" class="form-control select2">
 										<option value="${status.statusId}">${status.statusName}</option>
+										<#if status.statusId ==3>
+										<#else>
+										<option value="3">新任务</option>
+										</#if>
+										<#if status.statusId ==4>
+										<#else>
+										<option value="4">已接收</option>
+										</#if>
 										<#if status.statusId ==5>
 										<#else>
 										<option value="5">进行中</option>
 										</#if>
-										<#if status.statusId ==7>
+										<#if status.statusId ==6>
 										<#else>
-										<option value="7">已完成</option>
+										<option value="6">已提交</option>
 										</#if>
 										
 									</select>

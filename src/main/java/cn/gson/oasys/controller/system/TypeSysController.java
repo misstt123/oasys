@@ -75,7 +75,7 @@ public class TypeSysController {
 	 * @param req
 	 * @param menu
 	 * @param br
-	 *            后台校验表单数据，不通过则回填数据，显示错误信息；通过则直接执行业务，例如新增、编辑等；
+	 * 后台校验表单数据，不通过则回填数据，显示错误信息；通过则直接执行业务，例如新增、编辑等；
 	 * @return
 	 */
 	@RequestMapping("typecheck")

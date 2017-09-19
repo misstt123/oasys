@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import cn.gson.oasys.model.dao.taskdao.TaskDao;
 import cn.gson.oasys.model.dao.taskdao.TaskuserDao;
+import cn.gson.oasys.model.entity.task.Tasklist;
 
 @Service
 @Transactional
@@ -17,6 +18,10 @@ public class TaskService {
 	private TaskDao tdao;
 	@Autowired
 	private TaskuserDao tudao;
+	
+	public Tasklist save(Tasklist task){
+		return tdao.save(task);
+	}
 	
 	//修改任务表里面的状态
 	public int updateStatusid(Long taskid,Integer statusid){
@@ -30,4 +35,5 @@ public class TaskService {
 		return s;
 		
 		}
+
 }

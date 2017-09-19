@@ -34,8 +34,8 @@ public class FileList {
 	
 	private Long size;	//文件大小
 	
-	@Column(name = "file_type_id")
-	private Integer fileType;	//文件类型id（共享公司个人）
+	@Column(name = "file_type")
+	private String fileType;	//文件类型id（共享公司个人）
 	
 	@Column(name = "upload_time")
 	private Date uploadTime;	//上传时间
@@ -91,11 +91,11 @@ public class FileList {
 		this.size = size;
 	}
 
-	public Integer getFileType() {
+	public String getFileType() {
 		return fileType;
 	}
 
-	public void setFileType(Integer fileType) {
+	public void setFileType(String fileType) {
 		this.fileType = fileType;
 	}
 

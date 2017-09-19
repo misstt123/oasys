@@ -27,7 +27,7 @@ a:hover {
 </style>
 <script>
 	$(function(){
-		$("[name=isTop]:checkbox").click(function(){
+	/* 	$("[name=isTop]:checkbox").click(function(){
 			console.log($(this).prop("checked"));
 			if($(this).prop("checked")){
 				$(this).val("1");
@@ -44,7 +44,14 @@ a:hover {
 			}else{
 				$(this).val("0");
 			}
-		})
+		}) */
+		
+		/* $(".val").each(function(){
+			console.log($	);
+			if($(this).prop("value")==true){
+				$(this).prop("checked",true);
+			}
+		}) */
 	})
 
 </script>
@@ -71,7 +78,7 @@ a:hover {
 				</h3>
 			</div>
 			<!--盒子身体-->
-			<form action="ck_addtask" method="post">
+			<form action="update" method="post">
 			<div class="box-body no-padding">
 				<div class="box-body">
 					<div class="row">
@@ -79,62 +86,91 @@ a:hover {
 						<div class="col-md-6 form-group">
 							<label class="control-label"> <span>类型</span></label>
 							 <select class="form-control" name="typeId">
-							<#list typelist as type>
-							  <#if type.typeModel=="aoa_task_list">
 								<option value="${type.typeId}">${type.typeName}</option>
+								<#if type.typeId ==3>
+								<#else>
+								<option value="3">公事</option>
 								</#if>
-							</#list>
+								<#if type.typeId ==4>
+								<#else>
+								<option value="4">私事</option>
+								</#if>
 							</select>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">状态</label> 
 							<select class="form-control" name="statusId">
-								<#list statuslist as status>
-								<#if status.statusModel=="aoa_task_list">
-							     <option value="${status.statusId}">${status.statusName}</option>
+								<option value="${status.statusId}">${status.statusName}</option>
+								<#if status.statusId ==5>
+								<#else>
+								<option value="5">进行中</option>
 								</#if>
-								</#list>
+								<#if status.statusId ==7>
+								<#else>
+								<option value="7">已完成</option>
+								</#if>
 							</select>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">开始日期</label> <input name="starTime"
-								class="form-control" onclick="WdatePicker()" />
+							<label class="control-label">开始日期</label> <input id="starTime" name="starTime"
+								class="form-control"  value="${task.starTime}"/>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">结束日期</label> <input name="endTime"
-								class="form-control" onclick="WdatePicker()" />
+							<label class="control-label">结束日期</label> <input id="endTime" name="endTime"
+								class="form-control" value="${task.endTime}"/>
 						</div>
 						<div class="col-md-6 form-group">
 
 							<label class="control-label">标题</label> <input name="title"
-								type="text" id="title_Name" class="form-control" />
+								type="text" id="title_Name" class="form-control" value="${task.title}"/>
 						</div>
 						<div class="col-md-6 form-group" style="position: relative;">
 							<label class="control-label" data-toggle="modal" data-target="#myModal">接收人</label>
-							 <input name="reciverlist" type="text" id="recive_list"
-								class="form-control " readonly="readonly" style="background-color:#fff;"/>
+							 <input name="reciverlist" type="text" id="recive_list" value="${(task.reciverlist)!''}"
+								class="form-control " readonly="readonly"  style="background-color:#fff;"/>
 							<div class="reciver">
 								<span class="label label-success glyphicon glyphicon-plus"
 									data-toggle="modal" data-target="#myModal">通讯录</span>
 							</div>
 						</div>
 						<div class="col-md-6 form-group">
-							<label class="control-label">备注</label>
-							<textarea class="form-control text" name="taskDescribe"></textarea>
+							<label class="control-label">描述</label>
+							<textarea class="form-control text" name="taskDescribe" >${(task.taskDescribe)!''}</textarea>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">评价</label>
-							<textarea class="form-control text" name="comment"></textarea>
+							<textarea class="form-control text" name="comment" >${(task.comment)!''}</textarea>
 						</div>
 						<div class="col-md-6 form-group ">
-							<label class="control-label">置顶</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="isTop" class="val" ><i>✓</i></label></span>
+							<label class="control-label">置顶</label> <br /> 
+								<#if task.top??>
+									<span class="labels">
+									<label>
+									   <input type="checkbox" name="top" class="val" checked><i>✓</i>
+									 </label></span>
+								<#else>
+									 <span class="labels">
+										<label>
+										   <input type="checkbox" name="top" class="val"><i>✓</i>
+											 </label></span>
+								 </#if>
 						</div>
 
 						<div class="col-md-6  form-group"> 
-							<label class="control-label">取消</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="isCancel" class="val"><i>✓</i></label></span>
+							<label class="control-label">取消</label> <br />
+							<#if task.cancel??>
+									<span class="labels">
+									<label>
+									   <input type="checkbox" name="cancel" class="val" checked><i>✓</i>
+									 </label></span>
+								<#else>
+									 <span class="labels">
+										<label>
+										   <input type="checkbox" name="cancel" class="val"><i>✓</i>
+											 </label></span>
+								 </#if>
 						</div>
+						<input name="taskId" type="text" style="display:none;"value="${task.taskId}">
 					</div>
 				</div>
 			</div>
@@ -258,5 +294,5 @@ a:hover {
 					</div>
 				</div>
 			
-
+<script type="text/javascript" src="js/common/data.js"></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>

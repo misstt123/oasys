@@ -93,7 +93,7 @@ a:hover {
 							<td><span class="label ${status.statusColor}">${status.statusName}</span></td>
 							</#if>
 							</#list>
-							<td><a  href="edittasks"
+							<td><a  href="edittasks?id=${task.taskId}"
 								class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> 
 									<a href="seetasks?id=${task.taskId}" class="label xiugai"><span
