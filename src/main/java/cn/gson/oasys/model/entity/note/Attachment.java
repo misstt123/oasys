@@ -83,7 +83,7 @@ public class Attachment {
 		return attachmentSize;
 	}
 
-	public void setAttachmentSize(long attachmentSize) {
+	public void setAttachmentSize(Long attachmentSize) {
 		this.attachmentSize = attachmentSize;
 	}
 

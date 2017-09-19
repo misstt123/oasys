@@ -41,6 +41,12 @@ public class Attends {
 	@Column(name="attends_time")
 	private Date attendsTime;   //考勤时间
 	
+	@Column(name="attend_hmtime")
+	private String attendHmtime;   //考勤时分
+	
+	@Column(name="week_ofday")
+	private String weekOfday;   //星期几
+	
 	@Column(name="attends_ip")
 	private String attendsIp;     //登陆ip
 	
@@ -51,6 +57,24 @@ public class Attends {
 	@JoinColumn(name = "attends_user_id")
 	private User user;
 	
+	
+	
+	public String getAttendHmtime() {
+		return attendHmtime;
+	}
+
+	public void setAttendHmtime(String attendHmtime) {
+		this.attendHmtime = attendHmtime;
+	}
+
+	public String getWeekOfday() {
+		return weekOfday;
+	}
+
+	public void setWeekOfday(String weekOfday) {
+		this.weekOfday = weekOfday;
+	}
+
 	public Long getAttendsId() {
 		return attendsId;
 	}
@@ -125,12 +149,29 @@ public class Attends {
 		this.attendsRemark = attendsRemark;
 		this.user = user;
 	}
+	
+	
+
+	public Attends(Long typeId, Long statusId, Date attendsTime, String attendHmtime, String weekOfday,
+			String attendsIp, String attendsRemark, User user) {
+		super();
+		this.typeId = typeId;
+		this.statusId = statusId;
+		this.attendsTime = attendsTime;
+		this.attendHmtime = attendHmtime;
+		this.weekOfday = weekOfday;
+		this.attendsIp = attendsIp;
+		this.attendsRemark = attendsRemark;
+		this.user = user;
+	}
 
 	@Override
 	public String toString() {
-		return "Attends [attendsId=" + attendsId + ", attendsTime=" + attendsTime + ", attendsIp=" + attendsIp
-				+ ", attendsRemark=" + attendsRemark + "]";
+		return "Attends [attendsId=" + attendsId + ", typeId=" + typeId + ", statusId=" + statusId + ", attendsTime="
+				+ attendsTime + ", attendHmtime=" + attendHmtime + ", weekOfday=" + weekOfday + ", attendsIp="
+				+ attendsIp + ", attendsRemark=" + attendsRemark + "]";
 	}
+
 	
 	
 	

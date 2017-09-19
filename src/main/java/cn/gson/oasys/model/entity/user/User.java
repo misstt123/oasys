@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.discuss.Reply;
 
 import cn.gson.oasys.model.entity.role.Role;
@@ -123,7 +124,20 @@ public class User {
 	@ManyToMany(mappedBy = "userss")
 	private List<Note> note;
 
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<Attends> aSet;
+	
 	public User() {}		
+
+ public Set<Attends> getaSet() {
+		return aSet;
+	}
+
+public void setaSet(Set<Attends> aSet) {
+		this.aSet = aSet;
+	}
+
+
 
 
 	public Long getUserId() {

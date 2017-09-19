@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.filedao.FilePathdao;
+import cn.gson.oasys.model.dao.notedao.AttachService;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.file.FilePath;
@@ -37,6 +38,8 @@ public class FileServices {
 	private FilePathdao fpdao;
 	@Autowired
 	private AttachmentDao AttDao;
+	@Autowired
+	private AttachService AttachService;
 	
 	
 	@Value("${file.root.path}")
@@ -125,6 +128,34 @@ public class FileServices {
 			return attachment;
 		}
 	}
+	
+	//修改附件
+	public Integer updateatt(MultipartFile file,User user,FilePath nowpath,long attid) throws IllegalStateException, IOException{
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+		File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
+		
+		File savepath = new File(root,user.getUserName());
+		//System.out.println(savePath.getPath());
+		
+		if (!savepath.exists()) {
+			savepath.mkdirs();
+		}
+		if(!file.isEmpty()){
+		String shuffix = FilenameUtils.getExtension(file.getOriginalFilename());
+		log.info("shuffix:{}",shuffix);
+		String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+shuffix;
+		File targetFile = new File(savepath,newFileName);
+		file.transferTo(targetFile);
+		
+		
+		return AttachService.updateatt(file.getOriginalFilename(),
+				targetFile.getAbsolutePath(), shuffix, file.getSize(),
+			    file.getContentType(), new Date(), attid);
+		}
+		return 0;
+	}
+	
+	
 	/**
 	 * 根据文件id 批量 删除文件  同时删除 数据库以及本地文件
 	 * @param fileids
@@ -246,4 +277,7 @@ public class FileServices {
 	public Attachment get(String filePath) {
 		return AttDao.findByAttachmentPath(filePath);
 	}
+	
+	
+	
 }

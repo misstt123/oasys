@@ -164,10 +164,12 @@ function somenotedelete(){
 											 class="label xiugai " >
 											<span
 												class="glyphicon glyphicon-edit"></span> 修改</a> 
+												
 												<a  
 											 onclick="notejump('noteinfo','${note.noteId}')"  
 											 class="label xiugai info"><span
 												class="glyphicon glyphicon-search "></span> 查看</a>
+												
 												 <a
 											onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 											href="notedelete?nid=${note.noteId}" 

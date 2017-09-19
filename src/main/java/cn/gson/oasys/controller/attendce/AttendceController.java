@@ -3,7 +3,15 @@ package cn.gson.oasys.controller.attendce;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,17 +21,21 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
+import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.Blog;
 import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.user.User;
 
 
 @Controller
@@ -34,15 +46,28 @@ public class AttendceController {
 	
 	@Autowired 
 	AttendceDao attenceDao;
+	@Autowired
+	UserDao uDao;
 	
 	List<Attends> alist;
+	List<User> uList;
 	
+	
+	//考情列表 给单个用户使用
+	@RequestMapping("attendcelist")
+	public String test(HttpServletRequest request,HttpSession session){
+		Long  userid=Long.valueOf( session.getAttribute("userId")+"");
+		User user=uDao.findOne(userid);
+		alist=attenceDao.findByUser(user);
+		System.out.println(alist);
+		request.setAttribute("alist", alist);
+		return "attendce/attendcelist";
+	}
+	
+	//考勤管理
 	@RequestMapping("attendceatt")
-	public String test(HttpServletRequest request){
+	public String testdasf(HttpServletRequest request){
 		alist=(List<Attends>) attenceDao.findAll();
-		for (Attends attends : alist) {
-			System.out.println("---"+attends.getUser().getUserName());
-		}
 		request.setAttribute("alist", alist);
 		return "attendce/attendceview";
 	}
@@ -59,10 +84,42 @@ public class AttendceController {
 		return "attendce/monthtable";
 	}
 	
+	
 	@RequestMapping("attendceweek")
 	public String test3(){
+		
 		return "attendce/weektable";
 	}
+	
+	@RequestMapping("realweektable")
+	public String dsaf(HttpServletRequest request){
+		String starttime=request.getParameter("starttime");
+	     String endtime=request.getParameter("endtime");
+	     //格式转化
+	     DefaultConversionService service=new DefaultConversionService();
+	     service.addConverter(new StringtoDate());
+	     Date startdate=service.convert(starttime, Date.class);
+	     Date enddate=service.convert(endtime, Date.class);
+	     //从后台匹配数据
+	     uList= (List<User>) uDao.findAll();
+	     alist=attenceDao.findoneweek(startdate, enddate);
+	     Set<Attends> attenceset=new HashSet<>();
+	     for (User user : uList) {
+	    	 for (Attends attence : alist) {
+	    		 if(attence.getUser().getUserId()==user.getUserId()){
+	    		 attenceset.add(attence);}
+	    	}
+	    	 user.setaSet(attenceset);
+	    }
+	
+	String[] weekday={"星期一","星期二","星期三","星期四","星期五","星期六","星期日"};
+	request.setAttribute("ulist", uList);
+	request.setAttribute("weekday", weekday);
+		return "attendce/realweektable";
+		
+	}
+	
+	
 	
 	@RequestMapping(value="attendceedit",method=RequestMethod.GET)
 	public String test4(@Param("aid")String aid,Model model,HttpSession session){
