@@ -2,6 +2,8 @@ package cn.gson.oasys.model.entity.system;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * 系统状态总表
  * 
@@ -14,9 +16,11 @@ public class SystemStatusList {
 
 	@Id
 	@Column(name = "status_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long statusId; // 状态id
 
 	@Column(name = "status_name")
+	@NotEmpty(message="状态名称不能为空")
 	private String statusName; // 状态名称
 
 	@Column(name = "sort_value")

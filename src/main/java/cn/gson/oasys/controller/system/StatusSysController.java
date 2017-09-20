@@ -81,7 +81,7 @@ public class StatusSysController {
 	@RequestMapping("statuscheck")
 	public String testMess(HttpServletRequest req, @Valid SystemStatusList menu, BindingResult br) {
 		req.setAttribute("menuObj", menu);
-
+		System.out.println(menu);
 		// 这里返回ResultVO对象，如果校验通过，ResultEnum.SUCCESS.getCode()返回的值为200；否则就是没有通过；
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
 		// 校验失败
@@ -116,6 +116,16 @@ public class StatusSysController {
 		return "systemcontrol/statusedit";
 	}
 
+	/**
+	 * 删除方法
+	 */
+	@RequestMapping("deletestatus")
+	public String deleteStatus(HttpServletRequest req){
+		Long statusId=Long.parseLong(req.getParameter("id"));
+		statusService.deleteStatus(statusId);
+		return "forward:/testsysstatus";
+	}
+	
 	
 
 }

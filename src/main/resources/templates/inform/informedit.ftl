@@ -48,47 +48,43 @@ a:hover {
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-group">
-								<label class="control-label"><span>名称</span></label> 
-								<input class="form-control" value="${(menuObj.menuName)!''}" name="menuName"/>
+								<label class="control-label"><span>类型</span></label> 
+								<select class="form-control" name="typeId">
+									<#list typeList as type>
+										<option value="${type.typeId}">${type.typeName}</option>
+									</#list>
+								</select>
 							</div>
 							<div class="col-md-6 form-group">
-								<label class="control-label"><span>图标</span> <a href="http://v3.bootcss.com/components/" target="_blank" title="图标参考"><span class="glyphicon glyphicon-list-alt"></span></a></label> 
-								<input class="form-control" value="${(menuObj.menuIcon)!'glyphicon-record'}"  name="menuIcon"/>
+								<label class="control-label"><span>状态</span></label> 
+								<select class="form-control" name="statusId">
+									<#list statusList as status>
+										<option value="${status.statusId}">${status.statusName}</option>
+									</#list>
+								</select>
 							</div>
 							<div class="col-md-6 form-group">
-								<label class="control-label"><span>路径</span></label>
-								 <input	class="form-control" value="${(menuObj.menuUrl)!''}" name="menuUrl"/>
+								<label class="control-label"><span>标题</span></label>
+								 <input class="form-control" value="${(menuObj.sortId)!'0'}" name="title"/>
 							</div>
 							<div class="col-md-6 form-group">
-								<label class="control-label"><span>排序</span></label>
-								 <input type="number" min="0" class="form-control" value="${(menuObj.sortId)!'0'}" name="sortId"/>
+								<label class="control-label"><span>链接</span></label> 
+								 <input	class="form-control" value="${(menuObj.menuUrl)!''}" name="url"/>
 							</div>
 							<div class="col-md-6 form-group">
-								<label class="control-label"><span>父级</span></label> 
-								 <select class="form-control" name="parentId">
-								 <#if getAdd??>
-								 	<option value="${getAdd}" selected="selected">${getName}</option>
-								 </#if>
-								 <#list parentList as list>
-								 	<option value="${list.menuId}">${list.menuName}</option>
-								 </#list>
-								 </select>
-								<!-- <#if getAdd??>
-									<input type="number" min="0" class="form-control" value="${getAdd}"  name="parentId" readonly="readonly"/>
-								<#else>
-									<input type="number" min="0" class="form-control" value="${(menuObj.parentId)!''}"  name="parentId"/>
-								</#if> -->
+								<label class="control-label"><span>描述</span></label> 
+								<textarea class="form-control text" rows="5" cols="20" name="content"></textarea>
 							</div>
 							<div class="col-md-6 form-group">
-								<label class="control-label"><span>显示</span></label><br>
+								<label class="control-label"><span>置顶</span></label><br>
 								<#if menuObj??>
 									<#if menuObj.show==true>
-										<span class="labels"><label><input name="show" type="checkbox" checked><i>✓</i></label></span>
+										<span class="labels"><label><input name="top" type="checkbox" checked><i>✓</i></label></span>
 										<#else>
-										<span class="labels"><label><input name="show" type="checkbox"><i>✓</i></label></span>
+										<span class="labels"><label><input name="top" type="checkbox"><i>✓</i></label></span>
 									</#if>
 								<#else>
-										<span class="labels"><label><input name="show" type="checkbox"><i>✓</i></label></span>
+										<span class="labels"><label><input name="top" type="checkbox"><i>✓</i></label></span>
 								</#if>
 							</div>
 						</div>

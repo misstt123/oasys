@@ -17,7 +17,7 @@ public class NoticesList {
 	@Id
 	@Column(name = "notice_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long noticeId; // 通知id
+	private Long noticeId; // 通知id	
 
 	@Column(name = "user_id")
 	private Long userId; // 用户id
@@ -35,13 +35,13 @@ public class NoticesList {
 	private String url; // 通知内的链接
 
 	@Column(name = "is_top")
-	private Integer isTop; // 该调通知是否置顶
+	private Boolean top=false; // 该调通知是否置顶
 
 	@Column(name = "notice_time")
 	private Date noticeTime; // 发布通知的时间
 
 	@Column(name = "modify_time")
-	private Date modifyTime; // 修改时间
+	private Date modifyTime=new Date(); // 修改时间
 
 	public NoticesList() {
 	}
@@ -101,13 +101,14 @@ public class NoticesList {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
 
-	public Integer getIsTop() {
-		return isTop;
+	public Boolean getTop() {
+		return top;
 	}
 
-	public void setIsTop(Integer isTop) {
-		this.isTop = isTop;
+	public void setTop(Boolean top) {
+		this.top = top;
 	}
 
 	public Date getNoticeTime() {
@@ -129,7 +130,7 @@ public class NoticesList {
 	@Override
 	public String toString() {
 		return "NoticesList [noticeId=" + noticeId + ", userId=" + userId + ", typeId=" + typeId + ", statusId="
-				+ statusId + ", title=" + title + ", content=" + content + ", url=" + url + ", isTop=" + isTop
+				+ statusId + ", title=" + title + ", content=" + content + ", url=" + url + ", top=" + top
 				+ ", noticeTime=" + noticeTime + ", modifyTime=" + modifyTime + "]";
 	}
 

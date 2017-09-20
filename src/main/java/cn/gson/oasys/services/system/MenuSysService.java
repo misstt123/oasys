@@ -32,6 +32,17 @@ public class MenuSysService {
 	
 	
 	public void findMenuSys(HttpServletRequest req){
+//		查找所有父级都是显示的
+		Iterable<SystemMenu> oneMenuAll=iDao.findByParentIdAndShowOrderBySortId(0L, true);
+//		查找所有子级都是显示的
+		Iterable<SystemMenu> twoMenuAll=iDao.findByParentIdNotAndShowOrderBySortId(0L, true);
+		
+		req.setAttribute("oneMenuAll", oneMenuAll);
+		req.setAttribute("twoMenuAll", twoMenuAll);
+		
+	}
+	
+	public void findAllMenuSys(HttpServletRequest req){
 //		查找所有父级
 		Iterable<SystemMenu> oneMenuAll=iDao.findByParentIdOrderBySortId(0L);
 //		查找所有子级
@@ -39,7 +50,13 @@ public class MenuSysService {
 		
 		req.setAttribute("oneMenuAll", oneMenuAll);
 		req.setAttribute("twoMenuAll", twoMenuAll);
-		
+	}
+	
+	/**
+	 * 在service层执行删除方法
+	 */
+	public int deleteThis(Long menuId){
+		return iDao.deleteThis(menuId);
 	}
 	
 }

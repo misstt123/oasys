@@ -67,7 +67,7 @@ a:hover {
 										href="##" class="label xiugai"><span
 											class="glyphicon glyphicon-search"></span> 查看</a> <a
 										onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-										href="" class="label shanchu"><span
+										href="deletetype?id=${type.typeId}" class="label shanchu"><span
 											class="glyphicon glyphicon-remove"></span> 删除</a></td>
 								</tr>
 							</#list>

@@ -52,11 +52,11 @@ a:hover {
 						<tr>
 							
 							<th scope="col">类型</th>
-							<th scope="col">状态</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
 							<th scope="col">发布人</th>
 							<th scope="col">部门</th>
+							<th scope="col">状态</th>
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
