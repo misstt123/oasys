@@ -30,6 +30,21 @@
 		yearmonth = year + "-" + month;
 		return yearmonth;
 	}
+	
+	function getdate(month){
+		$.ajax({
+			type:"get",
+			url:'realmonthtable',
+			data:{month:month},
+			success:function(dates){
+				 $("#refresh").html(dates)
+			},
+			error:function(){
+				alert("失败")
+			}
+			
+		})
+	}
 	$(function() {
 		var date = new Date();
 		var month = date.getMonth() + 1;
@@ -38,12 +53,14 @@
 			month = "0" + month;
 		yearmonth = year + "-" + month;
 		$("#month").html(yearmonth);
+		getdate(yearmonth);
 		$(".lastmonth").on("click", function() {
-			var date = changeOnemonth(-1)
-			alert(date + "这里和后台交互")
+			var month = changeOnemonth(-1)
+			getdate(month);
 		})
 		$(".nextmonth").on("click", function() {
-			changeOnemonth(1)
+			var month=changeOnemonth(1);
+			getdate(month);
 		})
 	})
 </script>
@@ -87,6 +104,11 @@
 	position: relative;
 	font-size: 18px;
 }
+
+   #month{
+  font-size: 18px;
+  margin-left:10px;
+  }
 </style>
 <title></title>
 </head>
@@ -108,9 +130,8 @@
 				class="glyphicon glyphicon-chevron-left"></span> 上一月
 			</a> <a class=" label  label-back nextmonth"> <span
 				class="glyphicon glyphicon-chevron-right"></span> 下一月
-			</a> <span id="month"></span>
-
-
+			</a>
+			<span id="month"></span>
 			<div class="input-group" style="width: 150px; float: right;">
 				<input type="text" class="form-control input-sm pull-right"
 					placeholder="查找..." />
@@ -123,27 +144,9 @@
 
 		</div>
 		<div class="box-body">
-			<table
-				class="table table-striped table-hover table-bordered table-responsive">
-				<tr>
-					<th>部门</th>
-					<th>成员</th>
-					<th>正常</th>
-					<th>迟到</th>
-					<th>早退</th>
-					<th>旷工</th>
-
-				</tr>
-				<tr>
-					<td>111</td>
-					<td>111</td>
-					<td><a>111</a></td>
-					<td><a>111</a></td>
-					<td><a>111</a></td>
-					<td><a>111</a></td>
-
-				</tr>
-			</table>
+			<div id="refresh">
+				<#include "/attendce/realmonthtable.ftl">
+			</div>
 		</div>
          </div>
          </div>

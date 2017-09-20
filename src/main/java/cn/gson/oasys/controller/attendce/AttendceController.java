@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,6 +53,9 @@ public class AttendceController {
 	List<Attends> alist;
 	List<User> uList;
 	
+	//格式转化导入
+	 DefaultConversionService service=new DefaultConversionService();
+    
 	
 	//考情列表 给单个用户使用
 	@RequestMapping("attendcelist")
@@ -79,15 +83,38 @@ public class AttendceController {
 		return "redirect:/attendceatt";
 	}
 	
+	//月报表
 	@RequestMapping("attendcemonth")
 	public String test2(){
 		return "attendce/monthtable";
 	}
 	
+	@RequestMapping("realmonthtable")
+	public String dfshe(HttpServletRequest request){
+		String month=request.getParameter("month");
+	    uList= (List<User>) uDao.findAll();
+	    Map<User,int[]> uMap=new HashMap<User,int[]>();
+	    int[]result=new int[4];
+	    	 for (User user : uList) {
+	    		 for (long statusId = 10; statusId < 14; statusId++) {
+	    		result[(int) (statusId-10)]=attenceDao.countnum(month, statusId,user.getUserId());
+	    	 }
+	    		 uMap.put(user, result);
+	    		 result=null;
+	    	}
+	    	 
+	    for(User user:uMap.keySet()){
+	    	System.out.println(user+":"+uMap.get(user));
+	    }
 	
+	     request.setAttribute("result", result);	 
+	    request.setAttribute("ulist", uList);
+		return "attendce/realmonthtable";
+	}
+	
+	//周报表
 	@RequestMapping("attendceweek")
 	public String test3(){
-		
 		return "attendce/weektable";
 	}
 	
@@ -96,10 +123,10 @@ public class AttendceController {
 		String starttime=request.getParameter("starttime");
 	     String endtime=request.getParameter("endtime");
 	     //格式转化
-	     DefaultConversionService service=new DefaultConversionService();
 	     service.addConverter(new StringtoDate());
 	     Date startdate=service.convert(starttime, Date.class);
 	     Date enddate=service.convert(endtime, Date.class);
+	     
 	     //从后台匹配数据
 	     uList= (List<User>) uDao.findAll();
 	     alist=attenceDao.findoneweek(startdate, enddate);

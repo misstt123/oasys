@@ -48,7 +48,14 @@
     position: relative;
         font-size: 18px;
 }
-    
+  #start{
+  font-size: 18px;
+  margin-left:10px;
+  }
+   #end{
+  font-size: 18px;
+  margin-left:5px;
+  }
 </style>
 		<title></title>
 	</head>

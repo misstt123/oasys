@@ -36,14 +36,12 @@ var starttime,endtime;
 		 endtime=arr[1];
 		 $.ajax({
 			 type:"get",
-			 async:false,
 			 url:'realweektable',
 			 data:{
 				 starttime:starttime,
 				 endtime:endtime
 			 },
-			 timeout:1000,
-			 success:function(dates){
+			success:function(dates){
 				 $("#refresh").html(dates)
 			 },
 			 error:function(){
@@ -76,14 +74,15 @@ var starttime,endtime;
 				$("#start").html(startday);
 				$("#end").html(endday);
 				var nowdata=startday+";"+endday;
+				getdata(nowdata);
 				$(".lastweek").on('click',function() {
 					var lastdate=change(-7)
-					getdata(lastdata);
+					getdata(lastdate);
 				})
 				
 				$(".nextweek").on('click',function() {
-					var nextdata=change(7)
-					getdata(nextdata);
+					var nextdate=change(7)
+					getdata(nextdate);
 				})
 				
 				
