@@ -5,32 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="easyui/jquery-1.12.4.js"></script>
-<title>Insert title here</title>
 <#include "/common/commoncss.ftl">
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script><title>Insert title here</title>
-		<meta charset="UTF-8">
-		<script>
-			$(function () {
-				//从开始日期到结束日期的间隔时间 默认为一个星期
-			var days=7;
-				var date = new Date();
-				$("#start").val(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate());
-				
-				var millSeconds=Math.abs(date)+(days*24*60*60*1000);
-				var rDate=new Date(millSeconds);
-				 var rDate = new Date(millSeconds);  
-   				 var year = rDate.getFullYear();  
-    			var month = rDate.getMonth() + 1;
-    			if(month<10)
-    			month="0"+month;
-    			var day=rDate.getDate();
-    			 if (day < 10) day = "0" + day;
-    			 $("#end").val(year+"-"+month+"-"+day);
-			})
-			
-		</script>
+<script type="text/javascript" src="js/plan/planedit.js"></script>
+<meta charset="UTF-8">	
+
 <style>
 .box{
 	position: relative;
@@ -79,18 +60,36 @@
     	color: white !important;
     }
     
+    .form-group .btn {
+	background-color: #eee;
+	width: 100px;
+	height: 34px;
+	}
+
+    #ctl00_cphMain_fuAttachment {
+	opacity: 0;
+	position: relative;
+	top: -22px;
+	}
+    
 </style>
 		<title></title>
 		
 	</head>
-	<body>
+	<body >
 		<div class="box increase">
-			<form action="" method="post">
+			<form action="" method="post" onsubmit="return check();">
 			<div class="box-header">
-				<a class="btn label-back"> 
-					<span class="glyphicon glyphicon-chevron-left" onclick="window.history.back();"></span>返回</a>
+				<a onclick="window.history.back();" class="btn label-back"> 
+					<span class="glyphicon glyphicon-chevron-left" ></span>返回</a>
 			</div>
 			<div class="box-body">
+				<div class="alert alert-danger alert-dismissable" role="alert"
+							style="display: none;">
+							错误信息:<button class="close" type="button">&times;</button>
+							<span class="error-mess"></span>
+				</div>
+				
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">
@@ -148,13 +147,21 @@
 				</div>
 				
 				<div class="row">
-					
 					<div class="col-md-6 form-group">
 						<label class="control-label">评价</label>
-						<textarea class="form-control text"></textarea>
+						<textarea  disabled="disabled" class="form-control text"></textarea>
 					</div>
 				</div>
-				
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<div class="btn btn-default ">
+							<span class="glyphicon glyphicon-paperclip">增加附件</span> <input
+								type="file" name="file"
+								id="ctl00_cphMain_fuAttachment" />
+						</div>
+						<p class="help-block">5MB以内</p>
+					</div>
+				</div>	
 			</div>
 			
 			<div class="box-footer">
@@ -163,6 +170,56 @@
 			</div>
 			</form>
 		</div>
+		
+<#include "/common/modalTip.ftl"> 
+<script type="text/javascript">
+
+$('.successToUrl').on('click',function(){
+	window.location.href='/testsysmenu';
+});
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function check() {
+	console.log("开始进入了");
+	//提示框可能在提交之前是block状态，所以在这之前要设置成none
+	$('.alert-danger').css('display', 'none');
+	var isRight = 1;
+	$('.form-control').each(function(index) {
+		// 如果在这些input框中，判断是否能够为空
+		if ($(this).val() == "") {
+			// 排除哪些字段是可以为空的，在这里排除
+			if (index == 3 || index == 4) {
+				return true;
+			}
+			if(index == 3){
+				
+			}
+			// 获取到input框的兄弟的文本信息，并对应提醒；
+			 var brother = $(this).siblings('.control-label').text();
+			var errorMess = "[" + brother + "输入框信息不能为空]";
+			// 对齐设置错误信息提醒；红色边框
+			$(this).parent().addClass("has-error has-feedback");
+			$('.alert-danger').css('display', 'block');
+			// 提示框的错误信息显示
+			$('.error-mess').text(errorMess);
+			// 模态框的错误信息显示
+			$('.modal-error-mess').text(errorMess);
+			isRight = 0;
+			return false;
+		} else {
+			// 在这个里面进行其他的判断；不为空的错误信息提醒
+			return true;
+		}
+	});
+	if (isRight == 0) {
+		//modalShow(0);
+		 return false;
+	} else if (isRight == 1) {
+		//modalShow(1);
+		 return true;
+	}
+//	return false;
+}
+</script>
 		
 	</body>
 </html>

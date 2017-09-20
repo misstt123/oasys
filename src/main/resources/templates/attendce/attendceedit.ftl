@@ -70,7 +70,7 @@
 	</head>
 	<body>
 		<div class="box increase">
-			<form action="" method="post">
+			<form action="attendcesave" method="post">
 			<div class="box-header">
 				<a class="btn label-back" href="javascript:void(0);"  onclick="window.history.back();"> 
 					<span class="glyphicon glyphicon-chevron-left" ></span>返回</a>
@@ -89,8 +89,9 @@
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">备注</label>
-						<input name="remark" id=${attends.attendsId}  class="form-control remark" value="<#if attends??>${attends.attendsRemark}</#if>"/>
+						<input name="remark"  class="form-control remark" value="<#if attends??>${attends.attendsRemark}</#if>"/>
 					</div>
+					<input type="hidden" name="id"  value=${attends.attendsId} > 
 				</div>
 				
 			</div>

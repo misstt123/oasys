@@ -3,6 +3,8 @@ package cn.gson.oasys.controller.attendce;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 
+import java.net.DatagramSocketImplFactory;
+import java.security.spec.DSAGenParameterSpec;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.LongFunction;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -146,7 +149,7 @@ public class AttendceController {
 	
 	
 	
-	@RequestMapping(value="attendceedit",method=RequestMethod.GET)
+	@RequestMapping("attendceedit")
 	public String test4(@Param("aid")String aid,Model model,HttpSession session){
 		Long userid=Long.valueOf(session.getAttribute("userId")+"");
 		if(aid==null){
@@ -162,13 +165,27 @@ public class AttendceController {
 		return "attendce/attendceedit";
 	}
 	
-	@RequestMapping(value="attendceedit",method=RequestMethod.POST)
+	@RequestMapping("attendceedit2")
+	public String DSAGen(HttpServletRequest request){
+		long id= Long.valueOf(request.getParameter("id"));
+		Attends attends=attenceDao.findOne(id);
+		request.setAttribute("attends", attends);
+		return "attendce/attendceedit2";
+	}
+	
+	
+	@RequestMapping(value="attendcesave",method=RequestMethod.GET)
+	public void Datadf(){}
+	
+	//修改保存
+	@RequestMapping(value="attendcesave",method=RequestMethod.POST)
 	public String test4(Model model,HttpSession session,HttpServletRequest request){
-		Long userid=(Long)session.getAttribute("userId");
+		Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 		String remark=request.getParameter("remark");
 		long id=Long.parseLong(request.getParameter("id"));
+		System.out.println(remark);
 		attendceService.updatereamrk(remark, id);
-		return "attendce/attendceedit";
+		return "redirect:/attendceatt";
 	}
 	
 
