@@ -88,10 +88,12 @@ a:hover {
 							
 							<td><span>${username}</span></td>
 							<td><span>${deptname}</span></td>
-							<#list statuslist as status>
-							<#if status.statusId==task.statusId>
-							<td><span class="label ${status.statusColor}">${status.statusName}</span></td>
+							<#list ustatus as status>
+							<#list statuslist as allstatus>
+							<#if status.statusId==allstatus.statusId>
+							<td><span class="label ${allstatus.statusColor}">${allstatus.statusName}</span></td>
 							</#if>
+							</#list>
 							</#list>
 							<td>
 								<a href="myseetasks?id=${task.taskId}" class="label xiugai"><span

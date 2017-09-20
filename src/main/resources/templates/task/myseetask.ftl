@@ -82,21 +82,25 @@ a:hover {
 									</div>
 									<#list loggerlist as logger>
 									<#if logger.loggerStatusid??>
-									<!-- <#if status.statusId==logger.loggerStatusid> -->
-									<div>
-										${logger.username}
-											<span style="font-size:8pt; color:#999; margin-left:3px;">${logger.createTime}</span>
-											：将状态改为【${status.statusName}】
-									</div>
-									<!-- </#if> -->
-									</#if>
-									<#if logger.loggerTicking!=''>
-									<div>
-										${logger.username}
-											<span style="font-size:8pt; color:#999; margin-left:3px;">${logger.createTime}</span>
-											：${logger.loggerTicking}
-									</div>
-									</#if>
+									<#list statuslist as statu>
+										
+										   <#if logger.loggerStatusid==statu.statusId>
+											<div>
+												${logger.username}
+													<span style="font-size:8pt; color:#999; margin-left:3px;">${logger.createTime}</span>
+													：将状态改为【${statu.statusName}】
+											</div>
+										</#if>
+									
+										</#list>
+										</#if>
+										<#if logger.loggerTicking!=''>
+											<div>
+												${logger.username}
+													<span style="font-size:8pt; color:#999; margin-left:3px;">${logger.createTime}</span>
+													：${logger.loggerTicking}
+											</div>
+										</#if>
 									</#list>
 								</span>
 								<span id="ctl00_cphMain_lblNote"></span>
