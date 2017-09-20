@@ -91,7 +91,7 @@ li.activee>a {
 	<div class = "menu">
 		<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
 			<li><a class="open">打开</a></li>
-			<li><a class="download">下载</a></li>
+			<li><a class="downloadfile">下载</a></li>
 			<li><a>分享</a></li>
 			<li><a>移动到</a></li>
 			<li><a>复制到</a></li>
@@ -181,6 +181,8 @@ li.activee>a {
 				</div>
 				<!--盒子身体-->
 				<div class="box-body no-padding">
+				
+				
 					<div style="padding: 5px;">
 						<a class="btn btn-sm btn-default allcheck"
 							href="javascript:void(0);" title="全选/反选"><span
@@ -196,8 +198,12 @@ li.activee>a {
 						<a class="btn btn-sm btn-default" href="" title="刷新"><span
 							class="iconfont icon-shuaxin"></span></a>
 					</div>
+					
+					
 					<div class="file-box" style="overflow-y: auto;">
 						<div class = "boxcontain" style="height: auto;">
+						
+							<!--新建文件夹操作显示部分  -->
 							<div class="file-one creatpath diplaynone" style="width: 144px;">
 								<div class="file-img">
 									<img src="images/fileimg/Folder.png" />
@@ -218,6 +224,8 @@ li.activee>a {
 									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 								</span>
 							</div>
+							
+							
 							<#list paths as path>
 								<div class="file-one">
 									<div class="file-img path">
