@@ -7,6 +7,7 @@
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="css/file/filebox.css" />
+<link rel="stylesheet" type="text/css" href="css/file/filemodal.css" />
 
 
 <style type="text/css">
@@ -93,7 +94,7 @@ li.activee>a {
 			<li><a class="open">打开</a></li>
 			<li><a class="downloadfile">下载</a></li>
 			<li><a>分享</a></li>
-			<li><a>移动到</a></li>
+			<li><a class="movefile">移动到</a></li>
 			<li><a>复制到</a></li>
 			<li><a class="rename">重命名</a></li>
 			<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
@@ -298,6 +299,28 @@ li.activee>a {
 				<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 			</span>
 		</div> 
+	</div>
+
+
+	<div class="modal fade in" id="thismodal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body box no-padding" style="display: none;">
+					<div class="box-header">
+						<h3 class="box-title" style="font-size:15px;">复制到</h3>
+					</div>
+					<div class="box-body no-padding">
+						这里是树形目录的地方
+					</div>
+					<div class="box-footer" style="text-align:right;">
+						<button type="button" class="btn btn-primary"
+							>确定</button>
+						<button type="button" class="btn btn-default"
+							data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <script src="js/common/iconfont.js"></script>

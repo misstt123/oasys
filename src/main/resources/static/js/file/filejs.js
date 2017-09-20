@@ -61,6 +61,7 @@ $(".file-box .file-one").mousedown(function(e){
 	    }else{
 	    	$(".menu .open").addClass("disabled");
 	    	$(".menu .rename").removeClass("disabled");
+	    	
 	    	/**
 	    	 *  给下载a链接添加 href 地址目标
 	    	 */
@@ -79,23 +80,30 @@ $(".file-box .file-one").mousedown(function(e){
 	    }
 		var oX = e.pageX;
 		var oY = e.pageY;
-//		console.log(oX);
-//		console.log(oY);
+
 		$(".menu").css("display","block");
 		$(".menu").css("left",oX+"px");
 		$(".menu").css("top",oY+"px");
+		
 	}
 });
 $(document).click(function(e){
 	$(".menu").css("display","none");
 });
 
-//$(".topdelete").click(function(){
-//	var pathid = new Array();
-//	checkedpaths(pathid);
-//	console.log(pathid);
-//});
+/**
+ * 文件移动、复制文件使用模态框 JS
+ */
+$(".menu .movefile").click(function(){
+	console.log("进入模态框点击！~~");
+	$("#thismodal").modal("toggle");
+	$('#thismodal .modal-body').css('display', 'block');
+});
 
+
+/**
+ * 创建文件夹
+ */
 $(".topcreatepath").on("click",function(){
 	$(".creatpath").removeClass("diplaynone");
 });
@@ -103,6 +111,13 @@ $(".creatpath .cansalcreate").on("click",function(){
 	$(".creatpath").addClass("diplaynone");
 });
 
+
+/**
+ * 得到已选择得文件夹 和文件
+ * @param pathids
+ * @param fileids
+ * @returns
+ */
 function checkedpaths(pathids,fileids){
 	var checkedpaths =$(".file-one.file-one-check");
 	var i = 0;
@@ -119,10 +134,12 @@ function checkedpaths(pathids,fileids){
 			j += 1;
 		}
 	});
-//	console.log(pathids);
-//	return topdelete;
 }
 
+/**
+ * 改变删除a得href值
+ * @returns
+ */
 function changedeletehref(){
 	var checkpathids = new Array();
 	var checkfileids = new Array();

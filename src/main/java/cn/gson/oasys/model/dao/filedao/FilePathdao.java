@@ -12,4 +12,6 @@ public interface FilePathdao extends PagingAndSortingRepository<FilePath, Long> 
 	List<FilePath> findByParentId(Long parentId);
 	
 	FilePath findByPathNameAndParentId(String pathname,Long parentId);
+	
+	FilePath findByPathName(String pathname);
 }

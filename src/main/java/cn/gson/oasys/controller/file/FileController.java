@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -57,8 +58,11 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("filemanage")
-	public String usermanage(Model model) {
-		FilePath filepath = fpdao.findOne(6L);
+	public String usermanage(@SessionAttribute("userId")Long userid,Model model) {
+		System.out.println(userid);
+		User user = udao.findOne(userid);
+		
+		FilePath filepath = fpdao.findByPathName(user.getUserName());
 		model.addAttribute("nowpath", filepath);
 		model.addAttribute("paths", fs.findpathByparent(6L));
 		model.addAttribute("files", fs.findfileBypath(filepath));
