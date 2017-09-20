@@ -143,7 +143,7 @@ a:hover {
 						</div>
 						<div class="col-md-6 form-group ">
 							<label class="control-label">置顶</label> <br /> 
-								<#if task.top??>
+								<#if task.top==true>
 									<span class="labels">
 									<label>
 									   <input type="checkbox" name="top" class="val" checked><i>✓</i>
@@ -158,7 +158,7 @@ a:hover {
 
 						<div class="col-md-6  form-group"> 
 							<label class="control-label">取消</label> <br />
-							<#if task.cancel??>
+							<#if task.cancel==true>
 									<span class="labels">
 									<label>
 									   <input type="checkbox" name="cancel" class="val" checked><i>✓</i>

@@ -39,6 +39,8 @@ public class Tasklogger {
 	@Column(name="logger_statusid")
 	private Integer loggerStatusid; //状态id
 	
+	
+	
 	public Tasklogger(){}
 
 	public Long getLoggerId() {

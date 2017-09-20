@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import cn.gson.oasys.model.entity.system.SystemTypeList;
@@ -20,4 +21,7 @@ public interface TypeDao extends PagingAndSortingRepository<SystemTypeList, Long
 	//通过名称找到id
 	@Query("select typeId from SystemTypeList s where s.typeName=?1")
 	Long findByTypeName(String typename);
+	
+	@Query("select type.typeName from SystemTypeList type where type.typeId=:id")
+	String findname(@Param("id")Long id);
 }

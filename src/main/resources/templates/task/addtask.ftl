@@ -26,7 +26,7 @@ a:hover {
 }
 </style>
 <script>
-	$(function(){
+	/* $(function(){
 		$("[name=isTop]:checkbox").click(function(){
 			console.log($(this).prop("checked"));
 			if($(this).prop("checked")){
@@ -46,7 +46,7 @@ a:hover {
 			}
 		})
 	})
-
+ */
 </script>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
@@ -77,7 +77,7 @@ a:hover {
 				<div class="box-body">
 						<!--錯誤信息提示  -->
 					<div class="alert alert-danger alert-dismissable" role="alert"style="display: none;">
-						错误信息:<button class="thisclose" type="button">&times;</button>
+						错误信息:<button class="thisclose close" type="button">&times;</button>
 						<span class="error-mess"></span>
 					</div>
 					<div class="row">
@@ -283,7 +283,7 @@ function check() {
 			}
 			
 			// 获取到input框的兄弟的文本信息，并对应提醒；
-			/*  var brother = $(this).siblings('.control-label').text();
+			  var brother = $(this).siblings('.control-label').text();
 			var errorMess = "[" + brother + "输入框信息不能为空]";
 			// 对齐设置错误信息提醒；红色边框
 			$(this).parent().addClass("has-error has-feedback");
@@ -293,7 +293,7 @@ function check() {
 			// 模态框的错误信息显示
 			$('.modal-error-mess').text(errorMess);
 			isRight = 0;
-			return false; */
+			return false;
 		} else {
 			// 在这个里面进行其他的判断；不为空的错误信息提醒
 			return true;
@@ -301,7 +301,7 @@ function check() {
 	});
 	if (isRight == 0) {
 		//modalShow(0);
-		 return true;
+		 return false;
 	} else if (isRight == 1) {
 		//modalShow(1);
 		 return true;

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.task.Taskuser;
 
 public interface TaskuserDao extends PagingAndSortingRepository<Taskuser, Long> {
@@ -22,5 +23,10 @@ public interface TaskuserDao extends PagingAndSortingRepository<Taskuser, Long> 
 	
 	@Query("select tu.taskId.taskId from Taskuser tu where tu.userId.userId=:userid ")
 	List<Long> findByUserId(@Param("userid")Long userid);
-
+	
+	@Query("select tu from Taskuser tu where tu.userId.userId=:userid ")
+	List<Taskuser> findByuserId(@Param("userid")Long userid);
+	
+	@Query("select tu.statusId from Taskuser tu where tu.userId.userId=:userid ")
+	Long findstatus(@Param("userid")Long userid);
 }
