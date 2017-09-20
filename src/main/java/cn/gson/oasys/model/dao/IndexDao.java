@@ -12,22 +12,32 @@ import cn.gson.oasys.model.entity.system.SystemMenu;
 
 @Repository
 public interface IndexDao extends CrudRepository<SystemMenu, Long> {
-	// 查找一级菜单栏
+	// 查找一级菜单栏,且show是等于true
+	List<SystemMenu> findByParentIdAndShowOrderBySortId(Long parentId, Boolean boo);
+
+	// 查找二级菜单栏，且show是等于true
+	List<SystemMenu> findByParentIdNotAndShowOrderBySortId(Long parentId, Boolean boo);
+
+	// 查找一级菜单栏,
 	List<SystemMenu> findByParentIdOrderBySortId(Long parentId);
 
 	// 查找二级菜单栏
 	List<SystemMenu> findByParentIdNotOrderBySortId(Long parentId);
-	
-//	1、上移下移按钮先改变其他的排序值
+
+	// 1、上移下移按钮先改变其他的排序值
 	@Query("update SystemMenu menu set menu.sortId=(:sortId) where menu.parentId = :parentId and menu.sortId=(:sortId - :arithNum)")
 	@Modifying
 	int changeSortId(@Param("sortId") Integer sortId, @Param("arithNum") Integer arithNum,
 			@Param("parentId") Long parentId);
-	
-//	2、上移下移按钮先改变自己的排序值
+
+	// 2、上移下移按钮先改变自己的排序值
 	@Query("update SystemMenu menu set menu.sortId=(:sortId -:arithNum) where menu.menuId= :menuId")
 	@Modifying
 	int changeSortId2(@Param("sortId") Integer sortId, @Param("arithNum") Integer arithNum,
 			@Param("menuId") Long menuId);
+	
+	@Query("update SystemMenu menu set menu.parentId=999 where menu.menuId= :menuId")
+	@Modifying
+	int deleteThis(@Param("menuId") Long menuId);
 
 }

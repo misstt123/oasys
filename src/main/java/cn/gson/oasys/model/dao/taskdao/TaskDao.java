@@ -19,7 +19,7 @@ public interface TaskDao extends PagingAndSortingRepository<Tasklist, Long>{
 	@Modifying
 	int update(@Param("taskid")Long taskid,@Param("statusid")Integer statusid);
 	
-//	List<Tasklist> findByTaskId(@Param("id")Long taskid);
-	
 	Tasklist findByTaskId(Long taskid);
+	
+	List<Tasklist> findByTitle(String title);
 }

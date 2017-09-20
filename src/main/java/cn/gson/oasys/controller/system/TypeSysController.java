@@ -118,5 +118,15 @@ public class TypeSysController {
 		System.out.println("是否进入最后的实体类信息：" + menu);
 		return "systemcontrol/typeedit";
 	}
+	
+	/**
+	 * 执行删除方法
+	 */
+	@RequestMapping("deletetype")
+	public String deleteThis(HttpServletRequest req){
+		Long typeId=Long.parseLong(req.getParameter("id"));
+		typeService.deleteType(typeId);
+		return "forward:/testsystype";
+	}
 
 }

@@ -73,10 +73,10 @@ public class Tasklist implements Serializable {
 	private String comment;//任务评价
 	
 	@Column(name="is_top")
-	private Boolean top;//任务是否置顶
+	private Boolean top=false;//任务是否置顶
 	
 	@Column(name="is_cancel")
-	private Boolean cancel;//是否取消任务
+	private Boolean cancel=false;//是否取消任务
 	
 	@Column(name="ticking")
 	private String ticking;//任务结束后反馈

@@ -95,7 +95,7 @@ public class ValidatorController {
 			return "task/addtask";
 		}
 		else{
-			System.out.println("dddd");
+			
 			return "forward:/addtasks";
 		}
 		

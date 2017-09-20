@@ -43,7 +43,7 @@ public class MenuSysController {
 	 */
 	@RequestMapping("testsysmenu")
 	public String testsysmenu(HttpServletRequest req) {
-		menuService.findMenuSys(req);
+		menuService.findAllMenuSys(req);
 		return "systemcontrol/menumanage";
 	}
 
@@ -84,6 +84,15 @@ public class MenuSysController {
 	 */
 	@RequestMapping("menuedit")
 	public String newpage(HttpServletRequest req) {
+		if(!StringUtils.isEmpty(req.getAttribute("errormess"))){
+			req.setAttribute("errormess", req.getAttribute("errormess"));
+		}
+		if(!StringUtils.isEmpty(req.getAttribute("success"))){
+			req.setAttribute("success", req.getAttribute("success"));
+		}
+		
+		List<SystemMenu> parentList=iDao.findByParentIdOrderBySortId(0L);
+		req.setAttribute("parentList", parentList);
 		HttpSession session = req.getSession();
 		session.removeAttribute("getId");
 		if (!StringUtils.isEmpty(req.getParameter("id"))) {
@@ -91,7 +100,9 @@ public class MenuSysController {
 			SystemMenu menuObj = iDao.findOne(getId);
 			if (!StringUtils.isEmpty(req.getParameter("add"))) {
 				Long getAdd = menuObj.getMenuId();
+				String getName=menuObj.getMenuName();
 				req.setAttribute("getAdd", getAdd);
+				req.setAttribute("getName", getName);
 				log.info("getAdd:{}", getAdd);
 			} else {
 				
@@ -148,7 +159,19 @@ public class MenuSysController {
 			req.setAttribute("success", "后台验证成功");
 		}
 		System.out.println("是否进入最后的实体类信息：" + menu);
-		return "systemcontrol/menuedit";
+		return "forward:/menuedit";
+	}
+	
+	/**
+	 * 菜单管理的删除
+	 * @return
+	 */
+	@RequestMapping("deletethis")
+	public String delete(HttpServletRequest req){
+		Long menuId=Long.parseLong(req.getParameter("id"));
+		int i=menuService.deleteThis(menuId);
+		log.info("{}:i=",i);
+		return "forward:/testsysmenu";
 	}
 
 }

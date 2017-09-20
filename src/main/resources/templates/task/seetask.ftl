@@ -82,14 +82,17 @@ a:hover {
 									</div>
 									<#list loggerlist as logger>
 									<#if logger.loggerStatusid??>
-									<!-- <#if status.statusId==logger.loggerStatusid> -->
+									<#list statuslist as statu>
+									<#if logger.loggerStatusid==statu.statusId>
 									<div>
 										${logger.username}
 											<span style="font-size:8pt; color:#999; margin-left:3px;">${logger.createTime}</span>
-											：将状态改为【${status.statusName}】
+											：将状态改为【${statu.statusName}】
 									</div>
 									</#if>
-									<!-- </#if> -->
+									</#list>
+									</#if>
+									
 									<#if logger.loggerTicking!=''>
 									<div>
 										${logger.username}

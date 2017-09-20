@@ -82,7 +82,7 @@ a:hover {
 								href="menuedit?id=${one.menuId}" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
+								href="deletethis?id=${one.menuId}" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
 									<a  href="menuedit?id=${one.menuId}&add=this" class="label xinzeng"><span
 									class="glyphicon glyphicon-plus"></span> 新增</a>
@@ -108,7 +108,7 @@ a:hover {
 								href="menuedit?id=${two.menuId}" class="label xiugai"><span
 									class="glyphicon glyphicon-edit"></span> 修改</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
+								href="deletethis?id=${two.menuId}" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
 									
 									</td>
