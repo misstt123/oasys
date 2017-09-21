@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -27,10 +32,13 @@ public class Plan {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long planId; 
 	
+	
 	@Column(name="type_id")
+	@NotNull
 	private Long typeId; //类型id
 	
 	@Column(name="status_id")
+	@NotNull
 	private Long statusId; //状态id
 	
 	
@@ -38,19 +46,25 @@ public class Plan {
 	private long attachId;   //附件id
 	
 	@Column(name="start_time")
+	@NotNull
 	private Date startTime;   //开始时间
 	
 	@Column(name="end_time")
+	@NotNull
 	private Date endTime;   //结束时间
 	
 	@Column(name="create_time")
+	@NotNull
 	private Date createTime;   //记录创建时间
 	
+	@NotBlank
+	@Length(min=0,max=50)
 	private String title;   //标题
 	
 	private String label;   //标签
 	
 	@Column(name="plan_content")
+	@NotBlank
 	private String planContent;   //计划内容
 	
 	@Column(name="plan_summary")

@@ -1,6 +1,7 @@
 package cn.gson.oasys.controller.plan;
 
 
+import java.net.DatagramSocketImplFactory;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +17,17 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.plandao.PlanDao;
+import cn.gson.oasys.model.dao.system.StatusDao;
+import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.system.SystemMenu;
 
@@ -33,6 +38,10 @@ public class PlanController {
 		
 	@Autowired
 	PlanDao planDao;
+	@Autowired
+    TypeDao typeDao;
+	@Autowired
+    StatusDao statusDao;
 	
 	List<Plan> pList;
 	Logger log=LoggerFactory.getLogger(getClass());
@@ -52,15 +61,37 @@ public class PlanController {
 	}
 	//我的编辑
 		@RequestMapping("planedit")
-		public String test3(@Param("pid")String pid,Model model){ 
-			model.addAttribute("pid", pid);
+		public String test3(HttpServletRequest request,Model model){ 
+			long pid=Long.valueOf(request.getParameter("pid"));
+			//新建
+			if(pid==-1){
+				model.addAttribute("plan", null);
+				model.addAttribute("pid", pid);
+			}
+			else if(pid>0){
+				Plan plan=planDao.findOne(pid);
+				model.addAttribute("plan", plan);
+				model.addAttribute("pid", pid);
+			}
+			
 			return "plan/planedit";
 		}
-	
-		@RequestMapping("td")
-		public String testMess(HttpServletRequest req, @Valid SystemMenu menu, BindingResult br) {
+	    
+		
+		@RequestMapping(value="plansave",method=RequestMethod.GET)
+		public void Datagr(){}
+		
+		@RequestMapping(value="plansave",method=RequestMethod.POST)
+		public String testMess(@RequestParam("file")MultipartFile file, HttpServletRequest req,  BindingResult br) {
 			HttpSession session = req.getSession();
-
+			
+			String type=req.getParameter("type");
+			String status=req.getParameter("status");
+			long typeid=typeDao.findByTypeModelAndTypeName("aoa_plan_list", type).getTypeId();
+			long statusid=statusDao.findByStatusModelAndStatusName("aoa_plan_list", status).getStatusId();
+			
+			
+			
 			// 这里返回ResultVO对象，如果校验通过，ResultEnum.SUCCESS.getCode()返回的值为200；否则就是没有通过；
 			ResultVO res = BindingResultVOUtil.hasErrors(br);
 			// 校验失败
@@ -68,7 +99,6 @@ public class PlanController {
 				List<Object> list = new MapToList<>().mapToList(res.getData());
 				req.setAttribute("errormess", list.get(0).toString());
 				// 代码调试阶段，下面是错误的相关信息；
-				System.out.println("list错误的实体类信息：" + menu);
 				System.out.println("list错误详情:" + list);
 				System.out.println("list错误第一条:" + list.get(0));
 				System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
@@ -83,11 +113,9 @@ public class PlanController {
 					
 				}
 				//执行业务代码
-				System.out.println("此操作是正确的");
 				req.setAttribute("success", "后台验证成功");
 			}
-			System.out.println("是否进入最后的实体类信息：" + menu);
-			return "forward:/menuedit";
+			return "forward:/planview";
 		}
 	
 	

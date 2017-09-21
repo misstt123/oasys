@@ -18,9 +18,7 @@ public interface TypeDao extends PagingAndSortingRepository<SystemTypeList, Long
 	//根据模块名查找到类型集合
 	List<SystemTypeList> findByTypeModel(String typeModel);
 	
-	//通过名称找到id
-	@Query("select typeId from SystemTypeList s where s.typeName=?1")
-	Long findByTypeName(String typename);
+	
 	
 	@Query("select type.typeName from SystemTypeList type where type.typeId=:id")
 	String findname(@Param("id")Long id);

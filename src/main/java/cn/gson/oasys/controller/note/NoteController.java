@@ -114,9 +114,9 @@ public class NoteController {
 			String catalogName=catalogname.substring(1,catalogname.length());
 			long catalogId=catalogDao.findByCatalogName(catalogName);
 			String typename=request.getParameter("type");
-			long typeId=typeDao.findByTypeName(typename);
+			long typeId=typeDao.findByTypeModelAndTypeName("aoa_note_list",typename).getTypeId();
 			String statusName=request.getParameter("status");
-			long statusId=statusDao.findByStatusName(statusName);
+			long statusId=statusDao.findByStatusModelAndStatusName("aoa_note_list",statusName).getStatusId();
 			String content=request.getParameter("content");
 			//nid为-1就是新建
 			if(nid==-1){

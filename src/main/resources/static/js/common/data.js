@@ -36,9 +36,11 @@ Date.prototype.Format = function(fmt) { //author: meizz
 		var nowDate=date.Format('yyyy-MM-dd hh:mm:ss');
 		var startime=addDate(nowDate,0);
 		var endtime=addDate(nowDate,1);
+		//判断如果为空 就赋默认值 不为空 从数据库那里读取得到值就不用赋默认值
+		if($('#starTime').val()==""||$('#starTime').val()==null)
 		$('#starTime').val(startime);
+		if($('#endTime').val()==""||$('#endTime').val()==null)
 		$('#endTime').val(endtime);
-		
 		$('#starTime').on('click',function(){
 			WdatePicker({ minDate:addDate(nowDate,0),maxDate:addDate(nowDate,30),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 
@@ -48,7 +50,4 @@ Date.prototype.Format = function(fmt) { //author: meizz
 			WdatePicker({ minDate:addDate(nowDate,0),maxDate:addDate(nowDate,30),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 
 		});
-		
-		
-		
 	});

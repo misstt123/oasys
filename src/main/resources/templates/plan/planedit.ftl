@@ -4,12 +4,10 @@
 		<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="easyui/jquery-1.12.4.js"></script>
 <#include "/common/commoncss.ftl">
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script><title>Insert title here</title>
 <script type="text/javascript" src="js/plan/planedit.js"></script>
+<script type="text/javascript" src="js/common/data.js"></script>
 <meta charset="UTF-8">	
 
 <style>
@@ -78,11 +76,13 @@
 	</head>
 	<body >
 		<div class="box increase">
-			<form action="" method="post" onsubmit="return check();">
+			<form action="plansave" method="post" onsubmit="return check();" enctype="multipart/form-data">
 			<div class="box-header">
 				<a onclick="window.history.back();" class="btn label-back"> 
 					<span class="glyphicon glyphicon-chevron-left" ></span>返回</a>
 			</div>
+		    
+		   
 			<div class="box-body">
 				<div class="alert alert-danger alert-dismissable" role="alert"
 							style="display: none;">
@@ -95,18 +95,18 @@
 						<label class="control-label">
 							<span>类型</span>
 						</label>
-						<select class="form-control">
-							<option value="0">日计划</option>
-							<option value="1">周计划</option>
-							<option value="2">月计划</option>
+						<select class="form-control plantype" onchange="dochange(); " name="type">
+							<option ${(plan??&&plan.typeId?number==13)?string('selected','')}>日计划</option>
+							<option ${(plan??&&plan.typeId?number==14)?string('selected','')}>周计划</option>
+							<option ${(plan??&&plan.typeId?number==15)?string('selected','')}>月计划</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">状态</label>
-						<select class="form-control">
-							<option value="0">未完成</option>
-							<option value="1">已完成</option>
-							<option value="2">已取消</option>
+						<select class="form-control" name="status">
+							<option ${(plan??&&plan.statusId?number==17)?string('selected','')}>未完成</option>
+							<option ${(plan??&&plan.statusId?number==18)?string('selected','')}>已完成</option>
+							<option ${(plan??&&plan.statusId?number==19)?string('selected','')}>已取消</option>
 						</select>
 					</div>
 				</div>
@@ -116,40 +116,40 @@
 						<span>
 						<label class="control-label" >开始时间</label>
 						</span>
-						<input class="form-control" id="start" onclick="WdatePicker()" />
+						<input class="form-control" id="starTime" name="start" value="<#if plan??>${plan.startTime}</#if>"/>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">结束时间</label>
-						<input class="form-control" id="end" onclick="WdatePicker()" />
+						<input class="form-control" id="endTime" name="end" value="<#if plan??>${plan.endTime}</#if>"/>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">标题</label>
-						<input class="form-control"  />
+						<input class="form-control" name="title" value="<#if plan??>${plan.title}</#if>"/>
 					</div>
 					<div class="col-md-6 form-group" style="position: relative;">
 						<label class="control-label">标签</label>
-						<input class="form-control" / >
+						<input class="form-control" name="label" value="<#if plan??>${plan.label}</#if>"/ >
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">计划</label>
-						<textarea class="form-control text" ></textarea>
+						<textarea class="form-control text" placeholder="至少20个字" name="plancontent" ><#if plan??>${plan.planContent}</#if></textarea>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">总结</label>
-						<textarea class="form-control text"></textarea>
+						<textarea class="form-control text" placeholder="至少20个字" name="plansummary" ><#if plan??>${plan.planSummary}</#if></textarea>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">评价</label>
-						<textarea  disabled="disabled" class="form-control text"></textarea>
+						<textarea  disabled="disabled" class="form-control text" name="plancomment" ><#if plan??>${plan.planComment}</#if></textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -162,20 +162,20 @@
 						<p class="help-block">5MB以内</p>
 					</div>
 				</div>	
+				<input type="hidden" name="pid" value="${pid}">
 			</div>
-			
 			<div class="box-footer">
-				<input class="btn btn-primary" id="save" type="submit" value="保存"/>
+				<input class="btn btn-primary"  id="save" type="submit" value="保存"/>
 				<input class="btn btn-default active" id="cancel" type="submit" value="取消" onclick="window.history.back();"/>
 			</div>
 			</form>
 		</div>
-		
+
 <#include "/common/modalTip.ftl"> 
 <script type="text/javascript">
 
 $('.successToUrl').on('click',function(){
-	window.location.href='/testsysmenu';
+	//window.location.href='/planview';
 });
 //表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
 function check() {
@@ -187,11 +187,8 @@ function check() {
 		// 如果在这些input框中，判断是否能够为空
 		if ($(this).val() == "") {
 			// 排除哪些字段是可以为空的，在这里排除
-			if (index == 3 || index == 4) {
+			if (index == 5 || index == 7 ||index == 8) {
 				return true;
-			}
-			if(index == 3){
-				
 			}
 			// 获取到input框的兄弟的文本信息，并对应提醒；
 			 var brother = $(this).siblings('.control-label').text();
@@ -206,6 +203,52 @@ function check() {
 			isRight = 0;
 			return false;
 		} else {
+			if($("#starTime").val()>$("#endTime").val()){
+				var errorMess = "[开始日期不能大于结束日期]";
+				// 对齐设置错误信息提醒；红色边框
+				//开始和结束框提示错误
+				$("#starTime").parent().addClass("has-error has-feedback");
+				$("#endTime").parent().addClass("has-error has-feedback");
+				$('.alert-danger').css('display', 'block');
+				// 提示框的错误信息显示
+				$('.error-mess').text(errorMess);
+				// 模态框的错误信息显示
+				$('.modal-error-mess').text(errorMess);
+				isRight = 0;
+			}
+			if(index==4){
+				//去除空格
+				var $title=$(this).val().replace(" ","");
+				if($title.length>50){
+					
+					var brother = $(this).siblings('.control-label').text();
+					var errorMess = "[" + brother + "输入框不能大于50字]";
+					// 对齐设置错误信息提醒；红色边框
+					$(this).parent().addClass("has-error has-feedback");
+					$('.alert-danger').css('display', 'block');
+					// 提示框的错误信息显示
+					$('.error-mess').text(errorMess);
+					// 模态框的错误信息显示
+					$('.modal-error-mess').text(errorMess);
+					isRight = 0;
+				}
+			}
+			if(index==6||index==7){
+				var $content=$(this).val().replace(" ","");
+				if($content.length<20){
+					// 获取到input框的兄弟的文本信息，并对应提醒；
+					var brother = $(this).siblings('.control-label').text();
+					var errorMess = "[" + brother + "输入框信息至少20个字]";
+					// 对齐设置错误信息提醒；红色边框
+					$(this).parent().addClass("has-error has-feedback");
+					$('.alert-danger').css('display', 'block');
+					// 提示框的错误信息显示
+					$('.error-mess').text(errorMess);
+					// 模态框的错误信息显示
+					$('.modal-error-mess').text(errorMess);
+					isRight = 0;
+				}
+			}
 			// 在这个里面进行其他的判断；不为空的错误信息提醒
 			return true;
 		}
@@ -219,7 +262,8 @@ function check() {
 	}
 //	return false;
 }
+
+
 </script>
-		
 	</body>
 </html>
