@@ -310,7 +310,16 @@ li.activee>a {
 						<h3 class="box-title" style="font-size:15px;">复制到</h3>
 					</div>
 					<div class="box-body no-padding">
-						这里是树形目录的地方
+						<div class="box-header" style="padding:3px 0 3px 0;">
+							<span class="btn btn-default btn-xs des mm"> 
+								<i class="glyphicon glyphicon-minus"></i>
+							</span>
+							<h3 class="box-title" style="font-size:12px;">罗密欧</h3>
+						</div>
+						<ul class="nav nav-pills nav-stacked mm" style="padding-left:20px;">
+							<li style="border:0px;">xxx</li>
+							<li style="border:0px;">xxx</li>
+						</ul>
 					</div>
 					<div class="box-footer" style="text-align:right;">
 						<button type="button" class="btn btn-primary"
