@@ -34,8 +34,8 @@ public class FileList {
 	
 	private Long size;	//文件大小
 	
-	@Column(name = "file_type")
-	private String fileType;	//文件类型id（共享公司个人）
+	@Column(name = "content_type")
+	private String contentType;	//文件类型id（共享公司个人）
 	
 	@Column(name = "upload_time")
 	private Date uploadTime;	//上传时间
@@ -91,12 +91,12 @@ public class FileList {
 		this.size = size;
 	}
 
-	public String getFileType() {
-		return fileType;
+	public String getContentType() {
+		return contentType;
 	}
 
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	public Date getUploadTime() {
@@ -143,7 +143,7 @@ public class FileList {
 	@Override
 	public String toString() {
 		return "FileList [fileId=" + fileId + ", fileName=" + fileName + ", filePath=" + filePath + ", size=" + size
-				+ ", fileType=" + fileType + ", uploadTime=" + uploadTime + ", model=" + model + ", fileShuffix="
+				+ ", contentType=" + contentType + ", uploadTime=" + uploadTime + ", model=" + model + ", fileShuffix="
 				+ fileShuffix + "]";
 	}
 

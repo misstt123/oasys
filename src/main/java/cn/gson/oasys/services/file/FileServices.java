@@ -112,6 +112,7 @@ public class FileServices {
 			filelist.setSize(file.getSize());
 			filelist.setUploadTime(new Date());
 			filelist.setFpath(nowpath);
+			filelist.setContentType(file.getContentType());
 			filelist.setUser(user);
 			fldao.save(filelist);
 			return filelist;

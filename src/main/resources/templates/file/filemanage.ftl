@@ -7,6 +7,7 @@
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="css/file/filebox.css" />
+<link rel="stylesheet" type="text/css" href="css/file/filemodal.css" />
 
 
 <style type="text/css">
@@ -91,9 +92,9 @@ li.activee>a {
 	<div class = "menu">
 		<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
 			<li><a class="open">打开</a></li>
-			<li><a class="download">下载</a></li>
+			<li><a class="downloadfile">下载</a></li>
 			<li><a>分享</a></li>
-			<li><a>移动到</a></li>
+			<li><a class="movefile">移动到</a></li>
 			<li><a>复制到</a></li>
 			<li><a class="rename">重命名</a></li>
 			<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
@@ -181,6 +182,8 @@ li.activee>a {
 				</div>
 				<!--盒子身体-->
 				<div class="box-body no-padding">
+				
+				
 					<div style="padding: 5px;">
 						<a class="btn btn-sm btn-default allcheck"
 							href="javascript:void(0);" title="全选/反选"><span
@@ -196,8 +199,12 @@ li.activee>a {
 						<a class="btn btn-sm btn-default" href="" title="刷新"><span
 							class="iconfont icon-shuaxin"></span></a>
 					</div>
+					
+					
 					<div class="file-box" style="overflow-y: auto;">
 						<div class = "boxcontain" style="height: auto;">
+						
+							<!--新建文件夹操作显示部分  -->
 							<div class="file-one creatpath diplaynone" style="width: 144px;">
 								<div class="file-img">
 									<img src="images/fileimg/Folder.png" />
@@ -218,6 +225,8 @@ li.activee>a {
 									<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 								</span>
 							</div>
+							
+							
 							<#list paths as path>
 								<div class="file-one">
 									<div class="file-img path">
@@ -290,6 +299,37 @@ li.activee>a {
 				<span class = "iconfont icon-xuanze" style="height:1.5em;width:1.5em"></span>
 			</span>
 		</div> 
+	</div>
+
+
+	<div class="modal fade in" id="thismodal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body box no-padding" style="display: none;">
+					<div class="box-header">
+						<h3 class="box-title" style="font-size:15px;">复制到</h3>
+					</div>
+					<div class="box-body no-padding">
+						<div class="box-header" style="padding:3px 0 3px 0;">
+							<span class="btn btn-default btn-xs des mm"> 
+								<i class="glyphicon glyphicon-minus"></i>
+							</span>
+							<h3 class="box-title" style="font-size:12px;">罗密欧</h3>
+						</div>
+						<ul class="nav nav-pills nav-stacked mm" style="padding-left:20px;">
+							<li style="border:0px;">xxx</li>
+							<li style="border:0px;">xxx</li>
+						</ul>
+					</div>
+					<div class="box-footer" style="text-align:right;">
+						<button type="button" class="btn btn-primary"
+							>确定</button>
+						<button type="button" class="btn btn-default"
+							data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <script src="js/common/iconfont.js"></script>
