@@ -1,11 +1,11 @@
 package cn.gson.oasys.controller.task;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,35 +70,40 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("taskmanage")
-	public ModelAndView index(HttpSession session) {
+	public String index(HttpSession session, Model model) {
 
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		ModelAndView mav = new ModelAndView("task/taskmanage");
+
+		// 通过发布人id找用户
+		User tu = udao.findOne(userid);
 		// 根据发布人id查询任务
-		List<Tasklist> tasklist = tdao.findtask(userid);
+		List<Tasklist> tasklist = tdao.findByTopAndUsersIdOrderByModifyTimeDesc(true, tu);
+		List<Tasklist> tasklist2 = tdao.findByTopAndUsersIdOrderByModifyTimeDesc(false, tu);
+		// 把后面查的数据封装到前面的集合中去
+		tasklist.addAll(tasklist2);
+		List<Map<String, Object>> list = new ArrayList<>();
 
-		// 查询类型表
-		Iterable<SystemTypeList> typelist = tydao.findAll();
+		String username = tu.getUserName();
+		String deptname = ddao.findname(tu.getDept().getDeptId());
 
-		// 查询状态表
-		Iterable<SystemStatusList> statuslist = sdao.findAll();
-		// 查询用户
-		List<User> userlist = udao.findByUserId(userid);
-		String username = userlist.get(0).getUserName();
-		// 从用户表里面得到deptid
-		Long ss = userlist.get(0).getDept().getDeptId();
-		// 查询部门
-		List<Dept> dept = ddao.findByDeptId(ss);
-		// 获取部门名称
-		String deptname = dept.get(0).getDeptName();
-
-		mav.addObject("tasklist", tasklist);
-		mav.addObject("typelist", typelist);
-		mav.addObject("statuslist", statuslist);
-		mav.addObject("username", username);
-		mav.addObject("deptname", deptname);
-		return mav;
+		for (int i = 0; i < tasklist.size(); i++) {
+			Map<String, Object> result = new HashMap<>();
+			Long statusid = tasklist.get(i).getStatusId().longValue();
+			result.put("taskid", tasklist.get(i).getTaskId());
+			result.put("typename", tydao.findname(tasklist.get(i).getTypeId()));
+			result.put("statusname", sdao.findname(statusid));
+			result.put("statuscolor", sdao.findcolor(statusid));
+			result.put("title", tasklist.get(i).getTitle());
+			result.put("publishtime", tasklist.get(i).getPublishTime());
+			result.put("zhiding", tasklist.get(i).getTop());
+			result.put("cancel", tasklist.get(i).getCancel());
+			result.put("username", username);
+			result.put("deptname", deptname);
+			list.add(result);
+		}
+		model.addAttribute("tasklist", list);
+		return "task/taskmanage";
 	}
 
 	/**
@@ -285,15 +291,17 @@ public class TaskController {
 	 * 我的任务
 	 */
 	@RequestMapping("mytask")
-	public ModelAndView index5(HttpSession session) {
+	public String index5(HttpSession session, Model model) {
 
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 
-		ModelAndView mav = new ModelAndView("task/mytask");
+		List<Tasklist> taskli = new ArrayList<>();
+		List<Map<String, Object>> list = new ArrayList<>();
+
 		// 根据接收人id查询任务id
 		List<Long> taskid = tudao.findByUserId(userid);
-		List<Tasklist> taskli = new ArrayList<>();
+
 		for (Long long1 : taskid) {
 			// 根据找出的taskid查找任务
 			Tasklist tasklist = tdao.findByTaskId(long1);
@@ -301,31 +309,31 @@ public class TaskController {
 
 		}
 
-		// 查询类型表
-		Iterable<SystemTypeList> typelist = tydao.findAll();
+		for (int i = 0; i < taskli.size(); i++) {
+			Map<String, Object> result = new HashMap<>();
+			// 查询任务id
+			Long tid = taskli.get(i).getTaskId();
+			// 查询接收人的任务状态id
+			Long statusid = tudao.findByuserIdAndTaskId(userid, tid);
+			// 查询发布人
+			User ptu = udao.findOne(taskli.get(i).getUsersId().getUserId());
+			String username = ptu.getUserName();
+			String deptname = ddao.findname(ptu.getDept().getDeptId());
 
-		// 查询接收人的任务状态
-		List<Taskuser> ustatus = tudao.findByuserId(userid);
-
-		Iterable<SystemStatusList> statuslist = sdao.findAll();
-
-		// 查询用户
-		List<User> userlist = udao.findByUserId(userid);
-		String username = userlist.get(0).getUserName();
-		// 从用户表里面得到deptid
-		Long ss = userlist.get(0).getDept().getDeptId();
-		// 查询部门
-		List<Dept> dept = ddao.findByDeptId(ss);
-		// 获取部门名称
-		String deptname = dept.get(0).getDeptName();
-
-		mav.addObject("tasklist", taskli);
-		mav.addObject("typelist", typelist);
-		mav.addObject("ustatus", ustatus);
-		mav.addObject("statuslist", statuslist);
-		mav.addObject("username", username);
-		mav.addObject("deptname", deptname);
-		return mav;
+			result.put("taskid", tid);
+			result.put("typename", tydao.findname(taskli.get(i).getTypeId()));
+			result.put("statusname", sdao.findname(statusid));
+			result.put("statuscolor", sdao.findcolor(statusid));
+			result.put("title", taskli.get(i).getTitle());
+			result.put("publishtime", taskli.get(i).getPublishTime());
+			result.put("zhiding", taskli.get(i).getTop());
+			result.put("cancel", taskli.get(i).getCancel());
+			result.put("username", username);
+			result.put("deptname", deptname);
+			list.add(result);
+		}
+		model.addAttribute("tasklist", list);
+		return "task/mytask";
 
 	}
 
@@ -401,10 +409,7 @@ public class TaskController {
 		tasku.setStatusId(logger.getLoggerStatusid());
 		// 存任务中间表
 		tudao.save(tasku);
-		/*
-		 * tservice.updateUStatusid(logger.getTaskId().getTaskId(),
-		 * logger.getLoggerStatusid());
-		 */
+		
 
 		return "redirect:/mytask";
 
@@ -417,8 +422,8 @@ public class TaskController {
 		Long ltaskid = Long.parseLong(taskid);
 		// 根据任务id找出这条任务
 		Tasklist task = tdao.findOne(ltaskid);
-		
-		//删除日志表
+
+		// 删除日志表
 		tservice.detelelogger(ltaskid);
 		// 分割任务接收人 还要查找联系人的主键并删除接收人中间表
 		StringTokenizer st = new StringTokenizer(task.getReciverlist(), ";");
@@ -426,54 +431,192 @@ public class TaskController {
 			User reciver = udao.findid(st.nextToken());
 			Long pkid = udao.findpkId(task.getTaskId(), reciver.getUserId());
 			tservice.delete(pkid);
-
+			
 		}
-		//删除这条任务
+		// 删除这条任务
 		tservice.deteletask(task);
 
 		return "redirect:/taskmanage";
 
 	}
-	
+
+	/**
+	 * 接收人这边删除
+	 */
+	@RequestMapping("myshanchu")
+	public String mydelete(HttpServletRequest req,HttpSession session) {
+		//用户id
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		// 得到任务的 id
+		String taskid = req.getParameter("id");
+		Long ltaskid = Long.parseLong(taskid);
+		Long pkid = udao.findpkId(ltaskid,userid);
+		tservice.delete(pkid);
+
+		return "redirect:/mytask";
+
+	}
+
 	/**
 	 * 条件查询
 	 * 
 	 */
 	@RequestMapping("chaxun")
-	@ResponseBody
-	public List<Map<String, Object>> find(HttpServletRequest request,HttpSession session){
+	public String find(HttpServletRequest request, HttpSession session, Model model) {
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		List<Tasklist> tasklist=null;
-		List<Map<String, Object>> list=new ArrayList<>();
-		//通过发布人id找用户
-		User tu=udao.findOne(userid);
-		String username=tu.getUserName();
-		String deptname=ddao.findname(tu.getDept().getDeptId());
-		
-		String title=request.getParameter("title");
-		
-		if(StringUtil.isEmpty(title)){
+		List<Tasklist> tasklist = null;
+		List<Map<String, Object>> list = new ArrayList<>();
+		// 通过发布人id找用户
+		User tu = udao.findOne(userid);
+		String username = tu.getUserName();
+		String deptname = ddao.findname(tu.getDept().getDeptId());
+
+		String title = request.getParameter("title");
+
+		if (StringUtil.isEmpty(title)) {
 			// 根据发布人id查询任务
-			 tasklist = tdao.findtask(userid);
-		}else{
-			//根据title找任务
-			 tasklist=tdao.findByTitle(title);
+			tasklist = tdao.findByTopAndUsersIdOrderByModifyTimeDesc(true, tu);
+			List<Tasklist> tasklist2 = tdao.findByTopAndUsersIdOrderByModifyTimeDesc(false, tu);
+			// 把后面查的数据封装到前面的集合中去
+			tasklist.addAll(tasklist2);
+		} else {
+			// 根据title找任务
+			tasklist = tdao.findByTitleLikeAndUsersId(title, tu);
+			System.out.println(tasklist);
 		}
-		for(int i=0; i<tasklist.size(); i++){
+		for (int i = 0; i < tasklist.size(); i++) {
 			Map<String, Object> result = new HashMap<>();
-			Long statusid=tasklist.get(i).getStatusId().longValue();
+			Long statusid = tasklist.get(i).getStatusId().longValue();
 			result.put("taskid", tasklist.get(i).getTaskId());
 			result.put("typename", tydao.findname(tasklist.get(i).getTypeId()));
 			result.put("statusname", sdao.findname(statusid));
 			result.put("statuscolor", sdao.findcolor(statusid));
 			result.put("title", tasklist.get(i).getTitle());
 			result.put("publishtime", tasklist.get(i).getPublishTime());
+			result.put("zhiding", tasklist.get(i).getTop());
+			result.put("cancel", tasklist.get(i).getCancel());
 			result.put("username", username);
 			result.put("deptname", deptname);
 			list.add(result);
 		}
-		
-		return list;
+		model.addAttribute("tasklist", list);
+		return "task/tasklist";
 	}
+
+	/**
+	 * 各种排序
+	 */
+	@RequestMapping("paixu")
+	public String paixu(HttpServletRequest request, HttpSession session, Model model) {
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		List<Tasklist> tasklist = null;
+		List<Map<String, Object>> list = new ArrayList<>();
+		// 通过发布人id找用户
+		User tu = udao.findOne(userid);
+		String username = tu.getUserName();
+		String deptname = ddao.findname(tu.getDept().getDeptId());
+
+		String val = request.getParameter("val");
+
+		if (("类型").equals(val)) {
+			tasklist = tdao.findByUsersIdOrderByTypeId(tu);
+
+		} else if (("状态").equals(val)) {
+			tasklist = tdao.findByUsersIdAndCancelOrderByStatusId(tu, false);
+			List<Tasklist> tasklist2 = tdao.findByUsersIdAndCancelOrderByStatusId(tu, true);
+			// 把后面查的数据封装到前面的集合中去
+			tasklist.addAll(tasklist2);
+		} else {
+			tasklist = tdao.findByUsersIdOrderByPublishTime(tu);
+		}
+
+		for (int i = 0; i < tasklist.size(); i++) {
+			Map<String, Object> result = new HashMap<>();
+			Long statusid = tasklist.get(i).getStatusId().longValue();
+			result.put("taskid", tasklist.get(i).getTaskId());
+			result.put("typename", tydao.findname(tasklist.get(i).getTypeId()));
+			result.put("statusname", sdao.findname(statusid));
+			result.put("statuscolor", sdao.findcolor(statusid));
+			result.put("title", tasklist.get(i).getTitle());
+			result.put("publishtime", tasklist.get(i).getPublishTime());
+			result.put("zhiding", tasklist.get(i).getTop());
+			result.put("cancel", tasklist.get(i).getCancel());
+			result.put("username", username);
+			result.put("deptname", deptname);
+			list.add(result);
+		}
+		model.addAttribute("tasklist", list);
+		return "task/tasklist";
+
+	}
+
+	/**
+	 * 在我的任务里面进行查询
+	 */
+	@RequestMapping("mychaxun")
+	public String select(HttpServletRequest request, HttpSession session, Model model) {
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+
+		String title = request.getParameter("title");
+		List<Tasklist> taskli = new ArrayList<>();
+		List<Map<String, Object>> list = new ArrayList<>();
+
+		// 根据接收人id查询任务id
+		List<Long> taskid = tudao.findByUserId(2l);
+		if (StringUtil.isEmpty(title)) {
+
+			for (Long long1 : taskid) {
+				// 根据找出的taskid查找任务
+				Tasklist tasklist = tdao.findByTaskId(long1);
+				taskli.add(tasklist);
+			}
+
+		} else {
+
+			// 根据title找任务
+			for (Long long1 : taskid) {
+				// 根据找出的taskid查找任务
+				Tasklist tasklist = tdao.findByTitleLikeAndTaskId(long1, title);
+				
+				if(!Objects.isNull(tasklist)){
+						taskli.add(tasklist);
+				}
+			}
+		}
+
+		for (int i = 0; i < taskli.size(); i++) {
+			Map<String, Object> result = new HashMap<>();
+			// 查询任务id
+			Long tid = taskli.get(i).getTaskId();
+
+			// 查询接收人的任务状态id
+			Long statusid = tudao.findByuserIdAndTaskId(2l, tid);
+
+			// 查询发布人
+			User ptu = udao.findOne(taskli.get(i).getUsersId().getUserId());
+			String username = ptu.getUserName();
+			String deptname = ddao.findname(ptu.getDept().getDeptId());
+
+			result.put("taskid", tid);
+			result.put("typename", tydao.findname(taskli.get(i).getTypeId()));
+			result.put("statusname", sdao.findname(statusid));
+			result.put("statuscolor", sdao.findcolor(statusid));
+			result.put("title", taskli.get(i).getTitle());
+			result.put("publishtime", taskli.get(i).getPublishTime());
+			result.put("zhiding", taskli.get(i).getTop());
+			result.put("cancel", taskli.get(i).getCancel());
+			result.put("username", username);
+			result.put("deptname", deptname);
+
+			list.add(result);
+		}
+		model.addAttribute("tasklist", list);
+
+		return "task/mytasklist";
+	}
+
 }

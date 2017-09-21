@@ -52,9 +52,9 @@ a:hover {
 				</h3>
 				<div class="box-tools">
 					<div class="input-group" style="width: 150px;">
-						<input type="text" class="form-control input-sm"
+						<input type="text" class="form-control input-sm cha"
 							placeholder="查找..." />
-						<div class="input-group-btn">
+						<div class="input-group-btn chazhao">
 							<a class="btn btn-sm btn-default"><span
 								class="glyphicon glyphicon-search"></span></a>
 						</div>
@@ -65,43 +65,21 @@ a:hover {
 			<div class="box-body no-padding">
 				<div class="table-responsive">
 					<table class="table table-hover table-striped">
+					<thead>
 						<tr>
 
-							<th scope="col" class="commen mm">类型<span class="block">
-							<img id="img" src="images/desc.gif" /></span></th>
+							<th scope="col">类型</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
 							<th scope="col">发布人</th>
 							<th scope="col">部门</th>
-							<th scope="col" class="co commen">状态<span class="block"></span></th>
+							<th scope="col" >状态</th>
 							<th scope="col">操作</th>
 						</tr>
-						<#list tasklist as task>
-						<tr>
-							<#list typelist as type>
-							<#if type.typeId==task.typeId>
-							<td><span>${type.typeName}</span></td>
-							</#if>
-							</#list>
-							<td><span>${task.title}</span></td>
-							<td><span>${task.publishTime}</span></td>
-							
-							<td><span>${username}</span></td>
-							<td><span>${deptname}</span></td>
-							<#list ustatus as status>
-							<#list statuslist as allstatus>
-							<#if status.statusId==allstatus.statusId>
-							<td><span class="label ${allstatus.statusColor}">${allstatus.statusName}</span></td>
-							</#if>
-							</#list>
-							</#list>
-							<td>
-								<a href="myseetasks?id=${task.taskId}" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a>
-								
-						</tr>
-						</#list>
-						
+						</thead>
+						<tbody class="tb">
+						<#include "mytasklist.ftl">
+						</tbody>
 						
 					</table>
 				</div>
@@ -141,3 +119,13 @@ a:hover {
 		</div>
 	</div>
 </div>
+
+<script>
+
+   $(function(){
+	   $(".chazhao").click(function(){
+		   var con=$(".cha").val();
+		   $(".tb").load("mychaxun",{title:con});
+	   });
+   })
+</script>
