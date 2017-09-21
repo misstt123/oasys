@@ -3,6 +3,7 @@ package cn.gson.oasys.model.dao.attendcedao;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,10 @@ public interface AttendceDao  extends PagingAndSortingRepository<Attends, Long>{
   
   @Query("FROM Attends a where a.attendsTime>?1 and a.attendsTime<?2")
   List<Attends> findoneweek(Date start,Date end);
+  
+  //更改备注
+  @Query("update Attends a set a.attendsRemark=?1 where a.attendsId=?2")
+  @Modifying
+  Integer updateremark(String attendsRemark,long attendsId);
+  
 } 

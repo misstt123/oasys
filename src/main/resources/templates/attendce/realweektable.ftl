@@ -30,7 +30,7 @@
 				 <#list user.aSet as att>
 				    <#if user.userId==att.user.userId>
 				      	<#if (att.weekOfday??)&&(att.weekOfday==wd)>
-					 	 	<a href="attendceedit?nid=1">
+					 	 	<a href="attendceedit2?id=${att.attendsId}" >
 					 	 	    <#if att.typeId==8>
 									<div >上班：${att.attendHmtime}</div>
 								</#if>

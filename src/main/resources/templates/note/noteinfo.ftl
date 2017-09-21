@@ -35,7 +35,7 @@
 							<h3>${note.title}</h3>
 							
 							<h5 class="little">
-								<span >创建：${user.userName}</span>
+								<span >创建：</span>
 								<span class="pull-right">时间:${note.createTime}</span>
 							</h5>
 						</div>

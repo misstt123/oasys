@@ -34,6 +34,9 @@ public class Plan {
 	private Long statusId; //状态id
 	
 	
+	@Column(name="attach_id")
+	private long attachId;   //附件id
+	
 	@Column(name="start_time")
 	private Date startTime;   //开始时间
 	
@@ -55,12 +58,28 @@ public class Plan {
 	
 	@Column(name="plan_comment")
 	private String planComment;   //计划评论
-
+    
+	
+	
 	@ManyToOne
 	@JoinColumn(name="plan_user_id")
-	private User userId; //用户计划外键
+	private User user; //用户计划外键
 	
 	public Plan() {}
+
+	
+	
+	public long getAttachId() {
+		return attachId;
+	}
+
+
+
+	public void setAttachId(long attachId) {
+		this.attachId = attachId;
+	}
+
+
 
 	public Long getPlanId() {
 		return planId;
@@ -151,12 +170,14 @@ public class Plan {
 	}
 
 	public User getUser() {
-		return userId;
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+
 
 	@Override
 	public String toString() {

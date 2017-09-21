@@ -7,4 +7,6 @@ $(function(){
 	if($write==1){
 		$(".row .atttype").attr("disabled",true);
 	}
+
+	
 })

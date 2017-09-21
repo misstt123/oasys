@@ -45,7 +45,6 @@ var starttime,endtime;
 				 $("#refresh").html(dates)
 			 },
 			 error:function(){
-				 alert("失败了")
 			 }
 		 })
 	}

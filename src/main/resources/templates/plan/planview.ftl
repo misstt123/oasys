@@ -124,31 +124,52 @@
 												<th scope="col" class="commen co">状态<span ></span></th>
 												<th scope="col">操作</th>
 											</tr>
-											<tr>
-												
-												<td>
-													<span>我的文件</span>
-												</td>
-												<td class="mailbox-subject">
-													<span>新建文件夹sfsf</span>
-												</td>
-												<td>
-													<span>2017/8/16 19:24:04</span>
-												</td>
-												<td>
-													sadfaf
-												</td>
-												<td>
-													xx部
-												</td>
-												<td>
-													<div class="label label-info">一般</div>
-												</td>
-												<td>
-													<a  href="##" class="label xiugai"><span class="glyphicon glyphicon-edit"></span> 修改</a>
-													<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href="" class="label shanchu"><span class="glyphicon glyphicon-remove"></span> 删除</a>
-												</td>
-											</tr>
+											
+											<#if plist??>
+												<#list plist as plan>
+													<tr>
+														<td>
+															<#if plan.typeId==13>
+																日计划
+															</#if>
+															<#if plan.typeId==14>
+																周计划
+															</#if>
+															<#if plan.typeId==15>
+																月计划
+															</#if>
+														</td>
+														
+														<td >
+															【${plan.label}】${plan.title}
+														</td>
+														<td>
+															${plan.createTime}
+														</td>
+														<td>
+															${plan.user.userName}
+														</td>
+														<td>
+															${plan.user.dept.deptName}
+														</td>
+														<td>
+														、	<#if plan.statusId==17>
+															<span class="label label-info">未完成</span>
+															</#if>
+															<#if plan.statusId==18>
+															<span class="label label-info">已取消</span>
+															</#if>
+															<#if plan.statusId==19>
+															<span class="label label-success">已完成</span>
+															</#if>
+														</td>
+														<td>
+															<a  href="##" class="label xiugai"><span class="glyphicon glyphicon-edit"></span> 修改</a>
+															<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href="" class="label shanchu"><span class="glyphicon glyphicon-remove"></span> 删除</a>
+														</td>
+											       </tr>
+												</#list>
+											</#if>
 											
 										</table>
 									</div>

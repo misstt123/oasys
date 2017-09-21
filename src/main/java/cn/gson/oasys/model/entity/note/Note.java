@@ -22,11 +22,6 @@ import cn.gson.oasys.model.entity.user.User;
 
 /**
  * 
- * 
- * publisher_id就是用户id
- * 外键没有连
- * @author admin
- *
  *---笔记表----
  */
 @Entity
