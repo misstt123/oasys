@@ -24,6 +24,7 @@ import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.informdao.InformDao;
+import cn.gson.oasys.model.dao.informdao.InformRelationDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -58,6 +59,9 @@ public class InformManageController {
 	private UserDao uDao;
 	
 	@Autowired
+	private InformRelationDao informrelationDao;
+	
+	@Autowired
 	private InformRelationService informrelationservice;
 	
 	/**
@@ -66,7 +70,11 @@ public class InformManageController {
 	 */
 	@RequestMapping("infrommanage")
 	public String infromManage(HttpSession session,HttpServletRequest req,Model model){
-		List<NoticesList> noticeList=informDao.findByUserId(Long.parseLong(session.getAttribute("userId")+""));
+		Long userId=Long.parseLong(session.getAttribute("userId")+"");
+//		List<NoticesList> noticeList=informDao.findByUserId(userId);
+		List<NoticesList> noticeList=informDao.findByUserIdAndTopOrderByModifyTimeDesc(userId, true);
+		List<NoticesList> noticeList2=informDao.findByUserIdAndTopOrderByModifyTimeDesc(userId, false);
+		noticeList.addAll(noticeList2);
 		List<Map<String, Object>> list=informService.fengZhuang(noticeList);
 		model.addAttribute("list",list);
 		return "inform/informmanage";
@@ -77,7 +85,15 @@ public class InformManageController {
 	 * @return
 	 */
 	@RequestMapping("infromlist")
-	public String infromList(){
+	public String infromList(HttpSession session,HttpServletRequest req,Model model){
+		Long userId=Long.parseLong(session.getAttribute("userId")+"");
+		User user=uDao.findOne(userId);
+		List<NoticeUserRelation> noticeRelations=informrelationDao.findByUserId(user);
+		List<NoticesList> noticeList=null;
+		for (NoticeUserRelation noticeUserRelation : noticeRelations) {
+			NoticesList notice=informDao.findOne(noticeUserRelation.getNoticeId().getNoticeId());
+			noticeList.add(notice);
+		}
 		return "inform/informlist";
 	}
 	
@@ -101,6 +117,8 @@ public class InformManageController {
 			Long noticeId=Long.parseLong(req.getParameter("id"));
 			NoticesList noticeList=informDao.findOne(noticeId);
 			model.addAttribute("noticeList", noticeList);
+			model.addAttribute("typeName", typeDao.findOne(noticeList.getTypeId()).getTypeName());
+			model.addAttribute("statusName", statusDao.findOne(noticeList.getStatusId()).getStatusName());
 			session.setAttribute("noticeId", noticeId);
 		}
 		
@@ -111,7 +129,12 @@ public class InformManageController {
 	 * 详细通知显示
 	 */
 	@RequestMapping("informshow")
-	public String informShow(HttpServletRequest req){
+	public String informShow(HttpServletRequest req,Model model){
+		Long noticeId=Long.parseLong(req.getParameter("id"));
+		NoticesList notice=informDao.findOne(noticeId);
+		User user=uDao.findOne(notice.getUserId());
+		model.addAttribute("notice", notice);
+		model.addAttribute("userName",user.getUserName());
 		return "inform/informshow";
 	}
 	

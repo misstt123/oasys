@@ -29,10 +29,7 @@ a:hover {
 			<div class="bgc-w box box-primary">
 				<!--盒子头-->
 				<div class="box-header">
-					<h3 class="box-title">
-						<!-- <a href="informedit" class="label label-success" style="padding: 5px;">
-							<span class="glyphicon glyphicon-plus"></span> 新增
-						</a>  -->
+					<h3 class="box-title" style="padding: 8px;">
 					</h3>
 					<div class="box-tools">
 						<div class="input-group" style="width: 150px;">
@@ -50,7 +47,6 @@ a:hover {
 					<div class="table-responsive">
 						<table class="table table-hover">
 						<tr>
-							
 							<th scope="col">类型</th>
 							<th scope="col">状态</th>
 							<th scope="col">标题</th>
@@ -60,7 +56,6 @@ a:hover {
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
-							
 							<td>系统管理</td>
 							<td><span>fa-circle-o</span></td>
 							<td><span>System/Menu.aspx</span></td>

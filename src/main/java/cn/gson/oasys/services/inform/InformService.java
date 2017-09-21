@@ -49,6 +49,7 @@ public class InformService  {
 			result.put("title", noticelist.get(i).getTitle());
 			result.put("noticeTime", noticelist.get(i).getNoticeTime());
 			result.put("top", noticelist.get(i).getTop());
+			result.put("url", noticelist.get(i).getUrl());
 			result.put("username",udao.findOne(noticelist.get(i).getUserId()).getUserName());
 			result.put("deptname", udao.findOne(noticelist.get(i).getUserId()).getDept().getDeptName());
 			list.add(result);
