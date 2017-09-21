@@ -45,8 +45,10 @@ public class TaskService {
 	
 	//删除任务中间表
 	public void delete(Long pkid){
-	
-		tudao.delete(pkid);
+		if (!Objects.isNull(pkid)){
+			tudao.delete(pkid);
+			
+		}
 		
 	}
 	

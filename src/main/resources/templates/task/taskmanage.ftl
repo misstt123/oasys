@@ -71,41 +71,16 @@ a:hover {
 							<th scope="col" class="commen mm ">类型<span class="block"><img
 									id="img" src="images/desc.gif" /></span></th>
 							<th scope="col">标题</th>
-							<th scope="col">发布时间</th>
+							<th scope="col" class="co commen ">发布时间<span class="block"></span></th>
 							<th scope="col">发布人</th>
 							<th scope="col">部门</th>
 							<th scope="col" class="co commen ">状态<span class="block"></span></th>
+							<th>置顶</th>
 							<th scope="col">操作</th>
 						</tr>
 						</thead>
 						<tbody class="upda">
-						<#list tasklist as task>
-						<tr>
-							<#list typelist as type>
-							<#if type.typeId==task.typeId>
-							<td><span>${type.typeName}</span></td>
-							</#if>
-							</#list>
-							<td><span>${task.title}</span></td>
-							<td><span>${task.publishTime}</span></td>
-							
-							<td><span>${username}</span></td>
-							<td><span>${deptname}</span></td>
-							<#list statuslist as status>
-							<#if status.statusId==task.statusId>
-							<td><span class="label ${status.statusColor}">${status.statusName}</span></td>
-							</#if>
-							</#list>
-							<td><a  href="edittasks?id=${task.taskId}"
-								class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> 
-									<a href="seetasks?id=${task.taskId}" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a>
-									 <a href="shanchu?id=${task.taskId}" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-						</#list>
+						<#include "tasklist.ftl">
 						</tbody>
 					</table>
 				</div>
@@ -147,48 +122,11 @@ a:hover {
 	</div>
 </div>
 <script>
-function getMyDate(str){    
-    var oDate = new Date(str),    
-    oYear = oDate.getFullYear(),    
-    oMonth = oDate.getMonth()+1,    
-    oDay = oDate.getDate(),    
-    oHour = oDate.getHours(),    
-    oMin = oDate.getMinutes(),    
-    oSen = oDate.getSeconds(),    
-    oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间    
-    return oTime;    
-};    
-//补0操作    
-function getzf(num){    
-    if(parseInt(num) < 10){    
-        num = '0'+num;    
-    }    
-    return num;    
-} 
+
    $(function(){
 	   $(".chazhao").click(function(){
 		   var con=$(".cha").val();
-		   
-		  $.post("chaxun",{title:con},function(data){
-			  
-			  $(".upda").html("");
-			  $(data).each(function(index, item) {
-				var $tr=$("<tr></tr>");
-				var time=getMyDate(item.publishtime);
-				
-				$tr.append($("<td></td>").append($("<span></span>").text(item.typename)));
-				$tr.append($("<td></td>").append($("<span></span>").text(item.title)));
-				$tr.append($("<td></td>").append($("<span></span>").text(time)));
-				$tr.append($("<td></td>").append($("<span></span>").text(item.username)));
-				$tr.append($("<td></td>").append($("<span></span>").text(item.deptname)));
-				$tr.append($("<td></td>").append($("<span></span>").addClass("label").addClass(item.statuscolor).text(item.statusname)));
-			 	$tr.append($("<td></td>").append($("<a  href='edittasks?id="+item.taskid+"'></a>").addClass("label").addClass("xiugai").append($("<span></span>").addClass("glyphicon").addClass("glyphicon-edit")).text(" 修改"))
-			 			.append($("<a  href='seetasks?id="+item.taskid+"'></a>").addClass("label").addClass("xiugai").append($("<span></span>").addClass("glyphicon").addClass("glyphicon-search")).text(" 查看"))
-			 			.append($("<a  href='shanchu?id="+item.taskid+"'></a>").addClass("label").addClass("shanchu").append($("<span></span>").addClass("glyphicon").addClass("glyphicon-remove")).text(" 删除")));
-				
-				$tr.appendTo(".upda");
-			  });
-		  });
+		   $(".upda").load("chaxun",{title:con});
 	   });
    })
 </script>
