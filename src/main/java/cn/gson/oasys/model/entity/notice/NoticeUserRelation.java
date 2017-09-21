@@ -30,17 +30,17 @@ public class NoticeUserRelation {
 	private User userId;				//用户id
 	
 	@Column(name = "is_read")
-	private Integer isRead;				//此条通知该用户是否一已读
+	private Boolean read=false;				//此条通知该用户是否一已读
 	
 	public NoticeUserRelation() {}
 	
 	
 
-	public NoticeUserRelation(NoticesList noticeId, User userId, Integer isRead) {
+	public NoticeUserRelation(NoticesList noticeId, User userId, Boolean read) {
 		super();
 		this.noticeId = noticeId;
 		this.userId = userId;
-		this.isRead = isRead;
+		this.read = read;
 	}
 
 
@@ -69,18 +69,25 @@ public class NoticeUserRelation {
 		this.userId = userId;
 	}
 
-	public Integer getIsRead() {
-		return isRead;
+	public Boolean getRead() {
+		return read;
 	}
 
-	public void setIsRead(Integer isRead) {
-		this.isRead = isRead;
+
+
+	public void setRead(Boolean read) {
+		this.read = read;
 	}
+
+
 
 	@Override
 	public String toString() {
-		return "NoticeUserRelation [noticeUserRelatinId=" + noticeUserRelatinId + ", isRead=" + isRead + "]";
+		return "NoticeUserRelation [noticeUserRelatinId=" + noticeUserRelatinId + ", read=" + read + "]";
 	}
+
+
+	
 
 	
 

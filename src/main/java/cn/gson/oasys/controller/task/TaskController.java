@@ -1,5 +1,7 @@
 package cn.gson.oasys.controller.task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -530,7 +534,7 @@ public class TaskController {
 			// 把后面查的数据封装到前面的集合中去
 			tasklist.addAll(tasklist2);
 		} else {
-			tasklist = tdao.findByUsersIdOrderByPublishTime(tu);
+			tasklist = tdao.findByUsersIdOrderByPublishTimeDesc(tu);
 		}
 
 		for (int i = 0; i < tasklist.size(); i++) {
@@ -555,9 +559,10 @@ public class TaskController {
 
 	/**
 	 * 在我的任务里面进行查询
+	 * @throws ParseException 
 	 */
 	@RequestMapping("mychaxun")
-	public String select(HttpServletRequest request, HttpSession session, Model model) {
+	public String select(HttpServletRequest request, HttpSession session, Model model) throws ParseException {
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 
@@ -567,6 +572,18 @@ public class TaskController {
 
 		// 根据接收人id查询任务id
 		List<Long> taskid = tudao.findByUserId(2l);
+		
+		//判断传过来的字符串是否以数字开头
+		/*Pattern pattern = Pattern.compile("^(\\d+)(.*)");
+		Matcher matcher = pattern.matcher(title);*/
+		
+		//类型
+		SystemTypeList  type=tydao.findByTypeModelAndTypeName("aoa_task_list",title);
+		//状态
+		SystemStatusList  status=sdao.findByStatusModelAndStatusName("aoa_task_list", title);
+		//找用户
+		User user=udao.findByUserName(title);
+		
 		if (StringUtil.isEmpty(title)) {
 
 			for (Long long1 : taskid) {
@@ -575,6 +592,43 @@ public class TaskController {
 				taskli.add(tasklist);
 			}
 
+		}else if(!Objects.isNull(type)){
+			
+			for (Long long1 : taskid) {
+				// 根据找出的taskid和发布时间的模糊查询查找任务
+				Tasklist tasklist = tdao.findByTypeIdAndTaskId(type.getTypeId(), long1);
+				if(!Objects.isNull(tasklist)){
+					
+					taskli.add(tasklist);
+				}
+			}
+		} else if(!Objects.isNull(status)){
+			//Long转换成Integer
+			Integer statusid=Integer.parseInt(status.getStatusId().toString());
+			for (Long long1 : taskid) {
+				// 根据找出的taskid和发布时间的模糊查询查找任务
+				Tasklist tasklist = tdao.findByStatusIdAndCancelAndTaskId(statusid,false, long1);
+				if(!Objects.isNull(tasklist)){
+					taskli.add(tasklist);
+				}
+			}
+		}else if(("已取消").equals(title)){
+			
+			for (Long long1 : taskid) {
+				// 根据找出的taskid和发布时间的模糊查询查找任务
+				Tasklist tasklist = tdao.findByCancelAndTaskId(true, long1);
+				if(!Objects.isNull(tasklist)){
+					taskli.add(tasklist);
+				}
+			}
+		}  else if(!Objects.isNull(user)){
+			for (Long long1 : taskid) {
+				// 根据找出的taskid和发布时间的模糊查询查找任务
+				Tasklist tasklist = tdao.findByUsersIdAndTaskId(user, long1);
+				if(!Objects.isNull(tasklist)){
+					taskli.add(tasklist);
+				}
+			}
 		} else {
 
 			// 根据title找任务

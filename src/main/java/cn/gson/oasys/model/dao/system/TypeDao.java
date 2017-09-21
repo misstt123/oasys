@@ -24,4 +24,6 @@ public interface TypeDao extends PagingAndSortingRepository<SystemTypeList, Long
 	
 	@Query("select type.typeName from SystemTypeList type where type.typeId=:id")
 	String findname(@Param("id")Long id);
+	
+	
 }
