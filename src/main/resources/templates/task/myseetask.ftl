@@ -16,20 +16,18 @@ a:hover {
 </style>
 		<script>
 			$(function(){
-				
-				
-				$("#ctl00_cphMain_ddlStatus").change(function(){
-				var options=$("#ctl00_cphMain_ddlStatus option:selected");
-				if(options.val()=="2"){
-					$("#ctl00_cphMain_ddlStatus").attr("disabled",true);
-					$("#ctl00_cphMain_ddlStatus").css("background-color","#fff");
+				$(".ddlstatus").each(function(){
+					console.log("ss");
+				var options=$(".ddlstatus option:selected");
+				if(options.val()=="6"||options.val()=="7"){
+					$(".ddlstatus").attr("disabel",true);
+					$(".ddlstatus").css("background-color","#fff");
 				}else{
-					$("#ctl00_cphMain_ddlStatus").removeAttr("disabled");
+					$(".ddlstatus").removeAttr("disabel");
 				}
 			})
 			})
 		</script>
-	</head>
 
 	<body>
 		<div class="outside">
@@ -111,7 +109,7 @@ a:hover {
 										<span id="ctl00_cphMain_Label1">状态</span>
 								</label>
 								<div class="form-group">
-									<select name="loggerStatusid" id="ctl00_cphMain_ddlStatus" class="form-control select2">
+									<select name="loggerStatusid" id="ctl00_cphMain_ddlStatus" class="form-control select2 ddlstatus">
 										<option value="${status.statusId}">${status.statusName}</option>
 										<#if status.statusId ==3>
 										<#else>
