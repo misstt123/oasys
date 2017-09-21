@@ -10,4 +10,6 @@ import cn.gson.oasys.model.entity.user.User;
 public interface InformRelationDao extends PagingAndSortingRepository<NoticeUserRelation, Long> {
 	
 	List<NoticeUserRelation> findByUserId(User userId);
+	
+	List<NoticeUserRelation> findByReadAndUserId(Boolean read,User userid);
 }

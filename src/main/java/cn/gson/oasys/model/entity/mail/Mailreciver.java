@@ -31,8 +31,8 @@ public  class Mailreciver {
 	@JoinColumn(name="mail_reciver_id")
 	private User reciverId;//内部用户id
 	
-	@Column(name="is_read",nullable=false)
-	private Integer isRead;//是否已读
+	@Column(name="is_read")
+	private Boolean read;//是否已读
 	
 	
 	public Mailreciver(){}
@@ -63,17 +63,17 @@ public  class Mailreciver {
 		this.reciverId = reciverId;
 	}
 
-	public Integer getIsRead() {
-		return isRead;
+	public Boolean getRead() {
+		return read;
 	}
 
-	public void setIsRead(Integer isRead) {
-		this.isRead = isRead;
+	public void setRead(Boolean read) {
+		this.read = read;
 	}
 
 	@Override
 	public String toString() {
-		return "Mailreciver [pkId=" + pkId + ", isRead=" + isRead + "]";
+		return "Mailreciver [pkId=" + pkId + ", read=" + read + "]";
 	}
 
 	

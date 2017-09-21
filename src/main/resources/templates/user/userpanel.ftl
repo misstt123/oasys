@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <script type="text/javascript" src="js/common/iconfont.js"></script>
 <link rel="stylesheet" href="css/common/iconfont.css" />
 <link rel="stylesheet" href="css/common/checkbox.css" />
@@ -12,6 +13,7 @@
 
 .list-group li {
 	margin-bottom: 10px;
+	list-style-type: none;
 }
 
 a {
@@ -80,6 +82,9 @@ h1, h3 {
 	border: 0px;
 	border-radius: 4px 4px 0 0;
 }
+.list-inline li{
+	display:block;
+}
 </style>
 
 <div class="row" style="padding-top: 10px;">
@@ -91,7 +96,7 @@ h1, h3 {
 			disabled="disabled">用户面板</a>
 	</div>
 </div>
-<div class="row" style="padding-top: 15px;">
+<div class="row" style="padding-top: 10px;">
 	<div class="col-md-3">
 
 		<div class="bgc-w box box-solid " style="border-top: 3px solid blue;">
@@ -195,18 +200,11 @@ h1, h3 {
 											<p>
 												<span id="ctl00_cphMain_GridView1_ctl02_lblMemoDescription">更多产品请访问魔方动力官方网站：http://www.mojocube.com/</span>
 											</p>
-											<ul class="list-inline">
-												<li>
-													<!--<a id="ctl00_cphMain_GridView1_ctl02_gvStar" title="标记星标" href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl02$gvStar&#39;,&#39;&#39;)">
-																			<i class="glyphicon glyphicon-edit"></i></a>-->
-												</li>
-												<li class="pull-right"><a
-													id="ctl00_cphMain_GridView1_ctl02_gvEdit" title="便签"
-													class="fancybox link-black text-sm" data-toggle="modal"
+											<a id="edit" title="便签" style="margin-top: -22px;"
+													class="fancybox link-black text-sm pull-right" data-toggle="modal"
 													href="#editModal"> <i class="glyphicon glyphicon-edit"></i>
 														修改
-												</a></li>
-											</ul>
+												</a>
 										</div>
 
 									</td>
@@ -233,17 +231,15 @@ h1, h3 {
 											<p>
 												<span id="ctl00_cphMain_GridView1_ctl03_lblMemoDescription">如需要获得更多功能和支持，请到魔方动力淘宝旗舰店购买正版软件，网址：https://520mc.taobao.com/</span>
 											</p>
-											<ul class="list-inline">
-												<li>
-													<!--<a id="ctl00_cphMain_GridView1_ctl03_gvStar" title="标记星标" href="javascript:__doPostBack(&#39;ctl00$cphMain$GridView1$ctl03$gvStar&#39;,&#39;&#39;)"><i class="fa fa-star-o text-yellow"></i></a>-->
-												</li>
-												<li class="pull-right"><a
-													id="ctl00_cphMain_GridView1_ctl03_gvEdit" title="便签"
-													class="fancybox link-black text-sm" data-toggle="modal"
+											
+												
+												<a id="edit" title="便签" style="margin-top: -22px;"
+													class="fancybox link-black text-sm pull-right" data-toggle="modal"
 													href="#editModal"> <i class="glyphicon glyphicon-edit"></i>
 														修改
-												</a></li>
-											</ul>
+												</a>
+												
+											
 										</div>
 
 									</td>

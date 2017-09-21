@@ -187,7 +187,7 @@ public class InformManageController {
 				NoticesList noticeList=informService.save(menu);
 				List<User> userList=uDao.findByFatherId(userId);
 				for (User user : userList) {
-					informrelationservice.save(new NoticeUserRelation(noticeList, user, 0));
+					informrelationservice.save(new NoticeUserRelation(noticeList, user, false));
 				}
 			}
 			//执行业务代码
