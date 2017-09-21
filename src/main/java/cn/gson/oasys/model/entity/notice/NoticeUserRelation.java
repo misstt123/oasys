@@ -33,6 +33,17 @@ public class NoticeUserRelation {
 	private Integer isRead;				//此条通知该用户是否一已读
 	
 	public NoticeUserRelation() {}
+	
+	
+
+	public NoticeUserRelation(NoticesList noticeId, User userId, Integer isRead) {
+		super();
+		this.noticeId = noticeId;
+		this.userId = userId;
+		this.isRead = isRead;
+	}
+
+
 
 	public Long getNoticeUserRelatinId() {
 		return noticeUserRelatinId;

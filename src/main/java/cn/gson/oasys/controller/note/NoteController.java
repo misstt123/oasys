@@ -1,16 +1,10 @@
 package cn.gson.oasys.controller.note;
 
 
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.mockito.Matchers.longThat;
-import static org.mockito.Mockito.mockingDetails;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +18,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
@@ -45,7 +35,6 @@ import cn.gson.oasys.model.dao.notedao.NoteService;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
-import cn.gson.oasys.model.entity.Blog;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;

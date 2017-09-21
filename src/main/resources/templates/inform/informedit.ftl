@@ -37,7 +37,7 @@ a:hover {
 					</a>
 				</h3>
 			</div>
-			<form action="test111" method="post" id="thisForm" onsubmit="return check();">
+			<form action="informcheck" method="post" id="thisForm" onsubmit="return check();">
 				<!--盒子身体-->
 				<div class="box-body no-padding">
 					<div class="box-body">
@@ -65,25 +65,25 @@ a:hover {
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>标题</span></label>
-								 <input class="form-control" value="${(menuObj.sortId)!'0'}" name="title"/>
+								 <input class="form-control" value="${(noticeList.title)!''}" name="title"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>链接</span></label> 
-								 <input	class="form-control" value="${(menuObj.menuUrl)!''}" name="url"/>
+								 <input	class="form-control" value="${(noticeList.url)!''}" name="url"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>描述</span></label> 
-								<textarea class="form-control text" rows="5" cols="20" name="content"></textarea>
+								<textarea class="form-control text" rows="5" cols="20" name="content">${(noticeList.content)!''}</textarea>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>置顶</span></label><br>
-								<#if menuObj??>
-									<#if menuObj.show==true>
+								<#if noticeList??>
+									<#if noticeList.top==true>
 										<span class="labels"><label><input name="top" type="checkbox" checked><i>✓</i></label></span>
 										<#else>
 										<span class="labels"><label><input name="top" type="checkbox"><i>✓</i></label></span>
 									</#if>
-								<#else>
+									<#else>
 										<span class="labels"><label><input name="top" type="checkbox"><i>✓</i></label></span>
 								</#if>
 							</div>
@@ -107,7 +107,7 @@ a:hover {
 <script type="text/javascript">
 
 $('.successToUrl').on('click',function(){
-	window.location.href='/testsysmenu';
+	window.location.href='/infrommanage';
 });
 //表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
 function check() {

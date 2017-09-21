@@ -1,15 +1,10 @@
 package cn.gson.oasys.controller.attendce;
 
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.gson.oasys.common.StringtoDate;
-import cn.gson.oasys.model.dao.BlogDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
-import cn.gson.oasys.model.dao.notedao.CatalogDao;
-import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.user.UserDao;
-import cn.gson.oasys.model.entity.Blog;
 import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.user.User;
 

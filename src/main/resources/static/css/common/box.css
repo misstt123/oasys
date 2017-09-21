@@ -65,6 +65,9 @@
 	padding: 0.4em .6em .3em;
 	line-height: 22px;
 }
+.label{
+	font-weight:400;
+}
 
 .no-padding {
 	padding: 0 !important;

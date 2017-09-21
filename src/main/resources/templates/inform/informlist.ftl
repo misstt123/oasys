@@ -30,9 +30,9 @@ a:hover {
 				<!--盒子头-->
 				<div class="box-header">
 					<h3 class="box-title">
-						<a href="informedit" class="label label-success" style="padding: 5px;">
+						<!-- <a href="informedit" class="label label-success" style="padding: 5px;">
 							<span class="glyphicon glyphicon-plus"></span> 新增
-						</a> 
+						</a>  -->
 					</h3>
 					<div class="box-tools">
 						<div class="input-group" style="width: 150px;">
@@ -52,11 +52,11 @@ a:hover {
 						<tr>
 							
 							<th scope="col">类型</th>
+							<th scope="col">状态</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
 							<th scope="col">发布人</th>
 							<th scope="col">部门</th>
-							<th scope="col">状态</th>
 							<th scope="col">操作</th>
 						</tr>
 						<tr>
@@ -69,7 +69,9 @@ a:hover {
 							<td><span>是</span></td>
 							<td><a 
 								href="useredit?where=xg" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a
+									class="glyphicon glyphicon-edit"></span> 修改</a>
+									<a href="#" class="label xiugai"><span
+									class="glyphicon glyphicon-search"></span> 查看</a> <a
 								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
@@ -83,10 +85,12 @@ a:hover {
 							<td><span>菜单</span></td>
 							<td><span>0</span></td>
 							<td><span>是</span></td>
-							<td><a
-								href="useredit?where=xg" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+							<td>
+								<a href="useredit?where=xg" class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a>
+								<a href="#" class="label xiugai"><span
+									class="glyphicon glyphicon-search"></span> 查看</a>
+								<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a>
 									</td>

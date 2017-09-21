@@ -11,6 +11,7 @@ a:hover {
 .bgc-w {
 	background-color: #fff;
 }
+
 </style>
 
 	<div class="row" style="padding-top: 10px;">
@@ -50,7 +51,6 @@ a:hover {
 					<div class="table-responsive">
 						<table class="table table-hover">
 						<tr>
-							
 							<th scope="col">类型</th>
 							<th scope="col">状态</th>
 							<th scope="col">标题</th>
@@ -59,39 +59,25 @@ a:hover {
 							<th scope="col">部门</th>
 							<th scope="col">操作</th>
 						</tr>
-						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><a 
-								href="useredit?where=xg" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a>
-									</td>
-						</tr>
-						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><a
-								href="useredit?where=xg" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a>
-									</td>
-						</tr>
-						
+						<#list list as this>
+							<tr>
+								<td>${(this.typename)!''}</td>
+								<td><span class="label ${(this.statuscolor)!''}">${(this.statusname)!''}</span></td>
+								<td><span>${(this.title)!''}</span></td>
+								<td><span>${(this.noticeTime)!''}</span></td>
+								<td><span>${(this.username)!''}</span></td>
+								<td><span>${(this.deptname)!''}</span></td>
+								<td><a 
+									href="informedit?id=${this.noticeId}" class="label xiugai"><span
+										class="glyphicon glyphicon-edit"></span> 修改</a>
+										<a href="informshow" class="label xiugai"><span
+										class="glyphicon glyphicon-search"></span> 查看</a> <a
+									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+									href="" class="label shanchu"><span
+										class="glyphicon glyphicon-remove"></span> 删除</a>
+										</td>
+							</tr>
+						</#list>
 					</table>
 					</div>
 				</div>
