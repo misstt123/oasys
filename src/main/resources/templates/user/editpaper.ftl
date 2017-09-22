@@ -3,14 +3,14 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
+				<button type="button" class="modalclose close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">编辑您的便签</h4>
 			</div>
 			<form action="writep" method="post" onsubmit="return check();">
 			<div class="modal-body">
 				<!--錯誤信息提示  -->
-					<div class="alert alert-danger alert-dismissable" role="alert"style="display: none;">
+					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
 						错误信息:<button class="thisclose close" type="button">&times;</button>
 						<span class="error-mess"></span>
 					</div>

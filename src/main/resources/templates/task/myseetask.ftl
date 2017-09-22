@@ -16,16 +16,24 @@ a:hover {
 </style>
 		<script>
 			$(function(){
+				
+				
 				$(".ddlstatus").each(function(){
-					console.log("ss");
 				var options=$(".ddlstatus option:selected");
+					
+				
 				if(options.val()=="6"||options.val()=="7"){
-					$(".ddlstatus").attr("disabel",true);
-					$(".ddlstatus").css("background-color","#fff");
+					$("#save").prop("disabled",true);
+				
 				}else{
-					$(".ddlstatus").removeAttr("disabel");
+					$("#save").removeAttr("disabled");
 				}
-			})
+				
+				
+				
+			});
+				
+			
 			})
 		</script>
 

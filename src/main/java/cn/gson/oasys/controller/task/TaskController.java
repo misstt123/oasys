@@ -349,6 +349,7 @@ public class TaskController {
 		ModelAndView mav = new ModelAndView("task/myseetask");
 		// 得到任务的 id
 		String taskid = req.getParameter("id");
+
 		Long ltaskid = Long.parseLong(taskid);
 		// 通过任务id得到相应的任务
 		Tasklist task = tdao.findOne(ltaskid);
@@ -356,8 +357,10 @@ public class TaskController {
 		// 查看状态表
 		Iterable<SystemStatusList> statuslist = sdao.findAll();
 		// 查询接收人的任务状态
-		Long ustatus = tudao.findstatus(userid);
+		Long ustatus = tudao.findByuserIdAndTaskId(userid, ltaskid);
+
 		SystemStatusList status = sdao.findOne(ustatus);
+		/*System.out.println(status);*/
 
 		// 查看发布人
 		User user = udao.findOne(task.getUsersId().getUserId());
@@ -378,19 +381,37 @@ public class TaskController {
 	 */
 	@RequestMapping("uplogger")
 	public String updatelo(Tasklogger logger, HttpSession session) {
+		System.out.println(logger.getLoggerStatusid());
 		// 获取用户id
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
+		// 查找用户
 		User user = udao.findOne(userid);
+		// 查任务
 		Tasklist task = tdao.findOne(logger.getTaskId().getTaskId());
 		logger.setCreateTime(new Date());
 		logger.setUsername(user.getUserName());
 		// 存日志
 		tldao.save(logger);
+
+		// 修改任务中间表状态
+		Long pkid = udao.findpkId(logger.getTaskId().getTaskId(), userid);
+		Taskuser tasku = new Taskuser();
+		tasku.setPkId(pkid);
+		tasku.setTaskId(task);
+		tasku.setUserId(user);
+		if (!Objects.isNull(logger.getLoggerStatusid())) {
+
+			tasku.setStatusId(logger.getLoggerStatusid());
+		}
+		// 存任务中间表
+		tudao.save(tasku);
+		
 		// 修改任务状态
 		// 通过任务id查看总状态
+		
 		List<Integer> statu = tudao.findByTaskId(logger.getTaskId().getTaskId());
-
+		System.out.println(statu);
 		// 选出最小的状态id 修改任务表里面的状态
 		Integer min = statu.get(0);
 		for (Integer integer : statu) {
@@ -400,20 +421,12 @@ public class TaskController {
 		}
 
 		int up = tservice.updateStatusid(logger.getTaskId().getTaskId(), min);
+		/*System.out.println(logger.getTaskId().getTaskId() + "aaaa");
+		System.out.println(min + "wwww");
+		System.out.println(up + "pppppp");*/
 		if (up > 0) {
 			System.out.println("任务状态修改成功!");
 		}
-
-		// 修改任务中间表状态
-		Long pkid = udao.findpkId(logger.getTaskId().getTaskId(), userid);
-		Taskuser tasku = new Taskuser();
-		tasku.setPkId(pkid);
-		tasku.setTaskId(task);
-		tasku.setUserId(user);
-		tasku.setStatusId(logger.getLoggerStatusid());
-		// 存任务中间表
-		tudao.save(tasku);
-		
 
 		return "redirect:/mytask";
 
@@ -435,7 +448,7 @@ public class TaskController {
 			User reciver = udao.findid(st.nextToken());
 			Long pkid = udao.findpkId(task.getTaskId(), reciver.getUserId());
 			tservice.delete(pkid);
-			
+
 		}
 		// 删除这条任务
 		tservice.deteletask(task);
@@ -448,14 +461,14 @@ public class TaskController {
 	 * 接收人这边删除
 	 */
 	@RequestMapping("myshanchu")
-	public String mydelete(HttpServletRequest req,HttpSession session) {
-		//用户id
+	public String mydelete(HttpServletRequest req, HttpSession session) {
+		// 用户id
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		// 得到任务的 id
 		String taskid = req.getParameter("id");
 		Long ltaskid = Long.parseLong(taskid);
-		Long pkid = udao.findpkId(ltaskid,userid);
+		Long pkid = udao.findpkId(ltaskid, userid);
 		tservice.delete(pkid);
 
 		return "redirect:/mytask";
@@ -559,7 +572,8 @@ public class TaskController {
 
 	/**
 	 * 在我的任务里面进行查询
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	@RequestMapping("mychaxun")
 	public String select(HttpServletRequest request, HttpSession session, Model model) throws ParseException {
@@ -571,19 +585,21 @@ public class TaskController {
 		List<Map<String, Object>> list = new ArrayList<>();
 
 		// 根据接收人id查询任务id
-		List<Long> taskid = tudao.findByUserId(2l);
-		
-		//判断传过来的字符串是否以数字开头
-		/*Pattern pattern = Pattern.compile("^(\\d+)(.*)");
-		Matcher matcher = pattern.matcher(title);*/
-		
-		//类型
-		SystemTypeList  type=tydao.findByTypeModelAndTypeName("aoa_task_list",title);
-		//状态
-		SystemStatusList  status=sdao.findByStatusModelAndStatusName("aoa_task_list", title);
-		//找用户
-		User user=udao.findByUserName(title);
-		
+		List<Long> taskid = tudao.findByUserId(userid);
+
+		// 判断传过来的字符串是否以数字开头
+		/*
+		 * Pattern pattern = Pattern.compile("^(\\d+)(.*)"); Matcher matcher =
+		 * pattern.matcher(title);
+		 */
+
+		// 类型
+		SystemTypeList type = tydao.findByTypeModelAndTypeName("aoa_task_list", title);
+		// 状态
+		SystemStatusList status = sdao.findByStatusModelAndStatusName("aoa_task_list", title);
+		// 找用户
+		User user = udao.findByUserName(title);
+
 		if (StringUtil.isEmpty(title)) {
 
 			for (Long long1 : taskid) {
@@ -592,40 +608,40 @@ public class TaskController {
 				taskli.add(tasklist);
 			}
 
-		}else if(!Objects.isNull(type)){
-			
+		} else if (!Objects.isNull(type)) {
+
 			for (Long long1 : taskid) {
 				// 根据找出的taskid和发布时间的模糊查询查找任务
 				Tasklist tasklist = tdao.findByTypeIdAndTaskId(type.getTypeId(), long1);
-				if(!Objects.isNull(tasklist)){
-					
+				if (!Objects.isNull(tasklist)) {
+
 					taskli.add(tasklist);
 				}
 			}
-		} else if(!Objects.isNull(status)){
-			//Long转换成Integer
-			Integer statusid=Integer.parseInt(status.getStatusId().toString());
+		} else if (!Objects.isNull(status)) {
+			// Long转换成Integer
+			Integer statusid = Integer.parseInt(status.getStatusId().toString());
 			for (Long long1 : taskid) {
 				// 根据找出的taskid和发布时间的模糊查询查找任务
-				Tasklist tasklist = tdao.findByStatusIdAndCancelAndTaskId(statusid,false, long1);
-				if(!Objects.isNull(tasklist)){
+				Tasklist tasklist = tdao.findByStatusIdAndCancelAndTaskId(statusid, false, long1);
+				if (!Objects.isNull(tasklist)) {
 					taskli.add(tasklist);
 				}
 			}
-		}else if(("已取消").equals(title)){
-			
+		} else if (("已取消").equals(title)) {
+
 			for (Long long1 : taskid) {
 				// 根据找出的taskid和发布时间的模糊查询查找任务
 				Tasklist tasklist = tdao.findByCancelAndTaskId(true, long1);
-				if(!Objects.isNull(tasklist)){
+				if (!Objects.isNull(tasklist)) {
 					taskli.add(tasklist);
 				}
 			}
-		}  else if(!Objects.isNull(user)){
+		} else if (!Objects.isNull(user)) {
 			for (Long long1 : taskid) {
 				// 根据找出的taskid和发布时间的模糊查询查找任务
 				Tasklist tasklist = tdao.findByUsersIdAndTaskId(user, long1);
-				if(!Objects.isNull(tasklist)){
+				if (!Objects.isNull(tasklist)) {
 					taskli.add(tasklist);
 				}
 			}
@@ -635,9 +651,9 @@ public class TaskController {
 			for (Long long1 : taskid) {
 				// 根据找出的taskid查找任务
 				Tasklist tasklist = tdao.findByTitleLikeAndTaskId(long1, title);
-				
-				if(!Objects.isNull(tasklist)){
-						taskli.add(tasklist);
+
+				if (!Objects.isNull(tasklist)) {
+					taskli.add(tasklist);
 				}
 			}
 		}
