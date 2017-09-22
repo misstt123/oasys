@@ -42,12 +42,16 @@ Date.prototype.Format = function(fmt) { //author: meizz
 		if($('#endTime').val()==""||$('#endTime').val()==null)
 		$('#endTime').val(endtime);
 		$('#starTime').on('click',function(){
-			WdatePicker({ minDate:addDate(nowDate,0),maxDate:addDate(nowDate,30),dateFmt:'yyyy-MM-dd HH:mm:ss'});
-
+			WdatePicker({ minDate:addDate(nowDate,0),maxDate:addDate(nowDate,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		$('#starTime').on('blur',function(){
+			$('#endTime').val(addDate($('#starTime').val(),1));
 		});
 		
 		$('#endTime').on('click',function(){
-			WdatePicker({ minDate:addDate(nowDate,0),maxDate:addDate(nowDate,30),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+			var start=$('#starTime').val();
+			console.log(start);
+			WdatePicker({ minDate:addDate(start,1),maxDate:addDate(start,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 
 		});
 	});

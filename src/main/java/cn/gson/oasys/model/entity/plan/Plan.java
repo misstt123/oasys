@@ -15,6 +15,7 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -34,11 +35,9 @@ public class Plan {
 	
 	
 	@Column(name="type_id")
-	@NotNull
 	private Long typeId; //类型id
 	
 	@Column(name="status_id")
-	@NotNull
 	private Long statusId; //状态id
 	
 	
@@ -46,25 +45,22 @@ public class Plan {
 	private long attachId;   //附件id
 	
 	@Column(name="start_time")
-	@NotNull
 	private Date startTime;   //开始时间
 	
 	@Column(name="end_time")
-	@NotNull
 	private Date endTime;   //结束时间
 	
 	@Column(name="create_time")
-	@NotNull
 	private Date createTime;   //记录创建时间
 	
-	@NotBlank
+	@NotEmpty(message="标题输入框不能为空")
 	@Length(min=0,max=50)
 	private String title;   //标题
 	
 	private String label;   //标签
 	
 	@Column(name="plan_content")
-	@NotBlank
+	@NotEmpty(message="计划输入框不能为空")
 	private String planContent;   //计划内容
 	
 	@Column(name="plan_summary")
@@ -83,6 +79,34 @@ public class Plan {
 
 	
 	
+	
+
+
+
+
+	public Plan(Long typeId, Long statusId, long attachId, Date startTime, Date endTime, Date createTime, String title,
+			String label, String planContent, String planSummary, String planComment) {
+		super();
+		this.typeId = typeId;
+		this.statusId = statusId;
+		this.attachId = attachId;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.createTime = createTime;
+		this.title = title;
+		this.label = label;
+		this.planContent = planContent;
+		this.planSummary = planSummary;
+		this.planComment = planComment;
+	}
+
+
+
+
+
+
+
+
 	public long getAttachId() {
 		return attachId;
 	}

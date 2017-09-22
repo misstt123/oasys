@@ -127,15 +127,11 @@ function somenotedelete(){
 										</#if> 
 										</td>
 										
-										<td><span><#if note.typeId==5>
-										我的笔记
-										</#if>
-										<#if note.typeId==6>
-										公司笔记
-										</#if>
-										<#if note.typeId==7>
-										共享笔记
-										</#if>
+										<td>
+										<span>
+											<#list type as t>
+												<#if note.typeId==t.typeId>${t.typeName}</#if>
+											</#list>
 										</span></td>
 										<td ><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
@@ -144,19 +140,9 @@ function somenotedelete(){
 										</a>
 										</td>
 										<td>
-											
-											<#if note.statusId==8>
-											<div class="label label-info">
-										一般
-										</div>
-										</#if>
-										
-										<#if note.statusId==9>
-										<div class="label label-danger">
-										重要
-										</div>
-										</#if>
-											
+											<#list status as s>
+												<#if note.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
+											</#list>
 										</td>
 										<td><a 
 										

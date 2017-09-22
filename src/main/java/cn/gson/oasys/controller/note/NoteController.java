@@ -38,6 +38,8 @@ import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.system.SystemStatusList;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.file.FileServices;
 
@@ -204,6 +206,10 @@ public class NoteController {
 		noteList = (List<Note>) noteDao.findAll();
 //		long typeid=Long.valueOf(typeId);
 //		noteList =noteDao.findByTypeId(typeid);
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		System.out.println(noteList);
 		model.addAttribute("nlist", noteList);
 		System.out.println(cataloglist);
@@ -273,6 +279,10 @@ public class NoteController {
 			//返回的时候跳-2 
 		noteList = (List<Note>) noteDao.findAll();
 		System.out.println(noteList);}
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		model.addAttribute("nlist", noteList);
 		return "note/notewrite";
 	}
@@ -319,6 +329,10 @@ public class NoteController {
 			Request.setAttribute("nid", nid);
 			System.out.println(note);
 		}
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+		Request.setAttribute("type", type);
+		Request.setAttribute("status", status);
 		Request.setAttribute("id", nid);
 		return "note/noteedit";
 	}

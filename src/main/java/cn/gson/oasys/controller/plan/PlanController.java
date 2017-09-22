@@ -1,8 +1,11 @@
 package cn.gson.oasys.controller.plan;
 
 
+import java.io.IOException;
 import java.net.DatagramSocketImplFactory;
+import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import aj.org.objectweb.asm.Type;
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
@@ -28,8 +32,14 @@ import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.plandao.PlanDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.system.SystemMenu;
+import cn.gson.oasys.model.entity.system.SystemStatusList;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
+import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.file.FileServices;
 
 
 @Controller
@@ -42,15 +52,24 @@ public class PlanController {
     TypeDao typeDao;
 	@Autowired
     StatusDao statusDao;
+	@Autowired 
+	FileServices fServices;
+	@Autowired
+	UserDao userDao;
+	
 	
 	List<Plan> pList;
 	Logger log=LoggerFactory.getLogger(getClass());
 	
-
+	
 	//计划管理
 	@RequestMapping("planview")
 	public String test(Model model){
 		pList=(List<Plan>) planDao.findAll();
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+		model.addAttribute("type", type);
+		model.addAttribute("status", status);
 		model.addAttribute("plist", pList);
 		return "plan/planview";
 	}
@@ -63,6 +82,14 @@ public class PlanController {
 		@RequestMapping("planedit")
 		public String test3(HttpServletRequest request,Model model){ 
 			long pid=Long.valueOf(request.getParameter("pid"));
+			if(!StringUtils.isEmpty(request.getAttribute("errormess"))){
+				request.setAttribute("errormess", request.getAttribute("errormess"));
+				request.setAttribute("plan", request.getAttribute("plan2"));
+			}
+			else if(!StringUtils.isEmpty(request.getAttribute("success"))){
+				request.setAttribute("success", request.getAttribute("success"));
+				request.setAttribute("plan", request.getAttribute("plan2"));
+			}
 			//新建
 			if(pid==-1){
 				model.addAttribute("plan", null);
@@ -70,9 +97,15 @@ public class PlanController {
 			}
 			else if(pid>0){
 				Plan plan=planDao.findOne(pid);
+				
 				model.addAttribute("plan", plan);
 				model.addAttribute("pid", pid);
 			}
+			
+			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+			model.addAttribute("type", type);
+			model.addAttribute("status", status);
 			
 			return "plan/planedit";
 		}
@@ -82,14 +115,16 @@ public class PlanController {
 		public void Datagr(){}
 		
 		@RequestMapping(value="plansave",method=RequestMethod.POST)
-		public String testMess(@RequestParam("file")MultipartFile file, HttpServletRequest req,  BindingResult br) {
+		public String testMess(@RequestParam("file")MultipartFile file, HttpServletRequest req, @Valid Plan plan2, BindingResult br) throws IllegalStateException, IOException {
 			HttpSession session = req.getSession();
-			
+			long userid=Long.valueOf(session.getAttribute("userId")+"");
+			User user=userDao.findOne(userid);
+			req.setAttribute("plan2", plan2);
+			//获取到类型和状态id
 			String type=req.getParameter("type");
 			String status=req.getParameter("status");
 			long typeid=typeDao.findByTypeModelAndTypeName("aoa_plan_list", type).getTypeId();
 			long statusid=statusDao.findByStatusModelAndStatusName("aoa_plan_list", status).getStatusId();
-			
 			
 			
 			// 这里返回ResultVO对象，如果校验通过，ResultEnum.SUCCESS.getCode()返回的值为200；否则就是没有通过；
@@ -110,12 +145,16 @@ public class PlanController {
 			// 校验通过，下面写自己的逻辑业务
 			else {
 				if (!StringUtils.isEmpty(session.getAttribute("getId"))) {
-					
+					System.out.println("验证通过，进入狗太了");
 				}
-				//执行业务代码
+				Attachment att =(Attachment) fServices.savefile(file, user, null, false);
+				Plan plan=new Plan(typeid, statusid, att.getAttachmentId(), plan2.getStartTime(), plan2.getEndTime(), new Date(), 
+						plan2.getTitle(), plan2.getLabel(), plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary());
+				plan.setUser(user);
+				planDao.save(plan);
 				req.setAttribute("success", "后台验证成功");
 			}
-			return "forward:/planview";
+			return "forward:/planedit";
 		}
 	
 	

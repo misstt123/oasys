@@ -83,15 +83,16 @@
 							<span>类型</span>
 						</label>
 						<select class="form-control atttype" data-edit=${write}>
-							<option ${(attends?? && attends.typeId?number==8)?string('selected','')}>上班</option>
-							<option ${(attends?? && attends.typeId?number==9)?string('selected','')}>下班</option>
+							<#list type as t>
+									<option ${(attends??&&attends.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+								</#list>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">备注</label>
 						<input name="remark"  class="form-control remark" value="<#if attends??>${attends.attendsRemark}</#if>"/>
 					</div>
-					<input type="hidden" name="id"  value=${attends.attendsId} > 
+					<input type="hidden" name="id"  value="<#if attends??>${attends.attendsId}</#if>" > 
 				</div>
 				
 			</div>

@@ -152,15 +152,10 @@ a:hover {
 									<tr>
 									<td><span>
 									<#if att.typeId??>
-									<#if att.typeId==8>
-									上班
-									</#if>
-									<#if att.typeId==9>
-									下班
-									</#if>
-									<#if att.typeId==10>
-									旷工
-									</#if>
+									
+										<#list type as t>
+											<#if att.typeId==t.typeId>${t.typeName}</#if>
+										</#list>
 									</#if>
 									</span></td>
 									
@@ -176,12 +171,9 @@ a:hover {
 									</td>
 									<td>
 									<#if att.statusId??>
-									<#if att.statusId==10>
-									<div class="label label-success">正常</div>
-									</#if>
-									<#if att.statusId==11>
-									<div class="label label-danger">迟到</div>
-									</#if>
+										<#list status as s>
+												<#if att.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
+										</#list>
 									</#if>
 									</td>
 									<td><a  href=""

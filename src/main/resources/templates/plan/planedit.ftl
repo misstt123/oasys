@@ -96,17 +96,18 @@
 							<span>类型</span>
 						</label>
 						<select class="form-control plantype" onchange="dochange(); " name="type">
-							<option ${(plan??&&plan.typeId?number==13)?string('selected','')}>日计划</option>
-							<option ${(plan??&&plan.typeId?number==14)?string('selected','')}>周计划</option>
-							<option ${(plan??&&plan.typeId?number==15)?string('selected','')}>月计划</option>
+								<#list type as t>
+									<option ${(plan??&&plan.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+								</#list>
+							
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">状态</label>
 						<select class="form-control" name="status">
-							<option ${(plan??&&plan.statusId?number==17)?string('selected','')}>未完成</option>
-							<option ${(plan??&&plan.statusId?number==18)?string('selected','')}>已完成</option>
-							<option ${(plan??&&plan.statusId?number==19)?string('selected','')}>已取消</option>
+						    <#list status as s>
+								<option ${(plan??&&plan.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
+							</#list>
 						</select>
 					</div>
 				</div>
@@ -116,11 +117,11 @@
 						<span>
 						<label class="control-label" >开始时间</label>
 						</span>
-						<input class="form-control" id="starTime" name="start" value="<#if plan??>${plan.startTime}</#if>"/>
+						<input class="form-control" id="starTime" name="startTime" value="<#if plan??>${plan.startTime}</#if>"/>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">结束时间</label>
-						<input class="form-control" id="endTime" name="end" value="<#if plan??>${plan.endTime}</#if>"/>
+						<input class="form-control" id="endTime" name="endTime" value="<#if plan??>${plan.endTime}</#if>"/>
 					</div>
 				</div>
 				
@@ -138,18 +139,18 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">计划</label>
-						<textarea class="form-control text" placeholder="至少20个字" name="plancontent" ><#if plan??>${plan.planContent}</#if></textarea>
+						<textarea class="form-control text" placeholder="至少20个字" name="planContent" ><#if plan??>${plan.planContent}</#if></textarea>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">总结</label>
-						<textarea class="form-control text" placeholder="至少20个字" name="plansummary" ><#if plan??>${plan.planSummary}</#if></textarea>
+						<textarea class="form-control text" placeholder="至少20个字" name="planSummary" ><#if plan??>${plan.planSummary}</#if></textarea>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">评价</label>
-						<textarea  disabled="disabled" class="form-control text" name="plancomment" ><#if plan??>${plan.planComment}</#if></textarea>
+						<textarea  disabled="disabled" class="form-control text" name="planComment" ><#if plan??>${plan.planComment}</#if></textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -175,7 +176,7 @@
 <script type="text/javascript">
 
 $('.successToUrl').on('click',function(){
-	//window.location.href='/planview';
+	window.location.href='/planview';
 });
 //表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
 function check() {
@@ -255,7 +256,7 @@ function check() {
 	});
 	if (isRight == 0) {
 		//modalShow(0);
-		 return false;
+		 return true;
 	} else if (isRight == 1) {
 		//modalShow(1);
 		 return true;

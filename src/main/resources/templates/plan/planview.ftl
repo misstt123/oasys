@@ -129,19 +129,15 @@
 												<#list plist as plan>
 													<tr>
 														<td>
-															<#if plan.typeId==13>
-																日计划
-															</#if>
-															<#if plan.typeId==14>
-																周计划
-															</#if>
-															<#if plan.typeId==15>
-																月计划
-															</#if>
+															<#list type as t>
+																<#if plan.typeId==t.typeId>${t.typeName}</#if>
+															</#list>
 														</td>
 														
 														<td >
+															<#if plan.label??>
 															【${plan.label}】${plan.title}
+															</#if>
 														</td>
 														<td>
 															${plan.createTime}
@@ -153,15 +149,9 @@
 															${plan.user.dept.deptName}
 														</td>
 														<td>
-														、	<#if plan.statusId==17>
-															<span class="label label-info">未完成</span>
-															</#if>
-															<#if plan.statusId==18>
-															<span class="label label-info">已完成</span>
-															</#if>
-															<#if plan.statusId==19>
-															<span class="label label-success">已取消</span>
-															</#if>
+															 <#list status as s>
+																<#if plan.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
+															 </#list>
 														</td>
 														<td>
 															<a  href="planedit?pid=${plan.planId}" class="label xiugai"><span class="glyphicon glyphicon-edit"></span> 修改</a>
