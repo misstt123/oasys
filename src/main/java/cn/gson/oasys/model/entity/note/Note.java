@@ -58,6 +58,9 @@ public class Note {
 	@Column(name="is_collected")
 	private Long isCollected; //是否收藏
 	
+	@Column(name="createman_id")
+	private Long createmanId; //类型id
+	
 	@ManyToMany
 	@JoinTable(
 			name="aoa_receiver_note"
@@ -90,7 +93,17 @@ public class Note {
    
     
     
-   public long getIsCollected() {
+   public Long getCreatemanId() {
+		return createmanId;
+	}
+
+
+	public void setCreatemanId(Long createmanId) {
+		this.createmanId = createmanId;
+	}
+
+
+public long getIsCollected() {
 		return isCollected;
 	}
 
