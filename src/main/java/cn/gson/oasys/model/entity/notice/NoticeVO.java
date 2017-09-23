@@ -13,12 +13,12 @@ public class NoticeVO {
 	private Long typeId;		//类型id
 	private String title;		//标题
 	private Boolean read;		//是否已读
-	
+
 	public NoticeVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public NoticeVO(Long noticeId, String content, Boolean top, Date modifyTime, Date noticeTime, Long statusId,
 			Long typeId, String title, Boolean read) {
 		super();
@@ -32,6 +32,9 @@ public class NoticeVO {
 		this.title = title;
 		this.read = read;
 	}
+
+
+
 
 	public Long getNoticeId() {
 		return noticeId;

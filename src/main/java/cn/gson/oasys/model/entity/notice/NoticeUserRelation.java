@@ -1,5 +1,6 @@
 package cn.gson.oasys.model.entity.notice;
 
+
 import javax.persistence.*;
 
 import cn.gson.oasys.model.entity.user.User;
@@ -24,7 +25,6 @@ public class NoticeUserRelation {
 	@JoinColumn(name = "relatin_notice_id")
 	private NoticesList noticeId;				//通知id
 
-	
 	@ManyToOne
 	@JoinColumn(name = "relatin_user_id")
 	private User userId;				//用户id

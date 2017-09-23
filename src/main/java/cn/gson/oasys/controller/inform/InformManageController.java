@@ -23,12 +23,15 @@ import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
+import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.model.dao.informdao.InformDao;
 import cn.gson.oasys.model.dao.informdao.InformRelationDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.notice.NoticeUserRelation;
+import cn.gson.oasys.model.entity.notice.NoticeVO;
 import cn.gson.oasys.model.entity.notice.NoticesList;
 import cn.gson.oasys.model.entity.system.SystemMenu;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
@@ -59,10 +62,16 @@ public class InformManageController {
 	private UserDao uDao;
 	
 	@Autowired
+	private DeptDao deptDao;
+	
+	@Autowired
 	private InformRelationDao informrelationDao;
 	
 	@Autowired
 	private InformRelationService informrelationservice;
+	
+	@Autowired
+	private NoticeMapper nm;
 	
 	/**
 	 * 通知管理面板
@@ -81,19 +90,38 @@ public class InformManageController {
 	}
 	
 	/**
+	 * 通知管理删除
+	 */
+	@RequestMapping("infromdelete")
+	public String infromDelete(HttpSession session,HttpServletRequest req){
+		Long noticeId=Long.parseLong(req.getParameter("id"));
+		Long userId=Long.parseLong(session.getAttribute("userId")+"");
+		NoticesList notice=informDao.findOne(noticeId);
+		if(userId!=notice.getUserId()){
+			System.out.println("权限不匹配，不能删除");
+		}
+		System.out.println(noticeId);
+//		informService.deleteOne(noticeId);
+		return "redirect:/infrommanage";
+		
+	}
+	
+	/**
 	 * 通知列表
 	 * @return
 	 */
 	@RequestMapping("infromlist")
 	public String infromList(HttpSession session,HttpServletRequest req,Model model){
 		Long userId=Long.parseLong(session.getAttribute("userId")+"");
-		User user=uDao.findOne(userId);
-		List<NoticeUserRelation> noticeRelations=informrelationDao.findByUserId(user);
-		List<NoticesList> noticeList=null;
-		for (NoticeUserRelation noticeUserRelation : noticeRelations) {
-			NoticesList notice=informDao.findOne(noticeUserRelation.getNoticeId().getNoticeId());
-			noticeList.add(notice);
+		List<Map<String, Object>> list=nm.findMyNotice(userId);
+		for (Map<String, Object> map : list) {
+			map.put("status", statusDao.findOne((Long)map.get("status_id")).getStatusName());
+			map.put("type", typeDao.findOne((Long)map.get("type_id")).getTypeName());
+			map.put("statusColor", statusDao.findOne((Long)map.get("status_id")).getStatusColor());
+			map.put("userName", uDao.findOne((Long)map.get("user_id")).getUserName());
+			map.put("deptName", uDao.findOne((Long)map.get("user_id")).getDept().getDeptName());
 		}
+		model.addAttribute("list", list);
 		return "inform/informlist";
 	}
 	
