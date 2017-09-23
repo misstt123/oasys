@@ -24,6 +24,7 @@
 	</style>
 	</head>
 	<body>
+
 		<div class="row ">
 			<div class="col-md-12 ">
 				<div class="box box-primary ">
@@ -44,7 +45,7 @@
 								${note.content}
 								<#if att??>
 								<div>
-									<img src="${att.attachmentPath}" />
+									<img src="" />
 								</div>
 								</#if>
 								<hr>

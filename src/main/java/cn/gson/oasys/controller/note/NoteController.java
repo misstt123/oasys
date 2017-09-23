@@ -2,9 +2,13 @@ package cn.gson.oasys.controller.note;
 
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +22,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +141,7 @@ public class NoteController {
 				else if(file.isEmpty())
 					attid=null;
 				
-			Attachment att =(Attachment) fs.savefile(file, user, null, false);
+			
 			//0l表示新建的时候默认为没有收藏
 			 note=new Note(title, content, catalogId, typeId, statusId, attid, new Date(),0l);
 			
@@ -250,17 +255,27 @@ public class NoteController {
 	
 	//显示具体信息
 	@RequestMapping("noteinfo")
-	public String test3(@Param("id")String id,HttpServletRequest Request,HttpSession session){
+	public String test3(@Param("id")String id,HttpServletRequest Request,HttpServletResponse response,HttpSession session) throws IOException{
+		
 		Attachment attachment=null;
+		FileInputStream fis=null;
+		OutputStream os=null;
 		Long nid=Long.valueOf(id);
 		Note note=noteDao.findOne(nid);
 		User user=userDao.findOne(note.getCreatemanId());
 		if(note.getAttachId()!=null){
-		attachment=attDao.findByAttachmentId(note.getAttachId());
+		att=attDao.findByAttachmentId(note.getAttachId());
 		}
+		
+//		//读取文件流
+//		ServletOutputStream sos = response.getOutputStream();
+//		byte[] data = new byte[att.getAttachmentSize().intValue()];
+//		IOUtils.readFully(new FileInputStream("F:/OAFILE"+att.getAttachmentPath()), data);
+//		IOUtils.write(data, sos);
+		
 		Request.setAttribute("note", note);
 		Request.setAttribute("user", user);
-		Request.setAttribute("att", attachment);
+		Request.setAttribute("att", att);
 		return "note/noteinfo";
 	}
 	
