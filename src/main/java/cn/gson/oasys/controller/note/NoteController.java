@@ -297,6 +297,7 @@ public class NoteController {
 		}
 		else if(request.getParameter("id").equals("-2")){
 			//返回的时候跳-2 
+			
 		noteList = (List<Note>) noteDao.findAll();
 		System.out.println(noteList);}
 		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");

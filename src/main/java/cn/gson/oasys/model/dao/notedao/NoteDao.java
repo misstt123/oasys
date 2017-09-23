@@ -18,6 +18,8 @@ import cn.gson.oasys.model.entity.user.User;
 @Repository
 public interface NoteDao  extends PagingAndSortingRepository<Note, Long>{
 
+	
+	
 	@Query("update Note n set n.catalogId=?1,n.typeId=?2,n.statusId=?3,"
 			+ "n.title=?4,n.content=?5 where n.noteId=?6")
 	@Modifying
