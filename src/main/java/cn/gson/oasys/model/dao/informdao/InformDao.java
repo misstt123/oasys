@@ -12,6 +12,7 @@ import cn.gson.oasys.model.entity.notice.NoticesList;
 
 public interface InformDao extends PagingAndSortingRepository<NoticesList, Long> {
 	
+	
 	//联合两个表（通知表和用户通知关联表）查找出用户的通知列表
 	@Query("SELECT n FROM NoticeUserRelation n left outer join n.noticeId u WHERE u.userId.userId=:userId ORDER BY u.top DESC ,u.modifyTime DESC ")
 	List<NoticeUserRelation>  findNoticeList(@Param("userId") Long userId);
