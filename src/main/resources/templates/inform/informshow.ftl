@@ -76,24 +76,21 @@ a:hover {
 			<div class="box-body no-padding chat-box">
 				<div class="chat-title">
 					<h4>
-						<span>这是标题</span>
+						<span>${(notice.title)!''}</span>
 					</h4>
 					<h5>
-						<small> <span>发布：朱丽叶</span> <span class="pull-right">2017/8/29
-								19:07:56</span>
+						<small> <span>发布：${(userName)!''}</span> <span class="pull-right">${(notice.noticeTime)!''}</span>
 						</small>
 					</h5>
 				</div>
 				<div class="chat-content" style="padding: 10px 40px 12px 16px;">
-					<p>时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 
-						时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 
+					<p>${(notice.content)!''}
 					</p>
-						<kbd><a href="" style="color: #fff;font-size:12px;"><i class="glyphicon glyphicon-link"></i>打开连接</a></kbd>
-					
+					<#if notice.url!=''>
+						<kbd><a href="${(notice.url)!''}" style="color: #fff;font-size:12px;"><i class="glyphicon glyphicon-link"></i>打开连接</a></kbd>
+						<#else>
+						
+					</#if>
 				</div>
 			</div>
 			<!--盒子尾-->

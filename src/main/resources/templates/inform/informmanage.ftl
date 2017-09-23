@@ -49,7 +49,7 @@ a:hover {
 				<!--盒子身体-->
 				<div class="box-body no-padding">
 					<div class="table-responsive">
-						<table class="table table-hover">
+					<table class="table table-hover">
 						<tr>
 							<th scope="col">类型</th>
 							<th scope="col">状态</th>
@@ -57,6 +57,8 @@ a:hover {
 							<th scope="col">发布时间</th>
 							<th scope="col">发布人</th>
 							<th scope="col">部门</th>
+							<th scope="col">置顶</th>
+							<th scope="col">链接</th>
 							<th scope="col">操作</th>
 						</tr>
 						<#list list as this>
@@ -67,15 +69,25 @@ a:hover {
 								<td><span>${(this.noticeTime)!''}</span></td>
 								<td><span>${(this.username)!''}</span></td>
 								<td><span>${(this.deptname)!''}</span></td>
+								<#if this.top==true>
+									<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
+								<#else>
+									<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>
+								</#if>
+								<#if this.url!=''>
+									<td><span class="glyphicon glyphicon-link"></span></td>
+								<#else>
+									<td><span class="labels"></span></td>
+								</#if>
 								<td><a 
 									href="informedit?id=${this.noticeId}" class="label xiugai"><span
 										class="glyphicon glyphicon-edit"></span> 修改</a>
-										<a href="informshow" class="label xiugai"><span
+										<a href="informshow?id=${this.noticeId}" class="label xiugai"><span
 										class="glyphicon glyphicon-search"></span> 查看</a> <a
 									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-									href="" class="label shanchu"><span
+									href="infromdelete?id=${this.noticeId}" class="label shanchu"><span
 										class="glyphicon glyphicon-remove"></span> 删除</a>
-										</td>
+										</td> 
 							</tr>
 						</#list>
 					</table>
@@ -116,3 +128,4 @@ a:hover {
 			</div>
 		</div>
 	</div>
+	<sc>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.oasys.mappers.NoticeMapper">
+
+	<select id="findMyNotice" resultType="java.util.Map">
+		SELECT
+		aoa_notice_list.*,aoa_notice_user_relation.* FROM aoa_notice_list LEFT
+		JOIN aoa_notice_user_relation ON
+		aoa_notice_list.notice_id=aoa_notice_user_relation.relatin_notice_id
+		WHERE aoa_notice_user_relation.relatin_user_id=#{userId} ORDER BY is_top DESC
+		,modify_time DESC
+	</select>
+
+</mapper>
