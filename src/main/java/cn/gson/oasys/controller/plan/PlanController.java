@@ -159,12 +159,11 @@ public class PlanController {
 				if (!StringUtils.isEmpty(session.getAttribute("getId"))) {
 					System.out.println("验证通过，进入狗太了");
 				}
-				//判断文件是否为空
 				if(!file.isEmpty())
-					{
-					att =(Attachment) fServices.savefile(file, user, null, false);
-				    attid=att.getAttachmentId();
-					}
+				{
+				att =(Attachment) fServices.savefile(file, user, null, false);
+			    attid=att.getAttachmentId();
+				}
 				else if(file.isEmpty())
 					attid=null;
 				
