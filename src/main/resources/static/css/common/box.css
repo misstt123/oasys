@@ -97,18 +97,16 @@
 
 /*label样式变换  */
 .sheding {
-	color: #6d7b8a ;
-}
-.sheding:visited {
 	color: #6d7b8a !important;
 }
+
 .sheding:hover {
 	background-color: #6d7b8a;
 	color: #fff !important;
 }
 
 .xiugai {
-	color: #337ab7;
+	color: #337ab7 !important;
 }
 .xiugai:visited {
 	color: #337ab7 !important;
@@ -130,11 +128,9 @@
 
 
 .xinzeng {
-	color: #5cb85c;
+	color: #5cb85c !important;
 }
-.xinzeng:visited {
-	color:  #5cb85c !important;
-}
+
 .xinzeng:hover {
 	background-color: #5cb85c;
 	color: #fff !important;

@@ -131,10 +131,19 @@ public class UserpanelController {
 	 * 删除便签
 	 */
 	@RequestMapping("notepaper")
-	public String deletepaper(HttpServletRequest request){
+	public String deletepaper(HttpServletRequest request,HttpSession session){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User user=udao.findOne(userid);
 		String paperid=request.getParameter("id");
 		Long lpid = Long.parseLong(paperid);
-		nservice.delete(lpid);
+		Notepaper note=ndao.findOne(lpid);
+		if(user.getUserId().equals(note.getUserId().getUserId())){
+			nservice.delete(lpid);
+		}else{
+			System.out.println("权限不匹配，不能删除");
+			return "redirect:/notlimit";
+		}
 		return "redirect:/userpanel";
 		
 	}
