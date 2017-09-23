@@ -53,44 +53,37 @@ a:hover {
 							<th scope="col">发布时间</th>
 							<th scope="col">发布人</th>
 							<th scope="col">部门</th>
+							<th scope="col">置顶</th>
+							<th scope="col">链接</th>
 							<th scope="col">操作</th>
 						</tr>
-						<tr>
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><a 
-								href="useredit?where=xg" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a>
-									<a href="#" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a>
-									</td>
+						<#list list as this>
+							<tr>
+								<td>${this.type}</td>
+								<td><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
+								<td><span>${(this.title)!''}</span></td>
+								<td><span>${this.notice_time}</span></td>
+								<td><span>${this.userName}</span></td>
+								<td><span>${this.deptName}</span></td>
+								<#if this.is_top==1>
+									<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
+								<#else>
+									<td><span class="labels"><label><input type="checkbox" disabled><i>✓</i></label></span></td>
+								</#if>
+								<#if this.url!=''>
+									<td><span class="glyphicon glyphicon-link"></span></td>
+								<#else>
+									<td><span class="labels"></span></td>
+								</#if>
+								<td><a href="informshow?id=${this.notice_id}"
+									class="label xiugai"><span
+										class="glyphicon glyphicon-search"></span> 查看</a> 
+										<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href=""
+									class="label shanchu"><span
+										class="glyphicon glyphicon-remove"></span> 删除</a>
+								</td>
 						</tr>
-						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td>
-								<a href="useredit?where=xg" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a>
-								<a href="#" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a>
-								<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a>
-									</td>
-						</tr>
-						
+						</#list>
 					</table>
 					</div>
 				</div>
