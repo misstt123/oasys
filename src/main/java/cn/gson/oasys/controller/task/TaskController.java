@@ -106,9 +106,9 @@ public class TaskController {
 			result.put("deptname", deptname);
 			list.add(result);
 		}
-		if(!StringUtil.isEmpty(request.getParameter("error"))){
+	/*	if(!StringUtil.isEmpty(request.getParameter("error"))){
 			model.addAttribute("error", request.getAttribute("error"));
-		}
+		}*/
 		model.addAttribute("tasklist", list);
 		return "task/taskmanage";
 	}
@@ -461,7 +461,9 @@ public class TaskController {
 			// 删除这条任务
 			tservice.deteletask(task);
 		}else{
-			req.setAttribute("error", "只能删除自己发布的任务！");
+			System.out.println("权限不匹配，不能删除");
+			return "redirect:/notlimit";
+
 		}
 
 
