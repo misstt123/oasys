@@ -25,29 +25,6 @@ a:hover {
     cursor: pointer;
 }
 </style>
-<script>
-	/* $(function(){
-		$("[name=isTop]:checkbox").click(function(){
-			console.log($(this).prop("checked"));
-			if($(this).prop("checked")){
-				$(this).val("1");
-			}else{
-				$(this).val("0");
-			}
-		})
-		
-		$("[name=isCancel]:checkbox").click(function(){
-			console.log($(this).prop("checked"));
-			console.log($("#recive_list").val());
-			if($(this).prop("checked")){
-				$(this).val("1");
-			}else{
-				$(this).val("0");
-			}
-		})
-	})
- */
-</script>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
 		<h1 style="font-size: 24px; margin: 0;" class="">任务管理</h1>
