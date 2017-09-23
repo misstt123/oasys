@@ -26,8 +26,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceService;
+import cn.gson.oasys.model.dao.system.StatusDao;
+import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.system.SystemStatusList;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
 
 
@@ -43,6 +47,11 @@ public class AttendceController {
 	AttendceService attendceService;
 	@Autowired
 	UserDao uDao;
+	@Autowired
+	TypeDao typeDao;
+	@Autowired
+	StatusDao statusDao;
+	
 	
 	List<Attends> alist;
 	List<User> uList;
@@ -57,6 +66,11 @@ public class AttendceController {
 		Long  userid=Long.valueOf( session.getAttribute("userId")+"");
 		User user=uDao.findOne(userid);
 		alist=attenceDao.findByUser(user);
+
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		System.out.println(alist);
 		request.setAttribute("alist", alist);
 		return "attendce/attendcelist";
@@ -66,6 +80,10 @@ public class AttendceController {
 	@RequestMapping("attendceatt")
 	public String testdasf(HttpServletRequest request){
 		alist=(List<Attends>) attenceDao.findAll();
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		request.setAttribute("alist", alist);
 		return "attendce/attendceview";
 	}
@@ -150,6 +168,10 @@ public class AttendceController {
 		model.addAttribute("write", 1);
 		model.addAttribute("attends", attends);
 		}
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
+		model.addAttribute("type", type);
+		model.addAttribute("status", status);
 		return "attendce/attendceedit";
 	}
 	
@@ -158,6 +180,10 @@ public class AttendceController {
 		long id= Long.valueOf(request.getParameter("id"));
 		Attends attends=attenceDao.findOne(id);
 		request.setAttribute("attends", attends);
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		return "attendce/attendceedit2";
 	}
 	

@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -27,6 +33,7 @@ public class Plan {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long planId; 
 	
+	
 	@Column(name="type_id")
 	private Long typeId; //类型id
 	
@@ -35,7 +42,7 @@ public class Plan {
 	
 	
 	@Column(name="attach_id")
-	private long attachId;   //附件id
+	private Long attachId;   //附件id
 	
 	@Column(name="start_time")
 	private Date startTime;   //开始时间
@@ -46,11 +53,14 @@ public class Plan {
 	@Column(name="create_time")
 	private Date createTime;   //记录创建时间
 	
+	@NotEmpty(message="标题输入框不能为空")
+	@Length(min=0,max=50)
 	private String title;   //标题
 	
 	private String label;   //标签
 	
 	@Column(name="plan_content")
+	@NotEmpty(message="计划输入框不能为空")
 	private String planContent;   //计划内容
 	
 	@Column(name="plan_summary")
@@ -68,14 +78,29 @@ public class Plan {
 	public Plan() {}
 
 	
-	
-	public long getAttachId() {
+	public Plan(Long typeId, Long statusId, long attachId, Date startTime, Date endTime, Date createTime, String title,
+			String label, String planContent, String planSummary, String planComment) {
+		super();
+		this.typeId = typeId;
+		this.statusId = statusId;
+		this.attachId = attachId;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.createTime = createTime;
+		this.title = title;
+		this.label = label;
+		this.planContent = planContent;
+		this.planSummary = planSummary;
+		this.planComment = planComment;
+	}
+
+	public Long getAttachId() {
 		return attachId;
 	}
 
 
 
-	public void setAttachId(long attachId) {
+	public void setAttachId(Long attachId) {
 		this.attachId = attachId;
 	}
 
