@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,12 +33,14 @@ import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.notedao.NoteService;
+import cn.gson.oasys.model.dao.plandao.PlanDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
@@ -66,7 +69,8 @@ public class NoteController {
 	private UserDao userDao;
 	@Autowired
 	private AttachmentDao attDao;
-	
+	@Autowired
+	private PlanDao planDao;
 	
 	Attachment att;
 	List<Note> noteList;
@@ -107,7 +111,7 @@ public class NoteController {
 		@RequestMapping(value="notesave",method=RequestMethod.POST)
 		public String testdfddf(@RequestParam("file") MultipartFile file,@Valid @RequestParam("title")String title,  HttpServletRequest request,HttpSession session) throws IllegalStateException, IOException{
 			Note note = null;
-			
+			Long attid=null;
 			Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 			User user=userDao.findOne(userid);
 			Long nid=Long.valueOf(request.getParameter("nid"));
@@ -122,8 +126,18 @@ public class NoteController {
 			String content=request.getParameter("content");
 			//nid为-1就是新建
 			if(nid==-1){
+				//判断文件是否为空
+				if(!file.isEmpty())
+					{
+					att =(Attachment) fs.savefile(file, user, null, false);
+				    attid=att.getAttachmentId();
+					}
+				else if(file.isEmpty())
+					attid=null;
+				
 			Attachment att =(Attachment) fs.savefile(file, user, null, false);
-			 note=new Note(title, content, catalogId, typeId, statusId, att.getAttachmentId(), new Date(),0l);
+			//0l表示新建的时候默认为没有收藏
+			 note=new Note(title, content, catalogId, typeId, statusId, attid, new Date(),0l);
 			}
 			//nid大于0就是修改某个对象
 			if(nid>0){
@@ -163,6 +177,10 @@ public class NoteController {
 		long typeid=Long.valueOf(id);
 		noteList =noteDao.findByTypeId(typeid);
 		System.out.println(noteList);
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		model.addAttribute("nlist", noteList);
 		return "note/notewrite";
 	}
@@ -240,14 +258,16 @@ public class NoteController {
 	@RequestMapping("down")
 	public void dsaf(HttpServletResponse response,
 			HttpServletRequest request){
-		if(request.getParameter("attrid")==null||request.getParameter("attrid")==""){
-		Long nid=Long.valueOf(request.getParameter("nid"));
-		Note note=noteDao.findOne(nid);
-		att=attDao.findByAttachmentId(note.getAttachId());
+		if(StringUtils.isEmpty(request.getParameter("paid"))||request.getParameter("paid")==null||request.getParameter("paid").length()==0){}
+		else {
+			Long paid=Long.valueOf(request.getParameter("paid"));
+			att=attDao.findByAttachmentId(paid);
 		}
-		if(request.getParameter("nid")==null||request.getParameter("nid")==""){
-		Long attrid=Long.valueOf(request.getParameter("attrid"));
-		att=attDao.findByAttachmentId(attrid);
+		if(StringUtils.isEmpty(request.getParameter("nid"))||request.getParameter("nid")==null||request.getParameter("nid").length()==0){}
+		else {
+			Long nid=Long.valueOf(request.getParameter("nid"));
+			Note note=noteDao.findOne(nid);
+			att=attDao.findByAttachmentId(note.getAttachId());
 		}
 		File file=fs.get(att);
 		System.out.println(file.getAbsolutePath());

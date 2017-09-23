@@ -42,7 +42,7 @@ public class Plan {
 	
 	
 	@Column(name="attach_id")
-	private long attachId;   //附件id
+	private Long attachId;   //附件id
 	
 	@Column(name="start_time")
 	private Date startTime;   //开始时间
@@ -78,12 +78,6 @@ public class Plan {
 	public Plan() {}
 
 	
-	
-	
-
-
-
-
 	public Plan(Long typeId, Long statusId, long attachId, Date startTime, Date endTime, Date createTime, String title,
 			String label, String planContent, String planSummary, String planComment) {
 		super();
@@ -100,20 +94,13 @@ public class Plan {
 		this.planComment = planComment;
 	}
 
-
-
-
-
-
-
-
-	public long getAttachId() {
+	public Long getAttachId() {
 		return attachId;
 	}
 
 
 
-	public void setAttachId(long attachId) {
+	public void setAttachId(Long attachId) {
 		this.attachId = attachId;
 	}
 

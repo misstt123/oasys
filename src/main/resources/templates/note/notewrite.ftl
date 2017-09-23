@@ -135,8 +135,11 @@ function somenotedelete(){
 										</span></td>
 										<td ><span>${note.title}</span></td>
 										<td><span>${note.createTime}</span></td>
-										<td><a style="color:#337ab7;"href="down?nid=${note.noteId}">
+										<td>
+										<#if note.attachId??>
+										<a style="color:#337ab7;"href="down?nid=${note.noteId}">
 										<span class="glyphicon glyphicon-paperclip"></span>
+										</#if>
 										</a>
 										</td>
 										<td>

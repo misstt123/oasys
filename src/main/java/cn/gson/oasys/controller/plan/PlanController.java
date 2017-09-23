@@ -1,16 +1,21 @@
 package cn.gson.oasys.controller.plan;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.DatagramSocketImplFactory;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +34,13 @@ import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.plandao.PlanDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
+import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.system.SystemMenu;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
@@ -56,6 +63,8 @@ public class PlanController {
 	FileServices fServices;
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	AttachmentDao attachmentDao;
 	
 	
 	List<Plan> pList;
@@ -78,6 +87,7 @@ public class PlanController {
 	public String test2(){
 		return "plan/plantable";
 	}
+	
 	//我的编辑
 		@RequestMapping("planedit")
 		public String test3(HttpServletRequest request,Model model){ 
@@ -97,7 +107,6 @@ public class PlanController {
 			}
 			else if(pid>0){
 				Plan plan=planDao.findOne(pid);
-				
 				model.addAttribute("plan", plan);
 				model.addAttribute("pid", pid);
 			}
@@ -106,7 +115,6 @@ public class PlanController {
 			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
 			model.addAttribute("type", type);
 			model.addAttribute("status", status);
-			
 			return "plan/planedit";
 		}
 	    
@@ -116,6 +124,8 @@ public class PlanController {
 		
 		@RequestMapping(value="plansave",method=RequestMethod.POST)
 		public String testMess(@RequestParam("file")MultipartFile file, HttpServletRequest req, @Valid Plan plan2, BindingResult br) throws IllegalStateException, IOException {
+			Attachment att = null;
+			Long attid=null; 
 			HttpSession session = req.getSession();
 			long userid=Long.valueOf(session.getAttribute("userId")+"");
 			User user=userDao.findOne(userid);
@@ -147,8 +157,16 @@ public class PlanController {
 				if (!StringUtils.isEmpty(session.getAttribute("getId"))) {
 					System.out.println("验证通过，进入狗太了");
 				}
-				Attachment att =(Attachment) fServices.savefile(file, user, null, false);
-				Plan plan=new Plan(typeid, statusid, att.getAttachmentId(), plan2.getStartTime(), plan2.getEndTime(), new Date(), 
+				//判断文件是否为空
+				if(!file.isEmpty())
+					{
+					att =(Attachment) fServices.savefile(file, user, null, false);
+				    attid=att.getAttachmentId();
+					}
+				else if(file.isEmpty())
+					attid=null;
+				
+				Plan plan=new Plan(typeid, statusid,attid,plan2.getStartTime(), plan2.getEndTime(), new Date(), 
 						plan2.getTitle(), plan2.getLabel(), plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary());
 				plan.setUser(user);
 				planDao.save(plan);
@@ -157,6 +175,6 @@ public class PlanController {
 			return "forward:/planedit";
 		}
 	
-	
+		
 
 }

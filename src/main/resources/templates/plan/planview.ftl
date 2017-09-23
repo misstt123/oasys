@@ -122,6 +122,7 @@
 												<th scope="col">发布人</th>
 												<th scope="col">部门</th>
 												<th scope="col" class="commen co">状态<span ></span></th>
+												<th scope="col">附件</th>
 												<th scope="col">操作</th>
 											</tr>
 											
@@ -152,6 +153,12 @@
 															 <#list status as s>
 																<#if plan.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
 															 </#list>
+														</td>
+														<td>
+															<#if plan.attachId??>
+																<a style="color:#337ab7;"href="down?paid=${plan.attachId}">
+																<span class="glyphicon glyphicon-paperclip"></span>
+															</#if>
 														</td>
 														<td>
 															<a  href="planedit?pid=${plan.planId}" class="label xiugai"><span class="glyphicon glyphicon-edit"></span> 修改</a>
