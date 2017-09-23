@@ -10,5 +10,11 @@ import org.springframework.data.repository.query.Param;
 public interface NoticeMapper {
 	
 	List<Map<String, Object>> findMyNotice(@Param("userId") Long userId);
+	
+	List<Map<String, Object>> findMyNoticeLimit(@Param("userId") Long userId);
+	
+	
+	
+	
  
 }

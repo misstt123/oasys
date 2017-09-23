@@ -24,6 +24,7 @@
 	</style>
 	</head>
 	<body>
+
 		<div class="row ">
 			<div class="col-md-12 ">
 				<div class="box box-primary ">
@@ -42,13 +43,17 @@
 						<div class="message">
 							<span>
 								${note.content}
+								<#if att??>
 								<div>
-									<img src="${att.attachmentPath}" />
+									<img src="" />
 								</div>
+								</#if>
 								<hr>
+								<#if att??>
 								<a href="down?attrid=${att.attachmentId}">
 									<span class="glyphicon glyphicon-paperclip">下载附件</span>
 								</a>
+								</#if>
 							</span>
 						</div>
 					</div>
