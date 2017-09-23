@@ -124,7 +124,6 @@ a:hover {
 <span class="error-medd" style="display:none;">${(error)!''}</span>
 <script>
 
-
    $(function(){
 	   $(".chazhao").click(function(){
 		   var con=$(".cha").val();
