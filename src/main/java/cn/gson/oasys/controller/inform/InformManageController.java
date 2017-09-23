@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -99,11 +100,28 @@ public class InformManageController {
 		NoticesList notice=informDao.findOne(noticeId);
 		if(userId!=notice.getUserId()){
 			System.out.println("权限不匹配，不能删除");
+			return "redirect:/notlimit";
 		}
 		System.out.println(noticeId);
-//		informService.deleteOne(noticeId);
+		informService.deleteOne(noticeId);
 		return "redirect:/infrommanage";
 		
+	}
+	
+	/**
+	 * 通知列表删除
+	 */
+	@RequestMapping("informlistdelete")
+	public String informListDelete(HttpServletRequest req,HttpSession session){
+		Long userId=Long.parseLong(session.getAttribute("userId")+"");
+		Long noticeId=Long.parseLong(req.getParameter("id"));
+		NoticeUserRelation relation=informrelationDao.findByUserIdAndNoticeId(uDao.findOne(userId), informDao.findOne(noticeId));
+		if(Objects.isNull(relation)){
+			System.out.println("权限不匹配，不能删除");
+			return "redirect:/notlimit";
+		}
+		informrelationservice.deleteOne(relation);
+		return "forward:/infromlist";
 	}
 	
 	/**
@@ -159,6 +177,14 @@ public class InformManageController {
 	@RequestMapping("informshow")
 	public String informShow(HttpServletRequest req,Model model){
 		Long noticeId=Long.parseLong(req.getParameter("id"));
+		if(!StringUtils.isEmpty(req.getParameter("read"))){
+			if(("0").equals(req.getParameter("read"))){
+				Long relationId=Long.parseLong(req.getParameter("relationid"));
+				NoticeUserRelation relation=informrelationDao.findOne(relationId);
+				relation.setRead(true);
+				informrelationservice.save(relation);
+			}
+		}
 		NoticesList notice=informDao.findOne(noticeId);
 		User user=uDao.findOne(notice.getUserId());
 		model.addAttribute("notice", notice);

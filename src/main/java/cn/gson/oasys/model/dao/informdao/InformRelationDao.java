@@ -18,4 +18,8 @@ public interface InformRelationDao extends PagingAndSortingRepository<NoticeUser
 	
 	//根据通知找到所有的通知联系表中的集合
 	List<NoticeUserRelation> findByNoticeId(NoticesList notice);
+	
+	//根据用户id和通知id找到唯一的对象
+	NoticeUserRelation findByUserIdAndNoticeId(User userId,NoticesList notice);
+	
 }

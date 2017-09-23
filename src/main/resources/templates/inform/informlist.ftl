@@ -11,15 +11,19 @@ a:hover {
 .bgc-w {
 	background-color: #fff;
 }
+.c{
+	font-weight: 600;
+}
+
 </style>
 
 	<div class="row" style="padding-top: 10px;">
 		<div class="col-md-2">
-			<h1 style="font-size: 24px; margin: 0;" class="">通知管理</h1>
+			<h1 style="font-size: 24px; margin: 0;" class="">通知列表</h1>
 		</div>
 		<div class="col-md-10 text-right">
 			<a href="index"><span class="glyphicon glyphicon-home"></span> 首页</a> >
-			<a disabled="disabled">通知管理</a>
+			<a disabled="disabled">通知列表</a>
 		</div>
 	</div>
 
@@ -59,12 +63,21 @@ a:hover {
 						</tr>
 						<#list list as this>
 							<tr>
+							<#if this.is_read==0>
+								<td class="c">${this.type}</td>
+								<td class="c"><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
+								<td class="c"><span>${(this.title)!''}</span></td>
+								<td class="c"><span>${this.notice_time}</span></td>
+								<td class="c"><span>${this.userName}</span></td>
+								<td class="c"><span>${this.deptName}</span></td>
+							<#else>
 								<td>${this.type}</td>
 								<td><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
 								<td><span>${(this.title)!''}</span></td>
 								<td><span>${this.notice_time}</span></td>
 								<td><span>${this.userName}</span></td>
 								<td><span>${this.deptName}</span></td>
+							</#if>
 								<#if this.is_top==1>
 									<td><span class="labels"><label><input type="checkbox" checked disabled><i>✓</i></label></span></td>
 								<#else>
@@ -75,10 +88,10 @@ a:hover {
 								<#else>
 									<td><span class="labels"></span></td>
 								</#if>
-								<td><a href="informshow?id=${this.notice_id}"
+								<td><a href="informshow?id=${this.notice_id}&read=${this.is_read}&relationid=${this.relatin_id}"
 									class="label xiugai"><span
 										class="glyphicon glyphicon-search"></span> 查看</a> 
-										<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href=""
+										<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href="informlistdelete?id=${this.notice_id}"
 									class="label shanchu"><span
 										class="glyphicon glyphicon-remove"></span> 删除</a>
 								</td>
