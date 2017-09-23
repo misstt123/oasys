@@ -115,30 +115,17 @@
 							<th>标题</th>
 							<th></th>
 						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin blueskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin yellowskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin redskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
+						<#list noticeList as notice>
+							<tr>
+								<td>${notice.deptName}</td>
+								<td>${notice.notice_time}</td>
+								<td><span class="label ${(notice.statusColor)!''}">${notice.status}</span></td>
+								<td><span>${(notice.title)!''}</span></td>
+								<td><a href="informshow?id=${notice.notice_id}&read=${notice.is_read}&relationid=${notice.relatin_id}" class="look-xiangxi"><span
+										class="glyphicon glyphicon-search"> </span> 查看 </a></td>
+							</tr>
+						</#list>
+						
 					</table>
 				</div>
 			</div>

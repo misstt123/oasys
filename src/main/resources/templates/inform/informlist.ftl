@@ -91,9 +91,13 @@ a:hover {
 								<td><a href="informshow?id=${this.notice_id}&read=${this.is_read}&relationid=${this.relatin_id}"
 									class="label xiugai"><span
 										class="glyphicon glyphicon-search"></span> 查看</a> 
+									<#if this.is_read==0>
+									
+										<#else>
 										<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href="informlistdelete?id=${this.notice_id}"
-									class="label shanchu"><span
-										class="glyphicon glyphicon-remove"></span> 删除</a>
+										class="label shanchu">
+										<span class="glyphicon glyphicon-remove"></span> 删除</a>
+									</#if>
 								</td>
 						</tr>
 						</#list>
