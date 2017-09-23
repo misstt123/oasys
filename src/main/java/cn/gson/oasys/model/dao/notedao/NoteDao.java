@@ -18,6 +18,9 @@ import cn.gson.oasys.model.entity.user.User;
 @Repository
 public interface NoteDao  extends PagingAndSortingRepository<Note, Long>{
 
+	@Query("FROM Note n WHERE  n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?1)")
+	List<Note> finduser(Long userid);
+	
 	@Query("update Note n set n.catalogId=?1,n.typeId=?2,n.statusId=?3,"
 			+ "n.title=?4,n.content=?5 where n.noteId=?6")
 	@Modifying
@@ -31,12 +34,12 @@ public interface NoteDao  extends PagingAndSortingRepository<Note, Long>{
 	@Query("from Note n where n.isCollected=?1")
 	List<Note> findByIsCollected  (long isCollected);
 	
-	@Query("from Note n where n.catalogId=?1")
-	List<Note> findByCatalogId(long catalogId);
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
+	List<Note> findByCatalogId(long catalogId,long userid);
 	
 	
-	@Query("from Note n where n.typeId=?1")
-	List<Note> findByTypeId(long typeId);
+	@Query("from Note n where n.typeId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
+	List<Note> findByTypeId(long typeId,long userid);
 	
 	@Query("from Note n where n.title like %?1% "
 			+ ""

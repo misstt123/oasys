@@ -73,8 +73,10 @@ public class PlanController {
 	
 	//计划管理
 	@RequestMapping("planview")
-	public String test(Model model){
-		pList=(List<Plan>) planDao.findAll();
+	public String test(Model model,HttpSession session){
+		Long userid=Long.valueOf(session.getAttribute("userId")+"");
+		User user=userDao.findOne(userid);
+		pList=(List<Plan>) planDao.findByUser(user);
 		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
 		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
 		model.addAttribute("type", type);
