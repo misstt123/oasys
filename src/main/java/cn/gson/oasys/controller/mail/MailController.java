@@ -2,7 +2,6 @@ package cn.gson.oasys.controller.mail;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -18,30 +17,45 @@ public class MailController {
 		return "mail/mail";
 	}
 	/**
-	 * 邮件管理
-	 * @return
+	 * 账号管理
 	 */
 	@RequestMapping("accountmanage")
-	public String accountManage(){
+	public String account(){
 		return "mail/mailmanage";
 	}
-	
 	/**
 	 * 新增账号
-	 * @return
 	 */
 	@RequestMapping("addaccount")
-	public String index2(){
-		return "mail/editaccountindex";
+	public String add(){
+		return "mail/editaccount";
 	}
 	
 	/**
-	 * 修改账号
-	 * 要传参数过来
+	 * 写信
 	 */
-	@RequestMapping("/editaccount")
-	public String editAccount(){
+	@RequestMapping("wmail")
+	public  String index2() {
 		
-		return "mail/editaccountindex";
+		return "mail/wirtemail";
 	}
+	
+	/**
+	 * 最近邮件
+	 */
+	@RequestMapping("amail")
+	public  String index3() {
+		
+		return "mail/allmail";
+	}
+	
+	/**
+	 * 查看邮件
+	 */
+	@RequestMapping("smail")
+	public  String index4() {
+		
+		return "mail/seemail";
+	}
+	
 }
