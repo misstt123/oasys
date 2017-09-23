@@ -121,12 +121,19 @@ a:hover {
 		</div>
 	</div>
 </div>
+<span class="error-medd" style="display:none;">${(error)!''}</span>
 <script>
 
    $(function(){
 	   $(".chazhao").click(function(){
 		   var con=$(".cha").val();
 		   $(".upda").load("chaxun",{title:con});
+	   });
+	   $(".error-medd").each(function(){
+		   if($(this).text()!=""){
+			   alert($(this).text());
+		   }
+		   
 	   });
    })
 </script>

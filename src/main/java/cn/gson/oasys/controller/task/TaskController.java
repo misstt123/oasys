@@ -74,7 +74,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("taskmanage")
-	public String index(HttpSession session, Model model) {
+	public String index(HttpSession session, Model model, HttpServletRequest request) {
 
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
@@ -105,6 +105,9 @@ public class TaskController {
 			result.put("username", username);
 			result.put("deptname", deptname);
 			list.add(result);
+		}
+		if(!StringUtil.isEmpty(request.getParameter("error"))){
+			model.addAttribute("error", request.getAttribute("error"));
 		}
 		model.addAttribute("tasklist", list);
 		return "task/taskmanage";
@@ -433,27 +436,36 @@ public class TaskController {
 	}
 
 	@RequestMapping("shanchu")
-	public String delete(HttpServletRequest req) {
+	public String delete(HttpServletRequest req, HttpSession session) {
+		// 获取用户id
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		
 		// 得到任务的 id
 		String taskid = req.getParameter("id");
+		
 		Long ltaskid = Long.parseLong(taskid);
 		// 根据任务id找出这条任务
 		Tasklist task = tdao.findOne(ltaskid);
-
-		// 删除日志表
-		tservice.detelelogger(ltaskid);
-		// 分割任务接收人 还要查找联系人的主键并删除接收人中间表
-		StringTokenizer st = new StringTokenizer(task.getReciverlist(), ";");
-		while (st.hasMoreElements()) {
-			User reciver = udao.findid(st.nextToken());
-			Long pkid = udao.findpkId(task.getTaskId(), reciver.getUserId());
-			tservice.delete(pkid);
-
+		if(task.getUsersId().getUserId().equals(userid)){
+			// 删除日志表
+			tservice.detelelogger(ltaskid);
+			// 分割任务接收人 还要查找联系人的主键并删除接收人中间表
+			StringTokenizer st = new StringTokenizer(task.getReciverlist(), ";");
+			while (st.hasMoreElements()) {
+				User reciver = udao.findid(st.nextToken());
+				Long pkid = udao.findpkId(task.getTaskId(), reciver.getUserId());
+				tservice.delete(pkid);
+				
+			}
+			// 删除这条任务
+			tservice.deteletask(task);
+		}else{
+			req.setAttribute("error", "只能删除自己发布的任务！");
 		}
-		// 删除这条任务
-		tservice.deteletask(task);
 
-		return "redirect:/taskmanage";
+
+		return "forword:/taskmanage";
 
 	}
 
