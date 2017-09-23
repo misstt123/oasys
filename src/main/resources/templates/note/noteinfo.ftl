@@ -42,13 +42,17 @@
 						<div class="message">
 							<span>
 								${note.content}
+								<#if att??>
 								<div>
 									<img src="${att.attachmentPath}" />
 								</div>
+								</#if>
 								<hr>
+								<#if att??>
 								<a href="down?attrid=${att.attachmentId}">
 									<span class="glyphicon glyphicon-paperclip">下载附件</span>
 								</a>
+								</#if>
 							</span>
 						</div>
 					</div>
