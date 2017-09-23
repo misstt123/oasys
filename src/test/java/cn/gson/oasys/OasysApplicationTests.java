@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.services.inform.InformService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class OasysApplicationTests {
 	
 	@Autowired
@@ -33,6 +33,15 @@ public class OasysApplicationTests {
 //		for (Map<String, Object> map : list) {
 //			System.out.println(map);
 //		}
+	}
+	
+	@Test
+	public void test() {
+		String path = "D:\\ggit\\oa_system\\src\\main\\resources\\static\\images\\touxiang\\a76be316-8ab5-43fe-bbcd-1bee51af4f57.PNG";
+		String savePath = path.replace("D:\\ggit\\oa_system\\src\\main\\resources\\static\\", "");
+		System.out.println(savePath);
+		
+		
 	}
 
 }

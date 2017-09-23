@@ -5,7 +5,6 @@
 	display: block;
 	width: 100px;
 	height: 100px;
-	margin-left: 83px;
 }
 
 .list-group li {
@@ -112,7 +111,7 @@ h1, h3 {
 				<#if user.imgPath?? && user.imgPath!=''  >
 				<img style="width: 110px;height: 110px;"
 					class="profile-user-img img-responsive img-circle"
-					src="${user.imgPath}" />
+					src="/image/${user.imgPath}" />
 				<#else>
 				<img style="width: 110px;height: 110px;"
 					class="profile-user-img img-responsive img-circle"
@@ -704,7 +703,7 @@ function alertCheck(errorMess){
  	
  	if (isRight == 0) {
  		//modalShow(0);
- 		 return true;
+ 		 return false;
  	} else if (isRight == 1) {
  		//modalShow(1);
  		 return true;

@@ -1,14 +1,21 @@
 package cn.gson.oasys.controller.user;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
@@ -42,10 +50,6 @@ public class UserpanelController {
 	@Autowired
 	private UserDao udao;
 	
-	
-	@Value("${img.rootpath}")
-	private String rootpath;
-	
 	@Autowired
 	private DeptDao ddao;
 	@Autowired
@@ -58,6 +62,9 @@ public class UserpanelController {
 	private NotepaperDao ndao;
 	@Autowired
 	private NotepaperService nservice;
+	
+	@Value("${img.rootpath}")
+	private String rootpath;
 	
 	@RequestMapping("userpanel")
 	public String index(HttpSession session,Model model,HttpServletRequest req){
@@ -133,15 +140,12 @@ public class UserpanelController {
 	}
 	/**
 	 * 修改用户
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("saveuser")
-	public String saveemp(/*@RequestParam("filePath")CommonsMultipartFile filePath,*/HttpServletRequest request,@Valid User user,BindingResult br,HttpSession session){
-		/*String fileName=filePath.getOriginalFilename();
-		
-		String suffix=FilenameUtils.getExtension(fileName);
-		
-		String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + suffix;
-		System.out.println(newFileName);*/
+	public String saveemp(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest request,@Valid User user,BindingResult br,HttpSession session) throws IllegalStateException, IOException{
+		String imgpath=nservice.upload(filePath);
 		
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
@@ -164,10 +168,11 @@ public class UserpanelController {
 		if(!StringUtil.isEmpty(user.getPassword())){
 			users.setPassword(user.getPassword());
 		}
-		if(!StringUtil.isEmpty(user.getImgPath())){
-			users.setImgPath(user.getImgPath());
+		if(!StringUtil.isEmpty(imgpath)){
+			users.setImgPath(imgpath);
 			
 		}
+		
 		request.setAttribute("users", users);
 		
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
@@ -181,10 +186,30 @@ public class UserpanelController {
 			System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
 			
 		}else{
-			
+			udao.save(users);
 			request.setAttribute("success", "执行成功！");
 		}
 		return "forward:/userpanel";
 		
 	}
+	@RequestMapping("image/**")
+	public void image(Model model, HttpServletResponse response, HttpSession session, HttpServletRequest request)
+			throws IOException {
+
+		String startpath = new String(URLDecoder.decode(request.getRequestURI(), "utf-8"));
+		System.out.println(startpath);
+		String path = startpath.replace("/image", "");
+		System.out.println(path);
+		File f = new File(rootpath, path);
+		System.out.println(f.getAbsolutePath());
+		ServletOutputStream sos = response.getOutputStream();
+		FileInputStream input = new FileInputStream(f.getPath());
+		byte[] data = new byte[(int) f.length()];
+		IOUtils.readFully(input, data);
+		// 将文件流输出到浏览器
+		IOUtils.write(data, sos);
+		input.close();
+		sos.close();
+	}
+
 }
