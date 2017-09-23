@@ -17,12 +17,20 @@ public class InformRelationService {
 	@Autowired
 	private InformRelationDao informRelationdao;
 	
+	//保存一个对象
 	public NoticeUserRelation save(NoticeUserRelation noticeRelation){
 		return informRelationdao.save(noticeRelation);
 	}
 	
+	//保存多个
 	public List<NoticeUserRelation> saves(List<NoticeUserRelation> noticeUser){
 		return (List<NoticeUserRelation>) informRelationdao.save(noticeUser);
 	}
+	
+	//删除一个中间表
+	public void deleteOne(NoticeUserRelation noticeRelation){
+		informRelationdao.delete(noticeRelation);
+	}
+	
 
 }

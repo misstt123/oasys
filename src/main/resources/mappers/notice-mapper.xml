@@ -4,12 +4,10 @@
 <mapper namespace="cn.gson.oasys.mappers.NoticeMapper">
 
 	<select id="findMyNotice" resultType="java.util.Map">
-		SELECT
-		aoa_notice_list.*,aoa_notice_user_relation.* FROM aoa_notice_list LEFT
-		JOIN aoa_notice_user_relation ON
-		aoa_notice_list.notice_id=aoa_notice_user_relation.relatin_notice_id
-		WHERE aoa_notice_user_relation.relatin_user_id=#{userId} ORDER BY is_top DESC
-		,modify_time DESC
+		SELECT n.*,u.* FROM
+		aoa_notice_list AS n LEFT JOIN aoa_notice_user_relation AS u ON
+		n.notice_id=u.relatin_notice_id WHERE u.relatin_user_id=1 ORDER BY
+		n.is_top DESC,u.is_read ASC ,n.modify_time DESC
 	</select>
 
 </mapper>

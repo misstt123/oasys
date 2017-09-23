@@ -120,16 +120,14 @@
 
 
 .shanchu {
-	color: #d9534f;
-}
-
-.shanchu:visited {
 	color: #d9534f !important;
 }
+
 .shanchu:hover {
 	background-color: #d9534f;
 	color: #fff !important;
 }
+
 
 .xinzeng {
 	color: #5cb85c;

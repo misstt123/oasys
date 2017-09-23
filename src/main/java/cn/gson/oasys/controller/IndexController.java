@@ -42,6 +42,11 @@ public class IndexController {
 	public String test4(){
 		return "mail/editaccount";
 	}
+	
+	@RequestMapping("notlimit")
+	public String notLimit(){
+		return "common/notlimit";
+	}
 //	测试系统管理
 	
 	
