@@ -256,7 +256,7 @@ function check() {
 	});
 	if (isRight == 0) {
 		//modalShow(0);
-		 return true;
+		 return false;
 	} else if (isRight == 1) {
 		//modalShow(1);
 		 return true;

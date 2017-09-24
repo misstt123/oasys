@@ -7,56 +7,10 @@
 <#include "/common/commoncss.ftl">
 <link href="css/common/checkbox.css" rel="stylesheet" />
 <link href="css/common/iconfont.css" rel="stylesheet" />
+<link href="css/attendce/monthtable.css" rel="stylesheet"/>
 <script type="text/javascript" src="js/iconfont.js"></script> 
 <script	type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="js/attendce/monthtable.js"></script>
-<style>
-.box {
-	position: relative;
-	border-radius: 3px;
-	background: #ffffff;
-	border-top: 3px solid #d2d6de;
-	margin-bottom: 20px;
-	width: 100%;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	cursor: pointer;
-	margin-top: 10px !important;
-	
-}
-
-.label-back {
-	background-color: #6C7B8B;
-	color: white;
-}
-
-.label {
-	display: inline;
-	padding: .2em .6em .3em;
-	font-size: 75%;
-	line-height: 1;
-	white-space: nowrap;
-	border-radius: .25em;
-	margin-left: 10px;
-}
-
-.label-back:hover {
-	color: white !important;
-}
-
-.box-header {
-	color: #444;
-	display: block;
-	padding: 10px;
-	position: relative;
-	font-size: 18px;
-}
-
-   #month{
-  font-size: 18px;
-  margin-left:10px;
-  }
-</style>
-<title></title>
 </head>
 <body>
 	<div class="row" style="padding-top: 10px">
