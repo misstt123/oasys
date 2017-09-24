@@ -6,13 +6,20 @@ $(function(){
 					var $color=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
 					//切换img
 					$("#img").appendTo(".mm span");
+					var $val=$(this).text();
+					$(".update").load("mailpaixu",{val:$val});
 				
-				})
+				});
+				
+				$(".chazhao").click(function(){
+					   var con=$(".cha").val();
+					   $(".update").load("serach",{title:con});
+				   });
 				
 				/**
 				 * 根据不同的内容，显示不同的颜色
 				 */
-				$(".change-color").each(function(){
+				/*$(".change-color").each(function(){
 					var $val=$(this).text();
 					if($val=="有效"){
 						$(this).addClass("label-success");
@@ -20,5 +27,5 @@ $(function(){
 						$(this).css("background-color","#9E9E9E");
 					}
 					
-				})
+				})*/
 			})

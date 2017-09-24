@@ -98,8 +98,7 @@ $(function(){
 	           	
 	           	
 	           	$(".top .btn").click(function() {
-
-					var $this = $('.top .btn .glyphicon ');
+	           		var $this = $('.top .btn .glyphicon ');
 					if($this.hasClass("glyphicon-chevron-down")) {
 						$this.removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 					} else {

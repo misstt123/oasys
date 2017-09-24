@@ -1,8 +1,5 @@
-<#include "/common/commoncss.ftl"> <script
-	type="text/javascript" src="js/mail/mail.js"></script>
-<link rel="stylesheet" href="css/mail/mail.css" />
 
-<div class="col-md-9 yuan">
+<div class="yuan">
 	<div class="bgc-w box box-primary">
 		<!--盒子头-->
 		<div class="box-header">
@@ -60,7 +57,7 @@
 						<td>
 							<div class="label label-info">一般</div>
 						</td>
-						<td><a href="smail" class="label xiugai lab"><span
+						<td><a href="##" class="label xiugai lab"><span
 								class="glyphicon glyphicon-search"></span> 查看</a></td>
 					</tr>
 					<tr>
@@ -76,7 +73,7 @@
 						<td>
 							<div class="label label-info">一般</div>
 						</td>
-						<td><a title="查看" href="##" class="label xiugai lab"><span
+						<td><a  href="##" class="label xiugai lab " ><span
 								class="glyphicon glyphicon-search"></span> 查看</a></td>
 					</tr>
 				</table>

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="css/mail/seemail.css" />
 <script type="text/javascript" src="js/common/iconfont.js"></script> 
 <link rel="stylesheet" href="css/common/iconfont.css" />
-<div class="see">
+<div class="col-md-12 see">
 	<label class="font">查看</label>
 
 	<div class="page-header"></div>
@@ -35,7 +35,7 @@
 
 	<div class="box-footer foots">
 		<a class="btn btn-default fault fa-back"
-			href="javascript:history.back();"><span
+			href="##"><span
 			class="glyphicon glyphicon-chevron-left"></span> 返回</a>
 		<div class="pull-right foot">
 			<a class="btn btn-default fault"><span

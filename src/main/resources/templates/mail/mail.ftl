@@ -1,16 +1,14 @@
 
 <#include "/common/commoncss.ftl"> 
 <script type="text/javascript" src="js/common/iconfont.js"></script> 
-<script type="text/javascript" src="js/mail/mail.js"></script>
-<link rel="stylesheet" href="css/common/iconfont.css" />
-<link rel="stylesheet" href="css/common/checkbox.css" />
+<script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="js/mail/mail.js" ></script>
+<link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <link rel="stylesheet" href="css/mail/mail.css" />
-<script>
-	function changepath(path){
-		$('iframe').attr('src',path);
-	}
-	
-</script>
+<link rel="stylesheet" href="css/common/iconfont.css" />
+
+
 
 
 <div class="row" style="padding-top: 10px;">
@@ -24,7 +22,7 @@
 </div>
 <div class="row" style="padding-top: 15px;">
 	<div class="col-md-3">
-		<a class="btn btn-primary write" href="javascript:changepath('wmail');"
+		<a class="btn btn-primary write"
 			style="width: 100%; margin-bottom: 20px;"> <span
 			class="glyphicon glyphicon-pencil"></span> 写信
 		</a>
@@ -36,11 +34,11 @@
 				</span>
 			</div>
 			<ul class="nav nav-pills nav-stacked files ">
-				<li style="border-left: 3px solid blue;" onclick="javascript:changepath('amail');"><span
+				<li style="border-left: 3px solid blue;" class="getmail"><span
 					class="glyphicon glyphicon-inbox le"> 收件箱</span> <span
 					class="pull-right uncheck"><i class="btn btn-xs btn-primary">1</i></span>
 				</li>
-				<li><span class="glyphicon glyphicon-envelope le"> 发件箱</span> <span
+				<li class="setmail"><span class="glyphicon glyphicon-envelope le"> 发件箱</span> <span
 					class="pull-right uncheck"><i class="btn btn-xs btn-primary">1</i></span>
 				</li>
 				<li><span class="glyphicon glyphicon-list-alt le"> 草稿箱</span></li>
@@ -70,7 +68,30 @@
 		</div>
 	</div>
 	<div class="col-md-9 set ">
-		<iframe src="three" frameBorder="0" width="100%" height="790px"></iframe>
+		<#include "/mail/allmail.ftl">
+		
 	</div>
 </div>
-
+<script>
+	$(function(){
+		$('.getmail').on('click',function(){
+			$('.set').load('amail');
+		});	
+		$('.setmail').on('click',function(){
+			$('.set').load('amail');
+		});
+		$('.getmail').on('click',function(){
+			$('.set').load('amail');
+		});
+		$('.write').on('click',function(){
+			$('.set').load('wmail');
+		});
+		$('.lab').on('click',function(){
+			$('.set').load('smail');
+		});
+		
+		$('.fa-back').on('click',function(){
+			$('.set').load('amail');
+		});
+	});
+</script>

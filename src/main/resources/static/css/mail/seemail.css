@@ -9,11 +9,15 @@
 				border: 0px solid red;
 				min-height: 273px;
 				max-width:913px;
-				margin-top: -20px;
+				
 				background-color: #FFFFFF;
 				border-radius: 5px;
 				border-top: #337ab7 solid blue;
 				
+			}
+			.des{
+				border:none;
+				color:#9e9e9e;
 			}
 			
 			.page-header {
@@ -58,9 +62,9 @@
 				color: #444;
 				font-size: 18px;
 				display: block;
-				margin-top: 20px;
+				margin-top: 15px;
 				margin-left: 10px;
-				padding-top: 14px;
+			
 			}
 			.fault{
 				background-color: #eee;
