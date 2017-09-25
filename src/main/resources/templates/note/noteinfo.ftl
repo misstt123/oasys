@@ -24,6 +24,7 @@
 	</style>
 	</head>
 	<body>
+
 		<div class="row ">
 			<div class="col-md-12 ">
 				<div class="box box-primary ">
@@ -35,20 +36,24 @@
 							<h3>${note.title}</h3>
 							
 							<h5 class="little">
-								<span >创建：</span>
+								<span >创建：${user.userName}</span>
 								<span class="pull-right">时间:${note.createTime}</span>
 							</h5>
 						</div>
 						<div class="message">
 							<span>
 								${note.content}
+								<#if att??>
 								<div>
-									<img src="${att.attachmentPath}" />
+									<img src="" />
 								</div>
+								</#if>
 								<hr>
+								<#if att??>
 								<a href="down?attrid=${att.attachmentId}">
 									<span class="glyphicon glyphicon-paperclip">下载附件</span>
 								</a>
+								</#if>
 							</span>
 						</div>
 					</div>

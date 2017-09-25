@@ -143,9 +143,9 @@ textarea {
 			<div class="form-group">
 				<select name="type" id="ctl00_cphMain_ddlType"
 					class="form-control select2">
-					<option  ${(note?? && note.typeId?number == 5)?string('selected', '')} >我的笔记</option>
-					<option  ${(note?? && note.typeId?number == 6)?string('selected', '')}>公司笔记</option>
-					<option  ${(note?? && note.typeId?number == 7)?string('selected', '')}>共享笔记</option>
+					<#list type as t>
+						<option ${(note??&&note.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+					</#list>
 				</select>
 			</div>
 
@@ -166,8 +166,9 @@ textarea {
 			<div class="form-group">
 				<select name="status"
 					id="ctl00_cphMain_ddlImportance" class="form-control select2">
-					<option  ${(note?? && note.statusId?number==8)?string('selected','')}>一般</option>
-					<option  ${(note?? && note.statusId?number==9)?string('selected','')}>重要</option>
+					  <#list status as s>
+						<option ${(note??&&note.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
+					  </#list>
 				</select>
 			</div>
 			<div class="form-group">

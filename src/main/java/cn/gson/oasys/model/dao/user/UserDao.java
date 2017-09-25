@@ -20,6 +20,10 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>{
 	@Query("select tu.pkId from Taskuser tu where tu.taskId.taskId=:taskid and tu.userId.userId=:userid")
 	Long findpkId(@Param("taskid")Long taskid,@Param("userid")Long userid);
 	
+	//根据名字找用户
+	User findByUserName(String title);
+	
+	
 	
 	
 }

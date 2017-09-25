@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.note.Note;
@@ -32,34 +36,45 @@ public class User {
 	private Long userId;		//用户id
 	
 	@Column(name="user_name")
+	@NotEmpty(message="用户名不能为空")
 	private String userName;	//登录用户名
 	
 	@Column(name="user_tel")
+	@NotEmpty(message="电话不能为空")
+	@Pattern(regexp="^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="请填写正确手机号")
 	private String userTel;		//用户电话
 	
 	@Column(name="real_name")
+	@NotEmpty(message="真实姓名不能为空")
 	private String realName;    //真实姓名
 	
+	@NotEmpty(message="邮箱不能为空")
+	@Pattern(regexp="^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$",message="请填写正确邮箱号")
 	private String eamil;		//邮件
 	
+	@NotEmpty(message="地址不能为空")
 	private String address;		//地址
 	
 	@Column(name="user_edu")
+	@NotEmpty(message="学历不能为空")
 	private String userEdu;		//用户学历
 	
 	@Column(name="user_school")
+	@NotEmpty(message="毕业院校不能为空")
 	private String school;		//学校
 	
 	@Column(name="user_idcard")
+	@Pattern(regexp="^(\\d{6})(19|20)(\\d{2})(1[0-2]|0[1-9])(0[1-9]|[1-2][0-9]|3[0-1])(\\d{3})(\\d|X|x)?$",message="请填写正确身份证号")
 	private String idCard;		//用户身份证
 	
+	@NotEmpty(message="卡号不能为空")
+	@Length(min=16, max=19,message="银行卡号长度必须在16到19之间!")
 	private String bank;		//银行
 	
 	private String sex;			//性别
 	
 	@Column(name="theme_skin")
 	private String themeSkin;	//主题皮肤
-	
 	
 	private Date birth;			//生日
 	

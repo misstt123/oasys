@@ -95,7 +95,7 @@
 			<!--id="container"-->
 			<div class="bgc-w box box-primary">
 					<div class="box-header">
-						<a class="label label-success" href="planedit?pid=1"><span class="glyphicon glyphicon-plus"></span>
+						<a class="label label-success" href="planedit?pid=-1"><span class="glyphicon glyphicon-plus"></span>
 							新增
 						</a>
 						
@@ -122,6 +122,7 @@
 												<th scope="col">发布人</th>
 												<th scope="col">部门</th>
 												<th scope="col" class="commen co">状态<span ></span></th>
+												<th scope="col">附件</th>
 												<th scope="col">操作</th>
 											</tr>
 											
@@ -129,19 +130,15 @@
 												<#list plist as plan>
 													<tr>
 														<td>
-															<#if plan.typeId==13>
-																日计划
-															</#if>
-															<#if plan.typeId==14>
-																周计划
-															</#if>
-															<#if plan.typeId==15>
-																月计划
-															</#if>
+															<#list type as t>
+																<#if plan.typeId==t.typeId>${t.typeName}</#if>
+															</#list>
 														</td>
 														
 														<td >
+															<#if plan.label??>
 															【${plan.label}】${plan.title}
+															</#if>
 														</td>
 														<td>
 															${plan.createTime}
@@ -153,18 +150,18 @@
 															${plan.user.dept.deptName}
 														</td>
 														<td>
-														、	<#if plan.statusId==17>
-															<span class="label label-info">未完成</span>
-															</#if>
-															<#if plan.statusId==18>
-															<span class="label label-info">已取消</span>
-															</#if>
-															<#if plan.statusId==19>
-															<span class="label label-success">已完成</span>
+															 <#list status as s>
+																<#if plan.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
+															 </#list>
+														</td>
+														<td>
+															<#if plan.attachId??>
+																<a style="color:#337ab7;"href="down?paid=${plan.attachId}">
+																<span class="glyphicon glyphicon-paperclip"></span>
 															</#if>
 														</td>
 														<td>
-															<a  href="##" class="label xiugai"><span class="glyphicon glyphicon-edit"></span> 修改</a>
+															<a  href="planedit?pid=${plan.planId}" class="label xiugai"><span class="glyphicon glyphicon-edit"></span> 修改</a>
 															<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href="" class="label shanchu"><span class="glyphicon glyphicon-remove"></span> 删除</a>
 														</td>
 											       </tr>

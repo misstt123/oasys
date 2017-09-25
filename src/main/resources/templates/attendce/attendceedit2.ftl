@@ -81,8 +81,9 @@
 							<span>类型</span>
 						</label>
 						<select class="form-control atttype" >
-							<option ${(attends?? && attends.typeId?number==8)?string('selected','')}>上班</option>
-							<option ${(attends?? && attends.typeId?number==9)?string('selected','')}>下班</option>
+							<#list type as t>
+								<option ${(attends??&&attends.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+							</#list>
 						</select>
 					</div>
 					
@@ -99,10 +100,9 @@
 							<span>状态</span>
 						</label>
 						<select class="form-control " >
-							<option ${(attends?? && attends.statusId?number==10)?string('selected','')}>正常</option>
-							<option ${(attends?? && attends.statusId?number==11)?string('selected','')}>迟到</option>
-							<option ${(attends?? && attends.statusId?number==12)?string('selected','')}>早退</option>
-							<option ${(attends?? && attends.statusId?number==13)?string('selected','')}>旷工</option>
+							  <#list status as s>
+								<option ${(attends??&&attends.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
+							</#list>
 						</select>
 					</div>
 				</div>

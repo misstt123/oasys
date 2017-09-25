@@ -59,7 +59,8 @@ a:hover {
 
 						<div class="col-md-6 form-group">
 							<label class="control-label">名称</label> 
-							<input name="accountName" type="text" id="account_Name" class="form-control" />
+							<input name="accountName" type="text" id="account_Name" class="form-control" 
+							readonly="readonly" style="background-color:#fff;"/>
 						</div>
 						<div class="col-md-6 form-group">
 							<label class="control-label">发件昵称</label>

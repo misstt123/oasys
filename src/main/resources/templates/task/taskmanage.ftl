@@ -121,6 +121,7 @@ a:hover {
 		</div>
 	</div>
 </div>
+
 <script>
 
    $(function(){
@@ -128,6 +129,7 @@ a:hover {
 		   var con=$(".cha").val();
 		   $(".upda").load("chaxun",{title:con});
 	   });
+	  
    })
 </script>
 

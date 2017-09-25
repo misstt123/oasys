@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import cn.gson.oasys.model.entity.user.User;
 
 @Entity
@@ -36,6 +38,8 @@ public class Notepaper {
 	
 	@ManyToOne
 	@JoinColumn(name="notepaper_user_id")
+	//demo
+	@JsonIgnore
 	private User userId;				//编写便签的用户
 	
 	@Column(name="create_time")

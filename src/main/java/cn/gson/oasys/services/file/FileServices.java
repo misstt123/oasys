@@ -119,7 +119,7 @@ public class FileServices {
 		}else{
 			Attachment attachment=new Attachment();
 			attachment.setAttachmentName(file.getOriginalFilename());
-			attachment.setAttachmentPath(targetFile.getAbsolutePath());
+			attachment.setAttachmentPath(targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
 			attachment.setAttachmentShuffix(shuffix);
 			attachment.setAttachmentSize(file.getSize());
 			attachment.setAttachmentType(file.getContentType());
@@ -150,7 +150,7 @@ public class FileServices {
 		
 		
 		return AttachService.updateatt(file.getOriginalFilename(),
-				targetFile.getAbsolutePath(), shuffix, file.getSize(),
+				targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""), shuffix, file.getSize(),
 			    file.getContentType(), new Date(), attid);
 		}
 		return 0;
@@ -272,7 +272,7 @@ public class FileServices {
 	 * @return
 	 */
 	public File get(Attachment att) {
-		return new File(att.getAttachmentPath());
+		return new File(this.rootPath+att.getAttachmentPath());
 	}
 	
 	public Attachment get(String filePath) {

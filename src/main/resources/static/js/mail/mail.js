@@ -98,8 +98,7 @@ $(function(){
 	           	
 	           	
 	           	$(".top .btn").click(function() {
-
-					var $this = $('.top .btn .glyphicon ');
+	           		var $this = $('.top .btn .glyphicon ');
 					if($this.hasClass("glyphicon-chevron-down")) {
 						$this.removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 					} else {
@@ -112,10 +111,10 @@ $(function(){
 				$("#ctl00_cphMain_ddlAccount").change(function() {
 					var options = $("#ctl00_cphMain_ddlAccount option:selected");
 					if(options.val() != "0") {
-						$("#ctl00_cphMain_txtReceiver").removeAttr("disabled");
+						$("#ctl00_cphMain_txtReceiver").removeAttr("readonly");
 
 					} else {
-						$("#ctl00_cphMain_txtReceiver").attr("disabled", true);
+						$("#ctl00_cphMain_txtReceiver").attr("readonly", true);
 						
 					}
 				});
@@ -142,7 +141,7 @@ $(function(){
 	           			if($("#checkedAll").is(':checked')){
 	           				/*$(this).prop("checked","checked");*/
 	           				$(this).prop("checked",!$(this).attr("checked"));
-	           				console.log(!$(this).attr("checked"))
+	           				
 	           			}else{
 	           				$(this).removeAttr("checked");
 	           			}
@@ -152,7 +151,7 @@ $(function(){
 	          
 		})
 
-var editor;
+			var editor;
 			KindEditor.ready(function(K) {
 				editor = K.create('textarea[name="content"]', {
 					allowFileManager: true
