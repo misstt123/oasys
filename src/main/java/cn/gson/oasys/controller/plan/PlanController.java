@@ -1,12 +1,19 @@
 package cn.gson.oasys.controller.plan;
 
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.DatagramSocketImplFactory;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 import javax.servlet.ServletOutputStream;
@@ -73,6 +80,7 @@ public class PlanController {
 	
 	
 	List<Plan> pList;
+	List<User> uList;
 	Logger log=LoggerFactory.getLogger(getClass());
 	//格式转化导入
 	DefaultConversionService service=new DefaultConversionService();
@@ -91,12 +99,60 @@ public class PlanController {
 	}
 	//计划报表
 	@RequestMapping("myplan")
-	public String test2(HttpServletRequest request){
-		String  starttime= request.getParameter("starttime");
-		String endtime=request.getParameter("endtime");
-		
+	public String test2(){
 		return "plan/plantable";
 	}
+	
+	//真正的报表
+		@RequestMapping("realplantable")
+		public String test23(HttpServletRequest request, Model model){
+			List<Plan> plans = new ArrayList<>();
+			//利用set过滤掉重复的plan_user_id 因为set不能重复
+			Set<Long> number=new HashSet();
+			Plan  plan2;
+			service.addConverter(new StringtoDate());
+			String  starttime= request.getParameter("starttime");
+			String endtime=request.getParameter("endtime");
+			Date start=service.convert(starttime, Date.class);
+			Date end=service.convert(endtime, Date.class);
+			pList= (List<Plan>) planDao.findAll();
+			uList= (List<User>) userDao.findAll();
+			for (Plan plan : pList) {
+				number.add(plan.getUser().getUserId());
+			}
+			//找到相对应的计划记录
+			for (Long num: number) {
+				plan2=planDao.findlatest(start, end,num);
+				if(plan2!=null)
+				plans.add(plan2);
+			}
+//			System.out.println(plans);
+			//将用户名和list绑定在一起
+			Map<String,Plan> uMap=new HashMap<>();
+			 for (User user : uList) {
+				 for (Plan plan : plans) {
+					if(user.getUserId()==plan.getUser().getUserId()){
+						System.out.println(plan.getUser().getUserId());
+						 uMap.put(user.getUserName(), plan);
+						 break;
+						 }
+					else{
+						uMap.put(user.getUserName(), null);
+					}
+				}
+	    	}
+	    
+			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+			System.out.println(uMap);
+			model.addAttribute("uMap", uMap);
+			model.addAttribute("type", type);
+			model.addAttribute("status", status);
+			model.addAttribute("plist", pList);
+			model.addAttribute("ulist", uList);
+			model.addAttribute("plans", plans);
+			return "plan/realplantable";
+		}
 	
 	//我的编辑
 		@RequestMapping("planedit")
@@ -128,6 +184,10 @@ public class PlanController {
 			return "plan/planedit";
 		}
 	    
+		//修改评论
+//		@RequestMapping("comment")
+//		public 
+		
 		
 		@RequestMapping(value="plansave",method=RequestMethod.GET)
 		public void Datagr(){}

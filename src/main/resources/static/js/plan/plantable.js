@@ -69,7 +69,7 @@ function change(days){
 function convert(starttime,endtime){
 	$.ajax({
 		type:"get",
-		url:"myplan",
+		url:"realplantable",
 		 data:{
 			 starttime:starttime,
 			 endtime:endtime
@@ -150,7 +150,6 @@ $(function(){
 			 //赋值3让'上一个'按钮知道这是谁
 			 choose=3;
 			 convert(startday,endday)
-			 
 	 })
 	 
 	//上一个

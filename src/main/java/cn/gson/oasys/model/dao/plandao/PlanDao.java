@@ -24,4 +24,7 @@ public interface PlanDao  extends PagingAndSortingRepository<Plan, Long>{
 	Integer updatesome(long typeId,long statusId,Date startTime,Date endTime,
 			String title,String label,String planContent,String planSummary,long pid);
 	
+	
+	@Query(nativeQuery=true,value="SELECT * from aoa_plan_list p WHERE p.create_time>?1 and p.create_time<?2 and p.plan_user_id=?3 ORDER BY p.create_time DESC limit 0,1")
+	Plan findlatest(Date start,Date end,long id);
 }
