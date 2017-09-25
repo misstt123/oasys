@@ -17,8 +17,10 @@ maximum-scale=1, user-scalable=no">
 	}
 	
 </script>
+<#include "/common/iosstyle.ftl">
 </head>
 <body>
+
 	<div class="main">
 		<div class="container-fluid">
 			<div class="row">

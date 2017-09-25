@@ -1,19 +1,14 @@
 package cn.gson.oasys.controller.note;
 
-
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+	
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,14 +32,12 @@ import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.notedao.NoteService;
-import cn.gson.oasys.model.dao.plandao.PlanDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;
-import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
@@ -73,8 +66,6 @@ public class NoteController {
 	private UserDao userDao;
 	@Autowired
 	private AttachmentDao attDao;
-	@Autowired
-	private PlanDao planDao;
 	
 	Attachment att;
 	List<Note> noteList;
