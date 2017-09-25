@@ -42,9 +42,9 @@ public interface NoteDao  extends PagingAndSortingRepository<Note, Long>{
 	List<Note> findByTypeId(long typeId,long userid);
 	
 	@Query("from Note n where n.title like %?1% "
-			+ ""
+			+ "and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)"
 			+ "")
-	List<Note> findBytitle(String title);
+	List<Note> findBytitle(String title,long userid);
 	
 	
 	

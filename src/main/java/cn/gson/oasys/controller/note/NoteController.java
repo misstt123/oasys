@@ -73,16 +73,21 @@ public class NoteController {
     
 	//收藏查询
 		@RequestMapping("collectfind")
-		public String dsafdsf(Model model,HttpServletRequest request,@RequestParam("iscollect")String iscollected){
+		public String dsafdsf(Model model,HttpServletRequest request,@RequestParam("iscollect")String iscollected,HttpSession session){
+			Long userid=Long.valueOf(session.getAttribute("userId")+"");			
 			long collect=Long.valueOf(iscollected);
 			if(collect==1){
 			noteList=noteDao.findByIsCollected(collect);
 			model.addAttribute("collect", 0);
 			}
 			else if(collect==0){
-				noteList=(List<Note>) noteDao.findAll();
+				noteList=(List<Note>) noteDao.finduser(userid);
 				model.addAttribute("collect", 1);
 			}
+			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+			request.setAttribute("type", type);
+			request.setAttribute("status", status);
 			model.addAttribute("nlist", noteList);
 			return "note/notewrite";
 		}
@@ -139,8 +144,18 @@ public class NoteController {
 			//nid大于0就是修改某个对象
 			if(nid>0){
 				note=noteDao.findOne(nid);
+				if(!file.isEmpty())
+				{
+				att =(Attachment) fs.savefile(file, user, null, false);
+			    attid=att.getAttachmentId();
+			    note.setAttachId(attid);
+			    noteDao.save(note);
+			    }
+				
+				if(note.getAttachId()!=null)
 				fs.updateatt(file, user, null, note.getAttachId());
 				NoteService.updatenote(catalogId, typeId, statusId, title, content, nid);
+				
 			}
 			//判断是否共享
 			if(request.getParameter("receiver")!=null&&(request.getParameter("receiver").trim().length()>0))
@@ -201,8 +216,6 @@ public class NoteController {
 		String nid=request.getParameter("nid");
 		long noteid=Long.valueOf(nid);
 	    noteDao.delete(noteid);
-		
-		
 		return "redirect:/noteview";
 	}
 	
@@ -313,7 +326,6 @@ public class NoteController {
 		}
 		else if(request.getParameter("id").equals("-2")){
 			//返回的时候跳-2 
-			
 		noteList = (List<Note>) noteDao.finduser(userid);
 		System.out.println(noteList);}
 		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
@@ -326,12 +338,17 @@ public class NoteController {
 	
 	//模糊查询或者是根据目录查找
 	@RequestMapping(value="notewrite",method=RequestMethod.POST)
-	public String test333(Model model,HttpServletRequest request){
+	public String test333(Model model,HttpServletRequest request,HttpSession session){
+		Long userid=Long.valueOf(session.getAttribute("userId")+"");
 		//模糊查找
 		String title=request.getParameter("title");
-		noteList =noteDao.findBytitle(title);
+		noteList =noteDao.findBytitle(title,userid);
 		System.out.println(noteList);
 		//根据目录
+		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+		request.setAttribute("type", type);
+		request.setAttribute("status", status);
 		model.addAttribute("nlist", noteList);
 		return "note/notewrite";
 	}
