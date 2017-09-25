@@ -1,7 +1,7 @@
 package cn.gson.oasys.controller.task;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,20 +9,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.util.StringUtil;
@@ -74,7 +73,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("taskmanage")
-	public String index(HttpSession session, Model model, HttpServletRequest request) {
+	public String index(HttpSession session, Model model) {
 
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
@@ -86,6 +85,7 @@ public class TaskController {
 		List<Tasklist> tasklist2 = tdao.findByTopAndUsersIdOrderByModifyTimeDesc(false, tu);
 		// 把后面查的数据封装到前面的集合中去
 		tasklist.addAll(tasklist2);
+		//组装json
 		List<Map<String, Object>> list = new ArrayList<>();
 
 		String username = tu.getUserName();
@@ -106,9 +106,7 @@ public class TaskController {
 			result.put("deptname", deptname);
 			list.add(result);
 		}
-	/*	if(!StringUtil.isEmpty(request.getParameter("error"))){
-			model.addAttribute("error", request.getAttribute("error"));
-		}*/
+	
 		model.addAttribute("tasklist", list);
 		return "task/taskmanage";
 	}
@@ -304,6 +302,7 @@ public class TaskController {
 		Long userid = Long.parseLong(userId);
 
 		List<Tasklist> taskli = new ArrayList<>();
+		List<Tasklist> taskli2 = new ArrayList<>();
 		List<Map<String, Object>> list = new ArrayList<>();
 
 		// 根据接收人id查询任务id
@@ -311,10 +310,17 @@ public class TaskController {
 
 		for (Long long1 : taskid) {
 			// 根据找出的taskid查找任务
-			Tasklist tasklist = tdao.findByTaskId(long1);
-			taskli.add(tasklist);
-
+			Tasklist tasklist = tdao.findByCancelAndTaskId(false, long1);
+			Tasklist tasklist2 = tdao.findByCancelAndTaskId(true, long1);
+			if(!Objects.isNull(tasklist)){
+				taskli.add(tasklist);
+			}
+			if(!Objects.isNull(tasklist2)){
+				taskli2.add(tasklist2);
+			}
+			
 		}
+		taskli.addAll(taskli2);
 
 		for (int i = 0; i < taskli.size(); i++) {
 			Map<String, Object> result = new HashMap<>();
@@ -435,6 +441,12 @@ public class TaskController {
 
 	}
 
+	/**
+	 * 根据发布人这边删除任务和相关联系
+	 * @param req
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("shanchu")
 	public String delete(HttpServletRequest req, HttpSession session) {
 		// 获取用户id
@@ -596,6 +608,7 @@ public class TaskController {
 
 		String title = request.getParameter("title");
 		List<Tasklist> taskli = new ArrayList<>();
+		List<Tasklist> taskli2 = new ArrayList<>();
 		List<Map<String, Object>> list = new ArrayList<>();
 
 		// 根据接收人id查询任务id
@@ -618,14 +631,22 @@ public class TaskController {
 
 			for (Long long1 : taskid) {
 				// 根据找出的taskid查找任务
-				Tasklist tasklist = tdao.findByTaskId(long1);
-				taskli.add(tasklist);
+				Tasklist tasklist = tdao.findByCancelAndTaskId(false, long1);
+				Tasklist tasklist2 = tdao.findByCancelAndTaskId(true, long1);
+				if(!Objects.isNull(tasklist)){
+					taskli.add(tasklist);
+				}
+				if(!Objects.isNull(tasklist2)){
+					taskli2.add(tasklist2);
+				}
+				
 			}
+			taskli.addAll(taskli2);
 
 		} else if (!Objects.isNull(type)) {
 
 			for (Long long1 : taskid) {
-				// 根据找出的taskid和发布时间的模糊查询查找任务
+				// 根据找出的taskid和typeid查找任务
 				Tasklist tasklist = tdao.findByTypeIdAndTaskId(type.getTypeId(), long1);
 				if (!Objects.isNull(tasklist)) {
 
@@ -636,7 +657,7 @@ public class TaskController {
 			// Long转换成Integer
 			Integer statusid = Integer.parseInt(status.getStatusId().toString());
 			for (Long long1 : taskid) {
-				// 根据找出的taskid和发布时间的模糊查询查找任务
+				// 根据找出的taskid和状态id查找任务
 				Tasklist tasklist = tdao.findByStatusIdAndCancelAndTaskId(statusid, false, long1);
 				if (!Objects.isNull(tasklist)) {
 					taskli.add(tasklist);
@@ -645,7 +666,7 @@ public class TaskController {
 		} else if (("已取消").equals(title)) {
 
 			for (Long long1 : taskid) {
-				// 根据找出的taskid和发布时间的模糊查询查找任务
+				// 根据找出的taskid和cancel查找任务
 				Tasklist tasklist = tdao.findByCancelAndTaskId(true, long1);
 				if (!Objects.isNull(tasklist)) {
 					taskli.add(tasklist);
@@ -653,7 +674,7 @@ public class TaskController {
 			}
 		} else if (!Objects.isNull(user)) {
 			for (Long long1 : taskid) {
-				// 根据找出的taskid和发布时间的模糊查询查找任务
+				// 根据找出的taskid和发布人查找任务
 				Tasklist tasklist = tdao.findByUsersIdAndTaskId(user, long1);
 				if (!Objects.isNull(tasklist)) {
 					taskli.add(tasklist);
@@ -663,7 +684,7 @@ public class TaskController {
 
 			// 根据title找任务
 			for (Long long1 : taskid) {
-				// 根据找出的taskid查找任务
+				// 根据title和taskid进行模糊查询
 				Tasklist tasklist = tdao.findByTitleLikeAndTaskId(long1, title);
 
 				if (!Objects.isNull(tasklist)) {

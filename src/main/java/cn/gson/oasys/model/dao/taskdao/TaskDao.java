@@ -25,7 +25,7 @@ public interface TaskDao extends PagingAndSortingRepository<Tasklist, Long>{
 	@Modifying
 	int update(@Param("taskid")Long taskid,@Param("statusid")Integer statusid);
 	
-	Tasklist findByTaskId(Long taskid);
+
 	
 	//根据用户id 和title的模糊查询
 	@Query("select tl from Tasklist tl where tl.usersId=:userId and tl.title like %:title%")
@@ -63,5 +63,9 @@ public interface TaskDao extends PagingAndSortingRepository<Tasklist, Long>{
 
 
 	Tasklist findByCancelAndTaskId(Boolean b, Long long1);
+
+
+
+	
 	
 }

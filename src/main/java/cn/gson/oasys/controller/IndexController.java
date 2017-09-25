@@ -91,6 +91,25 @@ public class IndexController {
 	}
 //	测试系统管理
 	
+	@RequestMapping("one")
+	public String witeMail(){
+		return "mail/wirtemail";
+	}
+	
+	@RequestMapping("two")
+	public String witeMail2(){
+		return "mail/seemail";
+	}
+	
+	@RequestMapping("three")
+	public String witeMail3(){
+		return "mail/allmail";
+	}
+	@RequestMapping("mmm")
+	public String witeMail4(){
+		return "mail/mail";
+	}
+	
 	
 	
 	
