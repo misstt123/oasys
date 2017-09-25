@@ -1,53 +1,95 @@
-
-			<!--盒子身体-->
-			<div class="box-body no-padding">
-				<div class="table-responsive">
-					<table class="table table-hover table-striped">
-					<thead>
-						<tr>
-							<th scope="col" class="commen mm">类型<span class="block"><img
-									id="img" src="images/desc.gif" /></span></th>
-							<th scope="col">账号名</th>
-							<th scope="col" class="co commen">创建时间<span class="block"></span></th>
-							<th scope="col" class="co commen">状态<span class="block"></span></th>
-							<th scope="col">操作</th>
-						</tr>
-						</thead>
-						<tbody class="update">
-						<#include "/mail/accounttbody.ftl">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!--盒子尾-->
-			<div class="box-footer no-padding" style="margin-top: -20px;">
-				<div style="padding: 5px;">
-					<div id="page"
-						style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-						<div style="width: 40%; float: left;">
-							<div class="pageInfo" style="margin-left: 5px;">
-								共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-							</div>
-						</div>
-						<div style="width: 60%; float: left;">
-							<div class="pageOperation">
-								<a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-backward"></span>
-								</a> <a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-triangle-left"></span>
-								</a> <a disabled="disabled" class="btn btn-default no-padding"
-									style="width: 30px; height: 20px;"> 1 </a> <a
-									class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-triangle-right"></span>
-								</a> <a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-forward"></span>
-								</a>
-							</div>
+<!--盒子头-->
+			<div class="box-header">
+				<h3 class="box-title">
+					<a href="addaccount" class="label label-success" style="padding: 5px;">
+						<span class="glyphicon glyphicon-plus"></span> 新增
+					</a>
+				</h3>
+				<div class="box-tools">
+					<div class="input-group" style="width: 150px;">
+						<input type="text" class="form-control input-sm cha"
+							placeholder="查找..." />
+						<div class="input-group-btn chazhao">
+							<a class="btn btn-sm btn-default"><span
+								class="glyphicon glyphicon-search"></span></a>
 						</div>
 					</div>
 				</div>
 			</div>
+		
+<!--盒子身体-->
+<div class="box-body no-padding">
+	<div class="table-responsive">
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th scope="col" class="commen mm">类型<span class="block"><img
+							id="img" src="images/desc.gif" /></span></th>
+					<th scope="col">账号名</th>
+					<th scope="col" class="co commen">创建时间<span class="block"></span></th>
+					<th scope="col" class="co commen">状态<span class="block"></span></th>
+					<th scope="col">操作</th>
+				</tr>
+			</thead>
+			<tbody class="update">
+				<#if account??>
+	  <#list account as list>
+		<tr>
+			<td><span>${list.typename}</span></td>
+			<td><span>${list.accountname}</span></td>
+			<td><span>${list.creattime}</span></td>
+			<td><span class="label ${list.statuscolor}">${list.statusname}</span>
+			</td>
+			<td><a  href="addaccount?id=${list.accountid}" class="label xiugai">
+					<span class="glyphicon glyphicon-edit"></span> 修改</a>
+				<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+				   href="dele?id=${list.accountid}" class="label shanchu">
+				   <span class="glyphicon glyphicon-remove"></span> 删除</a></td>
+		</tr>
+	</#list>
+</#if>
+						</tbody>
+		</table>
+	</div>
+</div>
+<!--盒子尾-->
+<#include "/common/paging.ftl">
+
+<script>
+/* 分页插件按钮的点击事件 */
+$('.tablefirst').on('click',function(){
+	$('.thistable').load('/mailpaixu?page=0');
+});
+$('.tableup').on('click',function(){
+	$('.thistable').load('/mailpaixu?page=${(page.number)-1}');
+});
+$('.tabledown').on('click',function(){
+	$('.thistable').load('mailpaixu?page=${(page.number)+1}');
+});
+$('.tablelast').on('click',function(){
+	$('.thistable').load('mailpaixu?page=${(page.totalPages)-1}');
+});
+$('.baseKetsubmit').on('click',function(){
+	var baseKey=$('.baseKey').val();
+	$('.thistable').load('mailpaixu?baseKey=baseKey');
+});
+$(function(){
+	$(".commen").click(function(){
+		//寻找指定兄弟节点并去除class
+		var $else=$(this).addClass("mm").siblings(".commen").removeClass("mm");
+		//点击变换字体颜色
+		var $color=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
+		//切换img
+		$("#img").appendTo(".mm span");
+		var $val=$(this).text();
+		$(".thistable").load("mailpaixu",{val:$val});
+	
+	});
+	
+	$(".chazhao").click(function(){
+		   var con=$(".cha").val();
+		   $(".thistable").load("mailpaixu",{val:con});
+	   });
+	
+})
+</script>
