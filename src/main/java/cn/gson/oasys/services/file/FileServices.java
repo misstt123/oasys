@@ -264,6 +264,16 @@ public class FileServices {
 		return savepath;
 	}
 	
+	/**
+	 * 复制和移动  根据上级目录id 查询 所有子目录
+	 * @param parentid
+	 * @return
+	 */
+	public List<FilePath> moveandcopy(Long parentid){
+		List<FilePath> filePaths= fpdao.findByParentId(parentid);
+		return filePaths;
+	}
+	
 	
 	/**
 	 * 获取附件
