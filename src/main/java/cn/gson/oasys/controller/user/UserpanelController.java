@@ -159,6 +159,7 @@ public class UserpanelController {
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		User users=udao.findOne(userid);
+		
 		//重新set用户
 		users.setRealName(user.getRealName());
 		users.setUserTel(user.getUserTel());
@@ -206,11 +207,11 @@ public class UserpanelController {
 			throws IOException {
 
 		String startpath = new String(URLDecoder.decode(request.getRequestURI(), "utf-8"));
-		System.out.println(startpath);
+		
 		String path = startpath.replace("/image", "");
-		System.out.println(path);
+		
 		File f = new File(rootpath, path);
-		System.out.println(f.getAbsolutePath());
+		
 		ServletOutputStream sos = response.getOutputStream();
 		FileInputStream input = new FileInputStream(f.getPath());
 		byte[] data = new byte[(int) f.length()];

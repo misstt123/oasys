@@ -24,4 +24,6 @@ public interface StatusDao extends PagingAndSortingRepository<SystemStatusList, 
 	
 	@Query("select sl.statusColor from SystemStatusList sl where sl.statusId=:id")
 	String findcolor(@Param("id")Long id);
+	
+
 }
