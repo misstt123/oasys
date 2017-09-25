@@ -91,7 +91,9 @@ public class PlanController {
 	}
 	//计划报表
 	@RequestMapping("myplan")
-	public String test2(){
+	public String test2(HttpServletRequest request){
+		String  starttime= request.getParameter("starttime");
+		String endtime=request.getParameter("endtime");
 		
 		return "plan/plantable";
 	}

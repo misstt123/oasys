@@ -17,27 +17,9 @@ function changeSomeday(str,days,onesec){
     			 if (day < 10) day = "0" + day;
     			 if(hour<10)hour="0"+hour;
     			 if(min<10)min="0"+min;
-    			 alert(year+"-"+month+"-"+day+" "+hour+":"+min)
     			 return year+"-"+month+"-"+day+" "+hour+":"+min;
     			 
 	}
-
-
-//点击上一个或者下一个变化一些天
-function change(days){
-	startday=changeSomeday(startday,days,0);
-	endday=changeSomeday(endday,days,0);
-	$("#start").html(startday);
-	$("#end").html(endday);
-	
-	if(choose==3){
-		//如果是改变月的话 就每次都要获得它的年月
-		var arr=new Array()
-		arr=startday.split("-");
-		days2=getMonthdays(arr[0],arr[1])
-	}
-	return startday+";"+endday;
-}
 
 //获得某月的天数
 function getMonthdays(year,month){
@@ -46,6 +28,42 @@ function getMonthdays(year,month){
 	var days=(monthenddate-monthstartdate)/(1000*60*60*24)
 	return days;
 }
+
+function monthchange(str){
+	//如果是改变月的话 就每次都要获得它的年月  然后得到当前月的天数
+	var arr=new Array()
+	arr=str.split("-");
+	days2=getMonthdays(arr[0],arr[1])
+	days=days2;
+	return days;
+}
+
+
+
+//点击上一个或者下一个变化一些天
+function change(days){
+	
+	if(choose==3){
+		if(days>0){
+		startday=changeSomeday(startday,days,0);
+		endday=changeSomeday(endday,monthchange(startday),0);
+		}
+		else{
+			endday=changeSomeday(endday,days,0);
+			startday=changeSomeday(startday,-monthchange(endday),0);
+		}
+	}
+	else{
+		startday=changeSomeday(startday,days,0);
+		endday=changeSomeday(endday,days,0);
+	}
+	
+	$("#start").html(startday);
+	$("#end").html(endday);
+	return startday+";"+endday;
+}
+
+
 
 //调用ajax传给后台调用
 function convert(starttime,endtime){
@@ -137,23 +155,21 @@ $(function(){
 	 
 	//上一个
 	 $(".last").click(function(){
-		 if(choose==1){
-			 change(-2)
-		 }
-		 
-		 if(choose==2)
-		change(-7)
-		 else{
-			 
-			 change(-days2)
-		 }
-		
+		exec(-2,-7,-1);
 	 })
 	 //下一个
 	  $(".next").click(function(){
+		  exec(2,7,1);
 	 })
-	
-	 
-	 
-	  
 })
+
+function exec(one,two,three){
+	 if(choose==1){
+		 change(one)
+	 }
+	 if(choose==2)
+	change(two)
+	 else if(choose==3){
+		 change(days2*three)
+	 }
+}

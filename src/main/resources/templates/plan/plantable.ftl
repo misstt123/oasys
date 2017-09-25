@@ -61,26 +61,9 @@
 										</div>
 		    </div>
 			<div class="box-body">
-				<table class="table table-striped table-hover table-bordered table-responsive">
-					<tr>
-						<th>部门</th>
-						<th>成员</th>
-						<th>计划</th>
-						<th>状态</th>
-						<th>总结</th>
-						<th>评价</th>
-						
-					</tr>
-					<tr>
-						<td>111</td>
-						<td>111</td>
-						<td><a>111</a></td>
-						<td><a>111</a></td>
-						<td><a>111</a></td>
-						<td><a>111</a></td>
-						
-					</tr>
-				</table>
+				<div id="refresh">
+				<#include "/plan/realplantable.ftl"> 
+				</div>
 			</div>
 			
 			
