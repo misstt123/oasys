@@ -45,3 +45,16 @@
 	color: #f27474;
 	border: 3px solid #f27474;
 }
+
+#thismodal .mcfloorimg{
+	width:25px;
+	height:25px;
+}
+#thismodal .mcflooropen{
+	display:inline-block;
+	vertical-align: middle;
+	width: 22px;
+    height: 18px;
+    margin-right: 5px;
+    background: url(/images/fileimg/icon-tree_48f78c0.png) 0 0 no-repeat;
+}
