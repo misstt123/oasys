@@ -53,6 +53,24 @@ public class StatusSysController {
 	}
 	
 	/**
+	 * 查找状态表格
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("statustable")
+	public String statusTable(HttpServletRequest req){
+		if(!StringUtils.isEmpty(req.getParameter("name"))){
+			String name="%"+req.getParameter("name")+"%";
+			req.setAttribute("statusList",statusDao.findByStatusNameLikeOrStatusModelLike(name, name));
+		}
+		else{
+			Iterable<SystemStatusList> statusList=statusDao.findAll();
+			req.setAttribute("statusList", statusList);
+		}
+		return "systemcontrol/statustable";
+	}
+	
+	/**
 	 * 状态编辑界面
 	 * @param req
 	 * @return

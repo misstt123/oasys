@@ -39,5 +39,7 @@ public interface IndexDao extends CrudRepository<SystemMenu, Long> {
 	@Query("update SystemMenu menu set menu.parentId=999 where menu.menuId= :menuId")
 	@Modifying
 	int deleteThis(@Param("menuId") Long menuId);
+	
+	List<SystemMenu> findByMenuNameLike(String name);
 
 }

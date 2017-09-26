@@ -36,45 +36,26 @@ a:hover {
 					</h3>
 					<div class="box-tools">
 						<div class="input-group" style="width: 150px;">
-							<input type="text" class="form-control input-sm"
+							<input type="text" class="form-control input-sm baseKey"
 								placeholder="查找..." />
 							<div class="input-group-btn">
-								<a class="btn btn-sm btn-default"><span
+								<a class="btn btn-sm btn-default baseKeySubmit"><span
 									class="glyphicon glyphicon-search"></span></a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!--盒子身体-->
-				<div class="box-body no-padding">
-					<div class="table-responsive">
-						<table class="table table-hover">
-							<tr>
-								<th scope="col">模块</th>
-								<th scope="col">类型</th>
-								<th scope="col">排序值</th>
-								<th scope="col">颜色</th>
-								<th scope="col">操作</th>
-							</tr>
-							<#list typeList as type>
-								<tr>
-									<td><span>${(type.typeModel)!''}</span></td>
-									<td><span>${(type.typeName)!''}</span></td>
-									<td><span>${(type.typeSortValue)!''}</span></td>
-									<td><span>${(type.typeColor)!''}</span></td>
-									<td><a href="typeedit?typeid=${type.typeId}" class="label xiugai"><span
-											class="glyphicon glyphicon-edit"></span> 修改</a> <a title="查看详细信息"
-										href="##" class="label xiugai"><span
-											class="glyphicon glyphicon-search"></span> 查看</a> <a
-										onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-										href="deletetype?id=${type.typeId}" class="label shanchu"><span
-											class="glyphicon glyphicon-remove"></span> 删除</a></td>
-								</tr>
-							</#list>
-						</table>
-					</div>
+				<div class="box-body no-padding thistable">
+					<#include "typetable.ftl">
 				</div>
 				<!--盒子尾-->
 			</div>
 		</div>
 	</div>
+<script>
+	$('.baseKeySubmit').on('click',function(){
+		var name=$('.baseKey').val();
+		$('.thistable').load("typetable?name="+name);
+	});
+</script>

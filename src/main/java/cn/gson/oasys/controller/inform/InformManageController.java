@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
@@ -85,15 +88,14 @@ public class InformManageController {
 	 * @return
 	 */
 	@RequestMapping("infrommanage")
-	public String inform(@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size,
-			@RequestParam(value = "baseKey", required = false) String baseKey, @SessionAttribute("userId") Long userId,
-			Model model) {
-		Page<NoticesList> page2 = informService.pageThis(page, size,userId,baseKey);
+	public String inform(@RequestParam(value = "page", defaultValue = "0") int page,@SessionAttribute("userId") Long userId,Model model) {
+		Page<NoticesList> page2 = informService.pageThis(page,userId);
 		List<NoticesList> noticeList=page2.getContent();
 		List<Map<String, Object>> list=informService.fengZhuang(noticeList);
 		model.addAttribute("list", list);
 		model.addAttribute("page", page2);
+		//设置变量，需要load的url；
+		model.addAttribute("url", "infrommanagepaging");
 		return "inform/informmanage";
 	}
 
@@ -166,17 +168,17 @@ public class InformManageController {
 	 * @return
 	 */
 	@RequestMapping("infromlist")
-	public String infromList(HttpSession session, HttpServletRequest req, Model model) {
+	public String infromList(HttpSession session, HttpServletRequest req, Model model,
+			@RequestParam(value="pageNum",defaultValue="1") int page) {
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
+		PageHelper.startPage(page, 10);
 		List<Map<String, Object>> list = nm.findMyNotice(userId);
-		for (Map<String, Object> map : list) {
-			map.put("status", statusDao.findOne((Long) map.get("status_id")).getStatusName());
-			map.put("type", typeDao.findOne((Long) map.get("type_id")).getTypeName());
-			map.put("statusColor", statusDao.findOne((Long) map.get("status_id")).getStatusColor());
-			map.put("userName", uDao.findOne((Long) map.get("user_id")).getUserName());
-			map.put("deptName", uDao.findOne((Long) map.get("user_id")).getDept().getDeptName());
-		}
-		model.addAttribute("list", list);
+		PageInfo<Map<String, Object>> pageinfo=new PageInfo<Map<String, Object>>(list);
+		List<Map<String, Object>> list2=informrelationservice.setList(list);
+		model.addAttribute("url", "informlistpaging");
+		model.addAttribute("list", list2);
+		model.addAttribute("page", pageinfo);
+		System.out.println(pageinfo);
 		return "inform/informlist";
 	}
 

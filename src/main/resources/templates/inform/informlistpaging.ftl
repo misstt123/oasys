@@ -1,15 +1,10 @@
 <div class="bgc-w box box-primary">
 	<!--盒子头-->
 	<div class="box-header">
-		<h3 class="box-title">
-			<a href="informedit" class="label label-success"
-				style="padding: 5px;"> <span class="glyphicon glyphicon-plus"></span>
-				新增
-			</a>
-		</h3>
+		<h3 class="box-title" style="padding: 8px;"></h3>
 		<div class="box-tools">
 			<div class="input-group" style="width: 150px;">
-				<input type="text" class="form-control input-sm baseKey" placeholder="查找..." value="${(baseKey)!''}"/>
+				<input type="text" class="form-control input-sm baseKey" placeholder="查找..."  value="${(baseKey)!''}"/>
 				<div class="input-group-btn">
 					<a class="btn btn-sm btn-default baseKetsubmit"><span
 						class="glyphicon glyphicon-search"></span></a>
@@ -46,13 +41,21 @@
 				</tr>
 				<#list list as this>
 				<tr>
-					<td>${(this.typename)!''}</td>
-					<td><span class="label ${(this.statuscolor)!''}">${(this.statusname)!''}</span></td>
+					<#if this.is_read==0>
+					<td class="c">${this.type}</td>
+					<td class="c"><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
+					<td class="c"><span>${(this.title)!''}</span></td>
+					<td class="c"><span>${this.notice_time}</span></td>
+					<td class="c"><span>${this.userName}</span></td>
+					<td class="c"><span>${this.deptName}</span></td>
+					<#else>
+					<td>${this.type}</td>
+					<td><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
 					<td><span>${(this.title)!''}</span></td>
-					<td><span>${(this.noticeTime)!''}</span></td>
-					<td><span>${(this.username)!''}</span></td>
-					<td><span>${(this.deptname)!''}</span></td>
-					<#if this.top==true>
+					<td><span>${this.notice_time}</span></td>
+					<td><span>${this.userName}</span></td>
+					<td><span>${this.deptName}</span></td></#if>
+					<#if this.is_top==1>
 					<td><span class="labels"><label><input
 								type="checkbox" checked disabled><i>✓</i></label></span></td>
 					<#else>
@@ -62,20 +65,22 @@
 					<td><span class="glyphicon glyphicon-link"></span></td>
 					<#else>
 					<td><span class="labels"></span></td></#if>
-					<td><a href="informedit?id=${this.noticeId}"
-						class="label xiugai"><span class="glyphicon glyphicon-edit"></span>
-							修改</a> <a href="informshow?id=${this.noticeId}" class="label xiugai"><span
-							class="glyphicon glyphicon-search"></span> 查看</a> <a
-						onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-						href="infromdelete?id=${this.noticeId}" class="label shanchu"><span
-							class="glyphicon glyphicon-remove"></span> 删除</a></td> 
+					<td><a
+						href="informshow?id=${this.notice_id}&read=${this.is_read}&relationid=${this.relatin_id}"
+						class="label xiugai"><span class="glyphicon glyphicon-search"></span>
+							查看</a> <#if this.is_read==0> <#else> <a
+							onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+							href="informlistdelete?id=${this.notice_id}"
+							class="label shanchu"> <span
+							class="glyphicon glyphicon-remove"></span> 删除
+						</a></#if></td>
 				</tr>
 				</#list>
 			</table>
 		</div>
 	</div>
 	<!--盒子尾-->
-	<#include "/common/paging.ftl">
+	<#include "/common/pagingmybatis.ftl">
 </div>
 <script>
 	/*类型、状态、事件的排序  */

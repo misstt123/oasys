@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,21 @@ public class MenuSysController {
 		menuService.findAllMenuSys(req);
 		return "systemcontrol/menumanage";
 	}
-
+	
+	/**
+	 * 查找菜单
+	 */
+	@RequestMapping("menutable")
+	public String menuTable(HttpServletRequest req){
+		if(!StringUtils.isEmpty(req.getParameter("name"))){
+			req.setAttribute("oneMenuAll", iDao.findByMenuNameLike("%"+req.getParameter("name")+"%"));
+		}
+		else{
+			menuService.findAllMenuSys(req);
+		}
+		return "systemcontrol/menutable";
+	}
+	
 	/**
 	 * 改变排序
 	 * @param req

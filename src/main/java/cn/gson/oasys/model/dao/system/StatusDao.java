@@ -17,6 +17,8 @@ public interface StatusDao extends PagingAndSortingRepository<SystemStatusList, 
 	//根据模块名查找到状态集合
 	List<SystemStatusList> findByStatusModel(String statusModel);
 	
+	List<SystemStatusList> findByStatusNameLikeOrStatusModelLike(String name,String name2);
+	
 	
 	
 	@Query("select sl.statusName from SystemStatusList sl where sl.statusId=:id")

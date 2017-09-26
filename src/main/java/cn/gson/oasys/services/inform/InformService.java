@@ -81,7 +81,8 @@ public class InformService {
 		return list;
 
 	}
-	public Page<NoticesList> pageThis(int page,int size,  Long userId,String baseKey){
+	public Page<NoticesList> pageThis(int page,Long userId){
+		int size=10;
 		Sort sort = getSort();
 		Pageable pa = new PageRequest(page, size, sort);
 		Pageable b=new PageRequest(page, size);
@@ -95,7 +96,8 @@ public class InformService {
 		return sort;
 	}
 	
-	public Page<NoticesList> pageThis(int page,int size,  Long userId,String baseKey,Object type,Object status,Object time) {
+	public Page<NoticesList> pageThis(int page, Long userId,String baseKey,Object type,Object status,Object time) {
+		int size=10;
 		List<Order> orders = new ArrayList<>();
 		Pageable pa=null;
 		//根据类型排序
@@ -129,6 +131,7 @@ public class InformService {
 			String key="%"+baseKey+"%";
 			Sort sort = getSort();
 			pa=new PageRequest(page, size, sort);
+			
 			return informDao.findByBaseKey(userId, key,pa);
 		}
 		System.out.println("orders:"+orders);
