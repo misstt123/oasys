@@ -5,7 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <table class="table table-striped table-hover table-bordered table-responsive">
 					<tr>
 						<th>部门</th>
@@ -41,19 +40,23 @@
 												   		</#if>
 													</#list>
 												</#if></td>
+												
 											<td><#if uMap["${userName}"]??>${uMap["${userName}"].planSummary}</#if></td>
 											<td>
 											<#if uMap["${userName}"]??>
 											<!-- 模态框按钮 -->
 											<a class="btn thisa" id="${uMap["${userName}"].planId}">
 											<span class="label label-success ">
-											<i class="glyphicon glyphicon-commenting">评论</i>
+											<i class="glyphicon glyphicon-commenting">
+											评论</i>
 											</span>
 											</a>
 											<div>【${user.userName}】
 											${uMap["${userName}"].planComment}
 											</div>
 											</#if></td>
+											
+											
 											</#if>
 								</tr> 	
 							</#list>
@@ -91,12 +94,17 @@
 <script>
 $('.thisa').on('click',function(){
 	$("#myModal").modal("toggle");
-	$("#commentid").val($('.thisa').attr("id"))
+	$("#commentid").val($(this).attr("id"))
 });
+
+var start=$("#start").text();
+var end=$("#end").text();
+
 //评论提交
 $("#commentsave").click(function(){
 	 var $comment=$("#comment").val();
 	 var $commentid=$("#commentid").val();
+	
 	 $.ajax({
 		 type:"get",
 		 url:"plancomment",
@@ -104,15 +112,17 @@ $("#commentsave").click(function(){
 			 pid:$commentid,
 			 comment:$comment
 		 },
-		 success:function(){
-			 alert("ok")
+		 success:function(dates){
 			 $(".close").click();
-		 },
+			window.location.reload()
+		},
 		 error:function(){
 			 
 		 }
 	 })
 })
+
+
 </script>
 </body>
 </html>

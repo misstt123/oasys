@@ -78,8 +78,10 @@ public class Plan {
 	public Plan() {}
 
 	
-	public Plan(Long typeId, Long statusId, long attachId, Date startTime, Date endTime, Date createTime, String title,
-			String label, String planContent, String planSummary, String planComment) {
+	
+
+	public Plan(Long typeId, Long statusId, Long attachId, Date startTime, Date endTime, Date createTime, String title,
+			String label, String planContent, String planSummary, String planComment, User user) {
 		super();
 		this.typeId = typeId;
 		this.statusId = statusId;
@@ -92,7 +94,11 @@ public class Plan {
 		this.planContent = planContent;
 		this.planSummary = planSummary;
 		this.planComment = planComment;
+		this.user = user;
 	}
+
+
+
 
 	public Long getAttachId() {
 		return attachId;

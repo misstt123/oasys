@@ -11,6 +11,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 <script type="text/javascript" src="js/iconfont.js"></script>
 <script type="text/javascript" src="js/plan/plantable.js"></script>
+
 </head>
 	<body>
 	
@@ -66,7 +67,6 @@
 				</div>
 			</div>
 			
-			
-			
 		</div>
 </div>
+

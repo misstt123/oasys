@@ -106,15 +106,30 @@ public class PlanController {
 	//真正的报表
 		@RequestMapping("realplantable")
 		public String test23(HttpServletRequest request, Model model){
+			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
 			List<Plan> plans = new ArrayList<>();
 			//利用set过滤掉重复的plan_user_id 因为set不能重复
 			Set<Long> number=new HashSet();
 			Plan  plan2;
+			long typeid = 13;
 			service.addConverter(new StringtoDate());
 			String  starttime= request.getParameter("starttime");
 			String endtime=request.getParameter("endtime");
 			Date start=service.convert(starttime, Date.class);
 			Date end=service.convert(endtime, Date.class);
+			System.out.println("类型"+type);
+			//1是日计划2是周计划3是月计划
+			Long choose=Long.valueOf(request.getParameter("choose"));
+			if(choose==1){
+				 	typeid=13l;
+			}
+			if(choose==2){
+				typeid=14l;
+			}
+			if(choose==3){
+				typeid=15l;
+			}
 			pList= (List<Plan>) planDao.findAll();
 			uList= (List<User>) userDao.findAll();
 			for (Plan plan : pList) {
@@ -123,7 +138,7 @@ public class PlanController {
 			System.out.println(number);
 			//找到相对应的计划记录
 			for (Long num: number) {
-				plan2=planDao.findlatest(start, end,num);
+				plan2=planDao.findlatest(start, end,num,typeid);
 				if(plan2!=null)
 				plans.add(plan2);
 			}
@@ -134,18 +149,15 @@ public class PlanController {
 				 for (Plan plan : plans) {
 					if(user.getUserId()==plan.getUser().getUserId()){
 						 uMap.put(user.getUserName(), plan);
-						 System.out.println(user.getUserName()+";"+user.getUserId());
 						 break;
 						 }
 					else{
 						uMap.put(user.getUserName(), null);
-						System.out.println(user.getUserName()+";"+user.getUserId());
 					}
+					System.out.println(uMap);
 				}
 	    	}
-			System.out.println(uMap);
-			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
-			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+			
 			model.addAttribute("uMap", uMap);
 			model.addAttribute("type", type);
 			model.addAttribute("status", status);
@@ -195,7 +207,6 @@ public class PlanController {
 			plan.setPlanComment(plan.getPlanComment()+comment);
 			planDao.save(plan);
 			return "redirect:/myplan";
-			
 		}
 		
 		
@@ -250,8 +261,7 @@ public class PlanController {
 						attid=null;
 					
 					plan=new Plan(typeid, statusid,attid,start, end,new Date(), 
-							plan2.getTitle(), plan2.getLabel(), plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary());
-					plan.setUser(user);
+							plan2.getTitle(), plan2.getLabel(), plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary(),user);
 					planDao.save(plan);
 				}
 				if(pid>0){
