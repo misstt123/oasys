@@ -12,7 +12,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,12 +27,16 @@ import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.maildao.MailnumberDao;
+import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
+import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
+import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.mail.MailServices;
 
@@ -49,6 +54,10 @@ public class MailController {
 	private StatusDao sdao;
 	@Autowired
 	private TypeDao tydao;
+	@Autowired
+	private DeptDao ddao;
+	@Autowired
+	private RoleDao rdao;
 	@Autowired
 	private MailServices mservice;
 	
@@ -215,17 +224,71 @@ public class MailController {
 	 * 写信
 	 */
 	@RequestMapping("wmail")
-	public  String index2(Model model, HttpSession session) {
+	public  String index2(Model model, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size) {
 		String userId = ((String) session.getAttribute("userId")).trim();
+		Pageable pa=new PageRequest(page, size);
 		Long userid = Long.parseLong(userId);
 		User mu=udao.findOne(userid);
 		List<SystemTypeList> typelist=tydao.findByTypeModel("aoa_in_mail_list");
 		List<SystemStatusList>  statuslist=sdao.findByStatusModel("aoa_in_mail_list");
 		List<Mailnumber> mailnum=mndao.findByStatusAndMailUserId(1L, mu);
+		//查看用户并分页
+		Page<User> pageuser=udao.findAll(pa);
+		List<User> userlist=pageuser.getContent();
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查角色表
+		Iterable<Role> rolelist = rdao.findAll();
 		model.addAttribute("typelist", typelist);
 		model.addAttribute("statuslist", statuslist);
 		model.addAttribute("mailnum", mailnum);
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("page", pageuser);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("rolelist", rolelist);
+		model.addAttribute("url", "names");
 		return "mail/wirtemail";
+	}
+	/**
+	 * 用户姓名查找
+	 */
+	@RequestMapping("names")
+	public String serch(Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		String name=null;
+		Page<User> pageuser=null;
+		List<User> userlist=null;
+		
+		if(!StringUtil.isEmpty(req.getParameter("title"))){
+			name=req.getParameter("title").trim();
+		}
+		
+		if(StringUtil.isEmpty(name)){
+			
+			//查看用户并分页
+			pageuser=udao.findAll(pa);
+			userlist=pageuser.getContent();
+		}else{
+			pageuser=udao.findbyUserNameLike(name, pa);
+			userlist=pageuser.getContent();
+			System.out.println(userlist);
+			
+		}
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查角色表
+		Iterable<Role> rolelist = rdao.findAll();
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("page", pageuser);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("rolelist", rolelist);
+		model.addAttribute("url", "names");
+		return "common/recivers";
+		
 	}
 	
 	/**

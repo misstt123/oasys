@@ -55,7 +55,7 @@ public class IndexController {
 	public String index(HttpServletRequest req){
 		menuService.findMenuSys(req);
 		HttpSession session=req.getSession();
-		session.setAttribute("userId", "2");
+		session.setAttribute("userId", "1");
 		return "index/index";
 	}
 	

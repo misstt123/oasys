@@ -90,6 +90,7 @@ public class TaskController {
 	
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
+		model.addAttribute("url", "paixu");
 		return "task/taskmanage";
 	}
 	
@@ -118,7 +119,7 @@ public class TaskController {
 		List<Map<String, Object>> list=tservice.index2(tasklist, tu);
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
-		
+		model.addAttribute("url", "paixu");
 		return "task/managetable";
 
 	}
@@ -327,6 +328,7 @@ public class TaskController {
 		List<Map<String, Object>> list=tservice.index4(tasklist, userid);
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
+		model.addAttribute("url", "mychaxun");
 		return "task/mytask";
 
 	}
@@ -351,6 +353,7 @@ public class TaskController {
 		List<Map<String, Object>> list=tservice.index4(tasklist, userid);
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
+		model.addAttribute("url", "mychaxun");
 		return "task/mytasklist";
 	}
 

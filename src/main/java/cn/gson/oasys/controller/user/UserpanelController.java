@@ -115,6 +115,7 @@ public class UserpanelController {
 		model.addAttribute("maillist", maillist.size());
 		model.addAttribute("notepaperlist", notepaperlist);
 		model.addAttribute("page", list);
+		model.addAttribute("url", "panel");
 		
 	
 		return "user/userpanel";
@@ -135,6 +136,7 @@ public class UserpanelController {
 		List<Notepaper> notepaperlist=list.getContent();
 		model.addAttribute("notepaperlist", notepaperlist);
 		model.addAttribute("page", list);
+		model.addAttribute("url", "panel");
 		return "user/panel";
 	}
 	/**

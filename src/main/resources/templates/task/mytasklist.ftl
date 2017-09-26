@@ -71,18 +71,7 @@
 	$(function() {
 		
 		/* 分页插件按钮的点击事件 */
-		$('.tablefirst').on('click',function(){
-			$('.thistable').load('/mychaxun?page=0');
-		});
-		$('.tableup').on('click',function(){
-			$('.thistable').load('/mychaxun?page=${(page.number)-1}');
-		});
-		$('.tabledown').on('click',function(){
-			$('.thistable').load('mychaxun?page=${(page.number)+1}');
-		});
-		$('.tablelast').on('click',function(){
-			$('.thistable').load('mychaxun?page=${(page.totalPages)-1}');
-		});
+		
 		$('.baseKetsubmit').on('click',function(){
 			var baseKey=$('.baseKey').val();
 			$('.thistable').load('mychaxun?baseKey=baseKey');
