@@ -120,31 +120,32 @@ public class PlanController {
 			for (Plan plan : pList) {
 				number.add(plan.getUser().getUserId());
 			}
+			System.out.println(number);
 			//找到相对应的计划记录
 			for (Long num: number) {
 				plan2=planDao.findlatest(start, end,num);
 				if(plan2!=null)
 				plans.add(plan2);
 			}
-//			System.out.println(plans);
+			System.out.println(plans);
 			//将用户名和list绑定在一起
 			Map<String,Plan> uMap=new HashMap<>();
 			 for (User user : uList) {
 				 for (Plan plan : plans) {
 					if(user.getUserId()==plan.getUser().getUserId()){
-						System.out.println(plan.getUser().getUserId());
 						 uMap.put(user.getUserName(), plan);
+						 System.out.println(user.getUserName()+";"+user.getUserId());
 						 break;
 						 }
 					else{
 						uMap.put(user.getUserName(), null);
+						System.out.println(user.getUserName()+";"+user.getUserId());
 					}
 				}
 	    	}
-	    
+			System.out.println(uMap);
 			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
 			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
-			System.out.println(uMap);
 			model.addAttribute("uMap", uMap);
 			model.addAttribute("type", type);
 			model.addAttribute("status", status);
@@ -185,8 +186,17 @@ public class PlanController {
 		}
 	    
 		//修改评论
-//		@RequestMapping("comment")
-//		public 
+		@RequestMapping("plancomment")
+		public String sdf(HttpServletRequest request){
+			Long pid=Long.valueOf(request.getParameter("pid"));
+			String comment=request.getParameter("comment");
+			Plan plan=planDao.findOne(pid);
+			System.out.println(pid+";"+comment);
+			plan.setPlanComment(plan.getPlanComment()+comment);
+			planDao.save(plan);
+			return "redirect:/myplan";
+			
+		}
 		
 		
 		@RequestMapping(value="plansave",method=RequestMethod.GET)
@@ -219,10 +229,6 @@ public class PlanController {
 			if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
 				List<Object> list = new MapToList<>().mapToList(res.getData());
 				req.setAttribute("errormess", list.get(0).toString());
-				// 代码调试阶段，下面是错误的相关信息；
-				System.out.println("list错误详情:" + list);
-				System.out.println("list错误第一条:" + list.get(0));
-				System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
 				// 下面的info信息是打印出详细的信息
 				log.info("getData:{}", res.getData());
 				log.info("getCode:{}", res.getCode());
@@ -250,7 +256,6 @@ public class PlanController {
 				}
 				if(pid>0){
 					plan=planDao.findOne(pid);
-					System.out.println(plan);
 					if(plan.getAttachId()==null){
 					if(!file.isEmpty())
 					{

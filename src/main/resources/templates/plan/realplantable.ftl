@@ -45,7 +45,7 @@
 											<td>
 											<#if uMap["${userName}"]??>
 											<!-- 模态框按钮 -->
-											<a class="btn thisa">
+											<a class="btn thisa" id="${uMap["${userName}"].planId}">
 											<span class="label label-success ">
 											<i class="glyphicon glyphicon-commenting">评论</i>
 											</span>
@@ -68,19 +68,20 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					<span class="glyphicon glyphicon-remove-circle"></span>
+					<span class="glyphicon glyphicon-remove-circle" style="font-size: 26px;"></span>
 				</button>
-				<h5 class="modal-title" id="myModalLabel">
+				<h4 class="modal-title" id="myModalLabel">
 					评论
-				</h5>
+				</h4>
 			</div>
-			<div class="modal-body">
-				<textarea rows="8" cols="78"></textarea>
+			<div class="modal-body" >
+				<textarea rows="8" cols="78" id="comment"></textarea>
 			</div>
+			<input type="hidden" id="commentid"/>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
-				<button type="button" class="btn btn-primary">
+				<button type="button" class="btn btn-primary" id="commentsave">
 					提交
 				</button>
 			</div>
@@ -88,9 +89,30 @@
 	</div><!-- /.modal -->
 </div>
 <script>
-	$('.thisa').on('click',function(){
-		$("#myModal").modal("toggle");
-	});
+$('.thisa').on('click',function(){
+	$("#myModal").modal("toggle");
+	$("#commentid").val($('.thisa').attr("id"))
+});
+//评论提交
+$("#commentsave").click(function(){
+	 var $comment=$("#comment").val();
+	 var $commentid=$("#commentid").val();
+	 $.ajax({
+		 type:"get",
+		 url:"plancomment",
+		 data:{
+			 pid:$commentid,
+			 comment:$comment
+		 },
+		 success:function(){
+			 alert("ok")
+			 $(".close").click();
+		 },
+		 error:function(){
+			 
+		 }
+	 })
+})
 </script>
 </body>
 </html>

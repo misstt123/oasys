@@ -75,6 +75,7 @@ function convert(starttime,endtime){
 			 endtime:endtime
 		 },
 		success:function(dates){
+			
 			 $("#refresh").html(dates)
 		 },
 		 error:function(){
@@ -101,6 +102,7 @@ $(function(){
 	 endday=changeSomeday(getday,2,1);
 	 $("#start").html(startday);
 	 $("#end").html(endday);
+	 convert(startday,endday);
 	 //点击日计划
 	 $(".day").click(function(){
 		 $(".row .col-md-10 h1").text("计划报表")
@@ -160,15 +162,28 @@ $(function(){
 	  $(".next").click(function(){
 		  exec(2,7,1);
 	 })
+	 
 })
 
 function exec(one,two,three){
 	 if(choose==1){
-		 change(one)
+		 var arr=new Array()
+		 arr=change(one).split(";");
+		 convert(arr[0],arr[1])
+		 
 	 }
-	 if(choose==2)
-	change(two)
+	 if(choose==2){
+		 var arr=new Array()
+	 arr=change(two).split(";");
+	 convert(arr[0],arr[1])
+	 }
 	 else if(choose==3){
-		 change(days2*three)
-	 }
+		 var arr=new Array()
+		 arr= change(days2*three).split(";");
+		 convert(arr[0],arr[1])
+	}
 }
+
+
+
+	
