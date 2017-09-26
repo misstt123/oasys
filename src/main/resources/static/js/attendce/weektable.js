@@ -50,9 +50,13 @@ var starttime,endtime;
 	}
 	
 	$(function () {
+		var dayDistance;
 				var date = new Date();
 				//距离该周的星期一有多少天
-				var dayDistance=date.getDay()-1;
+				if(date.getDay()==0)
+					 dayDistance=6;
+				 else
+				 dayDistance=date.getDay()-1;
 				//距离该周的星期日有多少天
 				var dayDistance2=7-date.getDay();
 				//先获得该日期的年 月

@@ -18,6 +18,7 @@ public class StringtoDate implements Converter<String, Date> {
 		@Override
 		public Date convert(String source) {
 			patterns.add("yyyy-MM-dd HH:mm:ss");
+			patterns.add("yyyy-MM-dd HH:mm");
 			   patterns.add("yyyy-MM-dd");
 			   patterns.add("HH:mm");
 			   patterns.add("yyyy-MM");
