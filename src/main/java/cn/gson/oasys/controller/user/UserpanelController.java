@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.io.FilenameUtils;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,9 +70,11 @@ public class UserpanelController {
 	private String rootpath;
 	
 	@RequestMapping("userpanel")
-	public String index(HttpSession session,Model model,HttpServletRequest req){
+	public String index(HttpSession session,Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
 		
-		
+		Pageable pa=new PageRequest(page, size);
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		User user=null;
@@ -99,8 +104,9 @@ public class UserpanelController {
 		List<Mailreciver> maillist=mdao.findByReadAndReciverId(false, user);
 		
 		//找便签
-		List<Notepaper> notepaperlist=ndao.findByUserIdOrderByCreateTimeDesc(user);
+		Page<Notepaper> list=ndao.findByUserIdOrderByCreateTimeDesc(user,pa);
 		
+		List<Notepaper> notepaperlist=list.getContent();
 		
 		model.addAttribute("user", user);
 		model.addAttribute("deptname", deptname);
@@ -108,9 +114,28 @@ public class UserpanelController {
 		model.addAttribute("noticelist", noticelist.size());
 		model.addAttribute("maillist", maillist.size());
 		model.addAttribute("notepaperlist", notepaperlist);
+		model.addAttribute("page", list);
 		
 	
 		return "user/userpanel";
+	}
+	/**
+	 * 上下页
+	 */
+	@RequestMapping("panel")
+	public String index(HttpSession session,Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User user=udao.findOne(userid);
+		//找便签
+		Page<Notepaper> list=ndao.findByUserIdOrderByCreateTimeDesc(user,pa);
+		List<Notepaper> notepaperlist=list.getContent();
+		model.addAttribute("notepaperlist", notepaperlist);
+		model.addAttribute("page", list);
+		return "user/panel";
 	}
 	/**
 	 * 存便签

@@ -187,89 +187,10 @@ h1, h3 {
 			<form action="saveuser" method="post" enctype="multipart/form-data" onsubmit="return empcheck();" >
 			<div class="tab-content">
 
-				<div class="active tab-pane" id="memo">
-
-					<div class="box-body">
-
-						<div class="bo">
-							<table class="table1" cellspacing="0" border="0"
-								id="ctl00_cphMain_GridView1"
-								style="border-width: 0px; border-collapse: collapse; margin-bottom: 0px; width: 100%;">
-								<#if notepaperlist??>
-								<#list notepaperlist as notepaper>
-								<tr>
-									<td>
-
-										<div class="post"
-											style="border: dashed 1px #eee; padding: 10px 10px 0 10px; background: #FFFFE0; margin: 0 5px 10px 5px;">
-											<div class="user-block">
-
-												<span class="papertitle" style="color: #8e8e8e;margin-right: 8px;">${notepaper.title}</span>
-												 <a href="notepaper?id=${notepaper.notepaperId}" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-													id="paperdelete" class="pull-right " > 
-													<i class='glyphicon glyphicon-remove-sign'></i></a>
-													<span class="papertime" style="font-size: 8pt; color: #999;">${notepaper.createTime}</span>
-											</div>
-											<p class="title" style="display:none;">
-												<span class="papertitle">${notepaper.title}</span>
-											</p>
-											<p class="concent" style="margin-top: 8px;width: 93%;">
-												<span class="papercontent">${notepaper.concent}</span>
-											</p>
-											<p class="pk" style="display:none;">
-												<span class="paperid">${notepaper.notepaperId}</span>
-											</p>
-											<a  style="margin-top: -22px;"
-													class="pull-right edit" data-toggle="modal" data-target="#notepaper"
-													href="##"> <i class="glyphicon glyphicon-edit"></i>
-														修改
-												</a>
-										</div>
-
-									</td>
-								</tr>
-								</#list>
-								</#if>
-								
-							</table>
-						</div>
-
-					</div>
-					<div class="box-footer no-padding" style="margin-top: -20px;">
-						<div style="padding: 5px;">
-							<div id="page"
-								style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-								<div style="width: 40%; float: left;">
-									<div class="pageInfo" style="margin-left: 5px;">
-										共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-									</div>
-								</div>
-								<div style="width: 60%; float: left;">
-									<div class="pageOperation">
-										<a class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-backward"></span>
-										</a> <a class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-triangle-left"></span>
-										</a> <a disabled="disabled" class="btn btn-default no-padding"
-											style="width: 30px; height: 20px;"> 1 </a> <a
-											class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-triangle-right"></span>
-										</a> <a class="btn btn-sm btn-default no-padding"
-											style="width: 30px; height: 20px;"> <span
-											class="glyphicon glyphicon-forward"></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="active tab-pane thistable" id="memo">
+				<#include "/user/panel.ftl">
 
 				</div>
-				
-				
 				<div class="tab-pane" id="settings">
 					<div class="box-body">
 					<!--錯誤信息提示  -->

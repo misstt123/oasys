@@ -201,36 +201,7 @@ a:hover {
 											
 										</table>
 
-										<div class="box-footer no-padding" style="margin-top: -20px;background: #FAFAFA;border-top: solid 1px #F5F5F5;">
-											<div style="padding: 5px;">
-												<div id="page" style="background:#fff;border:0px;margin-top:0px;padding:2px;height: 25px;">
-													<div style="width: 40%; float: left;">
-														<div class="pageInfo" style="margin-left: 5px;">
-															共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-														</div>
-													</div>
-													<div style="width: 60%; float: left;">
-														<div class="pageOperation">
-															<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
-																<span class="glyphicon glyphicon-backward"></span>
-															</a>
-															<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
-																<span class="glyphicon glyphicon-triangle-left"></span>
-															</a>
-															<a disabled="disabled" class="btn btn-default no-padding" style="width:30px;height: 20px;">
-																1
-															</a>
-															<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
-																<span class="glyphicon glyphicon-triangle-right"></span>
-															</a>
-															<a class="btn btn-sm btn-default no-padding" style="width:30px;height: 20px;">
-																<span class="glyphicon glyphicon-forward"></span>
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+									<#include "/common/paging.ftl">
 
 									</div>
 

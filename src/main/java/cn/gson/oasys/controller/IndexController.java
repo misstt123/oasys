@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.model.dao.system.StatusDao;
@@ -51,7 +55,7 @@ public class IndexController {
 	public String index(HttpServletRequest req){
 		menuService.findMenuSys(req);
 		HttpSession session=req.getSession();
-		session.setAttribute("userId", "1");
+		session.setAttribute("userId", "2");
 		return "index/index";
 	}
 	
@@ -110,9 +114,14 @@ public class IndexController {
 		return "mail/mail";
 	}
 	
-	
-	
-	
+	@RequestMapping("ffff")
+	public @ResponseBody PageInfo<Map<String, Object>> no(){
+		PageHelper.startPage(2, 10);
+		List<Map<String, Object>> list=nm.findMyNotice(2L);
+		PageInfo<Map<String, Object>> info=new PageInfo<Map<String, Object>>(list);
+		System.out.println(info);
+		return info;
+	}
 	
 	
 

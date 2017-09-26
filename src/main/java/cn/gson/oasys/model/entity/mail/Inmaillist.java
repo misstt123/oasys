@@ -22,11 +22,13 @@ public class Inmaillist {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="mail_id")
-	private Long mailId;//内部邮件id
+	private Long mailId;//邮件id
 	
 	@Column(name="mail_type")
 	private Long mailType;//邮件类型（通知，公告，邮件）
 	
+	@Column(name="mail_status_id")
+	private Long mailStatusid;//邮件状态（一般，紧急，重要）
 	
 	@ManyToOne
 	@JoinColumn(name="mail_in_push_user_id")
@@ -38,6 +40,8 @@ public class Inmaillist {
 	@Column(name="mail_content")
 	private String mailContent;//邮件内容
 	
+	@Column(name="in_receiver",nullable=false)
+	private String inReceiver;//接收人（可以是多个）
 	
 	@ManyToOne
 	@JoinColumn(name="mail_file_id")
@@ -46,7 +50,38 @@ public class Inmaillist {
 	@Column(name="mail_create_time")
 	private Date mailCreateTime;//邮件创建时间
 	
+	@ManyToOne
+	@JoinColumn(name="mail_number_id")
+	private Mailnumber mailNumberid;//外部邮件账号id
+	
 	public Inmaillist(){}
+	
+	public Long getMailStatusid() {
+		return mailStatusid;
+	}
+
+	public void setMailStatusid(Long mailStatusid) {
+		this.mailStatusid = mailStatusid;
+	}
+
+	public Mailnumber getMailNumberid() {
+		return mailNumberid;
+	}
+
+	public void setMailNumberid(Mailnumber mailNumberid) {
+		this.mailNumberid = mailNumberid;
+	}
+
+
+	public String getInReceiver() {
+		return inReceiver;
+	}
+
+	public void setInReceiver(String inReceiver) {
+		this.inReceiver = inReceiver;
+	}
+
+
 
 	public Long getMailId() {
 		return mailId;
@@ -109,10 +144,14 @@ public class Inmaillist {
 
 	@Override
 	public String toString() {
-		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailTitle=" + mailTitle + ", mailContent="
-				+ mailContent + ", mailCreateTime=" + mailCreateTime + "]";
+		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailStatusid=" + mailStatusid
+				+ ", mailTitle=" + mailTitle + ", mailContent=" + mailContent + ", inReceiver=" + inReceiver
+				+ ", mailFileid=" + mailFileid + ", mailCreateTime=" + mailCreateTime + "]";
 	}
 
+
+
+	
 	
 	
 }

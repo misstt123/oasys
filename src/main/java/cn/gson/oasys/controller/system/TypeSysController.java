@@ -50,6 +50,25 @@ public class TypeSysController {
 		req.setAttribute("typeList", typeList);
 		return "systemcontrol/typemanage";
 	}
+	
+	/**
+	 * 查找类型表格
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("typetable")
+	public String typeTable(HttpServletRequest req) {
+		if(!StringUtils.isEmpty(req.getParameter("name"))){
+			String name="%"+req.getParameter("name")+"%";
+			req.setAttribute("typeList",typeDao.findByTypeNameLikeOrTypeModelLike(name, name));
+		}
+		else{
+			Iterable<SystemTypeList> typeList = typeDao.findAll();
+			req.setAttribute("typeList", typeList);
+		}
+		return "systemcontrol/typetable";
+	}
 
 	/**
 	 * 类型编辑界面；

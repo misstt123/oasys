@@ -144,6 +144,7 @@ public class NoteController {
 			//nid大于0就是修改某个对象
 			if(nid>0){
 				note=noteDao.findOne(nid);
+				if(note.getAttachId()==null){
 				if(!file.isEmpty())
 				{
 				att =(Attachment) fs.savefile(file, user, null, false);
@@ -151,9 +152,10 @@ public class NoteController {
 			    note.setAttachId(attid);
 			    noteDao.save(note);
 			    }
-				
+				}
 				if(note.getAttachId()!=null)
 				fs.updateatt(file, user, null, note.getAttachId());
+				
 				NoteService.updatenote(catalogId, typeId, statusId, title, content, nid);
 				
 			}
