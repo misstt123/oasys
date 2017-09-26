@@ -24,25 +24,26 @@
 			<div class="form-group">
 				<select name="ctl00$cphMain$ddlType" id="ctl00_cphMain_ddlType"
 					class="form-control select2">
-					<option value="0">邮件</option>
-					<option value="1">通知</option>
-					<option value="2">公告</option>
+					<#list typelist as type>
+					<option value="${type.typeId}">${type.typeName}</option>
+					</#list>
 				</select>
 			</div>
 			<div class="form-group">
 				<select name="ctl00$cphMain$ddlStatus" id="ctl00_cphMain_ddlStatus"
 					class="form-control select2">
-					<option value="0">一般</option>
-					<option value="1">重要</option>
-					<option value="2">紧急</option>
+					<#list statuslist as status>
+					<option value="${status.statusId}">${status.statusName}</option>
+					</#list>
 				</select>
 			</div>
 			<div class="form-group">
 				<select name="ctl00$cphMain$ddlAccount"
 					id="ctl00_cphMain_ddlAccount" class="form-control select2">
 					<option value="0">内部邮件</option>
-					<option value="1">客户询问信</option>
-					<option value="2">朱丽叶的邮箱</option>
+					<#list mailnum as num>
+					<option value="${num.mailNumberId}">${num.mailUserName}</option>
+					</#list>
 				</select>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 package cn.gson.oasys.model.dao.processdao;
 
-import java.util.List;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +11,7 @@ import cn.gson.oasys.model.entity.user.User;
 
 public interface NotepaperDao extends JpaRepository<Notepaper, Long> {
 	// 根据用户找便签
-	List<Notepaper> findByUserIdOrderByCreateTimeDesc(User user);
+	Page<Notepaper> findByUserIdOrderByCreateTimeDesc(User user,Pageable pa);
 
 	// 根据用户找便签
 	Page<Notepaper> findByUserIdOrderByCreateTimeDesc(Pageable page);

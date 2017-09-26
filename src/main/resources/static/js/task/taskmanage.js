@@ -5,9 +5,10 @@ $(function(){
 					//点击变换字体颜色
 					var $color=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
 					//切换img
-					$("#img").appendTo(".mm span");
+					$("#img").appendTo(".mm span");	
 					var $val=$(this).text();
-					 $(".upda").load("paixu",{val:$val});
+					console.log("什么鬼？");
+					 $(".thistable").load("paixu",{val:$val});
 					
 					
 				})

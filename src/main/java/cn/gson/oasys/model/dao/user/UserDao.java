@@ -2,6 +2,8 @@ package cn.gson.oasys.model.dao.user;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +14,9 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>{
     
 	List<User>  findByUserId(Long id);
 	
-	List<User> findByFatherId(Long parentid);
+	List<User>  findByFatherId(Long parentid);
+	
+	Page<User> findByFatherId(Long parentid,Pageable pa);
 	
 	@Query("select u from User u where u.userName=:name")
 	User findid(@Param("name")String name);

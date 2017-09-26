@@ -1,6 +1,6 @@
 package cn.gson.oasys.controller.mail;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +11,13 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.util.StringUtil;
 
@@ -40,7 +43,7 @@ public class MailController {
 	private UserDao udao;
 	
 	@Autowired
-	private MailnumberDao mdao;
+	private MailnumberDao mndao;
 	
 	@Autowired
 	private StatusDao sdao;
@@ -62,83 +65,49 @@ public class MailController {
 	 * 账号管理
 	 */
 	@RequestMapping("accountmanage")
-	public String account(HttpSession session, Model model){
+	public String account(HttpSession session, Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
 		
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		List<Map<String, Object>> list = new ArrayList<>();
 		
 		// 通过邮箱建立用户id找用户对象
 		User tu = udao.findOne(userid);
 		
-		//通过user和statusid找邮箱账号
-		
-		List<Mailnumber> account=mdao.findByStatusAndMailUserIdOrderByMailCreateTimeDesc(1L, tu);
-		List<Mailnumber> account2=mdao.findByStatusAndMailUserIdOrderByMailCreateTimeDesc(2L, tu);
-		if(account2.size()>0){
-			
-			account.addAll(account2);
-		}
-		list=mservice.up(account);
-		
-	
+		Page<Mailnumber> pagelist=mservice.index(page, size, tu, null);
+		List<Map<String, Object>> list=mservice.up(pagelist);
 		
 		model.addAttribute("account", list);
+		model.addAttribute("page", pagelist);
 		return "mail/mailmanage";
 	}
 	/**
 	 * 各种排序
+	 * 和查询
 	 */
 	@RequestMapping("mailpaixu")
-	public String paixu(HttpServletRequest request, HttpSession session, Model model){
+	public String paixu(HttpServletRequest request, HttpSession session, Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
 		
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		List<Mailnumber> account = null;
-		List<Map<String, Object>> list = new ArrayList<>();
 		// 通过发布人id找用户
 		User tu = udao.findOne(userid);
 		//得到传过来的值
-		String val = request.getParameter("val");
-		if (("类型").equals(val)) {
-			account=mdao.findByMailUserIdOrderByMailType(tu);
-		}else if(("状态").equals(val)){
-			account=mdao.findByMailUserIdOrderByStatus(tu);
-		}else{
-			account=mdao.findByMailUserIdOrderByMailCreateTimeDesc(tu);
+		String val =null;
+		if(!StringUtil.isEmpty(request.getParameter("val"))){
+			
+		 val = request.getParameter("val");
 		}
-		list=mservice.up(account);
+		Page<Mailnumber> pagelist=mservice.index(page, size, tu, val);
+		List<Map<String, Object>> list=mservice.up(pagelist);
 		model.addAttribute("account", list);
-		return "mail/accounttbody";
+		model.addAttribute("page", pagelist);
+		return "mail/mailtable";
 	}
-	/**
-	 * title查询
-	 */
-	@RequestMapping("serach")
-	public String serach(HttpServletRequest request, HttpSession session, Model model){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		
-		List<Mailnumber> account = null;
-		List<Map<String, Object>> list = new ArrayList<>();
-		// 通过用户id找用户
-		User tu = udao.findOne(userid);
-		//得到传过来的值
-		String val = request.getParameter("title");
-		if(StringUtil.isEmpty(val)){
-			account=mdao.findByStatusAndMailUserIdOrderByMailCreateTimeDesc(1L, tu);
-			List<Mailnumber> account2=mdao.findByStatusAndMailUserIdOrderByMailCreateTimeDesc(2L, tu);
-			if(account2.size()>0){
-				
-				account.addAll(account2);
-			}
-		}else{
-			account = mdao.findByMailUserNameLikeAndMailUserId(val,tu);
-		}
-		list=mservice.up(account);
-		model.addAttribute("account", list);
-		return "mail/accounttbody";
-	}
+
 	/**
 	 * 新增账号
 	 * 修改账号
@@ -174,7 +143,7 @@ public class MailController {
 		}else{
 			
 			Long id=Long.parseLong(req.getParameter("id"));
-			Mailnumber mailnum=mdao.findOne(id);
+			Mailnumber mailnum=mndao.findOne(id);
 			model.addAttribute("type", tydao.findname(mailnum.getMailType()));
 			model.addAttribute("status", sdao.findname(mailnum.getStatus()));
 			model.addAttribute("mails", mailnum);
@@ -207,16 +176,16 @@ public class MailController {
 			if(Objects.isNull(mail.getMailNumberId())){
 				mail.setMailUserId(tu);
 				mail.setMailCreateTime(new Date());
-				mdao.save(mail);
+				mndao.save(mail);
 			}else{
-				Mailnumber mails=mdao.findOne(mail.getMailNumberId());
+				Mailnumber mails=mndao.findOne(mail.getMailNumberId());
 				mails.setMailType(mail.getMailType());
 				mails.setStatus(mail.getStatus());
 				mails.setMailDes(mail.getMailDes());
 				mails.setMailAccount(mail.getMailAccount());
 				mails.setPassword(mail.getPassword());
 				mails.setMailUserName(mail.getMailUserName());
-				mdao.save(mails);
+				mndao.save(mails);
 			}
 			request.setAttribute("success", "执行成功！");
 			
@@ -233,7 +202,7 @@ public class MailController {
 		Long userid = Long.parseLong(userId);
 		//得到账号id
 		Long accountid=Long.parseLong(request.getParameter("id"));
-		Mailnumber mail=mdao.findOne(accountid);
+		Mailnumber mail=mndao.findOne(accountid);
 		if(mail.getMailUserId().getUserId().equals(userid)){
 			mservice.dele(accountid);
 		}else{
@@ -246,8 +215,16 @@ public class MailController {
 	 * 写信
 	 */
 	@RequestMapping("wmail")
-	public  String index2() {
-		
+	public  String index2(Model model, HttpSession session) {
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User mu=udao.findOne(userid);
+		List<SystemTypeList> typelist=tydao.findByTypeModel("aoa_in_mail_list");
+		List<SystemStatusList>  statuslist=sdao.findByStatusModel("aoa_in_mail_list");
+		List<Mailnumber> mailnum=mndao.findByStatusAndMailUserId(1L, mu);
+		model.addAttribute("typelist", typelist);
+		model.addAttribute("statuslist", statuslist);
+		model.addAttribute("mailnum", mailnum);
 		return "mail/wirtemail";
 	}
 	
