@@ -1,12 +1,8 @@
 package cn.gson.oasys.controller.plan;
 
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.DatagramSocketImplFactory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,16 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import aj.org.objectweb.asm.Type;
 import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
@@ -50,9 +40,7 @@ import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
-import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.plan.Plan;
-import cn.gson.oasys.model.entity.system.SystemMenu;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
@@ -215,7 +203,6 @@ public class PlanController {
 
 			// 这里返回ResultVO对象，如果校验通过，ResultEnum.SUCCESS.getCode()返回的值为200；否则就是没有通过；
 			ResultVO res = BindingResultVOUtil.hasErrors(br);
-			// 校验失败
 			if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
 				List<Object> list = new MapToList<>().mapToList(res.getData());
 				req.setAttribute("errormess", list.get(0).toString());
