@@ -64,7 +64,7 @@ public class FileController {
 		
 		FilePath filepath = fpdao.findByPathName(user.getUserName());
 		model.addAttribute("nowpath", filepath);
-		model.addAttribute("paths", fs.findpathByparent(6L));
+		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
 		model.addAttribute("files", fs.findfileBypath(filepath));
 		return "file/filemanage";
 	}

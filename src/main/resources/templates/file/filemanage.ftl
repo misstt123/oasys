@@ -300,6 +300,21 @@ li.activee>a {
 			</span>
 		</div> 
 	</div>
+	
+	<div class="mcmodal diplaynone">
+		<li style="border:0px;">
+			<div class="box-header no-padding">
+				<span class="btn btn-default btn-xs des mm"> 
+					<i class="glyphicon-plus"></i>
+				</span>
+				<div class="mcflooropen"></div>
+				<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
+			</div>
+			<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
+				
+			</ul>
+		</li>
+	</div>
 
 	<!-- 移动复制模态框 -->
 	<div class="modal fade in" id="thismodal" data-backdrop="static">
@@ -319,7 +334,18 @@ li.activee>a {
 							<h3 class="box-title" style="font-size:12px;">罗密欧</h3>
 						</div>
 						<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
-							<li style="border:0px;">
+							<#list paths as path>
+								<div class="box-header no-padding">
+									<span class="btn btn-default btn-xs des mm"> 
+										<i class="glyphicon-plus"></i>
+									</span>
+									<div class="mcflooropen"></div>
+									<h3 class="box-title" style="font-size:12px;">${path.pathName}</h3>
+								</div>
+								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
+								</ul>
+							</#list>
+							<!-- <li style="border:0px;">
 								<div class="box-header no-padding">
 									<span class="btn btn-default btn-xs des mm"> 
 										<i class="glyphicon-plus"></i>
@@ -340,7 +366,7 @@ li.activee>a {
 									<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
 								</div>
 								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
-									<li>3333</li>
+									
 								</ul>
 							</li>
 							<li style="border:0px;">
@@ -354,7 +380,7 @@ li.activee>a {
 								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
 									<li>yeah</li>
 								</ul>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 					<div class="box-footer" style="text-align:right;">
