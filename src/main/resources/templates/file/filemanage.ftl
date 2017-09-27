@@ -334,7 +334,7 @@ li.activee>a {
 							<h3 class="box-title" style="font-size:12px;">罗密欧</h3>
 						</div>
 						<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
-							<#list paths as path>
+							<#list mcpaths as path>
 								<div class="box-header no-padding">
 									<span class="btn btn-default btn-xs des mm"> 
 										<i class="glyphicon-plus"></i>

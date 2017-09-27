@@ -64,6 +64,7 @@ public class FileController {
 		
 		FilePath filepath = fpdao.findByPathName(user.getUserName());
 		model.addAttribute("nowpath", filepath);
+		model.addAttribute("mcpaths",fs.findpathByparent(filepath.getId()));
 		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
 		model.addAttribute("files", fs.findfileBypath(filepath));
 		return "file/filemanage";
@@ -77,7 +78,12 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("filetest")
-	public String text(@RequestParam("pathid") Long pathid, Model model) {
+	public String text(@SessionAttribute("userId")Long userid,@RequestParam("pathid") Long pathid, Model model) {
+		User user = udao.findOne(userid);
+		
+		FilePath userrootpath = fpdao.findByPathName(user.getUserName());
+		
+		
 		// 查询当前目录
 		FilePath filepath = fpdao.findOne(pathid);
 
@@ -90,6 +96,8 @@ public class FileController {
 		model.addAttribute("nowpath", filepath);
 		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
 		model.addAttribute("files", fs.findfileBypath(filepath));
+		//复制移动显示 目录
+		model.addAttribute("mcpaths",fs.findpathByparent(userrootpath.getId()));
 		return "file/filemanage";
 	}
 
