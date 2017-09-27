@@ -63,10 +63,13 @@ public class FileController {
 		User user = udao.findOne(userid);
 		
 		FilePath filepath = fpdao.findByPathName(user.getUserName());
+		
 		model.addAttribute("nowpath", filepath);
-		model.addAttribute("mcpaths",fs.findpathByparent(filepath.getId()));
 		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
 		model.addAttribute("files", fs.findfileBypath(filepath));
+		
+		model.addAttribute("userrootpath",filepath);
+		model.addAttribute("mcpaths",fs.findpathByparent(filepath.getId()));
 		return "file/filemanage";
 	}
 
@@ -97,6 +100,7 @@ public class FileController {
 		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
 		model.addAttribute("files", fs.findfileBypath(filepath));
 		//复制移动显示 目录
+		model.addAttribute("userrootpath",userrootpath);
 		model.addAttribute("mcpaths",fs.findpathByparent(userrootpath.getId()));
 		return "file/filemanage";
 	}
