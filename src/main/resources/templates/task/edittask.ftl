@@ -27,31 +27,7 @@ a:hover {
 </style>
 <script>
 	$(function(){
-	/* 	$("[name=isTop]:checkbox").click(function(){
-			console.log($(this).prop("checked"));
-			if($(this).prop("checked")){
-				$(this).val("1");
-			}else{
-				$(this).val("0");
-			}
-		})
-		
-		$("[name=isCancel]:checkbox").click(function(){
-			console.log($(this).prop("checked"));
-			console.log($("#recive_list").val());
-			if($(this).prop("checked")){
-				$(this).val("1");
-			}else{
-				$(this).val("0");
-			}
-		}) */
-		
-		/* $(".val").each(function(){
-			console.log($	);
-			if($(this).prop("value")==true){
-				$(this).prop("checked",true);
-			}
-		}) */
+	
 	})
 
 </script>
