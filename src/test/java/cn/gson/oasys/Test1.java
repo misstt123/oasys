@@ -18,8 +18,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.gson.oasys.mappers.NoticeMapper;
+import cn.gson.oasys.model.dao.attendcedao.AttendceService;
 import cn.gson.oasys.model.dao.processdao.NotepaperDao;
+import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.process.Notepaper;
+import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.user.NotepaperService;
 
 @SpringBootTest
@@ -30,6 +34,11 @@ public class Test1 {
 	
 	@Autowired
 	private NoticeMapper nm;
+	
+	@Autowired
+	AttendceService attendceService;
+	@Autowired
+	UserDao uDao;
 
 	@Test
 	public void test(){
@@ -38,14 +47,5 @@ public class Test1 {
 		PageInfo<Map<String, Object>> info=new PageInfo<Map<String, Object>>(list);
 		System.out.println(info);
 	}
-//	@RequestMapping
-//	public void test(@RequestParam(value = "page", defaultValue = "0") int page,
-//			@RequestParam(value = "size", defaultValue = "5") int size,
-//			@RequestParam(value = "baseKey", required = false) String baseKey) {
-//		PageRequest pageRequest = new PageRequest(page, size);
-//		NotepaperService n = new NotepaperService();
-////		Page<Notepaper> notepaperPage = n.finall(pageRequest, baseKey);
-////		Long total = notepaperPage.getTotalElements();
-////		notepaperPage.getTotalPages();
-//	}
+
 }

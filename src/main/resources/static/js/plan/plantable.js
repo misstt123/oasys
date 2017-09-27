@@ -66,13 +66,14 @@ function change(days){
 
 
 //调用ajax传给后台调用
-function convert(starttime,endtime){
+function convert(starttime,endtime,choose){
 	$.ajax({
 		type:"get",
 		url:"realplantable",
 		 data:{
 			 starttime:starttime,
-			 endtime:endtime
+			 endtime:endtime,
+			 choose:choose
 		 },
 		success:function(dates){
 			 $("#refresh").html(dates)
@@ -81,6 +82,7 @@ function convert(starttime,endtime){
 		 }
 	})
 }
+
 
 
 $(function(){
@@ -101,6 +103,7 @@ $(function(){
 	 endday=changeSomeday(getday,2,1);
 	 $("#start").html(startday);
 	 $("#end").html(endday);
+	 convert(startday,endday,choose);
 	 //点击日计划
 	 $(".day").click(function(){
 		 $(".row .col-md-10 h1").text("计划报表")
@@ -112,7 +115,7 @@ $(function(){
 		 $("#end").html(endday);
 		//赋值让'上一个'按钮知道这是谁
 		 choose=1;
-		 convert(startday,endday)
+		 convert(startday,endday,choose)
 	 })
 	 
 	 //点击周计划
@@ -134,7 +137,7 @@ $(function(){
 			 $("#end").html(endday);
 			//赋值让'上一个'按钮知道这是谁
 			 choose=2;
-			 convert(startday,endday)
+			 convert(startday,endday,choose)
 		  
 	 })
 	 //点击月计划
@@ -149,7 +152,7 @@ $(function(){
 			 $("#end").html(endday);
 			 //赋值3让'上一个'按钮知道这是谁
 			 choose=3;
-			 convert(startday,endday)
+			 convert(startday,endday,choose)
 	 })
 	 
 	//上一个
@@ -160,15 +163,29 @@ $(function(){
 	  $(".next").click(function(){
 		  exec(2,7,1);
 	 })
+	 
+
 })
 
 function exec(one,two,three){
 	 if(choose==1){
-		 change(one)
+		 var arr=new Array()
+		 arr=change(one).split(";");
+		 convert(arr[0],arr[1],choose)
+		 
 	 }
-	 if(choose==2)
-	change(two)
+	 if(choose==2){
+		 var arr=new Array()
+	 arr=change(two).split(";");
+	 convert(arr[0],arr[1],choose)
+	 }
 	 else if(choose==3){
-		 change(days2*three)
-	 }
+		 var arr=new Array()
+		 arr= change(days2*three).split(";");
+		 convert(arr[0],arr[1],choose)
+	}
 }
+
+
+
+	
