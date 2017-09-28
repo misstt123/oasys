@@ -1,6 +1,8 @@
 package cn.gson.oasys.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +21,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.gson.oasys.mappers.NoticeMapper;
+import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.services.inform.InformRelationService;
 import cn.gson.oasys.services.system.MenuSysService;
 
@@ -47,6 +51,8 @@ public class IndexController {
 	@Autowired
 	private UserDao uDao;
 	
+	@Autowired
+	private AttendceDao attendceDao;
 	
 	@Autowired
 	private InformRelationService informRService;
@@ -77,7 +83,19 @@ public class IndexController {
 			map.put("deptName", uDao.findOne((Long)map.get("user_id")).getDept().getDeptName());
 		}
 //		List<Map<String, Object>> noticeList=informRService.setList(noticeList1);
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date date=new Date();
+		String nowdate=sdf.format(date);
+		List<Attends> aList=attendceDao.findifattend(nowdate, userId);
+		if(aList==null)
+		{}
+		else if(aList!=null){
+			model.addAttribute("alist", aList);
+		}
+		System.out.println(aList);
 		model.addAttribute("noticeList", list);
+		
 		return "systemcontrol/control";
 	}
 	@RequestMapping("test3")

@@ -64,6 +64,9 @@ public class AttendceController {
 	 DefaultConversionService service=new DefaultConversionService();
     
 	
+	 
+	
+	 
 	//考情列表 给单个用户使用
 	@RequestMapping("attendcelist")
 	public String test(HttpServletRequest request,HttpSession session

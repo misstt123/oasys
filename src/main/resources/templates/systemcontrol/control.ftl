@@ -17,8 +17,10 @@
 		<div class="col-md-3">
 			<div class="jichu kaoqin">
 				<div class="wenzi">
-					<h2>未签到</h2>
-					<p>请到考勤管理签到</p>
+						<h2><#if alist??>
+						未签到</#if></h2>
+						<p><#if alist??>请到考勤管理签到
+						</#if></p>
 				</div>
 				<div class="iconfont">
 					<span class="glyphicon glyphicon-time"></span>
