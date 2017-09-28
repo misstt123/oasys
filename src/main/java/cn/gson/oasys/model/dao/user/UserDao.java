@@ -27,7 +27,9 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>{
 	//根据名字找用户
 	User findByUserName(String title);
 	
-	
-	
-	
+	//根据用户名模糊查找
+	@Query("from User u where u.userName like %:name% or u.realName like %:name%")
+	Page<User> findbyUserNameLike(@Param("name")String name,Pageable pa);
+	//根据真实姓名模糊查找
+	Page<User> findByrealNameLike(String title,Pageable pa);
 }

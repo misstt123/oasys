@@ -66,13 +66,26 @@
 					$('.list-right').height($('.list-right').height());
 				}) */
 				//获取右侧内容板的高度；设置面板的高度
-				console.log("右边的高度"+$('.list-right').height());
+				$('.list-left').height(window.screen.availHeight-50);
+					$('.list-right').height(window.screen.availHeight-50);
+				window.onresize = function() {
+					$('.list-left').height(window.screen.availHeight-50);
+					$('.list-right').height(window.screen.availHeight-50);
+					/* console.log("右边的高度"+$('.list-right').height());
+					console.log(" 网页可见区域高："+ document.body.clientHeight);
+					console.log(" 网页正文全文高："+ document.body.scrollHeight);
+					console.log(" 屏幕分辨率的高："+ window.screen.height);
+					console.log(" 屏幕可用工作区高度："+ window.screen.availHeight);
+					console.log(" 网页正文全文高："+ document.body.scrollHeight);
+					console.log(" 屏幕分辨率的高："+ window.screen.height); */
+				}
+				/* console.log("右边的高度"+$('.list-right').height());
 				console.log(" 网页可见区域高："+ document.body.clientHeight);
 				console.log(" 网页正文全文高："+ document.body.scrollHeight);
 				console.log(" 屏幕分辨率的高："+ window.screen.height);
 				console.log(" 屏幕可用工作区高度："+ window.screen.availHeight);
 				console.log(" 网页正文全文高："+ document.body.scrollHeight);
-				console.log(" 屏幕分辨率的高："+ window.screen.height);
+				console.log(" 屏幕分辨率的高："+ window.screen.height); */
 				/* $('.list-left').height($('.list-right').height()); */
 				//				$('.list-right').height($('.list-right').height());
 

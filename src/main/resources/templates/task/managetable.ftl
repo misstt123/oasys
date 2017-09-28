@@ -74,21 +74,10 @@
 
 <script>
 		/* 分页插件按钮的点击事件 */
-		$('.tablefirst').on('click',function(){
-			$('.thistable').load('/paixu?page=0');
-		});
-		$('.tableup').on('click',function(){
-			$('.thistable').load('/paixu?page=${(page.number)-1}');
-		});
-		$('.tabledown').on('click',function(){
-			$('.thistable').load('paixu?page=${(page.number)+1}');
-		});
-		$('.tablelast').on('click',function(){
-			$('.thistable').load('paixu?page=${(page.totalPages)-1}');
-		});
+		
 		$('.baseKetsubmit').on('click',function(){
 			var baseKey=$('.baseKey').val();
-			$('.thistable').load('paixu?baseKey=baseKey');
+			$('.thistable').load('${url}?baseKey=baseKey');
 		});
 		
 

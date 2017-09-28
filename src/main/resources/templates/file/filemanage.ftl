@@ -314,29 +314,44 @@ li.activee>a {
 							<span class="btn btn-default btn-xs des mm"> 
 								<i class="glyphicon-minus"></i>
 							</span>
+							<!-- <img class="mcfloorimg" src="images/fileimg/Folder.png" /> -->
+							<div class="mcflooropen"></div>
 							<h3 class="box-title" style="font-size:12px;">罗密欧</h3>
 						</div>
 						<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
 							<li style="border:0px;">
 								<div class="box-header no-padding">
 									<span class="btn btn-default btn-xs des mm"> 
-										<i class="glyphicon-minus"></i>
+										<i class="glyphicon-plus"></i>
 									</span>
+									<div class="mcflooropen"></div>
 									<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
 								</div>
-								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
-									
+								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
+									<li>xxx</li>
 								</ul>
 							</li>
-							<li style="border:0px;">文件夹2</li>
 							<li style="border:0px;">
 								<div class="box-header no-padding">
 									<span class="btn btn-default btn-xs des mm"> 
-										<i class="glyphicon-minus"></i>
+										<i class="glyphicon-plus"></i>
 									</span>
+									<div class="mcflooropen"></div>
 									<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
 								</div>
-								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
+								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
+									<li>3333</li>
+								</ul>
+							</li>
+							<li style="border:0px;">
+								<div class="box-header no-padding">
+									<span class="btn btn-default btn-xs des mm"> 
+										<i class="glyphicon-plus"></i>
+									</span>
+									<div class="mcflooropen"></div>
+									<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
+								</div>
+								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
 									<li>yeah</li>
 								</ul>
 							</li>
