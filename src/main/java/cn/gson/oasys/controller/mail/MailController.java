@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
 
@@ -32,6 +33,7 @@ import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.mail.Inmaillist;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
@@ -251,6 +253,18 @@ public class MailController {
 		model.addAttribute("url", "names");
 		return "mail/wirtemail";
 	}
+	/**
+	 * 发送邮件
+	 */
+	@RequestMapping("pushmail")
+	public String push(@RequestParam("file")MultipartFile file,HttpServletRequest request,@Valid Inmaillist mail,BindingResult br,HttpSession session){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		System.out.println(mail);
+		ResultVO res = BindingResultVOUtil.hasErrors(br);
+		return "redirect:/mail";
+	}
+	
 	/**
 	 * 用户姓名查找
 	 */

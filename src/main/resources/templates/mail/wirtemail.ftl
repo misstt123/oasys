@@ -4,7 +4,11 @@
 <script type="text/javascript" src="js/mail/mail.js" ></script>
 <link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <link rel="stylesheet" href="css/common/tanchuang.css" />
-
+<style>
+.ke-container{
+border-radius: 5px;
+}
+</style>
 <div class="bgc-w box box-primary" style="min-height: 613px;">
 	<!--盒子头-->
 	<div class="box-header">
@@ -18,39 +22,45 @@
 		</div>
 	</div>
 	<!--盒子身体-->
+	<form action="pushmail" method="post" enctype="multipart/form-data" onsubmit="return check();" >
 	<div class="box-body">
-
+		<!--錯誤信息提示  -->
+					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
+						错误信息:<button class="thisclose close" type="button">&times;</button>
+						<span class="error-mess"></span>
+					</div>
 		<div id="MoreDiv">
 			<div class="form-group">
-				<select name="ctl00$cphMain$ddlType" id="ctl00_cphMain_ddlType"
-					class="form-control select2">
+				<select name="mailType" id="ctl00_cphMain_ddlType"
+					class="select2 form-control">
 					<#list typelist as type>
 					<option value="${type.typeId}">${type.typeName}</option>
 					</#list>
 				</select>
 			</div>
 			<div class="form-group">
-				<select name="ctl00$cphMain$ddlStatus" id="ctl00_cphMain_ddlStatus"
-					class="form-control select2">
+				<select name="mailStatusid" id="ctl00_cphMain_ddlStatus"
+					class="select2 form-control">
 					<#list statuslist as status>
 					<option value="${status.statusId}">${status.statusName}</option>
 					</#list>
 				</select>
 			</div>
 			<div class="form-group">
-				<select name="ctl00$cphMain$ddlAccount"
-					id="ctl00_cphMain_ddlAccount" class="form-control select2">
+				<select name="inmail" id="account" class="select2 form-control">
 					<option value="0">内部邮件</option>
+					<#if mailnum??>
 					<#list mailnum as num>
 					<option value="${num.mailNumberId}">${num.mailUserName}</option>
 					</#list>
+					</#if>
 				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<input name="ctl00$cphMain$txtReceiver" type="text"
-				id="ctl00_cphMain_txtReceiver" style="background-color: #fff;"
+			<input name="inReceiver" type="text"
+				id="recive_list" style="background-color: #fff;"
 				class="form-control" readonly="readonly" placeholder="收件人：" />
 			<div class="reciver">
 				<span class="label label-success glyphicon glyphicon-plus"
@@ -59,21 +69,18 @@
 		</div>
 
 		<div class="form-group">
-			<input name="ctl00$cphMain$txtSubject" type="text"
+			<input name="mailTitle" type="text"
 				id="ctl00_cphMain_txtSubject" class="form-control" placeholder="主题：" />
 		</div>
 
 		<div class="form-group">
-			<form id="ss">
-				<textarea name="content"
-					style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;"></textarea>
-			</form>
+			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;"></textarea>
 		</div>
 
 		<div class="form-group">
 			<div class="btn btn-default ">
 				<span class="glyphicon glyphicon-paperclip">增加附件</span> <input
-					type="file" name="ctl00$cphMain$fuAttachment"
+					type="file" name="file"
 					id="ctl00_cphMain_fuAttachment" />
 			</div>
 			<p class="help-block">5MB以内</p>
@@ -83,17 +90,98 @@
 	<!--盒子尾-->
 	<div class="box-footer foots">
 		<div class="left1">
-			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default"><i
-				class="glyphicon glyphicon-remove" href="javascript:history.back();">放弃</i></a>
+			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default" href="mail"><span>放弃</span></a>
 		</div>
 		<div class="pull-right right1 ">
-			<a id="ctl00_cphMain_lnbDraft" class="btn btn-default"><i
-				class="glyphicon glyphicon-pencil">存草稿</i></a> <a
-				id="ctl00_cphMain_lnbSend" class="btn btn-primary"><i
-				class="glyphicon glyphicon-envelope">发送</i></a>
+		<!-- 	<input type="submit" class="btn btn-default ss " value="存草稿"> -->
+			<input type="submit" class="btn btn-primary " value="发送">
+			
 		</div>
-	</div>
+	</div>	
+	</form>
 </div>
+<script type="text/javascript">
+$(function(){
+	$(".ss").click(function(){
+		
+	var ss=$(".ke-edit-iframe").contents().find("body").html();
+
+	console.log($(".tent").val());
+	
+	});
+});
+//验证邮箱
+function isMailNo(mail){
+	var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
+	return pattern.test(mail);
+}
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function alertCheck(errorMess){
+		
+		$('.alert-danger').css('display', 'block');
+		// 提示框的错误信息显示
+		$('.error-mess').text(errorMess);
+		
+}
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function check() {
+	
+	
+	console.log("开始进入了");
+	//提示框可能在提交之前是block状态，所以在这之前要设置成none
+	$('.alert-danger').css('display', 'none');
+	var isRight = 1;
+	$('.form-control').each(function(index) {
+		// 如果在这些input框中，判断是否能够为空
+		if ($(this).val() == "") {
+			
+			// 排除哪些字段是可以为空的，在这里排除
+			if (index == 5||index == 6) {
+				return true;
+			} 
+			
+			// 获取到input框的兄弟的文本信息，并对应提醒；
+			
+			var errorMess = "红色提示框不能为空!";
+			// 对齐设置错误信息提醒；红色边框
+			$(this).parent().addClass("has-error has-feedback");
+			$('.alert-danger').css('display', 'block');
+			// 提示框的错误信息显示
+			$('.error-mess').text(errorMess);
+			
+			isRight = 0;
+			return false;
+			
+		} else {
+			var $account=$("#account").val();
+			
+			if($account!=0){
+				if(index==3){
+					var $mail=$(this).val();
+					if(isMailNo($mail) == false){
+						$(this).parent().addClass("has-error has-feedback");
+	 					alertCheck("请输入正确的邮箱!");
+	 					isRight = 0;
+	 		 			return false;
+					}
+	
+				}
+			}
+			return true;
+		}
+	});
+	
+	if (isRight == 0) {
+		//modalShow(0);
+		 return false;
+	} else if (isRight == 1) {
+		//modalShow(1);
+		 return true;
+	}
+//	return false;
+}
+
+</script>
 
 
 <#include "/common/reciver.ftl">
