@@ -31,12 +31,29 @@ public class AttendceService {
 	public Page<Attends> paging(int page,String baseKey,List<Long> user){
 		Pageable pa=null;
 		if(!StringUtils.isEmpty(baseKey)){
-			
+			//模糊查询
 		}else{
 			pa=new PageRequest(page, 10);
 			return attendceDao.findByUserOrderByAttendsTimeDesc(user, pa);
 		}
 		
+		return null;
+		
+	}
+	
+	
+	//单个用户分页
+	public Page<Attends> singlepage(int page,String baseKey,long userid) {
+		Pageable pa=null;
+		
+		if(!StringUtils.isEmpty(baseKey)){
+			//查询
+		}
+		else{
+			//第几页 以及页里面数据的条数
+			pa=new PageRequest(page, 10);
+			return  attendceDao.findByUserOrderByAttendsTimeDesc(userid, pa);
+		}
 		return null;
 		
 	}
