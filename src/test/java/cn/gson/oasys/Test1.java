@@ -1,5 +1,6 @@
 package cn.gson.oasys;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,5 +48,7 @@ public class Test1 {
 		PageInfo<Map<String, Object>> info=new PageInfo<Map<String, Object>>(list);
 		System.out.println(info);
 	}
+	
+	
 
 }

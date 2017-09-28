@@ -20,7 +20,8 @@ import cn.gson.oasys.model.entity.user.User;
 @Repository
 public interface AttendceDao  extends JpaRepository<Attends, Long>{
 
-  List<Attends> findByUser(User user);
+  @Query("from Attends a where a.user.userId=:userId")
+  Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("userId")long userid,Pageable pa);
   
   @Query("from Attends a where a.user.userId in (:ids)")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("ids") List<Long> user,Pageable pa);

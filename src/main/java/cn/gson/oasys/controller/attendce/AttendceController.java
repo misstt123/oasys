@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,17 +66,20 @@ public class AttendceController {
 	
 	//考情列表 给单个用户使用
 	@RequestMapping("attendcelist")
-	public String test(HttpServletRequest request,HttpSession session){
+	public String test(HttpServletRequest request,HttpSession session
+			,@RequestParam(value="page",defaultValue="0")int page,
+			@RequestParam(value="baseKey",required=false)String baseKey){
 		Long  userid=Long.valueOf( session.getAttribute("userId")+"");
-		User user=uDao.findOne(userid);
-		alist=attenceDao.findByUser(user);
-
+		System.out.println(userid);
+		Page<Attends> page2= attendceService.singlepage(page, baseKey, userid);
+		System.out.println("考勤"+page2.getContent());
 		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
 		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
 		request.setAttribute("type", type);
 		request.setAttribute("status", status);
-		System.out.println(alist);
-		request.setAttribute("alist", alist);
+		request.setAttribute("alist", page2.getContent());
+		request.setAttribute("page", page2);
+		request.setAttribute("url", "attendcelisttable");
 		return "attendce/attendcelist";
 	}
 	
@@ -113,7 +117,6 @@ public class AttendceController {
 		public String table(HttpServletRequest request,HttpSession session,
 				@RequestParam(value = "page", defaultValue = "0") int page,
 				@RequestParam(value = "baseKey", required = false) String baseKey){
-			System.out.println("进来了么？");
 			setMess(request, session, page, baseKey);
 			return "attendce/attendcetable";
 		}
@@ -227,10 +230,9 @@ public class AttendceController {
 		Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 		String remark=request.getParameter("remark");
 		long id=Long.parseLong(request.getParameter("id"));
-		System.out.println(remark);
 		attendceService.updatereamrk(remark, id);
 		return "redirect:/attendceatt";
 	}
 	
-
+	
 }

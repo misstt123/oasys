@@ -23,7 +23,7 @@
 				<div class="iconfont">
 					<span class="glyphicon glyphicon-time"></span>
 				</div>
-				<a href="#" class="moreduo"> 更多 <span
+				<a href="attendcelist" class="moreduo"> 更多 <span
 					class="glyphicon glyphicon-circle-arrow-right"></span>
 				</a>
 			</div>
