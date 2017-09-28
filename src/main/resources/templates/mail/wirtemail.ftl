@@ -93,8 +93,8 @@ border-radius: 5px;
 			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default" href="mail"><span>放弃</span></a>
 		</div>
 		<div class="pull-right right1 ">
-		<!-- 	<input type="submit" class="btn btn-default ss " value="存草稿"> -->
-			<input type="submit" class="btn btn-primary " value="发送">
+		    <input type="submit" class="btn btn-default" value="存草稿">
+			<input type="submit" class="btn btn-primary " name="fasong" value="发送">
 			
 		</div>
 	</div>	
@@ -102,12 +102,16 @@ border-radius: 5px;
 </div>
 <script type="text/javascript">
 $(function(){
-	$(".ss").click(function(){
-		
-	var ss=$(".ke-edit-iframe").contents().find("body").html();
-
-	console.log($(".tent").val());
-	
+	$("#account").change(function(){
+		console.log("qq");
+		var options=$("#account option:selected");
+		if(options.val()=="0"){
+			console.log("www");
+			$("#recive_list").prop("readonly",true);
+		}else{
+			console.log("sss");
+			$("#recive_list").removeAttr("readonly");
+		}
 	});
 });
 //验证邮箱
@@ -154,7 +158,7 @@ function check() {
 			
 		} else {
 			var $account=$("#account").val();
-			
+			/* 
 			if($account!=0){
 				if(index==3){
 					var $mail=$(this).val();
@@ -166,7 +170,7 @@ function check() {
 					}
 	
 				}
-			}
+			} */
 			return true;
 		}
 	});

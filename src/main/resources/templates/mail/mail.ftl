@@ -42,8 +42,7 @@
 					class="pull-right uncheck"><i class="btn btn-xs btn-primary">1</i></span>
 				</li>
 				<li><span class="glyphicon glyphicon-list-alt le"> 草稿箱</span></li>
-				<li><span class="glyphicon glyphicon-filter le"> 垃圾箱</span></li>
-				<li><span class="glyphicon glyphicon-trash le"> 回收站</span></li>
+				<li><span class="glyphicon glyphicon-trash le"> 垃圾箱</span></li>
 			</ul>
 		</div>
 

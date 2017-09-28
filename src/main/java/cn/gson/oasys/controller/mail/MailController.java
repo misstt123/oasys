@@ -1,10 +1,12 @@
 package cn.gson.oasys.controller.mail;
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,7 +29,9 @@ import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
+import cn.gson.oasys.model.dao.maildao.InMailDao;
 import cn.gson.oasys.model.dao.maildao.MailnumberDao;
+import cn.gson.oasys.model.dao.maildao.MailreciverDao;
 import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
@@ -35,6 +39,8 @@ import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.mail.Inmaillist;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
+import cn.gson.oasys.model.entity.mail.Mailreciver;
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
@@ -60,6 +66,10 @@ public class MailController {
 	private DeptDao ddao;
 	@Autowired
 	private RoleDao rdao;
+	@Autowired
+	private InMailDao imdao;
+	@Autowired
+	private MailreciverDao mrdao;
 	@Autowired
 	private MailServices mservice;
 	
@@ -255,13 +265,66 @@ public class MailController {
 	}
 	/**
 	 * 发送邮件
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("pushmail")
-	public String push(@RequestParam("file")MultipartFile file,HttpServletRequest request,@Valid Inmaillist mail,BindingResult br,HttpSession session){
+	public String push(@RequestParam("file")MultipartFile file,HttpServletRequest request,@Valid Inmaillist mail,BindingResult br,HttpSession session) throws IllegalStateException, IOException{
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		System.out.println(mail);
+		User tu=udao.findOne(userid);
+		
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
+		String name=null;
+		Attachment attaid=null;
+		Mailnumber number=null;
+		
+		if(!StringUtil.isEmpty(request.getParameter("fasong"))){
+			name=request.getParameter("fasong");
+		}
+		
+		
+		if(!StringUtil.isEmpty(name)){
+			if(!Objects.isNull(file)){
+				attaid=mservice.upload(file, tu);
+			}
+			//发送成功
+			mail.setPush(true);
+			
+			}else{
+			//存草稿
+			mail.setInReceiver(null);
+		}
+		mail.setMailFileid(attaid);
+		mail.setMailCreateTime(new Date());
+		mail.setMailUserid(tu);
+		if(!mail.getInmail().equals(0)){
+			number=mndao.findOne(mail.getInmail());
+			mail.setMailNumberid(number);
+		}
+		//存邮件
+		Inmaillist imail=imdao.save(mail);
+		
+		if(!StringUtil.isEmpty(name)){
+		if(mservice.isContainChinese(mail.getInReceiver())){
+			// 分割任务接收人
+			StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
+			while (st.hasMoreElements()) {
+				User reciver = udao.findid(st.nextToken());
+				Mailreciver mreciver=new Mailreciver();
+				mreciver.setMailId(imail);
+				mreciver.setReciverId(reciver);
+				mrdao.save(mreciver);
+			}
+		}else{
+			StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
+			while (st.hasMoreElements()) {
+			mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
+					mail.getContent(), attaid.getAttachmentPath(), attaid.getAttachmentName());
+			}
+			}
+		
+		}
 		return "redirect:/mail";
 	}
 	
