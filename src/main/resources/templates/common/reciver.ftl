@@ -16,7 +16,7 @@
 								<div class="modal-2">
 
 									<div class="modal-header" style="margin:10px;margin-top: -20px;">
-										<button class="close close2" data-dismiss="modal" style="display: block;margin: -93px -79px 0 0;border-radius: 60%;"><span class="glyphicon glyphicon-remove-circle"style="color:white;font-size: 30px;" ></span></button>
+										<button class="close" data-dismiss="modal" style="display: block;margin: -52px -78px 0 0;;border-radius: 60%;"><span class="glyphicon glyphicon-remove-circle"style="color:white;font-size: 30px;" ></span></button>
 										<div class="row">
 											<div class="col-xs-12" style="height:30px;margin:10px 0px;">
 

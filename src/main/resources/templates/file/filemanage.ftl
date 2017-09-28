@@ -300,6 +300,21 @@ li.activee>a {
 			</span>
 		</div> 
 	</div>
+	
+	<div class="mcmodal diplaynone">
+		<li style="border:0px;">
+			<div class="box-header no-padding">
+				<span class="btn btn-default btn-xs des mm"> 
+					<i class="glyphicon-plus"></i>
+				</span>
+				<div class="mcflooropen"></div>
+				<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
+			</div>
+			<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
+				
+			</ul>
+		</li>
+	</div>
 
 	<!-- 移动复制模态框 -->
 	<div class="modal fade in" id="thismodal" data-backdrop="static">
@@ -307,7 +322,7 @@ li.activee>a {
 			<div class="modal-content">
 				<div class="modal-body box no-padding" style="display: none;">
 					<div class="box-header">
-						<h3 class="box-title" style="font-size:15px;">复制到</h3>
+						<h3 class="box-title" style="font-size:15px;">移动到</h3>
 					</div>
 					<div class="box-body no-padding">
 						<div class="box-header" style="padding:3px 0 3px 0;">
@@ -316,10 +331,23 @@ li.activee>a {
 							</span>
 							<!-- <img class="mcfloorimg" src="images/fileimg/Folder.png" /> -->
 							<div class="mcflooropen"></div>
-							<h3 class="box-title" style="font-size:12px;">罗密欧</h3>
+							<h3 class="box-title" style="font-size:12px;">${userrootpath.pathName}</h3>
+							<input class="mctopathid" type="hidden" value="${userrootpath.id}" />
 						</div>
 						<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
-							<li style="border:0px;">
+							<#list mcpaths as path>
+								<div class="box-header no-padding modalajax">
+									<span class="btn btn-default btn-xs des mm"> 
+										<i class="glyphicon-plus"></i>
+									</span>
+									<div class="mcflooropen"></div>
+									<h3 class="box-title" style="font-size:12px;">${path.pathName}</h3>
+									<input class="mctopathid" type="hidden" value="${path.id}" />
+								</div>
+								<ul class="nav nav-pills nav-stacked mm modalajaxdata" style="padding-left:15px;display:none;">
+								</ul>
+							</#list>
+							<!-- <li style="border:0px;">
 								<div class="box-header no-padding">
 									<span class="btn btn-default btn-xs des mm"> 
 										<i class="glyphicon-plus"></i>
@@ -340,7 +368,7 @@ li.activee>a {
 									<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
 								</div>
 								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
-									<li>3333</li>
+									
 								</ul>
 							</li>
 							<li style="border:0px;">
@@ -354,14 +382,18 @@ li.activee>a {
 								<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
 									<li>yeah</li>
 								</ul>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 					<div class="box-footer" style="text-align:right;">
-						<button type="button" class="btn btn-primary"
-							>确定</button>
-						<button type="button" class="btn btn-default"
-							data-dismiss="modal">取消</button>
+						<form action="" method="post">
+							<input class="mctoid" type="hidden" name="mcto" value=""/>
+							<input type="hidden" name="mcforp" value=""/>
+							<button type="button" class="btn btn-primary"
+								>确定</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">取消</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -386,7 +418,6 @@ li.activee>a {
 					if($this.hasClass("glyphicon-minus")) {
 						$this.removeClass("glyphicon-minus").addClass("glyphicon-plus");
 					} else {
-
 						$this.removeClass("glyphicon-plus").addClass("glyphicon-minus");
 					}
 					$ul.slideToggle(1000);
@@ -400,6 +431,19 @@ li.activee>a {
 					$ul.slideToggle(1000);
 				}
 			});
+			
+			$("#thismodal .box-body").on("click",".box-header",function(){
+				
+				console.log($(this).find(".mctopathid").val());
+				
+				$(".box-footer .mctoid").val($(this).find(".mctopathid").val());
+				
+				if($(this).hasClass("modalajax")){
+					console.log("modalajax");
+				}else{
+					console.log("box-header");
+				}
+			})
 
 			$(".nav.mm").on("click", "li", function() {
 				$(this).parent().children(".activee").removeClass("activee");
@@ -410,6 +454,6 @@ li.activee>a {
 				$(".fileuploadform").submit();
 			});
 			
-		})
+		});
 	</script>
 </html>

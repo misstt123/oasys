@@ -46,10 +46,15 @@
 	border: 3px solid #f27474;
 }
 
+#thismodal .box-body{
+	height:200px;
+}
+
 #thismodal .mcfloorimg{
 	width:25px;
 	height:25px;
 }
+
 #thismodal .mcflooropen{
 	display:inline-block;
 	vertical-align: middle;
