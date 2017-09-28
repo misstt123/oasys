@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.user.User;
@@ -34,13 +37,16 @@ public class Inmaillist {
 	@JoinColumn(name="mail_in_push_user_id")
 	private User mailUserid;//发件人id
 	
-	@Column(name="mail_title",nullable=false)
+	@Column(name="mail_title")
+	@NotEmpty(message="邮件主题不能为空")
 	private String mailTitle;//邮件主题
 	
 	@Column(name="mail_content")
-	private String mailContent;//邮件内容
+	@NotEmpty(message="邮件内容不能为空")
+	private String content;//邮件内容
 	
-	@Column(name="in_receiver",nullable=false)
+	@Column(name="in_receiver")
+	@NotEmpty(message="接收人不能为空")
 	private String inReceiver;//接收人（可以是多个）
 	
 	@ManyToOne
@@ -54,8 +60,25 @@ public class Inmaillist {
 	@JoinColumn(name="mail_number_id")
 	private Mailnumber mailNumberid;//外部邮件账号id
 	
+	@Transient 
+	private Long inmail;
+	
 	public Inmaillist(){}
 	
+	
+	
+	public Long getInmail() {
+		return inmail;
+	}
+
+
+
+	public void setInmail(Long inmail) {
+		this.inmail = inmail;
+	}
+
+
+
 	public Long getMailStatusid() {
 		return mailStatusid;
 	}
@@ -108,15 +131,17 @@ public class Inmaillist {
 		this.mailTitle = mailTitle;
 	}
 
-	public String getMailContent() {
-		return mailContent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setMailContent(String mailContent) {
-		this.mailContent = mailContent;
+
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	
+
 
 	public User getMailUserid() {
 		return mailUserid;
@@ -145,7 +170,7 @@ public class Inmaillist {
 	@Override
 	public String toString() {
 		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailStatusid=" + mailStatusid
-				+ ", mailTitle=" + mailTitle + ", mailContent=" + mailContent + ", inReceiver=" + inReceiver
+				+ ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver=" + inReceiver
 				+ ", mailFileid=" + mailFileid + ", mailCreateTime=" + mailCreateTime + "]";
 	}
 
