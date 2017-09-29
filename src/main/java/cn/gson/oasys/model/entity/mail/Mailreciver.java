@@ -34,7 +34,20 @@ public  class Mailreciver {
 	@Column(name="is_read")
 	private Boolean read=false;//是否已读
 	
+	@Column(name="is_star")
+	private Boolean star=false;//是否星标
 	
+	@Column(name="is_del")
+	private Boolean del=false;//是否真正删除
+	
+	public Boolean getDel() {
+		return del;
+	}
+
+	public void setDel(Boolean del) {
+		this.del = del;
+	}
+
 	public Mailreciver(){}
 	
 	public Long getPkId() {
@@ -46,6 +59,15 @@ public  class Mailreciver {
 	}
 
 	
+	
+
+	public Boolean getStar() {
+		return star;
+	}
+
+	public void setStar(Boolean star) {
+		this.star = star;
+	}
 
 	public Inmaillist getMailId() {
 		return mailId;
@@ -73,8 +95,13 @@ public  class Mailreciver {
 
 	@Override
 	public String toString() {
-		return "Mailreciver [pkId=" + pkId + ", read=" + read + "]";
+		return "Mailreciver [pkId=" + pkId + ", mailId=" + mailId + ", read=" + read + ", star=" + star + ", del=" + del
+				+ "]";
 	}
+
+	
+
+	
 
 	
 
