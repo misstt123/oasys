@@ -60,7 +60,7 @@
 						<td>
 							<div class="label label-info">${(mail.statusname)!''}</div>
 						</td>
-						<td class="mailid" ><span>${mail.mailid}</span></td>
+						<td class="mailid" style="display:none;"><span>${mail.mailid}</span></td>
 						<td><a href="##" class="label xiugai lab"><span
 								class="glyphicon glyphicon-search"></span> 查看</a></td>
 					</tr>

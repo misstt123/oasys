@@ -323,7 +323,7 @@ public class MailServices {
 	        multipart.addBodyPart(messageBodyPart);
 	        
 	        // 将multipart对象放到message中
-	        message.setContent(multipart,"html;charset=UTF-8");
+	        message.setContent(multipart,"text/html;charset=UTF-8");
 	        // 6. 设置发件时间
 	        message.setSentDate(new Date());
 
