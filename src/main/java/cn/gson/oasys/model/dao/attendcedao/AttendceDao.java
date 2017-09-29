@@ -20,6 +20,10 @@ import cn.gson.oasys.model.entity.user.User;
 @Repository
 public interface AttendceDao  extends JpaRepository<Attends, Long>{
 
+	//查找某用户某天是否签到
+@Query("from Attends a where DATE_FORMAT(a.attendsTime,'%Y-%m-%d') like %?1% and a.user.userId=?2")
+ List<Attends> findifattend(String date,long userid);
+	
   @Query("from Attends a where a.user.userId=:userId")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("userId")long userid,Pageable pa);
   
