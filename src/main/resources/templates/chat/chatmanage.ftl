@@ -30,7 +30,7 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="useredit?where=xz" class="label label-success"
+					<a href="writechat" class="label label-success"
 						style="padding: 5px;"> <span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
@@ -50,27 +50,22 @@ a:hover {
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<tr>
-						
 							<th scope="col">类型</th>
 							<th scope="col">标题</th>
 							<th scope="col">发布时间</th>
 							<th scope="col">发布人</th>
-							<th scope="col">最后回复</th>
-							<th scope="col">回复数</th>
+							<th scope="col">访问量</th>
+							<th scope="col">讨论次数</th>
 							<th scope="col">附件</th>
-							<th scope="col">状态</th>
 							<th scope="col">操作</th>
 						</tr>
-
 						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
+							<td>公告</td>
+							<td><span>java JVM 处理机制</span></td>
+							<td><span>2017-9-10</span></td>
+							<td><span>soli</span></td>
 							<td><span>0</span></td>
 							<td><span>是</span></td>
-							<td><span>0</span></td>
 							<td><span>是</span></td>
 							<td><a  href="#"
 								class="label xiugai"><span
@@ -81,26 +76,6 @@ a:hover {
 								href="" class="label shanchu"><span
 									class="glyphicon glyphicon-remove"></span> 删除</a></td>
 						</tr>
-						<tr>
-							
-							<td>系统管理</td>
-							<td><span>fa-circle-o</span></td>
-							<td><span>System/Menu.aspx</span></td>
-							<td><span>菜单</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><span>0</span></td>
-							<td><span>是</span></td>
-							<td><a  href="#"
-								class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a 
-								href="#" class="label xiugai"> <span
-									class="glyphicon glyphicon-search"></span>查看</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-
 					</table>
 				</div>
 			</div>

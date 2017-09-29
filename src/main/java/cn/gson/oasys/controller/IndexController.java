@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.system.SystemMenu;
+import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.services.inform.InformRelationService;
 import cn.gson.oasys.services.system.MenuSysService;
 
@@ -122,7 +125,5 @@ public class IndexController {
 		System.out.println(info);
 		return info;
 	}
-	
-	
 
 }

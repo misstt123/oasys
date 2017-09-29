@@ -66,7 +66,7 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="#" class="label label-default" style="padding: 6px;">
+					<a href="javascript:window.history.back();" class="label label-default" style="padding: 6px;">
 						<span class="glyphicon glyphicon-chevron-left">返回</span>
 					</a> <a href="#" class="label "
 						style="padding: 6px; margin-left: 8px;"> <span
