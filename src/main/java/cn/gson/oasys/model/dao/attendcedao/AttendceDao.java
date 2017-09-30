@@ -19,12 +19,24 @@ import cn.gson.oasys.model.entity.user.User;
 
 @Repository
 public interface AttendceDao  extends JpaRepository<Attends, Long>{
-
-	//查找某用户某天是否签到
-@Query("from Attends a where DATE_FORMAT(a.attendsTime,'%Y-%m-%d') like %?1% and a.user.userId=?2")
- List<Attends> findifattend(String date,long userid);
+		@Query("update Attends a set a.attendsTime=?1 ,a.attendHmtime=?2 ,a.statusId=?3 where a.attendsId=?4 ")
+	@Modifying(clearAutomatically=true)
+	Integer updateatttime(Date date,String hourmin,Long statusIdlong ,long attid);
 	
-  @Query("from Attends a where a.user.userId=:userId")
+	//查找某用户当天下班的考勤记录id
+	@Query(nativeQuery=true,value="select a.attends_id from aoa_attends_list a WHERE DATE_format(a.attends_time,'%Y-%m-%d') like %?1% and a.attends_user_id=?2 and a.type_id=9 ")
+	Long findoffworkid(String date,long userid);
+	
+	//查找某用户某天总共的记录
+	@Query(nativeQuery=true,value="SELECT COUNT(*) from aoa_attends_list a WHERE DATE_format(a.attends_time,'%Y-%m-%d') like %?1% and a.attends_user_id=?2 ")
+	Integer countrecord(String date,long userid);
+	
+	//查找某用户某天最新记录用来显示用户最新的类型和考勤时间
+@Query(nativeQuery=true,value="SELECT * from aoa_attends_list a WHERE DATE_format(a.attends_time,'%Y-%m-%d') like %?1% and a.attends_user_id=?2 ORDER  BY a.attends_time DESC  LIMIT 1")
+Attends findlastest(String date,long userid);
+
+
+@Query("from Attends a where a.user.userId=:userId")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("userId")long userid,Pageable pa);
   
   @Query("from Attends a where a.user.userId in (:ids)")

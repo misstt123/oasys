@@ -1,5 +1,7 @@
 package cn.gson.oasys.controller.note;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -77,7 +79,7 @@ public class NoteController {
 			Long userid=Long.valueOf(session.getAttribute("userId")+"");			
 			long collect=Long.valueOf(iscollected);
 			if(collect==1){
-			noteList=noteDao.findByIsCollected(collect);
+			noteList=noteDao.findByIsCollected(collect,userid);
 			model.addAttribute("collect", 0);
 			}
 			else if(collect==0){
@@ -235,7 +237,7 @@ public class NoteController {
 	public String test(Model model,HttpServletRequest request,HttpSession session){
 		Long  userid=Long.parseLong(session.getAttribute("userId")+"");
 		noteList = (List<Note>) noteDao.finduser(userid);
-		cataloglist=(List<Catalog>) catalogDao.findAll();
+		cataloglist=(List<Catalog>) catalogDao.findcatauser(userid);
 		
 //		long typeid=Long.valueOf(typeId);
 //		noteList =noteDao.findByTypeId(typeid);
@@ -252,9 +254,23 @@ public class NoteController {
 	
 	//post请求 添加类型
 		@RequestMapping(value="noteview",method=RequestMethod.POST)
-		public String test3332(HttpServletRequest request,@Param("title")String title){
+		public String test3332(HttpServletRequest request,@Param("title")String title,HttpSession session){
+			int flag=0;
+			Long  userid=Long.parseLong(session.getAttribute("userId")+"");
+			User user=userDao.findOne(userid);
 			String catalogName=request.getParameter("name");
-			catalogDao.save(new Catalog(catalogName));
+			List<String> catanamelist=catalogDao.findcataname(userid);
+			for (String caname : catanamelist) {
+				if(caname.equals(catalogName)){
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0)
+			catalogDao.save(new Catalog(catalogName,user));
+			if(flag==1)
+				request.setAttribute("exception", "1");
+			
 			return "redirect:/noteview";
 		}
 	
@@ -357,9 +373,10 @@ public class NoteController {
 	
 	//编辑
 	@RequestMapping(value="noteedit",method=RequestMethod.GET)
-	public String test4(@Param("id")String id,HttpServletRequest Request){
+	public String test4(@Param("id")String id,HttpServletRequest Request,HttpSession session){
 		//目录
-		cataloglist=(List<Catalog>) catalogDao.findAll();
+		long userid=Long.valueOf(session.getAttribute("userId")+"");
+		cataloglist=(List<Catalog>) catalogDao.findcatauser(userid);
 		Request.setAttribute("calist", cataloglist);
 		
 		//用户 就是联系人

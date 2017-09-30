@@ -2,6 +2,7 @@ package cn.gson.oasys.controller.attendce;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,7 +62,105 @@ public class AttendceController {
 	//格式转化导入
 	 DefaultConversionService service=new DefaultConversionService();
     
-	
+	//考勤 前面的签到
+	 @RequestMapping("singin")
+		public String Datag(HttpSession session,Model model,HttpServletRequest request) throws InterruptedException{
+			//时间规范
+			String start="08:00:00",end="17:00:00";
+			service.addConverter(new StringtoDate());
+			//状态默认是正常
+			long typeId,statusId = 10;
+			Attends attends=null;
+			Long userId=Long.parseLong(session.getAttribute("userId")+"");
+			User user=uDao.findOne(userId);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			Date date=new Date();
+			String nowdate=sdf.format(date);
+			//星期 判断该日期是星期几
+			SimpleDateFormat sdf3=new SimpleDateFormat("EEEE");
+			//截取时分
+			SimpleDateFormat sdf4=new SimpleDateFormat("HH:mm");
+			//截取时分秒
+			SimpleDateFormat sdf5=new SimpleDateFormat("HH:mm:ss");
+			
+			//一周当中的星期几
+			String weekofday=sdf3.format(date);
+			//时分
+			String hourmin=sdf4.format(date);
+			
+			//时分秒
+			String hourminsec=sdf5.format(date);
+			System.out.println("星期"+weekofday+"时分"+hourmin+"时分秒"+hourminsec);
+			System.out.println(date);
+			Long aid=null;
+			
+			//查找用户当天的所有记录
+			Integer count=attenceDao.countrecord(nowdate, userId);
+			//明确一点就是一个用户一天只能产生两条记录
+			if(count==0){
+				if(hourminsec.compareTo(end)>0){
+					//在17之后签到无效
+					model.addAttribute("error", "(无效 请明日来)");
+				}
+				else if(hourminsec.compareTo(end)<0){
+					//没有找到当天的记录就表示此次点击是上班 就是用来判断该记录的类型
+					//上班id8
+					 typeId=8;
+					 //上班就只有迟到和正常
+					 if(hourminsec.compareTo(start)>0){
+							//迟于规定时间 迟到
+							statusId=11;
+						}
+						else if(hourminsec.compareTo(start)<0){
+							statusId=10;
+						}
+				attends=new Attends(typeId, statusId, date, hourmin, weekofday, null, user);
+				attenceDao.save(attends);
+				System.out.println("000");
+				}
+			}
+			if(count==1){
+				//找到当天的一条记录就表示此次点击是下班
+				//下班id9
+				typeId=9;
+				//下班就只有早退和正常
+				if(hourminsec.compareTo(end)>0){
+					//在规定时间晚下班正常
+					statusId=10;
+				}
+				else if(hourminsec.compareTo(end)<0){
+					//在规定时间早下班早退
+					statusId=12;
+				}
+				attends=new Attends(typeId, statusId, date, hourmin, weekofday, null, user);
+				attenceDao.save(attends);
+				System.out.println("111");
+			}
+			if(count>=2){
+				//已经是下班的状态了 大于2就是修改考勤时间了
+				//下班id9
+				if(hourminsec.compareTo(end)>0)
+				{	//最进一次签到在规定时间晚下班正常
+					statusId=10;
+				}
+				else if(hourminsec.compareTo(end)<0){
+					//最进一次签到在规定时间早下班早退
+					statusId=12;
+				}
+				aid=attenceDao.findoffworkid(nowdate,userId);
+				attendceService.updatetime(date, hourmin,statusId,aid);
+				Attends aList=attenceDao.findlastest(nowdate, userId);
+			}
+			
+			//显示用户当天最新的记录
+			Attends aList=attenceDao.findlastest(nowdate, userId);
+			if(aList!=null){
+			String type=typeDao.findname(aList.getTypeId());
+			model.addAttribute("type", type);
+			}
+			model.addAttribute("alist", aList);
+			return "systemcontrol/signin";
+		}
 	 
 	
 	 
