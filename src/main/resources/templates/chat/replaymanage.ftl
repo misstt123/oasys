@@ -90,7 +90,21 @@ a:hover {
 				<div class="chat-content" style="padding: 10px;">
 					<p>时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
 						发生发放萨芬撒发 时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 </p>
+						发生发放萨芬撒发 
+					</p>
+				</div>
+				<div>
+					<ul class="list-inline" style="margin-left: 6px;">
+						<li><a href="#"> <span
+								class="glyphicon glyphicon-share-alt"></span> 回复
+						</a></li>
+						<li><a href="#"> <span
+								class="glyphicon glyphicon-fire"></span> 访问数<span>(10)</span>
+						</a></li>
+						<li><a href="#"> <span
+								class="glyphicon glyphicon-comment"></span> 讨论次数<span>(10)</span>
+						</a></li>
+					</ul>
 				</div>
 				<div class="repay">
 					<table class="table">

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import cn.gson.oasys.model.entity.user.User;
 /**
 
@@ -46,6 +48,7 @@ public class Discuss {
 	@Column(name="attachment_id")
 	private Integer attachmentId;  //附件id没有外键为了查找方便
 	
+	@NotEmpty(message="标题不能为空")
 	private String title;    //标题
 	
 	private String content;   //内容
@@ -114,10 +117,13 @@ public class Discuss {
 		this.voteList = voteList;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Discuss [discussId=" + discussId + ", createTime=" + createTime + ", visitNum=" + visitNum
-				+ ", attachmentId=" + attachmentId + ", title=" + title + ", content=" + content + "]";
+		return "Discuss [discussId=" + discussId + ", typeId=" + typeId + ", statusId=" + statusId + ", createTime="
+				+ createTime + ", visitNum=" + visitNum + ", attachmentId=" + attachmentId + ", title=" + title
+				+ ", content=" + content + "]";
 	}
 
 	public Discuss(Long discussId, Date createTime, Integer visitNum, Integer attachmentId, String title,
