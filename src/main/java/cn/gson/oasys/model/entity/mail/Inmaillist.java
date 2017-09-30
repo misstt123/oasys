@@ -65,6 +65,9 @@ public class Inmaillist {
 	@Column(name="mail_push")
 	private Boolean push=false;
 	
+	@Column(name="mail_star")
+	private Boolean star=false;
+	
 	@Transient 
 	private Long inmail;
 	
@@ -72,6 +75,18 @@ public class Inmaillist {
 	
 	
 	
+	public Boolean getStar() {
+		return star;
+	}
+
+
+
+	public void setStar(Boolean star) {
+		this.star = star;
+	}
+
+
+
 	public Boolean getDel() {
 		return del;
 	}
@@ -197,10 +212,14 @@ public class Inmaillist {
 	@Override
 	public String toString() {
 		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailStatusid=" + mailStatusid
-				+ ", mailUserid=" + mailUserid + ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver="
-				+ inReceiver + ", mailCreateTime=" + mailCreateTime + ", del=" + del + ", push=" + push + ", inmail=" + inmail + "]";
+				+ ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver=" + inReceiver + ", mailFileid="
+				+ mailFileid + ", mailCreateTime=" + mailCreateTime + ", del=" + del + ", push=" + push + ", star="
+				+ star + ", inmail=" + inmail + "]";
 	}
 
+
+
+	
 	
 
 

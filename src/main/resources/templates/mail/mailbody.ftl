@@ -6,9 +6,9 @@
 				<div class="btn-group">
 					<a class="btn btn-sm btn-default bac sdelete" title="删除">
 						<span class="glyphicon glyphicon-trash"></span></a>
-					<a class="btn btn-sm btn-default bac" href="##" title="标为已读">
+					<a class="btn btn-sm btn-default bac looked" title="标为已读">
 						<span class="glyphicon glyphicon-eye-open"></span></a> 
-					<a class="btn btn-sm btn-default bac" href="#3" title="星标">
+					<a class="btn btn-sm btn-default bac star"  title="星标">
 						<span class="glyphicon glyphicon-star"></span></a>
 				</div>
 				<a class="btn btn-sm btn-default bac" href="" title="刷新"><span
@@ -30,7 +30,7 @@
 					<#if (maillist?size gte 0) >
 					<#list maillist as mail>
 					<tr>
-						<td style="text-align: center;">
+						<td >
 						<span class="labels"><label><input name="items" type="checkbox"><i>✓</i></label></span>
 						</td>
 						<#if mail.star==true>			
@@ -58,7 +58,7 @@
 						<td><span></span></td>
 						</#if>
 						<td>
-							<div class="label label-info">${(mail.statusname)!''}</div>
+							<div class="label ${mail.statuscolor}">${(mail.statusname)!''}</div>
 						</td>
 						<td class="mailid" style="display:none;"><span>${mail.mailid}</span></td>
 						<td><a href="##" class="label xiugai lab"><span

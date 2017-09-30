@@ -90,7 +90,7 @@ border-radius: 5px;
 	<!--盒子尾-->
 	<div class="box-footer foots">
 		<div class="left1">
-			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default" href="mail"><span>放弃</span></a>
+			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default " href="mail"><span>放弃</span></a>
 		</div>
 		<div class="pull-right right1 ">
 		    <input type="submit" class="btn btn-default" value="存草稿">
@@ -162,16 +162,35 @@ function check() {
 			if($account!=0){
 				if(index==3){
 					var $mail=$(this).val();
+					var patt1 = new RegExp(";");
 					var arr=new Array();
-					arr=$mail.split(";");
-					for(var i=0;i<arr.length;i++){
-					if(isMailNo(arr[i]) == false){
-						$(this).parent().addClass("has-error has-feedback");
-	 					alertCheck("请输入正确的邮箱!");
-	 					isRight = 0;
-	 		 			return false;
+					if(patt1.test($mail)){
+						arr=$mail.split(";");
+						for(var i=0;i<arr.length;i++){
+							if(isMailNo(arr[i]) == false){
+								$(this).parent().addClass("has-error has-feedback");
+			 					alertCheck("请输入正确的邮箱!");
+			 					isRight = 0;
+			 		 			return false;
+							}
+							}
+					}else{
+						arr=$mail.split("；");
+						for(var i=0;i<arr.length;i++){
+							if(isMailNo(arr[i]) == false){
+								$(this).parent().addClass("has-error has-feedback");
+			 					alertCheck("请输入正确的邮箱!");
+			 					isRight = 0;
+			 		 			return false;
+							}
+							}
 					}
-					}
+					
+					
+					
+					
+					
+					
 	
 				}
 			} 

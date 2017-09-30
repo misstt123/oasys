@@ -49,6 +49,7 @@ import cn.gson.oasys.model.dao.maildao.MailreciverDao;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.entity.mail.Inmaillist;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
 import cn.gson.oasys.model.entity.mail.Pagemail;
 import cn.gson.oasys.model.entity.note.Attachment;
@@ -77,23 +78,38 @@ public class MailServices {
 	/**
 	 * 收件箱
 	 */
-	public Page<Pagemail> recive(int page,int size,User tu,String val){
+	public Page<Pagemail> recive(int page,int size,User tu,String val,String title){
 		Page<Pagemail> pagelist=null;
 		Pageable pa=new PageRequest(page, size);
 		List<Order> orders = new ArrayList<>();
 		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_in_mail_list", val);
-		if(StringUtil.isEmpty(val)){
-			orders.add(new Order(Direction.ASC, "read"));
-			Sort sort = new Sort(orders);
-			pa=new PageRequest(page, size,sort);
-			pagelist=mrdao.findmail(tu,false,pa);
-		}else if(!Objects.isNull(status)){
-			pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),pa);
+		if(("收件箱").equals(title)){
+			if(StringUtil.isEmpty(val)){
+				orders.add(new Order(Direction.ASC, "read"));
+				Sort sort = new Sort(orders);
+				pa=new PageRequest(page, size,sort);
+				pagelist=mrdao.findmail(tu,false,pa);
+			}else if(!Objects.isNull(status)){
+				pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),false,pa);
+			}else{
+				pagelist=mrdao.findmails(tu,false, val, pa);
+			}
 		}else{
-			pagelist=mrdao.findmails(tu, val, pa);
+			if(StringUtil.isEmpty(val)){
+				orders.add(new Order(Direction.ASC, "read"));
+				Sort sort = new Sort(orders);
+				pa=new PageRequest(page, size,sort);
+				pagelist=mrdao.findmail(tu,true,pa);
+			}else if(!Objects.isNull(status)){
+				pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),true,pa);
+			}else{
+				pagelist=mrdao.findmails(tu, true,val, pa);
+			}
 		}
 		return pagelist;
 	}
+	
+	
 	/**
 	 * 封装json
 	 */
@@ -103,11 +119,73 @@ public class MailServices {
 		for (int i = 0; i < maillist.size(); i++) {
 			Map<String,Object> result=new HashMap<>();
 			String typename=tydao.findname(maillist.get(i).getMailType());
-			String statusname=sdao.findname(maillist.get(i).getMailStatusid());
+			SystemStatusList status=sdao.findOne(maillist.get(i).getMailStatusid());
 			result.put("typename", typename);
-			result.put("statusname", statusname);
+			result.put("statusname", status.getStatusName());
+			result.put("statuscolor", status.getStatusColor());
 			result.put("star", maillist.get(i).getStar());
 			result.put("read", maillist.get(i).getRead());
+			result.put("time", maillist.get(i).getMailCreateTime());
+			result.put("reciver", maillist.get(i).getInReceiver());
+			result.put("title", maillist.get(i).getMailTitle());
+			result.put("mailid", maillist.get(i).getMailId());
+			result.put("fileid", maillist.get(i).getMailFileid());
+			list.add(result);
+			
+		}
+		return list;
+	}
+	
+	/**
+	 * 发件箱
+	 */
+	public Page<Inmaillist> inmail(int page,int size,User tu,String val,String title){
+		Page<Inmaillist> pagemail=null;
+		Pageable pa=new PageRequest(page, size);
+		List<Order> orders = new ArrayList<>();
+		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_in_mail_list", val);
+		if(("发件箱").equals(title)){
+		if(StringUtil.isEmpty(val)){
+			orders.add(new Order(Direction.DESC, "mailStatusid"));
+			Sort sort = new Sort(orders);
+			pa=new PageRequest(page, size,sort);
+			pagemail=imdao.findByPushAndMailUseridAndDelOrderByMailCreateTimeDesc(true,tu,false,pa);
+		}else if(!Objects.isNull(status)){
+			pagemail=imdao.findByMailUseridAndMailStatusidAndPushOrderByMailCreateTimeDesc(tu, status.getStatusId(),true, pa);
+		}else{
+			pagemail=imdao.findbyMailUseridAndPushAndMailTitleLikeOrderByMailCreateTimeDesc(tu,true,val,pa);
+		}
+		}else{
+			//草稿箱
+			if(StringUtil.isEmpty(val)){
+				orders.add(new Order(Direction.DESC, "mailStatusid"));
+				Sort sort = new Sort(orders);
+				pa=new PageRequest(page, size,sort);
+				pagemail=imdao.findByPushAndMailUseridAndDelOrderByMailCreateTimeDesc(false,tu,false,pa);
+			}else if(!Objects.isNull(status)){
+				pagemail=imdao.findByMailUseridAndMailStatusidAndPushOrderByMailCreateTimeDesc(tu, status.getStatusId(),false, pa);
+			}else{
+				pagemail=imdao.findbyMailUseridAndPushAndMailTitleLikeOrderByMailCreateTimeDesc(tu,false,val,pa);
+			}
+		}
+		return pagemail;
+		
+	}
+	/**
+	 * 发件箱封装
+	 */
+	public List<Map<String,Object>> maillist(Page<Inmaillist> mail){
+		List<Inmaillist> maillist=mail.getContent();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (int i = 0; i < maillist.size(); i++) {
+			Map<String,Object> result=new HashMap<>();
+			String typename=tydao.findname(maillist.get(i).getMailType());
+			SystemStatusList status=sdao.findOne(maillist.get(i).getMailStatusid());
+			result.put("typename", typename);
+			result.put("statusname", status.getStatusName());
+			result.put("statuscolor", status.getStatusColor());
+			result.put("star", maillist.get(i).getStar());
+			result.put("read", true);
 			result.put("time", maillist.get(i).getMailCreateTime());
 			result.put("reciver", maillist.get(i).getInReceiver());
 			result.put("title", maillist.get(i).getMailTitle());

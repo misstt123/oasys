@@ -88,13 +88,15 @@ public class MailController {
 		//查找用户
 		User user=udao.findOne(userid);
 		//查找未读邮件
-		List<Mailreciver> noreadlist=mrdao.findByReadAndReciverId(false, user);
+		List<Mailreciver> noreadlist=mrdao.findByReadAndDelAndReciverId(false, false, user);
 		//查找创建了但是却没有发送的邮件
-		List<Inmaillist>  nopushlist=imdao.findByPushAndMailUserid(false, user);
+		List<Inmaillist>  nopushlist=imdao.findByPushAndDelAndMailUserid(false,false, user);
 		//查找发件条数
-		List<Inmaillist> pushlist=imdao.findByPushAndMailUserid(true, user);
+		List<Inmaillist> pushlist=imdao.findByPushAndDelAndMailUserid(true,false, user);
+		//查找收件箱删除的邮件条数
+		List<Mailreciver> rubbish=mrdao.findByDelAndReciverId(true,user);
 		//分页及查找
-		Page<Pagemail> pagelist=mservice.recive(page, size, user, null);
+		Page<Pagemail> pagelist=mservice.recive(page, size, user, null,"收件箱");
 		List<Map<String, Object>> maillist=mservice.mail(pagelist);
 		
 		model.addAttribute("page", pagelist);
@@ -103,6 +105,7 @@ public class MailController {
 		model.addAttribute("noread", noreadlist.size());
 		model.addAttribute("nopush", nopushlist.size());
 		model.addAttribute("push", pushlist.size());
+		model.addAttribute("rubbish", rubbish.size());
 		model.addAttribute("mess", "收件箱");
 		return "mail/mail";
 	}
@@ -118,28 +121,225 @@ public class MailController {
 		Long userid = Long.parseLong(userId);
 		//查找用户
 		User user=udao.findOne(userid);
+		String title=req.getParameter("title");
+		Page<Pagemail> pagelist=null;
+		Page<Inmaillist> pagemail=null;
+		List<Map<String, Object>> maillist=null;
 		//得到删除id
 		String ids=req.getParameter("ids");
-		StringTokenizer st = new StringTokenizer(ids, ",");
-		while (st.hasMoreElements()) {
-			//找到该用户联系邮件的中间记录
-			Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
-			//把删除的字段改为1
-			mailr.setDel(true);
-			mrdao.save(mailr);
+		if(("收件箱").equals(title)){
+			
+			StringTokenizer st = new StringTokenizer(ids, ",");
+			while (st.hasMoreElements()) {
+				//找到该用户联系邮件的中间记录
+				Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+				if(!Objects.isNull(mailr)){
+					//把删除的字段改为1
+					mailr.setDel(true);
+					mrdao.save(mailr);
+				}else{
+					return "redirect:/notlimit";
+					}
+			}
+			//分页及查找
+			pagelist=mservice.recive(page, size, user, null,title);
+			maillist=mservice.mail(pagelist);
+		}else if(("发件箱").equals(title)){
+			StringTokenizer st = new StringTokenizer(ids, ",");
+			while (st.hasMoreElements()) {
+				//找到该邮件
+				Inmaillist  inmail=imdao.findByMailUseridAndMailId(user,Long.parseLong(st.nextToken()));
+				if(!Objects.isNull(inmail)){
+					//把删除的字段改为1
+					inmail.setDel(true);
+					imdao.save(inmail);
+				}else{
+					return "redirect:/notlimit";
+				}
+			}
+			pagemail=mservice.inmail(page, size, user, null,title);
+			maillist=mservice.maillist(pagemail);
+		}else if(("草稿箱").equals(title)){
+			StringTokenizer st = new StringTokenizer(ids, ",");
+			while (st.hasMoreElements()) {
+				//找到该邮件
+				Inmaillist  inmail=imdao.findByMailUseridAndMailId(user,Long.parseLong(st.nextToken()));
+				if(!Objects.isNull(inmail)){
+					imdao.delete(inmail);
+				}else{
+					return "redirect:/notlimit";
+				}
+			}
+			pagemail=mservice.inmail(page, size, user, null,title);
+			maillist=mservice.maillist(pagemail);
+		}else{
+			//垃圾箱
+			StringTokenizer st = new StringTokenizer(ids, ",");
+			while (st.hasMoreElements()) {
+				Long mailid=Long.parseLong(st.nextToken());
+				//查看中间表关于这条邮件的del字段
+				List<Boolean> dellist=mrdao.findbyMailId(mailid);
+				
+				//判断中间表中关于这条邮件是否还有del字段为false的
+				if(dellist.contains(false)){
+					Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,mailid);
+					if(!Objects.isNull(mailr)){
+						mrdao.delete(mailr);
+					}else{
+						return "redirect:/notlimit";
+					}
+				}else{
+					Inmaillist imail= imdao.findOne(mailid);
+					//判断这条邮件的del字段是为true
+					if(imail.getDel().equals(true)){
+						List<Mailreciver> mreciver=mrdao.findByMailId(mailid);
+						//循环删除关于这条邮件的所有中间表信息
+						for (Mailreciver mailreciver : mreciver) {
+							mrdao.delete(mailreciver);
+						}
+						imdao.delete(imail);
+					}else{
+						//这条邮件的del字段为false，则删除中间表信息
+						Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,mailid);
+						if(!Objects.isNull(mailr)){
+							mrdao.delete(mailr);
+						}else{
+							return "redirect:/notlimit";
+						}
+					}
+				}
+			}
+			pagelist=mservice.recive(page, size, user, null,title);
+			maillist=mservice.mail(pagelist);
 		}
 		
-		//分页及查找
-		Page<Pagemail> pagelist=mservice.recive(page, size, user, null);
-		List<Map<String, Object>> maillist=mservice.mail(pagelist);
-		model.addAttribute("page", pagelist);
+		if(!Objects.isNull(pagelist)){
+			model.addAttribute("page", pagelist);
+		}else{
+			model.addAttribute("page", pagemail);
+		}
 		model.addAttribute("maillist",maillist);
 		model.addAttribute("url","mailtitle");
 		return "mail/mailbody";
 		
 	}
 	/**
-	 * 邮件条件查找
+	 * 批量查看
+	 */
+	@RequestMapping("watch")
+	public String watch(HttpSession session, Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long userid = Long.parseLong(userId);
+			User user=udao.findOne(userid);
+			String title=req.getParameter("title");
+			String ids=req.getParameter("ids");
+			Page<Pagemail> pagelist=null;
+			List<Map<String, Object>> maillist=null;
+			
+			if(("收件箱").equals(title)){
+				StringTokenizer st = new StringTokenizer(ids, ",");
+				while (st.hasMoreElements()) {
+					//找到该用户联系邮件的中间记录
+					Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+					mailr.setRead(true);
+					mrdao.save(mailr);
+				}
+				//分页及查找
+				pagelist=mservice.recive(page, size, user, null,title);
+				maillist=mservice.mail(pagelist);
+			}else{
+				//垃圾箱
+				StringTokenizer st = new StringTokenizer(ids, ",");
+				while (st.hasMoreElements()) {
+					//找到该用户联系邮件的中间记录
+					Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+					mailr.setRead(true);
+					mrdao.save(mailr);
+				}
+				//分页及查找
+				pagelist=mservice.recive(page, size, user, null,title);
+				maillist=mservice.mail(pagelist);
+			}
+				
+				model.addAttribute("page", pagelist);
+				model.addAttribute("maillist",maillist);
+				model.addAttribute("url","mailtitle");
+		    return "mail/mailbody";
+	}
+	/**
+	 * 批量标星
+	 */
+	@RequestMapping("star")
+	public String star(HttpSession session, Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long userid = Long.parseLong(userId);
+			User user=udao.findOne(userid);
+			String title=req.getParameter("title");
+			String ids=req.getParameter("ids");
+			Page<Pagemail> pagelist=null;
+			Page<Inmaillist> pagemail=null;
+			List<Map<String, Object>> maillist=null;
+			
+			if(("收件箱").equals(title)){
+				StringTokenizer st = new StringTokenizer(ids, ",");
+				while (st.hasMoreElements()) {
+					//找到该用户联系邮件的中间记录
+					Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+					mailr.setStar(true);
+					mrdao.save(mailr);
+				}
+				//分页及查找
+				pagelist=mservice.recive(page, size, user, null,title);
+				maillist=mservice.mail(pagelist);
+			}else if(("发件箱").equals(title)){
+				StringTokenizer st = new StringTokenizer(ids, ",");
+				while (st.hasMoreElements()) {
+					//找到该邮件
+					Inmaillist  inmail=imdao.findByMailUseridAndMailId(user,Long.parseLong(st.nextToken()));
+					inmail.setStar(true);
+					imdao.save(inmail);
+				}
+				pagemail=mservice.inmail(page, size, user, null,title);
+				maillist=mservice.maillist(pagemail);
+			}else if(("草稿箱").equals(title)){
+				StringTokenizer st = new StringTokenizer(ids, ",");
+				while (st.hasMoreElements()) {
+					//找到该邮件
+					Inmaillist  inmail=imdao.findByMailUseridAndMailId(user,Long.parseLong(st.nextToken()));
+					inmail.setStar(true);
+					imdao.save(inmail);
+				}
+				pagemail=mservice.inmail(page, size, user, null,title);
+				maillist=mservice.maillist(pagemail);
+			}else{
+				//垃圾箱
+				StringTokenizer st = new StringTokenizer(ids, ",");
+				while (st.hasMoreElements()) {
+					//找到该用户联系邮件的中间记录
+					Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+					mailr.setStar(true);
+					mrdao.save(mailr);
+				}
+				//分页及查找
+				pagelist=mservice.recive(page, size, user, null,title);
+				maillist=mservice.mail(pagelist);
+			}
+				
+			if(!Objects.isNull(pagelist)){
+				model.addAttribute("page", pagelist);
+			}else{
+				model.addAttribute("page", pagemail);
+			}
+				model.addAttribute("maillist",maillist);
+				model.addAttribute("url","mailtitle");
+		    return "mail/mailbody";
+	}
+	/**
+	 *邮箱条件查找
 	 */
 	@RequestMapping("mailtitle")
 	public String serch(HttpSession session, Model model,HttpServletRequest req,
@@ -147,16 +347,37 @@ public class MailController {
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		Pageable pa=new PageRequest(page, size);
 		User user=udao.findOne(userid);
-		String title=null;
-		if(!StringUtil.isEmpty(req.getParameter("val"))){
-			title=req.getParameter("val");
-		}
-		Page<Pagemail> pagelist=mservice.recive(page, size, user, title);
-		List<Map<String, Object>> maillist=mservice.mail(pagelist);
+		String title=req.getParameter("title");
+		String val=null;
+		Page<Pagemail> pagelist=null;
+		Page<Inmaillist> pagemail=null;
+		List<Map<String, Object>> maillist=null;
 		
-		model.addAttribute("page", pagelist);
+		if(!StringUtil.isEmpty(req.getParameter("val"))){
+			val=req.getParameter("val");
+		}
+		if(("收件箱").equals(title)){
+			pagelist=mservice.recive(page, size, user, val,title);
+			maillist=mservice.mail(pagelist);
+		}else if(("发件箱").equals(title)){
+			
+			pagemail=mservice.inmail(page, size, user, val,title);
+			maillist=mservice.maillist(pagemail);
+		}else if(("草稿箱").equals(title)){
+			pagemail=mservice.inmail(page, size, user, val,title);
+			maillist=mservice.maillist(pagemail);
+		}else{
+			//垃圾箱
+			pagelist=mservice.recive(page, size, user, val,title);
+			maillist=mservice.mail(pagelist);
+		}
+		
+		if(!Objects.isNull(pagelist)){
+			model.addAttribute("page", pagelist);
+		}else{
+			model.addAttribute("page", pagemail);
+		}
 		model.addAttribute("maillist",maillist);
 		model.addAttribute("url","mailtitle");
 		return "mail/mailbody";
@@ -357,6 +578,7 @@ public class MailController {
 		String name=null;
 		Attachment attaid=null;
 		Mailnumber number=null;
+		StringTokenizer st =null;
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
 		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
 			List<Object> list = new MapToList<>().mapToList(res.getData());
@@ -398,16 +620,20 @@ public class MailController {
 			if(!StringUtil.isEmpty(name)){
 				if(mservice.isContainChinese(mail.getInReceiver())){
 					// 分割任务接收人
-					StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
-					while (st.hasMoreElements()) {
-						User reciver = udao.findid(st.nextToken());
+					StringTokenizer st2 = new StringTokenizer(mail.getInReceiver(), ";");
+					while (st2.hasMoreElements()) {
+						User reciver = udao.findid(st2.nextToken());
 						Mailreciver mreciver=new Mailreciver();
 						mreciver.setMailId(imail);
 						mreciver.setReciverId(reciver);
 						mrdao.save(mreciver);
 					}
 				}else{
-					StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
+					if(mail.getInReceiver().contains(";")){
+						st = new StringTokenizer(mail.getInReceiver(), ";");
+					}else{
+						st = new StringTokenizer(mail.getInReceiver(), "；");
+					}
 					while (st.hasMoreElements()) {
 						mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
 								mail.getContent(), attaid.getAttachmentPath(), attaid.getAttachmentName());
@@ -464,8 +690,46 @@ public class MailController {
 	 * 最近邮件
 	 */
 	@RequestMapping("amail")
-	public  String index3() {
+	public  String index3(HttpServletRequest req,HttpSession session,Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size) {
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Pageable pa=new PageRequest(page, size);
+		Long userid = Long.parseLong(userId);
+		User mu=udao.findOne(userid);
+		String mess=req.getParameter("title");
 		
+		Page<Pagemail> pagelist=null;
+		Page<Inmaillist> pagemail=null;
+		List<Map<String, Object>> maillist=null;
+		if(("收件箱").equals(mess)){
+			//分页及查找
+			pagelist=mservice.recive(page, size, mu, null,mess);
+			maillist=mservice.mail(pagelist);
+		}else if(("发件箱").equals(mess)){
+			pagemail=mservice.inmail(page, size, mu, null,mess);
+			maillist=mservice.maillist(pagemail);
+		}else if(("草稿箱").equals(mess)){
+			pagemail=mservice.inmail(page, size,mu, null,mess);
+			maillist=mservice.maillist(pagemail);
+		}else{
+			//垃圾箱
+			//分页及查找
+			pagelist=mservice.recive(page, size, mu, null,mess);
+			maillist=mservice.mail(pagelist);
+			
+		}
+		
+		if(!Objects.isNull(pagelist)){
+			model.addAttribute("page", pagelist);
+		}else{
+			model.addAttribute("page", pagemail);
+			
+		}
+		
+		model.addAttribute("maillist",maillist);
+		model.addAttribute("url","mailtitle");
+		model.addAttribute("mess",mess);
 		return "mail/allmail";
 	}
 	
