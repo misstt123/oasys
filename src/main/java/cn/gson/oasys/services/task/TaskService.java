@@ -106,7 +106,6 @@ public class TaskService {
 			
 		}else if (("类型").equals(val)) {
 			tasklist = tdao.findByUsersIdOrderByTypeId(tu,pa);
-			System.out.println("fsfjs:"+tasklist.getContent());
 		} else if (("状态").equals(val)) {
 			orders.addAll(Arrays.asList(new Order(Direction.ASC, "cancel"), new Order(Direction.ASC, "statusId")));
 			Sort sort = new Sort(orders);

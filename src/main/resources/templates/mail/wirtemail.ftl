@@ -158,19 +158,23 @@ function check() {
 			
 		} else {
 			var $account=$("#account").val();
-			/* 
+			 
 			if($account!=0){
 				if(index==3){
 					var $mail=$(this).val();
-					if(isMailNo($mail) == false){
+					var arr=new Array();
+					arr=$mail.split(";");
+					for(var i=0;i<arr.length;i++){
+					if(isMailNo(arr[i]) == false){
 						$(this).parent().addClass("has-error has-feedback");
 	 					alertCheck("请输入正确的邮箱!");
 	 					isRight = 0;
 	 		 			return false;
 					}
+					}
 	
 				}
-			} */
+			} 
 			return true;
 		}
 	});

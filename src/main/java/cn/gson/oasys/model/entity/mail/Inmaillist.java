@@ -46,7 +46,6 @@ public class Inmaillist {
 	private String content;//邮件内容
 	
 	@Column(name="in_receiver")
-	@NotEmpty(message="接收人不能为空")
 	private String inReceiver;//接收人（可以是多个）
 	
 	@ManyToOne

@@ -3,6 +3,7 @@ package cn.gson.oasys.controller.mail;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,6 +41,7 @@ import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.mail.Inmaillist;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
 import cn.gson.oasys.model.entity.mail.Mailreciver;
+import cn.gson.oasys.model.entity.mail.Pagemail;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
@@ -78,10 +80,88 @@ public class MailController {
 	 * @return
 	 */
 	@RequestMapping("mail")
-	public  String index() {
+	public  String index(HttpSession session, Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size) {
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		//查找用户
+		User user=udao.findOne(userid);
+		//查找未读邮件
+		List<Mailreciver> noreadlist=mrdao.findByReadAndReciverId(false, user);
+		//查找创建了但是却没有发送的邮件
+		List<Inmaillist>  nopushlist=imdao.findByPushAndMailUserid(false, user);
+		//查找发件条数
+		List<Inmaillist> pushlist=imdao.findByPushAndMailUserid(true, user);
+		//分页及查找
+		Page<Pagemail> pagelist=mservice.recive(page, size, user, null);
+		List<Map<String, Object>> maillist=mservice.mail(pagelist);
 		
+		model.addAttribute("page", pagelist);
+		model.addAttribute("maillist",maillist);
+		model.addAttribute("url","mailtitle");
+		model.addAttribute("noread", noreadlist.size());
+		model.addAttribute("nopush", nopushlist.size());
+		model.addAttribute("push", pushlist.size());
+		model.addAttribute("mess", "收件箱");
 		return "mail/mail";
 	}
+	
+	/**
+	 * 删除邮件
+	 */
+	@RequestMapping("alldelete")
+	public String delete(HttpServletRequest req,HttpSession session, Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		//查找用户
+		User user=udao.findOne(userid);
+		//得到删除id
+		String ids=req.getParameter("ids");
+		StringTokenizer st = new StringTokenizer(ids, ",");
+		while (st.hasMoreElements()) {
+			//找到该用户联系邮件的中间记录
+			Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+			//把删除的字段改为1
+			mailr.setDel(true);
+			mrdao.save(mailr);
+		}
+		
+		//分页及查找
+		Page<Pagemail> pagelist=mservice.recive(page, size, user, null);
+		List<Map<String, Object>> maillist=mservice.mail(pagelist);
+		model.addAttribute("page", pagelist);
+		model.addAttribute("maillist",maillist);
+		model.addAttribute("url","mailtitle");
+		return "mail/mailbody";
+		
+	}
+	/**
+	 * 邮件条件查找
+	 */
+	@RequestMapping("mailtitle")
+	public String serch(HttpSession session, Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		Pageable pa=new PageRequest(page, size);
+		User user=udao.findOne(userid);
+		String title=null;
+		if(!StringUtil.isEmpty(req.getParameter("val"))){
+			title=req.getParameter("val");
+		}
+		Page<Pagemail> pagelist=mservice.recive(page, size, user, title);
+		List<Map<String, Object>> maillist=mservice.mail(pagelist);
+		
+		model.addAttribute("page", pagelist);
+		model.addAttribute("maillist",maillist);
+		model.addAttribute("url","mailtitle");
+		return "mail/mailbody";
+	}
+	
 	/**
 	 * 账号管理
 	 */
@@ -211,7 +291,7 @@ public class MailController {
 			request.setAttribute("success", "执行成功！");
 			
 		}
-		System.out.println(mail);
+		
 		return "forward:/addaccount";
 	}
 	/**
@@ -274,57 +354,69 @@ public class MailController {
 		Long userid = Long.parseLong(userId);
 		User tu=udao.findOne(userid);
 		
-		ResultVO res = BindingResultVOUtil.hasErrors(br);
 		String name=null;
 		Attachment attaid=null;
 		Mailnumber number=null;
-		
-		if(!StringUtil.isEmpty(request.getParameter("fasong"))){
-			name=request.getParameter("fasong");
-		}
-		
-		
-		if(!StringUtil.isEmpty(name)){
-			if(!Objects.isNull(file)){
-				attaid=mservice.upload(file, tu);
-			}
-			//发送成功
-			mail.setPush(true);
+		ResultVO res = BindingResultVOUtil.hasErrors(br);
+		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
+			List<Object> list = new MapToList<>().mapToList(res.getData());
+			request.setAttribute("errormess", list.get(0).toString());
 			
-			}else{
-			//存草稿
-			mail.setInReceiver(null);
-		}
-		mail.setMailFileid(attaid);
-		mail.setMailCreateTime(new Date());
-		mail.setMailUserid(tu);
-		if(!mail.getInmail().equals(0)){
-			number=mndao.findOne(mail.getInmail());
-			mail.setMailNumberid(number);
-		}
-		//存邮件
-		Inmaillist imail=imdao.save(mail);
-		
-		if(!StringUtil.isEmpty(name)){
-		if(mservice.isContainChinese(mail.getInReceiver())){
-			// 分割任务接收人
-			StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
-			while (st.hasMoreElements()) {
-				User reciver = udao.findid(st.nextToken());
-				Mailreciver mreciver=new Mailreciver();
-				mreciver.setMailId(imail);
-				mreciver.setReciverId(reciver);
-				mrdao.save(mreciver);
-			}
+			System.out.println("list错误的实体类信息：" + mail);
+			System.out.println("list错误详情:" + list);
+			System.out.println("list错误第一条:" + list.get(0));
+			System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
+			
 		}else{
-			StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
-			while (st.hasMoreElements()) {
-			mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
-					mail.getContent(), attaid.getAttachmentPath(), attaid.getAttachmentName());
+			
+			if(!StringUtil.isEmpty(request.getParameter("fasong"))){
+				name=request.getParameter("fasong");
 			}
+			
+			
+			if(!StringUtil.isEmpty(name)){
+				if(!Objects.isNull(file)){
+					attaid=mservice.upload(file, tu);
+				}
+				//发送成功
+				mail.setPush(true);
+				
+			}else{
+				//存草稿
+				mail.setInReceiver(null);
 			}
-		
+			mail.setMailFileid(attaid);
+			mail.setMailCreateTime(new Date());
+			mail.setMailUserid(tu);
+			if(!mail.getInmail().equals(0)){
+				number=mndao.findOne(mail.getInmail());
+				mail.setMailNumberid(number);
+			}
+			//存邮件
+			Inmaillist imail=imdao.save(mail);
+			
+			if(!StringUtil.isEmpty(name)){
+				if(mservice.isContainChinese(mail.getInReceiver())){
+					// 分割任务接收人
+					StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
+					while (st.hasMoreElements()) {
+						User reciver = udao.findid(st.nextToken());
+						Mailreciver mreciver=new Mailreciver();
+						mreciver.setMailId(imail);
+						mreciver.setReciverId(reciver);
+						mrdao.save(mreciver);
+					}
+				}else{
+					StringTokenizer st = new StringTokenizer(mail.getInReceiver(), ";");
+					while (st.hasMoreElements()) {
+						mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
+								mail.getContent(), attaid.getAttachmentPath(), attaid.getAttachmentName());
+					}
+				}
+				
+			}
 		}
+		
 		return "redirect:/mail";
 	}
 	

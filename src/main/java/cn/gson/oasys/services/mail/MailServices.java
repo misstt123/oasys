@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.UUID;
@@ -42,11 +43,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
 
+import cn.gson.oasys.model.dao.maildao.InMailDao;
 import cn.gson.oasys.model.dao.maildao.MailnumberDao;
+import cn.gson.oasys.model.dao.maildao.MailreciverDao;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
+import cn.gson.oasys.model.entity.mail.Pagemail;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 
@@ -61,14 +65,68 @@ public class MailServices {
 	private TypeDao tydao;
 	@Autowired
 	private MailnumberDao mdao;
-	
+	@Autowired
+	private MailreciverDao mrdao;
 	@Autowired
 	private AttachmentDao AttDao;
+	@Autowired
+	private InMailDao imdao;
 	
 	@Value("${attachment.roopath}")
 	private String rootpath;
+	/**
+	 * 收件箱
+	 */
+	public Page<Pagemail> recive(int page,int size,User tu,String val){
+		Page<Pagemail> pagelist=null;
+		Pageable pa=new PageRequest(page, size);
+		List<Order> orders = new ArrayList<>();
+		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_in_mail_list", val);
+		if(StringUtil.isEmpty(val)){
+			orders.add(new Order(Direction.ASC, "read"));
+			Sort sort = new Sort(orders);
+			pa=new PageRequest(page, size,sort);
+			pagelist=mrdao.findmail(tu,false,pa);
+		}else if(!Objects.isNull(status)){
+			pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),pa);
+		}else{
+			pagelist=mrdao.findmails(tu, val, pa);
+		}
+		return pagelist;
+	}
+	/**
+	 * 封装json
+	 */
+	public List<Map<String,Object>> mail(Page<Pagemail> mail){
+		List<Pagemail> maillist=mail.getContent();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (int i = 0; i < maillist.size(); i++) {
+			Map<String,Object> result=new HashMap<>();
+			String typename=tydao.findname(maillist.get(i).getMailType());
+			String statusname=sdao.findname(maillist.get(i).getMailStatusid());
+			result.put("typename", typename);
+			result.put("statusname", statusname);
+			result.put("star", maillist.get(i).getStar());
+			result.put("read", maillist.get(i).getRead());
+			result.put("time", maillist.get(i).getMailCreateTime());
+			result.put("reciver", maillist.get(i).getInReceiver());
+			result.put("title", maillist.get(i).getMailTitle());
+			result.put("mailid", maillist.get(i).getMailId());
+			result.put("fileid", maillist.get(i).getMailFileid());
+			list.add(result);
+			
+		}
+		return list;
+	}
 	
-	
+	/**
+	 * 账号
+	 * @param page
+	 * @param size
+	 * @param tu
+	 * @param val
+	 * @return
+	 */
 	public Page<Mailnumber> index(int page,int size,User tu,String val){
 		Page<Mailnumber> account=null;
 		List<Order> orders = new ArrayList<>();
@@ -265,7 +323,7 @@ public class MailServices {
 	        multipart.addBodyPart(messageBodyPart);
 	        
 	        // 将multipart对象放到message中
-	        message.setContent(multipart,"html;charset=UTF-8");
+	        message.setContent(multipart,"text/html;charset=UTF-8");
 	        // 6. 设置发件时间
 	        message.setSentDate(new Date());
 
