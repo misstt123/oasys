@@ -31,8 +31,8 @@ public interface NoteDao  extends PagingAndSortingRepository<Note, Long>{
 	@Modifying
 	Integer updatecollect(long isCollected,long noteId);
 	
-	@Query("from Note n where n.isCollected=?1")
-	List<Note> findByIsCollected  (long isCollected);
+	@Query("from Note n where n.isCollected=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
+	List<Note> findByIsCollected  (long isCollected,long userid);
 	
 	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
 	List<Note> findByCatalogId(long catalogId,long userid);

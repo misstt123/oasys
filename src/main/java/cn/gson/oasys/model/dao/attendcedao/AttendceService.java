@@ -1,5 +1,6 @@
 package cn.gson.oasys.model.dao.attendcedao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,10 +22,14 @@ public class AttendceService {
 	@Autowired 
 	AttendceDao attendceDao;
 	
-	//更新
+	//更改考勤时间
+	public Integer updatetime(Date date,String hourmin,Long statusIdlong ,long attid) {
+		return attendceDao.updateatttime(date, hourmin,statusIdlong ,attid);
+	}
+	
+	//更新备注
 	public Integer updatereamrk(String attendsRemark,long attendsId) {
 		return attendceDao.updateremark(attendsRemark, attendsId);
-		
 	}
 	
 	//分页

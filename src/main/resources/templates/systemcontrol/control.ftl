@@ -14,20 +14,9 @@
 <div class="container-fluid">
 	<div class="row">
 		<!--考勤签到-->
-		<div class="col-md-3">
-			<div class="jichu kaoqin">
-				<div class="wenzi">
-						<h2><#if alist??>
-						未签到</#if></h2>
-						<p><#if alist??>请到考勤管理签到
-						</#if></p>
-				</div>
-				<div class="iconfont">
-					<span class="glyphicon glyphicon-time"></span>
-				</div>
-				<a href="attendcelist" class="moreduo"> 更多 <span
-					class="glyphicon glyphicon-circle-arrow-right"></span>
-				</a>
+		<div class="col-md-3" >
+		    <div id="refresh">
+				<#include "signin.ftl">
 			</div>
 		</div>
 		<!--文件管理-->

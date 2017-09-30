@@ -150,10 +150,8 @@ public class Attends {
 		this.user = user;
 	}
 	
-	
-
 	public Attends(Long typeId, Long statusId, Date attendsTime, String attendHmtime, String weekOfday,
-			String attendsIp, String attendsRemark, User user) {
+			String attendsIp, User user) {
 		super();
 		this.typeId = typeId;
 		this.statusId = statusId;
@@ -161,7 +159,6 @@ public class Attends {
 		this.attendHmtime = attendHmtime;
 		this.weekOfday = weekOfday;
 		this.attendsIp = attendsIp;
-		this.attendsRemark = attendsRemark;
 		this.user = user;
 	}
 

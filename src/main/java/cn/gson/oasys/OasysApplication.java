@@ -17,6 +17,7 @@ public class OasysApplication {
 	
 	@Test
 	public void dfsa(){
-		
+		String s1="18:49:19";String s2="18:29:39";
+		System.out.println(s1.compareTo(s2));
 	}
 }

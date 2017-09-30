@@ -259,10 +259,19 @@ border: none;
 				<#include "/note/notewrite.ftl">
 				</div>
 				</div>
-
+				
 			</div>
 		</div>
 	</div>
+	 <#if exception??>
+		 <script>
+		 	$(function(){
+		 		alert("您的目录的名字重复了")
+		 	})
+		 </script>
+	 </#if>
+	
+	
 </body>
 
 

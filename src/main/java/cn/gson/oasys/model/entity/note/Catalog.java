@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import cn.gson.oasys.model.entity.user.User;
 /**
  * 此处有一个parentid需要连接
  * @author admin
@@ -26,20 +28,38 @@ public class Catalog {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long catalogId; //目录id
 	
+	
+	
 	@Column(name="catalog_name")
 	private String catalogName; //目录名字
+	
+	@ManyToOne
+	@JoinColumn(name="cata_user_id")
+	private User user;
 	
 	//判断id
 	@Column(name="parent_id")
 	private Integer parentId;
     
 	
-
+	
+	
 	
 	@Override
 	public String toString() {
 		return "Catalog [catalogName=" + catalogName + "]";
 	}
+
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 
 	public Long getCatalogId() {
 		return catalogId;
@@ -62,10 +82,13 @@ public class Catalog {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Catalog(String catalogName) {
+
+	public Catalog(String catalogName, User user) {
 		super();
 		this.catalogName = catalogName;
-	} 
+		this.user = user;
+	}
+
 	
 	
 	
