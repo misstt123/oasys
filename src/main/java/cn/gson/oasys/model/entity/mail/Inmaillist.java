@@ -60,6 +60,12 @@ public class Inmaillist {
 	@JoinColumn(name="mail_number_id")
 	private Mailnumber mailNumberid;//外部邮件账号id
 	
+	@Column(name="mail_del")
+	private Boolean del=false;
+	
+	@Column(name="mail_push")
+	private Boolean push=false;
+	
 	@Transient 
 	private Long inmail;
 	
@@ -67,17 +73,37 @@ public class Inmaillist {
 	
 	
 	
+	public Boolean getDel() {
+		return del;
+	}
+
+
+
+	public void setDel(Boolean del) {
+		this.del = del;
+	}
+
+
+
+	public Boolean getPush() {
+		return push;
+	}
+
+
+
+	public void setPush(Boolean push) {
+		this.push = push;
+	}
+
+
+
 	public Long getInmail() {
 		return inmail;
 	}
-
-
-
+	
 	public void setInmail(Long inmail) {
 		this.inmail = inmail;
 	}
-
-
 
 	public Long getMailStatusid() {
 		return mailStatusid;
@@ -167,13 +193,16 @@ public class Inmaillist {
 		this.mailCreateTime = mailCreateTime;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailStatusid=" + mailStatusid
-				+ ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver=" + inReceiver
-				+ ", mailFileid=" + mailFileid + ", mailCreateTime=" + mailCreateTime + "]";
+				+ ", mailUserid=" + mailUserid + ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver="
+				+ inReceiver + ", mailCreateTime=" + mailCreateTime + ", del=" + del + ", push=" + push + ", inmail=" + inmail + "]";
 	}
 
+	
 
 
 	

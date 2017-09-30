@@ -32,7 +32,7 @@ public  class Mailreciver {
 	private User reciverId;//内部用户id
 	
 	@Column(name="is_read")
-	private Boolean read;//是否已读
+	private Boolean read=false;//是否已读
 	
 	
 	public Mailreciver(){}

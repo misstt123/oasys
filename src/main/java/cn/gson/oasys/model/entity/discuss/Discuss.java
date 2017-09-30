@@ -132,8 +132,6 @@ public class Discuss {
 	}
 
 	public Discuss() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	
