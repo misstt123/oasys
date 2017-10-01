@@ -3,6 +3,9 @@ package cn.gson.oasys.model.dao.plandao;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -14,7 +17,7 @@ import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.user.User;
 
 @Repository
-public interface PlanDao  extends PagingAndSortingRepository<Plan, Long>{
+public interface PlanDao  extends JpaRepository<Plan, Long>{
 
 	List<Plan> findByUser(User user);
 	
@@ -24,7 +27,14 @@ public interface PlanDao  extends PagingAndSortingRepository<Plan, Long>{
 	Integer updatesome(long typeId,long statusId,Date startTime,Date endTime,
 			String title,String label,String planContent,String planSummary,long pid);
 	
+	@Query("delete from Plan p where p.planId=?1")
+	@Modifying
+	Integer delete(long pid);
 	
 	@Query(nativeQuery=true,value="SELECT * from aoa_plan_list p WHERE p.create_time>?1 and p.create_time<?2  and p.plan_user_id=?3 and p.type_id=?4 ORDER BY p.create_time DESC limit 0,1")
 	Plan findlatest(Date start,Date end,long id,long typeid);
+	
+	//分页
+	@Query("from Plan p where p.user.userId=?1")
+	Page<Plan> findByUserOrderByCreateTimeDesc(long userid,Pageable pa);
 }

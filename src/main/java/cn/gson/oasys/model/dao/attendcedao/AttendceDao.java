@@ -23,6 +23,10 @@ public interface AttendceDao  extends JpaRepository<Attends, Long>{
 	@Modifying(clearAutomatically=true)
 	Integer updateatttime(Date date,String hourmin,Long statusIdlong ,long attid);
 	
+		@Query("delete from Attends a where a.attendsId=?1")
+		@Modifying
+		Integer delete(long aid);
+		
 	//查找某用户当天下班的考勤记录id
 	@Query(nativeQuery=true,value="select a.attends_id from aoa_attends_list a WHERE DATE_format(a.attends_time,'%Y-%m-%d') like %?1% and a.attends_user_id=?2 and a.type_id=9 ")
 	Long findoffworkid(String date,long userid);

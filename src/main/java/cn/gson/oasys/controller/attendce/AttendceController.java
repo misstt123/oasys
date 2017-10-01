@@ -167,8 +167,23 @@ public class AttendceController {
 	//考情列表 给单个用户使用
 	@RequestMapping("attendcelist")
 	public String test(HttpServletRequest request,HttpSession session
+			,@RequestParam(value="page",defaultValue="0")int page
+			){
+		singleatt(request, session, page, null);
+		return "attendce/attendcelist";
+	}
+	
+	@RequestMapping("attendcelisttable")
+	public String test(HttpServletRequest request,HttpSession session
 			,@RequestParam(value="page",defaultValue="0")int page,
 			@RequestParam(value="baseKey",required=false)String baseKey){
+		singleatt(request, session, page, baseKey);
+		return "attendce/attendcelisttable";
+	}
+
+
+
+	private void singleatt(HttpServletRequest request, HttpSession session, int page, String baseKey) {
 		Long  userid=Long.valueOf( session.getAttribute("userId")+"");
 		System.out.println(userid);
 		Page<Attends> page2= attendceService.singlepage(page, baseKey, userid);
@@ -180,8 +195,9 @@ public class AttendceController {
 		request.setAttribute("alist", page2.getContent());
 		request.setAttribute("page", page2);
 		request.setAttribute("url", "attendcelisttable");
-		return "attendce/attendcelist";
 	}
+	
+	
 	
 	//考勤管理
 	@RequestMapping("attendceatt")
@@ -191,27 +207,6 @@ public class AttendceController {
 		return "attendce/attendceview";
 	}
 
-	private void setMess(HttpServletRequest request, HttpSession session, int page, String baseKey) {
-		Long userId=Long.parseLong(session.getAttribute("userId")+"");
-		List<Long> ids = new ArrayList<>();
-		List<User> users=uDao.findByFatherId(userId);
-		for (User user : users) {
-			ids.add(user.getUserId());
-		}
-		if (ids.size() == 0) {
-			ids.add(0L);
-		}
-		User user=uDao.findOne(userId);
-		Page<Attends> page2=attendceService.paging(page, baseKey, ids);
-		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
-		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
-		request.setAttribute("type", type);
-		request.setAttribute("status", status);
-		request.setAttribute("alist", page2.getContent());
-		request.setAttribute("page", page2);
-		request.setAttribute("url", "attendcetable");
-	}
-	
 	//分頁分页
 		@RequestMapping("attendcetable")
 		public String table(HttpServletRequest request,HttpSession session,
@@ -220,11 +215,31 @@ public class AttendceController {
 			setMess(request, session, page, baseKey);
 			return "attendce/attendcetable";
 		}
-	
+		private void setMess(HttpServletRequest request, HttpSession session, int page, String baseKey) {
+			Long userId=Long.parseLong(session.getAttribute("userId")+"");
+			List<Long> ids = new ArrayList<>();
+			List<User> users=uDao.findByFatherId(userId);
+			for (User user : users) {
+				ids.add(user.getUserId());
+			}
+			if (ids.size() == 0) {
+				ids.add(0L);
+			}
+			User user=uDao.findOne(userId);
+			Page<Attends> page2=attendceService.paging(page, baseKey, ids);
+			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
+			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
+			request.setAttribute("type", type);
+			request.setAttribute("status", status);
+			request.setAttribute("alist", page2.getContent());
+			request.setAttribute("page", page2);
+			request.setAttribute("url", "attendcetable");
+		}
 	//删除
 	@RequestMapping("attdelete")
-	public String dsfa(@Param("aid")long aid){
-		attenceDao.delete(aid);
+	public String dsfa(HttpServletRequest request,HttpSession session){
+		long aid=Long.valueOf(request.getParameter("aid"));
+		attendceService.delete(aid);
 		return "redirect:/attendceatt";
 	}
 	
