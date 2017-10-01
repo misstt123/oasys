@@ -61,6 +61,9 @@ public class Note {
 	@Column(name="createman_id")
 	private Long createmanId; //类型id
 	
+	@Column(name="receiver")
+	private String receiver;//笔记分享接收人
+	
 	@ManyToMany
 	@JoinTable(
 			name="aoa_receiver_note"
@@ -90,10 +93,18 @@ public class Note {
 		
 	}
 
-   
     
-    
-   public Long getCreatemanId() {
+    public String getReceiver() {
+		return receiver;
+	}
+
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+
+	public Long getCreatemanId() {
 		return createmanId;
 	}
 

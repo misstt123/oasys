@@ -4,7 +4,9 @@ package cn.gson.oasys.controller.note;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -14,10 +16,12 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,8 +148,6 @@ public class NoteController {
 			
 			//0l表示新建的时候默认为没有收藏
 			 note=new Note(title, content, catalogId, typeId, statusId, attid, new Date(),0l);
-			
-			 
 			}
 			//nid大于0就是修改某个对象
 			if(nid>0){
@@ -170,10 +172,17 @@ public class NoteController {
 			{  
 				userss=new HashSet<>();
 				String receivers=request.getParameter("receiver");
+					note.setReceiver(receivers);
+				
 				String[] receiver=receivers.split(";");
+				//先绑定自己再
+				userss.add(user);
+				//再绑定其他人
 				for (String re : receiver) {
 					System.out.println(re);
 					User user2=userDao.findid(re);
+					if(user2==null){}
+					else
 					userss.add(user2);
 				}
 				
@@ -299,7 +308,6 @@ public class NoteController {
 	//显示具体信息
 	@RequestMapping("noteinfo")
 	public String test3(@Param("id")String id,HttpServletRequest Request,HttpServletResponse response,HttpSession session) throws IOException{
-		
 		Attachment attachment=null;
 		FileInputStream fis=null;
 		OutputStream os=null;
@@ -310,11 +318,21 @@ public class NoteController {
 		att=attDao.findByAttachmentId(note.getAttachId());
 		}
 		
-//		//读取文件流
+		//读取文件流并且关闭
+//		File file=new File("F:/OAFILE"+att.getAttachmentPath());
+//		fis =new FileInputStream(file);
+//		byte[] data = new byte[att.getAttachmentSize().intValue()];
+//		fis.read(data);
+//		fis.close();
+//		os.close();
+		//读取文件流
 //		ServletOutputStream sos = response.getOutputStream();
 //		byte[] data = new byte[att.getAttachmentSize().intValue()];
 //		IOUtils.readFully(new FileInputStream("F:/OAFILE"+att.getAttachmentPath()), data);
 //		IOUtils.write(data, sos);
+//		sos.flush();
+//		IOUtils.closeQuietly(sos);
+		
 		
 		Request.setAttribute("note", note);
 		Request.setAttribute("user", user);

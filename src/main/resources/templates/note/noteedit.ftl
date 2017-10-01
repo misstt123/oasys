@@ -23,7 +23,6 @@
 	border-top: 3px solid #3c8dbc;
 	/*margin-left: 0px;*/
 	background-color: #FFFFFF;
-	max-width: 800px;
 	padding-top: 12px;
 }
 
@@ -152,10 +151,11 @@ textarea {
 			<div class="form-group">
 			   
 			   <div id="MoreDiv" >
-					<input name="receiver" type="text"
+					<input name="receiver" type="text" 
 						id="ctl00_cphMain_txtReceiver" class="form-control"
-						placeholder="分享给：" value=""/>
+						placeholder="分享给：" value="<#if note??><#if note.receiver??>${note.receiver}</#if></#if>"/>
 					<div class="reciver">
+					<#if usererror??><span style="color:red;">这个用户不存在呢</span></#if>
 						<a data-toggle="modal" data-target="#myModal"
 							data-backdrop="static"> <span
 							class="label label-success glyphicon glyphicon-share-alt">分享</span>
@@ -181,7 +181,7 @@ textarea {
 			</div>
 			
 			<div class="form-group">	
-			<textarea name="content"  style="width:770px;height:300px;visibility:hidden;font-size: 20px;">
+			<textarea name="content"  style="width:100%;height:300px;visibility:hidden;font-size: 20px;">
 			<#if note??>
 			${note.content}
 			</#if>
@@ -199,7 +199,7 @@ textarea {
             <input type="hidden" name="nid" value=${nid}>
 
 			<div class="pull-right right1 bottom1">
-				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary" disabled="disabled">保存</button> 
+				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary"  onclick="return check();">保存</button> 
 				<a  onclick="notejump('notewrite','-2')"
 					id="ctl00_cphMain_lnbcancel" class="btn btn-default">取消</a>
 			</div>
@@ -321,8 +321,7 @@ textarea {
 	</div>
 	</div>
 	<script type="text/javascript">
-	      
-			var event = document.createEvent('HTMLEvents');   
+	      	var event = document.createEvent('HTMLEvents');   
 			event.initEvent("load", true, true);     
 			window.dispatchEvent(event);    
 			
