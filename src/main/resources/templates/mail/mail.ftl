@@ -48,13 +48,18 @@
 					</#if>
 				
 				</li>
-				<li><span class="glyphicon glyphicon-list-alt le"> 草稿箱</span> 
+				<li class="caogao"><span class="glyphicon glyphicon-list-alt le"> 草稿箱</span> 
 					<#if nopush==0>
 					<#else>
 					<span class="pull-right uncheck"><i class="btn btn-xs btn-primary">${nopush}</i></span>
 					</#if>
-				</li>	
-				<li><span class="glyphicon glyphicon-trash le"> 垃圾箱</span></li>
+				</li >	
+				<li class=" rubbish"><span class="glyphicon glyphicon-trash le"> 垃圾箱</span>
+					<#if rubbish==0>
+					<#else>
+					<span class="pull-right uncheck"><i class="btn btn-xs btn-primary">${rubbish}</i></span>
+					</#if>
+				</li>
 			</ul>
 		</div>
 
@@ -86,23 +91,22 @@
 <script>
 	$(function(){
 		$('.getmail').on('click',function(){
-			$('.set').load('amail');
+			$('.set').load('amail',{title:"收件箱"});
 		});	
 		$('.setmail').on('click',function(){
-			$('.set').load('amail');
+			$('.set').load('amail',{title:"发件箱"});
 		});
-		$('.getmail').on('click',function(){
-			$('.set').load('amail');
+		$('.caogao').on('click',function(){
+			$('.set').load('amail',{title:"草稿箱"});
+		});
+		$('.rubbish').on('click',function(){
+			$('.set').load('amail',{title:"垃圾箱"});
 		});
 		$('.write').on('click',function(){
 			$('.set').load('wmail');
 		});
-		$('.lab').on('click',function(){
-			$('.set').load('smail');
-		});
 		
-		$('.fa-back').on('click',function(){
-			$('.set').load('amail');
-		});
+		
+		
 	});
 </script>

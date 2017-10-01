@@ -23,6 +23,7 @@ border-radius: 5px;
 	</div>
 	<!--盒子身体-->
 	<form action="pushmail" method="post" enctype="multipart/form-data" onsubmit="return check();" >
+	<input type="text" name="mailId" value="${(id)!''}" style="display:none;"/>
 	<div class="box-body">
 		<!--錯誤信息提示  -->
 					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
@@ -33,17 +34,49 @@ border-radius: 5px;
 			<div class="form-group">
 				<select name="mailType" id="ctl00_cphMain_ddlType"
 					class="select2 form-control">
-					<#list typelist as type>
+					<#if id??>
 					<option value="${type.typeId}">${type.typeName}</option>
-					</#list>
+						<#if type.typeId==16>
+						<#else>
+						<option value="16">邮件</option>
+						</#if>
+						<#if type.typeId==17>
+						<#else>
+						<option value="17">通知</option>
+						</#if>
+						<#if type.typeId==18>
+						<#else>
+						<option value="18">公告</option>
+						</#if>
+					<#else>
+						<#list typelist as ty>
+						<option value="${ty.typeId}">${ty.typeName}</option>
+						</#list>
+					</#if>
 				</select>
 			</div>
 			<div class="form-group">
 				<select name="mailStatusid" id="ctl00_cphMain_ddlStatus"
 					class="select2 form-control">
-					<#list statuslist as status>
-					<option value="${status.statusId}">${status.statusName}</option>
-					</#list>
+					<#if id??>
+						<option value="${status.statusId}">${status.statusName}</option>
+						<#if type.typeId==20>
+						<#else>
+						<option value="20">一般</option>
+						</#if>
+						<#if type.typeId==21>
+						<#else>
+						<option value="21">重要</option>
+						</#if>
+						<#if type.typeId==22>
+						<#else>
+						<option value="22">紧急</option>
+						</#if>
+					<#else>
+						<#list statuslist as statu>
+						<option value="${statu.statusId}">${statu.statusName}</option>
+						</#list>
+					</#if>
 				</select>
 			</div>
 			<div class="form-group">
@@ -69,12 +102,12 @@ border-radius: 5px;
 		</div>
 
 		<div class="form-group">
-			<input name="mailTitle" type="text"
+			<input name="mailTitle" type="text" value="${(title)!''}"
 				id="ctl00_cphMain_txtSubject" class="form-control" placeholder="主题：" />
 		</div>
 
 		<div class="form-group">
-			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;"></textarea>
+			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;">${(content)!''}</textarea>
 		</div>
 
 		<div class="form-group">
@@ -90,7 +123,7 @@ border-radius: 5px;
 	<!--盒子尾-->
 	<div class="box-footer foots">
 		<div class="left1">
-			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default" href="mail"><span>放弃</span></a>
+			<a id="ctl00_cphMain_lnbDiscard" class="btn btn-default " href="mail"><span>放弃</span></a>
 		</div>
 		<div class="pull-right right1 ">
 		    <input type="submit" class="btn btn-default" value="存草稿">
@@ -162,16 +195,35 @@ function check() {
 			if($account!=0){
 				if(index==3){
 					var $mail=$(this).val();
+					var patt1 = new RegExp(";");
 					var arr=new Array();
-					arr=$mail.split(";");
-					for(var i=0;i<arr.length;i++){
-					if(isMailNo(arr[i]) == false){
-						$(this).parent().addClass("has-error has-feedback");
-	 					alertCheck("请输入正确的邮箱!");
-	 					isRight = 0;
-	 		 			return false;
+					if(patt1.test($mail)){
+						arr=$mail.split(";");
+						for(var i=0;i<arr.length;i++){
+							if(isMailNo(arr[i]) == false){
+								$(this).parent().addClass("has-error has-feedback");
+			 					alertCheck("请输入正确的邮箱!");
+			 					isRight = 0;
+			 		 			return false;
+							}
+							}
+					}else{
+						arr=$mail.split("；");
+						for(var i=0;i<arr.length;i++){
+							if(isMailNo(arr[i]) == false){
+								$(this).parent().addClass("has-error has-feedback");
+			 					alertCheck("请输入正确的邮箱!");
+			 					isRight = 0;
+			 		 			return false;
+							}
+							}
 					}
-					}
+					
+					
+					
+					
+					
+					
 	
 				}
 			} 

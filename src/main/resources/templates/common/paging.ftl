@@ -50,16 +50,60 @@
 		/* 分页插件按钮的点击事件 */
 		/* url是从后台接收过来的链接，sort是记录排序规则 */
 		$('.tablefirst').on('click',function(){
-			$('.thistable').load('${url}?page=0${(sort)!''}');
+			 if(${page.first?string('true','false')}==false){
+				 $('.thistable').load('${url}?page=0${(sort)!''}');
+			 }
 		});
 		$('.tableup').on('click',function(){
-			$('.thistable').load('${url}?page=${(page.number)-1}${(sort)!''}');
+			 if(${page.first?string('true','false')}==false){
+				 $('.thistable').load('${url}?page=${(page.number)-1}${(sort)!''}');
+			 }
 		});
 		$('.tabledown').on('click',function(){
-			$('.thistable').load('${url}?page=${(page.number)+1}${(sort)!''}');
+			if(${page.last?string('true','false')}==false){
+				$('.thistable').load('${url}?page=${(page.number)+1}${(sort)!''}');
+			 }
 		});
 		$('.tablelast').on('click',function(){
-			$('.thistable').load('${url}?page=${(page.totalPages)-1}${(sort)!''}');
+			if(${page.last?string('true','false')}==false){
+				$('.thistable').load('${url}?page=${(page.totalPages)-1}${(sort)!''}');
+			 }
+			
+		});
+		
+		/*类型、状态、时间的排序  */
+		$('.thistype').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('${url}?type=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('${url}?type=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisstatus').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('${url}?status=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('${url}?status=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thistime').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('${url}?time=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('${url}?time=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		$('.thisvisit').on('click', function() {
+			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+				$('.thistable').load('${url}?visitnum=0&icon=glyphicon-triangle-top');
+			} else {
+				$('.thistable').load('${url}?visitnum=1&icon=glyphicon-triangle-bottom');
+			}
+		});
+		/* 查找 */
+		$('.baseKetsubmit').on('click', function() {
+			var baseKey = $('.baseKey').val();
+			console.log(baseKey);
+			$('.thistable').load('${url}?baseKey=' + baseKey);
 		});
 </script>
-

@@ -18,6 +18,10 @@ public class NoteService {
 	@Autowired 
 	NoteDao noteDao;
 	
+	//删除
+	public int delete(long noteId) {
+		return noteDao.delete(noteId);
+	}
 	
 	public int updatecollect(long isCollected,long noteId) {
 		return noteDao.updatecollect(isCollected, noteId);

@@ -1,11 +1,12 @@
 package cn.gson.oasys.controller.note;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
+import cn.gson.oasys.model.dao.notedao.CatalogService;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.notedao.NoteService;
 import cn.gson.oasys.model.dao.system.StatusDao;
@@ -40,6 +42,7 @@ import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
 import cn.gson.oasys.model.entity.note.Note;
+import cn.gson.oasys.model.entity.note.Noteuser;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
@@ -60,6 +63,8 @@ public class NoteController {
 	private NoteService NoteService;
 	@Autowired
 	private CatalogDao catalogDao;
+	@Autowired
+	private CatalogService catalogService;
 	@Autowired
 	private TypeDao typeDao;
 	@Autowired
@@ -127,8 +132,8 @@ public class NoteController {
 			String statusName=request.getParameter("status");
 			long statusId=statusDao.findByStatusModelAndStatusName("aoa_note_list",statusName).getStatusId();
 			String content=request.getParameter("content");
-			//nid为-1就是新建
-			if(nid==-1){
+			//nid为-1就是新建或者是从某个目录新建
+			if(nid==-1||nid==-3){
 				//判断文件是否为空
 				if(!file.isEmpty())
 					{
@@ -141,7 +146,6 @@ public class NoteController {
 			
 			//0l表示新建的时候默认为没有收藏
 			 note=new Note(title, content, catalogId, typeId, statusId, attid, new Date(),0l);
-			
 			}
 			//nid大于0就是修改某个对象
 			if(nid>0){
@@ -166,10 +170,17 @@ public class NoteController {
 			{  
 				userss=new HashSet<>();
 				String receivers=request.getParameter("receiver");
+					note.setReceiver(receivers);
+				
 				String[] receiver=receivers.split(";");
+				//先绑定自己再
+				userss.add(user);
+				//再绑定其他人
 				for (String re : receiver) {
 					System.out.println(re);
 					User user2=userDao.findid(re);
+					if(user2==null){}
+					else
 					userss.add(user2);
 				}
 				
@@ -209,26 +220,44 @@ public class NoteController {
 		String[] strings= sum.split(";");
 		for (String s : strings) {
 			long noteids=Long.valueOf(s);
-			noteDao.delete(noteids);
+			NoteService.delete(noteids);
 		}
 		return "redirect:/noteview";
 	}
 	
 	//笔记删除
 	@RequestMapping("notedelete")
-	public String testrw(Model model,HttpServletRequest request){
+	public String testrw(Model model,HttpServletRequest request,HttpSession session){
+		long realuserId=Long.valueOf(session.getAttribute("userId")+"");
 		String nid=request.getParameter("nid");
 		long noteid=Long.valueOf(nid);
-	    noteDao.delete(noteid);
-		return "redirect:/noteview";
+		Noteuser u=noteDao.finduserid(noteid,realuserId);
+		if(u!=null)
+		{
+			NoteService.delete(noteid);
+			return "redirect:/noteview";
+		}else{
+			System.out.println("权限不匹配，不能删除");
+			return "redirect:/notlimit";
+			
+		}
+		
 	}
 	
 	//目录删除
 	@RequestMapping("catadelete")
-	public String testrwd(Model model,HttpServletRequest request){
+	public String testrwd(Model model,HttpServletRequest request,HttpSession session){
+		long realuserId=Long.valueOf(session.getAttribute("userId")+"");
 		String cid=request.getParameter("cid");
 		long catalogid=Long.valueOf(cid);
-		catalogDao.delete(catalogid);
+		noteList=noteDao.findByCatalogId(catalogid, realuserId);
+		//没有做级联删除 先删除目录下的笔记 再删除目录
+		for (Note note : noteList) {
+			NoteService.delete(note.getNoteId());
+		}
+		catalogService.delete(catalogid);
+		
+		
 		return "redirect:/noteview";
 	}
 	
@@ -277,7 +306,6 @@ public class NoteController {
 	//显示具体信息
 	@RequestMapping("noteinfo")
 	public String test3(@Param("id")String id,HttpServletRequest Request,HttpServletResponse response,HttpSession session) throws IOException{
-		
 		Attachment attachment=null;
 		FileInputStream fis=null;
 		OutputStream os=null;
@@ -288,11 +316,21 @@ public class NoteController {
 		att=attDao.findByAttachmentId(note.getAttachId());
 		}
 		
-//		//读取文件流
+		//读取文件流并且关闭
+//		File file=new File("F:/OAFILE"+att.getAttachmentPath());
+//		fis =new FileInputStream(file);
+//		byte[] data = new byte[att.getAttachmentSize().intValue()];
+//		fis.read(data);
+//		fis.close();
+//		os.close();
+		//读取文件流
 //		ServletOutputStream sos = response.getOutputStream();
 //		byte[] data = new byte[att.getAttachmentSize().intValue()];
 //		IOUtils.readFully(new FileInputStream("F:/OAFILE"+att.getAttachmentPath()), data);
 //		IOUtils.write(data, sos);
+//		sos.flush();
+//		IOUtils.closeQuietly(sos);
+		
 		
 		Request.setAttribute("note", note);
 		Request.setAttribute("user", user);
@@ -373,7 +411,7 @@ public class NoteController {
 	
 	//编辑
 	@RequestMapping(value="noteedit",method=RequestMethod.GET)
-	public String test4(@Param("id")String id,HttpServletRequest Request,HttpSession session){
+	public String test4(HttpServletRequest Request,HttpSession session){
 		//目录
 		long userid=Long.valueOf(session.getAttribute("userId")+"");
 		cataloglist=(List<Catalog>) catalogDao.findcatauser(userid);
@@ -382,8 +420,17 @@ public class NoteController {
 		//用户 就是联系人
 		List<User> users=(List<User>) userDao.findAll();
 		
-		
-		Long nid=Long.valueOf(id);
+		String nId=Request.getParameter("id");
+		System.out.println("nid"+nId);
+		if(nId.contains("cata")){
+			String newnid=nId.substring(4, nId.length());
+			long ca=Long.valueOf(newnid);
+			Catalog cate=catalogDao.findOne(ca);
+			Request.setAttribute("cata", cate);
+			Request.setAttribute("nid", -3);
+		}
+		else{
+			Long nid=Long.valueOf(nId);
 		//新建
 		if(nid==-1){
 			Request.setAttribute("note",null);
@@ -396,17 +443,23 @@ public class NoteController {
 		//修改
 		else if(nid>0){
 			Note note=noteDao.findOne(nid);
+			long ca=Long.valueOf(note.getCatalogId());
+			Catalog cate=catalogDao.findOne(ca);
+			Request.setAttribute("cata", cate);
 			Request.setAttribute("note", note);
 			Request.setAttribute("users", users);
 			//修改id
 			Request.setAttribute("nid", nid);
 			System.out.println(note);
 		}
+		Request.setAttribute("id", nid);
+		}
+		
 		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
 		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
 		Request.setAttribute("type", type);
 		Request.setAttribute("status", status);
-		Request.setAttribute("id", nid);
+		
 		return "note/noteedit";
 	}
 	

@@ -117,7 +117,7 @@ a:hover {
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 thistable">
 		 	<#include "attendcelisttable.ftl">
 		</div>
 	</div>

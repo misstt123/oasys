@@ -59,6 +59,9 @@ public class User {
 	@NotEmpty(message="学历不能为空")
 	private String userEdu;		//用户学历
 	
+	
+	private Boolean superman=false;
+	
 	@Column(name="user_school")
 	@NotEmpty(message="毕业院校不能为空")
 	private String school;		//学校
@@ -152,8 +155,14 @@ public void setaSet(Set<Attends> aSet) {
 		this.aSet = aSet;
 	}
 
+	
+	public Boolean getSuperman() {
+	return superman;
+}
 
-
+public void setSuperman(Boolean superman) {
+	this.superman = superman;
+}
 
 	public Long getUserId() {
 		return userId;
@@ -424,7 +433,7 @@ public void setaSet(Set<Attends> aSet) {
 				+ birth + ", userSign=" + userSign + ", password=" + password + ", salary=" + salary + ", imgPath="
 				+ imgPath + ", hireTime=" + hireTime + ", isLock=" + isLock + ", lastLoginIp=" + lastLoginIp
 				+ ", lastLoginTime=" + lastLoginTime + ", modifyTime=" + modifyTime + ", modifyUserId=" + modifyUserId
-				+ ", fatherId=" + fatherId + "]";
+				+ ", fatherId=" + fatherId + ", superman=" + superman + "]";
 	}
 	
 	

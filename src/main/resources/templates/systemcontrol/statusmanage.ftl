@@ -33,6 +33,9 @@ a:hover {
 						<a href="statusedit" class="label label-success" style="padding: 5px;">
 							<span class="glyphicon glyphicon-plus"></span> 新增
 						</a>
+						<a href="" class="label label-success" style="padding: 5px;margin-left:5px;">
+							<span class="glyphicon glyphicon-refresh"></span> 刷新
+						</a>
 					</h3>
 					<div class="box-tools">
 						<div class="input-group" style="width: 150px;">

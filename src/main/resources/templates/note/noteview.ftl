@@ -39,7 +39,6 @@ function notejump(url,id){
 		async : false,
 		url : url,
 		data:data,
-		timeout : 1000,
 		success : function(dates) {
 			$('#container').html(dates);
 		},
@@ -49,6 +48,8 @@ function notejump(url,id){
 	})
 	}
 	
+
+	
 function searchlike(){
 	var $like=$("#find").val();
 	var data={title:$like};
@@ -57,7 +58,6 @@ function searchlike(){
 	    async:false,
 		url : 'notewrite',
 		data:data,
-		timeout : 1000,
 		success:function(dates){
 			$('#container').html(dates);
 		},
@@ -76,7 +76,6 @@ function increase(){
 	    async:false,
 		url : 'noteview',
 		data:data,
-		timeout : 1000,
 		success:function(){
 			 window.location.reload(); 
 		},
@@ -254,8 +253,8 @@ border: none;
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-9">
-				<div id="container">
+				<div class="col-md-9 thistable">
+				<div id="container" >
 				<#include "/note/notewrite.ftl">
 				</div>
 				</div>

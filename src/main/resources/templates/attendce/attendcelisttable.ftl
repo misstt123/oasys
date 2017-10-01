@@ -24,7 +24,6 @@
 									<th scope="col">ip</th>
 									<th scope="col">备注</th>
 									<th scope="col" class="commen co">状态<span></span></th>
-									<th scope="col">操作</th>
 								</tr>
 								    <#if alist??>
 									<#list alist as att>
@@ -55,9 +54,6 @@
 										</#list>
 									</#if>
 									</td>
-									<td><a  href=""
-											 class="label xiugai info"><span
-												class="glyphicon glyphicon-search "></span> 查看</a></td>
 										</tr>
 									</#list>
 									</#if>

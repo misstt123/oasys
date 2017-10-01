@@ -3,7 +3,7 @@
 	<div class="bgc-w box box-primary">
 		<!--盒子头-->
 		<div class="box-header">
-			<h3 class="box-title">${mess}</h3>
+			<h3 class="box-title titles">${mess}</h3>
 			<div class="box-tools">
 				<div class="input-group" style="width: 150px; margin-top: 0px;">
 					<input type="text" class="form-control input-sm cha"
@@ -15,39 +15,67 @@
 				</div>
 			</div>
 		</div>
-		<div class="thisbody">
+		<div class="thistable">
 			<#include "/mail/mailbody.ftl">
 		</div>
 	</div>
 </div>
 <script>
-
 $(function(){
 	 $(".chazhao").click(function(){
 		   var con=$(".cha").val();
-		   $(".thistable").load("mailtitle",{val:con});
+		   var title=$(".titles").text();
+		   console.log(con+title);
+		   $(".thistable").load("mailtitle",{val:con,title:title});
 	   });
-	 $('.baseKetsubmit').on('click',function(){
-			var baseKey=$('.baseKey').val();
-			$('.thistable').load('${url}?baseKey=baseKey');
-		});
-	 $(".sdelete").click(function(){
-		 var  arry=new Array();
-		 
-		 $("[name=items]:checkbox").each(function(){
-			 if(this.checked){
-    				//获取被选中了的邮件id
-				 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
-    				arry.push($mailid);
+	
+	 
+	 
+	 
+	 
+	 /**
+    	 * checkebox的全选与反选
+    	 */
+    	
+    	$("[name=items]:checkbox").click(function(){
+    		var flag=true;
+    		
+    		$("[name=items]:checkbox").each(function(){
+    			if(!this.checked){
+    				flag=false;
     			}
-		 })
-		 if(arry.length==0){
-			 return;
-		 }
-		 var values=arry.toString();
-		 console.log(values);
-		 /* $(this).prop("href","alldelete?ids=values"); */
-		 $(".thisbody").load("alldelete",{ids:values}); 
-	 });
+    		});
+    		if(flag){
+    			    $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
+    		}else{
+    			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
+    		}
+    		if ($(this).prop('checked')) {
+    			 $(this).attr("checked","checked");
+    		} else {
+    			$(this).removeAttr("checked");
+    		}
+    
+    	})
+    	
+    	$(".chec").click(function(e){
+    		e.preventDefault();
+    		var $this=$(".chec span");
+    		if($this.hasClass("glyphicon-unchecked")){
+    			 $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
+    		}else{
+    			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
+    		}
+    		$("[name=items]:checkbox").each(function(){
+    			
+    			if($this.hasClass("glyphicon-stop")){
+    				/*$(this).prop("checked","checked");*/
+    				$(this).prop("checked",!$(this).attr("checked"));
+    			}else{
+    				$(this).removeAttr("checked");
+    			}
+    				
+    		})
+    	})
 })
 </script>

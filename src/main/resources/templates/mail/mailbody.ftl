@@ -6,9 +6,9 @@
 				<div class="btn-group">
 					<a class="btn btn-sm btn-default bac sdelete" title="删除">
 						<span class="glyphicon glyphicon-trash"></span></a>
-					<a class="btn btn-sm btn-default bac" href="##" title="标为已读">
+					<a class="btn btn-sm btn-default bac looked" title="标为已读">
 						<span class="glyphicon glyphicon-eye-open"></span></a> 
-					<a class="btn btn-sm btn-default bac" href="#3" title="星标">
+					<a class="btn btn-sm btn-default bac star"  title="星标">
 						<span class="glyphicon glyphicon-star"></span></a>
 				</div>
 				<a class="btn btn-sm btn-default bac" href="" title="刷新"><span
@@ -30,7 +30,7 @@
 					<#if (maillist?size gte 0) >
 					<#list maillist as mail>
 					<tr>
-						<td style="text-align: center;">
+						<td >
 						<span class="labels"><label><input name="items" type="checkbox"><i>✓</i></label></span>
 						</td>
 						<#if mail.star==true>			
@@ -58,11 +58,16 @@
 						<td><span></span></td>
 						</#if>
 						<td>
-							<div class="label label-info">${(mail.statusname)!''}</div>
+							<div class="label ${mail.statuscolor}">${(mail.statusname)!''}</div>
 						</td>
 						<td class="mailid" style="display:none;"><span>${mail.mailid}</span></td>
 						<td><a href="##" class="label xiugai lab"><span
-								class="glyphicon glyphicon-search"></span> 查看</a></td>
+								class="glyphicon glyphicon-search"></span> 查看</a>
+							<#if mess=="草稿箱">
+							<a href="##" class="label xinzeng edit"><span
+								class="glyphicon glyphicon-pencil"></span> 编辑</a>
+							</#if>	
+						</td>
 					</tr>
 					</#list>
 					</#if>
@@ -71,5 +76,73 @@
 		</div>
 		<!--盒子尾-->
 		<#include "/common/paging.ftl">
-	
-	
+<script>
+	$(function(){
+
+		 $(".sdelete").click(function(){
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("alldelete",{ids:values,title:title}); 
+		 });
+		 //批量查看
+		 $(".looked").click(function(){
+			
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0||title=="发件箱"||title=="草稿箱"){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("watch",{ids:values,title:title});
+			 
+		 });
+		 //批量标星
+		 $(".star").click(function(){
+			 
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("star",{ids:values,title:title});
+			 
+		 });
+		 //查看
+		 $('.lab').on('click',function(){
+			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+				$('.set').load('smail',{id:$mailid});
+			});
+		 //重新编辑
+		 $('.edit').on('click',function(){
+			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+				$('.set').load('wmail',{id:$mailid});
+			});
+		 
+	});
+</script>
