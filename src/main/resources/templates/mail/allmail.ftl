@@ -28,63 +28,7 @@ $(function(){
 		   console.log(con+title);
 		   $(".thistable").load("mailtitle",{val:con,title:title});
 	   });
-	 $('.baseKetsubmit').on('click',function(){
-			var baseKey=$('.baseKey').val();
-			$('.thistable').load('${url}?baseKey=baseKey');
-		});
-	 $(".sdelete").click(function(){
-		 var  arry=new Array();
-		 var title=$(".titles").text();
-		 $("[name=items]:checkbox").each(function(){
-			 if(this.checked){
-    				//获取被选中了的邮件id
-				 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
-    				arry.push($mailid);
-    			}
-		 })
-		 if(arry.length==0){
-			 return;
-		 }
-		 var values=arry.toString();
-		 $(".thistable").load("alldelete",{ids:values,title:title}); 
-	 });
-	 //批量查看
-	 $(".looked").click(function(){
-		 var  arry=new Array();
-		 var title=$(".titles").text();
-		 $("[name=items]:checkbox").each(function(){
-			 if(this.checked){
-    				//获取被选中了的邮件id
-				 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
-    				arry.push($mailid);
-    			}
-		 })
-		 if(arry.length==0||title=="发件箱"||title=="草稿箱"){
-			 return;
-		 }
-		 var values=arry.toString();
-		 $(".thistable").load("watch",{ids:values,title:title});
-		 
-	 });
-	 //批量标星
-	 $(".star").click(function(){
-		 var  arry=new Array();
-		 var title=$(".titles").text();
-		 $("[name=items]:checkbox").each(function(){
-			 if(this.checked){
-    				//获取被选中了的邮件id
-				 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
-    				arry.push($mailid);
-    			}
-		 })
-		 if(arry.length==0){
-			 return;
-		 }
-		 var values=arry.toString();
-		 $(".thistable").load("star",{ids:values,title:title});
-		 
-	 });
-	 
+	
 	 
 	 
 	 
