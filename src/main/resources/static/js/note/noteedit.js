@@ -35,6 +35,10 @@ var editor;
  
 			$(function(){
 				 
+				//如果是从共享笔记修改进来的话就直接show
+				if($("#ctl00_cphMain_ddlType option:selected").text()=='共享笔记'){
+					$("#MoreDiv").show();
+				}
 				
 				$("#ctl00_cphMain_ddlType").change(function(){
 					var choose=$("#ctl00_cphMain_ddlType option:selected");
@@ -42,8 +46,7 @@ var editor;
 						$("#MoreDiv").show();
 					}
 					else if(choose.text()!='共享笔记')
-					{
-						$("#MoreDiv").hide();
+					{$("#MoreDiv").hide();
 					}
 	     
 				})
@@ -58,7 +61,7 @@ var editor;
 			})
 			
 			
-			$('#ctl00_cphMain_txtSubject').change(function(){
+			function check(){
 				var title=$('#ctl00_cphMain_txtSubject').val();
 				if(title==''||title==null)
 					{$('.warn').show();
@@ -68,7 +71,9 @@ var editor;
 					$('.warn').hide();
 					$('#ctl00_cphMain_lnbSend').removeAttr("disabled");
 				}
-			})
+				}
+			
+			
 			
 			})
 			/*模态框新增联系人*/
