@@ -42,6 +42,9 @@ public class Discuss {
 	@Column(name="create_time")
 	private Date createTime; //创建时间
 	
+	@Column(name="modify_time")
+	private Date modifyTime=new Date(); //创建时间
+	
 	@Column(name="visit_num")
 	private Integer visitNum; //访问量
 	
@@ -68,9 +71,36 @@ public class Discuss {
 	public void setDiscussId(Long discussId) {
 		this.discussId = discussId;
 	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Date getCreateTime() {
 		return createTime;
+	}
+	
+
+	public Long getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+	
+
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 	public void setCreateTime(Date createTime) {
@@ -117,13 +147,11 @@ public class Discuss {
 		this.voteList = voteList;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Discuss [discussId=" + discussId + ", typeId=" + typeId + ", statusId=" + statusId + ", createTime="
-				+ createTime + ", visitNum=" + visitNum + ", attachmentId=" + attachmentId + ", title=" + title
-				+ ", content=" + content + "]";
+				+ createTime + ", modifyTime=" + modifyTime + ", visitNum=" + visitNum + ", attachmentId="
+				+ attachmentId + ", title=" + title + ", content=" + content + "]";
 	}
 
 	public Discuss(Long discussId, Date createTime, Integer visitNum, Integer attachmentId, String title,

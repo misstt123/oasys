@@ -1,7 +1,11 @@
 <div class="bgc-w box box-primary">
 	<!--盒子头-->
 	<div class="box-header">
-		<h3 class="box-title" style="padding: 8px;"></h3>
+		<h3 class="box-title">
+			<a href="" class="label label-success" style="padding: 5px;margin-left:5px;">
+				<span class="glyphicon glyphicon-refresh"></span> 刷新
+			</a>
+		</h3>
 		<div class="box-tools">
 			<div class="input-group" style="width: 150px;">
 				<input type="text" class="form-control input-sm baseKey" placeholder="查找..."  value="${(baseKey)!''}"/>
@@ -82,33 +86,3 @@
 	<!--盒子尾-->
 	<#include "/common/pagingmybatis.ftl">
 </div>
-<script>
-	/*类型、状态、事件的排序  */
-	$('.thistype').on('click',function(){
-		if($(this).children().hasClass('glyphicon-triangle-bottom')){
-			$('.thistable').load('${url}?type=0&icon=glyphicon-triangle-top');
-		}else{
-			$('.thistable').load('${url}?type=1&icon=glyphicon-triangle-bottom');
-		}
-	});
-	$('.thisstatus').on('click',function(){
-		if($(this).children().hasClass('glyphicon-triangle-bottom')){
-			$('.thistable').load('${url}?status=0&icon=glyphicon-triangle-top');
-		}else{
-			$('.thistable').load('${url}?status=1&icon=glyphicon-triangle-bottom');
-		}
-	});
-	$('.thistime').on('click',function(){
-		if($(this).children().hasClass('glyphicon-triangle-bottom')){
-			$('.thistable').load('${url}?time=0&icon=glyphicon-triangle-top');
-		}else{
-			$('.thistable').load('${url}?time=1&icon=glyphicon-triangle-bottom');
-		}
-	});
-	/* 查找 */
-	$('.baseKetsubmit').on('click',function(){
-		var baseKey=$('.baseKey').val();
-		console.log(baseKey);
-		$('.thistable').load('${url}?baseKey='+baseKey);
-	});
-</script>

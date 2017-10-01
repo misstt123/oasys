@@ -3,9 +3,27 @@
 <head>
 <script type="text/javascript" src="js/note/noteview.js"></script>
 <script type="text/javascript">
+//点击在某个目录下面写东西
+function writecata(){
+	var $cid="cata"+$(".cdelete").attr("id");
+  var data={id:$cid}
+   $.ajax({
+		type : "get",
+		async : false,
+		url : 'noteedit',
+		data:data,
+		success : function(dates) {
+			$('#container').html(dates);
+		},
+	    error:function(){
+	    	alert("失败了")
+	    }
+	})
+	}
+
 //删除目录
 function cdelete(){
-	if(confirm("是否确认删除")){
+	if(confirm("删除之后目录下面的笔记全部会删除")){
 	var $cid=$(".cdelete").attr("id");
 	var data={cid:$cid}
 	var url = 'catadelete';
@@ -59,10 +77,12 @@ function somenotedelete(){
 						<div class="box-header write">
 							<h3 class="box-title">最近</h3>
 							<span style="display:none">	
-							<a onclick="notejump('noteedit',-1)">
+							<a 
+							onclick="writecata()">
 							<i class="glyphicon glyphicon-edit" style="color:#337ab7">
 							</i>
 							</a>
+							
 							<a class="cdelete"
 							onclick="cdelete()" >	
 							<i class="glyphicon glyphicon-trash" style="color:#337ab7">
@@ -97,7 +117,7 @@ function somenotedelete(){
 										</a>
 									
 								</div>
-								<a  onclick="window.location.reload()" class="btn btn-sm btn-default" title="刷新">
+								<a  href="" class="btn btn-sm btn-default" title="刷新">
 								<i><span class="glyphicon glyphicon-refresh"></span></i></a>
 							</div>
 							<div id="table" class="table-responsive">
@@ -171,38 +191,9 @@ function somenotedelete(){
 								</table>
 							</div>
 						</div>
-						<!--盒子尾-->
-						<div class="box-footer no-padding" style="margin-top: -20px;">
-							<div style="padding: 5px;">
-								<div id="page"
-									style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-									<div style="width: 40%; float: left;">
-										<div class="pageInfo" style="margin-left: 5px;">
-											共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-										</div>
-									</div>
-									<div style="width: 60%; float: left;">
-										<div class="pageOperation">
-											<a class="btn btn-sm btn-default no-padding"
-												style="width: 30px; height: 20px;"> <span
-												class="glyphicon glyphicon-backward"></span>
-											</a> <a class="btn btn-sm btn-default no-padding"
-												style="width: 30px; height: 20px;"> <span
-												class="glyphicon glyphicon-triangle-left"></span>
-											</a> <a disabled="disabled" class="btn btn-default no-padding"
-												style="width: 30px; height: 20px;"> 1 </a> <a
-												class="btn btn-sm btn-default no-padding"
-												style="width: 30px; height: 20px;"> <span
-												class="glyphicon glyphicon-triangle-right"></span>
-											</a> <a class="btn btn-sm btn-default no-padding"
-												style="width: 30px; height: 20px;"> <span
-												class="glyphicon glyphicon-forward"></span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					
+					<#include "/common/paging.ftl"/>
+						
 					</div>
 	</body>
 </html>

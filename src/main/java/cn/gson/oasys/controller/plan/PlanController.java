@@ -3,6 +3,7 @@ package cn.gson.oasys.controller.plan;
 
 
 import java.io.IOException;
+import java.security.spec.DSAGenParameterSpec;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -72,19 +74,55 @@ public class PlanController {
 	Logger log=LoggerFactory.getLogger(getClass());
 	//格式转化导入
 	DefaultConversionService service=new DefaultConversionService();
+	
+	@RequestMapping("plandelete")
+	public String DSAGec(HttpServletRequest request,HttpSession session){
+		long realuserid=Long.valueOf(session.getAttribute("userId")+"");
+		long pid=Long.valueOf(request.getParameter("pid"));
+		long userid=planDao.findOne(pid).getUser().getUserId();
+		if(userid==realuserid){
+			planservice.delete(pid);
+			return "redirect:/planview";
+		}
+		else{
+			System.out.println("没有权限");
+			return "redirect:/notlimit";
+		}
+		
+		
+	}
+	
 	//计划管理
 	@RequestMapping("planview")
-	public String test(Model model,HttpSession session){
+	public String test(Model model,HttpSession session,
+			@RequestParam(value="page",defaultValue="0")int page){
+		planpage(model, session, page, null);
+		return "plan/planview";
+	}
+	
+	@RequestMapping("planviewtable")
+	public String testdd(Model model,HttpSession session,
+			@RequestParam(value="page",defaultValue="0")int page,
+			@RequestParam(value="baseKey",required=false)String baseKey){
+		planpage(model, session, page, baseKey);
+		return "plan/planviewtable";
+	}
+	
+
+	private void planpage(Model model, HttpSession session, int page, String baseKey) {
 		Long userid=Long.valueOf(session.getAttribute("userId")+"");
 		User user=userDao.findOne(userid);
+		Page<Plan> page2= planservice.paging(page, baseKey, userid);
 		pList=(List<Plan>) planDao.findByUser(user);
 		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
 		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
 		model.addAttribute("type", type);
 		model.addAttribute("status", status);
-		model.addAttribute("plist", pList);
-		return "plan/planview";
+		model.addAttribute("plist", page2.getContent());
+		model.addAttribute("page", page2);
+		model.addAttribute("url", "planviewtable");
 	}
+	
 	//计划报表
 	@RequestMapping("myplan")
 	public String test2(){

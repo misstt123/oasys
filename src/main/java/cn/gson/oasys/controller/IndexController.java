@@ -1,9 +1,6 @@
 package cn.gson.oasys.controller;
 
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
-import java.net.DatagramSocketImplFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,16 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceService;
-import cn.gson.oasys.model.dao.notedao.AttachService;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.attendce.Attends;
-import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.inform.InformRelationService;
 import cn.gson.oasys.services.system.MenuSysService;
 
@@ -75,7 +69,7 @@ public class IndexController {
 	public String index(HttpServletRequest req){
 		menuService.findMenuSys(req);
 		HttpSession session=req.getSession();
-		session.setAttribute("userId", "2");
+		session.setAttribute("userId", "1");
 		return "index/index";
 	}
 	
