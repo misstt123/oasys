@@ -2,30 +2,7 @@
  * 
  */
 $(function() {
-				$('.pjax').bind('click', function() {
-					$('.select').removeClass('select');
-					$(this).addClass('select');
-					$.ajax({
-						type : 'GET',
-						url : this.href,
-						success : function(data) {
-							$('#container').html(data);
-						}
-					});
-					window.history.pushState({
-						url : this.href
-					}, null, this.href);
-					return false;
-				});
-				window.addEventListener("popstate", function() {
-					$.ajax({
-						type : 'GET',
-						url : location.href,
-						success : function(data) {
-							$('#container').html(data);
-						}
-					});
-				});
+				
 				//收藏查询
 				$(".choose_collect").click(function(){
 					$.ajax({

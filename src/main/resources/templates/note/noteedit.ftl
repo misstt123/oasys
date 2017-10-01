@@ -133,7 +133,7 @@ textarea {
 				<select name="catalogname" id="ctl00_cphMain_ddlFile"
 					class="form-control select2">
 					<#list calist as ca>
-					<option id="catalog" ${(note?? && note.catalogId?number==ca.catalogId)?string('selected', '')}
+					<option id="catalog" ${(cata?? && cata.catalogId==ca.catalogId)?string('selected', '')}
 					>
 					✟${ca.catalogName}
 					</option>
