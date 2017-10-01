@@ -1,7 +1,5 @@
 package cn.gson.oasys.controller.plan;
 
-
-
 import java.io.IOException;
 import java.security.spec.DSAGenParameterSpec;
 import java.util.ArrayList;
@@ -48,269 +46,251 @@ import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.file.FileServices;
 
-
 @Controller
 @RequestMapping("/")
 public class PlanController {
-		
+
 	@Autowired
 	PlanDao planDao;
 	@Autowired
 	Planservice planservice;
 	@Autowired
-    TypeDao typeDao;
+	TypeDao typeDao;
 	@Autowired
-    StatusDao statusDao;
-	@Autowired 
+	StatusDao statusDao;
+	@Autowired
 	FileServices fServices;
 	@Autowired
 	UserDao userDao;
 	@Autowired
 	AttachmentDao attachmentDao;
-	
-	
+
 	List<Plan> pList;
 	List<User> uList;
-	Logger log=LoggerFactory.getLogger(getClass());
-	//格式转化导入
-	DefaultConversionService service=new DefaultConversionService();
-	
+	Logger log = LoggerFactory.getLogger(getClass());
+	// 格式转化导入
+	DefaultConversionService service = new DefaultConversionService();
+
 	@RequestMapping("plandelete")
-	public String DSAGec(HttpServletRequest request,HttpSession session){
-		long realuserid=Long.valueOf(session.getAttribute("userId")+"");
-		long pid=Long.valueOf(request.getParameter("pid"));
-		long userid=planDao.findOne(pid).getUser().getUserId();
-		if(userid==realuserid){
+	public String DSAGec(HttpServletRequest request, HttpSession session) {
+		long realuserid = Long.valueOf(session.getAttribute("userId") + "");
+		long pid = Long.valueOf(request.getParameter("pid"));
+		long userid = planDao.findOne(pid).getUser().getUserId();
+		if (userid == realuserid) {
 			planservice.delete(pid);
 			return "redirect:/planview";
-		}
-		else{
+		} else {
 			System.out.println("没有权限");
 			return "redirect:/notlimit";
 		}
-		
-		
+
 	}
-	
-	//计划管理
+
+	// 计划管理
 	@RequestMapping("planview")
-	public String test(Model model,HttpSession session,
-			@RequestParam(value="page",defaultValue="0")int page){
+	public String test(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "0") int page) {
 		planpage(model, session, page, null);
 		return "plan/planview";
 	}
-	
+
 	@RequestMapping("planviewtable")
-	public String testdd(Model model,HttpSession session,
-			@RequestParam(value="page",defaultValue="0")int page,
-			@RequestParam(value="baseKey",required=false)String baseKey){
+	public String testdd(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
 		planpage(model, session, page, baseKey);
 		return "plan/planviewtable";
 	}
-	
 
-	private void planpage(Model model, HttpSession session, int page, String baseKey) {
-		Long userid=Long.valueOf(session.getAttribute("userId")+"");
-		User user=userDao.findOne(userid);
-		Page<Plan> page2= planservice.paging(page, baseKey, userid);
-		pList=(List<Plan>) planDao.findByUser(user);
-		List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
-		List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+	// 计划报表
+	@RequestMapping("myplan")
+	public String test2() {
+		return "plan/plantable";
+	}
+
+	// 真正的报表
+	@RequestMapping("realplantable")
+	public String test23(HttpServletRequest request, Model model) {
+		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+		List<Plan> plans = new ArrayList<>();
+		// 利用set过滤掉重复的plan_user_id 因为set不能重复
+		Set<Long> number = new HashSet();
+		Plan plan2;
+		long typeid = 13;
+		service.addConverter(new StringtoDate());
+		String starttime = request.getParameter("starttime");
+		String endtime = request.getParameter("endtime");
+		Date start = service.convert(starttime, Date.class);
+		Date end = service.convert(endtime, Date.class);
+		System.out.println("类型" + type);
+		// 1是日计划2是周计划3是月计划
+		Long choose = Long.valueOf(request.getParameter("choose"));
+		if (choose == 1) {
+			typeid = 13l;
+		}
+		if (choose == 2) {
+			typeid = 14l;
+		}
+		if (choose == 3) {
+			typeid = 15l;
+		}
+		pList = (List<Plan>) planDao.findAll();
+		uList = (List<User>) userDao.findAll();
+		for (Plan plan : pList) {
+			number.add(plan.getUser().getUserId());
+		}
+		System.out.println(number);
+		// 找到相对应的计划记录
+		for (Long num : number) {
+			plan2 = planDao.findlatest(start, end, num, typeid);
+			if (plan2 != null)
+				plans.add(plan2);
+		}
+		System.out.println(plans);
+		// 将用户名和list绑定在一起
+		Map<String, Plan> uMap = new HashMap<>();
+		for (User user : uList) {
+			for (Plan plan : plans) {
+				if (user.getUserId() == plan.getUser().getUserId()) {
+					uMap.put(user.getUserName(), plan);
+					break;
+				} else {
+					uMap.put(user.getUserName(), null);
+				}
+				System.out.println(uMap);
+			}
+		}
+
+		model.addAttribute("uMap", uMap);
 		model.addAttribute("type", type);
 		model.addAttribute("status", status);
+		model.addAttribute("plist", pList);
+		model.addAttribute("ulist", uList);
+		model.addAttribute("plans", plans);
+		return "plan/realplantable";
+	}
+
+	// 我的编辑
+	@RequestMapping("planedit")
+	public String test3(HttpServletRequest request, Model model) {
+		long pid = Long.valueOf(request.getParameter("pid"));
+		if (!StringUtils.isEmpty(request.getAttribute("errormess"))) {
+			request.setAttribute("errormess", request.getAttribute("errormess"));
+			request.setAttribute("plan", request.getAttribute("plan2"));
+		} else if (!StringUtils.isEmpty(request.getAttribute("success"))) {
+			request.setAttribute("success", request.getAttribute("success"));
+			request.setAttribute("plan", request.getAttribute("plan2"));
+		}
+		// 新建
+		if (pid == -1) {
+			model.addAttribute("plan", null);
+			model.addAttribute("pid", pid);
+		} else if (pid > 0) {
+			Plan plan = planDao.findOne(pid);
+			model.addAttribute("plan", plan);
+			model.addAttribute("pid", pid);
+		}
+
+		typestatus(model);
+		return "plan/planedit";
+	}
+
+	// 修改评论
+	@RequestMapping("plancomment")
+	public String sdf(HttpServletRequest request) {
+		Long pid = Long.valueOf(request.getParameter("pid"));
+		String comment = request.getParameter("comment");
+		Plan plan = planDao.findOne(pid);
+		System.out.println(pid + ";" + comment);
+		plan.setPlanComment(plan.getPlanComment() + comment);
+		planDao.save(plan);
+		return "redirect:/myplan";
+	}
+
+	@RequestMapping(value = "plansave", method = RequestMethod.GET)
+	public void Datagr() {
+	}
+
+	@RequestMapping(value = "plansave", method = RequestMethod.POST)
+	public String testMess(@RequestParam("file") MultipartFile file, HttpServletRequest req, @Valid Plan plan2,
+			BindingResult br) throws IllegalStateException, IOException {
+		service.addConverter(new StringtoDate());
+		// 格式化开始日期和结束日期
+		Date start = service.convert(plan2.getStartTime(), Date.class);
+		Date end = service.convert(plan2.getEndTime(), Date.class);
+		Attachment att = null;
+		Long attid = null;
+		Plan plan = null;
+
+		HttpSession session = req.getSession();
+		long userid = Long.valueOf(session.getAttribute("userId") + "");
+		User user = userDao.findOne(userid);
+
+		// 获取到类型和状态id
+		String type = req.getParameter("type");
+		String status = req.getParameter("status");
+		long typeid = typeDao.findByTypeModelAndTypeName("aoa_plan_list", type).getTypeId();
+		long statusid = statusDao.findByStatusModelAndStatusName("aoa_plan_list", status).getStatusId();
+		long pid = Long.valueOf(req.getParameter("pid") + "");
+
+		// 这里返回ResultVO对象，如果校验通过，ResultEnum.SUCCESS.getCode()返回的值为200；否则就是没有通过；
+		ResultVO res = BindingResultVOUtil.hasErrors(br);
+		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
+			List<Object> list = new MapToList<>().mapToList(res.getData());
+			req.setAttribute("errormess", list.get(0).toString());
+		}
+		// 校验通过，下面写自己的逻辑业务
+		else {
+			if (!StringUtils.isEmpty(session.getAttribute("getId"))) {
+				System.out.println("验证通过，进入狗太了");
+			}
+			// 新建
+			if (pid == -1) {
+				if (!file.isEmpty()) {
+					att = (Attachment) fServices.savefile(file, user, null, false);
+					attid = att.getAttachmentId();
+				} else if (file.isEmpty())
+					attid = null;
+
+				plan = new Plan(typeid, statusid, attid, start, end, new Date(), plan2.getTitle(), plan2.getLabel(),
+						plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary(), user);
+				planDao.save(plan);
+			}
+			if (pid > 0) {
+				plan = planDao.findOne(pid);
+				if (plan.getAttachId() == null) {
+					if (!file.isEmpty()) {
+						att = (Attachment) fServices.savefile(file, user, null, false);
+						attid = att.getAttachmentId();
+						plan.setAttachId(attid);
+						planDao.save(plan);
+					}
+				}
+				if (plan.getAttachId() != null)
+					fServices.updateatt(file, user, null, plan.getAttachId());
+				planservice.updateplan(typeid, statusid, start, end, plan2.getTitle(), plan2.getLabel(),
+						plan2.getPlanContent(), plan2.getPlanSummary(), pid);
+
+			}
+			req.setAttribute("success", "后台验证成功");
+		}
+		req.setAttribute("plan2", plan2);
+		return "forward:/planedit";
+	}
+
+	private void planpage(Model model, HttpSession session, int page, String baseKey) {
+		Long userid = Long.valueOf(session.getAttribute("userId") + "");
+		User user = userDao.findOne(userid);
+		Page<Plan> page2 = planservice.paging(page, baseKey, userid);
+		typestatus(model);
 		model.addAttribute("plist", page2.getContent());
 		model.addAttribute("page", page2);
 		model.addAttribute("url", "planviewtable");
 	}
-	
-	//计划报表
-	@RequestMapping("myplan")
-	public String test2(){
-		return "plan/plantable";
+
+	private void typestatus(Model model) {
+		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+		model.addAttribute("type", type);
+		model.addAttribute("status", status);
 	}
-	
-	//真正的报表
-		@RequestMapping("realplantable")
-		public String test23(HttpServletRequest request, Model model){
-			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
-			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
-			List<Plan> plans = new ArrayList<>();
-			//利用set过滤掉重复的plan_user_id 因为set不能重复
-			Set<Long> number=new HashSet();
-			Plan  plan2;
-			long typeid = 13;
-			service.addConverter(new StringtoDate());
-			String  starttime= request.getParameter("starttime");
-			String endtime=request.getParameter("endtime");
-			Date start=service.convert(starttime, Date.class);
-			Date end=service.convert(endtime, Date.class);
-			System.out.println("类型"+type);
-			//1是日计划2是周计划3是月计划
-			Long choose=Long.valueOf(request.getParameter("choose"));
-			if(choose==1){
-				 	typeid=13l;
-			}
-			if(choose==2){
-				typeid=14l;
-			}
-			if(choose==3){
-				typeid=15l;
-			}
-			pList= (List<Plan>) planDao.findAll();
-			uList= (List<User>) userDao.findAll();
-			for (Plan plan : pList) {
-				number.add(plan.getUser().getUserId());
-			}
-			System.out.println(number);
-			//找到相对应的计划记录
-			for (Long num: number) {
-				plan2=planDao.findlatest(start, end,num,typeid);
-				if(plan2!=null)
-				plans.add(plan2);
-			}
-			System.out.println(plans);
-			//将用户名和list绑定在一起
-			Map<String,Plan> uMap=new HashMap<>();
-			 for (User user : uList) {
-				 for (Plan plan : plans) {
-					if(user.getUserId()==plan.getUser().getUserId()){
-						 uMap.put(user.getUserName(), plan);
-						 break;
-						 }
-					else{
-						uMap.put(user.getUserName(), null);
-					}
-					System.out.println(uMap);
-				}
-	    	}
-			
-			model.addAttribute("uMap", uMap);
-			model.addAttribute("type", type);
-			model.addAttribute("status", status);
-			model.addAttribute("plist", pList);
-			model.addAttribute("ulist", uList);
-			model.addAttribute("plans", plans);
-			return "plan/realplantable";
-		}
-	
-	//我的编辑
-		@RequestMapping("planedit")
-		public String test3(HttpServletRequest request,Model model){ 
-			long pid=Long.valueOf(request.getParameter("pid"));
-			if(!StringUtils.isEmpty(request.getAttribute("errormess"))){
-				request.setAttribute("errormess", request.getAttribute("errormess"));
-				request.setAttribute("plan", request.getAttribute("plan2"));
-			}
-			else if(!StringUtils.isEmpty(request.getAttribute("success"))){
-				request.setAttribute("success", request.getAttribute("success"));
-				request.setAttribute("plan", request.getAttribute("plan2"));
-			}
-			//新建
-			if(pid==-1){
-				model.addAttribute("plan", null);
-				model.addAttribute("pid", pid);
-			}
-			else if(pid>0){
-				Plan plan=planDao.findOne(pid);
-				model.addAttribute("plan", plan);
-				model.addAttribute("pid", pid);
-			}
-			
-			List<SystemTypeList>  type= (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
-			List<SystemStatusList>  status=(List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
-			model.addAttribute("type", type);
-			model.addAttribute("status", status);
-			return "plan/planedit";
-		}
-	    
-		//修改评论
-		@RequestMapping("plancomment")
-		public String sdf(HttpServletRequest request){
-			Long pid=Long.valueOf(request.getParameter("pid"));
-			String comment=request.getParameter("comment");
-			Plan plan=planDao.findOne(pid);
-			System.out.println(pid+";"+comment);
-			plan.setPlanComment(plan.getPlanComment()+comment);
-			planDao.save(plan);
-			return "redirect:/myplan";
-		}
-		
-		
-		@RequestMapping(value="plansave",method=RequestMethod.GET)
-		public void Datagr(){}
-		
-		@RequestMapping(value="plansave",method=RequestMethod.POST)
-		public String testMess(@RequestParam("file")MultipartFile file, HttpServletRequest req, @Valid Plan plan2, BindingResult br) throws IllegalStateException, IOException {
-			service.addConverter(new StringtoDate());
-			//格式化开始日期和结束日期
-			Date start=service.convert(plan2.getStartTime(), Date.class);
-			Date end=service.convert(plan2.getEndTime(), Date.class);
-			Attachment att = null;
-			Long attid=null; 
-			Plan plan=null;
-			
-			HttpSession session = req.getSession();
-			long userid=Long.valueOf(session.getAttribute("userId")+"");
-			User user=userDao.findOne(userid);
-			
-			//获取到类型和状态id
-			String type=req.getParameter("type");
-			String status=req.getParameter("status");
-			long typeid=typeDao.findByTypeModelAndTypeName("aoa_plan_list", type).getTypeId();
-			long statusid=statusDao.findByStatusModelAndStatusName("aoa_plan_list", status).getStatusId();
-			long pid=Long.valueOf(req.getParameter("pid")+"");
-
-			// 这里返回ResultVO对象，如果校验通过，ResultEnum.SUCCESS.getCode()返回的值为200；否则就是没有通过；
-			ResultVO res = BindingResultVOUtil.hasErrors(br);
-			if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
-				List<Object> list = new MapToList<>().mapToList(res.getData());
-				req.setAttribute("errormess", list.get(0).toString());
-				// 下面的info信息是打印出详细的信息
-				log.info("getData:{}", res.getData());
-				log.info("getCode:{}", res.getCode());
-				log.info("getMsg:{}", res.getMsg());
-			}
-			// 校验通过，下面写自己的逻辑业务
-			else {
-				if (!StringUtils.isEmpty(session.getAttribute("getId"))) {
-					System.out.println("验证通过，进入狗太了");
-				}
-				//新建
-				if(pid==-1){
-					if(!file.isEmpty())
-					{
-					att =(Attachment) fServices.savefile(file, user, null, false);
-				    attid=att.getAttachmentId();
-					}
-					else if(file.isEmpty())
-						attid=null;
-					
-					plan=new Plan(typeid, statusid,attid,start, end,new Date(), 
-							plan2.getTitle(), plan2.getLabel(), plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary(),user);
-					planDao.save(plan);
-				}
-				if(pid>0){
-					plan=planDao.findOne(pid);
-					if(plan.getAttachId()==null){
-					if(!file.isEmpty())
-					{
-					att =(Attachment) fServices.savefile(file, user, null, false);
-				    attid=att.getAttachmentId();
-				    plan.setAttachId(attid);
-				    planDao.save(plan);
-				    }}
-					if(plan.getAttachId()!=null)
-					fServices.updateatt(file, user, null, plan.getAttachId());
-					planservice.updateplan(typeid, statusid, start, end,
-							plan2.getTitle(), plan2.getLabel(), plan2.getPlanContent(), plan2.getPlanSummary(),pid);
-					
-				}
-				req.setAttribute("success", "后台验证成功");
-			}
-			req.setAttribute("plan2", plan2);
-			return "forward:/planedit";
-		}
-	
-		
-
 }

@@ -61,17 +61,7 @@ var editor;
 			})
 			
 			
-			function check(){
-				var title=$('#ctl00_cphMain_txtSubject').val();
-				if(title==''||title==null)
-					{$('.warn').show();
-				$('#ctl00_cphMain_lnbSend').attr("disabled","disabled");
-					}
-				else if(title!=null||title!=""){
-					$('.warn').hide();
-					$('#ctl00_cphMain_lnbSend').removeAttr("disabled");
-				}
-				}
+			
 			
 			
 			
