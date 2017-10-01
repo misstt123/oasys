@@ -79,35 +79,31 @@ a:hover {
 			<div class="box-body no-padding chat-box">
 				<div class="chat-title">
 					<h4>
-						<span>这是标题</span>
+						<span>${discuss.title}</span>
 					</h4>
 					<h5>
-						<small> <span>发布：朱丽叶</span> <span class="pull-right">2017/8/29
-								19:07:56</span>
+						<small> <span>发布：${user.userName}</span> <span class="pull-right">${discuss.createTime}</span>
 						</small>
 					</h5>
 				</div>
 				<div class="chat-content" style="padding: 10px;">
-					<p>时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 时代峰峻案例范德萨浪费拉设计费理论发 睡懒觉设计费发生是发放萨芬萨芬啊萨芬按时啊fdsa发撒发a 发fs 发
-						发生发放萨芬撒发 
-					</p>
+					<p>${discuss.content}</p>
 				</div>
 				<div>
 					<ul class="list-inline" style="margin-left: 6px;">
-						<li><a href="#"> <span
+						<li><a href="#" class="label xinzeng"> <span
 								class="glyphicon glyphicon-share-alt"></span> 回复
 						</a></li>
 						<li><a href="#"> <span
-								class="glyphicon glyphicon-fire"></span> 访问数<span>(10)</span>
+								class="glyphicon glyphicon-fire" style="color:red;"></span> 访问数<span>(${discuss.visitNum})</span>
 						</a></li>
 						<li><a href="#"> <span
-								class="glyphicon glyphicon-comment"></span> 讨论次数<span>(10)</span>
+								class="glyphicon glyphicon-comment" style="color:#337ab7"></span> 讨论次数<span>(10)</span>
 						</a></li>
 					</ul>
 				</div>
 				<div class="repay">
-					<table class="table">
+					<table class="table" style="margin-bottm:0px;">
 						<tbody>
 							<tr>
 								<th scope="col" style="background-color: #EEEEEE;">回复</th>
@@ -140,8 +136,8 @@ a:hover {
 														class="glyphicon glyphicon-triangle-bottom"></span>评论次数(2)</a> <span>1楼</span>
 												</li>
 											</ul>
-											<div id="commentone" class="comment collapse in" style="margin-left: 50px;">
-												<table class="table table-hover">
+											<div id="commentone" class="comment collapse in" style="margin-left: 80px;">
+												<table class="table table-hover" style="margin-bottom: 0;">
 													<tbody>
 														<tr>
 															<td class="comment-td"><a href="#"> <img
