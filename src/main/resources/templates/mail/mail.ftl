@@ -105,9 +105,7 @@
 		$('.write').on('click',function(){
 			$('.set').load('wmail');
 		});
-		$('.lab').on('click',function(){
-			$('.set').load('smail');
-		});
+		
 		
 		
 	});

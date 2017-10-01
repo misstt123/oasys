@@ -62,7 +62,12 @@
 						</td>
 						<td class="mailid" style="display:none;"><span>${mail.mailid}</span></td>
 						<td><a href="##" class="label xiugai lab"><span
-								class="glyphicon glyphicon-search"></span> 查看</a></td>
+								class="glyphicon glyphicon-search"></span> 查看</a>
+							<#if mess=="草稿箱">
+							<a href="##" class="label xinzeng edit"><span
+								class="glyphicon glyphicon-pencil"></span> 编辑</a>
+							</#if>	
+						</td>
 					</tr>
 					</#list>
 					</#if>
@@ -71,5 +76,73 @@
 		</div>
 		<!--盒子尾-->
 		<#include "/common/paging.ftl">
-	
-	
+<script>
+	$(function(){
+
+		 $(".sdelete").click(function(){
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("alldelete",{ids:values,title:title}); 
+		 });
+		 //批量查看
+		 $(".looked").click(function(){
+			
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0||title=="发件箱"||title=="草稿箱"){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("watch",{ids:values,title:title});
+			 
+		 });
+		 //批量标星
+		 $(".star").click(function(){
+			 
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+			 $(".thistable").load("star",{ids:values,title:title});
+			 
+		 });
+		 //查看
+		 $('.lab').on('click',function(){
+			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+				$('.set').load('smail',{id:$mailid});
+			});
+		 //重新编辑
+		 $('.edit').on('click',function(){
+			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+				$('.set').load('wmail',{id:$mailid});
+			});
+		 
+	});
+</script>
