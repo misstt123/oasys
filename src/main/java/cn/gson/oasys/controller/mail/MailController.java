@@ -221,6 +221,7 @@ public class MailController {
 		}
 		model.addAttribute("maillist",maillist);
 		model.addAttribute("url","mailtitle");
+		model.addAttribute("mess", title);
 		return "mail/mailbody";
 		
 	}
@@ -798,11 +799,14 @@ public class MailController {
 		User mu=udao.findOne(userid);
 		//邮件id
 		Long id=Long.parseLong(req.getParameter("id"));
+		//title
+		String title=req.getParameter("title");
 		//找到该邮件信息
 		Inmaillist mail=imdao.findOne(id);
 		User pushuser=udao.findOne(mail.getMailUserid().getUserId());
 		model.addAttribute("pushname", pushuser.getUserName());
 		model.addAttribute("mail", mail);
+		model.addAttribute("mess", title);
 		
 		return "mail/seemail";
 	}

@@ -40,6 +40,8 @@
 		<div class="pull-right foot">
 			<a class="btn btn-default fault">
 			   <span class="glyphicon glyphicon glyphicon-print"></span> 打印</a>
+			 <#if mess=="垃圾箱"||mess=="草稿箱"> 
+			 <#else>
 			<a class="btn btn-primary huifu"> 
 				<svg class="icon" aria-hidden="true"style="color: #fff;">
 							<use xlink:href="#icon-huifu"></use>
@@ -47,6 +49,7 @@
 			</a> 
 			<a class="btn btn-primary">
 			<span class="glyphicon glyphicon-share-alt"></span> 转发</a>
+			</#if>
 		</div>
 	</div>
 </div>

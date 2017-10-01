@@ -136,7 +136,8 @@
 		 //查看
 		 $('.lab').on('click',function(){
 			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
-				$('.set').load('smail',{id:$mailid});
+			 var title=$(".titles").text();
+				$('.set').load('smail',{id:$mailid,title:title});
 			});
 		 //重新编辑
 		 $('.edit').on('click',function(){
