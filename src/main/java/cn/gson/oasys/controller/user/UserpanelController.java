@@ -101,7 +101,7 @@ public class UserpanelController {
 		List<NoticeUserRelation> noticelist=irdao.findByReadAndUserId(false, user);
 		
 		//找未读邮件
-		List<Mailreciver> maillist=mdao.findByReadAndReciverId(false, user);
+		List<Mailreciver> maillist=mdao.findByReadAndDelAndReciverId(false,false, user);
 		
 		//找便签
 		Page<Notepaper> list=ndao.findByUserIdOrderByCreateTimeDesc(user,pa);

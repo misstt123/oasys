@@ -1,8 +1,8 @@
 $(function(){
 				
-				/**
+			/*	*//**
 				 * 切换星星
-				 */
+				 *//*
 				$(".em").click(function(){
 					var $this=$(this).parents("tr").find(".em span");
 					
@@ -11,7 +11,7 @@ $(function(){
 					}else{
 						$this.removeClass("glyphicon-star").addClass("glyphicon-star-empty");
 					}
-				});
+				});*/
 				
 				/**
 				 * 蓝色左边框
@@ -51,74 +51,9 @@ $(function(){
 					}
 				})
 	           	
-	           	/**
-	           	 * checkebox的全选与反选
-	           	 */
-	           	
-	           	$("[name=items]:checkbox").click(function(){
-	           		var flag=true;
-	           		
-	           		$("[name=items]:checkbox").each(function(){
-	           			if(!this.checked){
-	           				flag=false;
-	           			}
-	           		});
-	           		if(flag){
-	           			    $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
-	           		}else{
-	           			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
-	           		}
-	           		if ($(this).prop('checked')) {
-	           			 $(this).attr("checked","checked");
-	           		} else {
-	           			$(this).removeAttr("checked");
-	           		}
-	           
-	           	})
-	           	
-	           	$(".chec").click(function(e){
-	           		e.preventDefault();
-	           		var $this=$(".chec span");
-	           		if($this.hasClass("glyphicon-unchecked")){
-	           			 $(".chec span").removeClass("glyphicon-unchecked").addClass("glyphicon-stop");
-	           		}else{
-	           			$(".chec span").removeClass("glyphicon-stop").addClass("glyphicon-unchecked");
-	           		}
-	           		$("[name=items]:checkbox").each(function(){
-	           			
-	           			if($this.hasClass("glyphicon-stop")){
-	           				/*$(this).prop("checked","checked");*/
-	           				$(this).prop("checked",!$(this).attr("checked"));
-	           			}else{
-	           				$(this).removeAttr("checked");
-	           			}
-	           				
-	           		})
-	           	})
 	           	
 	           	
-	           	$(".top .btn").click(function() {
-	           		var $this = $('.top .btn .glyphicon ');
-					if($this.hasClass("glyphicon-chevron-down")) {
-						$this.removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-					} else {
-						$this.removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-					}
-					$("#MoreDiv").slideToggle(1000);
-
-				});
-
-				$("#ctl00_cphMain_ddlAccount").change(function() {
-					var options = $("#ctl00_cphMain_ddlAccount option:selected");
-					if(options.val() != "0") {
-						$("#ctl00_cphMain_txtReceiver").removeAttr("readonly");
-
-					} else {
-						$("#ctl00_cphMain_txtReceiver").attr("readonly", true);
-						
-					}
-				});
-				/**
+	           		/**
 				 * 全选/反选
 				 */
 					$("[name=id]:checkbox").click(function(){
@@ -148,6 +83,29 @@ $(function(){
 	           				
 	           		})
 	           	})
+	           	
+	           	$(".top .btn").click(function() {
+	           		var $this = $('.top .btn .glyphicon ');
+					if($this.hasClass("glyphicon-chevron-down")) {
+						$this.removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+					} else {
+						$this.removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+					}
+					$("#MoreDiv").slideToggle(1000);
+
+				});
+
+				$("#ctl00_cphMain_ddlAccount").change(function() {
+					var options = $("#ctl00_cphMain_ddlAccount option:selected");
+					if(options.val() != "0") {
+						$("#ctl00_cphMain_txtReceiver").removeAttr("readonly");
+
+					} else {
+						$("#ctl00_cphMain_txtReceiver").attr("readonly", true);
+						
+					}
+				});
+			
 	          
 		})
 

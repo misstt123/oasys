@@ -35,7 +35,7 @@
 
 	<div class="box-footer foots">
 		<a class="btn btn-default fault fa-back"
-			href="##"><span
+			href="mail"><span
 			class="glyphicon glyphicon-chevron-left"></span> 返回</a>
 		<div class="pull-right foot">
 			<a class="btn btn-default fault"><span
