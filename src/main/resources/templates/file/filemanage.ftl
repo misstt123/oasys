@@ -386,7 +386,7 @@ li.activee>a {
 						</ul>
 					</div>
 					<div class="box-footer" style="text-align:right;">
-						<form action="" method="post">
+						<form action="mcto" method="post">
 							<input class="mctoid" type="hidden" name="mcto" value=""/>
 							<input type="hidden" name="mcforp" value=""/>
 							<button type="button" class="btn btn-primary"
