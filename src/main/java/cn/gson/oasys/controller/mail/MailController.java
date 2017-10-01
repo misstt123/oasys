@@ -353,7 +353,7 @@ public class MailController {
 		Page<Pagemail> pagelist=null;
 		Page<Inmaillist> pagemail=null;
 		List<Map<String, Object>> maillist=null;
-		
+		System.out.println();
 		if(!StringUtil.isEmpty(req.getParameter("val"))){
 			val=req.getParameter("val");
 		}
@@ -361,7 +361,7 @@ public class MailController {
 			pagelist=mservice.recive(page, size, user, val,title);
 			maillist=mservice.mail(pagelist);
 		}else if(("发件箱").equals(title)){
-			
+			System.out.println("laile");
 			pagemail=mservice.inmail(page, size, user, val,title);
 			maillist=mservice.maillist(pagemail);
 		}else if(("草稿箱").equals(title)){
@@ -378,6 +378,7 @@ public class MailController {
 		}else{
 			model.addAttribute("page", pagemail);
 		}
+		model.addAttribute("sort", "&title="+title);
 		model.addAttribute("maillist",maillist);
 		model.addAttribute("url","mailtitle");
 		return "mail/mailbody";

@@ -21,7 +21,6 @@
 	</div>
 </div>
 <script>
-
 $(function(){
 	 $(".chazhao").click(function(){
 		   var con=$(".cha").val();
