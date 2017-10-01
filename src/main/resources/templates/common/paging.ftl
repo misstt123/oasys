@@ -50,16 +50,25 @@
 		/* 分页插件按钮的点击事件 */
 		/* url是从后台接收过来的链接，sort是记录排序规则 */
 		$('.tablefirst').on('click',function(){
-			$('.thistable').load('${url}?page=0${(sort)!''}');
+			 if(${page.first?string('true','false')}==false){
+				 $('.thistable').load('${url}?page=0${(sort)!''}');
+			 }
 		});
 		$('.tableup').on('click',function(){
-			$('.thistable').load('${url}?page=${(page.number)-1}${(sort)!''}');
+			 if(${page.first?string('true','false')}==false){
+				 $('.thistable').load('${url}?page=${(page.number)-1}${(sort)!''}');
+			 }
 		});
 		$('.tabledown').on('click',function(){
-			$('.thistable').load('${url}?page=${(page.number)+1}${(sort)!''}');
+			if(${page.last?string('true','false')}==false){
+				$('.thistable').load('${url}?page=${(page.number)+1}${(sort)!''}');
+			 }
 		});
 		$('.tablelast').on('click',function(){
-			$('.thistable').load('${url}?page=${(page.totalPages)-1}${(sort)!''}');
+			if(${page.last?string('true','false')}==false){
+				$('.thistable').load('${url}?page=${(page.totalPages)-1}${(sort)!''}');
+			 }
+			
 		});
 		
 		/*类型、状态、时间的排序  */

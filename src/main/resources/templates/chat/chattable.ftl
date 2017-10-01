@@ -43,7 +43,6 @@
 							<span class="glyphicon ${icon}"></span>
 						</#if>
 						</span></th>
-					<th scope="col">讨论次数</th>
 					<th scope="col">附件</th>
 					<th scope="col">操作</th>
 				</tr>
@@ -54,7 +53,6 @@
 					<td><span>${(this.createTime)!''}</span></td>
 					<td><span>${(this.userName)!''}</span></td>
 					<td><span>${(this.visitNum)!''}</span></td>
-					<td><span>${(this.visitNum)!''}</span></td>
 					<td><span>附件</span></td>
 					<td>
 						<#if manage??>
@@ -64,7 +62,7 @@
 						class="label shanchu"><span class="glyphicon glyphicon-remove"></span>
 							删除</a>
 						</#if>
-						<a href="/replymanage" class="label xiugai"> <span
+						<a href="/replymanage?id=${this.id}" class="label xiugai"> <span
 							class="glyphicon glyphicon-search"></span>查看</a>
 					</td>
 				</tr>

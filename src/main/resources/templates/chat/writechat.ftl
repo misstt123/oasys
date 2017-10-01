@@ -49,9 +49,15 @@ border-radius: 5px;
 		<!--错误信息提示  -->
 			<div class="form-group">
 				<select name="typeId" id="selecttype" class="select2 form-control">
-					<option value="19">讨论</option>
-					<option value="20">公告</option>
-					<option value="21">投票</option>
+				<#list typeList as type>
+					<#if type.typeId==19>
+						<#if user.superman==true>
+						<option value="${type.typeId}">${type.typeName}</option>
+						</#if>
+					<#else>
+						<option value="${type.typeId}">${type.typeName}</option>
+					</#if>
+				</#list>
 				</select>
 			</div>
 			<div class="form-group addvote" style="display:none;">
@@ -145,7 +151,7 @@ function check() {
 		$('#selecttype').on('change',function(){
 			var key=$('#selecttype').val();
 			console.log('dfa');
-			if(key=='21'){
+			if(key=='20'){
 				$('.addvote').css('display','block');
 			}else{
 				$('.addvote').css('display','none');

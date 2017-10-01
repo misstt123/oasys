@@ -41,6 +41,13 @@ public class DiscussService {
 		return discussDao.save(d);
 	}
 	
+	//查看，并将访问量+1
+	public Discuss seeDiscuss(Long id){
+		Discuss discuss=discussDao.findOne(id);
+		discuss.setVisitNum(discuss.getVisitNum()+1);
+		return this.save(discuss);
+	}
+	
 
 	// 分页处理
 	public Page<Discuss> paging(int page, String baseKey, Long userId, String type, String time, String visitnum) {
@@ -123,6 +130,7 @@ public class DiscussService {
 		List<Map<String, Object>> listMap = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Map<String, Object> result = new HashMap<>();
+			result.put("id", list.get(i).getDiscussId());
 			result.put("typeName", typeDao.findOne(list.get(i).getTypeId()).getTypeName());
 			result.put("userName", list.get(i).getUser().getUserName());
 			result.put("title", list.get(i).getTitle());

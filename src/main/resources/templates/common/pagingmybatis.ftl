@@ -43,16 +43,25 @@
 		/* 分页插件按钮的点击事件 */
 		/* url是从后台接收过来的链接，sort是记录排序规则 */
 		$('.tablefirst').on('click',function(){
-			$('.thistable').load('${url}?pageNum=0${(sort)!''}');
+			if(${page.isFirstPage?string('true','false')==false}){
+				$('.thistable').load('${url}?pageNum=0${(sort)!''}');
+			}
 		});
 		$('.tableup').on('click',function(){
-			$('.thistable').load('${url}?pageNum=${(page.pageNum)-1}${(sort)!''}');
+			if(${page.isFirstPage?string('true','false')==false}){
+				$('.thistable').load('${url}?pageNum=${(page.pageNum)-1}${(sort)!''}');
+			}
 		});
 		$('.tabledown').on('click',function(){
-			$('.thistable').load('${url}?pageNum=${(page.pageNum)+1}${(sort)!''}');
+			if(${page.isLastPage?string('true','false')==false}){
+				$('.thistable').load('${url}?pageNum=${(page.pageNum)+1}${(sort)!''}');
+			}
 		});
 		$('.tablelast').on('click',function(){
-			$('.thistable').load('${url}?pageNum=${(page.pages)}${(sort)!''}');
+			if(${page.isLastPage?string('true','false')==false}){
+				$('.thistable').load('${url}?pageNum=${(page.pages)}${(sort)!''}');
+			}
+			
 		});
 		
 		/*类型、状态、时间的排序  */

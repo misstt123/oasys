@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,11 @@ import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.discuss.DiscussDao;
+import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.discuss.Discuss;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
+import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.discuss.DiscussService;
 
 @Controller
@@ -32,9 +37,12 @@ public class ChatManageController {
 	
 	@Autowired
 	DiscussDao discussDao;
-	
 	@Autowired
 	DiscussService disService;
+	@Autowired
+	UserDao uDao;
+	@Autowired
+	TypeDao typeDao;
 	
 
 	/**
@@ -46,6 +54,7 @@ public class ChatManageController {
 			@SessionAttribute("userId") Long userId,Model model){
 		Page<Discuss> page2=disService.paging(page, null, 1L,null,null,null);
 		setPagintMess(model, page2,"/chattable","manage");
+		model.addAttribute("name", "超级管理员");
 		return "chat/chatmanage";
 	}
 	
@@ -56,8 +65,9 @@ public class ChatManageController {
 	@RequestMapping("chatmanage")
 	public String chatManage(@RequestParam(value="page",defaultValue="0") int page,
 			@SessionAttribute("userId") Long userId,Model model){
-		Page<Discuss> page2=disService.paging(page, null, userId,null,null,null);
+		Page<Discuss> page2=disService.pagingMe(page, null, userId,null,null,null);
 		setPagintMess(model, page2,"/metable","manage");
+		model.addAttribute("name", "我的管理");
 		return "chat/chatmanage";
 	}
 	/**
@@ -70,6 +80,7 @@ public class ChatManageController {
 	public String chatList(@RequestParam(value="page",defaultValue="0") int page,Model model){
 		Page<Discuss> page2=disService.paging(page, null, null,null,null,null);
 		setPagintMess(model, page2,"/seetable",null);
+		model.addAttribute("name", "讨论列表");
 		return "chat/chatmanage";
 	}
 	
@@ -136,14 +147,15 @@ public class ChatManageController {
 		return "chat/chattable";
 	}
 	
-	
-	
 	/**
-	 * 回复管理
+	 * 查看讨论
 	 * @return
 	 */
 	@RequestMapping("replymanage")
-	public String replyManage(){
+	public String replyManage(Model model,@RequestParam(value="id") Long id){
+		Discuss discuss=disService.seeDiscuss(id);
+		model.addAttribute("discuss", discuss);
+		model.addAttribute("user", discuss.getUser());
 		return "chat/replaymanage";
 	}
 	
@@ -153,7 +165,11 @@ public class ChatManageController {
 	 * @return
 	 */
 	@RequestMapping("writechat")
-	public String writeChat(HttpServletRequest req){
+	public String writeChat(HttpServletRequest req,@SessionAttribute(value="userId")Long userId,Model model){
+		User user=uDao.findOne(userId);
+		List<SystemTypeList> typeList=typeDao.findByTypeModel("chat");
+		model.addAttribute("typeList", typeList);
+		model.addAttribute("user", user);
 		return "chat/writechat";
 	}
 	
@@ -162,9 +178,11 @@ public class ChatManageController {
 	 */
 	@RequestMapping("adddiscuss")
 	public String addDiscuss(HttpServletRequest req,@Valid Discuss menu,BindingResult br,@RequestParam("file")MultipartFile file){
+		HttpSession session=req.getSession();
+		Long userId=Long.parseLong(session.getAttribute("userId")+"");
+		User user=uDao.findOne(userId);
 		Long typeId=Long.parseLong(req.getParameter("typeId"));
 		System.out.println(menu);
-		menu.setCreateTime(new Date());
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
 		// 校验失败
 		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
@@ -176,11 +194,14 @@ public class ChatManageController {
 			System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
 			// 下面的info信息是打印出详细的信息
 		}else{
+			menu.setVisitNum(0);
+			menu.setUser(user);
+			menu.setCreateTime(new Date());
 			disService.save(menu);
 			req.setAttribute("success", "成功了");
 			System.out.println("成功了");
 		}
-		return "chat/writechat";
+		return "redirect:/chatmanage";
 	}
 
 	private void setSomething(String baseKey, String type, String time, String visitnum,String icon,
