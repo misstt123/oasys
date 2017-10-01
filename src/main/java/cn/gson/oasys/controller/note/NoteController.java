@@ -1,6 +1,5 @@
 package cn.gson.oasys.controller.note;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.io.File;
 import java.io.FileInputStream;

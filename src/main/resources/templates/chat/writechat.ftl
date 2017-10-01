@@ -46,7 +46,7 @@ border-radius: 5px;
 	<!--盒子身体-->
 	<form action="adddiscuss" method="post" enctype="multipart/form-data" onsubmit="return check();">
 	<div class="box-body">
-		<!--錯誤信息提示  -->
+		<!--错误信息提示  -->
 			<div class="form-group">
 				<select name="typeId" id="selecttype" class="select2 form-control">
 					<option value="19">讨论</option>
@@ -54,7 +54,15 @@ border-radius: 5px;
 					<option value="21">投票</option>
 				</select>
 			</div>
-		<div class="form-group addvote" style="display:none;">
+			<div class="form-group addvote" style="display:none;">
+				<label class="control-label">开始日期</label> <input id="starTime"
+					name="starTime" class="form-control" />
+			</div>
+			<div class="form-group addvote" style="display:none;">
+				<label class="control-label">截止日期</label> <input id="endTime"
+					name="endTime" class="form-control" />
+			</div>
+			<div class="form-group addvote" style="display:none;">
 			<input name="inReceiver" type="text"
 				id="inputtext" style="background-color: #fff;"
 				class="form-control"  placeholder="投票标题" />
@@ -92,15 +100,14 @@ border-radius: 5px;
 	</form>
 </div>
 
-<#include "/common/modalTip.ftl"> 
+<#include "/common/modalTip.ftl">
 <script type="text/javascript">
 $('.givein').on('click',function(){
 	console.log("tent:"+$('.tent').val());
 	console.log("iframe:"+$('.ke-edit-iframe').contents().find('body').text());
-	
 });
 $('.successToUrl').on('click',function(){
-	window.location.href='/testsysmenu';
+	window.location.href='/chatmanage';
 });
 function mess(errorMess){
 	$('.alert-danger').css('display', 'block');
@@ -137,7 +144,8 @@ function check() {
 	$(function() {
 		$('#selecttype').on('change',function(){
 			var key=$('#selecttype').val();
-			if(key=='3'){
+			console.log('dfa');
+			if(key=='21'){
 				$('.addvote').css('display','block');
 			}else{
 				$('.addvote').css('display','none');
@@ -183,3 +191,5 @@ function check() {
 		});
 	});
 </script>
+<script type="text/javascript" src="js/common/data.js"></script>
+<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
