@@ -18,6 +18,10 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>{
 	
 	Page<User> findByFatherId(Long parentid,Pageable pa);
 	
+	//名字模糊查找
+	@Query("select u from User u where  u.userName like %?1% or u.realName like %?1% and u.fatherId=?2 ")
+	Page<User> findbyFatherId(String name,Long parentid,Pageable pa);
+	
 	@Query("select u from User u where u.userName=:name")
 	User findid(@Param("name")String name);
 	

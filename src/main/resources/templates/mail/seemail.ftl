@@ -47,7 +47,7 @@
 							<use xlink:href="#icon-huifu"></use>
 				</svg> 回复
 			</a> 
-			<a class="btn btn-primary">
+			<a class="btn btn-primary zhuanfa">
 			<span class="glyphicon glyphicon-share-alt"></span> 转发</a>
 			</#if>
 		</div>
@@ -58,7 +58,14 @@
 		//回复
 		$(".huifu").click(function(){
 			var id=${mail.mailId};
-			$(".set").load("wmail",{id:id});
+			var $huifu="【回复】";
+			$(".set").load("wmail",{id:id,huifu:$huifu});
+		});
+		//回复
+		$(".zhuanfa").click(function(){
+			var id=${mail.mailId};
+			var $huifu="【转发】";
+			$(".set").load("wmail",{id:id,huifu:$huifu});
 		});
 	})
 

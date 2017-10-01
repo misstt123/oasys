@@ -71,10 +71,19 @@ public class Inmaillist {
 	@Transient 
 	private Long inmail;
 	
+	@Transient 
+	private String huizhuan;
+	
 	public Inmaillist(){}
 	
-	
-	
+	public String getHuizhuan() {
+		return huizhuan;
+	}
+
+	public void setHuizhuan(String huizhuan) {
+		this.huizhuan = huizhuan;
+	}
+
 	public Boolean getStar() {
 		return star;
 	}
@@ -207,15 +216,14 @@ public class Inmaillist {
 		this.mailCreateTime = mailCreateTime;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Inmaillist [mailId=" + mailId + ", mailType=" + mailType + ", mailStatusid=" + mailStatusid
-				+ ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver=" + inReceiver + ", mailFileid="
-				+ mailFileid + ", mailCreateTime=" + mailCreateTime + ", del=" + del + ", push=" + push + ", star="
-				+ star + ", inmail=" + inmail + "]";
+				+ ", mailTitle=" + mailTitle + ", content=" + content + ", inReceiver=" + inReceiver
+				+ ", mailCreateTime=" + mailCreateTime + ", mailNumberid=" + mailNumberid + ", del=" + del + ", push="
+				+ push + ", star=" + star + ", inmail=" + inmail + ", huizhuan=" + huizhuan + "]";
 	}
+
 
 
 

@@ -23,7 +23,6 @@ border-radius: 5px;
 	</div>
 	<!--盒子身体-->
 	<form action="pushmail" method="post" enctype="multipart/form-data" onsubmit="return check();" >
-	<input type="text" name="mailId" value="${(id)!''}" style="display:none;"/>
 	<div class="box-body">
 		<!--錯誤信息提示  -->
 					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
@@ -107,7 +106,11 @@ border-radius: 5px;
 		</div>
 
 		<div class="form-group">
+			<#if id??>
+			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;"><br/><hr/>${(content)!''}</textarea>
+			<#else>
 			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;">${(content)!''}</textarea>
+			</#if>
 		</div>
 
 		<div class="form-group">
@@ -218,14 +221,7 @@ function check() {
 							}
 							}
 					}
-					
-					
-					
-					
-					
-					
-	
-				}
+					}
 			} 
 			return true;
 		}
@@ -240,6 +236,7 @@ function check() {
 	}
 //	return false;
 }
+
 
 </script>
 
