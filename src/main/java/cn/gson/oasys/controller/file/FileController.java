@@ -64,6 +64,15 @@ public class FileController {
 		
 		FilePath filepath = fpdao.findByPathName(user.getUserName());
 		
+		System.out.println(filepath);
+		
+		if(filepath == null){
+			FilePath filepath1 = new FilePath();
+			filepath1.setParentId(1L);
+			filepath1.setPathName(user.getUserName());
+			filepath = fpdao.save(filepath1);
+		}
+		
 		model.addAttribute("nowpath", filepath);
 		model.addAttribute("paths", fs.findpathByparent(filepath.getId()));
 		model.addAttribute("files", fs.findfileBypath(filepath));
@@ -128,7 +137,7 @@ public class FileController {
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";
 	}
-
+	
 	/**
 	 * 删除前台选择的文件以及文件夹
 	 * 
@@ -156,6 +165,11 @@ public class FileController {
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";
 	}
+	
+	@RequestMapping("mcto")
+	public void mcto(){
+		
+	}
 
 	/**
 	 * 新建文件夹
@@ -181,7 +195,12 @@ public class FileController {
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";
 	}
-
+	
+	/**
+	 * 图片预览
+	 * @param response
+	 * @param fileid
+	 */
 	@RequestMapping("imgshow")
 	public void imgshow(HttpServletResponse response, @RequestParam("fileid") Long fileid) {
 		try {
@@ -189,11 +208,15 @@ public class FileController {
 			File file = fs.getFile(filelist.getFilePath());
 			writefile(response, file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * 下载文件
+	 * @param response
+	 * @param fileid
+	 */
 	@RequestMapping("downfile")
 	public void downFile(HttpServletResponse response, @RequestParam("fileid") Long fileid) {
 		try {
@@ -204,13 +227,12 @@ public class FileController {
 			response.setHeader("Content-Disposition","attachment;filename=" + new String(filelist.getFileName().getBytes("UTF-8"), "ISO8859-1"));
 			writefile(response, file);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
-	 * 写文件
+	 * 写文件 方法
 	 * 
 	 * @param response
 	 * @param file
