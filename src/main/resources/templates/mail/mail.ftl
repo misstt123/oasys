@@ -71,13 +71,13 @@
 				</span>
 			</div>
 			<ul class="nav nav-pills nav-stacked fff">
-				<li><svg class="icon le" aria-hidden="true">
+				<li class="mail"><svg class="icon le " aria-hidden="true">
 								<use xlink:href="#icon-kongxinquan"></use>
 							</svg>&nbsp;&nbsp;&nbsp;邮件</li>
-				<li><svg class="icon le" aria-hidden="true">
+				<li class="tongzhi"><svg class="icon le " aria-hidden="true">
 								<use xlink:href="#icon-kongxinquan"></use>
 							</svg>&nbsp;&nbsp;&nbsp;通知</li>
-				<li><svg class="icon le" aria-hidden="true" style="color: red;">
+				<li class="gonggao"><svg class="icon le " aria-hidden="true" style="color: red;">
 								<use xlink:href="#icon-kongxinquan"></use>
 							</svg>&nbsp;&nbsp;&nbsp;公告</li>
 			</ul>
@@ -105,7 +105,18 @@
 		$('.write').on('click',function(){
 			$('.set').load('wmail');
 		});
-		
+		 $(".mail").click(function(){
+				var title=$(".titles").text();
+			   $(".thistable").load("mailtitle",{val:"邮件",title:title});
+		   });
+		 $(".tongzhi").click(function(){
+			   var title=$(".titles").text();
+			  $(".thistable").load("mailtitle",{val:"通知",title:title});
+		   });
+		 $(".gonggao").click(function(){
+			 	var title=$(".titles").text();
+			  $(".thistable").load("mailtitle",{val:"公告",title:title});
+		   });
 		
 		
 	});

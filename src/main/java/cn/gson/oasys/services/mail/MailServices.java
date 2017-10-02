@@ -54,7 +54,7 @@ import cn.gson.oasys.model.entity.mail.Mailnumber;
 import cn.gson.oasys.model.entity.mail.Pagemail;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
-
+import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
 
 @Service
@@ -83,6 +83,7 @@ public class MailServices {
 		Pageable pa=new PageRequest(page, size);
 		List<Order> orders = new ArrayList<>();
 		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_in_mail_list", val);
+		SystemTypeList type=tydao.findByTypeModelAndTypeName("aoa_in_mail_list", val);
 		if(("收件箱").equals(title)){
 			if(StringUtil.isEmpty(val)){
 				orders.add(new Order(Direction.ASC, "read"));
@@ -91,6 +92,8 @@ public class MailServices {
 				pagelist=mrdao.findmail(tu,false,pa);
 			}else if(!Objects.isNull(status)){
 				pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),false,pa);
+			}else if(!Objects.isNull(type)){
+				pagelist=mrdao.findmailbytype(tu,type.getTypeId(),false,pa);
 			}else{
 				pagelist=mrdao.findmails(tu,false, val, pa);
 			}
@@ -102,6 +105,8 @@ public class MailServices {
 				pagelist=mrdao.findmail(tu,true,pa);
 			}else if(!Objects.isNull(status)){
 				pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),true,pa);
+			}else if(!Objects.isNull(type)){
+				pagelist=mrdao.findmailbytype(tu,type.getTypeId(),false,pa);
 			}else{
 				pagelist=mrdao.findmails(tu, true,val, pa);
 			}
@@ -144,6 +149,7 @@ public class MailServices {
 		Pageable pa=new PageRequest(page, size);
 		List<Order> orders = new ArrayList<>();
 		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_in_mail_list", val);
+		SystemTypeList type=tydao.findByTypeModelAndTypeName("aoa_in_mail_list", val);
 		if(("发件箱").equals(title)){
 		if(StringUtil.isEmpty(val)){
 			orders.add(new Order(Direction.DESC, "mailStatusid"));
@@ -151,9 +157,11 @@ public class MailServices {
 			pa=new PageRequest(page, size,sort);
 			pagemail=imdao.findByPushAndMailUseridAndDelOrderByMailCreateTimeDesc(true,tu,false,pa);
 		}else if(!Objects.isNull(status)){
-			pagemail=imdao.findByMailUseridAndMailStatusidAndPushOrderByMailCreateTimeDesc(tu, status.getStatusId(),true, pa);
+			pagemail=imdao.findByMailUseridAndMailStatusidAndPushAndDelOrderByMailCreateTimeDesc(tu, status.getStatusId(),true,false, pa);
+		}else if(!Objects.isNull(type)){
+			pagemail=imdao.findByMailUseridAndMailTypeAndPushAndDelOrderByMailCreateTimeDesc(tu, type.getTypeId(),true,false, pa);
 		}else{
-			pagemail=imdao.findbyMailUseridAndPushAndMailTitleLikeOrderByMailCreateTimeDesc(tu,true,val,pa);
+			pagemail=imdao.findbyMailUseridAndPushAndDelAndMailTitleLikeOrderByMailCreateTimeDesc(tu,true,false,val,pa);
 		}
 		}else{
 			//草稿箱
@@ -163,9 +171,11 @@ public class MailServices {
 				pa=new PageRequest(page, size,sort);
 				pagemail=imdao.findByPushAndMailUseridAndDelOrderByMailCreateTimeDesc(false,tu,false,pa);
 			}else if(!Objects.isNull(status)){
-				pagemail=imdao.findByMailUseridAndMailStatusidAndPushOrderByMailCreateTimeDesc(tu, status.getStatusId(),false, pa);
+				pagemail=imdao.findByMailUseridAndMailStatusidAndPushAndDelOrderByMailCreateTimeDesc(tu, status.getStatusId(),false,false, pa);
+			}else if(!Objects.isNull(type)){
+				pagemail=imdao.findByMailUseridAndMailTypeAndPushAndDelOrderByMailCreateTimeDesc(tu, type.getTypeId(),true,false, pa);
 			}else{
-				pagemail=imdao.findbyMailUseridAndPushAndMailTitleLikeOrderByMailCreateTimeDesc(tu,false,val,pa);
+				pagemail=imdao.findbyMailUseridAndPushAndDelAndMailTitleLikeOrderByMailCreateTimeDesc(tu,false,false,val,pa);
 			}
 		}
 		return pagemail;
@@ -307,9 +317,11 @@ public class MailServices {
 	 */
 		public void pushmail(String account,String password,String reciver,
 				String name,String title,String content,String affix,String filename){
-			File root = new File(rootpath,affix);
-			String file=root.getAbsolutePath();
-			
+			String file=null;
+			if(!StringUtil.isEmpty(affix)){
+				File root = new File(rootpath,affix);
+				file=root.getAbsolutePath();
+			}	
 			// 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
 			String myEmailAccount = account;
 		    String myEmailPassword = password;
@@ -380,28 +392,33 @@ public class MailServices {
 	        // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）
 	        message.setSubject(title, "UTF-8");
 
-	       /* // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
+	       // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
 	        message.setContent("zw用户你好,今天下午进行项目验收", "text/html;charset=UTF-8");
-*/
-	        // 向multipart对象中添加邮件的各个部分内容，包括文本内容和附件
-	        Multipart multipart = new MimeMultipart();
-	        // 设置邮件的文本内容
-	        BodyPart contentPart = new MimeBodyPart();
-	        contentPart.setText(content);
-	        multipart.addBodyPart(contentPart);
-	        // 添加附件
-	        BodyPart messageBodyPart = new MimeBodyPart();
-	        DataSource source = new FileDataSource(affix);//附件路径
-	        // 添加附件的内容
-	        messageBodyPart.setDataHandler(new DataHandler(source));
-	        // 添加附件的标题
-	        // 这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码
-	        sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
-	        messageBodyPart.setFileName("=?GBK?B?"+ enc.encode(filename.getBytes()) + "?=");
-	        multipart.addBodyPart(messageBodyPart);
-	        
-	        // 将multipart对象放到message中
-	        message.setContent(multipart,"text/html;charset=UTF-8");
+        if(!StringUtil.isEmpty(affix)){
+	
+			// 向multipart对象中添加邮件的各个部分内容，包括文本内容和附件
+			Multipart multipart = new MimeMultipart();
+			// 设置邮件的文本内容
+			BodyPart contentPart = new MimeBodyPart();
+			contentPart.setText(content);
+			multipart.addBodyPart(contentPart);
+			// 添加附件
+			BodyPart messageBodyPart = new MimeBodyPart();
+			DataSource source = new FileDataSource(affix);//附件路径
+			// 添加附件的内容
+			messageBodyPart.setDataHandler(new DataHandler(source));
+			// 添加附件的标题
+			// 这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码
+			sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
+			messageBodyPart.setFileName("=?GBK?B?"+ enc.encode(filename.getBytes()) + "?=");
+			multipart.addBodyPart(messageBodyPart);
+			
+			// 将multipart对象放到message中
+			message.setContent(multipart,"text/html;charset=UTF-8");
+		}else{
+			 // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
+	        message.setContent(content, "text/html;charset=UTF-8");
+		}
 	        // 6. 设置发件时间
 	        message.setSentDate(new Date());
 

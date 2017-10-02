@@ -10,6 +10,11 @@
 						<span class="glyphicon glyphicon-eye-open"></span></a> 
 					<a class="btn btn-sm btn-default bac star"  title="星标">
 						<span class="glyphicon glyphicon-star"></span></a>
+					<#if mess="垃圾箱">
+						<a class="btn btn-sm btn-default bac reh"  title="恢复删除">
+						<span class="glyphicon glyphicon-retweet"></span></a>
+					<#else>
+					</#if>
 				</div>
 				<a class="btn btn-sm btn-default bac" href="" title="刷新"><span
 					class="glyphicon glyphicon-refresh"></span></a>
@@ -136,12 +141,31 @@
 		 //查看
 		 $('.lab').on('click',function(){
 			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
-				$('.set').load('smail',{id:$mailid});
+			 var title=$(".titles").text();
+				$('.set').load('smail',{id:$mailid,title:title});
 			});
 		 //重新编辑
 		 $('.edit').on('click',function(){
 			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
 				$('.set').load('wmail',{id:$mailid});
+			});
+		 
+		 //批量恢复删除
+		 $('.reh').on('click',function(){
+			 var  arry=new Array();
+			 var title=$(".titles").text();
+			 $("[name=items]:checkbox").each(function(){
+				 if(this.checked){
+	    				//获取被选中了的邮件id
+					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
+	    				arry.push($mailid);
+	    			}
+			 })
+			 if(arry.length==0){
+				 return;
+			 }
+			 var values=arry.toString();
+				$('.thistable').load('refresh',{ids:values,title:title});
 			});
 		 
 	});

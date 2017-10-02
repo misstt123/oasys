@@ -25,9 +25,10 @@ $(function(){
 	 $(".chazhao").click(function(){
 		   var con=$(".cha").val();
 		   var title=$(".titles").text();
-		   console.log(con+title);
+		  
 		   $(".thistable").load("mailtitle",{val:con,title:title});
 	   });
+	
 	
 	 
 	 

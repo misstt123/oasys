@@ -111,15 +111,14 @@ public class TaskController {
 		String val=null;
 		if(!StringUtil.isEmpty(request.getParameter("val"))){
 			val = request.getParameter("val").trim();
-			System.out.println("val:"+val);
 		}
 		
 		Page<Tasklist> tasklist=tservice.index(page, size, val, tu);
-		System.out.println("whaat?");
 		List<Map<String, Object>> list=tservice.index2(tasklist, tu);
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
 		model.addAttribute("url", "paixu");
+		model.addAttribute("sort", "&val="+val);
 		return "task/managetable";
 
 	}
@@ -153,6 +152,8 @@ public class TaskController {
 		mav.addObject("deptlist", deptlist);
 		mav.addObject("rolelist", rolelist);
 		mav.addObject("page", pagelist);
+		mav.addObject("url", "names");
+		mav.addObject("qufen", "任务");
 		return mav;
 	}
 
@@ -226,6 +227,8 @@ public class TaskController {
 		mav.addObject("rolelist", rolelist);
 		mav.addObject("task", task);
 		mav.addObject("page", pagelist);
+		mav.addObject("url", "names");
+		mav.addObject("qufen", "任务");
 		return mav;
 	}
 
@@ -354,6 +357,7 @@ public class TaskController {
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
 		model.addAttribute("url", "mychaxun");
+		model.addAttribute("sort", "&title="+title);
 		return "task/mytasklist";
 	}
 

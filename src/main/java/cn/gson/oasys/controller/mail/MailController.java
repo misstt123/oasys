@@ -221,6 +221,7 @@ public class MailController {
 		}
 		model.addAttribute("maillist",maillist);
 		model.addAttribute("url","mailtitle");
+		model.addAttribute("mess", title);
 		return "mail/mailbody";
 		
 	}
@@ -402,7 +403,6 @@ public class MailController {
 			maillist=mservice.maillist(pagemail);
 		}else{
 			//垃圾箱
-		
 			pagelist=mservice.recive(page, size, user, val,title);
 			maillist=mservice.mail(pagelist);
 		}
@@ -412,7 +412,12 @@ public class MailController {
 		}else{
 			model.addAttribute("page", pagemail);
 		}
-		model.addAttribute("sort", "&title="+title);
+		if(val!=null){
+			model.addAttribute("sort", "&title="+title+"&val="+val);
+		}
+		else{
+			model.addAttribute("sort", "&title="+title);
+		}
 		model.addAttribute("maillist",maillist);
 		model.addAttribute("url","mailtitle");
 		model.addAttribute("mess",title);
@@ -441,7 +446,7 @@ public class MailController {
 		return "mail/mailmanage";
 	}
 	/**
-	 * 各种排序
+	 * 账号各种排序
 	 * 和查询
 	 */
 	@RequestMapping("mailpaixu")
@@ -463,6 +468,8 @@ public class MailController {
 		List<Map<String, Object>> list=mservice.up(pagelist);
 		model.addAttribute("account", list);
 		model.addAttribute("page", pagelist);
+		model.addAttribute("url", "mailpaixu");
+		model.addAttribute("sort", "&val="+val);
 		return "mail/mailtable";
 	}
 
@@ -585,12 +592,24 @@ public class MailController {
 		if(!StringUtil.isEmpty(request.getParameter("id"))){
 			id=request.getParameter("id");
 		}
+		//回复那边过来的
+		String huifu=null;
+		
 		if(!StringUtil.isEmpty(id)){
 			Long lid=Long.parseLong(id);
 			//找到这条邮件
-			Inmaillist	mail=imdao.findByMailUseridAndMailId(mu, lid);
-			model.addAttribute("title", mail.getMailTitle());
-			model.addAttribute("content", mail.getContent());
+			Inmaillist	mail=imdao.findOne(lid);
+			if(!StringUtil.isEmpty(request.getParameter("huifu"))){
+				huifu=request.getParameter("huifu");
+				model.addAttribute("title",huifu+mail.getMailTitle());
+				model.addAttribute("content",mail.getContent());
+				
+			}else{
+				model.addAttribute("title",mail.getMailTitle());
+				model.addAttribute("content", mail.getContent());
+			}
+			
+			
 			model.addAttribute("status", sdao.findOne(mail.getMailStatusid()));
 			model.addAttribute("type", tydao.findOne(mail.getMailType()));
 			model.addAttribute("id", id);
@@ -638,21 +657,14 @@ public class MailController {
 		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
 			List<Object> list = new MapToList<>().mapToList(res.getData());
 			request.setAttribute("errormess", list.get(0).toString());
-			
-			System.out.println("list错误的实体类信息：" + mail);
-			System.out.println("list错误详情:" + list);
-			System.out.println("list错误第一条:" + list.get(0));
-			System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
-			
 		}else{
-			
 			if(!StringUtil.isEmpty(request.getParameter("fasong"))){
 				name=request.getParameter("fasong");
 			}
 			
 			
 			if(!StringUtil.isEmpty(name)){
-				if(!Objects.isNull(file)){
+				if(!StringUtil.isEmpty(file.getOriginalFilename())){
 					attaid=mservice.upload(file, tu);
 				}
 				//发送成功
@@ -689,10 +701,17 @@ public class MailController {
 					}else{
 						st = new StringTokenizer(mail.getInReceiver(), "；");
 					}
-					while (st.hasMoreElements()) {
-						mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
-								mail.getContent(), attaid.getAttachmentPath(), attaid.getAttachmentName());
-					}
+					
+						while (st.hasMoreElements()) {
+							if(!StringUtil.isEmpty(file.getOriginalFilename())){
+								mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
+										mail.getContent(), attaid.getAttachmentPath(), attaid.getAttachmentName());
+							
+							}else{
+								mservice.pushmail(number.getMailAccount(), number.getPassword(), st.nextToken(), number.getMailUserName(), mail.getMailTitle(),
+										mail.getContent(), null, null);
+							}
+						}
 				}
 				
 			}
@@ -705,29 +724,40 @@ public class MailController {
 	 * 用户姓名查找
 	 */
 	@RequestMapping("names")
-	public String serch(Model model,HttpServletRequest req,
+	public String serch(Model model,HttpServletRequest req, HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
 		Pageable pa=new PageRequest(page, size);
 		String name=null;
+		String qufen=null;
 		Page<User> pageuser=null;
 		List<User> userlist=null;
 		
 		if(!StringUtil.isEmpty(req.getParameter("title"))){
 			name=req.getParameter("title").trim();
 		}
-		
-		if(StringUtil.isEmpty(name)){
-			
-			//查看用户并分页
-			pageuser=udao.findAll(pa);
-			userlist=pageuser.getContent();
+		if(!StringUtil.isEmpty(req.getParameter("qufen"))){
+			qufen=req.getParameter("qufen").trim();
+			System.out.println("111");
+			if(StringUtil.isEmpty(name)){
+				// 查询部门下面的员工
+				pageuser = udao.findByFatherId(userid,pa);
+			}else{
+				// 查询名字模糊查询员工
+				pageuser = udao.findbyFatherId(name,userid,pa);
+			}
 		}else{
-			pageuser=udao.findbyUserNameLike(name, pa);
-			userlist=pageuser.getContent();
-			System.out.println(userlist);
-			
+			System.out.println("222");
+			if(StringUtil.isEmpty(name)){
+				//查看用户并分页
+				pageuser=udao.findAll(pa);
+			}else{
+				pageuser=udao.findbyUserNameLike(name, pa);
+			}
 		}
+		userlist=pageuser.getContent();
 		// 查询部门表
 		Iterable<Dept> deptlist = ddao.findAll();
 		// 查角色表
@@ -737,6 +767,7 @@ public class MailController {
 		model.addAttribute("deptlist", deptlist);
 		model.addAttribute("rolelist", rolelist);
 		model.addAttribute("url", "names");
+		model.addAttribute("sort", "&qufen="+qufen);
 		return "common/recivers";
 		
 	}
@@ -798,13 +829,63 @@ public class MailController {
 		User mu=udao.findOne(userid);
 		//邮件id
 		Long id=Long.parseLong(req.getParameter("id"));
+		//title
+		String title=req.getParameter("title");
+		//找到中间表信息
+		if(("收件箱").equals(title)||("垃圾箱").equals(title)){
+			Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(mu,id);
+			mailr.setRead(true);
+			mrdao.save(mailr);
+		}
+		
 		//找到该邮件信息
 		Inmaillist mail=imdao.findOne(id);
 		User pushuser=udao.findOne(mail.getMailUserid().getUserId());
 		model.addAttribute("pushname", pushuser.getUserName());
 		model.addAttribute("mail", mail);
+		model.addAttribute("mess", title);
 		
 		return "mail/seemail";
 	}
-	
+
+	/**
+	 * 
+	 */
+	@RequestMapping("refresh")
+	public String refresh(HttpServletRequest req,HttpSession session,Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		//查找用户
+		User user=udao.findOne(userid);
+		String title=req.getParameter("title");
+		Page<Pagemail> pagelist=null;
+		List<Map<String, Object>> maillist=null;
+		//得到恢复删除id
+		String ids=req.getParameter("ids");
+
+		StringTokenizer st = new StringTokenizer(ids, ",");
+		while (st.hasMoreElements()) {
+			//找到该用户联系邮件的中间记录
+			Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
+			if(!Objects.isNull(mailr)){
+				mailr.setDel(false);
+				mrdao.save(mailr);
+			}else{
+				return "redirect:/notlimit";
+				}
+		}
+		//分页及查找
+		pagelist=mservice.recive(page, size, user, null,title);
+		maillist=mservice.mail(pagelist);
+		
+		model.addAttribute("page", pagelist);
+		model.addAttribute("maillist",maillist);
+		model.addAttribute("url","mailtitle");
+		model.addAttribute("mess", title);
+		
+		return "mail/mailbody";
+		
+	}
 }

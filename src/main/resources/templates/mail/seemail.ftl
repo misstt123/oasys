@@ -40,13 +40,16 @@
 		<div class="pull-right foot">
 			<a class="btn btn-default fault">
 			   <span class="glyphicon glyphicon glyphicon-print"></span> 打印</a>
+			 <#if mess=="垃圾箱"||mess=="草稿箱"> 
+			 <#else>
 			<a class="btn btn-primary huifu"> 
 				<svg class="icon" aria-hidden="true"style="color: #fff;">
 							<use xlink:href="#icon-huifu"></use>
 				</svg> 回复
 			</a> 
-			<a class="btn btn-primary">
+			<a class="btn btn-primary zhuanfa">
 			<span class="glyphicon glyphicon-share-alt"></span> 转发</a>
+			</#if>
 		</div>
 	</div>
 </div>
@@ -55,7 +58,14 @@
 		//回复
 		$(".huifu").click(function(){
 			var id=${mail.mailId};
-			$(".set").load("wmail",{id:id});
+			var $huifu="【回复】";
+			$(".set").load("wmail",{id:id,huifu:$huifu});
+		});
+		//回复
+		$(".zhuanfa").click(function(){
+			var id=${mail.mailId};
+			var $huifu="【转发】";
+			$(".set").load("wmail",{id:id,huifu:$huifu});
 		});
 	})
 
