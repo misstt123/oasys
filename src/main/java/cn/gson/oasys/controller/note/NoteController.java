@@ -90,11 +90,11 @@ public class NoteController {
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		long collect = Long.valueOf(iscollected);
 		if (collect == 1) {
-			Page<Note> upage= NoteService.collectpaging(page, collect, userid);
+			Page<Note> upage= NoteService.paging(page, null, null, collect, null, null);
 			paging(model, upage);
 			model.addAttribute("collect", 0);
 		} else if (collect == 0) {
-			Page<Note> upage=NoteService.userpaging(page, null, userid);
+			Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
 			paging(model, upage);
 			model.addAttribute("collect", 1);
 		}
@@ -212,12 +212,12 @@ public class NoteController {
 	public String test43(Model model, HttpServletRequest request, @Param("typeid") String id, HttpSession session,@RequestParam(value="page",defaultValue="0")int page) {
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		long typeid = Long.valueOf(id);
-		Page<Note> upage=NoteService.typepaging(page, typeid, userid);
+		System.out.println(typeid);
+		Page<Note> upage=NoteService.paging(page, null, userid, null, null, typeid);
+		request.setAttribute("sort", "&typeid="+id);
 		paging(model, upage);
-		System.out.println(noteList);
 		typestatus(request);
-		model.addAttribute("nlist", noteList);
-		return "note/notewrite";
+		return "forward:/notewrite";
 	}
 
 	// 笔记批量删除
@@ -256,7 +256,7 @@ public class NoteController {
 		long realuserId = Long.valueOf(session.getAttribute("userId") + "");
 		String cid = request.getParameter("cid");
 		long catalogid = Long.valueOf(cid);
-		Page<Note> upage= NoteService.catapaging(page, catalogid, realuserId);
+		Page<Note> upage= NoteService.paging(page, null, null, null, catalogid, null);
 		paging(model, upage);
 		// 没有做级联删除 先删除目录下的笔记 再删除目录
 		for (Note note : noteList) {
@@ -273,7 +273,7 @@ public class NoteController {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		cataloglist = (List<Catalog>) catalogDao.findcatauser(userid);
 		typestatus(request);
-		Page<Note> upage=NoteService.userpaging(page, null, userid);
+		Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
 		paging(model, upage);
 		System.out.println(cataloglist);
 		model.addAttribute("calist", cataloglist);
@@ -383,13 +383,23 @@ public class NoteController {
 
 	// 显示所有
 	@RequestMapping(value = "notewrite", method = RequestMethod.GET)
-	public String test33(Model model, HttpServletRequest request, HttpSession session, @RequestParam(value = "page", defaultValue = "0") int page,
+	public String test33(Model model, HttpServletRequest request,  HttpSession session, @RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "baseKey", required = false) String baseKey) {
-		
+		System.out.println("wwww");
+		if(request.getParameter("sort")==null||request.getParameter("sort").length()==0){
+			System.out.println("--");
+		}
+		else{
+	    	System.out.println("进来了");
+     	    	String sort=request.getParameter("sort");
+     	    	if(sort.contains("&typeid")){
+     	        model.addAttribute("sort", sort);}
+	    }
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		typestatus(request);
 		if(request.getParameter("id")==null||request.getParameter("id").length()==0){
-			Page<Note> upage=NoteService.userpaging(page, baseKey, userid);
+			Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
+			model.addAttribute("sort", "&userid"+userid);
 			paging(model, upage);
 		}
 		else{
@@ -397,11 +407,11 @@ public class NoteController {
 		if (!request.getParameter("id").equals("-2")) {
 			String cid = request.getParameter("id");
 			Long id = Long.valueOf(cid);
-			Page<Note> upage=NoteService.catapaging(page, id, userid);
+			Page<Note> upage=NoteService.paging(page, null, null, null, id, null);
 			paging(model, upage);
 			////为-2就是按照最近查找
 		} else if (request.getParameter("id").equals("-2")) {
-			Page<Note> upage=NoteService.userpaging(page, baseKey, userid);
+			Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
 			paging(model, upage);
 		}
 		typestatus(request);

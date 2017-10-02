@@ -36,37 +36,24 @@ public class NoteService {
 		return noteDao.updatecollect(catalogId, typeId, statusId, title, content, noteId);
 	}
 	
-	
-	//下面开始就是分页
-	//单纯根据用户分页
-	public Page<Note> userpaging(int page,String baseKey,long userid) {
+	public Page<Note> paging(int page,String baseKey,Long userid,Long isCollected,Long catalogId,Long typeId){
+		Pageable pa=new PageRequest(page, 10);
 		if(!StringUtils.isEmpty(baseKey)){
 			//查找
-		}else{
-			Pageable pa=new PageRequest(page, 10);
+			System.out.println(baseKey);
+		}
+		
+		if(!StringUtils.isEmpty(isCollected))
+			return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
+		if(!StringUtils.isEmpty(catalogId))
+			return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
+		if(!StringUtils.isEmpty(typeId)){
+			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
+		}
+		if(!StringUtils.isEmpty(userid)){
 			return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
 		}
+		System.out.println("fdsfasdfasd");
 		return null;
 	}
-	
-	//在根据是否收藏分页
-	public Page<Note> collectpaging(int page,long isCollected,long userid) {
-			Pageable pa=new PageRequest(page, 10);
-			return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
-	}
-	
-	//在根据是否目录分页
-	public Page<Note> catapaging(int page,long catalogId,long userid) {
-		
-			Pageable pa=new PageRequest(page, 10);
-			return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
-		
-	}
-	
-	//在根据是否类型分页
-	public Page<Note> typepaging(int page,long typeId,long userid) {
-			Pageable pa=new PageRequest(page, 10);
-			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
-	}
-	
 }
