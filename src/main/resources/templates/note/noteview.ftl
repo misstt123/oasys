@@ -27,7 +27,8 @@ $(".change").click(function(){
 				$ul.slideToggle(500);
 			} 
 	})
-})
+	
+});	
 //笔记里面跳转 注意里面只存储一个id的数据
 function notejump(url,id){
   var data={id:id}
@@ -69,7 +70,8 @@ function searchlike(){
 
 function increase(){
 	var $zengjia=$(".input-group #increase").val();
-	/* alert($zengjia) */
+	if($zengjia==""||$zengjia==null)
+		return confirm('输入不能为空');
 	var data={name:$zengjia};
 	$.ajax({
 		type:"post",
@@ -83,7 +85,8 @@ function increase(){
 			alert("失败")
 		}
 	}) 
-}
+} 
+
 </script>
 <style type="text/css">
 .icon {
@@ -223,7 +226,7 @@ border: none;
 							<div class="input-group">
 								<input id="increase" placeholder="笔记分类" class="form-control" type="text" />
 								<div class="input-group-btn">
-									<input  onclick="increase()" type="submit" class="btn btn-primary " value="新增" />
+									<input  onclick="increase()" type="button" class="btn btn-primary " value="新增" />
 								</div>
 
 							</div>
@@ -262,13 +265,6 @@ border: none;
 			</div>
 		</div>
 	</div>
-	 <#if exception??>
-		 <script>
-		 	$(function(){
-		 		alert("您的目录的名字重复了")
-		 	})
-		 </script>
-	 </#if>
 	
 	
 </body>

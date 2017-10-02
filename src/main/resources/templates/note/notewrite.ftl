@@ -192,6 +192,8 @@ function somenotedelete(){
 							</div>
 						</div>
 					
+					
+					<#include "/common/paging.ftl">
 						
 					</div>
 	</body>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<#include "/common/commoncss.ftl">
 <link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <link rel="stylesheet" href="css/tc.css" />
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
@@ -124,6 +125,13 @@ textarea {
 					<span class="glyphicon glyphicon-chevron-left"></span>返回
 				</a>
 			</div>
+			
+			<div class="alert alert-danger alert-dismissable" role="alert"
+							style="display: none;">
+							错误信息:<button class="close" type="button">&times;</button>
+							<span class="error-mess"></span>
+				</div>
+				
 			<div class="page-header">
 			</div>
 			
@@ -151,11 +159,10 @@ textarea {
 			<div class="form-group">
 			   
 			   <div id="MoreDiv" >
-					<input name="receiver" type="text" 
-						id="ctl00_cphMain_txtReceiver" class="form-control"
+					<input name="receiver" type="text" data-title="用户"
+						id="ctl00_cphMain_txtReceiver" class="form-control" readonly="readonly"
 						placeholder="分享给：" value="<#if note??><#if note.receiver??>${note.receiver}</#if></#if>"/>
 					<div class="reciver">
-					<#if usererror??><span style="color:red;">这个用户不存在呢</span></#if>
 						<a data-toggle="modal" data-target="#myModal"
 							data-backdrop="static"> <span
 							class="label label-success glyphicon glyphicon-share-alt">分享</span>
@@ -173,15 +180,15 @@ textarea {
 			</div>
 			<div class="form-group">
 				<input name="title" type="text"
-					id="ctl00_cphMain_txtSubject" class="form-control"
+					id="ctl00_cphMain_txtSubject" class="form-control" 
 					placeholder="标题：" 
 					value="<#if note??>${note.title}</#if>"
 					>
-					<span class="warn" style="color:red;display:none;">*这是必填项不能为空</span>
+					<!-- <div class="warn alert alert-danger alert-dismissable" role="alert" style="margin-top:10px;  line-height:10px;  height:10px; color:red;display:none;border:1px solid red;">*这是必填项不能为空</div> -->
 			</div>
 			
 			<div class="form-group">	
-			<textarea name="content"  style="width:100%;height:300px;visibility:hidden;font-size: 20px;">
+			<textarea name="content" class="form-control" data-title="笔记内容" style="width:100%;height:300px;visibility:hidden;font-size: 20px;">
 			<#if note??>
 			${note.content}
 			</#if>
@@ -196,10 +203,10 @@ textarea {
 				</div>
 				<p class="help-block">5MB以内</p></div>
              
-            <input type="hidden" name="nid" value=${nid}>
+            <input type="hidden" name="id" value=${id}>
 
 			<div class="pull-right right1 bottom1">
-				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary"  onclick="return check();">保存</button> 
+				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary"  onclick="{return check();}">保存</button> 
 				<a  onclick="notejump('notewrite','-2')"
 					id="ctl00_cphMain_lnbcancel" class="btn btn-default">取消</a>
 			</div>
@@ -320,10 +327,54 @@ textarea {
 	
 	</div>
 	</div>
+	
+	<#include "/common/modalTip.ftl"> 
+	
 	<script type="text/javascript">
+	//防止ajax和文本框发生冲突的js
 	      	var event = document.createEvent('HTMLEvents');   
 			event.initEvent("load", true, true);     
 			window.dispatchEvent(event);    
+			
+			
+			$('.successToUrl').on('click',function(){
+				window.location.href='/noteview';
+			});
+			
+			function check(){
+				console.log("开始进入了");
+				var text=$('.ke-edit-iframe').contents().find('body').text();
+				//提示框可能在提交之前是block状态，所以在这之前要设置成none
+				$('.alert-danger').css('display', 'none');
+					// 如果在这些input框中，判断是否能够为空
+					if ($('#ctl00_cphMain_txtSubject').val() == "") {
+						var errorMess = "[标题输入框信息不能为空]";
+						// 对齐设置错误信息提醒；红色边框
+						$(this).parent().addClass("has-error has-feedback");
+						$('.alert-danger').css('display', 'block');
+						// 提示框的错误信息显示
+						$('.error-mess').text(errorMess);
+						// 模态框的错误信息显示
+						$('.modal-error-mess').text(errorMess);
+						return false;
+					} 
+					if(text.length<10){
+						// 获取到input框的兄弟的文本信息，并对应提醒；
+						var brother = $(this).attr("data-title");
+						var errorMess = "[笔记内容输入框信息不能少于10个字]";
+						// 对齐设置错误信息提醒；红色边框
+						$(this).parent().addClass("has-error has-feedback");
+						$('.alert-danger').css('display', 'block');
+						// 提示框的错误信息显示
+						$('.error-mess').text(errorMess);
+						// 模态框的错误信息显示
+						$('.modal-error-mess').text(errorMess);
+						return false;
+					}
+					else{
+						return true;
+					}
+					}
 			
 	</script>
 </body>
