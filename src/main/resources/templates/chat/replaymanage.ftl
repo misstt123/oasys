@@ -1,12 +1,13 @@
-<#include "/common/commoncss.ftl">
+<#include "/common/commoncss.ftl"/>
 <style type="text/css">
 a {
 	color: black;
-	
 }
-ul li a{
-	font-size:13px;
+
+ul li a {
+	font-size: 13px;
 }
+
 a:hover {
 	text-decoration: none;
 }
@@ -66,12 +67,17 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="javascript:window.history.back();" class="label label-default" style="padding: 6px;">
-						<span class="glyphicon glyphicon-chevron-left">返回</span>
-					</a> <a href="#" class="label "
+					<a href="javascript:history.back();" class="label label-default"
+						style="padding: 6px;"> <span
+						class="glyphicon glyphicon-chevron-left">返回</span>
+					</a>
+					<a href="" class="label label-success" style="padding: 5px;margin-left:5px;">
+						<span class="glyphicon glyphicon-refresh"></span> 刷新
+					</a>
+					<!-- <a href="#" class="label label-success"
 						style="padding: 6px; margin-left: 8px;"> <span
 						class="glyphicon glyphicon-share-alt">回复</span>
-					</a>
+					</a> -->
 				</h3>
 
 			</div>
@@ -82,7 +88,8 @@ a:hover {
 						<span>${discuss.title}</span>
 					</h4>
 					<h5>
-						<small> <span>发布：${user.userName}</span> <span class="pull-right">${discuss.createTime}</span>
+						<small> <span>发布：${user.userName}</span> <span
+							class="pull-right">${discuss.createTime}</span>
 						</small>
 					</h5>
 				</div>
@@ -91,203 +98,71 @@ a:hover {
 				</div>
 				<div>
 					<ul class="list-inline" style="margin-left: 6px;">
-						<li><a href="#" class="label xinzeng"> <span
-								class="glyphicon glyphicon-share-alt"></span> 回复
+						<li><a href="#" class="label xinzeng thisreply"
+							replyId="${discuss.discussId}" replyModule="discuss"> <span
+								class="glyphicon glyphicon-share-alt"></span>回复
+						</a></li>
+						<li><a href="#"> <span class="glyphicon glyphicon-fire"
+								style="color: red;"></span> 访问数<span>(${discuss.visitNum})</span>
 						</a></li>
 						<li><a href="#"> <span
-								class="glyphicon glyphicon-fire" style="color:red;"></span> 访问数<span>(${discuss.visitNum})</span>
-						</a></li>
-						<li><a href="#"> <span
-								class="glyphicon glyphicon-comment" style="color:#337ab7"></span> 讨论次数<span>(10)</span>
+								class="glyphicon glyphicon-comment" style="color: #337ab7"></span>
+								讨论次数<span>(10)</span>
 						</a></li>
 					</ul>
+					<input type="hidden" class="replyId" /> 
+					<input type="hidden" class="replyModule" />
+					<input type="hidden" class="replyName" />
 				</div>
 				<div class="repay">
-					<table class="table" style="margin-bottm:0px;">
-						<tbody>
-							<tr>
-								<th scope="col" style="background-color: #EEEEEE;">回复</th>
-							</tr>
-							<tr>
-								<td>
-									<div class="post">
-										<div class="user-block">
-											<span> <a href="#"> <img src="images/handsome.JPG"
-													class="big-img" />
-											</a>
-											</span> <span class="username"> <a href="#"
-												class="raply-name">朱丽叶</a> <a href="#" class="pull-right"
-												style="font-size: 12px;"> <span style="font-size: 16px;">&times;</span></a>
-											</span> <span class="right-time">2017/8/29 19:08:12</span>
-											<p style="padding-top: 10px;">
-												这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-												这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-												这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-												这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿</p>
-											<ul class="list-inline">
-												<li><a href="#"> <span
-														class="glyphicon glyphicon-share-alt"></span> 回复
-												</a></li>
-												<li><a href="#"> <span
-														class="glyphicon glyphicon-thumbs-up"></span> 喜欢(0)
-												</a></li>
-												<li class="pull-right"><a href="#commentone"
-													class="label xiugai toggle" data-toggle="collapse"><span
-														class="glyphicon glyphicon-triangle-bottom"></span>评论次数(2)</a> <span>1楼</span>
-												</li>
-											</ul>
-											<div id="commentone" class="comment collapse in" style="margin-left: 80px;">
-												<table class="table table-hover" style="margin-bottom: 0;">
-													<tbody>
-														<tr>
-															<td class="comment-td"><a href="#"> <img
-																	src="images/handsome.JPG" class="big-img" />
-															</a></td>
-															<td>
-																<div class="user-block">
-																	<a href="" class="raply-name">朱丽叶</a>Everett666:
-																	不会的只要别家别惹事唱自已的原创是好事这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事这些事评论的词儿论这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	<ul class="list-inline pull-right"
-																		style="display: block;">
-																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label xinzeng"><span
-																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label shanchu"><span
-																				class="glyphicon glyphicon-remove"></span>删除</a></li>
-
-																	</ul>
-																</div>
-															</td>
-														</tr>
-														<!-- 添加第二个评论 -->
-														<tr>
-															<td class="comment-td"><a href="#"> <img
-																	src="images/handsome.JPG" class="big-img" />
-															</a></td>
-															<td>
-																<div class="user-block">
-																	<a href="" class="raply-name">朱丽叶</a>Everett666:
-																	不会的只要别家别惹事唱自已的原创是好事这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	<ul class="list-inline pull-right"
-																		style="display: block;">
-																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label xinzeng"><span
-																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label shanchu"><span
-																				class="glyphicon glyphicon-remove"></span>删除</a></li>
-
-																	</ul>
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<!--第二个回复-->
-							<tr>
-								<td>
-									<div class="post">
-										<div class="user-block">
-											<span> <a href="#"> <img src="images/handsome.JPG"
-													class="big-img" />
-											</a>
-											</span> <span class="username"> <a href="#"
-												class="raply-name">朱丽叶</a> <a href="#" class="pull-right"
-												style="font-size: 12px;"> <span style="font-size: 16px;">&times;</span></a>
-											</span> <span class="right-time">2017/8/29 19:08:12</span>
-											<p style="padding-top: 10px;">
-												这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿</p>
-											<ul class="list-inline">
-												<li><a href="#"> <span
-														class="glyphicon glyphicon-share-alt"></span> 回复
-												</a></li>
-												<li><a href="#"> <span
-														class="glyphicon glyphicon-thumbs-up"></span> 喜欢(0)
-												</a></li>
-												<li class="pull-right"><a href="#commenttwo"
-													class="label xiugai toggle" data-toggle="collapse"><span
-														class="glyphicon glyphicon-triangle-bottom"></span>评论次数(2)</a> <span>1楼</span>
-												</li>
-											</ul>
-											<div id="commenttwo" class="comment collapse in" style="margin-left: 50px;">
-												<table class="table table-hover">
-													<tbody>
-														<tr>
-															<td class="comment-td"><a href="#"> <img
-																	src="images/handsome.JPG" class="big-img" />
-															</a></td>
-															<td>
-																<div class="user-block">
-																	<a href="" class="raply-name">朱丽叶</a>Everett666:
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	<ul class="list-inline pull-right"
-																		style="display: block;">
-																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label xiugai"><span
-																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label shanchu"><span
-																				class="glyphicon glyphicon-remove"></span>删除</a></li>
-
-																	</ul>
-																</div>
-															</td>
-														</tr>
-														<!-- 添加第二个评论 -->
-														<tr>
-															<td class="comment-td"><a href="#"> <img
-																	src="images/handsome.JPG" class="big-img" />
-															</a></td>
-															<td>
-																<div class="user-block">
-																	<a href="" class="raply-name">朱丽叶</a>Everett666:
-																	
-																	这些事评论的词儿这些事评论的词儿这些事评论的词儿这些事评论的词儿
-																	<ul class="list-inline pull-right"
-																		style="display: block;">
-																		<li>2017/8/29 19:08:12</li>
-																		<li><a href="#" class="label xinzeng"><span
-																				class="glyphicon glyphicon-share-alt"></span>回复</a></li>
-																		<li><a href="#" class="label shanchu"><span
-																				class="glyphicon glyphicon-remove"></span>删除</a></li>
-
-																	</ul>
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<!--第三个回复  -->
-						</tbody>
-					</table>
+					<#include "replytable.ftl"/>
 				</div>
 			</div>
 			<!--盒子尾-->
 		</div>
 	</div>
 </div>
-
-<!--class nothing 完毕-->
-<script type="text/javascript">
-$('.toggle').on('click',function(){
-	if($(this).children().hasClass('glyphicon-triangle-bottom')){
-		$(this).children('.glyphicon').removeClass('glyphicon-triangle-bottom').addClass("glyphicon-triangle-top");
-	}else{
-		$(this).children('.glyphicon').removeClass('glyphicon-triangle-top').addClass("glyphicon-triangle-bottom");
-	}
-});
+<#include "/common/comment.ftl"/> <!--class nothing 完毕--> <script
+	type="text/javascript">
+	$('.thisreply').on('click', function() {
+		var replyId = $(this).attr('replyId');
+		var module = $(this).attr('replyModule');
+		var name = $(this).attr('replyName');
+		$('.replyId').val(replyId);
+		$('.replyModule').val(module);
+		$('.replyName').val(name);
+		console.log(typeof(name));
+		if(typeof(name) != 'undefined' ){
+			$("#comment").val("@"+name);
+		}
+		console.log(replyId);
+		console.log(module);
+		$("#myModal").modal("toggle");
+	});
+	$('#commentsave').on('click', function() {
+		console.log($('.replyId').val());
+		console.log($('.replyModule').val());
+		console.log($("#comment").val());
+		var replyId = $('.replyId').val();
+		var module = $('.replyModule').val();
+		var comment = $("#comment").val();
+		$('.repay').load('/replyhandle', {
+			replyId : replyId,
+			module : module,
+			comment : comment
+		});
+	});
+	$('.toggle').on(
+			'click',
+			function() {
+				if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
+					$(this).children('.glyphicon').removeClass(
+							'glyphicon-triangle-bottom').addClass(
+							"glyphicon-triangle-top");
+				} else {
+					$(this).children('.glyphicon').removeClass(
+							'glyphicon-triangle-top').addClass(
+							"glyphicon-triangle-bottom");
+				}
+			});
 </script>

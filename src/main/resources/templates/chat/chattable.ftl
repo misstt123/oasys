@@ -49,15 +49,17 @@
 				<#list list as this>
 				<tr>
 					<td><span class="label ${this.typecolor}">${(this.typeName)!''}</span></td>
-					<td><span>${(this.title)!''}</span></td>
+					<td style="max-width:200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"><span>${(this.title)!''}</span></td>
 					<td><span>${(this.createTime)!''}</span></td>
 					<td><span>${(this.userName)!''}</span></td>
 					<td><span>${(this.visitNum)!''}</span></td>
 					<td><span>附件</span></td>
 					<td>
-						<#if manage??>
-						<a href="#" class="label xiugai"><span
+						<#if me??>
+						<a href="/writechat?id=${this.id}" class="label xiugai"><span
 							class="glyphicon glyphicon-edit"></span> 修改</a> 
+						</#if>
+						<#if manage??>
 						 <a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href=""
 						class="label shanchu"><span class="glyphicon glyphicon-remove"></span>
 							删除</a>

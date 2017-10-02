@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import cn.gson.oasys.model.dao.discuss.DiscussDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.discuss.Comment;
 import cn.gson.oasys.model.entity.discuss.Discuss;
 import cn.gson.oasys.model.entity.user.User;
 
@@ -124,6 +125,20 @@ public class DiscussService {
 		Sort sort = new Sort(orders);
 		Pageable pa = new PageRequest(page, size, sort);
 		return pa;
+	}
+	public List<Map<String, Object>> commentPackaging(List<Comment> commentList){
+		List<Map<String, Object>> commentMap=new ArrayList<>();
+		for (int i = 0; i < commentList.size(); i++) {
+			Map<String, Object> map=new HashMap<>();
+			map.put("commentId", commentList.get(i).getCommentId());
+			map.put("comment", commentList.get(i).getComment());
+			map.put("time", commentList.get(i).getTime());
+			map.put("user", commentList.get(i).getUser());
+			map.put("reply", commentList.get(i).getReply().getReplyId());
+			System.out.println(map);
+			commentMap.add(map);
+		}
+		return commentMap;
 	}
 
 	public List<Map<String, Object>> packaging(List<Discuss> list) {

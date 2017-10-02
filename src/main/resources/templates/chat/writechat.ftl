@@ -1,4 +1,4 @@
-<#include "/common/commoncss.ftl">
+<#include "/common/commoncss.ftl" />
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 <script type="text/javascript" src="js/mail/mail.js" ></script>
@@ -36,7 +36,12 @@ border-radius: 5px;
 <div class="bgc-w box box-primary" style="min-height: 613px;margin-top:20px;">
 	<!--盒子头-->
 	<div class="box-header">
-		<h3 class="box-title">Writing</h3>
+		<h3 class="box-title">
+			<a href="javascript:history.back();" class="label label-default"
+				style="padding: 5px;"> <i
+				class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
+			</a>
+		</h3>
 	</div>
 	<div class="alert alert-danger alert-dismissable" style="display: none;" role="alert">
 		错误信息:
@@ -49,14 +54,17 @@ border-radius: 5px;
 		<!--错误信息提示  -->
 			<div class="form-group">
 				<select name="typeId" id="selecttype" class="select2 form-control">
+				<#if discuss??>
+						<option value="${discuss.typeId}">${(typeName)!''}</option>
+				</#if>
 				<#list typeList as type>
-					<#if type.typeId==19>
-						<#if user.superman==true>
-						<option value="${type.typeId}">${type.typeName}</option>
+						<#if type.typeId==19>
+							<#if user.superman==true>
+							<option value="${type.typeId}">${type.typeName}</option>
+							</#if>
+						<#else>
+							<option value="${type.typeId}">${type.typeName}</option>
 						</#if>
-					<#else>
-						<option value="${type.typeId}">${type.typeName}</option>
-					</#if>
 				</#list>
 				</select>
 			</div>
@@ -82,10 +90,10 @@ border-radius: 5px;
 			</div>
 		</div>
 		<div class="form-group" style="margin-top:10px;">
-			<input name="title" type="text"	class="form-control title" placeholder="标题：" />
+			<input name="title" type="text"	class="form-control title" placeholder="标题：" value="${(discuss.title)!''}"/>
 		</div>
 		<div class="form-group">
-			<textarea name="content" placeholder="在此处填写内容...." class="form-control tent" style="width: 100%; height: 360px; visibility: hidden; font-size: 20px;"></textarea>
+			<textarea name="content" placeholder="在此处填写内容...." class="form-control tent" style="width: 100%; height: 360px; visibility: hidden; font-size: 20px;">${(discuss.content)!''}</textarea>
 		</div>
 		<div class="form-group">
 			<div class="btn btn-default ">

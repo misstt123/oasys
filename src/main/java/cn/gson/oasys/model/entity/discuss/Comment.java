@@ -46,6 +46,15 @@ public class Comment {
 	private Reply reply;
 	
 	
+	
+	public Reply getReply() {
+		return reply;
+	}
+
+	public void setReply(Reply reply) {
+		this.reply = reply;
+	}
+
 	public Long getCommentId() {
 		return commentId;
 	}
@@ -79,16 +88,21 @@ public class Comment {
 		this.user = user;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "Comment [commentId=" + commentId + ", time=" + time + ", comment=" + comment + "]";
 	}
 
-	public Comment(Long commentId, Date time, String comment) {
+	
+
+	public Comment(Date time, String comment, User user, Reply reply) {
 		super();
-		this.commentId = commentId;
 		this.time = time;
 		this.comment = comment;
+		this.user = user;
+		this.reply = reply;
 	}
 
 	public Comment() {

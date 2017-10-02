@@ -34,7 +34,7 @@ public class Reply {
 	@Column(name="replay_time")
 	private Date replayTime;     //回复时间
 	
-	private Date content;     //内容
+	private String content;     //内容
 	
 	@ManyToOne
 	@JoinColumn(name = "reply_user_id")
@@ -74,11 +74,12 @@ public class Reply {
 		this.replayTime = replayTime;
 	}
 
-	public Date getContent() {
+
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(Date content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
@@ -111,11 +112,12 @@ public class Reply {
 		return "Reply [replyId=" + replyId + ", replayTime=" + replayTime + ", content=" + content + "]";
 	}
 
-	public Reply(Long replyId, Date replayTime, Date content) {
+	public Reply(Date replayTime, String content, User user, Discuss discuss) {
 		super();
-		this.replyId = replyId;
 		this.replayTime = replayTime;
 		this.content = content;
+		this.user = user;
+		this.discuss = discuss;
 	}
 
 	public Reply() {
