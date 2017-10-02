@@ -92,12 +92,20 @@ public class AttendceController {
 
 		// 查找用户当天的所有记录
 		Integer count = attenceDao.countrecord(nowdate, userId);
+		if (hourminsec.compareTo(end) > 0) {
+			// 在17之后签到无效
+			System.out.println("----不能签到");
+			model.addAttribute("error", "1");
+		}
+		if(hourminsec.compareTo("05:00:00") <0){
+			//在凌晨5点之前不能签到
+			System.out.println("----不能签到");
+			model.addAttribute("error", "2");
+		}
+		else{
 		// 明确一点就是一个用户一天只能产生两条记录
 		if (count == 0) {
-			if (hourminsec.compareTo(end) > 0) {
-				// 在17之后签到无效
-				model.addAttribute("error", "(无效 请明日来)");
-			} else if (hourminsec.compareTo(end) < 0) {
+			  if (hourminsec.compareTo(end) < 0) {
 				// 没有找到当天的记录就表示此次点击是上班 就是用来判断该记录的类型
 				// 上班id8
 				typeId = 8;
@@ -142,7 +150,7 @@ public class AttendceController {
 			attendceService.updatetime(date, hourmin, statusId, aid);
 			Attends aList = attenceDao.findlastest(nowdate, userId);
 		}
-
+		}
 		// 显示用户当天最新的记录
 		Attends aList = attenceDao.findlastest(nowdate, userId);
 		if (aList != null) {

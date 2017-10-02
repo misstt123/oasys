@@ -1,3 +1,4 @@
+
 <div class="jichu kaoqin " style="cursor: pointer;">
 	<div class="wenzi">
 			<a class="attendce" style="text-decoration: none; color:white;">
@@ -24,16 +25,19 @@
 		class="glyphicon glyphicon-circle-arrow-right"></span>
 	</a>
 </div>
+
+<#if error??>
+	<script>
+	$(function(){
+		alert("亲 今日您不能签到了哦");
+	})
+</script>
+
+</#if>
 <script>
 	$(".attendce").on('click',function(){
+		confirm("您确定签到吗");
 		$("#refresh").load('singin');
 	});
     
 </script>
-<#if error??>
-	<script>
-	$(function(){
-		alert("今日不能签到哦");
-	})
-</script>
-</#if>

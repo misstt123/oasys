@@ -54,12 +54,37 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 	Page<Note> findByTypeIdOrderByCreateTimeDesc(long typeId,long userid,Pageable pa);
 	
 	
-	//标题查找
-	@Query("from Note n where n.title like %?1%  " 
-			+ "and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)"
+	//标题或者创建时间模糊查找
+	@Query("from Note n where n.title like %?1%  or DATE_format(n.createTime,'%Y-%m-%d') like %?1% " 
+			+ " and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)"
 			+ "")
-	List<Note> findBytitle(String title,long userid);
+	Page<Note> findBytitleOrderByCreateTimeDesc(String title,long userid,Pageable pa);
 	
+	
+	//通过类型降序排序
+	@Query("from Note n " 
+			+ " where n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.typeId DESC "
+			+ "")
+	Page<Note> findByUserssOrderByTypeIdDesc(long userid,Pageable pa);
+	
+	//通过类型升序排序
+		@Query("from Note n " 
+				+ " where n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.typeId ASC"
+				+ "")
+		Page<Note> findByUserssOrderByTypeIdAsc(long userid,Pageable pa);
+	
+	//通过状态排序
+	@Query("from Note n " 
+			+ " where n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.statusId DESC"
+			+ "")
+	Page<Note> findByUserssOrderByStatusIdDesc(long userid,Pageable pa);
+	
+	//通过状态排序
+		@Query("from Note n" 
+				+ " where n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.statusId ASC"
+				+ "")
+	Page<Note> findByUserssOrderByStatusIdAsc(long userid,Pageable pa);
+		
 	//通过笔记id找到用户id
 	@Query("from Noteuser nu where nu.noteId=?1 and nu.userId=?2")
 	Noteuser finduserid(long noteid,Long userId);
