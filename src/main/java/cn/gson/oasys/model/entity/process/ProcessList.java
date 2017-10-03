@@ -34,7 +34,6 @@ public class ProcessList{
 	@Column(name="process_describe",columnDefinition="text")
 	private String processDescribe;	//流程内容
 	
-	
 	@ManyToOne
 	@JoinColumn(name="process_user_id")
 	private User userId;			//流程发布人
@@ -46,7 +45,7 @@ public class ProcessList{
 	private Date checkTime;			//流程审核时间
 	
 	@Column(name="is_checked")
-	private String isChecked;		//流程是否别审核
+	private String isChecked;		//流程是否被审核
 	
 	@Column(name="start_time")
 	private Date startTime;			//流程开始时间
