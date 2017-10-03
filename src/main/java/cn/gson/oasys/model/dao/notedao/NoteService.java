@@ -39,10 +39,8 @@ public class NoteService {
 	public Page<Note> paging(int page,String baseKey,Long userid,Long isCollected,Long catalogId,Long typeId){
 		Pageable pa=new PageRequest(page, 10);
 		if(!StringUtils.isEmpty(baseKey)){
-			//查找
-			System.out.println(baseKey);
+			return noteDao.findBytitleOrderByCreateTimeDesc(baseKey, userid, pa);
 		}
-		
 		if(!StringUtils.isEmpty(isCollected))
 			return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
 		if(!StringUtils.isEmpty(catalogId))
@@ -53,7 +51,8 @@ public class NoteService {
 		if(!StringUtils.isEmpty(userid)){
 			return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
 		}
-		System.out.println("fdsfasdfasd");
 		return null;
 	}
+	
+	
 }

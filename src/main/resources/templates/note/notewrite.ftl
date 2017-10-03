@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
+
 <script type="text/javascript" src="js/note/noteview.js"></script>
 <script type="text/javascript">
 //点击在某个目录下面写东西
@@ -44,6 +42,7 @@ function cdelete(){
 		}
 }
 
+
 function somenotedelete(){
 	var array=new Array();
 	var sum=null;
@@ -69,9 +68,6 @@ function somenotedelete(){
 	}
 }
 </script>
-</head>
-<body>
-
 	<div class="bgc-w box box-primary" >
 						<!--盒子头-->
 						<div class="box-header write">
@@ -89,18 +85,23 @@ function somenotedelete(){
 							</i>
 							</a>
 							</span>
+							
+							
 							<div class="box-tools">
 								<div class="input-group"
 												style="width: 150px; float: right; top: 1px;">
-												<input  type="text" class="form-control input-sm pull-right"
-													placeholder="查找..."  id="find"/>
+												<input  type="text" class="form-control input-sm pull-right baseKey"
+													value="${(baseKey)!''}" placeholder="查找..."  id="find"/>
 												<div class="input-group-btn" style="top: -1px;">
-													<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change"
-														onclick="searchlike()"></a>
+													<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change baseKetsubmit"
+														></a>
 												</div>
 											</div>
 							</div>
 						</div>
+						
+						
+						
 						<!--盒子身体-->
 						<div class="box-body no-padding">
 							<div style="padding: 5px;">
@@ -196,5 +197,3 @@ function somenotedelete(){
 					<#include "/common/paging.ftl">
 						
 					</div>
-	</body>
-</html>

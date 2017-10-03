@@ -7,8 +7,7 @@ $(function() {
 	$(".choose_collect")
 			.click(
 					function() {
-						$
-								.ajax({
+						$.ajax({
 									type : "get",
 									url : 'collectfind',
 									data : {
@@ -29,7 +28,6 @@ $(function() {
 										}
 									},
 									errror : function() {
-										alert("失败")
 									}
 
 								})
@@ -46,11 +44,13 @@ $(function() {
 							"glyphicon-star")
 					//已经收藏
 					iscollect = 1;
+					alert("收藏成功")
 				} else if ($(this).hasClass("glyphicon-star")) {
 					$(this).removeClass("glyphicon-star").addClass(
 							"glyphicon-star-empty")
 					//取消收藏
 					iscollect = 0;
+					alert("取消收藏")
 				}
 				$.ajax({
 					type : "get",
@@ -60,12 +60,10 @@ $(function() {
 						id : $id,
 						iscollected : iscollect
 					},
-					timeout : 1000,
 					success : function() {
-
+						
 					},
 					error : function() {
-						alert("失败")
 					}
 
 				})
@@ -80,7 +78,29 @@ $(function() {
 			var $id = $(this).children("a").attr("id")
 			$(".write span .cdelete").attr("id", $id)
 		}
+		else{
+			$(".write span").hide();
+		}
 	})
+	
+	
+	//ajax之后为了恢复原样
+	$(".bgc-w ul li ").each(function(){
+		if($(this).hasClass("borderleft"))
+			{
+			var $spanval = $(this).children("a").text();
+			$(".write h3").text($spanval);
+			if ($(this).hasClass("editable")) {
+				$(".write span").show();
+				var $id = $(this).children("a").attr("id")
+				$(".write span .cdelete").attr("id", $id)
+			}
+			else{
+				$(".write span").hide();
+			}
+			}
+	})
+	
 	//全选
 	$(".allcheck").click(
 			function() {
