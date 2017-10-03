@@ -1,20 +1,27 @@
 package cn.gson.oasys.model.entity.process;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.user.User;
 
 @Entity
 @Table(name="aoa_ProcessList")
+//主表
 public class ProcessList{
 	
 	@Id
@@ -22,30 +29,30 @@ public class ProcessList{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long processId;
 	
-	@Column(name="type_id")
-	private Long typeId;			//流程类型 id
+	@Column(name="type_name")
+	private String typeNmae;			//流程申请类型 
 	
 	@Column(name="status_id")
-	private Long statusId;			//流程状态 id
+	private Long statusId;			//流程审核状态 id
+	
+	@Column(name="deeply_id")
+	private Long deeply;    //紧急程度
 	
 	@Column(name="process_name")
-	private String processName;		//流程名称
+	private String processName;		//标题
 	
-	@Column(name="process_describe",columnDefinition="text")
-	private String processDescribe;	//流程内容
+	@Column(name="process_des",columnDefinition="text")
+	private String processDescribe;	//流程申请原因内容
 	
 	@ManyToOne
 	@JoinColumn(name="process_user_id")
-	private User userId;			//流程发布人
+	private User userId;			//流程申请人
 	
 	@Column(name="apply_time")
-	private Date applyTime;			//流程发布时间
-	
-	@Column(name="check_time")
-	private Date checkTime;			//流程审核时间
+	private Date applyTime;			//流程申请时间
 	
 	@Column(name="is_checked")
-	private String isChecked;		//流程是否被审核
+	private Boolean  rejected=false;		//流程是否被驳回
 	
 	@Column(name="start_time")
 	private Date startTime;			//流程开始时间
@@ -54,7 +61,28 @@ public class ProcessList{
 	private Date endTime;			//流程结束时间
 	
 	@Column(name="procsee_days")
-	private Long procseeDays;		//流程总天数
+	private Integer procseeDays;		//流程总天数
+	
+	@ManyToOne
+	@JoinColumn(name="pro_file_id")
+	private Attachment proFileid;   //流程附件id
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="aoa_pro_rev",
+	joinColumns={
+			@JoinColumn(name="process_id")
+	},inverseJoinColumns={@JoinColumn(name="reviewed_id")})
+	private List<Reviewed> reviewed;
+	
+	
+
+	public List<Reviewed> getReviewed() {
+		return reviewed;
+	}
+
+	public void setReviewed(List<Reviewed> reviewed) {
+		this.reviewed = reviewed;
+	}
 
 	public Long getProcessId() {
 		return processId;
@@ -64,12 +92,12 @@ public class ProcessList{
 		this.processId = processId;
 	}
 
-	public Long getTypeId() {
-		return typeId;
+	public String getTypeNmae() {
+		return typeNmae;
 	}
 
-	public void setTypeId(Long typeId) {
-		this.typeId = typeId;
+	public void setTypeNmae(String typeNmae) {
+		this.typeNmae = typeNmae;
 	}
 
 	public Long getStatusId() {
@@ -78,6 +106,14 @@ public class ProcessList{
 
 	public void setStatusId(Long statusId) {
 		this.statusId = statusId;
+	}
+
+	public Long getDeeply() {
+		return deeply;
+	}
+
+	public void setDeeply(Long deeply) {
+		this.deeply = deeply;
 	}
 
 	public String getProcessName() {
@@ -112,20 +148,12 @@ public class ProcessList{
 		this.applyTime = applyTime;
 	}
 
-	public Date getCheckTime() {
-		return checkTime;
+	public Boolean getRejected() {
+		return rejected;
 	}
 
-	public void setCheckTime(Date checkTime) {
-		this.checkTime = checkTime;
-	}
-
-	public String getIsChecked() {
-		return isChecked;
-	}
-
-	public void setIsChecked(String isChecked) {
-		this.isChecked = isChecked;
+	public void setRejected(Boolean rejected) {
+		this.rejected = rejected;
 	}
 
 	public Date getStartTime() {
@@ -144,28 +172,34 @@ public class ProcessList{
 		this.endTime = endTime;
 	}
 
-	public Long getProcseeDays() {
+	public Integer getProcseeDays() {
 		return procseeDays;
 	}
 
-	public void setProcseeDays(Long procseeDays) {
+	public void setProcseeDays(Integer procseeDays) {
 		this.procseeDays = procseeDays;
 	}
 
-	
-	public ProcessList() {
-		super();
-		
+	public Attachment getProFileid() {
+		return proFileid;
 	}
 
+	public void setProFileid(Attachment proFileid) {
+		this.proFileid = proFileid;
+	}
+
+	
 	@Override
 	public String toString() {
-		return "ProcessList [processId=" + processId + ", typeId=" + typeId + ", statusId=" + statusId
-				+ ", processName=" + processName + ", processDescribe=" + processDescribe + ", applyTime=" + applyTime
-				+ ", checkTime=" + checkTime + ", isChecked=" + isChecked + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", procseeDays=" + procseeDays + "]";
+		return "ProcessList [processId=" + processId + ", typeNmae=" + typeNmae + ", statusId=" + statusId + ", deeply="
+				+ deeply + ", processName=" + processName + ", processDescribe=" + processDescribe + ", userId="
+				+ userId + ", applyTime=" + applyTime + ", rejected=" + rejected + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", procseeDays=" + procseeDays + "]";
 	}
 
+
+
+	
 	
 	
 	
