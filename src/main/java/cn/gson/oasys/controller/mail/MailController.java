@@ -3,7 +3,6 @@ package cn.gson.oasys.controller.mail;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -257,7 +256,7 @@ public class MailController {
 				}
 				//分页及查找
 				pagelist=mservice.recive(page, size, user, null,title);
-				maillist=mservice.mail(pagelist);
+				
 			}else{
 				//垃圾箱
 				StringTokenizer st = new StringTokenizer(ids, ",");
@@ -273,8 +272,8 @@ public class MailController {
 				}
 				//分页及查找
 				pagelist=mservice.recive(page, size, user, null,title);
-				maillist=mservice.mail(pagelist);
 			}
+			maillist=mservice.mail(pagelist);
 				
 				model.addAttribute("page", pagelist);
 				model.addAttribute("maillist",maillist);

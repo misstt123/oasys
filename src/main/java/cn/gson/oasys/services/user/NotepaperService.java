@@ -51,7 +51,7 @@ public class NotepaperService {
 			File targetFile = new File(dir,newFileName);
 			file.transferTo(targetFile);
 			System.out.println(newFileName+"mmm");
-			String imgpath=targetFile.getPath().replace("D:\\ggit\\oa_system\\src\\main\\resources\\static\\images\\touxiang\\", "");
+			String imgpath=targetFile.getPath().replace(rootpath, "");
 			
 			return imgpath;
 		}else{
