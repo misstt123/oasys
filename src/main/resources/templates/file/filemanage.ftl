@@ -386,10 +386,11 @@ li.activee>a {
 						</ul>
 					</div>
 					<div class="box-footer" style="text-align:right;">
-						<form action="mcto" method="post">
-							<input class="mctoid" type="hidden" name="mcto" value=""/>
-							<input type="hidden" name="mcforp" value=""/>
-							<button type="button" class="btn btn-primary"
+						<form action="mcto" method="get">
+							<input class="mctoid" type="hidden" name="pathid" value="${userrootpath.id}"/>
+							<input class="mcfileids" type="hidden" name="mcfileids" value=""/>
+							<input class="mcpathids" type="hidden" name="mcpathids" value=""/>
+							<button type="submit" class="btn btn-primary"
 								>确定</button>
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">取消</button>

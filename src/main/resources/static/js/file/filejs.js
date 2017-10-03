@@ -153,4 +153,9 @@ function changedeletehref(){
 	console.log(newhref);
 	$(".box-body .topdelete").attr("href",newhref);
 	$(".menu .delete").attr("href",newhref);
+	
+	//给复制移动设值
+	$("#thismodal .mcfileids").val(checkfileids);
+	$("#thismodal .mcpathids").val(checkpathids);
+	
 }

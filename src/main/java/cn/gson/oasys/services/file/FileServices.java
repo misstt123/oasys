@@ -175,8 +175,29 @@ public class FileServices {
 			}
 		}
 	}
+	
 	/**
-	 * 根据文件夹id 批量删除 路径    并删除此路径下的所有文件以及文件夹
+	 * 复制和移动
+	 * @param ids
+	 * @param fromwhere  1为移动  2 为复制
+	 */
+	@Transactional
+	public void moveAndcopy(List<Long> mcfileids,List<Long> mcpathids,boolean fromwhere){
+		if(fromwhere){
+			System.out.println("这里是移动！！~~");
+			if(!mcfileids.isEmpty()){
+				System.out.println("fileid is not null");
+			}
+			if(!mcpathids.isEmpty()){
+				System.out.println("fileid is not null");
+			}
+		}else{
+			System.out.println("这里是复制！！~~");
+		}
+	}
+	
+	/**
+	 * 根据文件夹id 批量删除 文件夹    并删除此路径下的所有文件以及文件夹
 	 * @param pathids
 	 */
 	@Transactional
