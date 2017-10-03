@@ -47,6 +47,9 @@ a:hover {
 .chat-box .raply-name {
 	color: #54a0ea;
 }
+.addmore:HOVER{
+	cursor: pointer;
+}
 </style>
 
 <div class="row" style="padding-top: 10px;">
@@ -107,7 +110,7 @@ a:hover {
 						</a></li>
 						<li><a href="#"> <span
 								class="glyphicon glyphicon-comment" style="color: #337ab7"></span>
-								讨论次数<span>(10)</span>
+								讨论次数<span>(${(chatNum)!'0'})</span>
 						</a></li>
 					</ul>
 					<input type="hidden" class="replyId" /> 
@@ -122,47 +125,3 @@ a:hover {
 		</div>
 	</div>
 </div>
-<#include "/common/comment.ftl"/> <!--class nothing 完毕--> <script
-	type="text/javascript">
-	$('.thisreply').on('click', function() {
-		var replyId = $(this).attr('replyId');
-		var module = $(this).attr('replyModule');
-		var name = $(this).attr('replyName');
-		$('.replyId').val(replyId);
-		$('.replyModule').val(module);
-		$('.replyName').val(name);
-		console.log(typeof(name));
-		if(typeof(name) != 'undefined' ){
-			$("#comment").val("@"+name);
-		}
-		console.log(replyId);
-		console.log(module);
-		$("#myModal").modal("toggle");
-	});
-	$('#commentsave').on('click', function() {
-		console.log($('.replyId').val());
-		console.log($('.replyModule').val());
-		console.log($("#comment").val());
-		var replyId = $('.replyId').val();
-		var module = $('.replyModule').val();
-		var comment = $("#comment").val();
-		$('.repay').load('/replyhandle', {
-			replyId : replyId,
-			module : module,
-			comment : comment
-		});
-	});
-	$('.toggle').on(
-			'click',
-			function() {
-				if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
-					$(this).children('.glyphicon').removeClass(
-							'glyphicon-triangle-bottom').addClass(
-							"glyphicon-triangle-top");
-				} else {
-					$(this).children('.glyphicon').removeClass(
-							'glyphicon-triangle-top').addClass(
-							"glyphicon-triangle-bottom");
-				}
-			});
-</script>

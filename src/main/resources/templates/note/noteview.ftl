@@ -11,7 +11,7 @@
 <script type="text/javascript" src="js/iconfont.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
-
+<script type="text/javascript" src="js/note/noteview.js"></script>
 <script type="text/javascript">
 $(function(){
 //收缩
@@ -51,22 +51,6 @@ function notejump(url,id){
 	
 
 	
-function searchlike(){
-	var $like=$("#find").val();
-	var data={title:$like};
-	$.ajax({
-		type:"post",
-	    async:false,
-		url : 'notewrite',
-		data:data,
-		success:function(dates){
-			$('#container').html(dates);
-		},
-		error:function(){
-			alert("失败")
-		}
-	})
-}
 
 function increase(){
 	var $zengjia=$(".input-group #increase").val();
@@ -195,7 +179,7 @@ border: none;
 							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li class="borderleft"><a onclick="notejump('notewrite','-2')" > <span
+							<li class="borderleft"><a onclick="notejump('notewrite')" > <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
 							
@@ -205,7 +189,7 @@ border: none;
 							<#if calist??>
 							<#list calist as ca>
 							<li class="editable">
-							<a   onclick="notejump('notewrite',${ca.catalogId})"  id=${ca.catalogId}><span
+							<a   onclick="notejump('notecata',${ca.catalogId})"  id=${ca.catalogId}><span
 									class="iconfont icon-icon4" ></span>
 									${ca.catalogName}</a>
 									</li>
@@ -241,25 +225,24 @@ border: none;
 								</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li><a onclick="notejump('notetype',5)"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype','5')"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 我的笔记
 							</a></li>
-							<li><a onclick="notejump('notetype',6)"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype','6')"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 公司笔记
 							</a></li>
-							<li><a onclick="notejump('notetype',7)"> <svg class="icon" aria-hidden="true">
+							<li><a onclick="notejump('notetype','7')"> <svg class="icon" aria-hidden="true">
 											<use xlink:href="#icon-kongxinquan"></use>
 										</svg> 共享笔记
 							</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-9 thistable">
-				<div id="container" >
+				
+				<div class="col-md-9 thistable" id="container">
 				<#include "/note/notewrite.ftl">
-				</div>
 				</div>
 				
 			</div>

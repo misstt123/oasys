@@ -1,7 +1,9 @@
 package cn.gson.oasys.controller.chat;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -165,23 +167,12 @@ public class ChatManageController {
 	 * @return将要操作在界面有没有可✘掉的图标，需要有管理员权限；
 	 */
 	@RequestMapping("replymanage")
-	public String replyManage(Model model,@RequestParam(value="id") Long id,@SessionAttribute("userId") Long userId){
-		Discuss discuss=disService.seeDiscuss(id);
-		List<Reply> replyList=replyDao.findByDiscuss(discuss);
-		if(replyList.size()==0){
-			model.addAttribute("notReply", "没有回复");
-		}else{
-			Long[] replyLong=new Long[replyList.size()];
-			for (int i = 0; i < replyList.size(); i++) {
-				replyLong[i]=replyList.get(i).getReplyId();
-			}
-			List<Comment> commentList=commentDao.findComments(replyLong);
-			List<Map<String, Object>> commentMap=disService.commentPackaging(commentList);
-			model.addAttribute("commentList", commentMap);
-			model.addAttribute("replyList", replyList);
-		}
-		model.addAttribute("discuss", discuss);
-		model.addAttribute("user", discuss.getUser());
+	public String replyManage(Model model,
+			@RequestParam(value="id") Long id,
+			@RequestParam(value="page",defaultValue="0") int page,
+			@RequestParam(value="size",defaultValue="5") int size,
+			@SessionAttribute("userId") Long userId){
+		disService.setDiscussMess(model, id,userId,page,size);
 		return "chat/replaymanage";
 	}
 	

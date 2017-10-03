@@ -2,6 +2,7 @@ package cn.gson.oasys.model.entity.discuss;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,7 +55,7 @@ public class Reply {
 				@JoinColumn(name = "user_id")
 		}
 			)
-	private List<User> users;
+	private Set<User> users;
 	
 	
 	
@@ -99,11 +100,11 @@ public class Reply {
 		this.discuss = discuss;
 	}
 
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 
