@@ -16,13 +16,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 
+import cn.gson.oasys.model.dao.discuss.CommentDao;
 import cn.gson.oasys.model.dao.discuss.DiscussDao;
+import cn.gson.oasys.model.dao.discuss.ReplyDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.discuss.Comment;
 import cn.gson.oasys.model.entity.discuss.Discuss;
+import cn.gson.oasys.model.entity.discuss.Reply;
 import cn.gson.oasys.model.entity.user.User;
 
 @Service
@@ -36,6 +40,12 @@ public class DiscussService {
 
 	@Autowired
 	private TypeDao typeDao;
+	
+	@Autowired
+	private CommentDao commentDao;
+	
+	@Autowired
+	private ReplyDao replyDao;
 
 	// 保存
 	public Discuss save(Discuss d) {
@@ -126,6 +136,49 @@ public class DiscussService {
 		Pageable pa = new PageRequest(page, size, sort);
 		return pa;
 	}
+	public void setDiscussMess(Model model, Long num,Long userId,int page,int size){
+		Pageable pa=new PageRequest(page, size);
+		Discuss discuss=this.seeDiscuss(num);									//根据讨论区id找到讨论
+		Page<Reply> replyPage=replyDao.findByDiscuss(discuss,pa);				//根据讨论id找到所有的回复表
+		List<Reply> replyList=replyPage.getContent();		
+		List<Map<String, Object>> replys=this.replyPackaging(replyList,userId);		//对回复表字段进行封装，主要是为了获取到评论数
+		if(replyList.size()>0){
+			Long[] replyLong=new Long[replyList.size()];							//用数组来结束所有回复表的id
+			for (int i = 0; i < replyList.size(); i++) {
+				replyLong[i]=replyList.get(i).getReplyId();
+			}						
+			List<Comment> commentList=commentDao.findComments(replyLong);			//in 查找所有回复id的所有评论
+			List<Map<String, Object>> commentMap=this.commentPackaging(commentList);	//对评论字段进行封装
+			model.addAttribute("commentList", commentMap);
+			int chatNum=commentList.size()+replyList.size();
+			model.addAttribute("chatNum", chatNum);
+		}
+		model.addAttribute("replyList", replys);
+		model.addAttribute("discuss", discuss);
+		model.addAttribute("page", replyPage);
+		model.addAttribute("user", discuss.getUser());
+	}
+	
+	//对回复表进行封装
+	public List<Map<String, Object>> replyPackaging(List<Reply> replyList,Long userId){
+		User user=uDao.findOne(userId);
+		List<Map<String, Object>> replyMap=new ArrayList<>();
+		for (int i = 0; i < replyList.size(); i++) {
+			Map<String, Object> result=new HashMap<>();
+			result.put("contain", replyList.get(i).getUsers().contains(user));
+			result.put("count",commentDao.findByReply(replyList.get(i)).size());
+			result.put("likenum", replyList.get(i).getUsers().size());
+			result.put("replyId",replyList.get(i).getReplyId());
+			result.put("replayTime",replyList.get(i).getReplayTime());
+			result.put("content",replyList.get(i).getContent());
+			result.put("user",replyList.get(i).getUser());
+			result.put("discuss",replyList.get(i).getDiscuss());
+			replyMap.add(result);
+		}
+		return replyMap;
+	}
+	
+	//对评论表进行封装
 	public List<Map<String, Object>> commentPackaging(List<Comment> commentList){
 		List<Map<String, Object>> commentMap=new ArrayList<>();
 		for (int i = 0; i < commentList.size(); i++) {
@@ -135,7 +188,6 @@ public class DiscussService {
 			map.put("time", commentList.get(i).getTime());
 			map.put("user", commentList.get(i).getUser());
 			map.put("reply", commentList.get(i).getReply().getReplyId());
-			System.out.println(map);
 			commentMap.add(map);
 		}
 		return commentMap;

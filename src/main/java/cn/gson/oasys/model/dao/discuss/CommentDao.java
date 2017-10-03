@@ -14,4 +14,6 @@ public interface CommentDao extends JpaRepository<Comment, Long>{
 	
 	@Query("from Comment t where t.reply.replyId in (?1)")
 	List<Comment> findComments(Long[] taskids);
+	
+	
 }
