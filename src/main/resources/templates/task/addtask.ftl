@@ -110,8 +110,8 @@ a:hover {
 							<textarea class="form-control text" name="comment"></textarea>
 						</div>
 						<div class="col-md-6 form-group ">
-							<label class="control-label">置顶</label> <br /> <span
-								class="labels"><label><input type="checkbox" name="top" class="val" ><i>✓</i></label></span>
+							<label class="control-label">置顶</label> <br /> 
+							<span class="labels"><label><input type="checkbox" name="top" class="val" ><i>✓</i></label></span>
 						</div>
 
 						<div class="col-md-6  form-group"> 

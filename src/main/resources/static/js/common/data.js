@@ -54,4 +54,18 @@ Date.prototype.Format = function(fmt) { //author: meizz
 			WdatePicker({ minDate:addDate(start,1),maxDate:addDate(start,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 
 		});
+		$(".shijian").change(function(){
+			var date=new Date();
+			var nowDate=date.Format('yyyy-MM-dd hh:mm:ss');
+			var star=addDate(nowDate,0);
+			$(".shijian").val(star);
+			console.log(star);
+		});
+		$(".shijian").val(startime);
+		$(".shijian").click(function(){
+			var start=$('.shijian').val();
+			WdatePicker({ minDate:addDate(-30,start),maxDate:addDate(start,0),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
 	});
+	
+	

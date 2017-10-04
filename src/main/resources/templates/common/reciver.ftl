@@ -72,7 +72,8 @@ function addvalue(){
 		id_array.push($name);//向数组中添加元素
 		var idstr=id_array.join(';');//将数组元素连接起来以构建一个字符串
 		$("#recive_list").val(idstr);
-		
+		$(".recive_list").val(idstr);
+		$(".recive_list").change();
 	})
 	
 	$(".fade").css("display","none");
