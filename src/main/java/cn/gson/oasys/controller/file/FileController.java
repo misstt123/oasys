@@ -92,9 +92,7 @@ public class FileController {
 	@RequestMapping("filetest")
 	public String text(@SessionAttribute("userId")Long userid,@RequestParam("pathid") Long pathid, Model model) {
 		User user = udao.findOne(userid);
-		
 		FilePath userrootpath = fpdao.findByPathName(user.getUserName());
-		
 		
 		// 查询当前目录
 		FilePath filepath = fpdao.findOne(pathid);
@@ -134,6 +132,7 @@ public class FileController {
 		// true 表示从文件使用上传
 		FileList uploadfile = (FileList) fs.savefile(file, user, nowpath, true);
 		System.out.println(uploadfile);
+		
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";
 	}
@@ -166,9 +165,34 @@ public class FileController {
 		return "forward:/filetest";
 	}
 	
+	
+	/**
+	 * 移动和复制
+	 * @param mctoid
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("mcto")
-	public void mcto(){
+	public String mcto(@RequestParam("morc") boolean morc,
+			@RequestParam("mctoid") Long mctoid,
+			@RequestParam("pathid") Long pathid,
+			@RequestParam("mcfileids")List<Long> mcfileids,
+			@RequestParam("mcpathids")List<Long> mcpathids,
+			Model model){
+		System.out.println("--------------------");
+		System.out.println("mcfileids"+mcfileids);
+		System.out.println("mcpathids"+mcpathids);
+	
+		if(morc){
+			System.out.println("这里是移动！~~");
+			fs.moveAndcopy(mcfileids,mcpathids,mctoid,true);
+		}else{
+			System.out.println("这里是复制！~~");
+			fs.moveAndcopy(mcfileids,mcpathids,mctoid,false);
+		}
 		
+		model.addAttribute("pathid", pathid);
+		return "forward:/filetest";
 	}
 
 	/**
