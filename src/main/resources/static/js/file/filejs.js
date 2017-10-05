@@ -37,6 +37,7 @@ $(".allcheck").click(function(){
 		});
 		$(this).addClass("allchecked");
 	}
+	changedeletehref();
 });
 
 /**
@@ -70,6 +71,8 @@ $(".file-box .file-one").mousedown(function(e){
 	    	console.log(fileid);
 	    	$(".menu .downloadfile").attr("href","downfile?fileid="+fileid);
 	    }
+	    
+	    
 	    /**
 	     * 选择超过一个禁用右键菜单中的部分a链接
 	     */
@@ -92,9 +95,23 @@ $(document).click(function(e){
 });
 
 /**
+ * 重命名
+ */
+$(".menu .rename").click(function(){
+	console.log("重命名！~~");
+	var checked =$(".file-one.file-one-check");
+	checked.find(".filename").addClass("diplaynone");
+	checked.find(".rename").removeClass("diplaynone");
+});
+$(".rename ").on("click",".cansalcreate",function(){
+	var checked =$(".file-one.file-one-check");
+	checked.find(".rename").addClass("diplaynone");
+	checked.find(".filename").removeClass("diplaynone");
+});
+
+/**
  * 文件移动、复制文件使用模态框 JS
  */
-
 /**
  * 这里是移动
  */
@@ -108,6 +125,8 @@ $(".menu .movefile").click(function(){
 	var checkfileids = new Array();
 	var checkpathids = new Array();
 	checkedpaths(checkpathids,checkfileids);
+	$("#thismodal .mcfileids").val(checkfileids);
+	$("#thismodal .mcpathids").val(checkpathids);
 	
 	$("#thismodal .pathidcompare").each(function(){
 		console.log($(this).attr("pathId"));
@@ -131,7 +150,7 @@ $(".menu .copyfile").click(function(){
 	$("#thismodal .morc").val(false);
 });
 /**
- * 这里是取消按钮
+ * 这里是取消移动按钮
  */
 $("#thismodal .box-footer").on("click",".mcmodalcancle",function(){
 	console.log("dianle quxiao");
@@ -148,7 +167,7 @@ $("#thismodal .box-footer").on("click",".mcmodalcancle",function(){
 $(".topcreatepath").on("click",function(){
 	$(".creatpath").removeClass("diplaynone");
 });
-$(".creatpath .cansalcreate").on("click",function(){
+$(".creatpath ").on("click",".cansalcreate",function(){
 	$(".creatpath").addClass("diplaynone");
 });
 
@@ -168,11 +187,14 @@ function checkedpaths(pathids,fileids){
 			pathids[i] = $(this).find(".pathmessage").val();
 			i += 1;
 		}else{
-			fileids[j] = $(this).find(".filemessage").val();
-			console.log($(this).find(".filemessage").val());
-			j += 1;
+			if(!$(this).hasClass("diplaynone")){
+				fileids[j] = $(this).find(".filemessage").val();
+				console.log($(this).find(".filemessage").val());
+				j += 1;
+			}
 		}
 	});
+	console.log();
 }
 
 /**
@@ -194,7 +216,6 @@ function changedeletehref(){
 	$(".menu .delete").attr("href",newhref);
 	
 	//给复制移动设值
-	$("#thismodal .mcfileids").val(checkfileids);
-	$("#thismodal .mcpathids").val(checkpathids);
+	
 	
 }

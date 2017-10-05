@@ -45,18 +45,21 @@
 /**
  * 复制移动选择目标文件文件夹并ajax加载选择文件加下的文件夹
  */
-$("#thismodal .box-body").on("click",".box-header",function(){
+$("#thismodal .box-body").on("click",".openpath",function(){
 	
-	console.log($(this).find(".mctopathid").val());
+	var mctoid = $(this).find(".mctopathid").val();
 	
-	$(".box-footer .mctoid").val($(this).find(".mctopathid").val());
+	var mcpathids = $("#thismodal .box-footer .mcpathids").val();
+	
+	$(".box-footer .mctoid").val(mctoid);
 	
 	if($(this).hasClass("modalajax")){
 		console.log("modalajax");
-		var $ul = $(this).next();
-		$(this).find(".jiajian").addClass("glyphicon-minus").removeClass("glyphicon-plus");
-		$ul.slideToggle(1000);
-		$ul.load("mcloadpath");
+		var $ul = $(this).parents(".box-header").next();
+		$(this).parents(".box-header").find(".jiajian").addClass("glyphicon-minus").removeClass("glyphicon-plus");
+		$ul.css("display","block");
+		
+		$ul.load("mcloadpath",{mctoid:mctoid,mcpathids:mcpathids});
 	}else{
 		console.log("box-header");
 	}

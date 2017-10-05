@@ -165,7 +165,16 @@ public class FileController {
 		return "forward:/filetest";
 	}
 	
-	
+	@RequestMapping("rename")
+	public String rename(@RequestParam("name") String name,
+			@RequestParam("renamefp") Long renamefp,
+			@RequestParam("pathid") Long pathid,
+			Model model){
+		
+		model.addAttribute("pathid", pathid);
+		return "forward:/filetest";
+		
+	}
 	/**
 	 * 移动和复制
 	 * @param mctoid

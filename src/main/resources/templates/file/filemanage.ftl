@@ -63,7 +63,7 @@ li.activee>a {
     -moz-opacity: 0.5; /*Firefox私有，透明度50%*/
     opacity: 0.5; /*其他，透明度50%*/
 }
-.creatpath .creatpathinput{
+.pathtextarea .creatpathinput{
 	height:23px;
 	width:78px;
 	font-size: 12px;
@@ -72,17 +72,17 @@ li.activee>a {
 	padding-top: 0px;
     padding-left: 4px;
 }
- .creatpath .creatpathinput:focus{
+ .pathtextarea .creatpathinput:focus{
 	outline: none; 
 	border: 1px solid #0099CC;
 	border-radius: 2px;
 } 
-.creatpath .btn-default{
+.pathtextarea .btn-default{
 	padding: 0px 4px 0px 4px;
 	border:1px solid rgba(58,140,255,.3);
 	color: #3b8cff;
 }
-.creatpath .btn-default:hover{
+.pathtextarea .btn-default:hover{
 	background-color: #fff !important;
 }
 </style>
@@ -205,7 +205,7 @@ li.activee>a {
 						<div class = "boxcontain" style="height: auto;">
 						
 							<!--新建文件夹操作显示部分  -->
-							<div class="file-one creatpath diplaynone" style="width: 144px;">
+							<div class="file-one creatpath pathtextarea diplaynone" style="width: 144px;">
 								<div class="file-img">
 									<img src="images/fileimg/Folder.png" />
 								</div>
@@ -226,7 +226,6 @@ li.activee>a {
 								</span>
 							</div>
 							
-							
 							<#list paths as path>
 								<div class="file-one">
 									<div class="file-img path">
@@ -235,7 +234,22 @@ li.activee>a {
 										</a>
 									</div>
 									<div class="file-name path">
-										<a href="filetest?pathid=${path.id}" style="font-size: 12px;">${path.pathName}</a>
+										<div class="filename">
+											<a href="filetest?pathid=${path.id}" style="font-size: 12px;">${path.pathName}</a>
+										</div>
+										<div class="pathtextarea rename diplaynone" style="position: absolute;top: 97px;left: -5px;z-index:100;">
+											<form action="rename">
+												<input class="creatpathinput" type="text" name="name" value="${path.pathName}"/>
+												<input type="hidden" name="renamefp" value="${path.id}"/>
+												<input type="hidden" name="pathid" value="${nowpath.id}"/>
+												<button class="btn btn-default">
+													<em class="glyphicon glyphicon-ok" style="font-size: 12px;"></em>
+												</button>
+												<span class="btn btn-default">
+													<em class="glyphicon glyphicon-remove cansalcreate" style="font-size: 12px;"></em>
+												</span>
+											</form>
+										</div>
 									</div>
 									<input type="hidden" class = "pathmessage" value="${path.id}">
 									<span class="file-check"> 
@@ -301,21 +315,6 @@ li.activee>a {
 		</div> 
 	</div>
 	
-	<div class="mcmodal diplaynone">
-		<li style="border:0px;">
-			<div class="box-header no-padding">
-				<span class="btn btn-default btn-xs des mm"> 
-					<i class="glyphicon-plus"></i>
-				</span>
-				<div class="mcflooropen"></div>
-				<h3 class="box-title" style="font-size:12px;">文件夹1</h3>
-			</div>
-			<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;display:none;">
-				
-			</ul>
-		</li>
-	</div>
-
 	<!-- 移动复制模态框 -->
 	<div class="modal fade in" id="thismodal" data-backdrop="static">
 		<div class="modal-dialog">
@@ -337,16 +336,18 @@ li.activee>a {
 						<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
 							<#list mcpaths as path>
 								<div class="pathidcompare" pathId="${path.id}">
-									<div class="box-header no-padding modalajax">
+									<div class="box-header no-padding">
 										<span class="btn btn-default btn-xs des mm"> 
 											<i class="jiajian glyphicon-plus"></i>
 										</span>
-										<div class="mcflooropen"></div>
-										<h3 class="box-title" style="font-size:12px;">${path.pathName}</h3>
-										<input class="mctopathid" type="hidden" value="${path.id}" />
+										<span class="openpath modalajax">
+											<div class="mcflooropen"></div>
+											<h3 class="box-title" style="font-size:12px;">${path.pathName}</h3>
+											<input class="mctopathid" type="hidden" value="${path.id}" />
+										</span>
 									</div>
 									<ul class="nav nav-pills nav-stacked mm modalajaxdata" style="padding-left:15px;display:none;">
-										<li>xx</li>
+										
 									</ul>
 								</div>
 							</#list>
@@ -416,8 +417,8 @@ li.activee>a {
 			/*
 			 * 收縮
 			 */
-			$(".des").click(function() {
-
+			$("body").on("click",".des",function(){
+				console.log("aaaa");
 				var $this = $(this).children();
 
 				var $ul = $(this).parents(".box-header").next();
@@ -450,5 +451,6 @@ li.activee>a {
 			});
 			
 		});
+		
 	</script>
 </html>
