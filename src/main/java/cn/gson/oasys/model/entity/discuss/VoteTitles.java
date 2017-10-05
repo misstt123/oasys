@@ -1,12 +1,17 @@
 package cn.gson.oasys.model.entity.discuss;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +29,9 @@ public class VoteTitles{
 	private String  title;				//投票标题
 	
 	private String color;				//进度条颜色
+	
+	@OneToMany(mappedBy="voteTitles",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private Set<VoteTitleUser> voteTitleUsers;
 	
 	@ManyToOne
 	@JoinColumn(name = "vote_id")

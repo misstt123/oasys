@@ -36,6 +36,19 @@ public class VoteTitleUser{
 		@ManyToOne
 		@JoinColumn(name = "user_id")
 		private User user;
+		
+		
+		public VoteTitleUser() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+
+		public VoteTitleUser(Long voteId, VoteTitles voteTitles, User user) {
+			super();
+			this.voteId = voteId;
+			this.voteTitles = voteTitles;
+			this.user = user;
+		}
 
 		public Long getVoteTitleUserId() {
 			return voteTitleUserId;

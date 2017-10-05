@@ -1,14 +1,20 @@
 package cn.gson.oasys.model.entity.discuss;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -60,9 +66,48 @@ public class Discuss {
 	@JoinColumn(name = "discuss_user_id")
 	private User user;		//讨论归属人
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name = "vote_id")
 	private VoteList voteList;	// 投票id
+	
+	@OneToMany(mappedBy="discuss",fetch=FetchType.LAZY,cascade=CascadeType.REMOVE)
+	private Set<Reply> replys;
+	
+	@ManyToMany
+	@JoinTable(
+		name = "aoa_love_discuss_user",
+		joinColumns = {
+				@JoinColumn(name = "discuss_id")
+		},
+		inverseJoinColumns = {
+				@JoinColumn(name = "user_id")
+		}
+			)
+	private Set<User> users;
+	
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Long getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Long statusId) {
+		this.statusId = statusId;
+	}
+
+	public Set<Reply> getReplys() {
+		return replys;
+	}
+
+	public void setReplys(Set<Reply> replys) {
+		this.replys = replys;
+	}
 
 	public Long getDiscussId() {
 		return discussId;

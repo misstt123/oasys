@@ -14,8 +14,13 @@ public class CommentService {
 	@Autowired
 	private CommentDao commentDao;
 	
+	//保存
 	public Comment save(Comment comment){
 		return commentDao.save(comment);
+	}
+	
+	public void deleteComment(Long comment){
+		commentDao.delete(comment);
 	}
 
 }

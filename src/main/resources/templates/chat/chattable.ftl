@@ -60,11 +60,11 @@
 							class="glyphicon glyphicon-edit"></span> 修改</a> 
 						</#if>
 						<#if manage??>
-						 <a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" href=""
-						class="label shanchu"><span class="glyphicon glyphicon-remove"></span>
+						 <a href="javascript:void(0);" discussId="${this.id}"
+						class="label shanchu deletethis"><span class="glyphicon glyphicon-remove"></span>
 							删除</a>
 						</#if>
-						<a href="/replymanage?id=${this.id}" class="label xiugai"> <span
+						<a href="/seediscuss?id=${this.id}" class="label xiugai"> <span
 							class="glyphicon glyphicon-search"></span>查看</a>
 					</td>
 				</tr>
@@ -76,5 +76,13 @@
 	<#include "/common/paging.ftl"/>
 </div>
 <script>
-	
+	$('.thistable').on('click','.deletethis',function(){
+		console.log($(this).attr('discussId'));
+		console.log('${name}');
+		var name='${name}';
+		var discussId=$(this).attr('discussId');
+		if(confirm("确定删除吗？ 不能恢复哟~")){
+		window.location.href="/deletediscuss?discussId="+discussId+"&name="+name+"&page="+${page.number};
+		}
+	});
 </script>

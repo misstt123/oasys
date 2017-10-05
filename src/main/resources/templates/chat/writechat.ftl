@@ -53,9 +53,11 @@ border-radius: 5px;
 	<div class="box-body">
 		<!--错误信息提示  -->
 			<div class="form-group">
-				<select name="typeId" id="selecttype" class="select2 form-control">
 				<#if discuss??>
-						<option value="${discuss.typeId}">${(typeName)!''}</option>
+					<select name="typeId" id="selecttype" class="select2 form-control" disabled="disabled">
+					<option value="${(discuss.typeId)!''}">${(typeName)!''}</option>
+				<#else>
+					<select name="typeId" id="selecttype" class="select2 form-control">
 				</#if>
 				<#list typeList as type>
 						<#if type.typeId==19>
@@ -69,17 +71,38 @@ border-radius: 5px;
 				</select>
 			</div>
 			<div class="form-group addvote" style="display:none;">
-				<label class="control-label">开始日期</label> <input id="starTime"
-					name="starTime" class="form-control" />
+				<label class="control-label">开始日期</label> 
+				<#if voteList??>
+					<input id="starTime" value="${(voteList.startTime)!''}" 	name="startTime" class="form-control" disabled="disabled"/>
+					<#else>
+					<input id="starTime" value="${(voteList.startTime)!''}" 	name="startTime" class="form-control" />
+				</#if>
 			</div>
 			<div class="form-group addvote" style="display:none;">
-				<label class="control-label">截止日期</label> <input id="endTime"
+				<label class="control-label">截止日期</label> <input id="endTime" value="${(voteList.endTime)!''}"
 					name="endTime" class="form-control" />
 			</div>
 			<div class="form-group addvote" style="display:none;">
-			<input name="inReceiver" type="text"
-				id="inputtext" style="background-color: #fff;"
-				class="form-control"  placeholder="投票标题" />
+				<#if voteList??>
+					<select name="selectone" class="form-control" style="margin-bottom: 15px;" disabled="disabled">
+						<option value="${(voteList.selectone)!''}">
+							<#if voteList.selectone==1>
+								单选
+							<#else>
+								多选
+							</#if>
+						</option>
+				<#else>
+					<select name="selectone" class="form-control" style="margin-bottom: 15px;">
+				</#if>
+				<option value="1">单选</option>
+				<option value="2">多选</option>
+			</select>
+			<#if voteList??>
+				<input name="inReceiver" type="text" id="inputtext" style="background-color: #fff;" class="form-control"  placeholder="投票标题" disabled="disabled"/>
+			<#else>
+				<input name="inReceiver" type="text" id="inputtext" style="background-color: #fff;" class="form-control"  placeholder="投票标题" />
+			</#if>
 			<div class="reciver pull-right add" style="display: inline-block;margin-top: 2px;margin-right: 33px;">
 				<span class="label label-success glyphicon glyphicon-plus"
 					data-toggle="modal" data-target="#myModal">增加投票</span>
@@ -87,6 +110,30 @@ border-radius: 5px;
 		</div>
 		<div style="background:#eee; overflow:auto">
 			<div id="addtable">
+			<#if voteList??>
+			<table class="table" cellspacing="0" border="0" style="border-width:0px;border-collapse:collapse;">
+				<tbody>
+					<tr>
+						<th scope="col">投票标题</th>
+						<th scope="col">显示</th>
+						<th scope="col">操作</th>
+					</tr>
+				<#list voteTitles as title>
+					<tr>
+						<td>
+							<input type="text" name="votetitle" value="${title.title}" class="form-control textvalue" disabled="disabled">
+						</td>
+						<td  style="width:150px;">
+							<input type="text" name="votecolor" value="${title.color}" class="form-control" disabled="disabled">
+						</td>
+						<td style="width:150px;">
+							<a class="deletethis" title="删除" read="hasvote"><span class="label label-danger">删除</span></a>
+						</td>
+					</tr>
+				</#list>
+				</tbody>
+			</table>
+			</#if>
 			</div>
 		</div>
 		<div class="form-group" style="margin-top:10px;">
@@ -115,6 +162,11 @@ border-radius: 5px;
 </div>
 
 <#include "/common/modalTip.ftl">
+<#if voteList??>
+	<script type="text/javascript">
+		$('.addvote').css('display','block');
+	</script>
+</#if>
 <script type="text/javascript">
 $('.givein').on('click',function(){
 	console.log("tent:"+$('.tent').val());
@@ -156,10 +208,14 @@ function check() {
 
 <script type="text/javascript">
 	$(function() {
+		function randomHexColor() {	//随机生成十六进制颜色
+			return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
+		}
+		var i=1;
 		$('#selecttype').on('change',function(){
 			var key=$('#selecttype').val();
 			console.log('dfa');
-			if(key=='20'){
+			if(key=='21'){
 				$('.addvote').css('display','block');
 			}else{
 				$('.addvote').css('display','none');
@@ -168,12 +224,14 @@ function check() {
 		});
 		
 		function addTr() {
-			var td1 = $('<td></td>').append($('<input type="text" name="votename"  class="form-control">').val($('#inputtext').val()));
-			var td2 = $('<td  style="width:150px;"></td>').append($('<input type="text" value="#5bc0de" class="form-control">'));
+			var td1 = $('<td></td>').append($('<input type="text" name="votetitle" value="发生的" class="form-control textvalue">').val($('#inputtext').val()));
+			var td2 = $('<td  style="width:150px;"></td>').append($('<input type="text" name="votecolor" value="#5bc0de" class="form-control">').val(randomHexColor()));
 			var td3 = $('<td  style="width:150px;"></td>').append($('<a class="deletethis" title="删除"></a>').append($('<span class="label label-danger"></span>').text('删除')));
 			var tr = $('<tr></tr>').append(td1).append(td2).append(td3);
 			$('#addtable table tbody').append(tr);
 			$('#inputtext').val('');
+			console.log(i);
+			i=i+1;
 		}
 		$('.add').on('click',function() {
 			if ($('#inputtext').val() == '') {

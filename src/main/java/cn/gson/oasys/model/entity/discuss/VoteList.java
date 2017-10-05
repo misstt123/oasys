@@ -1,12 +1,16 @@
 package cn.gson.oasys.model.entity.discuss;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,9 +29,41 @@ public class VoteList{
 	@Column(name="end_time")			//投票结束时间
 	private Date endTime;
 	
+	private Integer selectone;				//单选和多选
+	
 	@OneToOne(mappedBy = "voteList")
 	private Discuss discuss;
 	
+	@OneToMany(mappedBy="voteList",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private Set<VoteTitles> voteTitles;
+	
+	
+	
+	
+
+	public Integer getSelectone() {
+		return selectone;
+	}
+
+	public void setSelectone(Integer selectone) {
+		this.selectone = selectone;
+	}
+
+	public Set<VoteTitles> getVoteTitles() {
+		return voteTitles;
+	}
+
+	public void setVoteTitles(Set<VoteTitles> voteTitles) {
+		this.voteTitles = voteTitles;
+	}
+
+	public Discuss getDiscuss() {
+		return discuss;
+	}
+
+	public void setDiscuss(Discuss discuss) {
+		this.discuss = discuss;
+	}
 
 	public Long getVoteId() {
 		return voteId;
@@ -56,6 +92,14 @@ public class VoteList{
 	public VoteList() {
 		super();
 	}
+
+	@Override
+	public String toString() {
+		return "VoteList [voteId=" + voteId + ", startTime=" + startTime + ", endTime=" + endTime + ", selectone=" + selectone
+				+ "]";
+	}
+	
+	
 	
 	
 	

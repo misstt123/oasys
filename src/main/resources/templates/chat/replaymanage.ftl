@@ -47,8 +47,19 @@ a:hover {
 .chat-box .raply-name {
 	color: #54a0ea;
 }
-.addmore:HOVER{
+
+.addmore:HOVER {
 	cursor: pointer;
+}
+.progress{
+	margin: 4px auto;
+}
+.likethisnum a{
+	color: #5f5f5f;
+}
+.likethisnum a:HOVER {
+	color:#347ab7;
+	text-decoration: underline;
 }
 </style>
 
@@ -73,9 +84,9 @@ a:hover {
 					<a href="javascript:history.back();" class="label label-default"
 						style="padding: 6px;"> <span
 						class="glyphicon glyphicon-chevron-left">返回</span>
-					</a>
-					<a href="" class="label label-success" style="padding: 5px;margin-left:5px;">
-						<span class="glyphicon glyphicon-refresh"></span> 刷新
+					</a> <a href="" class="label label-success"
+						style="padding: 5px; margin-left: 5px;"> <span
+						class="glyphicon glyphicon-refresh"></span> 刷新
 					</a>
 					<!-- <a href="#" class="label label-success"
 						style="padding: 6px; margin-left: 8px;"> <span
@@ -96,32 +107,70 @@ a:hover {
 						</small>
 					</h5>
 				</div>
-				<div class="chat-content" style="padding: 10px;">
-					<p>${discuss.content}</p>
+				<div style="padding: 10px;">
+				<div class="voteload">
+					<#include "votetable.ftl"/>
 				</div>
-				<div>
-					<ul class="list-inline" style="margin-left: 6px;">
-						<li><a href="#" class="label xinzeng thisreply"
-							replyId="${discuss.discussId}" replyModule="discuss"> <span
-								class="glyphicon glyphicon-share-alt"></span>回复
-						</a></li>
-						<li><a href="#"> <span class="glyphicon glyphicon-fire"
-								style="color: red;"></span> 访问数<span>(${discuss.visitNum})</span>
-						</a></li>
-						<li><a href="#"> <span
-								class="glyphicon glyphicon-comment" style="color: #337ab7"></span>
-								讨论次数<span>(${(chatNum)!'0'})</span>
-						</a></li>
-					</ul>
-					<input type="hidden" class="replyId" /> 
-					<input type="hidden" class="replyModule" />
-					<input type="hidden" class="replyName" />
+					<div class="chat-content" style="padding: 10px;">
+						<p>${discuss.content}</p>
+					</div>
+					<div>
+						<div class="discusschange">
+							<#include "discusslike.ftl"/>
+						</div>
+						<input type="hidden" class="replyId" /> <input type="hidden"
+							class="replyModule" /> <input type="hidden" class="replyName" />
+					</div>
+					<div class="repay">
+						<#include "replytable.ftl"/>
+					</div>
 				</div>
-				<div class="repay">
-					<#include "replytable.ftl"/>
-				</div>
+				<!--盒子尾-->
 			</div>
-			<!--盒子尾-->
 		</div>
 	</div>
-</div>
+<!-- 存在 -->
+<script type="text/javascript">
+	$('.repay').on('click','.deletethis',function(){
+		var num=${discuss.discussId};
+		var replyId = $(this).attr('replyId');
+		var module = $(this).attr('replyModule');
+		var size=${page.size};
+		if(confirm("确定删除吗？ 不能恢复哟~")){
+			$('.repay').load('replydelete',{replyId:replyId,module:module,num:num,size:size});
+		}
+		
+		
+	});
+	
+	
+	
+	$("#thisreply").on('click',function(){
+		var replyId = $(this).attr('replyId');
+		var module = $(this).attr('replyModule');
+		var name = $(this).attr('replyName');
+		$('.replyId').val(replyId);
+		$('.replyModule').val(module);
+		$('.replyName').val(name);
+		if(typeof(name) != 'undefined' ){
+			$("#comment").val("@"+name);
+		}
+		$("#myModal").modal("toggle");
+	});
+	
+	$('.repay').on('click', '.thisreply',function() {
+		var replyId = $(this).attr('replyId');
+		var module = $(this).attr('replyModule');
+		var name = $(this).attr('replyName');
+		$('.replyId').val(replyId);
+		$('.replyModule').val(module);
+		$('.replyName').val(name);
+		console.log(typeof(name));
+		if(typeof(name) != 'undefined' ){
+			$("#comment").val("@"+name);
+		}
+		$("#myModal").modal("toggle");
+	});
+	
+	
+</script>

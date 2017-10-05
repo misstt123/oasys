@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Range;
 import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.discuss.Discuss;
 import cn.gson.oasys.model.entity.discuss.Reply;
 
 import cn.gson.oasys.model.entity.role.Role;
@@ -139,12 +140,25 @@ public class User {
 	@ManyToMany(mappedBy = "users")
 	private List<Reply> replys;
 	
+	@ManyToMany(mappedBy = "users")
+	private List<Discuss> discuss;
+	
 	@ManyToMany(mappedBy = "userss")
 	private List<Note> note;
 
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Attends> aSet;
 	
+	
+	
+	public List<Discuss> getDiscuss() {
+		return discuss;
+	}
+
+	public void setDiscuss(List<Discuss> discuss) {
+		this.discuss = discuss;
+	}
+
 	public User() {}		
 
  public Set<Attends> getaSet() {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -52,8 +53,14 @@ public class DiscussService {
 		return discussDao.save(d);
 	}
 	
+	//删除讨论区
+	public void deleteDiscuss(Long discussId){
+		discussDao.delete(discussId);
+	}
+	
+	
 	//查看，并将访问量+1
-	public Discuss seeDiscuss(Long id){
+	public Discuss addOneDiscuss(Long id){
 		Discuss discuss=discussDao.findOne(id);
 		discuss.setVisitNum(discuss.getVisitNum()+1);
 		return this.save(discuss);
@@ -72,7 +79,6 @@ public class DiscussService {
 			System.out.println("userid是空的");
 			return discussDao.findAll(pa);
 		}else{
-			System.out.println("debug");
 			User user=uDao.findOne(userId);
 			if(user.getSuperman()){
 				if (!StringUtils.isEmpty(baseKey)) {
@@ -138,7 +144,15 @@ public class DiscussService {
 	}
 	public void setDiscussMess(Model model, Long num,Long userId,int page,int size){
 		Pageable pa=new PageRequest(page, size);
-		Discuss discuss=this.seeDiscuss(num);									//根据讨论区id找到讨论
+//		Discuss discuss=this.addOneDiscuss(num);							//根据讨论区id找到讨论
+		Discuss discuss=discussDao.findOne(num);
+		User user=uDao.findOne(userId);
+		Boolean discussContain=discuss.getUsers().contains(user);
+		int discussLikeNum=discuss.getUsers().size();
+		Set<User> setUsers=discuss.getUsers();
+		model.addAttribute("discussContain", discussContain);
+		model.addAttribute("discussLikeNum", discussLikeNum);
+		model.addAttribute("setUsers", setUsers);
 		Page<Reply> replyPage=replyDao.findByDiscuss(discuss,pa);				//根据讨论id找到所有的回复表
 		List<Reply> replyList=replyPage.getContent();		
 		List<Map<String, Object>> replys=this.replyPackaging(replyList,userId);		//对回复表字段进行封装，主要是为了获取到评论数
@@ -152,8 +166,7 @@ public class DiscussService {
 			model.addAttribute("commentList", commentMap);
 			int chatNum=commentList.size()+replyList.size();
 			model.addAttribute("chatNum", chatNum);
-		}
-		model.addAttribute("replyList", replys);
+		}		model.addAttribute("replyList", replys);
 		model.addAttribute("discuss", discuss);
 		model.addAttribute("page", replyPage);
 		model.addAttribute("user", discuss.getUser());
@@ -167,6 +180,7 @@ public class DiscussService {
 			Map<String, Object> result=new HashMap<>();
 			result.put("contain", replyList.get(i).getUsers().contains(user));
 			result.put("count",commentDao.findByReply(replyList.get(i)).size());
+			result.put("replyLikeUsers", replyList.get(i).getUsers());
 			result.put("likenum", replyList.get(i).getUsers().size());
 			result.put("replyId",replyList.get(i).getReplyId());
 			result.put("replayTime",replyList.get(i).getReplayTime());

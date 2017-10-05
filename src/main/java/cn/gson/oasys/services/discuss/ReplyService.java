@@ -13,10 +13,15 @@ import cn.gson.oasys.model.entity.discuss.Reply;
 public class ReplyService {
 	@Autowired
 	private ReplyDao replyDao;
-	
-	//保存对象至数据库
-	public Reply save(Reply reply){
+
+	// 保存对象至数据库
+	public Reply save(Reply reply) {
 		return replyDao.save(reply);
+	}
+
+	// 删除一个回复
+	public void deleteReply(Reply reply) {
+		replyDao.delete(reply);
 	}
 
 }
