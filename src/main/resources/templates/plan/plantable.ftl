@@ -62,7 +62,7 @@
 										</div>
 		    </div>
 			<div class="box-body">
-				<div id="refresh">
+				<div id="refresh" class="thistable">
 				<#include "/plan/realplantable.ftl"> 
 				</div>
 			</div>

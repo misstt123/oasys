@@ -31,6 +31,7 @@ import cn.gson.oasys.model.dao.attendcedao.AttendceService;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.dao.user.UserService;
 import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
@@ -49,13 +50,16 @@ public class AttendceController {
 	@Autowired
 	UserDao uDao;
 	@Autowired
+	UserService userService;
+	@Autowired
 	TypeDao typeDao;
 	@Autowired
 	StatusDao statusDao;
 
 	List<Attends> alist;
 	List<User> uList;
-
+    Date start,end;
+    String month_;
 	// 格式转化导入
 	DefaultConversionService service = new DefaultConversionService();
 
@@ -230,62 +234,42 @@ public class AttendceController {
 
 	// 月报表
 	@RequestMapping("attendcemonth")
-	public String test2() {
+	public String test2(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
+		monthtablepaging(request, model, session, page, baseKey);
 		return "attendce/monthtable";
 	}
 
 	@RequestMapping("realmonthtable")
-	public String dfshe(HttpServletRequest request, Model model) {
-		String month = request.getParameter("month");
-		uList = (List<User>) uDao.findAll();
-		Map<String, List<Integer>> uMap = new HashMap<>();
-		List<Integer> result = null;
-		for (User user : uList) {
-			result = new ArrayList<>();
-			for (long statusId = 10; statusId < 14; statusId++) {
-				result.add(attenceDao.countnum(month, statusId, user.getUserId()));
-			}
-			uMap.put(user.getUserName(), result);
-		}
-		model.addAttribute("uMap", uMap);
-		model.addAttribute("ulist", uList);
+	public String dfshe(HttpServletRequest request, Model model, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
+		monthtablepaging(request, model, session, page, baseKey);
 		return "attendce/realmonthtable";
 	}
 
+	
+
 	// 周报表
 	@RequestMapping("attendceweek")
-	public String test3() {
+	public String test3(HttpServletRequest request, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
+		weektablepaging(request, session, page, baseKey);
 		return "attendce/weektable";
 	}
 
 	@RequestMapping("realweektable")
-	public String dsaf(HttpServletRequest request) {
-		String starttime = request.getParameter("starttime");
-		String endtime = request.getParameter("endtime");
-		// 格式转化
-		service.addConverter(new StringtoDate());
-		Date startdate = service.convert(starttime, Date.class);
-		Date enddate = service.convert(endtime, Date.class);
-
-		// 从后台匹配数据
-		uList = (List<User>) uDao.findAll();
-		alist = attenceDao.findoneweek(startdate, enddate);
-		Set<Attends> attenceset = new HashSet<>();
-		for (User user : uList) {
-			for (Attends attence : alist) {
-				if (attence.getUser().getUserId() == user.getUserId()) {
-					attenceset.add(attence);
-				}
-			}
-			user.setaSet(attenceset);
-		}
-
-		String[] weekday = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
-		request.setAttribute("ulist", uList);
-		request.setAttribute("weekday", weekday);
+	public String dsaf(HttpServletRequest request, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
+		weektablepaging(request, session, page, baseKey);
 		return "attendce/realweektable";
 
 	}
+
+	
 
 	@RequestMapping("attendceedit")
 	public String test4(@Param("aid") String aid, Model model, HttpSession session) {
@@ -400,5 +384,81 @@ public class AttendceController {
 		request.setAttribute("alist", page2.getContent());
 		request.setAttribute("page", page2);
 		request.setAttribute("url", "attendcetable");
+	}
+	//周报表分页
+	private void weektablepaging(HttpServletRequest request, HttpSession session, int page, String baseKey) {
+		String starttime = request.getParameter("starttime");
+		String endtime = request.getParameter("endtime");
+		// 格式转化
+		service.addConverter(new StringtoDate());
+		Date startdate = service.convert(starttime, Date.class);
+		Date enddate = service.convert(endtime, Date.class);
+		//用来查找该用户下面管理的所有用户信息
+		Long userId = Long.parseLong(session.getAttribute("userId") + "");
+		List<Long> ids = new ArrayList<>();
+		Page<User> userspage =userService.findmyemployuser(page, baseKey, userId);
+		for (User user : userspage) {
+			ids.add(user.getUserId());
+		}
+		if (ids.size() == 0) {
+			ids.add(0L);
+		}
+		
+		//找到某个管理员下面的所有用户的信息 保证传过来的是正确的数据 分页之后可以使用全局变量来记住开始和结束日期
+		if(startdate!=null&&enddate!=null)
+			{start=startdate;end=enddate;}
+		if(startdate==null&&enddate==null)
+			startdate=start;enddate=end;
+			
+		List<Attends> alist = attenceDao.findoneweek(startdate, enddate, ids);
+		Set<Attends> attenceset = new HashSet<>();
+		for (User user : userspage) {
+			for (Attends attence : alist) {
+				if (attence.getUser().getUserId() == user.getUserId()) {
+					attenceset.add(attence);
+				}
+			}
+			user.setaSet(attenceset);
+		}
+		String[] weekday = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
+		System.out.println("第"+page+"页; 内容"+userspage.getContent());
+		System.out.println("考勤记录"+alist);
+		request.setAttribute("ulist", userspage.getContent());
+		request.setAttribute("page", userspage);
+		request.setAttribute("weekday", weekday);
+		request.setAttribute("url", "realweektable");
+	}
+	//月报表
+	private void monthtablepaging(HttpServletRequest request, Model model, HttpSession session, int page,
+			String baseKey) {
+		Long userId = Long.parseLong(session.getAttribute("userId") + "");
+		List<Long> ids = new ArrayList<>();
+		Page<User> userspage =userService.findmyemployuser(page, baseKey, userId);
+		for (User user : userspage) {
+			ids.add(user.getUserId());
+		}
+		if (ids.size() == 0) {
+			ids.add(0L);
+		}
+		String month = request.getParameter("month");
+		
+		if(month!=null)
+			month_=month;
+		else
+			month=month_;
+		
+		Map<String, List<Integer>> uMap = new HashMap<>();
+		List<Integer> result = null;
+		for (User user : userspage) {
+			result = new ArrayList<>();
+			for (long statusId = 10; statusId < 14; statusId++) {
+				result.add(attenceDao.countnum(month, statusId, user.getUserId()));
+			}
+			uMap.put(user.getUserName(), result);
+		}
+		model.addAttribute("uMap", uMap);
+		model.addAttribute("ulist", userspage.getContent());
+		model.addAttribute("page", userspage);
+		model.addAttribute("url", "realmonthtable");
 	}
 }
