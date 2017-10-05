@@ -65,44 +65,22 @@ a:hover {
 	height: 2px !important;
 }
 
-.commen {
-	cursor: pointer;
-}
-
-.co {
-	color: blue;
-}
-
-.bl {
-	color: black;
+th .paixu:HOVER{
+color:blue;
 }
 
 .box {
 	margin-top: 10px !important;
 }
 </style>
-<script>
-	$(
-			function() {
-				$(".commen")
-						.on(
-								"click",
-								function() {
-									var $e1 = $(this).addClass("mm").siblings(
-											".commen").removeClass("mm");
-									var $e2 = $(this).addClass("bl")
-											.removeClass("co").siblings(
-													".commen").addClass("co")
-											.removeClass("bl");
-									$(".mm span")
-											.addClass(
-													"glyphicon glyphicon-triangle-bottom")
-											.siblings(".co span")
-											.removeClass(
-													"glyphicon glyphicon-triangle-bottom");
-								})
-			})
-</script>
+<!-- <script>
+$(function(){
+	if($(".paixu").children().length==0){
+		//如果该元素下面没有span就是那个上下箭头
+		$(".paixu").css("color","blue");
+	}
+})
+</script> -->
 </head>
 
 <body style="background-color: #ecf0f5;">

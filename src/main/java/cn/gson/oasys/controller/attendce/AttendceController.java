@@ -20,6 +20,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -163,36 +164,42 @@ public class AttendceController {
 
 	// 考情列表 给单个用户使用
 	@RequestMapping("attendcelist")
-	public String test(HttpServletRequest request, HttpSession session,
-			@RequestParam(value = "page", defaultValue = "0") int page) {
-		singleatt(request, session, page, null);
+	public String test(HttpServletRequest request,  Model model,HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon) {
+		signsortpaging(request, model, session, page, baseKey, type, status, time, icon);
 		return "attendce/attendcelist";
 	}
 
 	@RequestMapping("attendcelisttable")
-	public String test(HttpServletRequest request, HttpSession session,
+	public String testdf(HttpServletRequest request,  Model model,HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "baseKey", required = false) String baseKey) {
-		singleatt(request, session, page, baseKey);
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon) {
+		signsortpaging(request, model, session, page, baseKey, type, status, time, icon);
 		return "attendce/attendcelisttable";
 	}
 
-	private void singleatt(HttpServletRequest request, HttpSession session, int page, String baseKey) {
-		Long userid = Long.valueOf(session.getAttribute("userId") + "");
-		System.out.println(userid);
-		Page<Attends> page2 = attendceService.singlepage(page, baseKey, userid);
-		System.out.println("考勤" + page2.getContent());
-		typestatus(request);
-		request.setAttribute("alist", page2.getContent());
-		request.setAttribute("page", page2);
-		request.setAttribute("url", "attendcelisttable");
-	}
+	
 
-	// 考勤管理
+
+	// 考勤管理某个管理员下面的所有员工的信息
 	@RequestMapping("attendceatt")
 	public String testdasf(HttpServletRequest request, HttpSession session,
-			@RequestParam(value = "page", defaultValue = "0") int page) {
-		setMess(request, session, page, null);
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon,Model model) {
+		allsortpaging(request, session, page, baseKey, type, status, time, icon, model);
 		return "attendce/attendceview";
 	}
 
@@ -200,28 +207,18 @@ public class AttendceController {
 	@RequestMapping("attendcetable")
 	public String table(HttpServletRequest request, HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "baseKey", required = false) String baseKey) {
-		setMess(request, session, page, baseKey);
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon,Model model) {
+		allsortpaging(request, session, page, baseKey, type, status, time, icon, model);
 		return "attendce/attendcetable";
 	}
 
-	private void setMess(HttpServletRequest request, HttpSession session, int page, String baseKey) {
-		Long userId = Long.parseLong(session.getAttribute("userId") + "");
-		List<Long> ids = new ArrayList<>();
-		List<User> users = uDao.findByFatherId(userId);
-		for (User user : users) {
-			ids.add(user.getUserId());
-		}
-		if (ids.size() == 0) {
-			ids.add(0L);
-		}
-		User user = uDao.findOne(userId);
-		Page<Attends> page2 = attendceService.paging(page, baseKey, ids);
-		typestatus(request);
-		request.setAttribute("alist", page2.getContent());
-		request.setAttribute("page", page2);
-		request.setAttribute("url", "attendcetable");
-	}
+	
+
+	
 
 	// 删除
 	@RequestMapping("attdelete")
@@ -335,8 +332,73 @@ public class AttendceController {
 	private void typestatus(HttpServletRequest request) {
 		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
 		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
-		request.setAttribute("type", type);
-		request.setAttribute("status", status);
+		request.setAttribute("typelist", type);
+		request.setAttribute("statuslist", status);
 	}
 
+	
+	public void setSomething(String baseKey, Object type, Object status, Object time, Object icon, Model model) {
+		if(!StringUtils.isEmpty(icon)){
+			model.addAttribute("icon", icon);
+			if(!StringUtils.isEmpty(type)){
+				model.addAttribute("type", type);
+				if("1".equals(type)){
+					model.addAttribute("sort", "&type=1&icon="+icon);
+				}else{
+					model.addAttribute("sort", "&type=0&icon="+icon);
+				}
+			}
+			if(!StringUtils.isEmpty(status)){
+				model.addAttribute("status", status);
+				if("1".equals(status)){
+					model.addAttribute("sort", "&status=1&icon="+icon);
+				}else{
+					model.addAttribute("sort", "&status=0&icon="+icon);
+				}
+			}
+			if(!StringUtils.isEmpty(time)){
+				model.addAttribute("time", time);
+				if("1".equals(time)){
+					model.addAttribute("sort", "&time=1&icon="+icon);
+				}else{
+					model.addAttribute("sort", "&time=0&icon="+icon);
+				}
+			}
+		}
+		if(!StringUtils.isEmpty(baseKey)){
+			model.addAttribute("baseKey", baseKey);
+		}
+	}
+	//单个用户的排序和分页
+	private void signsortpaging(HttpServletRequest request, Model model, HttpSession session, int page, String baseKey,
+			String type, String status, String time, String icon) {
+		Long userid = Long.valueOf(session.getAttribute("userId") + "");
+		setSomething(baseKey, type, status, time, icon, model);
+		Page<Attends> page2 = attendceService.singlepage(page, baseKey, userid,type, status, time);
+		System.out.println("考勤" + page2.getContent());
+		typestatus(request);
+		request.setAttribute("alist", page2.getContent());
+		request.setAttribute("page", page2);
+		request.setAttribute("url", "attendcelisttable");
+	}
+	//该管理下面的所有用户
+	private void allsortpaging(HttpServletRequest request, HttpSession session, int page, String baseKey, String type,
+			String status, String time, String icon, Model model) {
+		setSomething(baseKey, type, status, time, icon, model);
+		Long userId = Long.parseLong(session.getAttribute("userId") + "");
+		List<Long> ids = new ArrayList<>();
+		List<User> users = uDao.findByFatherId(userId);
+		for (User user : users) {
+			ids.add(user.getUserId());
+		}
+		if (ids.size() == 0) {
+			ids.add(0L);
+		}
+		User user = uDao.findOne(userId);
+		typestatus(request);
+		Page<Attends> page2 = attendceService.paging(page, baseKey, ids,type, status, time);
+		request.setAttribute("alist", page2.getContent());
+		request.setAttribute("page", page2);
+		request.setAttribute("url", "attendcetable");
+	}
 }

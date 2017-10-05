@@ -37,4 +37,20 @@ public interface PlanDao  extends JpaRepository<Plan, Long>{
 	//分页
 	@Query("from Plan p where p.user.userId=?1")
 	Page<Plan> findByUserOrderByCreateTimeDesc(long userid,Pageable pa);
+	
+	//类型
+		@Query("from Plan p where p.user.userId=?1  order by p.typeId Desc")
+		Page<Plan> findByUserOrderByTypeIdDesc(long userid,Pageable pa);
+		
+		@Query("from Plan p where p.user.userId=?1  order by p.typeId Asc")
+		Page<Plan> findByUserOrderByTypeIdAsc(long userid,Pageable pa);
+	//状态
+		@Query("from Plan p where p.user.userId=?1  order by p.statusId Desc")
+		Page<Plan> findByUserOrderByStatusIdDesc(long userid,Pageable pa);
+		
+		@Query("from Plan p where p.user.userId=?1  order by p.statusId Asc")
+		Page<Plan> findByUserOrderByStatusIdAsc(long userid,Pageable pa);
+	//时间
+		@Query("from Plan p where p.user.userId=?1 order by p.statusId Asc")
+		Page<Plan> findByUserOrderByCreateTimeAsc(long userid,Pageable pa);
 }

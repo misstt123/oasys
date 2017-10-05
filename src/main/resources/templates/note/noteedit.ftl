@@ -150,7 +150,7 @@ textarea {
 			<div class="form-group">
 				<select name="type" id="ctl00_cphMain_ddlType"
 					class="form-control select2">
-					<#list type as t>
+					<#list typelist as t>
 						<option ${(note??&&note.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
 					</#list>
 				</select>
@@ -173,7 +173,7 @@ textarea {
 			<div class="form-group">
 				<select name="status"
 					id="ctl00_cphMain_ddlImportance" class="form-control select2">
-					  <#list status as s>
+					  <#list statuslist as s>
 						<option ${(note??&&note.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
 					  </#list>
 				</select>

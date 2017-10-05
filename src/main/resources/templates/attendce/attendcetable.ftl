@@ -20,13 +20,23 @@
 				<table class="table table-hover table-striped">
 					<tr class="table-header">
 						<th scope="col">用户名</th>
-						<th scope="col" class="commen mm">类型<span
-							class="glyphicon glyphicon-triangle-bottom"></span>
-						</th>
-						<th scope="col">时间</th>
+						<th scope="col" class="paixu thistype">类型
+										<#if type?? && icon??>
+										<span class="glyphicon ${icon}"></span>
+										</#if>
+									</th>
+						<th scope="col"><span class="paixu thistime">时间
+						<#if time?? && icon??>
+							<span class="glyphicon ${icon}"></span>
+						</#if>
+						</span></th>
 						<th scope="col">ip</th>
-						<th scope="col">备注</th>
-						<th scope="col" class="commen co">状态<span></span></th>
+						<th scope="col ">备注</th>
+						<th scope="col"><span class="paixu thisstatus">状态
+						<#if status?? && icon??>
+							<span class="glyphicon ${icon}"></span>
+						</#if>
+						</span></th>
 						<th scope="col">操作</th>
 					</tr>
 					<#if alist??>
@@ -39,7 +49,7 @@
 									<td><span>
 									<#if att.typeId??>
 									
-									<#list type as t>
+									<#list typelist as t>
 											<#if att.typeId==t.typeId>${t.typeName}</#if>
 										</#list>
 									</#if>
@@ -57,7 +67,7 @@
 									</td>
 									<td>
 									<#if att.statusId??>
-										<#list status as s>
+										<#list statuslist as s>
 												<#if att.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
 										</#list>
 									</#if>

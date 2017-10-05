@@ -52,29 +52,11 @@
 				color: #000000;
 				
 			}
-			.commen{
-				cursor: pointer;
-			}
-			.co{
-				color: blue;
-			}
-			.bl{
-				color: black;
-			}
 			.box{
       margin-top: 10px !important;
   }
 		</style>
-		<script>
-		$(function () {
-			$(".commen").on("click",function  () {
-				var $e1=$(this).addClass("mm").siblings(".commen").removeClass("mm");
-				var $e2=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
-				$("img").appendTo(".mm span");
-				var $img=$("<img src='../img/bottom.png'/>");
-			})
-		})
-		</script>
+		
 	</head>
 
 <body style="background-color: #ecf0f5;">

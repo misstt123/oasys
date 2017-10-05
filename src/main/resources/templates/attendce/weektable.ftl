@@ -50,6 +50,7 @@
 			<div class="box-body">
 			<div id="refresh">
 			<#include "/attendce/realweektable.ftl">
+			<#include "/common/paging.ftl">
 			</div>
 			</div>
 			

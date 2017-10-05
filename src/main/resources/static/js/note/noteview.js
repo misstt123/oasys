@@ -69,7 +69,8 @@ $(function() {
 				})
 			})
 	//左边的边框样式 以及触发右边事件
-	$(".bgc-w ul li ").click(function() {
+	//这是目录列表里面的点击事件
+	$(".cata ul li ").click(function() {
 		$(this).addClass("borderleft").siblings().removeClass("borderleft");
 		var $spanval = $(this).children("a").text();
 		$(".write h3").text($spanval);
@@ -82,10 +83,14 @@ $(function() {
 			$(".write span").hide();
 		}
 	})
+	//这是类型列表里面的点击事件 就是点击谁增加一个左边的边框
+	$(".type ul li ").click(function() {
+		$(this).addClass("borderleft").siblings().removeClass("borderleft");
+	})
 	
 	
 	//ajax之后为了恢复原样
-	$(".bgc-w ul li ").each(function(){
+	$(".cata ul li ").each(function(){
 		if($(this).hasClass("borderleft"))
 			{
 			var $spanval = $(this).children("a").text();
