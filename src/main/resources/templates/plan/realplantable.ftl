@@ -31,7 +31,8 @@
 												<span class="glyphicon glyphicon-paperclip"></span>
 															</#if></div>
 				     	   					
-				     	   					</#if></td>
+				     	   					</#if>
+				     	   					</td>
 												<td><#if uMap["${userName}"]??>
 													<#list status as s>
 												   		<#if uMap["${userName}"].statusId==s.statusId>
@@ -63,7 +64,7 @@
 					</#list>
 				</#if>
 				</table>
-				
+<#include "/common/paging.ftl">
 <#include "/common/comment.ftl">
 
 <script>

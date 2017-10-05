@@ -28,6 +28,12 @@ a:hover {
 	width: 40px;
 	height: 40px;
 }
+.chat-box .small-img {
+	border-radius: 50%;
+	border: 2px solid #ddd;
+	width: 30px;
+	height: 30px;
+}
 
 .chat-box .username {
 	display: block;
@@ -61,6 +67,9 @@ a:hover {
 	color:#347ab7;
 	text-decoration: underline;
 }
+.table>tbody>tr>td{
+				padding: 4px;
+			}
 </style>
 
 <div class="row" style="padding-top: 10px;">
@@ -129,6 +138,7 @@ a:hover {
 			</div>
 		</div>
 	</div>
+<script type="text/javascript" src="js/usershow.js"></script>
 <!-- 存在 -->
 <script type="text/javascript">
 	$('.repay').on('click','.deletethis',function(){
@@ -139,8 +149,6 @@ a:hover {
 		if(confirm("确定删除吗？ 不能恢复哟~")){
 			$('.repay').load('replydelete',{replyId:replyId,module:module,num:num,size:size});
 		}
-		
-		
 	});
 	
 	
@@ -171,6 +179,4 @@ a:hover {
 		}
 		$("#myModal").modal("toggle");
 	});
-	
-	
 </script>

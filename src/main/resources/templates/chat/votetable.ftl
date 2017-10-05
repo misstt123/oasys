@@ -6,14 +6,15 @@
 				<tr>
 				<#if dateType==1>
 					<td>状态: <span class="label label-danger">未开始</span></td>
-					<td>开始时间: <span>${voteList.startTime}</span></td>
+					
 				<#elseif dateType==2>
 					<td>状态: <span class="label label-danger" style="background-color: #999;">已结束</span></td>
-					<td>截止时间: <span>${voteList.endTime}</span></td>
 				<#else>
 					<td>状态: <span class="label label-success">进行中</span></td>
-					<td>截止时间: <span>${voteList.endTime}</span></td>
 				</#if>
+				<td>开始时间: <span>${voteList.startTime}</span>——
+						结束时间: <span>${voteList.endTime}</span>
+					</td>
 					<td>&nbsp;</td>
 				</tr>
 			</thead>
@@ -48,9 +49,9 @@
 							&nbsp;&nbsp;${voteTitle.count}
 						</div>
 					</td>
-					<td style="width: 100px;">
-						<a class="votethis" href="javascript:void(0);" disabled="disabled" discussId="${discuss.discussId}" titleId="${voteTitle.titleId}">
-							<span class="label label-primary">
+					<td style="width: 200px;">
+						<a style="width:72px;marign-right:10px;display:inline-block;" class="votethis" href="javascript:void(0);" disabled="disabled" discussId="${discuss.discussId}" titleId="${voteTitle.titleId}">
+							<span class="label label-primary" style="width:72px;">
 							<#if voteTitle.contain==true>
 								<i class="glyphicon glyphicon-hand-left"></i>
 								已投票
@@ -60,8 +61,31 @@
 							</#if>
 							</span>
 						</a>
+						<a href="#vote${voteTitle.titleId}" data-toggle="collapse" =><span class="label label-primary"><i class="glyphicon glyphicon-list"></i> 投票详情</span></a>
 					</td>
 				</tr>
+				<tr id="vote${voteTitle.titleId}" class="collapse">
+					<#if voteTitle.users?size gt 0>
+						<td colspan="3">
+							<span class="glyphicon glyphicon-hand-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;margin-left: 12px;"></span> 
+								<span class="likethisnum">
+									<#list voteTitle.users as user>
+										<a 
+										class="usershow"  
+										title="${user.user.userName}" 
+										thisdept="${user.user.dept.deptName}" 
+										thisrole="${user.user.role.roleName}" 
+										thistel="${user.user.userTel}"
+										thisemail="${user.user.eamil}" 
+										href="javascript:void(0);" style="color: #888;font-size: 12px;"><img src="/images/touxiang/${(user.user.imgPath)!'timg.jpg'}" title="${user.user.userName}" alt="${user.user.userName}" class="small-img"/></a> 
+									</#list>
+								<!-- <span style="color: #888;font-size: 13px;">共${voteTitle.count}人已投票</span> -->
+							</span>
+						</td>
+					</#if>
+				</tr>
+				
+			
 			</#list>
 			</tbody>
 		</table>
@@ -123,3 +147,4 @@
 	});
 </script>
 </#if>
+<script type="text/javascript" src="js/usershow.js"></script>

@@ -38,40 +38,14 @@ public class NoteService {
 		return noteDao.updatecollect(catalogId, typeId, statusId, title, content, noteId);
 	}
 	
-	public Page<Note> paging(int page,Object baseKey,Long userid,Long isCollected,Long catalogId,Long typeId){
-		Pageable pa=new PageRequest(page, 10);
-		if(!StringUtils.isEmpty(baseKey)){
-			return noteDao.findBytitleOrderByCreateTimeDesc(baseKey, userid, pa);
-		}
-		if(!StringUtils.isEmpty(isCollected))
-			return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
-		if(!StringUtils.isEmpty(typeId)){
-		if(!StringUtils.isEmpty(typeId)&&!StringUtils.isEmpty(catalogId)){
-			System.out.println("目录类型");
-			//根据目录 然后再根据类型查找
-			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId,catalogId, userid, pa);
-		}
-		if(!StringUtils.isEmpty(typeId)&&StringUtils.isEmpty(catalogId)){
-			System.out.println("单纯类型");
-			//为空就直接按照类型查找
-			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
-		}}
-		if(!StringUtils.isEmpty(catalogId)&&(StringUtils.isEmpty(typeId)))
-			return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
-		if(!StringUtils.isEmpty(userid)){
-			return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
-		}
-		return null;
-	}
 	
 	//排序分页
-	public Page<Note> sortpage(int page, String baseKey, long userid, Object type, Object status, Object time) {
+	public Page<Note> sortpage(int page, String baseKey, long userid,Long isCollected,Long catalogId,Long typeId, Object type, Object status, Object time) {
 		Pageable pa = new PageRequest(page, 10);
-		//0为降序 1为升序
-		if (!StringUtils.isEmpty(baseKey)) {
-			// 查询
+		
+		if(!StringUtils.isEmpty(baseKey)){
 			return noteDao.findBytitleOrderByCreateTimeDesc(baseKey, userid, pa);
-		}
+		}//0为降序 1为升序
 		if (!StringUtils.isEmpty(type)) {
 			if(type.toString().equals("0")){
 				//降序
@@ -95,9 +69,35 @@ public class NoteService {
 			}else{
 				return noteDao.findByUserssOrderByCreateTimeAsc(userid, pa);
 			}
-		} else {
-			// 第几页 以及页里面数据的条数
+		} 
+		if(!StringUtils.isEmpty(isCollected)){
+			if(!StringUtils.isEmpty(isCollected)&&!StringUtils.isEmpty(catalogId)){
+				return noteDao.findByIsCollectedAndCatalogIdOrderByCreateTimeDesc(isCollected, catalogId, userid, pa);
+			}
+			if(!StringUtils.isEmpty(isCollected)&&StringUtils.isEmpty(catalogId)){
+				return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
+			}
+		}
+			
+		if(!StringUtils.isEmpty(typeId)){
+		if(!StringUtils.isEmpty(typeId)&&!StringUtils.isEmpty(catalogId)){
+			System.out.println("目录类型");
+			//根据目录 然后再根据类型查找
+			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId,catalogId, userid, pa);
+		}
+		if(!StringUtils.isEmpty(typeId)&&StringUtils.isEmpty(catalogId)){
+			System.out.println("单纯类型");
+			//为空就直接按照类型查找
+			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
+		}}
+		if(!StringUtils.isEmpty(catalogId)&&(StringUtils.isEmpty(typeId))&&(StringUtils.isEmpty(isCollected)))
+			return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
+		if(!StringUtils.isEmpty(userid)){
 			return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
+		}
+		else {
+			// 第几页 以及页里面数据的条数
+			return noteDao.findByUserss(userid, pa);
 		}
 
 	}

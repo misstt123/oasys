@@ -7,11 +7,18 @@ $(function() {
 	$(".choose_collect")
 			.click(
 					function() {
+						var $cataid;
+					    $(".cata ul li ").each(function(){
+					      if($(this).hasClass("borderleft")){
+						$cataid=$(this).children("a").attr("id");
+						}
+					      })
 						$.ajax({
 									type : "get",
 									url : 'collectfind',
 									data : {
-										iscollect : this.dataset.type
+										iscollect : this.dataset.type,
+										cata:$cataid
 									},
 									success : function(dates) {
 										$('#container').html(dates);

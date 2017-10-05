@@ -50,7 +50,7 @@
 				<tr>
 					<td><span class="label ${this.typecolor}">${(this.typeName)!''}</span></td>
 					<td style="max-width:200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"><span>${(this.title)!''}</span></td>
-					<td><span>${(this.createTime)!''}</span></td>
+					<td><span>${this.createTime?string('yyyy-MM-dd HH:mm:ss')}</span></td>
 					<td><span>${(this.userName)!''}</span></td>
 					<td><span>${(this.visitNum)!''}</span></td>
 					<td><span>附件</span></td>

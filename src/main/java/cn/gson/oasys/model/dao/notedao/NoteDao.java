@@ -39,15 +39,23 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 	
 	//通过用户id查找
 	@Query("FROM Note n WHERE  n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?1)")
-	Page<Note> findByUserssOrderByCreateTimeDesc (Long userid,Pageable pa);
+	Page<Note> findByUserss(Long userid,Pageable pa);
 	
-	//查找是否已经收藏
+	//单纯查找是否已经收藏
 	@Query("from Note n where n.isCollected=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
 	Page<Note> findByIsCollectedOrderByCreateTimeDesc  (long isCollected,long userid,Pageable pa);
+	
+	//通过目录查找是否已经收藏
+	@Query("from Note n where n.isCollected=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3)")
+	Page<Note> findByIsCollectedAndCatalogIdOrderByCreateTimeDesc(long isCollected,long  catalogId,long userid,Pageable pa);
 	
 	//查找目录
 	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
 	Page<Note> findByCatalogIdOrderByCreateTimeDesc(long catalogId,long userid,Pageable pa);
+	
+	//查找目录没有分页
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
+	List<Note> findByCatalogId(long catalogId,long userid);
 	
 	//查找目录再查找类型
 	@Query("from Note n where n.typeId=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3)")
@@ -89,8 +97,12 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 	Page<Note> findByUserssOrderByStatusIdAsc(long userid,Pageable pa);
 
 	//时间升序
-		@Query("FROM Note n WHERE  n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?1)")
+		@Query("FROM Note n WHERE  n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?1) ORDER BY n.createTime ASC")
 		Page<Note> findByUserssOrderByCreateTimeAsc (Long userid,Pageable pa);
+
+		//时间降序
+			@Query("FROM Note n WHERE  n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?1) ORDER BY n.createTime DESC")
+			Page<Note> findByUserssOrderByCreateTimeDesc (Long userid,Pageable pa);
 		
 	//通过笔记id找到用户id
 	@Query("from Noteuser nu where nu.noteId=?1 and nu.userId=?2")

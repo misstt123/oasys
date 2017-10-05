@@ -63,6 +63,8 @@ function notejump(url,id){
 	 /*  alert("---"+id); */
 	   //显示具体信息
 	   var url = url;
+	   //弹到最开始的最近那里
+	   $(".cata ul .recent").addClass("borderleft").siblings().removeClass("borderleft");
 	   $.ajax({
 			type : "get",
 			async : false,
@@ -205,7 +207,7 @@ border: none;
 							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li class="borderleft"><a onclick="notejump('notewrite')" id=-2> <span
+							<li class="borderleft recent"><a onclick="notejump('notewrite')" id=-2> <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
 							

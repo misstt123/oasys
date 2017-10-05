@@ -151,7 +151,7 @@ textarea {
 				<select name="type" id="ctl00_cphMain_ddlType"
 					class="form-control select2">
 					<#list typelist as t>
-						<option ${(note??&&note.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+						<option ${(note??&&note.typeId??&&note.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
 					</#list>
 				</select>
 			</div>
@@ -174,7 +174,7 @@ textarea {
 				<select name="status"
 					id="ctl00_cphMain_ddlImportance" class="form-control select2">
 					  <#list statuslist as s>
-						<option ${(note??&&note.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
+						<option ${(note??&&note.statusId??&&note.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
 					  </#list>
 				</select>
 			</div>
@@ -189,7 +189,7 @@ textarea {
 			
 			<div class="form-group">	
 			<textarea name="content" class="form-control" data-title="笔记内容" style="width:100%;height:300px;visibility:hidden;font-size: 20px;">
-			<#if note??>
+			<#if note??&&note.content??>
 			${note.content}
 			</#if>
 			</textarea>
@@ -203,7 +203,7 @@ textarea {
 				</div>
 				<p class="help-block">5MB以内</p></div>
              
-            <input type="hidden" name="id" value=${id}>
+            <input type="hidden" name="id" value="<#if id??>${id}</#if>">
 
 			<div class="pull-right right1 bottom1">
 				<button id="ctl00_cphMain_lnbSend"   class="btn btn-primary"  onclick="{return check();}">保存</button> 
