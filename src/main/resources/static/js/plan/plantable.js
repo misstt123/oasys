@@ -103,6 +103,7 @@ $(function(){
 	 endday=changeSomeday(getday,2,1);
 	 $("#start").html(startday);
 	 $("#end").html(endday);
+	 choose=1;
 	 convert(startday,endday,choose);
 	 //点击日计划
 	 $(".day").click(function(){

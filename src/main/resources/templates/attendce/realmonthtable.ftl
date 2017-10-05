@@ -37,5 +37,6 @@
 					</#list>
 				</#if>
 			</table>
+			<#include "/common/paging.ftl">
 </body>
 </html>

@@ -44,7 +44,7 @@
 
 		</div>
 		<div class="box-body">
-			<div id="refresh">
+			<div id="refresh" class="thistable">
 				<#include "/attendce/realmonthtable.ftl">
 			</div>
 		</div>

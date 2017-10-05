@@ -75,8 +75,8 @@ Attends findlastest(String date,long userid);
   @Query("SELECT count(*) from Attends a where DATE_FORMAT(a.attendsTime,'%Y-%m') like %?1% and a.statusId=?2 and a.user.userId=?3")
   Integer countnum(String month,long statusId,long userid);
   
-  @Query("FROM Attends a where a.attendsTime>?1 and a.attendsTime<?2")
-  List<Attends> findoneweek(Date start,Date end);
+  @Query("FROM Attends a where a.attendsTime>?1 and a.attendsTime<?2 and a.user.userId in ?3")
+  List<Attends> findoneweek(Date start,Date end,List<Long> user);
   
   //更改备注
   @Query("update Attends a set a.attendsRemark=?1 where a.attendsId=?2")

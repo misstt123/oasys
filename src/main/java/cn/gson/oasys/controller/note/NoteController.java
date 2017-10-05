@@ -41,6 +41,7 @@ import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.CatalogService;
 import cn.gson.oasys.model.dao.notedao.NoteDao;
 import cn.gson.oasys.model.dao.notedao.NoteService;
+import cn.gson.oasys.model.dao.notedao.NoteUserDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -77,7 +78,9 @@ public class NoteController {
 	private UserDao userDao;
 	@Autowired
 	private AttachmentDao attDao;
-
+	@Autowired
+	private NoteUserDao noteUserDao;
+	
 	Attachment att;
 	List<Note> noteList;
 	List<Catalog> cataloglist;
@@ -85,23 +88,35 @@ public class NoteController {
 	List<SystemStatusList> status;
 	// 收藏查询
 	@RequestMapping("collectfind")
-	public String dsafdsf(Model model, HttpServletRequest request, @RequestParam("iscollect") String iscollected,
-			HttpSession session,@RequestParam(value="page",defaultValue="0")int page,@RequestParam(value="baseKey",required=false)String baseKey) {
+	public String dsafdsf(Model model, HttpServletRequest request, @RequestParam("iscollect") String iscollected,@RequestParam("cata") Long cid, 
+			HttpSession session,@RequestParam(value="page",defaultValue="0")int page,@RequestParam(value="baseKey",required=false)String baseKey
+			,@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon
+			) {
+		if(cid==-2)
+			cid=null;
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		long collect = Long.valueOf(iscollected);
+		new AttendceController().setSomething(baseKey, type, status, time, icon, model);
 		if (collect == 1) {
-			Page<Note> upage= NoteService.paging(page, null, userid, collect, null, null);
+			Page<Note> upage= NoteService.sortpage(page, null, userid, collect, cid, null, type, status, time);
 			model.addAttribute("url", "collectfind");
 			paging(model, upage);
-			model.addAttribute("sort", "&iscollect="+collect);
+			//获得数据之后就将cid重新设置
+			if(cid==null)
+				cid=-2l;
+			model.addAttribute("sort", "&iscollect="+collect+"&cata="+cid);
 			model.addAttribute("collect", 0);
 		} else if (collect == 0) {
-			Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
+			Page<Note> upage=NoteService.sortpage(page, null, userid, null, cid, null, type, status, time);
 			model.addAttribute("url", "notewrite");
 			paging(model, upage);
 			model.addAttribute("sort", "&userid="+userid);
 			model.addAttribute("collect", 1);
 		}
+		
 		typestatus(request);
 		
 		return "note/notewrite";
@@ -112,12 +127,18 @@ public class NoteController {
 	// 收藏
 	@RequestMapping("collect")
 	public String dsaf(Model model,HttpServletRequest request,
-			HttpSession session,@RequestParam(value="page",defaultValue="0")int page,@RequestParam(value="baseKey",required=false)String baseKey) {
+			HttpSession session,@RequestParam(value="page",defaultValue="0")int page,@RequestParam(value="baseKey",required=false)String baseKey
+			,@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon
+			) {
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		String id = request.getParameter("id");
 		String iscollected = request.getParameter("iscollected");
 		NoteService.updatecollect(Long.valueOf(iscollected), Long.valueOf(id));
-		Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
+		new AttendceController().setSomething(baseKey, type, status, time, icon, model);
+		Page<Note> upage=NoteService.sortpage(page, null, userid, null, null, null, type, status, time);
 		model.addAttribute("url", "notewrite");
 		paging(model, upage);
 		model.addAttribute("sort", "&userid="+userid);
@@ -221,12 +242,13 @@ public class NoteController {
 	
 	// 笔记批量删除
 	@RequestMapping("notesomedelete")
-	public String dsafds(HttpServletRequest request) {
+	public String dsafds(HttpServletRequest request, HttpSession session) {
+		long realuserId = Long.valueOf(session.getAttribute("userId") + "");
 		String sum = request.getParameter("sum");
 		String[] strings = sum.split(";");
 		for (String s : strings) {
 			long noteids = Long.valueOf(s);
-			NoteService.delete(noteids);
+			notedelete(realuserId, noteids);
 		}
 		return "redirect:/noteview";
 	}
@@ -239,7 +261,7 @@ public class NoteController {
 		long noteid = Long.valueOf(nid);
 		Noteuser u = noteDao.finduserid(noteid, realuserId);
 		if (u != null) {
-			NoteService.delete(noteid);
+			notedelete(realuserId, noteid);
 			return "redirect:/noteview";
 		} else {
 			System.out.println("权限不匹配，不能删除");
@@ -249,14 +271,19 @@ public class NoteController {
 
 	}
 
+
+
+	
+
 	// 目录删除
 	@RequestMapping("catadelete")
-	public String testrwd(Model model, HttpServletRequest request, HttpSession session,@RequestParam(value="page",defaultValue="0")int page) {
+	public String testrwd(Model model, HttpServletRequest request, HttpSession session) {
 		long realuserId = Long.valueOf(session.getAttribute("userId") + "");
 		String cid = request.getParameter("cid");
 		long catalogid = Long.valueOf(cid);
-		Page<Note> upage= NoteService.paging(page, null, null, null, catalogid, null);
-		paging(model, upage);
+//		Page<Note> upage= NoteService.paging(page, null, null, null, catalogid, null);
+//		paging(model, upage);
+		noteList=noteDao.findByCatalogId(catalogid, realuserId);
 		// 没有做级联删除 先删除目录下的笔记 再删除目录
 		for (Note note : noteList) {
 			NoteService.delete(note.getNoteId());
@@ -280,7 +307,7 @@ public class NoteController {
 		
 		
 		new AttendceController().setSomething(baseKey, type, status, time, icon, model);
-		Page<Note> upage=NoteService.sortpage(page, baseKey, userid, type, status, time);
+		Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 		model.addAttribute("sort", "&userid="+userid);
 		paging(model, upage);
 		typestatus(request);
@@ -407,7 +434,7 @@ public class NoteController {
 //		}
 		
 			new AttendceController().setSomething(baseKey, type, status, time, icon, model);
-			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, type, status, time);
+			Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 			typestatus(request);
 			if(baseKey!=null){
 				//如果有搜索关键字那么就记住它
@@ -424,13 +451,19 @@ public class NoteController {
 	
 	// 查找类型
 		@RequestMapping("notetype")
-		public String test43(Model model, HttpServletRequest request, @RequestParam("id") Long tid, @RequestParam("cata") Long cid, HttpSession session,@RequestParam(value="page",defaultValue="0")int page) {
+		public String test43(Model model, HttpServletRequest request, @RequestParam("id") Long tid, @RequestParam("cata") Long cid, HttpSession session,@RequestParam(value="page",defaultValue="0")int page
+				,@RequestParam(value = "baseKey", required = false) String baseKey,@RequestParam(value = "type", required = false) String type,
+				@RequestParam(value = "status", required = false) String status,
+				@RequestParam(value = "time", required = false) String time,
+				@RequestParam(value = "icon", required = false) String icon
+				) {
 			Long userid = Long.valueOf(session.getAttribute("userId") + "");
 			System.out.println(tid);
 			if(cid==-2)
 				cid=null;
 			System.out.println("目录"+cid);
-			Page<Note> upage=NoteService.paging(page, null, userid, null, cid, tid);
+			new AttendceController().setSomething(baseKey, type, status, time, icon, model);
+			Page<Note> upage=NoteService.sortpage(page, null, userid, null, cid, tid, type, status, time);
 			System.out.println(upage.getContent());
 			//获得数据之后就将cid重新设置
 			if(cid==null)
@@ -445,14 +478,20 @@ public class NoteController {
 	//查找目录
 	@RequestMapping("notecata")
 	public String sadf(Model model, HttpServletRequest request,  HttpSession session,@RequestParam("id")String cid, @RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "baseKey", required = false) String baseKey){
+			@RequestParam(value = "baseKey", required = false) String baseKey
+			,@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon
+			){
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
-		
 		//不为-2就是按照目录查找
 		if (!request.getParameter("id").equals("-2")) {
 			
 			Long id = Long.valueOf(cid);
-			Page<Note> upage=NoteService.paging(page, null, userid, null, id, null);
+			System.out.println("类型"+type+"图标"+icon);
+			new AttendceController().setSomething(baseKey, type, status, time, icon, model);
+			Page<Note> upage=NoteService.sortpage(page, null, userid, null, id, null, type, status, time);
 			request.setAttribute("sort", "&id="+id);
 			paging(model, upage);
 			model.addAttribute("url", "notecata");
@@ -479,24 +518,22 @@ public class NoteController {
 		Request.setAttribute("calist", cataloglist);
 		// 用户 就是联系人
 		List<User> users = (List<User>) userDao.findAll();
-
 		String nId = Request.getParameter("id");
-		System.out.println("牛人id" + nId);
 		if (nId.contains("cata")) {
+			//从目录编辑那里进来的
 			String newnid = nId.substring(4, nId.length());
 			long ca = Long.valueOf(newnid);
 			Catalog cate = catalogDao.findOne(ca);
 			Request.setAttribute("cata", cate);
+			Request.setAttribute("note", null);
 			Request.setAttribute("id", -3);
 		} else {
 			Long nid = Long.valueOf(nId);
 			// 新建
 			if (nid == -1) {
 				Request.setAttribute("note", null);
-				Request.setAttribute("users", users);
 				// 新建id
 				Request.setAttribute("id", nid);
-				System.out.println("保存一个对象");
 			}
 
 			// 修改
@@ -506,18 +543,26 @@ public class NoteController {
 				Catalog cate = catalogDao.findOne(ca);
 				Request.setAttribute("cata", cate);
 				Request.setAttribute("note", note);
-				Request.setAttribute("users", users);
 				// 修改id
 				Request.setAttribute("id", nid);
-				System.out.println(note);
 			}
 			// Request.setAttribute("id", nid);
 		}
-
+		Request.setAttribute("users", users);
 		typestatus(Request);
 		return "note/noteedit";
 	}
-	
+	private void notedelete(long realuserId, long noteid) {
+		//删除共享笔记就是只删除中间表noteid对应的那个userid
+		Note note =noteDao.findOne(noteid);
+		if(note.getTypeId()==7)
+		{
+			noteUserDao.delete(noteUserDao.findid(noteid, realuserId));
+		}
+		//如果笔记的类型不是共享类型的就直接删除
+		else
+		NoteService.delete(noteid);
+	}
 	private void typestatus(HttpServletRequest request) {
 		type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
 		 status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");

@@ -37,6 +37,18 @@ public class AttendceService {
 		return attendceDao.updateremark(attendsRemark, attendsId);
 	}
 
+	//查找在这个时间段的每个用户的考勤
+//	public Page<Attends> findoneweekatt(int page, String baseKey, Date start,Date end, List<Long> user) {
+//		Pageable pa =new PageRequest(page, 10);
+//		if (!StringUtils.isEmpty(baseKey)) {
+//			// 模糊查询
+//		}else{
+//			return attendceDao.findoneweek(start, end, user, pa);
+//		}
+//		return null;
+//		
+//	}
+	
 	// 分页
 	public Page<Attends> paging(int page, String baseKey, List<Long> user, Object type, Object status, Object time) {
 		Pageable pa =new PageRequest(page, 10);

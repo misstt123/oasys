@@ -40,6 +40,7 @@ import cn.gson.oasys.model.dao.plandao.Planservice;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.dao.user.UserService;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
@@ -64,10 +65,14 @@ public class PlanController {
 	@Autowired
 	UserDao userDao;
 	@Autowired
+	UserService userService;
+	@Autowired
 	AttachmentDao attachmentDao;
 
 	List<Plan> pList;
 	List<User> uList;
+	Date startDate,endDate;
+	String choose2;
 	Logger log = LoggerFactory.getLogger(getClass());
 	// 格式转化导入
 	DefaultConversionService service = new DefaultConversionService();
@@ -116,72 +121,24 @@ public class PlanController {
 
 	// 计划报表
 	@RequestMapping("myplan")
-	public String test2() {
+	public String test2(HttpServletRequest request, Model model, HttpSession session, 
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
+		plantablepaging(request, model, session, page, baseKey);
 		return "plan/plantable";
 	}
 
 	// 真正的报表
 	@RequestMapping("realplantable")
-	public String test23(HttpServletRequest request, Model model) {
-		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
-		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
-		List<Plan> plans = new ArrayList<>();
-		// 利用set过滤掉重复的plan_user_id 因为set不能重复
-		Set<Long> number = new HashSet();
-		Plan plan2;
-		long typeid = 13;
-		service.addConverter(new StringtoDate());
-		String starttime = request.getParameter("starttime");
-		String endtime = request.getParameter("endtime");
-		Date start = service.convert(starttime, Date.class);
-		Date end = service.convert(endtime, Date.class);
-		System.out.println("类型" + type);
-		// 1是日计划2是周计划3是月计划
-		Long choose = Long.valueOf(request.getParameter("choose"));
-		if (choose == 1) {
-			typeid = 13l;
-		}
-		if (choose == 2) {
-			typeid = 14l;
-		}
-		if (choose == 3) {
-			typeid = 15l;
-		}
-		pList = (List<Plan>) planDao.findAll();
-		uList = (List<User>) userDao.findAll();
-		for (Plan plan : pList) {
-			number.add(plan.getUser().getUserId());
-		}
-		System.out.println(number);
-		// 找到相对应的计划记录
-		for (Long num : number) {
-			plan2 = planDao.findlatest(start, end, num, typeid);
-			if (plan2 != null)
-				plans.add(plan2);
-		}
-		System.out.println(plans);
-		// 将用户名和list绑定在一起
-		Map<String, Plan> uMap = new HashMap<>();
-		for (User user : uList) {
-			for (Plan plan : plans) {
-				if (user.getUserId() == plan.getUser().getUserId()) {
-					uMap.put(user.getUserName(), plan);
-					break;
-				} else {
-					uMap.put(user.getUserName(), null);
-				}
-				System.out.println(uMap);
-			}
-		}
-
-		model.addAttribute("uMap", uMap);
-		model.addAttribute("type", type);
-		model.addAttribute("status", status);
-		model.addAttribute("plist", pList);
-		model.addAttribute("ulist", uList);
-		model.addAttribute("plans", plans);
+	public String test23(HttpServletRequest request, Model model, HttpSession session, 
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey) {
+		System.out.println("页数"+page);
+		plantablepaging(request, model, session, page, baseKey);
 		return "plan/realplantable";
 	}
+
+	
 
 	// 我的编辑
 	@RequestMapping("planedit")
@@ -308,6 +265,84 @@ public class PlanController {
 		model.addAttribute("plist", page2.getContent());
 		model.addAttribute("page", page2);
 		model.addAttribute("url", "planviewtable");
+	}
+	
+	//计划报表
+	private void plantablepaging(HttpServletRequest request, Model model, HttpSession session, int page,
+			String baseKey) {
+		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+		List<Plan> plans = new ArrayList<>();
+		// 利用set过滤掉重复的plan_user_id 因为set不能重复
+		Set<Long> number = new HashSet();
+		Plan plan2;
+		long typeid = 13;Long choose;
+		service.addConverter(new StringtoDate());
+		String starttime = request.getParameter("starttime");
+		String endtime = request.getParameter("endtime");
+		System.out.println(starttime+";"+endtime);
+		Date start = service.convert(starttime, Date.class);
+		Date end = service.convert(endtime, Date.class);
+		String choose1=request.getParameter("choose");
+		//分页的时候记住
+		if(start==null&&end==null&&choose1==null)
+			{start=startDate;end=endDate;choose1=choose2;}
+		if(start!=null&&end!=null&&choose1!=null)
+		{startDate=start;endDate=end;choose2=choose1;}
+		// 1是日计划2是周计划3是月计划
+		if(choose1==null||choose1.length()==0)
+			choose=1l;
+		else
+		 choose = Long.valueOf(choose1);
+		if (choose == 1) {
+			typeid = 13l;
+		}
+		if (choose == 2) {
+			typeid = 14l;
+		}
+		if (choose == 3) {
+			typeid = 15l;
+		}
+		pList = (List<Plan>) planDao.findAll();
+		Long userid=Long.valueOf(session.getAttribute("userId")+"");
+		Page<User> uListpage =userService.findmyemployuser(page, baseKey, userid);
+		for (Plan plan : pList) {
+			number.add(plan.getUser().getUserId());
+		}
+		System.out.println(number);
+		// 找到相对应的计划记录
+		for (Long num : number) { 
+			plan2 = planDao.findlatest(start, end, num, typeid);
+			if (plan2 != null)
+				plans.add(plan2);
+		}
+		System.out.println("有没有plan"+plans);
+		// 将用户名和list绑定在一起
+		Map<String, Plan> uMap = new HashMap<>();
+		for (User user : uListpage) {
+			if(plans.size()==0)
+				uMap.put(user.getUserName(), null);
+			for (Plan plan : plans) {
+				if (user.getUserId() == plan.getUser().getUserId()) {
+					uMap.put(user.getUserName(), plan);
+					break;
+				} else {
+					uMap.put(user.getUserName(), null);
+				}
+			}
+			System.out.println("map"+uMap);
+		}
+        System.out.println(uListpage.getContent());
+    	
+    	
+		model.addAttribute("uMap", uMap);
+		model.addAttribute("type", type);
+		model.addAttribute("status", status);
+		model.addAttribute("plans", plans);
+		model.addAttribute("plist", pList);
+		model.addAttribute("ulist", uListpage.getContent());
+		model.addAttribute("page", uListpage);
+		model.addAttribute("url", "realplantable");
 	}
 	
 }
