@@ -22,32 +22,9 @@
 								</#if>
 							</span> <span class="right-time">${reply.replayTime?string('yyyy-MM-dd HH:mm:ss')}</span>
 							<p style="padding-top: 10px;">${reply.content}</p>
-							<ul class="list-inline">
-								<li><a href="#" class="thisreply"
-									replyId="${reply.replyId}" replyModule="reply"> <span
-										class="glyphicon glyphicon-share-alt"></span> 回复
-								</a></li>
-								<li><a href="#" class="likethis" replyId="${reply.replyId}" module="reply"> <span
-										class="glyphicon glyphicon-thumbs-up"></span> 
-										<span class="likenum">
-										<#if reply.contain>
-											已赞(${reply.likenum})
-										<#else>
-											赞(${reply.likenum})
-										</#if>
-										</span>
-								</a></li>
-								<li ><a href="#comment${reply.replyId}"
-									class="label xiugai toggle" data-toggle="collapse"><span
-										class="glyphicon glyphicon-triangle-bottom"></span>评论次数(${reply.count})</a>
-								</li>
-								<li class="pull-right"><span>${reply_index+1}楼</span></li>
-							</ul>
-							<ul class="list-inline">
-							
+							<div class="replyrefresh">
 								<#include "replylike.ftl"/>
-								
-							</ul>
+							</div>
 							<#if commentList??>
 							<div id="comment${reply.replyId}" class="comment collapse"
 								style="margin-left: 80px;">
@@ -114,12 +91,13 @@
 <script>
 $('.chat-box').on('click','.likethis',function(){
 	$('.thisClass').removeClass("thisClass");
-	$('.list-inline').removeClass("replychange");
+	$('.replyrefresh').removeClass("replychange");
 	$(this).addClass("thisClass");
-	$(this).parent().parent().siblings('.list-inline').addClass('replychange');
+	$(this).parents('.replyrefresh').addClass('replychange');
 	var replyId=$(this).attr('replyId');
 	var module=$(this).attr('module');
 	var size=${page.size};
+	console.log("rightNum:"+rightNum);
 	console.log(replyId);
 	console.log(module);
 	  /*$.ajax({
@@ -140,7 +118,8 @@ $('.chat-box').on('click','.likethis',function(){
 		$('.discusschange').load('/likeuserload',{module:module,replyId:replyId,size:size});
 	}else if(module=="reply"){
 		console.log("说明是回复区，准备进行load方法");
-		$('.replychange').load('/likeuserload',{module:module,replyId:replyId});
+		var rightNum=$(this).parent().siblings(".pull-right").children(".rightNum").text();
+		$('.replychange').load('/likeuserload',{module:module,replyId:replyId,size:size,rightNum:rightNum});
 	}else{
 		console.log("参数错误");
 	}

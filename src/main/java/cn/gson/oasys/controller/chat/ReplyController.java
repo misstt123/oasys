@@ -257,6 +257,8 @@ public class ReplyController {
 		Long replyId=Long.parseLong(req.getParameter("replyId"));
 		String module=req.getParameter("module");
 		Integer size=Integer.parseInt(req.getParameter("size"));
+		User user=uDao.findOne(userId);
+		System.out.println("进入后台了？");
 		if("discuss".equals(module)){
 			//处理讨论表的点赞，刷新
 			likeThisFun(req, userId);
@@ -270,11 +272,17 @@ public class ReplyController {
 			return "chat/discusslike";
 		}else if("reply".equals(module)){
 			//处理回复表的点赞，刷新
+			String rightNum=req.getParameter("rightNum");
+			likeThisFun(req, userId);
 			Reply reply=replyDao.findOne(replyId);
 			int likeNum=reply.getUsers().size();
 			Set<User> users=reply.getUsers();
-			model.addAttribute("likeNum", likeNum);
-			model.addAttribute("users", users);
+			model.addAttribute("rightNum", rightNum);
+			model.addAttribute("comments",	commentDao.findByReply(reply).size());	//评论的人数
+			model.addAttribute("reply", reply);						//设置返回到前台的回复对象
+			model.addAttribute("contain", users.contains(user));	//是否包含
+			model.addAttribute("likeNum", likeNum);					//点赞的人数
+			model.addAttribute("users", users);						//点赞的所有用户
 			return "chat/replylike";
 		}else{
 			//什么鬼？  传参数错误，有问题

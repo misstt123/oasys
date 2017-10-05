@@ -1,14 +1,10 @@
 package cn.gson.oasys.controller.note;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
-import java.awt.Dialog.ModalExclusionType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;

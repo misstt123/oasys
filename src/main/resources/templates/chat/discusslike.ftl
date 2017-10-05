@@ -28,10 +28,18 @@
 			<span class="glyphicon glyphicon-thumbs-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;"></span> 
 			<span class="likethisnum">
 			<#list setUsers as user>
-				<a href="">${user.userName}</a>、
+				<a 
+				class="usershow"  
+				title="${user.userName}" 
+				thisdept="${user.dept.deptName}" 
+				thisrole="${user.role.roleName}" 
+				thistel="${user.userTel}"
+				thisemail="${user.eamil}" 
+				href="javascript:void(0);">${user.userName}</a>、
 			</#list>
 				<span>共${discussLikeNum}人觉得很赞</span>
 			</span>
 		</li>
 	</#if>
 </ul>
+<script type="text/javascript" src="js/usershow.js"></script>
