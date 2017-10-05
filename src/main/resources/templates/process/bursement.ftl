@@ -67,6 +67,7 @@ cursor: pointer;
     float: right;
     margin-top: -24px;
     right: 9px;
+    cursor: pointer;
 }
 </style>
 <div class="row" style="padding-top: 10px;">
@@ -82,7 +83,7 @@ cursor: pointer;
 	<div class="col-md-12">
 		
 		<div class="bgc-w box">
-			
+			<form action="apply" enctype="multipart/form-data" method="post"  >
 			<div class="box-header">
 				<table class="bo table ">
 			
@@ -95,22 +96,25 @@ cursor: pointer;
 				</tr>
 				<tr >
 					<td class="title"><label class="control-label">标题</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu" name="proId.processName"/></td>
 					
 					<td class="title"><span >紧急程度</span></td>
 					<td colspan="6">
-						<select class="form-control inpu">
-							<option>22</option>
+						<select class="form-control inpu" name="proId.deeply">
+							<#list harrylist as harry>
+							<option value="${harry.typeId}">${harry.typeName}</option>
+							</#list>
 						</select>
 					</td>
 					
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">提单人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu" name="proId.userId"
+					readonly="readonly" style="background-color:#fff;" value="${username}"/></td>
 					<td class="title" ><label class="control-label">承担主体</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu cheng" 
-					readonly="readonly" style="background-color:#fff;"/>
+					readonly="readonly" style="background-color:#fff;" name="usermoney"/>
 						<div class="reciver">
 						<span class="label label-success glyphicon glyphicon-plus"
 					>通讯录</span>
@@ -120,21 +124,27 @@ cursor: pointer;
 				
 				<tr >
 					<td class="title" ><label class="control-label">相关客户</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu" name="name"/></td>
 					<td class="title" ><label class="control-label">报销方式</label></td>
 					<td colspan="6">
-					<select class="form-control inpu">
-					<option>22</option>
+					<select class="form-control inpu" name="typeId">
+					<#list uplist as list>
+					<option value="${list.typeId}">${list.typeName}</option>
+					</#list>
 					</select>
 					</td>
 				</tr>
 				<tr >
-					<td class="title" ><label class="control-label">报销人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+				<td class="title" ><label class="control-label">审核人员</label></td>
+					<td  colspan="6"><input type="text" class="form-control inpu shen"
+					 readonly="readonly" style="background-color:#fff;" name="username"/>
+					<div class="reciver">
+						<span class="label label-success glyphicon glyphicon-plus">通讯录</span>
+					</div>
+					</td>
 					<td class="title" ><label class="control-label">相关票据</label></td>
 					<td  colspan="6">
-						<div class="btn btn-default"style="position: relative; overflow: hidden;width: 100%;
-    							margin-top: -6px;">
+						<div class="btn btn-default"style="position: relative; overflow: hidden;width: 100%;margin-top: -6px;">
 							<i class="glyphicon glyphicon-open"></i> 上传票据
 							<input type="file" name="filePath" style="opacity: 0; position: absolute;
 								 top: 0; right: 0; " class='inpu'>
@@ -142,13 +152,7 @@ cursor: pointer;
 					</td>
 				</tr>
 				<tr >
-					<td class="title" ><label class="control-label">审核人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu shen"
-					 readonly="readonly" style="background-color:#fff;"/>
-					<div class="reciver">
-						<span class="label label-success glyphicon glyphicon-plus">通讯录</span>
-					</div>
-					</td>
+					
 					
 				</tr>
 				<tr >
@@ -174,7 +178,7 @@ cursor: pointer;
 							<tbody class="tbody">
 							<tr class="tr">
 									<td class="chebox" colspan="2"><span class="labels"><label><input type="checkbox" name="items" class="val" ><i>✓</i></label></span></td>
-									<td colspan="2"><input type="text" class="form-control inpu shijian" name="details[0].produceTime"/></td>
+									<td colspan="2"><input type="text" class="form-control inpu shijian" name="details[0].produceTime" /></td>
 									<td colspan="2">
 										<input type="text" class="form-control inpu" name="details[0].subject"/>
 										<div class="sub">
@@ -204,11 +208,17 @@ cursor: pointer;
 				</table>
 			</div>
 			
+			
+			</form>
+			
 		</div>
 	</div>
 </div>
 <input type="text" class="recive_list" style="display:none;">
+<input type="text" class="ject" style="display:none;">
 <script>
+
+
 	$(function(){
 		$('.reciver').on('click',function(){
 			$('#myModal').modal("toggle");
@@ -219,14 +229,29 @@ cursor: pointer;
 		$(".recive_list").change(function(){
 			var	$val=$(this).val();
 			$(".qu").siblings("input").val($val);
-			$(this).val("");
+		
 		});
 		
+		$(".tbody").on("click",".sub",function(){
+			$('#subject').modal("toggle");
+			$(this).siblings("input").val("");
+			$('.sub').removeClass("je");
+			$(this).addClass("je");
+		});
+		$(".ject").change(function(){
+			var	$val=$(this).val();
+			$(".je").siblings("input").val($val);
+			console.log("jinlai");
 		
+		});
 		var i=1;
+		//增加一行
 		$(".zeng").click(function(){
+			var date=new Date();
+			var nowDate=date.Format('yyyy-MM-dd hh:mm:ss');
+			var star=addDate(nowDate,0);
 			var td1 = $('<td class="chebox" colspan="2"></td>').append($('<span class="labels"></span>').append($('<label></label>').append($('<input type="checkbox" name="items"  class="val" >')).append($('<i></i>').text('✓'))));
-			var td2 = $('<td  colspan="2"></td>').append($('<input type="text" class="form-control inpu shijian" name="details['+i+'].produceTime"/>'));
+			var td2 = $('<td  colspan="2"></td>').append($('<input type="text" class="form-control inpu incar" name="details['+i+'].produceTime"/>').val(star));
 			var td3 = $('<td colspan="2"></td>').append($('<input type="text" class="form-control inpu" name="details['+i+'].subject"/>'))
 												 .append($('<div class="sub"></div>').append($('<i class="glyphicon glyphicon-search"></i>')));
 			var td4 = $('<td colspan="2"></td>').append($('<input type="text" class="form-control inpu" name="details['+i+'].descript"/>'));
@@ -235,9 +260,11 @@ cursor: pointer;
 			var tr = $('<tr class="tr"></tr>').append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 			$('.tbody').append(tr);
 			i=i+1;
-			$(".shijian").change();
 		});
 		
+		
+	
+		//把tr置空
 		$(".jian").click(function(){
 			
 			 $("[name=items]:checkbox").each(function(){
@@ -251,8 +278,12 @@ cursor: pointer;
 		});
 		
 		
+		
 	});
+	
+	
 </script>
 <#include "/common/reciver.ftl">
+<#include "/process/subject.ftl">
 <script type="text/javascript" src="js/common/data.js"></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>

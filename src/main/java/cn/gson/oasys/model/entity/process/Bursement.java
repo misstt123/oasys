@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -30,7 +31,7 @@ public class Bursement {
 	@JoinColumn(name="user_name")
 	private User usermoney;//承担主体
 	
-	private String name;
+	private String name;//相关客户
 	
 	@Column(name="type_id")
 	private Long typeId;//报销方式（银行卡，现金，其他）
@@ -52,14 +53,23 @@ public class Bursement {
 	@Column(name="all_money")
 	private double allMoney;//总计金额
 	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="burs")
+	@Transient
+	private String username;
+	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="burs",orphanRemoval = true)
 	List<DetailsBurse>  details;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
-	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public Long getBursementId() {
 		return bursementId;
@@ -159,11 +169,12 @@ public class Bursement {
 
 	@Override
 	public String toString() {
-		return "Bursement [bursementId=" + bursementId + ", usermoney=" + usermoney + ", name=" + name + ", typeId="
-				+ typeId + ", operation=" + operation + ", burseTime=" + burseTime + ", allinvoices=" + allinvoices
-				+ ", managerAdvice=" + managerAdvice + ", financialAdvice=" + financialAdvice + ", allMoney=" + allMoney
-				+ "]";
+		return "Bursement [bursementId=" + bursementId + ", name=" + name + ", typeId=" + typeId + ", burseTime=" + burseTime + ", allinvoices=" + allinvoices + ", managerAdvice="
+				+ managerAdvice + ", financialAdvice=" + financialAdvice + ", allMoney=" + allMoney + ", username="
+				+ username + "]";
 	}
+
+	
 	
 	
 }
