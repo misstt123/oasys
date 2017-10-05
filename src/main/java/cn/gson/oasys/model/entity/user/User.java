@@ -112,6 +112,9 @@ public class User {
 	
 	@Column(name="father_id")
 	private Long fatherId;		//上司id
+	
+	
+	private Integer holiday;   //请假天数
 
 	@ManyToOne()
 	@JoinColumn(name = "position_id")
@@ -438,6 +441,15 @@ public void setSuperman(Boolean superman) {
 		this.note = note;
 	}
 
+	
+
+	public Integer getHoliday() {
+		return holiday;
+	}
+
+	public void setHoliday(Integer holiday) {
+		this.holiday = holiday;
+	}
 
 	@Override
 	public String toString() {
@@ -447,7 +459,7 @@ public void setSuperman(Boolean superman) {
 				+ birth + ", userSign=" + userSign + ", password=" + password + ", salary=" + salary + ", imgPath="
 				+ imgPath + ", hireTime=" + hireTime + ", isLock=" + isLock + ", lastLoginIp=" + lastLoginIp
 				+ ", lastLoginTime=" + lastLoginTime + ", modifyTime=" + modifyTime + ", modifyUserId=" + modifyUserId
-				+ ", fatherId=" + fatherId + ", superman=" + superman + "]";
+				+ ", fatherId=" + fatherId + ", holiday=" + holiday + ",superman=" + superman + "]";
 	}
 	
 	

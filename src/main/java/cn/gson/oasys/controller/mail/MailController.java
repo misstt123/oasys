@@ -53,8 +53,6 @@ import cn.gson.oasys.services.mail.MailServices;
 @RequestMapping("/")
 public class MailController {
 	
-	@Autowired
-	private UserDao udao;
 	
 	@Autowired
 	private MailnumberDao mndao;
@@ -63,6 +61,8 @@ public class MailController {
 	private StatusDao sdao;
 	@Autowired
 	private TypeDao tydao;
+	@Autowired
+	private UserDao udao;
 	@Autowired
 	private DeptDao ddao;
 	@Autowired
@@ -630,8 +630,8 @@ public class MailController {
 		Iterable<Role> rolelist = rdao.findAll();
 	
 		model.addAttribute("mailnum", mailnum);
-		model.addAttribute("emplist", userlist);
 		model.addAttribute("page", pageuser);
+		model.addAttribute("emplist", userlist);
 		model.addAttribute("deptlist", deptlist);
 		model.addAttribute("rolelist", rolelist);
 		model.addAttribute("url", "names");
