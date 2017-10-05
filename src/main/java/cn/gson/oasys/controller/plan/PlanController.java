@@ -33,6 +33,7 @@ import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
+import cn.gson.oasys.controller.attendce.AttendceController;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.plandao.PlanDao;
 import cn.gson.oasys.model.dao.plandao.Planservice;
@@ -88,15 +89,28 @@ public class PlanController {
 
 	// 计划管理
 	@RequestMapping("planview")
-	public String test(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "0") int page) {
-		planpage(model, session, page, null);
+	public String test(Model model, HttpSession session, 
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon) {
+		sortpaging(model, session, page, baseKey, type, status, time, icon);
 		return "plan/planview";
 	}
 
+	
+
 	@RequestMapping("planviewtable")
-	public String testdd(Model model, HttpSession session, @RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "baseKey", required = false) String baseKey) {
-		planpage(model, session, page, baseKey);
+	public String testdd(Model model, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon) {
+		sortpaging(model, session, page, baseKey, type, status, time, icon);
 		return "plan/planviewtable";
 	}
 
@@ -277,20 +291,23 @@ public class PlanController {
 		return "forward:/planedit";
 	}
 
-	private void planpage(Model model, HttpSession session, int page, String baseKey) {
+
+	private void typestatus(Model model) {
+		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
+		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
+		model.addAttribute("typelist", type);
+		model.addAttribute("statuslist", status);
+	}
+	private void sortpaging(Model model, HttpSession session, int page, String baseKey, String type, String status,
+			String time, String icon) {
+		new AttendceController().setSomething(baseKey, type, status, time, icon, model);
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		User user = userDao.findOne(userid);
-		Page<Plan> page2 = planservice.paging(page, baseKey, userid);
+		Page<Plan> page2 = planservice.paging(page, baseKey, userid, type, status, time);
 		typestatus(model);
 		model.addAttribute("plist", page2.getContent());
 		model.addAttribute("page", page2);
 		model.addAttribute("url", "planviewtable");
 	}
-
-	private void typestatus(Model model) {
-		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_plan_list");
-		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_plan_list");
-		model.addAttribute("type", type);
-		model.addAttribute("status", status);
-	}
+	
 }

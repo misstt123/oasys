@@ -96,7 +96,7 @@
 							<span>类型</span>
 						</label>
 						<select class="form-control plantype" onchange="dochange(); " name="type">
-								<#list type as t>
+								<#list typelist as t>
 									<option ${(plan??&&plan.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
 								</#list>
 							
@@ -105,7 +105,7 @@
 					<div class="col-md-6 form-group">
 						<label class="control-label">状态</label>
 						<select class="form-control" name="status">
-						    <#list status as s>
+						    <#list statuslist as s>
 								<option ${(plan??&&plan.statusId==s.statusId)?string('selected','')} >${s.statusName}</option>
 							</#list>
 						</select>

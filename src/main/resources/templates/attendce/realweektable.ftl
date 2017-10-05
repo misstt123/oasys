@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 <table class="table table-striped table-hover table-bordered table-responsive">
 					<tr>
 						<th>部门</th>
@@ -25,7 +19,6 @@
 						<td>${user.userName}</td>
 						<#list weekday as wd>
 			<td class="report">
-			   <#assign total=0>
 				<#if user.aSet??>
 				 <#list user.aSet as att>
 				    <#if user.userId==att.user.userId>
@@ -48,5 +41,3 @@
 				</#list>
 			</#if>
 			</table>
-</body>
-</html>

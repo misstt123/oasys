@@ -1,5 +1,7 @@
 package cn.gson.oasys.controller.note;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.awt.Dialog.ModalExclusionType;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,6 +39,7 @@ import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
+import cn.gson.oasys.controller.attendce.AttendceController;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.notedao.CatalogDao;
 import cn.gson.oasys.model.dao.notedao.CatalogService;
@@ -82,7 +85,8 @@ public class NoteController {
 	Attachment att;
 	List<Note> noteList;
 	List<Catalog> cataloglist;
-
+	List<SystemTypeList> type;
+	List<SystemStatusList> status;
 	// 收藏查询
 	@RequestMapping("collectfind")
 	public String dsafdsf(Model model, HttpServletRequest request, @RequestParam("iscollect") String iscollected,
@@ -218,19 +222,7 @@ public class NoteController {
 		return "forward:/noteedit";
 	}
 
-	// 查找类型
-	@RequestMapping("notetype")
-	public String test43(Model model, HttpServletRequest request, @RequestParam("id") Long tid, HttpSession session,@RequestParam(value="page",defaultValue="0")int page) {
-		Long userid = Long.valueOf(session.getAttribute("userId") + "");
-		System.out.println(tid);
-		Page<Note> upage=NoteService.paging(page, null, userid, null, null, tid);
-		System.out.println(upage.getContent());
-		request.setAttribute("sort", "&id="+tid);
-		paging(model, upage);
-		model.addAttribute("url", "notetype");
-		typestatus(request);
-		return "note/notewrite";
-	}
+	
 	// 笔记批量删除
 	@RequestMapping("notesomedelete")
 	public String dsafds(HttpServletRequest request) {
@@ -280,13 +272,22 @@ public class NoteController {
 
 	// 笔记主界面
 	@RequestMapping(value = "noteview", method = RequestMethod.GET)
-	public String test(Model model, HttpServletRequest request, HttpSession session,@RequestParam(value="page",defaultValue="0")int page) {
+	public String test(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		cataloglist = (List<Catalog>) catalogDao.findcatauser(userid);
-		typestatus(request);
+		
+		
+		new AttendceController().setSomething(baseKey, type, status, time, icon, model);
+		Page<Note> upage=NoteService.sortpage(page, baseKey, userid, type, status, time);
 		model.addAttribute("sort", "&userid="+userid);
-		Page<Note> upage=NoteService.paging(page, null, userid, null, null, null);
 		paging(model, upage);
+		typestatus(request);
 		model.addAttribute("url", "notewrite");
 		model.addAttribute("calist", cataloglist);
 		return "note/noteview";
@@ -386,23 +387,64 @@ public class NoteController {
 		}
 	}
 
-	// 显示所有
+	// 显示表格所有
 	@RequestMapping(value = "notewrite", method = RequestMethod.GET)
-	public String test33(Model model, HttpServletRequest request,  HttpSession session,@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "baseKey", required = false) String baseKey) {
+	public String test33(Model model, HttpServletRequest request,  HttpSession session,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "baseKey", required = false) String baseKey,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "status", required = false) String status,
+			@RequestParam(value = "time", required = false) String time,
+			@RequestParam(value = "icon", required = false) String icon) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
-		System.out.println(baseKey);
-			Page<Note> upage=NoteService.paging(page, baseKey, userid, null, null, null);
+//		List<SystemTypeList> type2 = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+//		List<SystemStatusList> status2 = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+//		request.setAttribute("typelist", type);
+//		request.setAttribute("statuslist", status);
+//		for (SystemTypeList t : type2) {
+//			if(t.toString().contains(baseKey.toString()))
+//				baseKey=t.getTypeId();
+//		}
+//		for (SystemStatusList s : status2) {
+//			if(s.toString().contains(baseKey.toString()))
+//				baseKey=s.getStatusId();
+//		}
+		
+			new AttendceController().setSomething(baseKey, type, status, time, icon, model);
+			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, type, status, time);
+			typestatus(request);
+			if(baseKey!=null){
+				//如果有搜索关键字那么就记住它
+				request.setAttribute("sort", "&baseKey="+baseKey);
+			}
+			//没有就默认查找所有
+			else
 			request.setAttribute("sort", "&userid="+userid);
 			paging(model, upage);
 			model.addAttribute("url", "notewrite");
-		typestatus(request);
-		
 		return "note/notewrite";
 	}
 	
 	
-	
+	// 查找类型
+		@RequestMapping("notetype")
+		public String test43(Model model, HttpServletRequest request, @RequestParam("id") Long tid, @RequestParam("cata") Long cid, HttpSession session,@RequestParam(value="page",defaultValue="0")int page) {
+			Long userid = Long.valueOf(session.getAttribute("userId") + "");
+			System.out.println(tid);
+			if(cid==-2)
+				cid=null;
+			System.out.println("目录"+cid);
+			Page<Note> upage=NoteService.paging(page, null, userid, null, cid, tid);
+			System.out.println(upage.getContent());
+			//获得数据之后就将cid重新设置
+			if(cid==null)
+				cid=-2l;
+			request.setAttribute("sort", "&cata="+cid+"&id="+tid);
+			paging(model, upage);
+			model.addAttribute("url", "notetype");
+			typestatus(request);
+			return "note/notewrite";
+		}
 
 	//查找目录
 	@RequestMapping("notecata")
@@ -481,10 +523,10 @@ public class NoteController {
 	}
 	
 	private void typestatus(HttpServletRequest request) {
-		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
-		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
-		request.setAttribute("type", type);
-		request.setAttribute("status", status);
+		type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_note_list");
+		 status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_note_list");
+		request.setAttribute("typelist", type);
+		request.setAttribute("statuslist", status);
 	}
 	//分页
 	private void paging(Model model, Page<Note> upage) {

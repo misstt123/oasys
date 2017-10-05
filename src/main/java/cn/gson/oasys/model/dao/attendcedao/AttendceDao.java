@@ -43,8 +43,33 @@ Attends findlastest(String date,long userid);
 @Query("from Attends a where a.user.userId=:userId")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("userId")long userid,Pageable pa);
   
+
   @Query("from Attends a where a.user.userId in (:ids)")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("ids") List<Long> user,Pageable pa);
+  
+//类型
+  //通过类型降序排序
+	@Query("from Attends a where a.user.userId in (:ids) ORDER BY a.typeId DESC ")
+	Page<Attends> findByUserOrderByTypeIdDesc(@Param("ids") List<Long> user,Pageable pa);
+	
+	//通过类型升序排序
+	@Query("from Attends a where a.user.userId in (:ids)  ORDER BY a.typeId ASC ")
+		Page<Attends> findByUserOrderByTypeIdAsc(@Param("ids") List<Long> user,Pageable pa);
+	
+	//状态
+	 //通过状态降序排序
+		@Query("from Attends a where a.user.userId in (:ids)  ORDER BY a.statusId DESC ")
+		Page<Attends> findByUserOrderByStatusIdDesc(@Param("ids") List<Long> user,Pageable pa);
+		
+	//通过状态升序排序
+	    @Query("from Attends a where a.user.userId in (:ids)  ORDER BY a.statusId ASC ")
+			Page<Attends> findByUserOrderByStatusIdAsc(@Param("ids") List<Long> user,Pageable pa);
+	    
+	 //时间
+	  		//时间降序在开始的时候就已经默认了
+	  //通过时间升序排序
+	        @Query("from Attends a where a.user.userId in (:ids)  ORDER BY a.attendsTime ASC ")
+	  			Page<Attends> findByUserOrderByAttendsTimeAsc(@Param("ids") List<Long> user,Pageable pa);
   
   
   @Query("SELECT count(*) from Attends a where DATE_FORMAT(a.attendsTime,'%Y-%m') like %?1% and a.statusId=?2 and a.user.userId=?3")
@@ -57,5 +82,31 @@ Attends findlastest(String date,long userid);
   @Query("update Attends a set a.attendsRemark=?1 where a.attendsId=?2")
   @Modifying
   Integer updateremark(String attendsRemark,long attendsId);
+  
+  
+  //类型
+  //通过类型降序排序
+	@Query("from Attends a where a.user.userId=?1  ORDER BY a.typeId DESC ")
+	Page<Attends> findByUserOrderByTypeIdDesc(long userid,Pageable pa);
+	
+	//通过类型升序排序
+	@Query("from Attends a where a.user.userId=?1  ORDER BY a.typeId ASC ")
+		Page<Attends> findByUserOrderByTypeIdAsc(long userid,Pageable pa);
+	
+	//状态
+	 //通过状态降序排序
+		@Query("from Attends a where a.user.userId=?1  ORDER BY a.statusId DESC ")
+		Page<Attends> findByUserOrderByStatusIdDesc(long userid,Pageable pa);
+		
+	//通过状态升序排序
+	    @Query("from Attends a where a.user.userId=?1  ORDER BY a.statusId ASC ")
+			Page<Attends> findByUserOrderByStatusIdAsc(long userid,Pageable pa);
+	    
+	 //时间
+	  		//时间降序在开始的时候就已经默认了
+	  //通过时间升序排序
+	  	    @Query("from Attends a where a.user.userId=?1  ORDER BY a.attendsTime ASC ")
+	  			Page<Attends> findByUserOrderByAttendsTimeAsc(long userid,Pageable pa);
+	
   
 } 

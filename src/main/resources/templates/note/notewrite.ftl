@@ -126,11 +126,25 @@ function somenotedelete(){
 									<tr>
 										<th scope="col">选择</th>
 										<th scope="col">&nbsp;</th>
-										<th scope="col">类型</th>
+										<th scope="col" class="paixu thistype">类型
+										<#if type?? && icon??>
+										<span class="glyphicon ${icon}"></span>
+										</#if>
+									</th>
 										<th scope="col">标题</th>
-										<th scope="col">更新</th>
+										
+<th scope="col"><span class="paixu thistime">更新
+						<#if time?? && icon??>
+							<span class="glyphicon ${icon}"></span>
+						</#if>
+						</span></th>
 										<th scope="col">附件</th>
-										<th scope="col">状态</th>
+										<th scope="col"><span class="paixu thisstatus">状态
+						<#if status?? && icon??>
+							<span class="glyphicon ${icon}"></span>
+						</#if>
+						</span></th>
+
 										<th scope="col">操作</th>
 									</tr>
 									<#if nlist??>
@@ -150,7 +164,7 @@ function somenotedelete(){
 										
 										<td>
 										<span>
-											<#list type as t>
+											<#list typelist as t>
 												<#if note.typeId==t.typeId>${t.typeName}</#if>
 											</#list>
 										</span></td>
@@ -164,7 +178,7 @@ function somenotedelete(){
 										</a>
 										</td>
 										<td>
-											<#list status as s>
+											<#list statuslist as s>
 												<#if note.statusId==s.statusId><span class="label ${s.statusColor}">${s.statusName}</span></#if>
 											</#list>
 										</td>

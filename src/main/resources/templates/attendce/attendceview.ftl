@@ -65,16 +65,8 @@ a:hover {
 	height: 2px !important;
 }
 
-.commen {
-	cursor: pointer;
-}
-
-.co {
-	color: blue;
-}
-
-.bl {
-	color: black;
+.paixu :hover{
+color:blue;
 }
 
 .box {
@@ -82,7 +74,7 @@ a:hover {
 }
 </style>
 <script>
-	$(
+	/* $(
 			function() {
 				$(".commen")
 						.on(
@@ -101,7 +93,7 @@ a:hover {
 											.removeClass(
 													"glyphicon glyphicon-triangle-bottom");
 								})
-			})
+			}) */
 </script>
 </head>
 

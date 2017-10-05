@@ -27,14 +27,23 @@ $(".change").click(function(){
 				$ul.slideToggle(500);
 			} 
 	})
-	
-});	
-//笔记里面跳转 注意里面只存储一个id的数据
-function notejump(url,id){
-  var data={id:id}
- /*  alert("---"+id); */
-   //显示具体信息
-   var url = url;
+		
+ 
+});
+
+
+
+
+function notetype(id){
+	var $cataid;
+    $(".cata ul li ").each(function(){
+      if($(this).hasClass("borderleft")){
+	$cataid=$(this).children("a").attr("id");
+	}
+      })
+  var data={id:id,
+	cata:$cataid}
+   var url = 'notetype';
    $.ajax({
 		type : "get",
 		async : false,
@@ -49,8 +58,25 @@ function notejump(url,id){
 	})
 	}
 	
+function notejump(url,id){
+	  var data={id:id}
+	 /*  alert("---"+id); */
+	   //显示具体信息
+	   var url = url;
+	   $.ajax({
+			type : "get",
+			async : false,
+			url : url,
+			data:data,
+			success : function(dates) {
+				$('#container').html(dates);
+			},
+		    error:function(){
+		    	alert("失败了")
+		    }
+		})
+		}
 
-	
 
 function increase(){
 	var $zengjia=$(".input-group #increase").val();
@@ -171,7 +197,7 @@ border: none;
 					<a class="btn btn-primary " onclick="notejump('noteedit','-1')"
 						style="width: 100%; margin-bottom: 20px;"><span
 						class="glyphicon glyphicon-pencil"></span> 新建</a>
-					<div class="bgc-w box box-solid">
+					<div class="bgc-w box box-solid cata">
 						<div class="box-header">
 							<h3 class="box-title">笔记</h3>
 							<span class="btn btn-xs btn-default  pull-right  change">
@@ -179,7 +205,7 @@ border: none;
 							</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li class="borderleft"><a onclick="notejump('notewrite')" > <span
+							<li class="borderleft"><a onclick="notejump('notewrite')" id=-2> <span
 									class="glyphicon glyphicon-time"></span> 最近
 							</a></li>
 							
@@ -217,7 +243,7 @@ border: none;
 						</div>
 					</div>
 
-					<div class="bgc-w box box-solid">
+					<div class="bgc-w box box-solid type">
 						<div class="box-header">
 							<h3 class="box-title">类型</h3>
 							<span class="btn btn-xs btn-default  pull-right change">
@@ -225,18 +251,14 @@ border: none;
 								</span>
 						</div>
 						<ul class="nav nav-pills nav-stacked">
-							<li><a onclick="notejump('notetype','5')"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> 我的笔记
-							</a></li>
-							<li><a onclick="notejump('notetype','6')"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> 公司笔记
-							</a></li>
-							<li><a onclick="notejump('notetype','7')"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> 共享笔记
-							</a></li>
+						    <#if typelist??>
+							    <#list typelist as t>
+									<li><a onclick="notetype(${t.typeId})" > <svg class="icon" aria-hidden="true">
+													<use xlink:href="#icon-kongxinquan"></use>
+												</svg> ${t.typeName}
+									</a></li>
+								</#list>
+							</#if>
 						</ul>
 					</div>
 				</div>
