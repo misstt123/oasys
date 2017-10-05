@@ -173,16 +173,23 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("mcto")
-	public String mcto(@RequestParam("pathid") Long pathid,
+	public String mcto(@RequestParam("morc") boolean morc,
+			@RequestParam("mctoid") Long mctoid,
+			@RequestParam("pathid") Long pathid,
 			@RequestParam("mcfileids")List<Long> mcfileids,
 			@RequestParam("mcpathids")List<Long> mcpathids,
 			Model model){
 		System.out.println("--------------------");
-		System.out.println(pathid);
 		System.out.println("mcfileids"+mcfileids);
 		System.out.println("mcpathids"+mcpathids);
-		
-		fs.moveAndcopy(mcfileids, mcpathids, true);
+	
+		if(morc){
+			System.out.println("这里是移动！~~");
+			fs.moveAndcopy(mcfileids,mcpathids,mctoid,true);
+		}else{
+			System.out.println("这里是复制！~~");
+			fs.moveAndcopy(mcfileids,mcpathids,mctoid,false);
+		}
 		
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";

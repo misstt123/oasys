@@ -95,7 +95,7 @@ li.activee>a {
 			<li><a class="downloadfile">下载</a></li>
 			<li><a>分享</a></li>
 			<li><a class="movefile">移动到</a></li>
-			<li><a>复制到</a></li>
+			<li><a class="copyfile">复制到</a></li>
 			<li><a class="rename">重命名</a></li>
 			<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
 		</ul>
@@ -322,7 +322,7 @@ li.activee>a {
 			<div class="modal-content">
 				<div class="modal-body box no-padding" style="display: none;">
 					<div class="box-header">
-						<h3 class="box-title" style="font-size:15px;">移动到</h3>
+						<h3 class="box-title mc-title" style="font-size:15px;"></h3>
 					</div>
 					<div class="box-body no-padding">
 						<div class="box-header" style="padding:3px 0 3px 0;">
@@ -336,16 +336,19 @@ li.activee>a {
 						</div>
 						<ul class="nav nav-pills nav-stacked mm" style="padding-left:15px;">
 							<#list mcpaths as path>
-								<div class="box-header no-padding modalajax">
-									<span class="btn btn-default btn-xs des mm"> 
-										<i class="glyphicon-plus"></i>
-									</span>
-									<div class="mcflooropen"></div>
-									<h3 class="box-title" style="font-size:12px;">${path.pathName}</h3>
-									<input class="mctopathid" type="hidden" value="${path.id}" />
+								<div class="pathidcompare" pathId="${path.id}">
+									<div class="box-header no-padding modalajax">
+										<span class="btn btn-default btn-xs des mm"> 
+											<i class="jiajian glyphicon-plus"></i>
+										</span>
+										<div class="mcflooropen"></div>
+										<h3 class="box-title" style="font-size:12px;">${path.pathName}</h3>
+										<input class="mctopathid" type="hidden" value="${path.id}" />
+									</div>
+									<ul class="nav nav-pills nav-stacked mm modalajaxdata" style="padding-left:15px;display:none;">
+										<li>xx</li>
+									</ul>
 								</div>
-								<ul class="nav nav-pills nav-stacked mm modalajaxdata" style="padding-left:15px;display:none;">
-								</ul>
 							</#list>
 							<!-- <li style="border:0px;">
 								<div class="box-header no-padding">
@@ -386,13 +389,16 @@ li.activee>a {
 						</ul>
 					</div>
 					<div class="box-footer" style="text-align:right;">
+						<input class="userrootpath" type="hidden" name="userrootpath" value="${userrootpath.id}"/>
 						<form action="mcto" method="get">
-							<input class="mctoid" type="hidden" name="pathid" value="${userrootpath.id}"/>
+							<input class="mctoid" type="hidden" name="mctoid" value="${userrootpath.id}"/>
 							<input class="mcfileids" type="hidden" name="mcfileids" value=""/>
 							<input class="mcpathids" type="hidden" name="mcpathids" value=""/>
+							<input type="hidden" name="pathid" value="${nowpath.id}"/>
+							<input class="morc" type="hidden" name="morc" value=""/>
 							<button type="submit" class="btn btn-primary"
 								>确定</button>
-							<button type="button" class="btn btn-default"
+							<button type="button" class="btn btn-default mcmodalcancle"
 								data-dismiss="modal">取消</button>
 						</form>
 					</div>
@@ -402,10 +408,11 @@ li.activee>a {
 	</div>
 </body>
 <script src="js/common/iconfont.js"></script>
-<!-- <script src="js/file/fileajax.js"></script> -->
 <script src="js/file/filejs.js"></script>
+<script src="js/file/fileajax.js"></script>
 <script type="text/javascript">
 		$(function() {
+			
 			/*
 			 * 收縮
 			 */
@@ -433,19 +440,6 @@ li.activee>a {
 				}
 			});
 			
-			$("#thismodal .box-body").on("click",".box-header",function(){
-				
-				console.log($(this).find(".mctopathid").val());
-				
-				$(".box-footer .mctoid").val($(this).find(".mctopathid").val());
-				
-				if($(this).hasClass("modalajax")){
-					console.log("modalajax");
-				}else{
-					console.log("box-header");
-				}
-			})
-
 			$(".nav.mm").on("click", "li", function() {
 				$(this).parent().children(".activee").removeClass("activee");
 				$(this).addClass("activee");

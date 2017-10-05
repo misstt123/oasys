@@ -94,11 +94,52 @@ $(document).click(function(e){
 /**
  * 文件移动、复制文件使用模态框 JS
  */
+
+/**
+ * 这里是移动
+ */
 $(".menu .movefile").click(function(){
-	console.log("进入模态框点击！~~");
+	console.log("进入移动模态框点击！~~");
 	$("#thismodal").modal("toggle");
 	$('#thismodal .modal-body').css('display', 'block');
+	$("#thismodal .mc-title").html("移动到");
+	$("#thismodal .morc").val(true);
+	
+	var checkfileids = new Array();
+	var checkpathids = new Array();
+	checkedpaths(checkpathids,checkfileids);
+	
+	$("#thismodal .pathidcompare").each(function(){
+		console.log($(this).attr("pathId"));
+		for(var i=0;i<checkpathids.length;i++){
+			if($(this).attr("pathId") == checkpathids[i]){
+				console.log("is com!~~~");
+				$(this).addClass("diplaynone");
+				return;
+			}
+		}
+	});
 });
+/**
+ * 这里是复制
+ */
+$(".menu .copyfile").click(function(){
+	console.log("进入复制模态框点击！~~");
+	$("#thismodal").modal("toggle");
+	$('#thismodal .modal-body').css('display', 'block');
+	$("#thismodal .mc-title").html("复制到");
+	$("#thismodal .morc").val(false);
+});
+/**
+ * 这里是取消按钮
+ */
+$("#thismodal .box-footer").on("click",".mcmodalcancle",function(){
+	console.log("dianle quxiao");
+	$("#thismodal .pathidcompare").removeClass("diplaynone");
+	$("#thismodal .box-footer .mctoid").val($("#thismodal .box-footer .userrootpath").val());
+});
+
+
 
 
 /**
@@ -124,11 +165,9 @@ function checkedpaths(pathids,fileids){
 	var j = 0;
 	checkedpaths.each(function(){
 		if($(this).find(".file-img").hasClass("path")){
-			console.log("haspath!!~~");
 			pathids[i] = $(this).find(".pathmessage").val();
 			i += 1;
 		}else{
-			console.log("nopath!!~~");
 			fileids[j] = $(this).find(".filemessage").val();
 			console.log($(this).find(".filemessage").val());
 			j += 1;

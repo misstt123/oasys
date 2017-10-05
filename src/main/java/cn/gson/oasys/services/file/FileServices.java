@@ -177,26 +177,6 @@ public class FileServices {
 	}
 	
 	/**
-	 * 复制和移动
-	 * @param ids
-	 * @param fromwhere  1为移动  2 为复制
-	 */
-	@Transactional
-	public void moveAndcopy(List<Long> mcfileids,List<Long> mcpathids,boolean fromwhere){
-		if(fromwhere){
-			System.out.println("这里是移动！！~~");
-			if(!mcfileids.isEmpty()){
-				System.out.println("fileid is not null");
-			}
-			if(!mcpathids.isEmpty()){
-				System.out.println("fileid is not null");
-			}
-		}else{
-			System.out.println("这里是复制！！~~");
-		}
-	}
-	
-	/**
 	 * 根据文件夹id 批量删除 文件夹    并删除此路径下的所有文件以及文件夹
 	 * @param pathids
 	 */
@@ -229,6 +209,41 @@ public class FileServices {
 			}
 			
 			fpdao.delete(filepath);
+		}
+	}
+	
+	/**
+	 * 复制和移动
+	 * @param ids
+	 * @param fromwhere  1为移动  2 为复制
+	 */
+	@Transactional
+	public void moveAndcopy(List<Long> mcfileids,List<Long> mcpathids,Long topathid,boolean fromwhere){
+		FilePath topath = fpdao.findOne(topathid);
+		if(fromwhere){
+			System.out.println("这里是移动！！~~");
+			if(!mcfileids.isEmpty()){
+				System.out.println("fileid is not null");
+				for (Long mcfileid : mcfileids) {
+					FileList filelist = fldao.findOne(mcfileid);
+					String filename = onlyname(filelist.getFileName(),topath,filelist.getFileShuffix(),1,true);
+					filelist.setFpath(topath);
+					filelist.setFileName(filename);
+					fldao.save(filelist);
+				}
+			}
+			if(!mcpathids.isEmpty()){
+				System.out.println("pathid is not null");
+				for (Long mcpathid : mcpathids) {
+					FilePath filepath = fpdao.findOne(mcpathid);
+					String name = onlyname(filepath.getPathName(), topath, null, 1, false);
+					filepath.setParentId(topathid);
+					filepath.setPathName(name);
+					fpdao.save(filepath);
+				}
+			}
+		}else{
+			System.out.println("这里是复制！！~~");
 		}
 	}
 	
