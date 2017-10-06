@@ -10,12 +10,13 @@ maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
+<link rel="stylesheet" href="css/common/skintheme.css" />
 <script>
 	function changepath(path){
 		$('iframe').attr('src',path);
 	}
-	
 </script>
 <#include "/common/iosstyle.ftl">
 </head>

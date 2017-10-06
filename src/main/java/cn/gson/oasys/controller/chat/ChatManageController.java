@@ -78,10 +78,12 @@ public class ChatManageController {
 	 * @return
 	 */
 	@RequestMapping("adminmanage")
-	public String adminManage(@RequestParam(value="page",defaultValue="0") int page,
+	public String adminManage(@RequestParam(value="page",defaultValue="0") int page,HttpSession session,
 			@SessionAttribute("userId") Long userId,Model model){
 		Page<Discuss> page2=disService.paging(page, null, 1L,null,null,null);
 		setPagintMess(model, page2,"/chattable","manage","超级管理员");
+		session.removeAttribute("returnUrl");
+		session.setAttribute("returnUrl", "adminmanage");
 		return "chat/chatmanage";
 	}
 	
@@ -91,10 +93,12 @@ public class ChatManageController {
 	 */
 	@RequestMapping("chatmanage")
 	public String chatManage(@RequestParam(value="page",defaultValue="0") int page,
-			@SessionAttribute("userId") Long userId,Model model){
+			@SessionAttribute("userId") Long userId,Model model,HttpSession session){
 		Page<Discuss> page2=disService.pagingMe(page, null, userId,null,null,null);
 		setPagintMess(model, page2,"/metable","manage","我的管理");
 		model.addAttribute("me", "me");
+		session.removeAttribute("returnUrl");
+		session.setAttribute("returnUrl", "chatmanage");
 		return "chat/chatmanage";
 	}
 	/**
@@ -104,9 +108,11 @@ public class ChatManageController {
 	 * @return
 	 */
 	@RequestMapping("chatlist")
-	public String chatList(@RequestParam(value="page",defaultValue="0") int page,Model model){
+	public String chatList(@RequestParam(value="page",defaultValue="0") int page,Model model,HttpSession session){
 		Page<Discuss> page2=disService.paging(page, null, null,null,null,null);
 		setPagintMess(model, page2,"/seetable",null,"讨论列表");
+		session.removeAttribute("returnUrl");
+		session.setAttribute("returnUrl", "chatlist");
 		return "chat/chatmanage";
 	}
 	
@@ -209,10 +215,11 @@ public class ChatManageController {
 	
 	//专门使用一个controller来转发到查看界面，在这个controller中加访问数加1，这样就不会再刷新当前界面使得访问数+1
 	@RequestMapping("seediscuss")
-	public String seeDiscuss(@RequestParam(value="id") Long id,HttpSession session){
+	public String seeDiscuss(@RequestParam(value="id") Long id,@RequestParam(value="pageNumber") Integer pageNumber,HttpSession session){
 		disService.addOneDiscuss(id);
 		session.removeAttribute("id");
 		session.setAttribute("id", id);
+		session.setAttribute("pageNumber", pageNumber);
 		return "redirect:/replymanage";
 	}
 	

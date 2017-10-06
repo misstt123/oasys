@@ -170,13 +170,18 @@ public class ReplyController {
 	//回复分页处理
 	@RequestMapping("/replypaging")
 	public String  replyPaging(HttpServletRequest req,
+			@RequestParam(value="selecttype") Long selecttype,
+			@RequestParam(value="selectsort") Long selectsort,
 			@RequestParam(value="page",defaultValue="0") int page,
 			@RequestParam(value="size",defaultValue="5") int size,
 			@SessionAttribute("userId") Long userId,Model model){
-		Long num=Long.parseLong(req.getParameter("num"));
-		disService.setDiscussMess(model, num,userId,page,size);
 		System.out.println(size);
 		System.out.println(page);
+		System.out.println("selecttype:"+selecttype);
+		System.out.println("selectsort:"+selectsort);
+		Long num=Long.parseLong(req.getParameter("num"));
+		disService.discussHandle(model, num,userId,page,size,selecttype,selectsort);
+		
 		return "chat/replytable";
 	}
 	
@@ -211,6 +216,7 @@ public class ReplyController {
 			commentservice.deleteComment(discussId);
 		}
 		disService.setDiscussMess(model, num,userId,page,size);
+		model.addAttribute("manage", "manage");
 		System.out.println(num);
 		System.out.println(discussId);
 		System.out.println(module);
@@ -258,7 +264,6 @@ public class ReplyController {
 		String module=req.getParameter("module");
 		Integer size=Integer.parseInt(req.getParameter("size"));
 		User user=uDao.findOne(userId);
-		System.out.println("进入后台了？");
 		if("discuss".equals(module)){
 			//处理讨论表的点赞，刷新
 			likeThisFun(req, userId);

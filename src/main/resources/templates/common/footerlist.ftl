@@ -66,8 +66,14 @@
 					$('.list-right').height($('.list-right').height());
 				}) */
 				//获取右侧内容板的高度；设置面板的高度
-				$('.list-left').height(window.screen.height-50);
-				$('.list-right').height(window.screen.height-50);
+				if(window.screen.height<800){
+					$('.list-left').height(850);
+					$('.list-right').height(850);
+				}else{
+					$('.list-left').height(window.screen.height-50);
+					$('.list-right').height(window.screen.height-50);
+				}
+				
 				/* console.log("右边的高度"+$('.list-right').height());
 				console.log(" 网页可见区域高："+ document.body.clientHeight);
 				console.log(" 网页正文全文高："+ document.body.scrollHeight);

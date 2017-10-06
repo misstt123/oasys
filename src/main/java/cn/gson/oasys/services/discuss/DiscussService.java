@@ -142,9 +142,20 @@ public class DiscussService {
 		Pageable pa = new PageRequest(page, size, sort);
 		return pa;
 	}
+	//用来显示信息
 	public void setDiscussMess(Model model, Long num,Long userId,int page,int size){
-		Pageable pa=new PageRequest(page, size);
-//		Discuss discuss=this.addOneDiscuss(num);							//根据讨论区id找到讨论
+		discussHandle(model, num, userId, page, size,null,null);
+	}
+
+	//处理讨论区信息
+	public void discussHandle(Model model, Long num, Long userId, int page, int size,Long selectType,Long selectSort) {
+		Pageable pa;
+		Page<Reply> replyPage = null;
+		if(!StringUtils.isEmpty(selectSort)&& selectSort==1){
+			pa=new PageRequest(page, size,new Sort(Direction.DESC,"replayTime"));
+		}else{
+			pa=new PageRequest(page, size,new Sort(Direction.ASC,"replayTime"));
+		}
 		Discuss discuss=discussDao.findOne(num);
 		User user=uDao.findOne(userId);
 		Boolean discussContain=discuss.getUsers().contains(user);
@@ -153,23 +164,45 @@ public class DiscussService {
 		model.addAttribute("discussContain", discussContain);
 		model.addAttribute("discussLikeNum", discussLikeNum);
 		model.addAttribute("setUsers", setUsers);
-		Page<Reply> replyPage=replyDao.findByDiscuss(discuss,pa);				//根据讨论id找到所有的回复表
+		//这句是关键代码，从数据库拿到所有数据，也进行排序，只要在这进行判断
+		if(!StringUtils.isEmpty(selectType)){
+			User user2=uDao.findOne(selectType);
+			replyPage=replyDao.findByDiscussAndUser(discuss, user2, pa);
+		}else{
+			replyPage=replyDao.findByDiscuss(discuss,pa);				//根据讨论id找到所有的回复表
+		}
+		List<Reply> replyCols=replyDao.findByDiscuss(discuss);
 		List<Reply> replyList=replyPage.getContent();		
 		List<Map<String, Object>> replys=this.replyPackaging(replyList,userId);		//对回复表字段进行封装，主要是为了获取到评论数
-		if(replyList.size()>0){
-			Long[] replyLong=new Long[replyList.size()];							//用数组来结束所有回复表的id
-			for (int i = 0; i < replyList.size(); i++) {
-				replyLong[i]=replyList.get(i).getReplyId();
+		if(replyCols.size()>0){
+			Long[] replyLong=new Long[replyCols.size()];							//用数组来结束所有回复表的id
+			for (int i = 0; i < replyCols.size(); i++) {
+				replyLong[i]=replyCols.get(i).getReplyId();
 			}						
 			List<Comment> commentList=commentDao.findComments(replyLong);			//in 查找所有回复id的所有评论
 			List<Map<String, Object>> commentMap=this.commentPackaging(commentList);	//对评论字段进行封装
 			model.addAttribute("commentList", commentMap);
-			int chatNum=commentList.size()+replyList.size();
+			int chatNum=commentList.size()+replyCols.size();
 			model.addAttribute("chatNum", chatNum);
 		}		model.addAttribute("replyList", replys);
 		model.addAttribute("discuss", discuss);
 		model.addAttribute("page", replyPage);
 		model.addAttribute("user", discuss.getUser());
+	}
+	
+	//根据讨论区获取到它的评论数
+	private Integer getComments(Discuss discuss){
+		int chatNum=0;
+		List<Reply> replyCols=replyDao.findByDiscuss(discuss);
+		if(replyCols.size()>0){
+			Long[] replyLong=new Long[replyCols.size()];							//用数组来结束所有回复表的id
+			for (int i = 0; i < replyCols.size(); i++) {
+				replyLong[i]=replyCols.get(i).getReplyId();
+			}						
+			List<Comment> commentList=commentDao.findComments(replyLong);			//in 查找所有回复id的所有评论
+			chatNum=commentList.size()+replyCols.size();
+		}
+		return chatNum;
 	}
 	
 	//对回复表进行封装
@@ -178,10 +211,16 @@ public class DiscussService {
 		List<Map<String, Object>> replyMap=new ArrayList<>();
 		for (int i = 0; i < replyList.size(); i++) {
 			Map<String, Object> result=new HashMap<>();
-			result.put("contain", replyList.get(i).getUsers().contains(user));
+			if(replyList.get(i)==null||replyList.get(i).getUsers()==null){
+				result.put("contain", false);
+				result.put("likenum", 0);
+			}else{
+				result.put("contain", replyList.get(i).getUsers().contains(user));
+				result.put("likenum", replyList.get(i).getUsers().size());
+			}
 			result.put("count",commentDao.findByReply(replyList.get(i)).size());
 			result.put("replyLikeUsers", replyList.get(i).getUsers());
-			result.put("likenum", replyList.get(i).getUsers().size());
+			
 			result.put("replyId",replyList.get(i).getReplyId());
 			result.put("replayTime",replyList.get(i).getReplayTime());
 			result.put("content",replyList.get(i).getContent());
@@ -214,6 +253,12 @@ public class DiscussService {
 			result.put("id", list.get(i).getDiscussId());
 			result.put("typeName", typeDao.findOne(list.get(i).getTypeId()).getTypeName());
 			result.put("userName", list.get(i).getUser().getUserName());
+			if(list.get(i).getUsers()==null){
+				result.put("likeNum", 0);
+			}else{
+				result.put("likeNum", list.get(i).getUsers().size());
+			}
+			result.put("commentsNum",getComments(list.get(i)));
 			result.put("title", list.get(i).getTitle());
 			result.put("createTime", list.get(i).getCreateTime());
 			result.put("visitNum", list.get(i).getVisitNum());
