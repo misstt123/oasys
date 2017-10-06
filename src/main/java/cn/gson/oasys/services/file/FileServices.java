@@ -248,6 +248,37 @@ public class FileServices {
 	}
 	
 	/**
+	 * 移动复制文件树 点击加载
+	 * @param mctoid
+	 * @param mcpathids
+	 * @return
+	 */
+	public List<FilePath> mcpathload(Long mctoid,List<Long> mcpathids){
+		List<FilePath> showsonpath = new ArrayList<>();
+		List<FilePath> sonpaths = fpdao.findByParentId(mctoid);
+		
+		for (FilePath sonpath : sonpaths) {
+			boolean nosame = true;
+			for (Long mcpathid : mcpathids) {
+				if(sonpath.getId().equals(mcpathid)){
+					nosame = false;
+					break;
+				}
+			}
+			if(nosame){
+				showsonpath.add(sonpath);
+			}
+		}
+		return showsonpath;
+	}
+	
+	
+	public void rename(){
+		
+	}
+	
+	
+	/**
 	 * 文件以及路径得同名处理
 	 * @param name
 	 * @param filepath
