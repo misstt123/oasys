@@ -1,18 +1,14 @@
 package cn.gson.oasys.model.entity.process;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -67,23 +63,6 @@ public class ProcessList{
 	@JoinColumn(name="pro_file_id")
 	private Attachment proFileid;   //流程附件id
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="aoa_pro_rev",
-	joinColumns={
-			@JoinColumn(name="process_id")
-	},inverseJoinColumns={@JoinColumn(name="reviewed_id")})
-	private List<Reviewed> reviewed;
-	
-	
-
-	public List<Reviewed> getReviewed() {
-		return reviewed;
-	}
-
-	public void setReviewed(List<Reviewed> reviewed) {
-		this.reviewed = reviewed;
-	}
-
 	public Long getProcessId() {
 		return processId;
 	}

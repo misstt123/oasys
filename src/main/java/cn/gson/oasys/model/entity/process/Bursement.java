@@ -51,10 +51,13 @@ public class Bursement {
 	private String financialAdvice;//财务部意见及说明
 	
 	@Column(name="all_money")
-	private double allMoney;//总计金额
+	private Double allMoney;//总计金额
 	
 	@Transient
-	private String username;
+	private String username;//审核人员
+	
+	@Transient
+	private String namemoney;//承担主体
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="burs",orphanRemoval = true)
 	List<DetailsBurse>  details;
@@ -63,6 +66,16 @@ public class Bursement {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	
+	
+	public String getNamemoney() {
+		return namemoney;
+	}
+
+	public void setNamemoney(String namemoney) {
+		this.namemoney = namemoney;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -143,11 +156,11 @@ public class Bursement {
 		this.financialAdvice = financialAdvice;
 	}
 
-	public double getAllMoney() {
+	public Double getAllMoney() {
 		return allMoney;
 	}
 
-	public void setAllMoney(double allMoney) {
+	public void setAllMoney(Double allMoney) {
 		this.allMoney = allMoney;
 	}
 
@@ -170,7 +183,7 @@ public class Bursement {
 	@Override
 	public String toString() {
 		return "Bursement [bursementId=" + bursementId + ", name=" + name + ", typeId=" + typeId + ", burseTime=" + burseTime + ", allinvoices=" + allinvoices + ", managerAdvice="
-				+ managerAdvice + ", financialAdvice=" + financialAdvice + ", allMoney=" + allMoney + ", username="
+				+ managerAdvice + ", namemoney=" + namemoney + ", financialAdvice=" + financialAdvice + ", allMoney=" + allMoney + ", username="
 				+ username + "]";
 	}
 
