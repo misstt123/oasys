@@ -32,7 +32,8 @@ public class Planservice {
 	public Page<Plan> paging(int page,String baseKey,long userid, Object type, Object status, Object time){
 		Pageable pa=new PageRequest(page, 10);
 		if(!StringUtils.isEmpty(baseKey)){
-			//模糊查询
+			System.out.println("进来了");
+			return planDao.findBybasekey(baseKey, userid, pa);
 		}if (!StringUtils.isEmpty(type)) {
 			if(type.toString().equals("0")){
 				//降序
