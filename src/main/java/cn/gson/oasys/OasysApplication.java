@@ -11,3 +11,4 @@ public class OasysApplication {
 		SpringApplication.run(OasysApplication.class, args);
 	}
 }
+

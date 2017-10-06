@@ -54,9 +54,9 @@ public class AttendceService {
 		Pageable pa =new PageRequest(page, 10);
 		if (!StringUtils.isEmpty(baseKey)) {
 			// 模糊查询
+			return attendceDao.findsomemohu(baseKey, user, pa);
 		}if (!StringUtils.isEmpty(type)) {
 			if(type.toString().equals("0")){
-				System.out.println("111");
 				//降序
 				return attendceDao.findByUserOrderByTypeIdDesc(user, pa);
 			}else{System.out.println("22");
@@ -91,6 +91,8 @@ public class AttendceService {
 		//0为降序 1为升序
 		if (!StringUtils.isEmpty(baseKey)) {
 			// 查询
+			System.out.println(baseKey);
+			attendceDao.findonemohu(baseKey, userid, pa);
 		}
 		if (!StringUtils.isEmpty(type)) {
 			if(type.toString().equals("0")){

@@ -34,9 +34,17 @@ public interface PlanDao  extends JpaRepository<Plan, Long>{
 	@Query(nativeQuery=true,value="SELECT * from aoa_plan_list p WHERE p.create_time>?1 and p.create_time<?2  and p.plan_user_id=?3 and p.type_id=?4 ORDER BY p.create_time DESC limit 0,1")
 	Plan findlatest(Date start,Date end,long id,long typeid);
 	
+	
+	
 	//分页
 	@Query("from Plan p where p.user.userId=?1")
 	Page<Plan> findByUserOrderByCreateTimeDesc(long userid,Pageable pa);
+	
+	//模糊查询
+	@Query("from Plan p where (p.label like %?1% or p.title like %?1% or DATE_format(p.createTime,'%Y-%m-%d') like %?1% or "
+			+ "p.typeId in (select t.typeId from SystemTypeList t where t.typeName like %?1% ) or "
+			+ "p.statusId in (select s.statusId from SystemStatusList s where s.statusName like %?1%)) and p.user.userId=?2")
+	Page<Plan> findBybasekey (String baseKey, long userid,Pageable pa);
 	
 	//类型
 		@Query("from Plan p where p.user.userId=?1  order by p.typeId Desc")

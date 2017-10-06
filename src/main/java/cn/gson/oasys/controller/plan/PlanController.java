@@ -93,7 +93,7 @@ public class PlanController {
 	}
 
 	// 计划管理
-	@RequestMapping("planview")
+	@RequestMapping(value="planview", method = RequestMethod.GET)
 	public String test(Model model, HttpSession session, 
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "baseKey", required = false) String baseKey,
@@ -101,13 +101,14 @@ public class PlanController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
+		System.out.println("11"+baseKey);
 		sortpaging(model, session, page, baseKey, type, status, time, icon);
 		return "plan/planview";
 	}
 
 	
 
-	@RequestMapping("planviewtable")
+	@RequestMapping(value="planviewtable", method = RequestMethod.GET)
 	public String testdd(Model model, HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "baseKey", required = false) String baseKey,
@@ -115,6 +116,7 @@ public class PlanController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
+		System.out.println("222"+baseKey);
 		sortpaging(model, session, page, baseKey, type, status, time, icon);
 		return "plan/planviewtable";
 	}

@@ -44,6 +44,7 @@ public class NoteService {
 		Pageable pa = new PageRequest(page, 10);
 		
 		if(!StringUtils.isEmpty(baseKey)){
+			System.out.println("进来了"+baseKey+";"+userid);
 			return noteDao.findBytitleOrderByCreateTimeDesc(baseKey, userid, pa);
 		}//0为降序 1为升序
 		if (!StringUtils.isEmpty(type)) {
