@@ -89,17 +89,6 @@ li.activee>a {
 </head>
 
 <body style="background-color: #ecf0f5;">
-	<div class = "menu">
-		<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
-			<li><a class="open">打开</a></li>
-			<li><a class="downloadfile">下载</a></li>
-			<li><a>分享</a></li>
-			<li><a class="movefile">移动到</a></li>
-			<li><a class="copyfile">复制到</a></li>
-			<li><a class="rename">重命名</a></li>
-			<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
-		</ul>
-	</div>
 	<div class="row" style="padding-top: 10px;">
 		<div class="col-md-2">
 			<h1 style="font-size: 24px; margin: 0;" class="">文件管理</h1>
@@ -153,6 +142,17 @@ li.activee>a {
 		</div>
 		<div class="col-md-9">
 			<!--id="container"-->
+			<div class = "menu">
+				<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
+					<li><a class="open">打开</a></li>
+					<li><a class="downloadfile">下载</a></li>
+					<li><a>分享</a></li>
+					<li><a class="movefile">移动到</a></li>
+					<li><a class="copyfile">复制到</a></li>
+					<li><a class="rename">重命名</a></li>
+					<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
+				</ul>
+			</div>
 			<div class="bgc-w box box-primary" style="height: 695px;">
 				<!--盒子头-->
 				<div class="box-header">
