@@ -42,11 +42,23 @@ Attends findlastest(String date,long userid);
 
 @Query("from Attends a where a.user.userId=:userId")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("userId")long userid,Pageable pa);
-  
+
+//按照某个用户模糊查找
+@Query("from Attends a where  (a.attendsRemark like %?1% or DATE_format(a.attendsTime,'%Y-%m-%d') like %?1% or a.user.userName like %?1% or "
+  		+ "a.typeId in (select t.typeId from SystemTypeList t where t.typeName like %?1%) or "
+  		+ "a.statusId in (select s.statusId from SystemStatusList s where s.statusName like %?1%)) and a.user.userId=?2")
+Page<Attends> findonemohu(String baseKey,long userid,Pageable pa);
+
+
 
   @Query("from Attends a where a.user.userId in (:ids)")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("ids") List<Long> user,Pageable pa);
   
+  //按一些用户模糊查找
+  @Query("from Attends a where  (a.attendsRemark like %?1% or DATE_format(a.attendsTime,'%Y-%m-%d') like %?1% or a.user.userName like %?1% or "
+  		+ "a.typeId in (select t.typeId from SystemTypeList t where t.typeName like %?1%) or "
+  		+ "a.statusId in (select s.statusId from SystemStatusList s where s.statusName like %?1%)) and a.user.userId in ?2")
+  Page<Attends> findsomemohu(String baseKey, List<Long> user,Pageable pa);
 //类型
   //通过类型降序排序
 	@Query("from Attends a where a.user.userId in (:ids) ORDER BY a.typeId DESC ")

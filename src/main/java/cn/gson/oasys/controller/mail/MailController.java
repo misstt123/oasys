@@ -32,6 +32,7 @@ import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.maildao.InMailDao;
 import cn.gson.oasys.model.dao.maildao.MailnumberDao;
 import cn.gson.oasys.model.dao.maildao.MailreciverDao;
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
@@ -71,6 +72,8 @@ public class MailController {
 	private InMailDao imdao;
 	@Autowired
 	private MailreciverDao mrdao;
+	@Autowired
+	private AttachmentDao AttDao;
 	@Autowired
 	private MailServices mservice;
 	
@@ -665,6 +668,8 @@ public class MailController {
 			if(!StringUtil.isEmpty(name)){
 				if(!StringUtil.isEmpty(file.getOriginalFilename())){
 					attaid=mservice.upload(file, tu);
+					attaid.setModel("mail");
+					AttDao.save(attaid);
 				}
 				//发送成功
 				mail.setPush(true);

@@ -64,10 +64,11 @@
 						<a href="#vote${voteTitle.titleId}" data-toggle="collapse" =><span class="label label-primary"><i class="glyphicon glyphicon-list"></i> 投票详情</span></a>
 					</td>
 				</tr>
+				<#if voteTitle.users?size gt 0>
 				<tr id="vote${voteTitle.titleId}" class="collapse">
-					<#if voteTitle.users?size gt 0>
 						<td colspan="3">
 							<span class="glyphicon glyphicon-hand-up" style="color: #fff;border-radius: 50%;padding: 3px;background-color: #347ab7;margin-left: 12px;"></span> 
+								投票人员：
 								<span class="likethisnum">
 									<#list voteTitle.users as user>
 										<a 
@@ -75,16 +76,15 @@
 										title="${user.user.userName}" 
 										thisdept="${user.user.dept.deptName}" 
 										thisrole="${user.user.role.roleName}" 
-										thistel="${user.user.userTel}"
-										thisemail="${user.user.eamil}" 
+										thistel="${(user.user.userTel)!'空的'}"
+										thisemail="${(user.user.eamil)!'空的'}" 
 										href="javascript:void(0);" style="color: #888;font-size: 12px;"><img src="/images/touxiang/${(user.user.imgPath)!'timg.jpg'}" title="${user.user.userName}" alt="${user.user.userName}" class="small-img"/></a> 
 									</#list>
 								<!-- <span style="color: #888;font-size: 13px;">共${voteTitle.count}人已投票</span> -->
 							</span>
 						</td>
-					</#if>
 				</tr>
-				
+				</#if>
 			
 			</#list>
 			</tbody>
@@ -102,6 +102,7 @@
 </#if>
 <#if voteTitles??>
 <script type="text/javascript">
+/* 投票的前台处理，判断投票的状态；校验是否已经投票了 */
 	$('.voteload').on('click','.votethis',function(){
 		if(${dateType}==1){
 			console.log("投票还未开始");

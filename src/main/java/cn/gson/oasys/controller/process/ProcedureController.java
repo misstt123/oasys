@@ -1,5 +1,8 @@
 package cn.gson.oasys.controller.process;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,23 +15,34 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.util.StringUtil;
+
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
+import cn.gson.oasys.model.dao.processdao.BursementDao;
+import cn.gson.oasys.model.dao.processdao.ReviewedDao;
 import cn.gson.oasys.model.dao.processdao.SubjectDao;
 import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.note.Attachment;
+import cn.gson.oasys.model.entity.process.AubUser;
 import cn.gson.oasys.model.entity.process.Bursement;
 import cn.gson.oasys.model.entity.process.DetailsBurse;
+import cn.gson.oasys.model.entity.process.ProcessList;
+import cn.gson.oasys.model.entity.process.Reviewed;
 import cn.gson.oasys.model.entity.process.Subject;
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.mail.MailServices;
 
 @Controller
 @RequestMapping("/")
@@ -46,6 +60,15 @@ public class ProcedureController {
 	private StatusDao sdao;
 	@Autowired
 	private TypeDao tydao;
+	@Autowired
+	private ReviewedDao redao;
+	@Autowired
+	private AttachmentDao AttDao;
+	@Autowired
+	private MailServices mservice;
+	@Autowired
+	private BursementDao budao;
+	
 	//新增页面
 	@RequestMapping("xinxeng")
 	public String index(){
@@ -90,17 +113,88 @@ public class ProcedureController {
 	/**
 	 * 费用表单接收
 	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("apply")
-	public String apply(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Bursement bu){
-		System.out.println(filePath.getOriginalFilename());
-		System.out.println(bu.getProId());
+	public String apply(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Bursement bu,BindingResult br,
+			HttpSession session) throws IllegalStateException, IOException{
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long lid=Long.parseLong(userId);
+		User lu=udao.findOne(lid);//申请人
+		
+		User zhuti=udao.findByUserName(bu.getNamemoney());//承担主体
+		
+		
+		Integer allinvoice=0;
+		Double allmoney=0.0;
 		List<DetailsBurse> mm=bu.getDetails();
 		for (DetailsBurse detailsBurse : mm) {
-			System.out.println(detailsBurse);
+			allinvoice+=detailsBurse.getInvoices();
+			allmoney+=detailsBurse.getDetailmoney();
+			detailsBurse.setBurs(bu);
 		}
+		//在报销费用表里面set票据总数和总金额
+		bu.setAllinvoices(allinvoice);
+		bu.setAllMoney(allmoney);
+		bu.setUsermoney(zhuti);
+		//set主表
+		ProcessList pro=bu.getProId();
+		pro.setTypeNmae("费用报销");
+		pro.setApplyTime(new Date());
+		pro.setUserId(lu);
+		
+		Attachment attaid=null;
+		if(!StringUtil.isEmpty(filePath.getOriginalFilename())){
+			attaid=mservice.upload(filePath, lu);
+			attaid.setModel("aoa_bursement");
+			AttDao.save(attaid);
+			pro.setProFileid(attaid);
+		}
+		budao.save(bu);
+		//存审核表
+		
+		User reuser=udao.findByUserName(bu.getUsername());//审核人
+		
+		Reviewed revie=new Reviewed();
+		revie.setUserId(reuser);
+		revie.setStatusId(23L);
+		revie.setProId(pro);
+		redao.save(revie);
 		return "redirect:/xinxeng";
 	}
+	/**
+	 * 查找出自己的申请
+	 * @return
+	 */
+	@RequestMapping("flowmanage")
+	public String flowManage(HttpSession session,Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		
+		return "process/flowmanage";
+	}
+	/**
+	 * 流程审核
+	 * @return
+	 */
+	@RequestMapping("auditing")
+	public String auding(HttpSession session,Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User user=udao.findOne(userid);
+		Page<AubUser> pagelist=redao.findByUserIdOrderByStatusId(user, pa);
+		List<AubUser> prolist=pagelist.getContent();
+		System.out.println(prolist);
+		return "process/auditing";
+	}
+
 	//出差费用申请
 	@RequestMapping("evemoney")
 	public String evemoney(){

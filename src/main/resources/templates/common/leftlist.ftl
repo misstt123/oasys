@@ -1,7 +1,6 @@
 <div id="smallDiv"
 	style="width: 3%; background: red; float: left; display: none;">
-	<div
-		style="background: #008d4c; ackground: #008d4c; text-align: center; height: 50px; padding-top: 7px;">
+	<div style="text-align: center; height: 50px; padding-top: 7px;" class="green-g">
 		<a href="#"><img src="images/logo_1.png" /></a>
 	</div>
 	<div class="list-left"
@@ -45,7 +44,7 @@
 <!--把最顶上左侧的logo，栅格系统分2份-->
 <div class="col-lg-2 col-md-2 smallDiv"
 	style="padding: 0; margin: 0; display: block;">
-	<div style="background: #008d4c;" class="col-md-12">
+	<div class="col-md-12 green-g">
 		<a href="index" class="navbar-brand" style="padding: 8px 40px;"><img
 			src="images/logo.png" /></a>
 	</div>
@@ -76,7 +75,7 @@
 			<div class="panel panel-default">
 				<#list oneMenuAll as one>
 				<div class="panel-heading">
-					<a class="open-menu" href="#collapse${one.menuId}" data-toggle="collapse"
+					<a class="open-menu green-left" href="#collapse${one.menuId}" data-toggle="collapse"
 						data-parent="#accordion"> <span
 						class="glyphicon ${one.menuIcon}"></span> <span>${one.menuName}</span> <span
 						class="glyphicon glyphicon-menu-left pull-right"></span>

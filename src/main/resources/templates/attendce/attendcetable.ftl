@@ -3,15 +3,14 @@
 		<a class="label label-success" href="attendceedit"><span
 			class="glyphicon glyphicon-plus"></span> 新增 </a>
 
-		<div class="input-group" style="width: 150px; float: right; top: -5px">
-			<input type="text" class="form-control input-sm pull-right"
-				placeholder="查找..." />
-			<div class="input-group-btn" style="top: -1px;">
-				<a
-					class="btn btn-sm btn-default glyphicon glyphicon-search btn-change"
-					href=""></a>
-			</div>
-		</div>
+		<div class="input-group" style="width:150px;float:right;top:-5px">
+											<input type="text" class="form-control input-sm pull-right baseKey" value="${(baseKey)!''}" placeholder="查找..." />
+											<div class="input-group-btn" style="top:-1px;">
+												<a class="btn btn-sm btn-default glyphicon glyphicon-search btn-change baseKetsubmit"></a>
+											</div>
+										</div>
+		
+		
 
 	</div>
 	<div class="box-body">

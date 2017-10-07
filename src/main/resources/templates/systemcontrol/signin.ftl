@@ -27,12 +27,22 @@
 </div>
 
 <#if error??>
+<#if error=='1'>
 	<script>
 	$(function(){
-		alert("亲 今日您不能签到了哦");
+		alert("亲 已经过了签到时间");
 	})
 </script>
 
+</#if>
+<#if error=='2'>
+	<script>
+	$(function(){
+		alert("亲 还没有到签到时间哦");
+	})
+</script>
+
+</#if>
 </#if>
 <script>
 	$(".attendce").on('click',function(){

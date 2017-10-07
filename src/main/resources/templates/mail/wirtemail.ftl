@@ -155,7 +155,7 @@ function isMailNo(mail){
 	var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/; 
 	return pattern.test(mail);
 }
-//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+
 function alertCheck(errorMess){
 		
 		$('.alert-danger').css('display', 'block');

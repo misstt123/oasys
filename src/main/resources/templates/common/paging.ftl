@@ -74,30 +74,30 @@
 		/*类型、状态、时间的排序  */
 		$('.thistype').on('click', function() {
 			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
-				$('.thistable').load('${url}?type=0&icon=glyphicon-triangle-top');
+				$('.thistable').load('${url}?type=0&icon=glyphicon-triangle-top${(sort2)!''}');
 			} else {
-				$('.thistable').load('${url}?type=1&icon=glyphicon-triangle-bottom');
+				$('.thistable').load('${url}?type=1&icon=glyphicon-triangle-bottom${(sort2)!''}');
 			}
 		});
 		$('.thisstatus').on('click', function() {
 			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
-				$('.thistable').load('${url}?status=0&icon=glyphicon-triangle-top');
+				$('.thistable').load('${url}?status=0&icon=glyphicon-triangle-top${(sort2)!''}');
 			} else {
-				$('.thistable').load('${url}?status=1&icon=glyphicon-triangle-bottom');
+				$('.thistable').load('${url}?status=1&icon=glyphicon-triangle-bottom${(sort2)!''}');
 			}
 		});
 		$('.thistime').on('click', function() {
 			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
-				$('.thistable').load('${url}?time=0&icon=glyphicon-triangle-top');
+				$('.thistable').load('${url}?time=0&icon=glyphicon-triangle-top${(sort2)!''}');
 			} else {
-				$('.thistable').load('${url}?time=1&icon=glyphicon-triangle-bottom');
+				$('.thistable').load('${url}?time=1&icon=glyphicon-triangle-bottom${(sort2)!''}');
 			}
 		});
 		$('.thisvisit').on('click', function() {
 			if ($(this).children().hasClass('glyphicon-triangle-bottom')) {
-				$('.thistable').load('${url}?visitnum=0&icon=glyphicon-triangle-top');
+				$('.thistable').load('${url}?visitnum=0&icon=glyphicon-triangle-top${(sort2)!''}');
 			} else {
-				$('.thistable').load('${url}?visitnum=1&icon=glyphicon-triangle-bottom');
+				$('.thistable').load('${url}?visitnum=1&icon=glyphicon-triangle-bottom${(sort2)!''}');
 			}
 		});
 		/* 查找 */

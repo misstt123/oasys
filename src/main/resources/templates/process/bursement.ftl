@@ -83,7 +83,7 @@ cursor: pointer;
 	<div class="col-md-12">
 		
 		<div class="bgc-w box">
-			<form action="apply" enctype="multipart/form-data" method="post"  >
+			<form action="apply"  enctype="multipart/form-data" method="post" onsubmit="return check();" >
 			<div class="box-header">
 				<table class="bo table ">
 			
@@ -93,6 +93,15 @@ cursor: pointer;
 				</tr>
 				<tr style="opacity: 0;">
 					<td colspan="14">11</td>
+				</tr>
+				<tr >
+					<td colspan="14" style="text-align: left;">
+						<!--錯誤信息提示  -->
+					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
+						错误信息:<button class="thisclose close" type="button">&times;</button>
+						<span class="error-mess"></span>
+					</div>
+					</td>
 				</tr>
 				<tr >
 					<td class="title"><label class="control-label">标题</label></td>
@@ -110,11 +119,11 @@ cursor: pointer;
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">提单人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu" name="proId.userId"
+					<td  colspan="6"><input type="text" class="form-control inpu" 
 					readonly="readonly" style="background-color:#fff;" value="${username}"/></td>
 					<td class="title" ><label class="control-label">承担主体</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu cheng" 
-					readonly="readonly" style="background-color:#fff;" name="usermoney"/>
+					readonly="readonly" style="background-color:#fff;" name="namemoney"/>
 						<div class="reciver">
 						<span class="label label-success glyphicon glyphicon-plus"
 					>通讯录</span>
@@ -180,7 +189,8 @@ cursor: pointer;
 									<td class="chebox" colspan="2"><span class="labels"><label><input type="checkbox" name="items" class="val" ><i>✓</i></label></span></td>
 									<td colspan="2"><input type="text" class="form-control inpu shijian" name="details[0].produceTime" /></td>
 									<td colspan="2">
-										<input type="text" class="form-control inpu" name="details[0].subject"/>
+										<input type="text" class="form-control inpu" name="details[0].subject"
+										readonly="readonly" style="background-color:#fff;"/>
 										<div class="sub">
 											<i class="glyphicon glyphicon-search"></i>
 										</div>
@@ -191,7 +201,7 @@ cursor: pointer;
 									
 								</tr>
 								
-							</tbody>
+							</tbody> 
 						</table>
 					</div>
 					</td>
@@ -216,7 +226,53 @@ cursor: pointer;
 </div>
 <input type="text" class="recive_list" style="display:none;">
 <input type="text" class="ject" style="display:none;">
+<#include "/common/modalTip.ftl"> 
 <script>
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function check() {
+	console.log("开始进入了");
+	//提示框可能在提交之前是block状态，所以在这之前要设置成none
+	$('.alert-danger').css('display', 'none');
+	var isRight = 1;
+	$('.form-control').each(function(index) {
+		// 如果在这些input框中，判断是否能够为空
+		if ($(this).val() == "") {
+			if($(this).hasClass("cha")){
+				return true;
+			}
+			// 排除哪些字段是可以为空的，在这里排除
+			/* if (index == 5||index == 6) {
+				return true;
+			}  */
+			
+			// 获取到input框的兄弟的文本信息，并对应提醒；
+			console.log(index);
+			var errorMess = "红色提示框不能为空!";
+			// 对齐设置错误信息提醒；红色边框
+			$(this).parent().addClass("has-error has-feedback");
+			$('.alert-danger').css('display', 'block');
+			// 提示框的错误信息显示
+			$('.error-mess').text(errorMess);
+			
+			isRight = 0;
+			return false;
+			
+		} else {
+			return true;
+		}
+	});
+	
+	if (isRight == 0) {
+		//modalShow(0);
+		 return false;
+	} else if (isRight == 1) {
+		//modalShow(1);
+		 return true;
+	}
+//	return false;
+}
+
+
 
 
 	$(function(){
@@ -252,7 +308,7 @@ cursor: pointer;
 			var star=addDate(nowDate,0);
 			var td1 = $('<td class="chebox" colspan="2"></td>').append($('<span class="labels"></span>').append($('<label></label>').append($('<input type="checkbox" name="items"  class="val" >')).append($('<i></i>').text('✓'))));
 			var td2 = $('<td  colspan="2"></td>').append($('<input type="text" class="form-control inpu incar" name="details['+i+'].produceTime"/>').val(star));
-			var td3 = $('<td colspan="2"></td>').append($('<input type="text" class="form-control inpu" name="details['+i+'].subject"/>'))
+			var td3 = $('<td colspan="2"></td>').append($('<input type="text" class="form-control inpu" name="details['+i+'].subject" readonly="readonly" style="background-color:#fff;"/>'))
 												 .append($('<div class="sub"></div>').append($('<i class="glyphicon glyphicon-search"></i>')));
 			var td4 = $('<td colspan="2"></td>').append($('<input type="text" class="form-control inpu" name="details['+i+'].descript"/>'));
 			var td5 = $('<td colspan="2"></td>').append($('<input type="text" class="form-control inpu" name="details['+i+'].invoices"/>'));

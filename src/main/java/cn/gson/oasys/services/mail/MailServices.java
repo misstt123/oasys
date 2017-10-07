@@ -68,8 +68,7 @@ public class MailServices {
 	private MailnumberDao mdao;
 	@Autowired
 	private MailreciverDao mrdao;
-	@Autowired
-	private AttachmentDao AttDao;
+	
 	@Autowired
 	private InMailDao imdao;
 	
@@ -282,9 +281,8 @@ public class MailServices {
 			attachment.setAttachmentType(file.getContentType());
 			attachment.setUploadTime(new Date());
 			attachment.setUserId(mu.getUserId()+"");
-			attachment.setModel("mail");
-			Attachment  atta=AttDao.save(attachment);
-			return atta;
+			
+			return attachment;
 		}
 		return null;
 	}
@@ -392,15 +390,13 @@ public class MailServices {
 	        // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）
 	        message.setSubject(title, "UTF-8");
 
-	       // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
-	        message.setContent("zw用户你好,今天下午进行项目验收", "text/html;charset=UTF-8");
-        if(!StringUtil.isEmpty(affix)){
+	    if(!StringUtil.isEmpty(affix)){
 	
 			// 向multipart对象中添加邮件的各个部分内容，包括文本内容和附件
 			Multipart multipart = new MimeMultipart();
 			// 设置邮件的文本内容
 			BodyPart contentPart = new MimeBodyPart();
-			contentPart.setText(content);
+			contentPart.setContent(content, "text/html;charset=UTF-8");
 			multipart.addBodyPart(contentPart);
 			// 添加附件
 			BodyPart messageBodyPart = new MimeBodyPart();

@@ -167,7 +167,7 @@ public class AttendceController {
 	}
 
 	// 考情列表 给单个用户使用
-	@RequestMapping("attendcelist")
+	@RequestMapping(value="attendcelist",method=RequestMethod.GET)
 	public String test(HttpServletRequest request,  Model model,HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "baseKey", required = false) String baseKey,
@@ -179,7 +179,7 @@ public class AttendceController {
 		return "attendce/attendcelist";
 	}
 
-	@RequestMapping("attendcelisttable")
+	@RequestMapping(value="attendcelisttable",method=RequestMethod.GET)
 	public String testdf(HttpServletRequest request,  Model model,HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "baseKey", required = false) String baseKey,
@@ -359,9 +359,12 @@ public class AttendceController {
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		setSomething(baseKey, type, status, time, icon, model);
 		Page<Attends> page2 = attendceService.singlepage(page, baseKey, userid,type, status, time);
-		System.out.println("考勤" + page2.getContent());
 		typestatus(request);
 		request.setAttribute("alist", page2.getContent());
+		//System.out.println(page2.getContent());
+		for (Attends attends :page2.getContent()) {
+			System.out.println(attends);
+		}
 		request.setAttribute("page", page2);
 		request.setAttribute("url", "attendcelisttable");
 	}

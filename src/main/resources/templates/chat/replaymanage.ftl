@@ -90,7 +90,7 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="javascript:history.back();" class="label label-default"
+					<a href="${returnUrl}?page=${pageNumber}" class="label label-default"
 						style="padding: 6px;"> <span
 						class="glyphicon glyphicon-chevron-left">返回</span>
 					</a> <a href="" class="label label-success"
@@ -130,8 +130,32 @@ a:hover {
 						<input type="hidden" class="replyId" /> <input type="hidden"
 							class="replyModule" /> <input type="hidden" class="replyName" />
 					</div>
-					<div class="repay">
-						<#include "replytable.ftl"/>
+					<div>
+						<table class="table" style="margin-bottm: 0px;">
+						<#if replyList?? &&replyList?size gt 0>
+							<tr>
+								<th scope="col" style="background-color: #EEEEEE;">
+								<span>回复</span>
+								<div class="pull-right" style="display: inline-block;margin-right:50px;">
+								<select name="selecttype" id="selecttype" class="selectthis" style="display: inline-block;margin-right: 10px;">
+									<option value="">查看所有</option>
+									<option value="${discuss.user.userId}">只看楼主</option>
+									<option value="${userId}">只看我的</option>
+								</select>
+								<select name="selectsort" id="selectsort" class="selectthis" style="display: inline-block;">
+									<option value="0">时间升序</option>
+									<option value="1">时间降序</option>
+								</select>
+								</div>
+								</th>
+								
+							</tr>
+						</#if>
+							<tbody class="repay">
+							<#include "replytable.ftl"/>
+							</tbody>
+						</table>
+						
 					</div>
 				</div>
 				<!--盒子尾-->
@@ -141,6 +165,51 @@ a:hover {
 <script type="text/javascript" src="js/usershow.js"></script>
 <!-- 存在 -->
 <script type="text/javascript">
+/*查看类型和时间排序的select选择的改变事件  */
+$('.selectthis').on('change',function(){
+	var selecttype=$("#selecttype option:selected").val();
+	var selectsort=$("#selectsort option:selected").val();
+	var num=${discuss.discussId};
+	$('.repay').load('/replypaging',{num:num,selecttype:selecttype,selectsort:selectsort}); 
+});
+/*所有点赞的同一处理，在之前清除掉之前绑定的事件  */
+$('.chat-box').off('click','.likethis').on('click','.likethis',function(){
+	$('.thisClass').removeClass("thisClass");
+	$('.replyrefresh').removeClass("replychange");
+	$(this).addClass("thisClass");
+	$(this).parents('.replyrefresh').addClass('replychange');
+	var replyId=$(this).attr('replyId');
+	var module=$(this).attr('module');
+	var size=${page.size};
+	console.log("rightNum:"+rightNum);
+	console.log(replyId);
+	console.log(module);
+	  /*$.ajax({
+		type:'get',
+		url:'/likeuserload',
+		data:{module:module,replyId:replyId,size:size},
+		success:function(date){
+			console.log(date);
+			$('.discusschange').html(date);
+			//$('.thisClass').children(".likenum").text(date);
+		},
+		error:function(){
+			alert("失败了");
+		}
+	}) */
+	if(module=="discuss"){
+		console.log("说明是讨论区，进行load方法了；");
+		$('.discusschange').load('/likeuserload',{module:module,replyId:replyId,size:size});
+	}else if(module=="reply"){
+		console.log("说明是回复区，准备进行load方法");
+		var rightNum=$(this).parent().siblings(".pull-right").children(".rightNum").text();
+		$('.replychange').load('/likeuserload',{module:module,replyId:replyId,size:size,rightNum:rightNum});
+	}else{
+		console.log("参数错误");
+	}
+	
+});
+/*回复表的删除  */
 	$('.repay').on('click','.deletethis',function(){
 		var num=${discuss.discussId};
 		var replyId = $(this).attr('replyId');
@@ -150,9 +219,7 @@ a:hover {
 			$('.repay').load('replydelete',{replyId:replyId,module:module,num:num,size:size});
 		}
 	});
-	
-	
-	
+/* 回复与评论的处理，模态框显示，假如是点击评论进入的，则在前面加@那个的名字 */	
 	$("#thisreply").on('click',function(){
 		var replyId = $(this).attr('replyId');
 		var module = $(this).attr('replyModule');
@@ -165,7 +232,7 @@ a:hover {
 		}
 		$("#myModal").modal("toggle");
 	});
-	
+/*  */
 	$('.repay').on('click', '.thisreply',function() {
 		var replyId = $(this).attr('replyId');
 		var module = $(this).attr('replyModule');
