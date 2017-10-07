@@ -148,6 +148,23 @@ $(".menu .copyfile").click(function(){
 	$('#thismodal .modal-body').css('display', 'block');
 	$("#thismodal .mc-title").html("复制到");
 	$("#thismodal .morc").val(false);
+	
+	var checkfileids = new Array();
+	var checkpathids = new Array();
+	checkedpaths(checkpathids,checkfileids);
+	$("#thismodal .mcfileids").val(checkfileids);
+	$("#thismodal .mcpathids").val(checkpathids);
+	
+	$("#thismodal .pathidcompare").each(function(){
+		console.log($(this).attr("pathId"));
+		for(var i=0;i<checkpathids.length;i++){
+			if($(this).attr("pathId") == checkpathids[i]){
+				console.log("is com!~~~");
+				$(this).addClass("diplaynone");
+				return;
+			}
+		}
+	});
 });
 /**
  * 这里是取消移动按钮

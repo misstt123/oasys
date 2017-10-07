@@ -34,21 +34,8 @@ public class DetailsBurse {
 	
 	@ManyToOne()
 	@JoinColumn(name="bursment_id")
-	private Bursement burs;//对应投票帖
+	private Bursement burs;//对应报销表
 	
-	@OneToOne
-	@JoinColumn(name="pro_id")
-	private ProcessList proId;
-	
-	
-
-	public ProcessList getProId() {
-		return proId;
-	}
-
-	public void setProId(ProcessList proId) {
-		this.proId = proId;
-	}
 
 	public Bursement getBurs() {
 		return burs;

@@ -242,6 +242,7 @@ li.activee>a {
 												<input class="creatpathinput" type="text" name="name" value="${path.pathName}"/>
 												<input type="hidden" name="renamefp" value="${path.id}"/>
 												<input type="hidden" name="pathid" value="${nowpath.id}"/>
+												<input type="hidden" name="isfile" value="false"/>
 												<button class="btn btn-default">
 													<em class="glyphicon glyphicon-ok" style="font-size: 12px;"></em>
 												</button>
@@ -285,7 +286,23 @@ li.activee>a {
 											</div>
 									</#if>                                   
 									<div class="file-name">
-										<a>${file.fileName}</a>
+										<div class="filename">
+											<a>${file.fileName}</a>
+										</div>
+										<div class="pathtextarea rename diplaynone" style="position: absolute;top: 97px;left: -5px;z-index:100;">
+											<form action="rename">
+												<input class="creatpathinput" type="text" name="name" value="${file.fileName}"/>
+												<input type="hidden" name="renamefp" value="${file.fileId}"/>
+												<input type="hidden" name="pathid" value="${nowpath.id}"/>
+												<input type="hidden" name="isfile" value="true"/>
+												<button class="btn btn-default">
+													<em class="glyphicon glyphicon-ok" style="font-size: 12px;"></em>
+												</button>
+												<span class="btn btn-default">
+													<em class="glyphicon glyphicon-remove cansalcreate" style="font-size: 12px;"></em>
+												</span>
+											</form>
+										</div>
 									</div>
 									<input type="hidden" class = "filemessage" value="${file.fileId}">
 									<span class="file-check"> 

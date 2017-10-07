@@ -33,8 +33,8 @@
 				title="${user.userName}" 
 				thisdept="${user.dept.deptName}" 
 				thisrole="${user.role.roleName}" 
-				thistel="${user.userTel}"
-				thisemail="${user.eamil}" 
+				thistel="${(user.userTel)!'空的'}"
+				thisemail="${(user.eamil)!'空的'}" 
 				href="javascript:void(0);">${user.userName}</a>、
 			</#list>
 				<span>共${discussLikeNum}人觉得很赞</span>

@@ -1,46 +1,31 @@
 a:hover{
 	text-decoration: none;
 }
-
-.moredeep li{
-	
-}
-
-.moredeep li .white:hover,
-.moredeep li .white:visited,
-.moredeep li .white:focus {
-	background: #008d4c;
-	color: white;
-}
-
 .moredeep li .badge {
 	position: absolute;
 	margin-top: -10px;
 	margin-left: -4px;
 	padding: 2px 4px;
 }
-
-.yellow {
-	background: #f39c12;
+.yellow-badge{
+	background-color: #43da8d;
 }
-
-.blue {
-	background: #00c0ef;
+.red-badge{
+	background-color: #ff4a4a;
 }
-
-.red {
-	background: #dd4b39;
+.blue-badge{
+	background-color: #00c4ff;
 }
 
 .white {
 	color: white;
 }
 
-.nav .open>a,
+/* .nav .open>a,
 .nav .open>a:focus,
 .nav .open>a:hover {
 	background: #008d4c;
-}
+} */
 
 
 .user-header {
@@ -48,9 +33,15 @@ a:hover{
 	width: 280px;
 	padding: 10px;
 	text-align: center;
-	background-color: #00a65a;
+	/* background-color: #00a65a; */
 }
-
+/*左边的鼠标移入  */
+#accordion .open-menu:hover,
+#accordion .open-menu:focus,
+#accordion .open-menu:visited {
+	background: #18252b;
+	color: white;
+}
 .user-footer div {
 	padding: 10px;
 }
@@ -170,15 +161,6 @@ li {
 	border-left: 3px solid transparent!important;
 }
 
-#accordion .open-menu:hover,
-#accordion .open-menu:focus,
-#accordion .open-menu:visited {
-	background: #18252b;
-	color: white;
-	border-left: 3px solid #00a65a!important;
-}
-
-
 /* 表格中的抽出来的部分 */
 .menutable .btn {
 	padding: 3px 10px;
@@ -238,10 +220,10 @@ li {
 	color: #b8c7ce;
 	font-size: 16px;
 }
-
+/* 
 #smallDiv li:hover {
 	border-left: 3px solid #00a65a;
-}
+} */
 
 
 

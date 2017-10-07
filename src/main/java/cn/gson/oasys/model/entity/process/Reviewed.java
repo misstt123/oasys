@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,7 +27,7 @@ public class Reviewed {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long reviewedId;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User userId;//审核人
 	
@@ -37,8 +38,31 @@ public class Reviewed {
 	@Column(name="reviewed_time")
 	private Date reviewedTime;//审核时间
 	
-	@ManyToMany(mappedBy="reviewed")
-	private List<ProcessList> pro;
+	@ManyToOne
+	@JoinColumn(name="pro_id")
+	private ProcessList proId;
+	
+	@Column(name="del")
+	private Boolean del=false;
+	
+	
+	
+
+	public Boolean getDel() {
+		return del;
+	}
+
+	public void setDel(Boolean del) {
+		this.del = del;
+	}
+
+	public ProcessList getProId() {
+		return proId;
+	}
+
+	public void setProId(ProcessList proId) {
+		this.proId = proId;
+	}
 
 	public Long getReviewedId() {
 		return reviewedId;
@@ -80,19 +104,13 @@ public class Reviewed {
 		this.reviewedTime = reviewedTime;
 	}
 
-	public List<ProcessList> getPro() {
-		return pro;
-	}
-
-	public void setPro(List<ProcessList> pro) {
-		this.pro = pro;
-	}
-
 	@Override
 	public String toString() {
 		return "Reviewed [reviewedId=" + reviewedId + ", advice=" + advice + ", statusId=" + statusId
-				+ ", reviewedTime=" + reviewedTime + "]";
+				+ ", reviewedTime=" + reviewedTime + ", del=" + del + "]";
 	}
+
+
 	
 	
 }

@@ -1,8 +1,8 @@
 $('.usershow').popover({
 		html:true,
 		placement:'auto right',
-		trigger: 'hover click',
-		template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="thisdiv" style="border: 0px solid red;width: 200px;height: 120px;">'
+		trigger: 'hover',
+		template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="thisdiv" style="border: 0px solid red;min-width: 160px;height: 120px;">'
 			+'<table class="table thistable">'
 			+'<tr><td>Dept:</td><td class="thisdept">总经办</td></tr>'
 			+'<tr><td>Role:</td><td class="thisrole">部门经理</td></tr>'

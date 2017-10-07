@@ -162,12 +162,17 @@ border-radius: 5px;
 </div>
 
 <#include "/common/modalTip.ftl">
+<!-- 判断加入是否从修改投票进来的 -->
 <#if voteList??>
 	<script type="text/javascript">
 		$('.addvote').css('display','block');
+		$('.deletethis').children('.label').text("不能编辑");
+		$('.deletethis').children('.label').css('background-color','#999');
+		$(".deletethis").removeClass("deletethis");
 	</script>
 </#if>
 <script type="text/javascript">
+/* 应该是用来测试的，打印出iframe中文本编辑器的处理 */
 $('.givein').on('click',function(){
 	console.log("tent:"+$('.tent').val());
 	console.log("iframe:"+$('.ke-edit-iframe').contents().find('body').text());
@@ -208,10 +213,12 @@ function check() {
 
 <script type="text/javascript">
 	$(function() {
+		/* 生成随机颜色 */
 		function randomHexColor() {	//随机生成十六进制颜色
 			return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
 		}
 		var i=1;
+		/*检测select中的值变化，假如是选的投票，则把相关的显示出来  */
 		$('#selecttype').on('change',function(){
 			var key=$('#selecttype').val();
 			console.log('dfa');
@@ -223,6 +230,7 @@ function check() {
 			}
 		});
 		
+		/* 前台动态添加增加投票框 */
 		function addTr() {
 			var td1 = $('<td></td>').append($('<input type="text" name="votetitle" value="发生的" class="form-control textvalue">').val($('#inputtext').val()));
 			var td2 = $('<td  style="width:150px;"></td>').append($('<input type="text" name="votecolor" value="#5bc0de" class="form-control">').val(randomHexColor()));
@@ -233,6 +241,7 @@ function check() {
 			console.log(i);
 			i=i+1;
 		}
+		/* 点击增加投票时的判断，*/
 		$('.add').on('click',function() {
 			if ($('#inputtext').val() == '') {
 				alert("投票标题不能为空");
@@ -248,6 +257,7 @@ function check() {
 				addTr();
 			}
 		});
+		/* 投票的删除 */
 		$('#addtable').on('click', '.deletethis', function(e) {
 			e.preventDefault();
 			if (!confirm("删除该记录将不能恢复，确定删除吗？")) {

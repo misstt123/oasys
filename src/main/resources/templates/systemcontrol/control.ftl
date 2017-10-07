@@ -1,7 +1,50 @@
 <#include "/common/commoncss.ftl">
+<style>
+.thiscolor{
+	display: inline-block;
+	width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right:10px;
+}
+.thiscolor:HOVER {
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/controlpanel.css" />
+<link rel="stylesheet" href="css/common/skintheme.css" />
+<script type="text/javascript">
+	function funblue(){
+		console.log("点击变蓝了");
+		parent.toblue();
+		toblue();
+	}
+	function fungreen(){
+		console.log("点击变蓝了");
+		parent.togreen();
+		togreen();
+	}
+	function funyellow(){
+		console.log("点击变蓝了");
+		parent.toyellow();
+		toyellow();
+	}
+	function funred(){
+		console.log("点击变蓝了");
+		parent.tored();
+		tored();
+	}
+</script>
 <div class="head-show" style="position: relative; height: 76px;">
-	<h3 style="display: inline-block; float: left;margin-left: 16px;">控制面板</h3>
+	<h3 style="display: inline-block; float: left;margin-left: 16px;">控制面板
+		<div style="display: inline-block;margin-left: 20px;">
+			<span class="thiscolor toblue" style="background-color:#00c0ef" onclick="funblue();"></span> 
+			<span class="thiscolor togreen" style="background-color:#00a65a" onclick="fungreen();"></span> 
+			<span class="thiscolor toyellow" style="background-color:#f39c12" onclick="funyellow();"></span> 
+			<span class="thiscolor tored" style="background-color:#dd4b39" onclick="funred();"></span>
+		</div>
+	</h3>
 	<ol class="breadcrumb pull-right"
 		style="float: right; margin-top: 20px; background: transparent;">
 		<li><a href="#"> <span class="glyphicon glyphicon-home"></span>
@@ -72,7 +115,7 @@
 	<div class="row">
 		<div class="col-md-7 gridly">
 			<!--第一个公告通知-->
-			<div class="panel panel-default box-show">
+			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
 					style="background: white;">
 					<div class="panel-title" style="display: inline-block;">
@@ -121,7 +164,7 @@
 				</div>
 			</div>
 			<!--第二个box；流程管理-->
-			<div class="panel panel-default box-show">
+			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
 					style="background: white;">
 					<div class="panel-title" style="display: inline-block;">
@@ -183,7 +226,7 @@
 				</div>
 			</div>
 			<!--第三个box；工作计划-->
-			<div class="panel panel-default box-show">
+			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
 					style="background: white;">
 					<div class="panel-title" style="display: inline-block;">
@@ -249,8 +292,7 @@
 		<!--内容右侧5个格子；-->
 		<div class="col-md-5">
 			<!--第四个格子-->
-			<div class="panel panel-default box-show"
-				style="border-top: 3px solid green;">
+			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
 					style="background: white;">
 					<div class="panel-title" style="display: inline-block;">
@@ -280,8 +322,7 @@
 				</div>
 			</div>
 			<!--第五个格子-->
-			<div class="panel panel-default box-show"
-				style="border-top: 3px solid green;">
+			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
 					style="background: white;">
 					<div class="panel-title" style="display: inline-block;">
