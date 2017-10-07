@@ -69,6 +69,9 @@ cursor: pointer;
     right: 9px;
     cursor: pointer;
 }
+.text{
+	min-height:100px;
+}
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
@@ -121,7 +124,7 @@ cursor: pointer;
 					<td class="title" ><label class="control-label">提单人员</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu" 
 					readonly="readonly" style="background-color:#fff;" value="${username}"/></td>
-					<td class="title" ><label class="control-label">承担主体</label></td>
+					<td class="title" ><label class="control-label">证明人</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu cheng" 
 					readonly="readonly" style="background-color:#fff;" name="namemoney"/>
 						<div class="reciver">
@@ -146,7 +149,7 @@ cursor: pointer;
 				<tr >
 				<td class="title" ><label class="control-label">审核人员</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu shen"
-					 readonly="readonly" style="background-color:#fff;" name="username"/>
+					 readonly="readonly" style="background-color:#fff;" name="username"placeholder="请选本部门经理"/>
 					<div class="reciver">
 						<span class="label label-success glyphicon glyphicon-plus">通讯录</span>
 					</div>
@@ -161,8 +164,8 @@ cursor: pointer;
 					</td>
 				</tr>
 				<tr >
-					
-					
+					<td class="title" ><label class="control-label">报销事由</label></td>
+					<td  colspan="6"><textarea class="form-control text" name="processDescribe"></textarea></td>
 				</tr>
 				<tr >
 					<td class="title"><label class="control-label">报销明细</label></td>

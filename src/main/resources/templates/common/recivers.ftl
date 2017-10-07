@@ -12,7 +12,7 @@
 												<th class=" col-xs-2 b">部门</th>
 												<th class=" col-xs-2 b">真实姓名 </th>
 												<th class="col-xs-2 b">用户名</th>
-												<th class="col-xs-2 b">角色</th>
+												<th class="col-xs-2 b">职位</th>
 												<th class=" col-xs-2">电话</th>
 											</tr>
 										</thead>
@@ -43,9 +43,9 @@
 												</#list>
 												<td class=" col-xs-2">${emp.realName} </td>
 												<td class="col-xs-2 na">${emp.userName}</td>
-												<#list rolelist as role>
-												<#if emp.role.roleId=role.roleId>
-												<td class=" col-xs-2">${role.roleName}</td>
+												<#list poslist as pos>
+												<#if emp.position.id==pos.id>
+												<td class=" col-xs-2">${pos.name}</td>
 												</#if>
 												</#list>
 												<td class=" col-xs-2">${emp.userTel}</td>

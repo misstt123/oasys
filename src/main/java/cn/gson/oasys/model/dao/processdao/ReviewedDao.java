@@ -11,7 +11,28 @@ import cn.gson.oasys.model.entity.user.User;
 
 public interface ReviewedDao extends PagingAndSortingRepository<Reviewed, Long>{
 
+	//根据审核人查找流程
 	@Query("select new cn.gson.oasys.model.entity.process.AubUser(pro.processId,pro.typeNmae,pro.deeply,pro.processName,pro.userId.userName,pro.applyTime,rev.statusId) "
 			+ "from ProcessList as pro,Reviewed as rev where rev.proId.processId=pro.processId and rev.userId=?1 order by rev.statusId")
 	Page<AubUser> findByUserIdOrderByStatusId(User user,Pageable pa);
+	
+	//根据申请人和审核人查找流程
+	@Query("select new cn.gson.oasys.model.entity.process.AubUser(pro.processId,pro.typeNmae,pro.deeply,pro.processName,pro.userId.userName,pro.applyTime,rev.statusId) "
+			+ "from ProcessList as pro,Reviewed as rev where rev.proId.processId=pro.processId and rev.userId=?1 and pro.userId=?2 order by rev.statusId")
+	Page<AubUser> findprocesslist(User user,User u,Pageable pa);
+	
+	//根据状态和审核人查找流程
+	@Query("select new cn.gson.oasys.model.entity.process.AubUser(pro.processId,pro.typeNmae,pro.deeply,pro.processName,pro.userId.userName,pro.applyTime,rev.statusId) "
+			+ "from ProcessList as pro,Reviewed as rev where rev.proId.processId=pro.processId and rev.userId=?1 and rev.statusId=?2 order by rev.statusId")
+	Page<AubUser> findbystatusprocesslist(User user,Long statusid,Pageable pa);
+	
+	//根据类型名和审核人查找流程
+	@Query("select new cn.gson.oasys.model.entity.process.AubUser(pro.processId,pro.typeNmae,pro.deeply,pro.processName,pro.userId.userName,pro.applyTime,rev.statusId) "
+			+ "from ProcessList as pro,Reviewed as rev where rev.proId.processId=pro.processId and rev.userId=?1 and pro.typeNmae=?2 order by rev.statusId")
+	Page<AubUser> findbytypenameprocesslist(User user,String typename,Pageable pa);
+	
+	//根据标题和审核人查找流程
+	@Query("select new cn.gson.oasys.model.entity.process.AubUser(pro.processId,pro.typeNmae,pro.deeply,pro.processName,pro.userId.userName,pro.applyTime,rev.statusId) "
+			+ "from ProcessList as pro,Reviewed as rev where rev.proId.processId=pro.processId and rev.userId=?1 and pro.processName like %?2% order by rev.statusId")
+	Page<AubUser> findbyprocessnameprocesslist(User user,String processname,Pageable pa);
 }

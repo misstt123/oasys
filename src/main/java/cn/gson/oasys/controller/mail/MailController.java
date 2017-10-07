@@ -37,6 +37,7 @@ import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
+import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.mail.Inmaillist;
 import cn.gson.oasys.model.entity.mail.Mailnumber;
@@ -47,6 +48,7 @@ import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.Dept;
+import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.mail.MailServices;
 
@@ -68,6 +70,8 @@ public class MailController {
 	private DeptDao ddao;
 	@Autowired
 	private RoleDao rdao;
+	@Autowired
+	private PositionDao pdao;
 	@Autowired
 	private InMailDao imdao;
 	@Autowired
@@ -629,14 +633,14 @@ public class MailController {
 		List<User> userlist=pageuser.getContent();
 		// 查询部门表
 		Iterable<Dept> deptlist = ddao.findAll();
-		// 查角色表
-		Iterable<Role> rolelist = rdao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
 	
 		model.addAttribute("mailnum", mailnum);
 		model.addAttribute("page", pageuser);
 		model.addAttribute("emplist", userlist);
 		model.addAttribute("deptlist", deptlist);
-		model.addAttribute("rolelist", rolelist);
+		model.addAttribute("poslist", poslist);
 		model.addAttribute("url", "names");
 		return "mail/wirtemail";
 	}
@@ -744,6 +748,7 @@ public class MailController {
 		}
 		if(!StringUtil.isEmpty(req.getParameter("qufen"))){
 			qufen=req.getParameter("qufen").trim();
+			
 			System.out.println("111");
 			if(StringUtil.isEmpty(name)){
 				// 查询部门下面的员工
@@ -752,6 +757,7 @@ public class MailController {
 				// 查询名字模糊查询员工
 				pageuser = udao.findbyFatherId(name,userid,pa);
 			}
+			
 		}else{
 			System.out.println("222");
 			if(StringUtil.isEmpty(name)){
@@ -764,14 +770,14 @@ public class MailController {
 		userlist=pageuser.getContent();
 		// 查询部门表
 		Iterable<Dept> deptlist = ddao.findAll();
-		// 查角色表
-		Iterable<Role> rolelist = rdao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
 		model.addAttribute("emplist", userlist);
 		model.addAttribute("page", pageuser);
 		model.addAttribute("deptlist", deptlist);
-		model.addAttribute("rolelist", rolelist);
+		model.addAttribute("poslist", poslist);
 		model.addAttribute("url", "names");
-		model.addAttribute("sort", "&qufen="+qufen);
+		
 		return "common/recivers";
 		
 	}
