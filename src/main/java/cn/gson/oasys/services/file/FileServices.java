@@ -1,7 +1,14 @@
 package cn.gson.oasys.services.file;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +29,7 @@ import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.filedao.FilePathdao;
 import cn.gson.oasys.model.dao.notedao.AttachService;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
+import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.file.FilePath;
 import cn.gson.oasys.model.entity.note.Attachment;
@@ -40,6 +48,8 @@ public class FileServices {
 	private AttachmentDao AttDao;
 	@Autowired
 	private AttachService AttachService;
+	@Autowired
+	private UserDao udao;
 	
 	
 	@Value("${file.root.path}")
@@ -168,10 +178,10 @@ public class FileServices {
 			File file = new File(this.rootPath,filelist.getFilePath());
 			//System.out.println(fileid+":"+file.exists());
 			if(file.exists()&&file.isFile()){
-				System.out.println("现在删除"+filelist.getFileName()+"本地文件    >>>>>>>>>");
-				file.delete();
 				System.out.println("现在删除"+filelist.getFileName()+"数据库存档>>>>>>>>>");
 				fldao.delete(fileid);
+				System.out.println("现在删除"+filelist.getFileName()+"本地文件    >>>>>>>>>");
+				file.delete();
 			}
 		}
 	}
@@ -244,6 +254,121 @@ public class FileServices {
 			}
 		}else{
 			System.out.println("这里是复制！！~~");
+			if(!mcfileids.isEmpty()){
+				System.out.println("fileid is not null");
+				for (Long mcfileid : mcfileids) {
+					FileList filelist = fldao.findOne(mcfileid);
+					copyfile(filelist,topath,true);
+				}
+			}
+			if(!mcpathids.isEmpty()){
+				System.out.println("pathid is not null");
+				for (Long mcpathid : mcpathids) {
+					copypath(mcpathid, topathid, true);
+					
+				}
+			}
+		}
+	}
+	
+	public void copypath(Long mcpathid,Long topathid,boolean isfirst){
+		FilePath filepath = fpdao.findOne(mcpathid);
+
+		//第一个文件夹的复制
+		FilePath copypath = new FilePath();
+		copypath.setParentId(topathid);
+		String copypathname = filepath.getPathName();
+		if(isfirst){
+			copypathname = "拷贝 "+filepath.getPathName().replace("拷贝 ", "");
+		}
+		copypath.setPathName(copypathname);
+		copypath = fpdao.save(copypath);
+		
+		//这一个文件夹下的文件的复制
+		List<FileList> filelists = fldao.findByFpath(filepath);
+		for (FileList fileList : filelists) {
+			copyfile(fileList,copypath,false);
+		}
+		
+		List<FilePath> filepathsons = fpdao.findByParentId(filepath.getId());
+		
+		if(!filepathsons.isEmpty()){
+			for (FilePath filepathson : filepathsons) {
+				copypath(filepathson.getId(),copypath.getId(),false);
+			}
+		}
+		
+	}
+	
+	/**
+	 * 文件复制
+	 * @param filelist
+	 */
+	public void copyfile(FileList filelist,FilePath topath,boolean isfilein){
+		File s = getFile(filelist.getFilePath());
+		User user = filelist.getUser();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+		File root = new File(this.rootPath,simpleDateFormat.format(new Date()));
+		File savepath = new File(root,user.getUserName());
+		
+		if (!savepath.exists()) {
+			savepath.mkdirs();
+		}
+		
+		String shuffix = filelist.getFileShuffix();
+		log.info("shuffix:{}",shuffix);
+		String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+shuffix;
+		File t = new File(savepath,newFileName);
+		
+		copyfileio(s,t);
+		
+		FileList filelist1 = new FileList();
+		String filename="";
+		if(isfilein){
+			filename = "拷贝 "+filelist.getFileName().replace("拷贝 ", "");
+		}else{
+			filename = filelist.getFileName();
+		}
+		filename = onlyname(filename,topath,shuffix,1,true);
+		filelist1.setFileName(filename);
+		filelist1.setFilePath(t.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
+		filelist1.setFileShuffix(shuffix);
+		filelist1.setSize(filelist.getSize());
+		filelist1.setUploadTime(new Date());
+		filelist1.setFpath(topath);
+		filelist1.setContentType(filelist.getContentType());
+		filelist1.setUser(user);
+		fldao.save(filelist1);
+		
+	}
+	/**
+	 * 本地文件复制
+	 * @param s
+	 * @param t
+	 */
+	public void copyfileio(File s,File t){
+		InputStream fis = null;
+		OutputStream fos = null;
+		
+		try {
+			fis = new BufferedInputStream(new FileInputStream(s));
+			fos = new BufferedOutputStream(new FileOutputStream(t));
+			byte[] buf = new byte[2048];
+			int i ;
+			while((i = fis.read(buf)) != -1){
+				fos.write(buf, 0, i);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fis.close();
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -272,8 +397,28 @@ public class FileServices {
 		return showsonpath;
 	}
 	
-	
-	public void rename(){
+	/**
+	 * 重命名业务方法
+	 * @param name
+	 * @param renamefp
+	 * @param nowpathid
+	 * @param isfile
+	 */
+	public void rename(String name,Long renamefp,Long nowpathid,boolean isfile){
+		if(isfile){
+			//文件名修改
+			FileList fl = fldao.findOne(renamefp);
+			String newname = onlyname(name, fl.getFpath(), fl.getFileShuffix(), 1, isfile);
+			fl.setFileName(newname);
+			fldao.save(fl);
+		}else{
+			//文件夹名修改
+			FilePath fp = fpdao.findOne(renamefp);
+			FilePath filepath = fpdao.findOne(nowpathid);
+			String newname = onlyname(name, filepath, null, 1, false);
+			fp.setPathName(newname);
+			fpdao.save(fp);
+		}
 		
 	}
 	

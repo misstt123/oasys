@@ -165,11 +165,24 @@ public class FileController {
 		return "forward:/filetest";
 	}
 	
+	/**
+	 * 重命名
+	 * @param name
+	 * @param renamefp
+	 * @param pathid
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping("rename")
 	public String rename(@RequestParam("name") String name,
 			@RequestParam("renamefp") Long renamefp,
 			@RequestParam("pathid") Long pathid,
+			@RequestParam("isfile") boolean isfile,
 			Model model){
+		
+		//这里调用重命名方法
+		fs.rename(name, renamefp, pathid, isfile);
 		
 		model.addAttribute("pathid", pathid);
 		return "forward:/filetest";
@@ -236,13 +249,9 @@ public class FileController {
 	 */
 	@RequestMapping("imgshow")
 	public void imgshow(HttpServletResponse response, @RequestParam("fileid") Long fileid) {
-		try {
-			FileList filelist = fldao.findOne(fileid);
-			File file = fs.getFile(filelist.getFilePath());
-			writefile(response, file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		FileList filelist = fldao.findOne(fileid);
+		File file = fs.getFile(filelist.getFilePath());
+		writefile(response, file);
 	}
 	
 	/**
@@ -271,13 +280,31 @@ public class FileController {
 	 * @param file
 	 * @throws IOException 
 	 */
-	public void writefile(HttpServletResponse response, File file) throws IOException {
-		ServletOutputStream sos = response.getOutputStream();
-		// 读取文件问字节码
-		byte[] data = new byte[(int) file.length()];
-		IOUtils.readFully(new FileInputStream(file), data);
-		// 将文件流输出到浏览器
-		IOUtils.write(data, sos);
+	public void writefile(HttpServletResponse response, File file) {
+		ServletOutputStream sos = null;
+		FileInputStream aa = null;
+		try {
+			aa = new FileInputStream(file);
+			sos = response.getOutputStream();
+			// 读取文件问字节码
+			byte[] data = new byte[(int) file.length()];
+			IOUtils.readFully(aa, data);
+			// 将文件流输出到浏览器
+			IOUtils.write(data, sos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				sos.close();
+				aa.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 	
 	}
 
