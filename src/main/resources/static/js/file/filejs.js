@@ -1,18 +1,23 @@
 /**
  * 文件展示 js
  */ 
-$(".file-box .file-one").hover(function(){
-	//console.log("hover!~");
-	$(this).addClass("file-one-houver");
-},function(){
-	//console.log("no hover");
-	$(this).removeClass("file-one-houver");
+$(".loadfiletype").on("mouseover mouseout",".file-one",function(event){
+	 if (event.type == "mouseover") {
+		// 鼠标悬浮
+		$(this).addClass("file-one-houver");
+	} else if (event.type == "mouseout") {
+		// 鼠标离开
+		$(this).removeClass("file-one-houver");
+	}
 });
+
 
 /**
  * 选择文件 js
+ * .file-box .file-check"
  */
-$(".file-box .file-check").click(function(){
+$(".loadfiletype").on("click",".file-check",function(){
+	console.log("ssss");
 	if($(this).parent(".file-one").hasClass("file-one-check")){
 		$(this).parent(".file-one").removeClass("file-one-check");
 	}else{
@@ -42,9 +47,12 @@ $(".allcheck").click(function(){
 
 /**
  * 右键菜单JS
+ * $(".file-box .file-one").mousedown(function(e){
+ * 
  */
-$(".file-box .file-one").mousedown(function(e){
+$(".loadfiletype").on("mousedown",".file-one",function(e){
 	if(3 == e.which){
+		console.log("111");
 	    $(document).bind("contextmenu",function(e){
 	        return false;
 	    });
@@ -96,6 +104,8 @@ $(document).click(function(e){
 
 /**
  * 重命名
+ * $(".menu .rename").click(function(){
+ * $(".loadfiletype").on("click",".menurename",function(){
  */
 $(".menu .rename").click(function(){
 	console.log("重命名！~~");
@@ -211,7 +221,6 @@ function checkedpaths(pathids,fileids){
 			}
 		}
 	});
-	console.log();
 }
 
 /**
@@ -225,14 +234,15 @@ function changedeletehref(){
 	console.log("checkpathids:"+checkpathids);
 	console.log("checkfileids:"+checkfileids);
 	
-	var href = $(".box-body .topdelete").attr("href").split("&");
-	console.log(href);
-	newhref = href[0]+"&checkpathids="+checkpathids+"&checkfileids="+checkfileids;
-	console.log(newhref);
-	$(".box-body .topdelete").attr("href",newhref);
-	$(".menu .delete").attr("href",newhref);
+	var href = $(".box-body .topdelete").attr("href");
 	
-	//给复制移动设值
-	
-	
+	if(href!=undefined){
+		href = href.split("&");
+		console.log(href);
+		newhref = href[0]+"&checkpathids="+checkpathids+"&checkfileids="+checkfileids;
+		console.log(newhref);
+		$(".box-body .topdelete").attr("href",newhref);
+		$(".menu .delete").attr("href",newhref);
+	}
+
 }

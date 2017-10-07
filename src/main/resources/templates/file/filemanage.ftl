@@ -119,11 +119,11 @@ li.activee>a {
 					</span>
 				</div>
 				<ul class="nav nav-pills nav-stacked mm">
-					<li class="activee"><a href="##"> <span
+					<li class="activee"><a href="filemanage"> <span
 							class="iconfont icon-suoyougongneng"></span> 全部文件</a></li>
 					<li><a href="##"><span class="iconfont icon-icon4"></span>
 							文档</a></li>
-					<li><a href="##"><span class="iconfont icon-tupian"></span>
+					<li><a href="##" class="filetypeimage"><span class="iconfont icon-tupian"></span>
 							图片</a></li>
 					<li><a href="##"><span class="iconfont icon-yinyue"></span>
 							音乐</a></li>

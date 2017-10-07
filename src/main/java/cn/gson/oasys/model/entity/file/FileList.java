@@ -35,7 +35,7 @@ public class FileList {
 	private Long size;	//文件大小
 	
 	@Column(name = "content_type")
-	private String contentType;	//文件类型id（共享公司个人）
+	private String contentType;	//文件类型id
 	
 	@Column(name = "upload_time")
 	private Date uploadTime;	//上传时间
