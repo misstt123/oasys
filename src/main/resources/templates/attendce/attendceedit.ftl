@@ -11,7 +11,6 @@
 <script type="text/javascript" src="easyui/jquery.min.js" ></script>
 <script type="text/javascript" src="js/iconfont.js"></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="js/attendce/attendceedit.js"></script>
 <title>Insert title here</title>
 		<meta charset="UTF-8">
 <style>
@@ -80,19 +79,32 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">
-							<span>类型</span>
+							<span>状态</span>
 						</label>
-						<select class="form-control atttype" data-edit=${write}>
-							<#list type as t>
-									<option ${(attends??&&attends.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+						<select class="form-control" name="status">
+							<#list statuslist as s>
+									<option ${(attends??&&attends.statusId==s.statusId)?string('selected','')}>${s.statusName}</option>
 								</#list>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
 						<label class="control-label">备注</label>
-						<input name="remark"  class="form-control remark" value="<#if attends??>${attends.attendsRemark}</#if>"/>
+						<input name="remark"  class="form-control remark" value="<#if (attends??)&&(attends.attendsRemark??)>${attends.attendsRemark}</#if>"/>
 					</div>
 					<input type="hidden" name="id"  value="<#if attends??>${attends.attendsId}</#if>" > 
+				</div>
+				
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label class="control-label">
+							<span>类型</span>
+						</label>
+						<select class="form-control" name="status" disabled="disabled">
+							<#list typelist as t>
+									<option ${(attends??&&attends.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+								</#list>
+						</select>
+					</div>
 				</div>
 				
 			</div>
