@@ -38,6 +38,13 @@ public class FileAjaxController {
 		return "file/mcpathload";
 	}
 
+	/**
+	 * 图片筛选load
+	 * @param userid
+	 * @param type
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("filetypeload")
 	public String filetypeload(@SessionAttribute("userId")Long userid,@RequestParam("type") String type,Model model){
 		User user = udao.findOne(userid);
@@ -54,19 +61,45 @@ public class FileAjaxController {
 		return "file/filetypeload";
 	}
 	
-	
+	/**
+	 * load删除controller
+	 * @param type
+	 * @param checkpathids
+	 * @param checkfileids
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("fileloaddeletefile")
-	public String fileloaddeletefile(@RequestParam("type") String type,@RequestParam(value="checkpathids[]",required=false) List<Long> checkpathids,@RequestParam(value="checkfileids[]",required=false) List<Long> checkfileids,Model model){
+	public String fileloaddeletefile(@RequestParam("type") String type,
+			@RequestParam(value="checkpathids[]",required=false) List<Long> checkpathids,
+			@RequestParam(value="checkfileids[]",required=false) List<Long> checkfileids,
+			Model model){
 		
 		System.out.println(type+checkpathids+checkfileids);
-		if (!checkfileids.isEmpty()) {
+		if (checkfileids!=null) {
 			// 删除文件
 			fs.deleteFile(checkfileids);
 		}
-		if (!checkpathids.isEmpty()) {
+		if (checkpathids!=null) {
 			// 删除文件夹
 			fs.deletePath(checkpathids);
 		}
+		
+		model.addAttribute("type", type);
+		return "forward:/filetypeload";
+	}
+	
+	
+	@RequestMapping("fileloadrename")
+	public String fileloadrename(@RequestParam("type") String type,
+			@RequestParam("renamefp") Long renamefp,
+			@RequestParam("creatpathinput") String creatpathinput,
+			@RequestParam("isfile") boolean isfile,
+			@RequestParam(value="pathid",required=false) Long pathid,
+			Model model){
+		System.out.println(type+renamefp+creatpathinput+isfile);
+		
+		fs.rename(creatpathinput, renamefp, pathid, isfile);
 		
 		model.addAttribute("type", type);
 		return "forward:/filetypeload";

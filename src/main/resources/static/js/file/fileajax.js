@@ -69,6 +69,10 @@ $(".filetypeimage").click(function(){
 	$(".loadfiletype").load("filetypeload",{type:"picture"});
 });
 
+
+/**
+ * 删除load js
+ */
 $(".loadfiletype").on("click",".loaddelete",function(){
 		var checkpathids = new Array();
 		var checkfileids = new Array();
@@ -81,6 +85,19 @@ $(".loadfiletype").on("click",".loaddelete",function(){
 		console.log(loadtype);
 		
 		$(".loadfiletype").load("fileloaddeletefile",{type:loadtype,'checkpathids[]':checkpathids,'checkfileids[]':checkfileids});
+	
+});
+
+$(".loadfiletype").on("click",".okfilerename",function(){
+	var checkedfile = $(this).parents(".file-one.file-one-check");
+	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+	
+	var renamefp = checkedfile.find(".renamefp").val();
+	var creatpathinput = checkedfile.find(".creatpathinput").val();
+	var isfile = checkedfile.find(".isfile").val();
+	var pathid = checkedfile.find(".pathid").val();
+	
+	$(".loadfiletype").load("fileloadrename",{type:loadtype,renamefp:renamefp,creatpathinput:creatpathinput,isfile,pathid:pathid})
 	
 });
 

@@ -107,14 +107,15 @@ $(document).click(function(e){
  * $(".menu .rename").click(function(){
  * $(".loadfiletype").on("click",".menurename",function(){
  */
-$(".menu .rename").click(function(){
+$(".loadfiletype").on("click",".menurename",function(){
 	console.log("重命名！~~");
-	var checked =$(".file-one.file-one-check");
+	var checked =$(".loadfiletype .file-one.file-one-check");
 	checked.find(".filename").addClass("diplaynone");
 	checked.find(".rename").removeClass("diplaynone");
 });
-$(".rename ").on("click",".cansalcreate",function(){
-	var checked =$(".file-one.file-one-check");
+$(".loadfiletype").on("click",".cansalcreate",function(){
+	console.log("2312");
+	var checked =$(".loadfiletype .file-one.file-one-check");
 	checked.find(".rename").addClass("diplaynone");
 	checked.find(".filename").removeClass("diplaynone");
 });
