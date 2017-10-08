@@ -109,4 +109,7 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 	//通过笔记id找到用户id
 	@Query("from Noteuser nu where nu.noteId=?1 and nu.userId=?2")
 	Noteuser finduserid(long noteid,Long userId);
+
+
+	
 }

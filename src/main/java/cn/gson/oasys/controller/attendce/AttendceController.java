@@ -107,7 +107,7 @@ public class AttendceController {
 			System.out.println("----不能签到");
 			model.addAttribute("error", "2");
 		}
-		else{
+		else if((hourminsec.compareTo("05:00:00") >0)&&(hourminsec.compareTo(end) <0)){
 		// 明确一点就是一个用户一天只能产生两条记录
 		if (count == 0) {
 			  if (hourminsec.compareTo(end) < 0) {
@@ -175,7 +175,8 @@ public class AttendceController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
-		signsortpaging(request, model, session, page, baseKey, type, status, time, icon);
+		System.out.println(baseKey);
+		signsortpaging(request, model, session, page, null, type, status, time, icon);
 		return "attendce/attendcelist";
 	}
 
@@ -187,14 +188,13 @@ public class AttendceController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
+		System.out.println(baseKey);
 		signsortpaging(request, model, session, page, baseKey, type, status, time, icon);
 		return "attendce/attendcelisttable";
 	}
 
 	
-
-
-	// 考勤管理某个管理员下面的所有员工的信息
+    // 考勤管理某个管理员下面的所有员工的信息
 	@RequestMapping("attendceatt")
 	public String testdasf(HttpServletRequest request, HttpSession session,
 			@RequestParam(value = "page", defaultValue = "0") int page,
@@ -272,7 +272,7 @@ public class AttendceController {
 	
 
 	@RequestMapping("attendceedit")
-	public String test4(@Param("aid") String aid, Model model, HttpSession session) {
+	public String test4(@Param("aid") String aid, Model model,HttpServletRequest request, HttpSession session) {
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		if (aid == null) {
 			model.addAttribute("write", 0);
@@ -282,10 +282,7 @@ public class AttendceController {
 			model.addAttribute("write", 1);
 			model.addAttribute("attends", attends);
 		}
-		List<SystemTypeList> type = (List<SystemTypeList>) typeDao.findByTypeModel("aoa_attends_list");
-		List<SystemStatusList> status = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_attends_list");
-		model.addAttribute("type", type);
-		model.addAttribute("status", status);
+		typestatus(request);
 		return "attendce/attendceedit";
 	}
 
@@ -307,8 +304,15 @@ public class AttendceController {
 	public String test4(Model model, HttpSession session, HttpServletRequest request) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		String remark = request.getParameter("remark");
+		String statusname=request.getParameter("status");
+		SystemStatusList statusList=  statusDao.findByStatusModelAndStatusName("aoa_attends_list", statusname);
+		System.out.println(statusList);
 		long id = Long.parseLong(request.getParameter("id"));
-		attendceService.updatereamrk(remark, id);
+		Attends attends=attenceDao.findOne(id);
+		attends.setAttendsRemark(remark);
+		attends.setStatusId(statusList.getStatusId());
+		attenceDao.save(attends);
+		//attendceService.updatereamrk(remark, id);
 		return "redirect:/attendceatt";
 	}
 
@@ -399,6 +403,7 @@ public class AttendceController {
 		//用来查找该用户下面管理的所有用户信息
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		List<Long> ids = new ArrayList<>();
+		System.out.println(baseKey);
 		Page<User> userspage =userService.findmyemployuser(page, baseKey, userId);
 		for (User user : userspage) {
 			ids.add(user.getUserId());
@@ -434,6 +439,7 @@ public class AttendceController {
 	//月报表
 	private void monthtablepaging(HttpServletRequest request, Model model, HttpSession session, int page,
 			String baseKey) {
+		Integer offnum,toworknum;
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		List<Long> ids = new ArrayList<>();
 		Page<User> userspage =userService.findmyemployuser(page, baseKey, userId);
@@ -452,11 +458,24 @@ public class AttendceController {
 		
 		Map<String, List<Integer>> uMap = new HashMap<>();
 		List<Integer> result = null;
+		
 		for (User user : userspage) {
 			result = new ArrayList<>();
-			for (long statusId = 10; statusId < 14; statusId++) {
+			//当月该用户下班次数
+			offnum=attenceDao.countoffwork(month, user.getUserId());
+			//当月该用户上班次数
+			toworknum=attenceDao.counttowork(month, user.getUserId());
+			System.out.println("上班次数"+toworknum+"下班次数"+offnum);
+			for (long statusId = 10; statusId < 13; statusId++) {
+				//这里面记录了正常迟到早退等状态
+				if(statusId==12)
+					result.add(attenceDao.countnum(month, statusId, user.getUserId())+toworknum-offnum);
+				else
 				result.add(attenceDao.countnum(month, statusId, user.getUserId()));
 			}
+			//这里记录了旷工的次数 还有请假天数没有记录 旷工次数=30-8-请假次数-某天签到次数
+			//这里还有请假天数没有写
+			result.add(30-8-offnum);
 			uMap.put(user.getUserName(), result);
 		}
 		model.addAttribute("uMap", uMap);

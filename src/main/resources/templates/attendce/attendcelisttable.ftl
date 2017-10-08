@@ -1,6 +1,7 @@
 <div class="bgc-w box box-primary">
 				<div class="box-header" style="padding-bottom: 20px">
-                    <a ><span></span>  </a>
+                  <a class="label label-success" href=""><span
+			class="glyphicon glyphicon-refresh"></span>  刷新 </a>
 					<div class="input-group" style="width:150px;float:right;top:-5px">
 											<input type="text" class="form-control input-sm pull-right baseKey" value="${(baseKey)!''}" placeholder="查找..." />
 											<div class="input-group-btn" style="top:-1px;">

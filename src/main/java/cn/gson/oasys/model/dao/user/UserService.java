@@ -2,6 +2,7 @@ package cn.gson.oasys.model.dao.user;
 
 import javax.transaction.Transactional;
 
+import org.aspectj.weaver.reflect.ReflectionBasedReferenceTypeDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,11 +24,11 @@ public class UserService {
 		Pageable pa=new  PageRequest(page, 10);
 		if (!StringUtils.isEmpty(baseKey)) {
 			// 模糊查询
+			return userDao.findbyFatherId(baseKey, parentid, pa);
 		}
 		else{
 			return userDao.findByFatherId(parentid, pa);
 		}
-		return null;
 		
 	}
 }

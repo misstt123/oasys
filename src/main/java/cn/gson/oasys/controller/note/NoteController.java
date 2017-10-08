@@ -100,7 +100,7 @@ public class NoteController {
 			cid=null;
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		long collect = Long.valueOf(iscollected);
-		setSomething(baseKey, type, status, time, icon, request);
+		setSomething(baseKey, type, status, time, icon, model);
 		System.out.println("收集"+collect);
 		if (collect == 1) {
 			Page<Note> upage= NoteService.sortpage(page, null, userid, collect, cid, null, type, status, time);
@@ -141,7 +141,7 @@ public class NoteController {
 		String id = request.getParameter("id");
 		String iscollected = request.getParameter("iscollected");
 		NoteService.updatecollect(Long.valueOf(iscollected), Long.valueOf(id));
-		setSomething(baseKey, type, status, time, icon, request);
+		setSomething(baseKey, type, status, time, icon,model);
 		Page<Note> upage=NoteService.sortpage(page, null, userid, null, null, null, type, status, time);
 		model.addAttribute("url", "notewrite");
 		paging(model, upage);
@@ -309,7 +309,7 @@ public class NoteController {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		cataloglist = (List<Catalog>) catalogDao.findcatauser(userid);
 		
-		setSomething(baseKey, type, status, time, icon, request);
+		setSomething(baseKey, type, status, time, icon, model);
 		Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 		model.addAttribute("sort", "&userid="+userid);
 		paging(model, upage);
@@ -423,7 +423,7 @@ public class NoteController {
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
-			setSomething(baseKey, type, status, time, icon, request);
+			setSomething(baseKey, type, status, time, icon, model);
 			Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 			typestatus(request);
 			if(baseKey!=null){
@@ -452,7 +452,7 @@ public class NoteController {
 			if(cid==-2)
 				cid=null;
 			System.out.println("目录"+cid);
-			setSomething(baseKey, type, status, time, icon, request);
+			setSomething(baseKey, type, status, time, icon, model);
 			Page<Note> upage=NoteService.sortpage(page, null, userid, null, cid, tid, type, status, time);
 			System.out.println(upage.getContent());
 			//获得数据之后就将cid重新设置
@@ -481,12 +481,11 @@ public class NoteController {
 		if (!request.getParameter("id").equals("-2")) {
 			Long id = Long.valueOf(cid);
 			System.out.println("类型"+type+"图标"+icon);
-			setSomething(baseKey, type, status, time, icon, request);
-			System.out.println(request.getAttribute("sort"));
+			setSomething(baseKey, type, status, time, icon, model);
 			Page<Note> upage=NoteService.sortpage(page, null, userid, null, id, null, type, status, time);
-			request.setAttribute("sort",request.getAttribute("sort")+"&id="+id);
-			request.setAttribute("sort2", "&id="+cid);
 			System.out.println(request.getAttribute("sort"));
+			request.setAttribute("sort2", "&id="+cid);
+			
 			paging(model, upage);
 			model.addAttribute("url", "notecata");
 			////为-2就是按照最近查找
@@ -579,36 +578,38 @@ public class NoteController {
 //		model.addAttribute("url", "notewrite");
 	}
    
-	public void setSomething(String baseKey, Object type, Object status, Object time, Object icon, HttpServletRequest request) {
+	public void setSomething(String baseKey, Object type, Object status, Object time, Object icon, Model model) {
 		if(!StringUtils.isEmpty(icon)){
-			request.setAttribute("icon", icon);
+			model.addAttribute("icon", icon);
 			if(!StringUtils.isEmpty(type)){
-				request.setAttribute("type", type);
+				model.addAttribute("type", type);
+				
+				
 				if("1".equals(type)){
-					request.setAttribute("sort", "&type=1&icon="+icon);
+					model.addAttribute("sort", "&type=1&icon="+icon);
 				}else{
-					request.setAttribute("sort", "&type=0&icon="+icon);
+					model.addAttribute("sort", "&type=0&icon="+icon);
 				}
 			}
 			if(!StringUtils.isEmpty(status)){
-				request.setAttribute("status", status);
+				model.addAttribute("status", status);
 				if("1".equals(status)){
-					request.setAttribute("sort", "&status=1&icon="+icon);
+					model.addAttribute("sort", "&status=1&icon="+icon);
 				}else{
-					request.setAttribute("sort", "&status=0&icon="+icon);
+					model.addAttribute("sort", "&status=0&icon="+icon);
 				}
 			}
 			if(!StringUtils.isEmpty(time)){
-				request.setAttribute("time", time);
+				model.addAttribute("time", time);
 				if("1".equals(time)){
-					request.setAttribute("sort", "&time=1&icon="+icon);
+					model.addAttribute("sort", "&time=1&icon="+icon);
 				}else{
-					request.setAttribute("sort", "&time=0&icon="+icon);
+					model.addAttribute("sort", "&time=0&icon="+icon);
 				}
 			}
 		}
 		if(!StringUtils.isEmpty(baseKey)){
-			request.setAttribute("baseKey", baseKey);
+			model.addAttribute("baseKey", baseKey);
 		}
 	}
 }

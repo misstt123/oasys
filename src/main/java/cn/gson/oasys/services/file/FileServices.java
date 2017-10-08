@@ -135,6 +135,7 @@ public class FileServices {
 			attachment.setAttachmentType(file.getContentType());
 			attachment.setUploadTime(new Date());
 			attachment.setUserId(user.getUserId()+"");
+			attachment.setModel("note");
 			AttDao.save(attachment);
 			return attachment;
 		}
