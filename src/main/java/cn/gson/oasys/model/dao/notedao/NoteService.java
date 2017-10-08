@@ -73,6 +73,7 @@ public class NoteService {
 		} 
 		if(!StringUtils.isEmpty(isCollected)){
 			if(!StringUtils.isEmpty(isCollected)&&!StringUtils.isEmpty(catalogId)){
+				
 				return noteDao.findByIsCollectedAndCatalogIdOrderByCreateTimeDesc(isCollected, catalogId, userid, pa);
 			}
 			if(!StringUtils.isEmpty(isCollected)&&StringUtils.isEmpty(catalogId)){

@@ -11,6 +11,7 @@
 				</h2>
 			</a>
 			<p>
+			点击<span class="glyphicon glyphicon-hand-up"></span>
 				<#if alist??>
 						${type}
 					<#else>
@@ -30,7 +31,7 @@
 <#if error=='1'>
 	<script>
 	$(function(){
-		alert("亲 已经过了签到时间");
+		alert("亲 不能签到，不在正常签到时间内！");
 	})
 </script>
 

@@ -107,7 +107,7 @@ public class AttendceController {
 			System.out.println("----不能签到");
 			model.addAttribute("error", "2");
 		}
-		else{
+		else if((hourminsec.compareTo("05:00:00") >0)&&(hourminsec.compareTo(end) <0)){
 		// 明确一点就是一个用户一天只能产生两条记录
 		if (count == 0) {
 			  if (hourminsec.compareTo(end) < 0) {
