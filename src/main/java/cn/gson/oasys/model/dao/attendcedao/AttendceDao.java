@@ -51,7 +51,7 @@ Page<Attends> findonemohu(String baseKey,long userid,Pageable pa);
 
 
 
-  @Query("from Attends a where a.user.userId in (:ids)")
+  @Query("from Attends a where a.user.userId in (:ids) ORDER BY a.attendsTime DESC ")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("ids") List<Long> user,Pageable pa);
   
   //按一些用户模糊查找

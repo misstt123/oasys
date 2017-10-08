@@ -50,7 +50,7 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 	Page<Note> findByIsCollectedAndCatalogIdOrderByCreateTimeDesc(long isCollected,long  catalogId,long userid,Pageable pa);
 	
 	//查找目录
-	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2)")
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.createTime DESC")
 	Page<Note> findByCatalogIdOrderByCreateTimeDesc(long catalogId,long userid,Pageable pa);
 	
 	//查找目录没有分页
@@ -109,7 +109,44 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 	//通过笔记id找到用户id
 	@Query("from Noteuser nu where nu.noteId=?1 and nu.userId=?2")
 	Noteuser finduserid(long noteid,Long userId);
+	
+	//排序
+	@Query("from Note n where n.typeId=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3) ORDER BY n.typeId DESC")
+	Page<Note> findByTypeIdOrderByTypeIdDesc(Long typeId, Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3) ORDER BY n.typeId ASC")
+	Page<Note> findByTypeIdOrderByTypeIdAsc(Long typeId, Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3) ORDER BY n.statusId DESC")
+	Page<Note> findByTypeIdOrderByStatusIdDesc(Long typeId, Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3) ORDER BY n.statusId ASC")
+	Page<Note> findByTypeIdOrderByStatusIdAsc(Long typeId, Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.catalogId=?2 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?3) ORDER BY n.createTime DESC")
+	Page<Note> findByTypeIdOrderByCreateTimeAsc(Long typeId, Long catalogId, long userid, Pageable pa);
 
+	
+	@Query("from Note n where n.typeId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.typeId DESC")
+	Page<Note> findByTypeIdOrderByTypeIdDesc(Long typeId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.typeId ASC")
+	Page<Note> findByTypeIdOrderByTypeIdAsc(Long typeId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.statusId DESC")
+	Page<Note> findByTypeIdOrderByStatusIdDesc(Long typeId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.statusId ASC")
+	Page<Note> findByTypeIdOrderByStatusIdAsc(Long typeId, long userid, Pageable pa);
+	@Query("from Note n where n.typeId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.createTime DESC")
+	Page<Note> findByTypeIdOrderByCreateTimeAsc(Long typeId, long userid, Pageable pa);
+
+	
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.typeId DESC ")
+	Page<Note> findByCatalogIdOrderByTypeIdDesc(Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.typeId ASC")
+	Page<Note> findByCatalogIdOrderByTypeIdAsc(Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.statusId DESC")
+	Page<Note> findByCatalogIdOrderByStatusIdDesc(Long catalogId, long userid, Pageable pa);
+
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.statusId ASC")
+	Page<Note> findByCatalogIdOrderByStatusIdAsc(Long catalogId, long userid, Pageable pa);
+	@Query("from Note n where n.catalogId=?1 and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) ORDER BY n.createTime ASC")
+	Page<Note> findByCatalogIdOrderByCreateTimeAsc(Long catalogId, long userid, Pageable pa);
+	
 
 	
 }

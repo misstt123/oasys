@@ -47,7 +47,78 @@ public class NoteService {
 			System.out.println("进来了"+baseKey+";"+userid);
 			return noteDao.findBytitleOrderByCreateTimeDesc(baseKey, userid, pa);
 		}//0为降序 1为升序
-		if (!StringUtils.isEmpty(type)) {
+		
+		if(!StringUtils.isEmpty(isCollected)){
+			
+			if(!StringUtils.isEmpty(isCollected)&&!StringUtils.isEmpty(catalogId)){
+				
+				return noteDao.findByIsCollectedAndCatalogIdOrderByCreateTimeDesc(isCollected, catalogId, userid, pa);
+			}
+			if(!StringUtils.isEmpty(isCollected)&&StringUtils.isEmpty(catalogId)){
+				return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
+			}
+		}
+			
+		if(!StringUtils.isEmpty(typeId)){
+		if(!StringUtils.isEmpty(typeId)&&!StringUtils.isEmpty(catalogId)){
+			System.out.println("目录类型");
+			
+			//根据目录 然后再根据类型查找
+			if(!StringUtils.isEmpty(type)){
+			if(type.toString().equals("0")) return noteDao.findByTypeIdOrderByTypeIdDesc(typeId,catalogId, userid, pa);
+			if(type.toString().equals("1")) return noteDao.findByTypeIdOrderByTypeIdAsc(typeId, catalogId, userid, pa);
+			}
+			if(!StringUtils.isEmpty(status)){
+			if(status.toString().equals("0")) return noteDao.findByTypeIdOrderByStatusIdDesc(typeId, catalogId, userid, pa);
+			if(status.toString().equals("1")) return noteDao.findByTypeIdOrderByStatusIdAsc(typeId, catalogId, userid, pa);
+			}
+			if(!StringUtils.isEmpty(time)){
+				
+			if(time.toString().equals("0")) return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, catalogId, userid, pa);
+			if(time.toString().equals("1")) return noteDao.findByTypeIdOrderByCreateTimeAsc(typeId, catalogId, userid, pa);
+			}
+			else return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId,catalogId, userid, pa);
+		}
+		if(!StringUtils.isEmpty(typeId)&&StringUtils.isEmpty(catalogId)){
+			System.out.println("单纯类型");
+			//为空就直接按照类型查找
+			
+			if(!StringUtils.isEmpty(type)){
+			if(type.toString().equals("0")) return noteDao.findByTypeIdOrderByTypeIdDesc(typeId, userid, pa);
+			if(type.toString().equals("1")) return noteDao.findByTypeIdOrderByTypeIdAsc(typeId, userid, pa);
+			}
+			if(!StringUtils.isEmpty(status)){
+			if(status.toString().equals("0")) return noteDao.findByTypeIdOrderByStatusIdDesc(typeId, userid, pa);
+			if(status.toString().equals("1")) return noteDao.findByTypeIdOrderByStatusIdAsc(typeId, userid, pa);
+			}
+			if(!StringUtils.isEmpty(time)){
+			
+			if(time.toString().equals("0")) return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
+			if(time.toString().equals("1")) return noteDao.findByTypeIdOrderByCreateTimeAsc(typeId, userid, pa);
+			}
+			else return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
+		}}
+		
+		
+		if(!StringUtils.isEmpty(catalogId)&&(StringUtils.isEmpty(typeId))&&(StringUtils.isEmpty(isCollected)))
+			{//单纯查找目录
+			if(!StringUtils.isEmpty(type)){
+			if(type.toString().equals("0")) return noteDao.findByCatalogIdOrderByTypeIdDesc(catalogId, userid, pa);
+		if(type.toString().equals("1")) return noteDao.findByCatalogIdOrderByTypeIdAsc(catalogId, userid, pa);
+			}if(!StringUtils.isEmpty(status)){
+		if(status.toString().equals("0")) return noteDao.findByCatalogIdOrderByStatusIdDesc(catalogId, userid, pa);
+		if(status.toString().equals("1")) return noteDao.findByCatalogIdOrderByStatusIdAsc(catalogId, userid, pa);
+			}if(!StringUtils.isEmpty(time)){
+		if(time.toString().equals("0")) return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
+		if(time.toString().equals("1")) return noteDao.findByCatalogIdOrderByCreateTimeAsc(catalogId, userid, pa);
+			}
+		else	return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
+			}
+		
+		
+		
+		if(StringUtils.isEmpty(isCollected)&&StringUtils.isEmpty(typeId)&&StringUtils.isEmpty(catalogId)){
+			if (!StringUtils.isEmpty(type)) {
 			if(type.toString().equals("0")){
 				//降序
 				return noteDao.findByUserssOrderByTypeIdDesc(userid, pa);
@@ -66,35 +137,14 @@ public class NoteService {
 		}
 		if (!StringUtils.isEmpty(time)) {
 			if(time.toString().equals("0")){
+				System.out.println("时间"+time);
 				return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
 			}else{
 				return noteDao.findByUserssOrderByCreateTimeAsc(userid, pa);
 			}
-		} 
-		if(!StringUtils.isEmpty(isCollected)){
-			if(!StringUtils.isEmpty(isCollected)&&!StringUtils.isEmpty(catalogId)){
-				
-				return noteDao.findByIsCollectedAndCatalogIdOrderByCreateTimeDesc(isCollected, catalogId, userid, pa);
-			}
-			if(!StringUtils.isEmpty(isCollected)&&StringUtils.isEmpty(catalogId)){
-				return noteDao.findByIsCollectedOrderByCreateTimeDesc(isCollected, userid, pa);
-			}
-		}
-			
-		if(!StringUtils.isEmpty(typeId)){
-		if(!StringUtils.isEmpty(typeId)&&!StringUtils.isEmpty(catalogId)){
-			System.out.println("目录类型");
-			//根据目录 然后再根据类型查找
-			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId,catalogId, userid, pa);
-		}
-		if(!StringUtils.isEmpty(typeId)&&StringUtils.isEmpty(catalogId)){
-			System.out.println("单纯类型");
-			//为空就直接按照类型查找
-			return noteDao.findByTypeIdOrderByCreateTimeDesc(typeId, userid, pa);
-		}}
-		if(!StringUtils.isEmpty(catalogId)&&(StringUtils.isEmpty(typeId))&&(StringUtils.isEmpty(isCollected)))
-			return noteDao.findByCatalogIdOrderByCreateTimeDesc(catalogId, userid, pa);
+		} }
 		if(!StringUtils.isEmpty(userid)){
+			System.out.println("0000");
 			return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
 		}
 		else {

@@ -37,7 +37,7 @@ public interface PlanDao  extends JpaRepository<Plan, Long>{
 	
 	
 	//分页
-	@Query("from Plan p where p.user.userId=?1")
+	@Query("from Plan p where p.user.userId=?1 order by p.createTime Desc ")
 	Page<Plan> findByUserOrderByCreateTimeDesc(long userid,Pageable pa);
 	
 	//模糊查询
@@ -59,6 +59,6 @@ public interface PlanDao  extends JpaRepository<Plan, Long>{
 		@Query("from Plan p where p.user.userId=?1  order by p.statusId Asc")
 		Page<Plan> findByUserOrderByStatusIdAsc(long userid,Pageable pa);
 	//时间
-		@Query("from Plan p where p.user.userId=?1 order by p.statusId Asc")
+		@Query("from Plan p where p.user.userId=?1 order by p.createTime Asc")
 		Page<Plan> findByUserOrderByCreateTimeAsc(long userid,Pageable pa);
 }
