@@ -64,3 +64,64 @@ $("#thismodal .box-body").on("click",".openpath",function(){
 		console.log("box-header");
 	}
 });
+
+$(".filetypeimage").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"picture"});
+});
+
+
+/**
+ * 删除load js
+ */
+$(".loadfiletype").on("click",".loaddelete",function(){
+		var checkpathids = new Array();
+		var checkfileids = new Array();
+		checkedpaths2(checkpathids,checkfileids);
+		
+		var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+		
+		console.log(checkpathids);
+		console.log(checkfileids);
+		console.log(loadtype);
+		
+		$(".loadfiletype").load("fileloaddeletefile",{type:loadtype,'checkpathids[]':checkpathids,'checkfileids[]':checkfileids});
+	
+});
+
+$(".loadfiletype").on("click",".okfilerename",function(){
+	var checkedfile = $(this).parents(".file-one.file-one-check");
+	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+	
+	var renamefp = checkedfile.find(".renamefp").val();
+	var creatpathinput = checkedfile.find(".creatpathinput").val();
+	var isfile = checkedfile.find(".isfile").val();
+	var pathid = checkedfile.find(".pathid").val();
+	
+	$(".loadfiletype").load("fileloadrename",{type:loadtype,renamefp:renamefp,creatpathinput:creatpathinput,isfile,pathid:pathid})
+	
+});
+
+
+/**
+ * 得到选择的 文件和文件夹
+ * @param pathids
+ * @param fileids
+ * @returns
+ */
+function checkedpaths2(pathids,fileids){
+	var checkedpaths =$(".file-one.file-one-check");
+	var i = 0;
+	var j = 0;
+	checkedpaths.each(function(){
+		if($(this).find(".file-img").hasClass("path")){
+			pathids[i] = $(this).find(".pathmessage").val();
+			i += 1;
+		}else{
+			if(!$(this).hasClass("diplaynone")){
+				fileids[j] = $(this).find(".filemessage").val();
+				console.log($(this).find(".filemessage").val());
+				j += 1;
+			}
+		}
+	});
+}
