@@ -20,7 +20,7 @@ public interface UserDao extends JpaRepository<User, Long>{
 	Page<User> findByFatherId(Long parentid,Pageable pa);
 	
 	//名字模糊查找
-	@Query("select u from User u where  u.userName like %?1% or u.realName like %?1% and u.fatherId=?2 ")
+	@Query("select u from User u where  (u.userName like %?1% or u.realName like %?1%) and u.fatherId=?2 ")
 	Page<User> findbyFatherId(String name,Long parentid,Pageable pa);
 	
 	@Query("select u from User u where u.userName=:name")
@@ -31,6 +31,8 @@ public interface UserDao extends JpaRepository<User, Long>{
 	
 	//根据名字找用户
 	User findByUserName(String title);
+	
+	
 	
 	//根据用户名模糊查找
 	@Query("from User u where u.userName like %:name% or u.realName like %:name%")

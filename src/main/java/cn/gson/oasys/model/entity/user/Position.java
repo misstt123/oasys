@@ -30,7 +30,7 @@ public class Position {
 	}
 	
 	public Position(String name, Integer level) {
-		super();
+		
 		this.name = name;
 		this.level = level;
 	}

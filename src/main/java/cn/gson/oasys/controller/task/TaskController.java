@@ -35,6 +35,7 @@ import cn.gson.oasys.model.dao.taskdao.TaskDao;
 import cn.gson.oasys.model.dao.taskdao.TaskloggerDao;
 import cn.gson.oasys.model.dao.taskdao.TaskuserDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
+import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
@@ -43,6 +44,7 @@ import cn.gson.oasys.model.entity.task.Tasklist;
 import cn.gson.oasys.model.entity.task.Tasklogger;
 import cn.gson.oasys.model.entity.task.Taskuser;
 import cn.gson.oasys.model.entity.user.Dept;
+import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.task.TaskService;
 
@@ -61,14 +63,13 @@ public class TaskController {
 	@Autowired
 	private DeptDao ddao;
 	@Autowired
-	private RoleDao rdao;
-	@Autowired
 	private TaskuserDao tudao;
 	@Autowired
 	private TaskService tservice;
 	@Autowired
 	private TaskloggerDao tldao;
-
+	@Autowired
+	private PositionDao pdao;
 	/**
 	 * 任务管理表格
 	 * 
@@ -144,13 +145,13 @@ public class TaskController {
 		List<User> emplist=pagelist.getContent();
 		// 查询部门表
 		Iterable<Dept> deptlist = ddao.findAll();
-		// 查角色表
-		Iterable<Role> rolelist = rdao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
 		mav.addObject("typelist", typelist);
 		mav.addObject("statuslist", statuslist);
 		mav.addObject("emplist", emplist);
 		mav.addObject("deptlist", deptlist);
-		mav.addObject("rolelist", rolelist);
+		mav.addObject("poslist", poslist);
 		mav.addObject("page", pagelist);
 		mav.addObject("url", "names");
 		mav.addObject("qufen", "任务");
@@ -218,13 +219,13 @@ public class TaskController {
 
 		// 查询部门表
 		Iterable<Dept> deptlist = ddao.findAll();
-		// 查角色表
-		Iterable<Role> rolelist = rdao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
 		mav.addObject("type", type);
 		mav.addObject("status", status);
 		mav.addObject("emplist", emplist);
 		mav.addObject("deptlist", deptlist);
-		mav.addObject("rolelist", rolelist);
+		mav.addObject("poslist", poslist);
 		mav.addObject("task", task);
 		mav.addObject("page", pagelist);
 		mav.addObject("url", "names");
