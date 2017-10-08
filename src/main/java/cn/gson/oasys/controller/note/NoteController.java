@@ -592,10 +592,24 @@ public class NoteController {
 				model.addAttribute("time", time);
 				setthree("time",time, icon, model, cataid, typeid);
 			}
+			
+		}
+		if(StringUtils.isEmpty(type)){
+		//目录类型查找
+		if(!StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&id="+cataid+"&typeid="+typeid);
+		//目录单纯查找
+		if(!StringUtils.isEmpty(cataid)&&StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&id="+cataid);
+		//单纯类型查找
+		if(StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&typeid="+typeid);
 		}
 		if(!StringUtils.isEmpty(baseKey)){
 			model.addAttribute("baseKey", baseKey);
 		}
+	
+		
 	}
 
 
