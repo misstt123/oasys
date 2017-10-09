@@ -73,6 +73,13 @@ public interface NoteDao  extends JpaRepository<Note, Long>{
 			+ "")
 	Page<Note> findBytitleOrderByCreateTimeDesc(String basekey,long userid,Pageable pa);
 	
+	//在目录里面进行查询
+	@Query("from Note n where (n.statusId in (SELECT s.statusId from SystemStatusList s where s.statusName like %?1%)"
+			+ " or DATE_format(n.createTime,'%Y-%m-%d') like %?1%"
+			+ " or n.typeId in (SELECT t.typeId from SystemTypeList t where t.typeName like %?1%) or n.title like %?1%) "
+			+ "and n.noteId in (SELECT r.noteId from Noteuser r where r.userId=?2) and n.catalogId=?3"
+			+ "")
+	Page<Note> findBytitleAndCatalogId(String basekey,long userid,long cataid,Pageable pa);
 	
 	//通过类型降序排序
 	@Query("from Note n " 

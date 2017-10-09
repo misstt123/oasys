@@ -425,7 +425,8 @@ public class NoteController {
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
-			setSomething(baseKey, type, status, time, icon, model,null,null);
+		
+		setSomething(baseKey, type, status, time, icon, model,null,null);
 			Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 			typestatus(request);
 			if(baseKey!=null){
@@ -455,7 +456,7 @@ public class NoteController {
 				cid=null;
 			System.out.println("目录"+cid);
 			setSomething(baseKey, type, status, time, icon, model,cid,tid);
-			Page<Note> upage=NoteService.sortpage(page, null, userid, null, cid, tid, type, status, time);
+			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, null, cid, tid, type, status, time);
 			System.out.println(upage.getContent());
 			//获得数据之后就将cid重新设置
 			if(cid==null)
@@ -479,11 +480,13 @@ public class NoteController {
 			@RequestParam(value = "icon", required = false) String icon
 			){
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
+		model.addAttribute("catalog", "&id="+cid);
 		//不为-2就是按照目录查找
 		if (!request.getParameter("id").equals("-2")) {
 			Long id = Long.valueOf(cid);
+			System.out.println(baseKey);
 			setSomething(baseKey, type, status, time, icon, model,id,null);
-			Page<Note> upage=NoteService.sortpage(page, null, userid, null, id, null, type, status, time);
+			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, null, id, null, type, status, time);
 			request.setAttribute("sort2", "&id="+cid);
 			paging(model, upage);
 			model.addAttribute("url", "notecata");
@@ -594,7 +597,7 @@ public class NoteController {
 			}
 			
 		}
-		if(StringUtils.isEmpty(type)){
+		if(StringUtils.isEmpty(icon)){
 		//目录类型查找
 		if(!StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
 			model.addAttribute("sort", "&id="+cataid+"&typeid="+typeid);

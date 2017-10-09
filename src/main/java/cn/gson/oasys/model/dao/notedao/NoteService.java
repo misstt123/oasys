@@ -42,12 +42,14 @@ public class NoteService {
 	//排序分页
 	public Page<Note> sortpage(int page, String baseKey, long userid,Long isCollected,Long catalogId,Long typeId, Object type, Object status, Object time) {
 		Pageable pa = new PageRequest(page, 10);
-		
-		if(!StringUtils.isEmpty(baseKey)){
-			System.out.println("进来了"+baseKey+";"+userid);
+		System.out.println("进来了"+baseKey+";目录"+catalogId);
+		if(!StringUtils.isEmpty(baseKey)&&StringUtils.isEmpty(catalogId)){
 			return noteDao.findBytitleOrderByCreateTimeDesc(baseKey, userid, pa);
+		}
+		if(!StringUtils.isEmpty(baseKey)&&!StringUtils.isEmpty(catalogId)){
+			
+			return noteDao.findBytitleAndCatalogId(baseKey, userid, catalogId, pa);
 		}//0为降序 1为升序
-		
 		if(!StringUtils.isEmpty(isCollected)){
 			
 			if(!StringUtils.isEmpty(isCollected)&&!StringUtils.isEmpty(catalogId)){
@@ -144,10 +146,10 @@ public class NoteService {
 			}
 		} }
 		if(!StringUtils.isEmpty(userid)){
-			System.out.println("0000");
 			return noteDao.findByUserssOrderByCreateTimeDesc(userid, pa);
 		}
 		else {
+			System.out.println("what");
 			// 第几页 以及页里面数据的条数
 			return noteDao.findByUserss(userid, pa);
 		}
