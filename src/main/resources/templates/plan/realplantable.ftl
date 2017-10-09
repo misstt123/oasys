@@ -53,7 +53,7 @@
 											</span>
 											</a>
 											<div>【${user.userName}】
-											${uMap["${userName}"].planComment}
+											<#if uMap["${userName}"].planComment??>${uMap["${userName}"].planComment}</#if>
 											</div>
 											</#if></td>
 											
@@ -83,14 +83,17 @@ $("#commentsave").click(function(){
 	
 	 $.ajax({
 		 type:"get",
-		 url:"plancomment",
+		 url:'${url}',
 		 data:{
 			 pid:$commentid,
-			 comment:$comment
+			 comment:$comment,
+			 starttime:'${(starttime)!''}',
+			 endtime:'${(endtime)!''}',
+			 choose:'${(choose)!''}'
 		 },
 		 success:function(dates){
 			 $(".close").click();
-			window.location.reload()
+			 $("#refresh").html(dates);
 		},
 		 error:function(){
 		}
