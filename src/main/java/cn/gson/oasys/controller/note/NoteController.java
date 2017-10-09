@@ -608,10 +608,13 @@ public class NoteController {
 		if(StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
 			model.addAttribute("sort", "&typeid="+typeid);
 		}
-		if(!StringUtils.isEmpty(baseKey)){
-			model.addAttribute("baseKey", baseKey);
+		
+		if(!StringUtils.isEmpty(baseKey)&&StringUtils.isEmpty(cataid)){
+			model.addAttribute("sort", "&baseKey="+baseKey);
 		}
-	
+		if(!StringUtils.isEmpty(baseKey)&&!StringUtils.isEmpty(cataid)){
+			model.addAttribute("sort", "&baseKey="+baseKey+"&id="+cataid);
+		}
 		
 	}
 

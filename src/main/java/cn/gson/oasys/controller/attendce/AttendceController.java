@@ -364,7 +364,7 @@ public class AttendceController {
 			}
 		}
 		if(!StringUtils.isEmpty(baseKey)){
-			model.addAttribute("baseKey", baseKey);
+			model.addAttribute("sort", "&baseKey="+baseKey);
 		}
 	}
 	//单个用户的排序和分页
