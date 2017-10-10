@@ -25,6 +25,7 @@ import com.github.pagehelper.util.StringUtil;
 
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.processdao.BursementDao;
+import cn.gson.oasys.model.dao.processdao.ProcessListDao;
 import cn.gson.oasys.model.dao.processdao.ReviewedDao;
 import cn.gson.oasys.model.dao.processdao.SubjectDao;
 import cn.gson.oasys.model.dao.roledao.RoleDao;
@@ -74,6 +75,8 @@ public class ProcedureController {
 	private BursementDao budao;
 	@Autowired
 	private PositionDao pdao;
+	@Autowired
+	private ProcessListDao prodao;
 	@Autowired
 	private ProcessService proservice;
 	//新增页面
@@ -240,8 +243,25 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("particular")
-	public String particular(){
+	public String particular(HttpSession session,Model model,HttpServletRequest req){
 		
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User user=udao.findOne(userid);//审核人或者申请人
+		
+		String id=req.getParameter("id");
+		Long proid=Long.parseLong(id);
+		String typename=req.getParameter("typename");//类型名称
+		System.out.println("mm");
+		String name=req.getParameter("name");//区分审核人或者申请人查看
+		System.out.println(name+"qdd");
+		if(("审核").equals(name)){ //user就是审核人
+			System.out.println("qq");
+			proservice.index3(proid,name,user,typename);
+			if(("费用报销").equals(typename)){
+				
+			}
+		}
 		return "process/serch";
 	}
 	//出差费用申请

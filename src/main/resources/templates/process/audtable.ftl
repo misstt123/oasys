@@ -42,7 +42,7 @@
 							<td><span class="label ${pro.statuscolor}">${pro.statusname}</span></td>
 							<td> <a href="useredit?id=${pro.proid}" class="label sheding"><span
 									class="glyphicon glyphicon-zoom-in"></span> 审核</a> 
-								 <a href="particular" class="label xiugai"><span
+								 <a href="particular?id=${pro.proid}&typename=${pro.typename}&name=审核" class="label xiugai"><span
 									class="glyphicon glyphicon-search"></span> 查看</a> 
 								<#if pro.statusname=="未通过"	|| pro.statusname=="已批准">
 								 <a href="useredit?id=${pro.proid}" class="label shanchu"><span
