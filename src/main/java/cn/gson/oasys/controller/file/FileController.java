@@ -70,6 +70,7 @@ public class FileController {
 			FilePath filepath1 = new FilePath();
 			filepath1.setParentId(1L);
 			filepath1.setPathName(user.getUserName());
+			filepath1.setPathUserId(user.getUserId());
 			filepath = fpdao.save(filepath1);
 		}
 		
@@ -147,18 +148,24 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("deletefile")
-	public String deletefile(@RequestParam("pathid") Long pathid, @RequestParam("checkpathids") List<Long> checkpathids,
+	public String deletefile(@SessionAttribute("userId") Long userid,
+			@RequestParam("pathid") Long pathid,
+			@RequestParam("checkpathids") List<Long> checkpathids,
 			@RequestParam("checkfileids") List<Long> checkfileids, Model model) {
 		System.out.println(checkfileids);
 		System.out.println(checkpathids);
 
 		if (!checkfileids.isEmpty()) {
 			// 删除文件
-			fs.deleteFile(checkfileids);
+			//fs.deleteFile(checkfileids);
+			//文件放入回收战
+			fs.trashfile(checkfileids, 1L,userid);
 		}
 		if (!checkpathids.isEmpty()) {
 			// 删除文件夹
-			fs.deletePath(checkpathids);
+			//fs.deletePath(checkpathids);
+			fs.trashpath(checkpathids, 1L, true);
+			//fs.trashPath(checkpathids);
 		}
 
 		model.addAttribute("pathid", pathid);
@@ -226,14 +233,15 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("createpath")
-	public String createpath(@RequestParam("pathid") Long pathid, @RequestParam("pathname") String pathname,
+	public String createpath(@SessionAttribute("userId") Long userid, @RequestParam("pathid") Long pathid, @RequestParam("pathname") String pathname,
 			Model model) {
 		System.out.println(pathid + "aaaaaa" + pathname);
 		FilePath filepath = fpdao.findOne(pathid);
 		String newname = fs.onlyname(pathname, filepath, null, 1, false);
 
 		FilePath newfilepath = new FilePath(pathid, newname);
-
+		newfilepath.setPathUserId(userid);
+		
 		System.out.println(newname);
 		System.out.println(newfilepath);
 		fpdao.save(newfilepath);

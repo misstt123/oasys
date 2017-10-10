@@ -44,6 +44,9 @@ public class FileList {
 	
 	@Column(name = "file_shuffix")
 	private String fileShuffix;	//文件后缀名
+	
+	@Column(name = "file_istrash")
+	private Long fileIstrash = 0L;
 
 	
 	@ManyToOne
@@ -124,6 +127,14 @@ public class FileList {
 		this.fileShuffix = fileShuffix;
 	}
 	
+	public Long getFileIstrash() {
+		return fileIstrash;
+	}
+
+	public void setFileIstrash(Long fileIstrash) {
+		this.fileIstrash = fileIstrash;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -144,9 +155,7 @@ public class FileList {
 	public String toString() {
 		return "FileList [fileId=" + fileId + ", fileName=" + fileName + ", filePath=" + filePath + ", size=" + size
 				+ ", contentType=" + contentType + ", uploadTime=" + uploadTime + ", model=" + model + ", fileShuffix="
-				+ fileShuffix + "]";
+				+ fileShuffix + ", fileIstrash=" + fileIstrash + "]";
 	}
-
-	
 	
 }

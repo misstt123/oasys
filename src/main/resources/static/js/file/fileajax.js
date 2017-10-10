@@ -65,10 +65,34 @@ $("#thismodal .box-body").on("click",".openpath",function(){
 	}
 });
 
+$(".filetypedocument").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"document"});
+});
 $(".filetypeimage").click(function(){
 	$(".loadfiletype").load("filetypeload",{type:"picture"});
 });
+$(".filetypemusic").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"music"});
+});
+$(".filetypevedio").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"video"});
+});
+$(".filetypeyasuo").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"yasuo"});
+});
+$(".filetypetrash").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"trash"});
+});
 
+/**
+ * 搜索js
+ */
+$(".loadfiletype").on("click",".findfileandpathgo",function(){
+	var findfileandpath = $(".loadfiletype .box-header .findfileandpath").val();
+	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+	alert(findfileandpath+loadtype);
+	$(".loadfiletype").load("findfileandpath",{type:loadtype,findfileandpath:findfileandpath});
+});
 
 /**
  * 删除load js
@@ -88,6 +112,34 @@ $(".loadfiletype").on("click",".loaddelete",function(){
 	
 });
 
+/**
+ * 回收战load js
+ */
+$(".loadfiletype").on("click",".loadtrash",function(){
+	var checkpathids = new Array();
+	var checkfileids = new Array();
+	checkedpaths2(checkpathids,checkfileids);
+	
+	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+	
+	$(".loadfiletype").load("fileloadtrashfile",{type:loadtype,'checkpathids[]':checkpathids,'checkfileids[]':checkfileids});
+});
+
+$(".loadfiletype").on("click",".filereturnback",function(){
+	var checkpathids = new Array();
+	var checkfileids = new Array();
+	checkedpaths2(checkpathids,checkfileids);
+	console.log("filereturnback");
+	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+	
+	$(".loadfiletype").load("filereturnback",{type:loadtype,'checkpathids[]':checkpathids,'checkfileids[]':checkfileids});
+	
+});
+
+
+/**
+ * 重命名load js
+ */
 $(".loadfiletype").on("click",".okfilerename",function(){
 	var checkedfile = $(this).parents(".file-one.file-one-check");
 	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
@@ -97,8 +149,12 @@ $(".loadfiletype").on("click",".okfilerename",function(){
 	var isfile = checkedfile.find(".isfile").val();
 	var pathid = checkedfile.find(".pathid").val();
 	
-	$(".loadfiletype").load("fileloadrename",{type:loadtype,renamefp:renamefp,creatpathinput:creatpathinput,isfile,pathid:pathid})
+	console.log(renamefp);
+	console.log(creatpathinput);
+	console.log(isfile);
+	console.log(pathid);
 	
+	$(".loadfiletype").load("fileloadrename",{type:loadtype,renamefp:renamefp,creatpathinput:creatpathinput,isfile:isfile,pathid:pathid})
 });
 
 
