@@ -14,16 +14,6 @@ public class UserController {
 		return "user/usermanage";
 	}
 	
-	@RequestMapping("deptmanage")
-	public String deptmanage() {
-		return "user/deptmanage";
-	}
-	
-	@RequestMapping("positionmanage")
-	public String positionmanage() {
-		return "user/positionmanage";
-	}
-	
 	@RequestMapping("userlogmanage")
 	public String userlogmanage() {
 		return "user/userlogmanage";

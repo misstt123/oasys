@@ -27,6 +27,12 @@ public class FilePath {
 	@Column(name = "path_name")
 	private String pathName;
 	
+	@Column(name = "path_istrash")
+	private Long pathIstrash = 0L;
+	
+	@Column(name = "path_user_id")
+	private Long pathUserId;
+	
 	@OneToMany(mappedBy = "fpath")
 	@JsonIgnore
 	private List<FileList> fileList;
@@ -66,6 +72,21 @@ public class FilePath {
 		this.pathName = pathName;
 	}
 	
+	public Long getPathIstrash() {
+		return pathIstrash;
+	}
+
+	public void setPathIstrash(Long pathIstrash) {
+		this.pathIstrash = pathIstrash;
+	}
+
+	public Long getPathUserId() {
+		return pathUserId;
+	}
+
+	public void setPathUserId(Long pathUserId) {
+		this.pathUserId = pathUserId;
+	}
 
 	public List<FileList> getFileList() {
 		return fileList;
@@ -77,7 +98,8 @@ public class FilePath {
 
 	@Override
 	public String toString() {
-		return "FilePath [id=" + id + ", parentId=" + parentId + ", pathName=" + pathName + "]";
+		return "FilePath [id=" + id + ", parentId=" + parentId + ", pathName=" + pathName + ", pathIstrash="
+				+ pathIstrash + ", pathUserId=" + pathUserId + "]";
 	}
-	
+
 }

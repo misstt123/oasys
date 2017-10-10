@@ -33,7 +33,7 @@ a:hover {
 						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
-				<div class="box-tools">
+				<!-- <div class="box-tools">
 					<div class="input-group" style="width: 150px;">
 						<input type="text" class="form-control input-sm"
 							placeholder="查找..." />
@@ -42,7 +42,7 @@ a:hover {
 								class="glyphicon glyphicon-search"></span></a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<!--盒子身体-->
 			<div class="box-body no-padding">
@@ -54,16 +54,17 @@ a:hover {
 							<th scope="col">层级</th>
 							<th scope="col">操作</th>
 						</tr>
-						<tr>
-							
-							<td><span>xxxx</span></td>
-							<td><span>1</span></td>
-							<td><a  href="##" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
+						<#list positions as position>
+							<tr>
+								<td><span>${position.name}</span></td>
+								<td><span>${position.level}</span></td>
+								<td><a  href="##" class="label xiugai"><span
+										class="glyphicon glyphicon-edit"></span> 修改</a> <a
+									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+									href="" class="label shanchu"><span
+										class="glyphicon glyphicon-remove"></span> 删除</a></td>
+							</tr>
+						</#list>
 					</table>
 				</div>
 			</div>

@@ -119,22 +119,22 @@ li.activee>a {
 					</span>
 				</div>
 				<ul class="nav nav-pills nav-stacked mm">
-					<li class="activee"><a href="filemanage"> <span
+					<li class="activee filetypedocument"><a href="filemanage"> <span
 							class="iconfont icon-suoyougongneng"></span> 全部文件</a></li>
-					<li><a href="##"><span class="iconfont icon-icon4"></span>
+					<li><a href="##" class="filetypedocument"><span class="iconfont icon-icon4"></span>
 							文档</a></li>
 					<li><a href="##" class="filetypeimage"><span class="iconfont icon-tupian"></span>
 							图片</a></li>
-					<li><a href="##"><span class="iconfont icon-yinyue"></span>
+					<li><a href="##" class="filetypemusic"><span class="iconfont icon-yinyue"></span>
 							音乐</a></li>
-					<li><a href="##"><span
+					<li><a href="##" class="filetypevedio"><span
 							class="iconfont icon-shipin"></span> 视频</a></li>
-					<li><a href="##"><span
+					<li><a href="##" class="filetypeyasuo"><span
 							class="iconfont icon-yasuobao"></span> 压缩包</a></li>
-					<li><a href="##"><span class="iconfont icon-fenxiang"></span>
+					<li><a href="##" class="filetypeshare"><span class="iconfont icon-fenxiang"></span>
 							共享文件</a></li>
 					<li>
-						<a href="##"><span
+						<a href="##" class="filetypetrash"><span
 							class="iconfont icon-lajitong"></span> 回收战</a>
 					</li>
 				</ul>
