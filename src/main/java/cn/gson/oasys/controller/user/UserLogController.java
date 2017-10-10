@@ -50,8 +50,10 @@ public class UserLogController {
 					@RequestParam(value="time",required=false)String time,
 					@RequestParam(value="icon",required=false)String icon) {
 				System.out.println("22"+basekey);
+				
 				getuserlog(page, session, model, basekey, time, icon);
-				return "user/userlogmanagetable";
+				return "user/userlogmanagetable"; 
+				
 			}
 
 
