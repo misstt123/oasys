@@ -1,5 +1,7 @@
 package cn.gson.oasys.controller.attendce;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ch.qos.logback.core.joran.action.IADataForComplexProperty;
 import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceService;
@@ -65,7 +68,11 @@ public class AttendceController {
 
 	// 考勤 前面的签到
 	@RequestMapping("singin")
-	public String Datag(HttpSession session, Model model, HttpServletRequest request) throws InterruptedException {
+	public String Datag(HttpSession session, Model model, HttpServletRequest request) throws InterruptedException, UnknownHostException {
+		//首先获取ip
+		InetAddress ia=null;
+		ia=ia.getLocalHost();
+		String attendip=ia.getHostAddress();
 		// 时间规范
 		String start = "08:00:00", end = "17:00:00";
 		service.addConverter(new StringtoDate());
@@ -121,7 +128,7 @@ public class AttendceController {
 				} else if (hourminsec.compareTo(start) < 0) {
 					statusId = 10;
 				}
-				attends = new Attends(typeId, statusId, date, hourmin, weekofday, null, user);
+				attends = new Attends(typeId, statusId, date, hourmin, weekofday, attendip, user);
 				attenceDao.save(attends);
 				System.out.println("000");
 			}
@@ -138,7 +145,7 @@ public class AttendceController {
 				// 在规定时间早下班早退
 				statusId = 12;
 			}
-			attends = new Attends(typeId, statusId, date, hourmin, weekofday, null, user);
+			attends = new Attends(typeId, statusId, date, hourmin, weekofday, attendip, user);
 			attenceDao.save(attends);
 			System.out.println("111");
 		}
@@ -152,6 +159,9 @@ public class AttendceController {
 				statusId = 12;
 			}
 			aid = attenceDao.findoffworkid(nowdate, userId);
+			Attends attends2=attenceDao.findOne(aid);
+			attends2.setAttendsIp(attendip);
+			attenceDao.save(attends2);
 			attendceService.updatetime(date, hourmin, statusId, aid);
 			Attends aList = attenceDao.findlastest(nowdate, userId);
 		}
@@ -354,7 +364,7 @@ public class AttendceController {
 			}
 		}
 		if(!StringUtils.isEmpty(baseKey)){
-			model.addAttribute("baseKey", baseKey);
+			model.addAttribute("sort", "&baseKey="+baseKey);
 		}
 	}
 	//单个用户的排序和分页

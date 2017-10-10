@@ -39,6 +39,8 @@ public class LoginRecord {
 	
 	private String browser;	//使用浏览器
 	
+
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

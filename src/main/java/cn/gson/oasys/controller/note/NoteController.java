@@ -100,9 +100,10 @@ public class NoteController {
 			cid=null;
 		Long userid = Long.valueOf(session.getAttribute("userId") + "");
 		long collect = Long.valueOf(iscollected);
-		setSomething(baseKey, type, status, time, icon, model);
+		
 		System.out.println("收集"+collect);
 		if (collect == 1) {
+			setSomething(baseKey, type, status, time, icon, model,cid,null);
 			Page<Note> upage= NoteService.sortpage(page, null, userid, collect, cid, null, type, status, time);
 			model.addAttribute("url", "collectfind");
 			paging(model, upage);
@@ -113,6 +114,7 @@ public class NoteController {
 			model.addAttribute("sort2", "&iscollect="+collect+"&cata="+cid);
 			model.addAttribute("collect", 0);
 		} else if (collect == 0) {
+			setSomething(baseKey, type, status, time, icon, model,cid,null);
 			Page<Note> upage=NoteService.sortpage(page, null, userid, null, cid, null, type, status, time);
 			model.addAttribute("url", "notewrite");
 			paging(model, upage);
@@ -141,7 +143,7 @@ public class NoteController {
 		String id = request.getParameter("id");
 		String iscollected = request.getParameter("iscollected");
 		NoteService.updatecollect(Long.valueOf(iscollected), Long.valueOf(id));
-		setSomething(baseKey, type, status, time, icon,model);
+		setSomething(baseKey, type, status, time, icon,model,null,null);
 		Page<Note> upage=NoteService.sortpage(page, null, userid, null, null, null, type, status, time);
 		model.addAttribute("url", "notewrite");
 		paging(model, upage);
@@ -309,7 +311,7 @@ public class NoteController {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		cataloglist = (List<Catalog>) catalogDao.findcatauser(userid);
 		
-		setSomething(baseKey, type, status, time, icon, model);
+		setSomething(baseKey, type, status, time, icon, model,null,null);
 		Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 		model.addAttribute("sort", "&userid="+userid);
 		paging(model, upage);
@@ -423,7 +425,8 @@ public class NoteController {
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
-			setSomething(baseKey, type, status, time, icon, model);
+		
+		setSomething(baseKey, type, status, time, icon, model,null,null);
 			Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 			typestatus(request);
 			if(baseKey!=null){
@@ -441,7 +444,7 @@ public class NoteController {
 	
 	// 查找类型
 		@RequestMapping("notetype")
-		public String test43(Model model, HttpServletRequest request, @RequestParam("id") Long tid, @RequestParam("cata") Long cid, HttpSession session,@RequestParam(value="page",defaultValue="0")int page
+		public String test43(Model model, HttpServletRequest request, @RequestParam("typeid") Long tid, @RequestParam("id") Long cid, HttpSession session,@RequestParam(value="page",defaultValue="0")int page
 				,@RequestParam(value = "baseKey", required = false) String baseKey,@RequestParam(value = "type", required = false) String type,
 				@RequestParam(value = "status", required = false) String status,
 				@RequestParam(value = "time", required = false) String time,
@@ -452,13 +455,13 @@ public class NoteController {
 			if(cid==-2)
 				cid=null;
 			System.out.println("目录"+cid);
-			setSomething(baseKey, type, status, time, icon, model);
-			Page<Note> upage=NoteService.sortpage(page, null, userid, null, cid, tid, type, status, time);
+			setSomething(baseKey, type, status, time, icon, model,cid,tid);
+			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, null, cid, tid, type, status, time);
 			System.out.println(upage.getContent());
 			//获得数据之后就将cid重新设置
 			if(cid==null)
 				cid=-2l;
-			request.setAttribute("sort", "&cata="+cid+"&id="+tid);
+			request.setAttribute("sort2", "&id="+cid+"&typeid="+tid);
 			paging(model, upage);
 			model.addAttribute("url", "notetype");
 			typestatus(request);
@@ -477,15 +480,13 @@ public class NoteController {
 			@RequestParam(value = "icon", required = false) String icon
 			){
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
+		model.addAttribute("catalog", "&id="+cid);
 		//不为-2就是按照目录查找
 		if (!request.getParameter("id").equals("-2")) {
 			Long id = Long.valueOf(cid);
-			System.out.println("类型"+type+"图标"+icon);
-			setSomething(baseKey, type, status, time, icon, model);
-			Page<Note> upage=NoteService.sortpage(page, null, userid, null, id, null, type, status, time);
-			System.out.println(request.getAttribute("sort"));
+			setSomething(baseKey, type, status, time, icon, model,id,null);
+			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, null, id, null, type, status, time);
 			request.setAttribute("sort2", "&id="+cid);
-			
 			paging(model, upage);
 			model.addAttribute("url", "notecata");
 			////为-2就是按照最近查找
@@ -578,38 +579,57 @@ public class NoteController {
 //		model.addAttribute("url", "notewrite");
 	}
    
-	public void setSomething(String baseKey, Object type, Object status, Object time, Object icon, Model model) {
+	public void setSomething(String baseKey, String type, String status, String time, String icon, Model model,Long cataid,Long typeid) {
 		if(!StringUtils.isEmpty(icon)){
 			model.addAttribute("icon", icon);
 			if(!StringUtils.isEmpty(type)){
 				model.addAttribute("type", type);
-				
-				
-				if("1".equals(type)){
-					model.addAttribute("sort", "&type=1&icon="+icon);
-				}else{
-					model.addAttribute("sort", "&type=0&icon="+icon);
-				}
+				setthree("type",type, icon, model, cataid, typeid);
 			}
 			if(!StringUtils.isEmpty(status)){
 				model.addAttribute("status", status);
-				if("1".equals(status)){
-					model.addAttribute("sort", "&status=1&icon="+icon);
-				}else{
-					model.addAttribute("sort", "&status=0&icon="+icon);
-				}
+				setthree("status",status, icon, model, cataid, typeid);
 			}
 			if(!StringUtils.isEmpty(time)){
 				model.addAttribute("time", time);
-				if("1".equals(time)){
-					model.addAttribute("sort", "&time=1&icon="+icon);
-				}else{
-					model.addAttribute("sort", "&time=0&icon="+icon);
-				}
+				setthree("time",time, icon, model, cataid, typeid);
 			}
+			
 		}
-		if(!StringUtils.isEmpty(baseKey)){
-			model.addAttribute("baseKey", baseKey);
+		if(StringUtils.isEmpty(icon)){
+		//目录类型查找
+		if(!StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&id="+cataid+"&typeid="+typeid);
+		//目录单纯查找
+		if(!StringUtils.isEmpty(cataid)&&StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&id="+cataid);
+		//单纯类型查找
+		if(StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&typeid="+typeid);
 		}
+		
+		if(!StringUtils.isEmpty(baseKey)&&StringUtils.isEmpty(cataid)){
+			model.addAttribute("sort", "&baseKey="+baseKey);
+		}
+		if(!StringUtils.isEmpty(baseKey)&&!StringUtils.isEmpty(cataid)){
+			model.addAttribute("sort", "&baseKey="+baseKey+"&id="+cataid);
+		}
+		
+	}
+
+
+
+	private void setthree(String x,String name, String icon, Model model, Long cataid, Long typeid) {
+		//单纯根据目录
+		if(!StringUtils.isEmpty(cataid)&&StringUtils.isEmpty(typeid))
+		model.addAttribute("sort", "&"+x+"="+name+"&icon="+icon+"&id="+cataid);
+		//单纯的根据类型
+		if(StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&"+x+"="+name+"&icon="+icon+"&typeid="+typeid);
+		//根据目录和类型
+		if(!StringUtils.isEmpty(cataid)&&!StringUtils.isEmpty(typeid))
+			model.addAttribute("sort", "&"+x+"="+name+"&icon="+icon+"&id="+cataid+"&typeid="+typeid);
+		else if(StringUtils.isEmpty(cataid)&&StringUtils.isEmpty(typeid))
+		model.addAttribute("sort", "&"+x+"="+name+"&icon="+icon);
 	}
 }

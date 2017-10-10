@@ -41,8 +41,8 @@ function notetype(id){
 	$cataid=$(this).children("a").attr("id");
 	}
       })
-  var data={id:id,
-	cata:$cataid}
+  var data={typeid:id,
+	id:$cataid}
    var url = 'notetype';
    $.ajax({
 		type : "get",

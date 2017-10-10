@@ -80,13 +80,13 @@
 		<div class="col-md-3">
 			<div class="jichu filecolor">
 				<div class="wenzi">
-					<h2>3</h2>
+					<h2>${filenum}</h2>
 					<p>文件管理</p>
 				</div>
 				<div class="iconfont">
 					<span class="glyphicon glyphicon-folder-open" style="margin-left: 130px;"></span>
 				</div>
-				<a href="#" class="moreduo"> 更多 <span
+				<a href="filemanage" class="moreduo"> 更多 <span
 					class="glyphicon glyphicon-circle-arrow-right"></span>
 				</a>
 			</div>
@@ -95,13 +95,13 @@
 		<div class="col-md-3">
 			<div class="jichu tongxun">
 				<div class="wenzi">
-					<h2>4</h2>
+					<h2>${directornum}</h2>
 					<p>通讯录</p>
 				</div>
 				<div class="iconfont">
 					<span class="glyphicon glyphicon-earphone"></span>
 				</div>
-				<a href="#" class="moreduo"> 更多 <span
+				<a href="addrmanage" class="moreduo"> 更多 <span
 					class="glyphicon glyphicon-circle-arrow-right"></span>
 				</a>
 			</div>
@@ -110,13 +110,13 @@
 		<div class="col-md-3">
 			<div class="jichu chat">
 				<div class="wenzi">
-					<h2>5</h2>
+					<h2>${discussnum}</h2>
 					<p>讨论区</p>
 				</div>
 				<div class="iconfont">
 					<span class="glyphicon glyphicon-comment"></span>
 				</div>
-				<a href="#" class="moreduo"> 更多 <span
+				<a href="chatlist" class="moreduo"> 更多 <span
 					class="glyphicon glyphicon-circle-arrow-right"></span>
 				</a>
 			</div>
@@ -269,35 +269,35 @@
 					<table class="table table-hover">
 						<tr>
 							<th>类型</th>
-							<th>日期</th>
+							<th>结束日期</th>
 							<th>状态</th>
 							<th>标题</th>
 							<th></th>
 						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin blueskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin yellowskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin redskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
+						<#list planList as plan>
+							<tr>
+								<td>
+								<#list ptypelist as ptype>
+								<#if plan.typeId==ptype.typeId>
+									${(ptype.typeName)!''}
+								</#if>
+								</#list>
+								</td>
+								<td>${(plan.endTime)!''}</td>
+								<#list pstatuslist as pstatus>
+								<#if pstatus.statusId==plan.statusId>
+								<td>
+								<span class="label ${(pstatus.statusColor)!''}">${(pstatus.statusName)!''}</span>
+								</td>
+								</#if>
+								</#list>
+								
+								
+								<td><span>${(plan.title)!''}</span></td>
+								<td><a href="planedit?pid=${plan.planId}" class="look-xiangxi"><span
+										class="glyphicon glyphicon-search"> </span> 查看 </a></td>
+							</tr>
+						</#list>
 					</table>
 				</div>
 			</div>
@@ -363,36 +363,20 @@
 						</button>
 					</div>
 				</div>
+				
 				<div id="panelfive" class="panel-collapse collapse in">
 					<ul class="list-group">
+						<#list  notepaperList as np>
 						<li class="list-group-item list-group-item-li" style=""><img
-							src="images/handsome.JPG" alt="photo" title="wowoowo"
+							src="images/touxiang/${user.imgPath}" alt="photo" title="wowoowo"
 							class="item-li-img" />
 							<p class="item-li-p">
-								<a href="#">标题 <small class="pull-right"
+								<a href="userpanel">${(np.title)!''} <small class="pull-right"
 									style="color: #777;"><span
-										class="glyphicon glyphicon-time"></span>2017-8-27 19:40</small>
-								</a><br> 附件可莱丝解放路时代峻峰拉进来设计费拉进来房间发顺丰大师傅阿发顺丰沙发沙发粉色啊打发范德萨发范德萨手动阀打算
+										class="glyphicon glyphicon-time"></span>${(np.createTime)!''}</small>
+								</a><br> ${(np.concent)!''}
 							</p></li>
-						<li class="list-group-item list-group-item-li" style=""><img
-							src="images/handsome.JPG" alt="photo" title="wowoowo"
-							class="item-li-img" />
-							<p class="item-li-p">
-								<a href="#">标题 <small class="pull-right"
-									style="color: #777;"><span
-										class="glyphicon glyphicon-time"></span>2017-8-27 19:40</small>
-								</a><br> 附件可莱丝解放路时代峻峰拉进来设计费拉进来房间发顺丰大师傅阿发顺丰沙发沙发粉色啊打发范德萨发范德萨手动阀打算
-							</p></li>
-						<li class="list-group-item list-group-item-li" style=""><img
-							src="images/handsome.JPG" alt="photo" title="wowoowo"
-							class="item-li-img" />
-							<p class="item-li-p">
-								<a href="#">标题 <small class="pull-right"
-									style="color: #777;"><span
-										class="glyphicon glyphicon-time"></span>2017-8-27 19:40</small>
-								</a><br> 附件可莱丝解放路时代峻峰拉进来设计费拉进来房间发顺丰大师傅阿发顺丰沙发沙发粉色啊打发范德萨发范德萨手动阀打算
-							</p></li>
-
+							</#list>
 					</ul>
 					<div class="input-group input-div">
 						<input type="text" placeholder="便签内容" style="outline: none;" /> <a

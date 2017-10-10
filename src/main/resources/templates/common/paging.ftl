@@ -104,6 +104,6 @@
 		$('.baseKetsubmit').on('click', function() {
 			var baseKey = $('.baseKey').val();
 			console.log(baseKey);
-			$('.thistable').load('${url}?baseKey=' + baseKey);
+			$('.thistable').load('${url}?baseKey='+baseKey+'${(catalog)!''}');
 		});
 </script>

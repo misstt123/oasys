@@ -133,10 +133,16 @@ public class PlanController {
 	// 真正的报表
 	@RequestMapping("realplantable")
 	public String test23(HttpServletRequest request, Model model, HttpSession session, 
+			@RequestParam(value="pid",required=false) String pid,
+			@RequestParam(value="comment",required=false) String comment,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "baseKey", required = false) String baseKey) {
-		System.out.println("页数"+page);
+		System.out.println("pid的"+pid);
 		plantablepaging(request, model, session, page, baseKey);
+		if(!StringUtils.isEmpty(pid)){
+		Plan plan = planDao.findOne(Long.valueOf(pid));
+		plan.setPlanComment(plan.getPlanComment() + comment);
+		planDao.save(plan);}
 		return "plan/realplantable";
 	}
 
@@ -167,17 +173,6 @@ public class PlanController {
 		return "plan/planedit";
 	}
 
-	// 修改评论
-	@RequestMapping("plancomment")
-	public String sdf(HttpServletRequest request) {
-		Long pid = Long.valueOf(request.getParameter("pid"));
-		String comment = request.getParameter("comment");
-		Plan plan = planDao.findOne(pid);
-		System.out.println(pid + ";" + comment);
-		plan.setPlanComment(plan.getPlanComment() + comment);
-		planDao.save(plan);
-		return "redirect:/myplan";
-	}
 
 	@RequestMapping(value = "plansave", method = RequestMethod.GET)
 	public void Datagr() {
@@ -225,7 +220,7 @@ public class PlanController {
 					attid = null;
 
 				plan = new Plan(typeid, statusid, attid, start, end, new Date(), plan2.getTitle(), plan2.getLabel(),
-						plan2.getPlanContent(), plan2.getPlanSummary(), plan2.getPlanSummary(), user);
+						plan2.getPlanContent(), plan2.getPlanSummary(), null, user);
 				planDao.save(plan);
 			}
 			if (pid > 0) {
@@ -336,7 +331,11 @@ public class PlanController {
 		}
         System.out.println(uListpage.getContent());
     	
-    	
+        //记住开始时间和结束时间以及选择
+        model.addAttribute("starttime",starttime);
+        model.addAttribute("endtime", endtime);
+    	model.addAttribute("choose", choose1);
+        
 		model.addAttribute("uMap", uMap);
 		model.addAttribute("type", type);
 		model.addAttribute("status", status);

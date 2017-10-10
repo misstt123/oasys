@@ -40,7 +40,7 @@ public interface AttendceDao  extends JpaRepository<Attends, Long>{
 Attends findlastest(String date,long userid);
 
 
-@Query("from Attends a where a.user.userId=:userId")
+@Query("from Attends a where a.user.userId=:userId ORDER BY a.attendsTime DESC")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("userId")long userid,Pageable pa);
 
 //按照某个用户模糊查找
@@ -51,7 +51,7 @@ Page<Attends> findonemohu(String baseKey,long userid,Pageable pa);
 
 
 
-  @Query("from Attends a where a.user.userId in (:ids)")
+  @Query("from Attends a where a.user.userId in (:ids) ORDER BY a.attendsTime DESC ")
   Page<Attends> findByUserOrderByAttendsTimeDesc(@Param("ids") List<Long> user,Pageable pa);
   
   //按一些用户模糊查找

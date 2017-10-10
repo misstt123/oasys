@@ -38,7 +38,35 @@
 			</ul>
 		</li>
 
-		<li><a href="#" class="green-none white"><span
-				class="glyphicon glyphicon-repeat"></span></a></li>
-	</ul>
+		<li style="position: relative;"><a  id="history" class="green-none white" data-toggle="dropdown"><span
+				class="glyphicon glyphicon-time"></span></a>
+				
+		<ul id="historypanel" class="dropdown-menu"
+				style="position: absolute; background-color: #222d32;">
+				<#include "/user/userlog.ftl"/>
+		</ul>
+	</li>
+</ul>
 </div>
+<script>
+	//从右往左滑动效果
+	$(function() {
+		var num = 1;
+		$("#history").click(function() {
+			num++;
+			if (num % 2 == 0) {
+				$("#historypanel").css({ //从右边飞入，使用绝对定位来操作 
+					"width" : "230px",
+					"right" : "-230px"
+				}).show().animate({
+					"right" : "0"
+				}, "fast");
+			} else
+				$("#historypanel").animate({
+					"width" : "toggle"
+				}, "slow");
+			$('#historypanel').load('/userlogs');
+
+		})
+	})
+</script>
