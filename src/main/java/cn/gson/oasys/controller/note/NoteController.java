@@ -484,7 +484,6 @@ public class NoteController {
 		//不为-2就是按照目录查找
 		if (!request.getParameter("id").equals("-2")) {
 			Long id = Long.valueOf(cid);
-			System.out.println(baseKey);
 			setSomething(baseKey, type, status, time, icon, model,id,null);
 			Page<Note> upage=NoteService.sortpage(page, baseKey, userid, null, id, null, type, status, time);
 			request.setAttribute("sort2", "&id="+cid);

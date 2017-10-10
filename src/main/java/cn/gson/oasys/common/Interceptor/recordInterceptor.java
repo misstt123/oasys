@@ -72,10 +72,11 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 		for (SystemMenu systemMenu : sMenus) {
 			if(systemMenu.getMenuUrl().equals(request.getServletPath())){
 				uLog.setTitle(systemMenu.getMenuName());
+				//只要匹配到一个保存咯
+				userLogDao.save(uLog);
 			}
 		}
-		//保存咯
-		userLogDao.save(uLog);
+		
 		
 	}
 

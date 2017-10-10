@@ -10,5 +10,6 @@ public class Interceptorconfig extends WebMvcConfigurerAdapter{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new recordInterceptor()).addPathPatterns("/**").excludePathPatterns("/index").excludePathPatterns("/test2");
+    
     }
 }

@@ -231,13 +231,29 @@ body{
     color: #fff;
      padding: 10px 15px;
 }
+/* .dropdown-menu>li>a:HOVER {
+   background: red !important;
+} */
 .center{
    text-align: center;
 }
-#historypanel:HOVER{
-    color: #222d32;!important;
+.center a:HOVER{
+	background-color:transparent !important;
+	color:#fff!important;
+}
+#historypanel .left a:HOVER{
+    background: #18252b !important;
+    color:#fff;
+}
+#historypanel .left a{
+   background: #222d32 !important;
+   color:#fff;
 }
 .left a small{
     color: #337ab7;
     text-decoration: none;
+}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+	border-color: #337ab7;
+	background-color:transparent;
 }

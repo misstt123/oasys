@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -95,6 +99,13 @@ public class IndexController {
 		req.setAttribute("userLogList", userLogs);
 		return "index/index";
 	}
+	
+	@RequestMapping("userlogs")
+	public String usreLog(@SessionAttribute("userId") Long userId,HttpServletRequest req){
+		List<UserLog> userLogs=userLogDao.findByUser(1L);
+		req.setAttribute("userLogList", userLogs);
+		return "user/userlog";
+	}
 
 	private void showalist(Model model, Long userId) {
 		// 显示用户当天最新的记录
@@ -158,7 +169,9 @@ public class IndexController {
 		return "systemcontrol/control";
 	}
 	
-
+	
+	
+	
 	@RequestMapping("test3")
 	public String test3() {
 		return "note/noteview";
@@ -203,5 +216,7 @@ public class IndexController {
 		System.out.println(info);
 		return info;
 	}
+	
+	
 
 }
