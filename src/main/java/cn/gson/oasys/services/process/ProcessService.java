@@ -134,21 +134,19 @@ public class ProcessService {
 		ProcessList process=prodao.findOne(proid);//查看该条申请
 		Map<String,Object> result=new HashMap<>();
 		String harryname=tydao.findname(process.getDeeply());
+		result.put("proId", process.getProcessId());
 		result.put("harryname", harryname);
 		result.put("processName", process.getProcessName());
 		result.put("processDescribe",process.getProcessDescribe());
 		if(("审核").equals(name)){
-			result.put("username", process.getUserId().getUserName());
-			result.put("deptname", ddao.findByDeptId(process.getUserId().getDept().getDeptId()));
+			result.put("username", process.getUserId().getUserName());//提单人员
+			result.put("deptname", ddao.findname(process.getUserId().getDept().getDeptId()));//部门
 		}else{
 			result.put("username", user.getUserName());
-			result.put("deptname", ddao.findByDeptId(user.getDept().getDeptId()));
+			result.put("deptname", ddao.findname(process.getUserId().getDept().getDeptId()));
 		}
 		result.put("applytime", process.getApplyTime());
-		result.put("harryname", harryname);
-		result.put("harryname", harryname);
-		result.put("harryname", harryname);
-		result.put("harryname", harryname);
+		result.put("file", process.getProFileid());
 		return result;
 	}
 	/**
@@ -233,7 +231,7 @@ public class ProcessService {
 	        return sb.toString();
 	    }
 	 
-	    public static String dd(Double money){
+	    public static String numbertocn(Double money){
 	    	BigDecimal numberOfMoney = new BigDecimal(money);
 	        String s = number2CNMontrayUnit(numberOfMoney);
 	        System.out.println("你输入的金额为：【"+ money +"】   #--# [" +s.toString()+"]");
