@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,6 +28,7 @@ import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.attendce.Attends;
+import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.inform.InformRelationService;
 import cn.gson.oasys.services.system.MenuSysService;
 
@@ -57,10 +59,13 @@ public class IndexController {
 	DefaultConversionService service = new DefaultConversionService();
 
 	@RequestMapping("index")
-	public String index(HttpServletRequest req) {
+	public String index(HttpServletRequest req,Model model) {
 		menuService.findMenuSys(req);
 		HttpSession session = req.getSession();
-		session.setAttribute("userId", "1");
+		session.setAttribute("userId", "8");
+		Long userId = Long.parseLong(session.getAttribute("userId") + "");
+		User user=uDao.findOne(userId);
+		model.addAttribute("user", user);
 		return "index/index";
 	}
 
@@ -88,6 +93,8 @@ public class IndexController {
 	public String test2(HttpSession session, Model model, HttpServletRequest request) {
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		List<Map<String, Object>> list = nm.findMyNoticeLimit(userId);
+		User user=uDao.findOne(userId);
+		model.addAttribute("user", user);
 		for (Map<String, Object> map : list) {
 			map.put("status", statusDao.findOne((Long) map.get("status_id")).getStatusName());
 			map.put("type", typeDao.findOne((Long) map.get("type_id")).getTypeName());

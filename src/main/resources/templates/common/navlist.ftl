@@ -19,13 +19,13 @@
 		<li class="dropdown">
 		<!--设置导航栏头像面板--> 
 		<a href="#" class="green-none white" data-toggle="dropdown">
-				<img src="images/handsome.JPG" class="user-image" /> <span>罗祥</span>
+				<img src="images/touxiang/${(user.imgPath)!'timg.jpg'}" class="user-image" /> <span>${user.userName}</span>
 		</a> <!--设置点击按钮弹出用户面板层-->
 			<ul class="dropdown-menu" style="padding:0;">
-				<li class="user-header green"><img src="images/handsome.JPG"
+				<li class="user-header green"><img src="images/touxiang/${(user.imgPath)!'timg.jpg'}"
 					class="img-circle" style="width: 100px;height:100px;" />
 					<p class="white" style="">
-						<span>CEO </span> / <span> 董事长</span><br> <small>超级管理员</small>
+						<span>${user.dept.deptName} </span> / <span> ${user.role.roleName}</span><br> <small>${user.position.name}</small>
 					</p></li>
 				<li class="user-footer">
 					<div class="pull-left">

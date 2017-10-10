@@ -1,4 +1,4 @@
-<#include "/common/commoncss.ftl">
+<#include "/common/commoncss.ftl" />
 <style>
 .thiscolor{
 	display: inline-block;
@@ -14,6 +14,20 @@
 <script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/controlpanel.css" />
 <link rel="stylesheet" href="css/common/skintheme.css" />
+	<script type="text/javascript">
+		$(function(){
+			var themeSkin='${user.themeSkin}';
+			if(themeSkin=="blue"){
+				toblue();
+			}else if(themeSkin=="green"){
+				togreen();
+			}else if(themeSkin=="yellow"){
+				toyellow();
+			}else if(themeSkin=="red"){
+				tored();
+			}
+		});
+	</script>
 <script type="text/javascript">
 	function funblue(){
 		console.log("点击变蓝了");
@@ -21,17 +35,17 @@
 		toblue();
 	}
 	function fungreen(){
-		console.log("点击变蓝了");
+		console.log("点击变绿了");
 		parent.togreen();
 		togreen();
 	}
 	function funyellow(){
-		console.log("点击变蓝了");
+		console.log("点击变黄了");
 		parent.toyellow();
 		toyellow();
 	}
 	function funred(){
-		console.log("点击变蓝了");
+		console.log("点击变红了");
 		parent.tored();
 		tored();
 	}

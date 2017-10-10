@@ -6,7 +6,7 @@
 	<div class="list-left"
 		style="width: 100%; background: rgb(34, 45, 50);">
 		<div style="padding: 10px 0 20px 6px;">
-			<img src="images/handsome.JPG"
+			<img src="images/touxiang/${(user.imgPath)!'timg.jpg'}"
 				style="width: 32px; height: 32px; border-radius: 50%;" />
 		</div>
 		<ul class="list-group">
@@ -52,11 +52,11 @@
 		style="background: #222d32; height: 845px">
 		<div class="user-panel">
 			<div class="pull-left">
-				<img src="images/handsome.JPG" class="img-circle user-image-left" />
+				<img src="images/touxiang/${(user.imgPath)!'timg.jpg'}" class="img-circle user-image-left" />
 			</div>
 			<div class="pull-left info">
 				<p style="color: #fff; line-height: 1.5;">
-					<span>罗祥</span><br> <small><span
+					<span>${user.userName}</span><br> <small><span
 						class="glyphicon glyphicon-record" style="color: #00a65a;">
 					</span> 在线</small>
 				</p>

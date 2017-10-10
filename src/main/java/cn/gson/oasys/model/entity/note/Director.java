@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -34,6 +35,10 @@ public class Director {
 	private Long  directorId; //主键
 	
 	private String  sex;		//性别
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User myuser;
 	
 	@Column(name="type_id")
 	private Long typeId; //类型id
@@ -65,6 +70,16 @@ public class Director {
 	@ManyToMany(mappedBy="director")
 	private Set<User> user;
 	
+	
+	
+	public User getMyuser() {
+		return myuser;
+	}
+
+	public void setMyuser(User myuser) {
+		this.myuser = myuser;
+	}
+
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
