@@ -149,7 +149,6 @@ public class UserpanelController {
 		User user=udao.findOne(userid);
 		npaper.setCreateTime(new Date());
 		npaper.setUserId(user);
-		
 		ndao.save(npaper);
 		
 		return "redirect:/userpanel";

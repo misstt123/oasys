@@ -23,7 +23,7 @@ public class UserLog {
 	@Column(name = "ip_addr")
 	private String ipAddr;	//ip地址
 	
-	private String title;	//操作菜单
+	private String title;	//操作菜单名字
 	
 	private String url;		//操作菜单url
 	

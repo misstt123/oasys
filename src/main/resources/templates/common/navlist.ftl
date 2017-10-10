@@ -38,7 +38,43 @@
 			</ul>
 		</li>
 
-		<li><a href="#" class="green-none white"><span
-				class="glyphicon glyphicon-repeat"></span></a></li>
-	</ul>
+		<li style="position: relative;"><a  id="history" class="green-none white" data-toggle="dropdown"><span
+				class="glyphicon glyphicon-time"></span></a>
+				
+		<ul id="historypanel" class="dropdown-menu" style="position: absolute;background-color: #222d32;color:#fff;" >
+              <li class="center"><a href="" ><i class="glyphicon glyphicon-time"></i> 历史记录</a></li>
+            <#list userLogList as ulog>
+            <li class="left">
+            <a href="javascript:changepath('${(ulog.url)!''}');"><div class="control-sidebar-subheading">${(ulog.title)!''}</div>
+            <small >${(ulog.logTime)!''}</small></a></li>
+            </#list>
+            <li>
+             <div style="text-align:center;">
+                <a href="">更多记录...</a>
+            </div>
+            </li>
+            </ul>
+
+           </li>
+</ul>
 </div>
+<script>
+//从右往左滑动效果
+	$(function(){
+		var num=1;
+		$("#history").click(function(){
+			num++;
+			if(num%2==0){
+			$("#historypanel").css({ //从右边飞入，使用绝对定位来操作 
+				"width":"230px", 
+				"right":"-230px" 
+				}).show().animate({"right":"0"},"slow"); 
+			}
+			else
+			$("#historypanel").hide();
+		})
+	})
+		
+	
+
+</script>

@@ -34,7 +34,9 @@ public interface PlanDao  extends JpaRepository<Plan, Long>{
 	@Query(nativeQuery=true,value="SELECT * from aoa_plan_list p WHERE p.create_time>?1 and p.create_time<?2  and p.plan_user_id=?3 and p.type_id=?4 ORDER BY p.create_time DESC limit 0,1")
 	Plan findlatest(Date start,Date end,long id,long typeid);
 	
-	
+	//首页显示限制5条
+	@Query(nativeQuery=true, value="SELECT * from aoa_plan_list p where p.plan_user_id=?1 ORDER BY p.create_time DESC,p.end_time DESC LIMIT 0,2")
+	List<Plan> findByUserlimit(long userid);
 	
 	//分页
 	@Query("from Plan p where p.user.userId=?1 order by p.createTime Desc ")

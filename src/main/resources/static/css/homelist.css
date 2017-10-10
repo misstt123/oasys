@@ -224,6 +224,20 @@ li {
 #smallDiv li:hover {
 	border-left: 3px solid #00a65a;
 } */
-
-
-
+body{
+	overflow-x:hidden;
+}
+.dropdown-menu>li>a {
+    color: #fff;
+     padding: 10px 15px;
+}
+.center{
+   text-align: center;
+}
+#historypanel:HOVER{
+    color: #222d32;!important;
+}
+.left a small{
+    color: #337ab7;
+    text-decoration: none;
+}
