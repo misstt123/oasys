@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -45,8 +46,17 @@ public class Reviewed {
 	@Column(name="del")
 	private Boolean del=false;
 	
+	@Transient
+	private String username;
 	
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public Boolean getDel() {
 		return del;
@@ -107,10 +117,10 @@ public class Reviewed {
 	@Override
 	public String toString() {
 		return "Reviewed [reviewedId=" + reviewedId + ", advice=" + advice + ", statusId=" + statusId
-				+ ", reviewedTime=" + reviewedTime + ", del=" + del + "]";
+				+ ", reviewedTime=" + reviewedTime + ", del=" + del + ", username=" + username + "]";
 	}
 
-
+	
 	
 	
 }

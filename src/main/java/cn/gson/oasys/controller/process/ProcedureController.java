@@ -196,6 +196,7 @@ public class ProcedureController {
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		
+		
 		return "process/flowmanage";
 	}
 	/**
@@ -217,10 +218,10 @@ public class ProcedureController {
 		System.out.println(prolist);
 		return "process/auditing";
 	}
-/**
- * 流程审核条件查询
- * @return
- */
+	/**
+	 * 流程审核条件查询
+	 * @return
+	 */
 	@RequestMapping("serch")
 	public String serch(HttpSession session,Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
@@ -303,6 +304,20 @@ public class ProcedureController {
 		Iterable<Dept> deptlist = ddao.findAll();
 		// 查职位表
 		Iterable<Position> poslist = pdao.findAll();
+		//流程id
+		Long id=Long.parseLong(req.getParameter("id"));
+		ProcessList process=prodao.findOne(id);
+		
+		String typename=process.getTypeNmae().trim();
+		if(("费用报销").equals(typename)){
+			Bursement bu=budao.findByProId(process);
+			model.addAttribute("bu", bu);
+			
+		}
+		List<Map<String, Object>> list=proservice.index4(process);
+		model.addAttribute("statusid", process.getStatusId());
+		model.addAttribute("process", process);
+		model.addAttribute("revie", list);
 		model.addAttribute("page", pageuser);
 		model.addAttribute("emplist", userlist);
 		model.addAttribute("deptlist", deptlist);
@@ -311,6 +326,67 @@ public class ProcedureController {
 		return "process/audetail";
 		
 	}
+	/**
+	 * 审核确定的页面
+	 * @return
+	 */
+	@RequestMapping("susave")
+	public String save(HttpSession session,Model model,HttpServletRequest req,
+		Reviewed reviewed){
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User u=udao.findOne(userid);
+		String name=null;
+		ProcessList pro=prodao.findOne(reviewed.getProId().getProcessId());//找到该条流程
+		User shen=udao.findOne(pro.getUserId().getUserId());//申请人
+		if(!StringUtil.isEmpty(req.getParameter("liuzhuan"))){
+			name=req.getParameter("liuzhuan");
+		}
+		if(!StringUtil.isEmpty(name)){
+			//审核并流转
+			Reviewed re=redao.findByProIdAndUserId(reviewed.getProId().getProcessId(),u);
+			re.setAdvice(reviewed.getAdvice());
+			re.setStatusId(reviewed.getStatusId());
+			re.setReviewedTime(new Date());
+			re.setStatusId(reviewed.getStatusId());
+			redao.save(re);
+			
+			User u2=udao.findOne(reviewed.getUserId().getUserId());//找到下一个审核人
+			Reviewed re2=new  Reviewed();
+			re2.setProId(pro);
+			re2.setUserId(u2);
+			re2.setStatusId(23L);
+			redao.save(re2);
+			
+			pro.setStatusId(24L);//改变主表的状态
+			prodao.save(pro);
+		}else{
+			//审核并结案
+			Reviewed re=redao.findByProIdAndUserId(reviewed.getProId().getProcessId(),u);
+			re.setAdvice(reviewed.getAdvice());
+			re.setStatusId(reviewed.getStatusId());
+			re.setReviewedTime(new Date());
+			redao.save(re);
+			pro.setStatusId(reviewed.getStatusId());//改变主表的状态
+			prodao.save(pro);
+		}
+		Bursement  bu=budao.findByProId(pro);
+		
+		if(shen.getFatherId().equals(u.getUserId())){
+			bu.setManagerAdvice(reviewed.getAdvice());
+			budao.save(bu);
+		}
+		
+		if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			bu.setFinancialAdvice(reviewed.getAdvice());
+			bu.setBurseTime(new Date());
+			bu.setOperation(u);
+			budao.save(bu);
+		}
+		return "redirect:/audit";
+		
+	}
+	
 	//出差费用申请
 	@RequestMapping("evemoney")
 	public String evemoney(){

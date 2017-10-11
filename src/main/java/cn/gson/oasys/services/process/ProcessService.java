@@ -26,10 +26,13 @@ import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
+import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.process.AubUser;
 import cn.gson.oasys.model.entity.process.ProcessList;
+import cn.gson.oasys.model.entity.process.Reviewed;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
+import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
 
 
@@ -42,6 +45,8 @@ public class ProcessService {
 	private DeptDao ddao;
 	@Autowired
 	private RoleDao rdao;
+	@Autowired
+	private PositionDao pdao;
 	@Autowired
 	private SubjectDao sudao;
 	@Autowired
@@ -125,6 +130,29 @@ public class ProcessService {
 			
 		}
 		return list;
+	}
+	/**
+	 * 审核人封装
+	 */
+	public List<Map<String,Object>> index4(ProcessList process){
+		List<Map<String,Object>> relist=new ArrayList<>();
+		List<Reviewed> revie=redao.findByReviewedTimeNotNullAndProId(process);
+		for (int i = 0; i <revie.size(); i++) {
+			Map<String, Object> result=new HashMap<>();
+			User u=udao.findOne(revie.get(i).getUserId().getUserId());
+			Position po=pdao.findOne(u.getPosition().getId());
+			SystemStatusList status=sdao.findOne(revie.get(i).getStatusId());
+			result.put("poname", po.getName());
+			result.put("username", u.getUserName());
+			result.put("retime",revie.get(i).getReviewedTime());
+			result.put("restatus",status.getStatusName());
+			result.put("statuscolor",status.getStatusColor());
+			result.put("des", revie.get(i).getAdvice());
+			result.put("img",u.getImgPath());
+			result.put("positionid",u.getPosition().getId());
+			relist.add(result);
+		}
+		return relist;
 	}
 	/**
 	 * process数据封装
