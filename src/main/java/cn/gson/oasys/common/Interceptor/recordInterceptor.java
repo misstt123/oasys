@@ -42,10 +42,6 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 //	}
 
 
-
-
-
-
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,  Object handler, Exception ex)
 			throws Exception {
@@ -71,9 +67,12 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 		List<SystemMenu> sMenus=(List<SystemMenu>) systemMenuDao.findAll();
 		for (SystemMenu systemMenu : sMenus) {
 			if(systemMenu.getMenuUrl().equals(request.getServletPath())){
+				//只有当该记录的路径不等于第一条的时候
+				if(!userLogDao.findByUserlaset(1l).getUrl().equals(systemMenu.getMenuUrl())){
 				uLog.setTitle(systemMenu.getMenuName());
 				//只要匹配到一个保存咯
 				userLogDao.save(uLog);
+				}
 			}
 		}
 		

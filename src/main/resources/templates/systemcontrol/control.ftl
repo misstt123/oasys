@@ -112,7 +112,7 @@
 <!--右侧刷新的内容块-->
 <div class="container-fluid"
 	style="margin-top: 20px; position: relative; margin-bottom: 50px;">
-	<div class="row">
+	<div class="row ">
 		<div class="col-md-7 gridly">
 			<!--第一个公告通知-->
 			<div class="panel panel-default box-show green-box">
@@ -124,7 +124,7 @@
 					<div class="pull-right right-btn-group dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown">
+							<button data-toggle="dropdown" >
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
@@ -198,6 +198,8 @@
 							<th>标题</th>
 							<th></th>
 						</tr>
+						
+						
 						<tr>
 							<td>总公司</td>
 							<td>2015-10-22</td>
@@ -292,16 +294,16 @@
 		<!--内容右侧5个格子；-->
 		<div class="col-md-5">
 			<!--第四个格子-->
-			<div class="panel panel-default box-show green-box">
-				<div class="panel-heading box-show-heading"
-					style="background: white;">
+			<!-- 行事历 -->
+			<div class="panel panel-default box-show green-box" style="background-color: #00c86c;color: white;">
+				<div class="panel-heading box-show-heading" style="border-bottom: 1px solid grey;">
 					<div class="panel-title" style="display: inline-block;">
-						<h4>公告通知</h4>
+						<h4><span class="glyphicon glyphicon-calendar"></span>行事历</h4>
 					</div>
 					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown">
+							<button data-toggle="dropdown" >
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
@@ -317,8 +319,8 @@
 						</button>
 					</div>
 				</div>
-				<div id="panelfour" class="panel-collapse collapse in">
-					<div style="height: 240px;"></div>
+				<div id="panelfour" class="panel-collapse collapse in"  style="height: 240px;">
+				   
 				</div>
 			</div>
 			<!--第五个格子-->
