@@ -49,6 +49,8 @@ public class User {
 	@NotEmpty(message="真实姓名不能为空")
 	private String realName;    //真实姓名
 	
+	private String pinyin;
+	
 	@NotEmpty(message="邮箱不能为空")
 	@Pattern(regexp="^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$",message="请填写正确邮箱号")
 	private String eamil;		//邮件
@@ -128,14 +130,6 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Role role;			//外键关联 角色表
 	
-	@ManyToMany
-	@JoinTable(name="aoa_director_user",
-	joinColumns={
-			@JoinColumn(name="user_id")
-	},inverseJoinColumns={
-			@JoinColumn(name="director_id")
-	})
-	private Set<Director> director;
 
 	@ManyToMany(mappedBy = "users")
 	private List<ScheduleList> scheduleLists;
@@ -154,6 +148,15 @@ public class User {
 	
 	
 	
+	
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
+
 	public List<Discuss> getDiscuss() {
 		return discuss;
 	}
@@ -400,17 +403,6 @@ public void setSuperman(Boolean superman) {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-
-	public Set<Director> getDirector() {
-		return director;
-	}
-
-
-	public void setDirector(Set<Director> director) {
-		this.director = director;
-	}
-
 	
 	public List<ScheduleList> getScheduleLists() {
 		return scheduleLists;
@@ -459,7 +451,7 @@ public void setSuperman(Boolean superman) {
 				+ birth + ", userSign=" + userSign + ", password=" + password + ", salary=" + salary + ", imgPath="
 				+ imgPath + ", hireTime=" + hireTime + ", isLock=" + isLock + ", lastLoginIp=" + lastLoginIp
 				+ ", lastLoginTime=" + lastLoginTime + ", modifyTime=" + modifyTime + ", modifyUserId=" + modifyUserId
-				+ ", fatherId=" + fatherId + ", holiday=" + holiday + ",superman=" + superman + "]";
+				+ ", fatherId=" + fatherId + ", holiday=" + holiday + ",superman=" + superman + ",pinyin=" + pinyin + "]";
 	}
 	
 	
