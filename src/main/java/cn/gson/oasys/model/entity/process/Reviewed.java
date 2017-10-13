@@ -47,7 +47,7 @@ public class Reviewed {
 	private Boolean del=false;
 	
 	@Transient
-	private String username;
+	private String username;//传过来的审核人的名字
 	
 
 	public String getUsername() {

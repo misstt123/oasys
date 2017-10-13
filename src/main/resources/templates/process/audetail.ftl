@@ -57,11 +57,11 @@ a:hover {
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
-		<h1 style="font-size: 24px; margin: 0;" class="">费用报销</h1>
+		<h1 style="font-size: 24px; margin: 0;" class="">${typename}</h1>
 	</div>
 	<div class="col-md-10 text-right">
 		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
-			disabled="disabled">费用报销</a>
+			disabled="disabled">${typename}</a>
 	</div>
 </div>
 <div class="row" style="padding-top: 15px;">
@@ -118,8 +118,14 @@ a:hover {
 					</#if>	
 					
 					<div class="content">
+					<#if typename=="费用报销">
 					<p class="pa" style="padding-top: 9px;">报销总金额：${(bu.allMoney)!''}</p>
 					<p class="pa" >报销理由：${(process.processDescribe)!''}</p>
+					</#if>
+					<#if typename=="出差费用申请">
+					<p class="pa" style="padding-top: 9px;">申请总金额：${(bu.money)!''}</p>
+					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
+					</#if>
 					</div>
 					</div>
 				</div>
@@ -151,8 +157,14 @@ a:hover {
 				<input type="text" hidden="hidden" name=proId value="${(bu.proId.processId)!''}"/>
 			</div>
 			<div class="box-footer" style="padding-left: 26px;">
-				<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
-				<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+			<input type="text" hidden="hidden" value="{typename}" name=typename/>
+			<#if statusid ==23>
+				<#if positionid==5||positionid==7>
+					<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+				  <#else>
+					<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
+				</#if>
+			</#if>	
 				<input class="btn btn-default" id="cancel" type="submit" value="取消"
 					onclick="window.history.back();" />
 			</div>

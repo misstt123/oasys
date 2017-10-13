@@ -63,13 +63,35 @@ Date.prototype.Format = function(fmt) { //author: meizz
 			WdatePicker({ minDate:addDate(-30,start),maxDate:addDate(start,0),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 		});
 		
+		$('.shi').val(startime);
+		
+		
+		$(".shi").click(function(){
+			var start=$(this).val();
+			WdatePicker({ minDate:addDate(-2,start),maxDate:addDate(start,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		
 		$('.food').on('click','.incar',function(){
-			console.log("jinlai");
 			$(".incar").removeClass("clic");
 			$(this).addClass("clic");
-			console.log("jinlai");
 			var start=$(".clic").val();
 			WdatePicker({ minDate:addDate(-30,start),maxDate:addDate(start,0),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		
+
+		$('.chu').val(startime);
+		
+	
+		$(".chu").click(function(){
+			var start=$(this).val();
+			WdatePicker({ minDate:addDate(start,0),maxDate:addDate(start,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		
+		$('.food').on('click','.car',function(){
+			$(".car").removeClass("clic");
+			$(this).addClass("clic");
+			var start=$(".clic").val();
+			WdatePicker({ minDate:addDate(start,0),maxDate:addDate(start,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 		});
 	});
 	

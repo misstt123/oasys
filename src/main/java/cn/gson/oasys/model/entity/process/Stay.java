@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -29,26 +30,39 @@ public class Stay {
 	private User user;//出差人员
 	
 	@Column(name="stay_time")
-	private Date stayTime;
+	private Date stayTime;//入住日期
 	
 	@Column(name="leave_time")
-	private Date leaveTime;
+	private Date leaveTime;//离店日期
 	
 	@Column(name="stay_city")
-	private String stayCity;
+	private String stayCity;//入住城市
 	
 	@Column(name="hotel_name")
-	private String hotelName;
+	private String hotelName;//入住酒店
 	
 	@Column(name="day")
-	private Integer day;
+	private Integer day;//入住天数
 	
 	@Column(name="stay_money")
-	private double stayMoney;
+	private Double stayMoney;//酒店标准
 	
 	@ManyToOne()
 	@JoinColumn(name="evemoney_id")
 	private  EvectionMoney  evemoney;
+	
+	@Transient
+	private String nameuser;
+	
+	
+
+	public String getNameuser() {
+		return nameuser;
+	}
+
+	public void setNameuser(String nameuser) {
+		this.nameuser = nameuser;
+	}
 
 	public Long getStayId() {
 		return stayId;
@@ -106,11 +120,11 @@ public class Stay {
 		this.day = day;
 	}
 
-	public double getStayMoney() {
+	public Double getStayMoney() {
 		return stayMoney;
 	}
 
-	public void setStayMoney(double stayMoney) {
+	public void setStayMoney(Double stayMoney) {
 		this.stayMoney = stayMoney;
 	}
 
@@ -125,8 +139,10 @@ public class Stay {
 	@Override
 	public String toString() {
 		return "Stay [stayId=" + stayId + ", stayTime=" + stayTime + ", leaveTime=" + leaveTime + ", stayCity="
-				+ stayCity + ", hotelName=" + hotelName + ", day=" + day + ", stayMoney=" + stayMoney + "]";
+				+ stayCity + ", hotelName=" + hotelName + ", day=" + day + ", stayMoney=" + stayMoney + ", nameuser="
+				+ nameuser + "]";
 	}
+
 	
 	
 }

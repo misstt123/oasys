@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table
 @Entity(name="aoa_evection")
@@ -26,6 +27,18 @@ public class Evection {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
+	
+	@Transient
+	private String  nameuser;//审核人员
+	
+
+	public String getNameuser() {
+		return nameuser;
+	}
+
+	public void setNameuser(String nameuser) {
+		this.nameuser = nameuser;
+	}
 
 	public Long getEvectionId() {
 		return evectionId;
@@ -53,8 +66,11 @@ public class Evection {
 
 	@Override
 	public String toString() {
-		return "Evection [evectionId=" + evectionId + ", typeId=" + typeId + ", proId=" + proId + "]";
+		return "Evection [evectionId=" + evectionId + ", typeId=" + typeId + ", nameuser=" + nameuser + "]";
 	}
+
+
+
 
 	
 }

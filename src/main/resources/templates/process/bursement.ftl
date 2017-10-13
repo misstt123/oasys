@@ -1,6 +1,9 @@
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" href="css/common/tanchuang.css" />
 <style>
+.modal-open {
+    overflow:auto;
+}
 .box-header{
   text-align: center;
   border-bottom: 0px solid #f4f4f4;
@@ -20,7 +23,7 @@
 }
 .bo{
 	margin: 0px auto;
-	width: 66%;
+	width: 80%;
 }
 
 
@@ -149,7 +152,7 @@ cursor: pointer;
 				<tr >
 				<td class="title" ><label class="control-label">审核人员</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu shen"
-					 readonly="readonly" style="background-color:#fff;" name="username"placeholder="请选本部门经理"/>
+					 readonly="readonly" style="background-color:#fff;" name="username"placeholder="请选自己的上级"/>
 					<div class="reciver">
 						<span class="label label-success glyphicon glyphicon-plus">通讯录</span>
 					</div>
@@ -165,7 +168,7 @@ cursor: pointer;
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">报销事由</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="processDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="proId.processDescribe"></textarea></td>
 				</tr>
 				<tr >
 					<td class="title"><label class="control-label">报销明细</label></td>
@@ -212,7 +215,8 @@ cursor: pointer;
 				<tr >
 
 					<td colspan="14" style="text-align: right;" >
-						<input class="btn btn-primary" id="save" type="submit" value="保存" />
+						<input   type="text" value="费用报销" name="val" hidden="hidden"/>
+						<input class="btn btn-primary" id="save" type="submit" value="保存"  />
 						<input class="btn btn-default" id="cancel" type="submit" value="取消"
 						onclick="window.history.back();" />
 					</td>

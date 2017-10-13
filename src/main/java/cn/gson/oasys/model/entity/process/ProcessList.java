@@ -57,7 +57,7 @@ public class ProcessList{
 	private Date endTime;			//流程结束时间
 	
 	@Column(name="procsee_days")
-	private Integer procseeDays;		//流程总天数
+	private Double procseeDays;		//流程总天数
 	
 	@ManyToOne
 	@JoinColumn(name="pro_file_id")
@@ -151,11 +151,11 @@ public class ProcessList{
 		this.endTime = endTime;
 	}
 
-	public Integer getProcseeDays() {
+	public Double getProcseeDays() {
 		return procseeDays;
 	}
 
-	public void setProcseeDays(Integer procseeDays) {
+	public void setProcseeDays(Double procseeDays) {
 		this.procseeDays = procseeDays;
 	}
 

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table
 @Entity(name="aoa_holiday")
@@ -24,11 +25,14 @@ public class Holiday {
 	private Long typeId;  //请假类型
 	
 	@Column(name="leave_days")
-	private Integer leaveDays; //请假剩余天数
+	private Double leaveDays; //请假天数
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
+	
+	@Transient
+	private String nameuser;
 	
 
 	public Long getHolidayId() {
@@ -47,11 +51,11 @@ public class Holiday {
 		this.typeId = typeId;
 	}
 
-	public Integer getLeaveDays() {
+	public Double getLeaveDays() {
 		return leaveDays;
 	}
 
-	public void setLeaveDays(Integer leaveDays) {
+	public void setLeaveDays(Double leaveDays) {
 		this.leaveDays = leaveDays;
 	}
 
