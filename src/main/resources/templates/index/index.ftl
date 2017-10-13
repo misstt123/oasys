@@ -6,13 +6,27 @@
 	content="width=device-width, initial-scale=1,
 maximum-scale=1, user-scalable=no">
 <title>控制面板主页</title>
-
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
 <link rel="stylesheet" href="css/common/skintheme.css" />
+	<script type="text/javascript">
+		$(function(){
+			
+			var themeSkin='${user.themeSkin}';
+			if(themeSkin=="blue"){
+				toblue();
+			}else if(themeSkin=="green"){
+				togreen();
+			}else if(themeSkin=="yellow"){
+				toyellow();
+			}else if(themeSkin=="red"){
+				tored();
+			}
+		});
+	</script>
 <script>
 	function changepath(path){
 		$('iframe').attr('src',path);

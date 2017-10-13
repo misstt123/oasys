@@ -1,10 +1,14 @@
 <div class = "menu">
 	<ul class="nav nav-pills nav-stacked" style="padding:5px 0 5px 0;">
 		<#if isload??>
-			<li><a class="downloadfile">下载</a></li>
-			<li><a>分享</a></li>
-			<li><a class="menurename">重命名</a></li>
-			<li><a onclick="{return confirm('确定删除吗？');};" class="loaddelete">删除</a></li>
+			<#if istrash??>
+				<li><a class="filereturnback">还原</a></li>
+			<#else>
+				<li><a class="downloadfile">下载</a></li>
+				<li><a>分享</a></li>
+				<li><a class="menurename">重命名</a></li>
+				<li><a onclick="{return confirm('确定删除吗？');};" class="loadtrash">删除</a></li>
+			</#if>
 		<#else>
 			<li><a class="open">打开</a></li>
 			<li><a class="downloadfile">下载</a></li>
@@ -23,7 +27,7 @@
 			<#if type=="picture">
 				<h3 class="box-title" style="font-size: 12px;">图片</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
-			<#elseif type=="word">
+			<#elseif type=="document">
 				<h3 class="box-title" style="font-size: 12px;">文档</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
 			<#elseif type=="music">
@@ -32,8 +36,12 @@
 			<#elseif type=="video">
 				<h3 class="box-title" style="font-size: 12px;">视频</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
-			<#elseif type=="zip">
+			<#elseif type=="yasuo">
 				<h3 class="box-title" style="font-size: 12px;">压缩包</h3>
+				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+				trash
+			<#elseif type=="trash">
+				<h3 class="box-title" style="font-size: 12px;">回收站</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
 			</#if>
 		<#else>
@@ -53,10 +61,10 @@
 		</#if>
 		<div class="box-tools">
 			<div class="input-group" style="width: 150px;">
-				<input type="text" class="form-control input-sm"
+				<input type="text" class="form-control input-sm findfileandpath"
 					placeholder="查找..." />
 				<div class="input-group-btn">
-					<a class="btn btn-sm btn-default btn-change"><span
+					<a class="btn btn-sm btn-default btn-change findfileandpathgo"><span
 						class="glyphicon glyphicon-search"></span></a>
 				</div>
 			</div>
@@ -71,9 +79,15 @@
 				class="iconfont icon-xuanze1"></span></a>
 			<div class="btn-group">
 				<#if isload??>
-					<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loaddelete" title="删除">
-						<span class="iconfont icon-lajitong"></span>
-					</a> 
+					<#if istrash??>
+						<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loaddelete" title="删除">
+							<span class="iconfont icon-lajitong"></span>
+						</a> 
+					<#else>
+						<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loadtrash" title="删除">
+							<span class="iconfont icon-lajitong"></span>
+						</a> 
+					</#if>
 				<#else>
 					<a onclick="{return confirm('确定删除吗？');};"  class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除">
 						<span class="iconfont icon-lajitong"></span>
@@ -119,14 +133,28 @@
 					<#list paths as path>
 						<div class="file-one">
 							<div class="file-img path">
-								<a href="filetest?pathid=${path.id}">
-									<img src="images/fileimg/Folder.png" />
-								</a>
+								<#if istrash??>
+									<a>
+										<img src="images/fileimg/Folder.png" />
+									</a>
+								<#else>
+									<a href="filetest?pathid=${path.id}">
+										<img src="images/fileimg/Folder.png" />
+									</a>
+								</#if>
 							</div>
 							<div class="file-name path">
-								<div class="filename">
-									<a href="filetest?pathid=${path.id}" style="font-size: 12px;">${path.pathName}</a>
-								</div>
+							
+								<#if istrash??>
+									<div class="filename">
+										<a style="font-size: 12px;">${path.pathName}</a>
+									</div>
+								<#else>
+									<div class="filename">
+										<a href="filetest?pathid=${path.id}" style="font-size: 12px;">${path.pathName}</a>
+									</div>
+								</#if>
+								
 								<div class="pathtextarea rename diplaynone" style="position: absolute;top: 97px;left: -5px;z-index:100;">
 									<#if isload??>
 										<input class="creatpathinput" type="text" name="name" value="${path.pathName}"/>
@@ -165,29 +193,29 @@
 				
 				<#list files as file>
 					<div class="file-one">
-						<#if file.fileShuffix == "zip">
+						<#if file.fileShuffix == "zip" || file.fileShuffix =="rar" || file.fileShuffix =="7-Zip">
 								<div class="file-img">
 									<img src="images/fileimg/ZIP.png" />
 								</div>
-							<#elseif file.fileShuffix == "mp4" || file.fileShuffix == "rmvb">
+							<#elseif file.fileShuffix == "mp4" || file.fileShuffix == "rmvb" || file.fileShuffix == "avi">
 								<div class="file-img">
 									<img src="images/fileimg/Video.png" />
 								</div>
-							<#elseif file.fileShuffix == "txt" || file.fileShuffix == "word">
+							<#elseif file.fileShuffix == "pdf">
 								<div class="file-img">
-									<img src="images/fileimg/Text.png" />
+									<img src="images/fileimg/PDF.png" />
 								</div>
-							<#elseif file.fileShuffix == "mp3">
+							<#elseif file.fileShuffix == "mp3" || file.fileShuffix =="aiff" >
 								<div class="file-img">
 									<img src="images/fileimg/Music.png" />
 								</div>
-							<#elseif file.fileShuffix == "jpg" || file.fileShuffix == "png">
+							<#elseif file.fileShuffix == "jpg" || file.fileShuffix == "png" || file.fileShuffix == "gif">
 								<div class="file-img">
 									<img src="imgshow?fileid=${file.fileId}" style="height:71px;width:56px;"/>
 								</div>
 							<#else>
 								<div class="file-img">
-									<img src="" />
+									<img src="images/fileimg/Text.png" />
 								</div>
 						</#if>                                   
 						<div class="file-name">

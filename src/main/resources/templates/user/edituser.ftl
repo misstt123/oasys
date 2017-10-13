@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/common/box.css" />
-<link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
+<#include "/common/commoncss.ftl">
 <style type="text/css">
 a {
 	color: black;
@@ -126,7 +125,7 @@ a:hover {
 					</div>
 
 					<!--判断一下 请求参数的值  进行显示-->
-					<#if where == "xg">
+					<#if where??>
 						<div class="row">
 							<hr />
 							<div class="col-md-6">

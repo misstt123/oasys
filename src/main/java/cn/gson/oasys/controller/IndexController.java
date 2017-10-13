@@ -89,11 +89,13 @@ public class IndexController {
 	DefaultConversionService service = new DefaultConversionService();
 
 	@RequestMapping("index")
-	public String index(HttpServletRequest req) {
+	public String index(HttpServletRequest req,Model model) {
 		menuService.findMenuSys(req);
 		HttpSession session = req.getSession();
 		session.setAttribute("userId", "1");
-		
+		Long userId = Long.parseLong(session.getAttribute("userId") + "");
+		User user=uDao.findOne(userId);
+		model.addAttribute("user", user);
 		//展示用户操作记录 由于现在没有登陆 不能获取用户id
 		List<UserLog> userLogs=userLogDao.findByUser(1);
 		req.setAttribute("userLogList", userLogs);
@@ -138,8 +140,8 @@ public class IndexController {
 		request.setAttribute("filenum", filedao.count());
 		request.setAttribute("directornum", directorDao.count());
 		request.setAttribute("discussnum", discussDao.count());
-		
 		List<Map<String, Object>> list = nm.findMyNoticeLimit(userId);
+		model.addAttribute("user", user);
 		for (Map<String, Object> map : list) {
 			map.put("status", statusDao.findOne((Long) map.get("status_id")).getStatusName());
 			map.put("type", typeDao.findOne((Long) map.get("type_id")).getTypeName());

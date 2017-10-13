@@ -3,8 +3,10 @@ package cn.gson.oasys.controller.process;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +27,8 @@ import com.github.pagehelper.util.StringUtil;
 
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.processdao.BursementDao;
+import cn.gson.oasys.model.dao.processdao.DetailsBurseDao;
+import cn.gson.oasys.model.dao.processdao.ProcessListDao;
 import cn.gson.oasys.model.dao.processdao.ReviewedDao;
 import cn.gson.oasys.model.dao.processdao.SubjectDao;
 import cn.gson.oasys.model.dao.roledao.RoleDao;
@@ -74,6 +78,10 @@ public class ProcedureController {
 	private BursementDao budao;
 	@Autowired
 	private PositionDao pdao;
+	@Autowired
+	private ProcessListDao prodao;
+	@Autowired
+	private DetailsBurseDao dedao;
 	@Autowired
 	private ProcessService proservice;
 	//新增页面
@@ -240,9 +248,68 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("particular")
-	public String particular(){
+	public String particular(HttpSession session,Model model,HttpServletRequest req){
+		
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		User user=udao.findOne(userid);//审核人或者申请人
+		User audit=null;//最终审核人
+		String id=req.getParameter("id");
+		Long proid=Long.parseLong(id);
+		String typename=req.getParameter("typename");//类型名称
+		
+		String name=req.getParameter("name");//区分审核人或者申请人查看
+		
+		Map<String, Object> map=new HashMap<>();
+		
+		if(("审核").equals(name)){ //user就是审核人
+			map=proservice.index3(proid,name,user,typename);
+			if(("费用报销").equals(typename)){
+			Bursement bu=budao.findOne(proid);
+			User prove=udao.findOne(bu.getUsermoney().getUserId());//证明人
+			if(!Objects.isNull(bu.getOperation())){
+				audit=udao.findOne(bu.getOperation().getUserId());//最终审核人
+			}
+			List<DetailsBurse> detaillist=dedao.findByBurs(bu);
+			String type=tydao.findname(bu.getTypeId());
+			String money=ProcessService.numbertocn(bu.getAllMoney());
+			model.addAttribute("prove", prove);
+			model.addAttribute("audit", audit);
+			model.addAttribute("type", type);
+			model.addAttribute("bu", bu);
+			model.addAttribute("money", money);
+			model.addAttribute("detaillist", detaillist);
+			System.out.println(bu);
+			}
+		}
+		
+		model.addAttribute("map", map);
 		
 		return "process/serch";
+	}
+	/**
+	 * 进入审核页面
+	 * @return
+	 */
+	@RequestMapping("auditing")
+	public String auditing(HttpSession session,Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		//查看用户并分页
+		Page<User> pageuser=udao.findAll(pa);
+		List<User> userlist=pageuser.getContent();
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
+		model.addAttribute("page", pageuser);
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("poslist", poslist);
+		model.addAttribute("url", "names");
+		return "process/audetail";
+		
 	}
 	//出差费用申请
 	@RequestMapping("evemoney")

@@ -29,7 +29,7 @@ $(".loadfiletype").on("click",".file-check",function(){
 /**
  * 全选文件JS
  */
-$(".allcheck").click(function(){
+$(".loadfiletype").on("click",".allcheck",function(){
 	var fileone = $(".file-one");
 	if($(this).hasClass("allchecked")){
 		$(".file-one").each(function(){

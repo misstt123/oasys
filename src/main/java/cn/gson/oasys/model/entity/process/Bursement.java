@@ -29,7 +29,7 @@ public class Bursement {
 	
 	@OneToOne()
 	@JoinColumn(name="user_name")
-	private User usermoney;//承担主体
+	private User usermoney;//证明人
 	
 	private String name;//相关客户
 	
