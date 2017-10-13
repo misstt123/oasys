@@ -1,7 +1,9 @@
 package cn.gson.oasys.services.process;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
 
@@ -26,11 +30,18 @@ import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
+import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.process.AubUser;
 import cn.gson.oasys.model.entity.process.ProcessList;
+import cn.gson.oasys.model.entity.process.Reviewed;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
+import cn.gson.oasys.model.entity.user.Dept;
+import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.mail.MailServices;
 
 
 @Service
@@ -43,6 +54,8 @@ public class ProcessService {
 	@Autowired
 	private RoleDao rdao;
 	@Autowired
+	private PositionDao pdao;
+	@Autowired
 	private SubjectDao sudao;
 	@Autowired
 	private StatusDao sdao;
@@ -54,6 +67,8 @@ public class ProcessService {
 	private AttachmentDao AttDao;
 	@Autowired
 	private BursementDao budao;
+	@Autowired
+	private MailServices mservice;
 	@Autowired
 	private ProcessListDao prodao;
 	 /**
@@ -83,7 +98,29 @@ public class ProcessService {
      * 特殊字符：零元整
     */
   private static final String CN_ZEOR_FULL = "零元" + CN_FULL;
-	
+  /**
+   * 用户封装
+   * @param user
+   * @param page
+   * @param size
+   * @param val
+   * @return
+   */
+	public void user(int page,int size,Model model){
+		Pageable pa=new PageRequest(page, size);
+		//查看用户并分页
+		Page<User> pageuser=udao.findAll(pa);
+		List<User> userlist=pageuser.getContent();
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
+		model.addAttribute("page", pageuser);
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("poslist", poslist);
+		model.addAttribute("url", "names");
+	}
 	public Page<AubUser> index(User user,int page,int size,String val){
 		Pageable pa=new PageRequest(page, size);
 		Page<AubUser> pagelist=null;
@@ -127,11 +164,34 @@ public class ProcessService {
 		return list;
 	}
 	/**
+	 * 审核人封装
+	 */
+	public List<Map<String,Object>> index4(ProcessList process){
+		List<Map<String,Object>> relist=new ArrayList<>();
+		List<Reviewed> revie=redao.findByReviewedTimeNotNullAndProId(process);
+		for (int i = 0; i <revie.size(); i++) {
+			Map<String, Object> result=new HashMap<>();
+			User u=udao.findOne(revie.get(i).getUserId().getUserId());
+			Position po=pdao.findOne(u.getPosition().getId());
+			SystemStatusList status=sdao.findOne(revie.get(i).getStatusId());
+			result.put("poname", po.getName());
+			result.put("username", u.getUserName());
+			result.put("retime",revie.get(i).getReviewedTime());
+			result.put("restatus",status.getStatusName());
+			result.put("statuscolor",status.getStatusColor());
+			result.put("des", revie.get(i).getAdvice());
+			result.put("img",u.getImgPath());
+			result.put("positionid",u.getPosition().getId());
+			relist.add(result);
+		}
+		return relist;
+	}
+	/**
 	 * process数据封装
 	 */
 	
-	public Map<String,Object> index3(Long proid,String name,User user,String typename){
-		ProcessList process=prodao.findOne(proid);//查看该条申请
+	public Map<String,Object> index3(Long proid,String name,User user,String typename,ProcessList process){
+		System.out.println(name);
 		Map<String,Object> result=new HashMap<>();
 		String harryname=tydao.findname(process.getDeeply());
 		result.put("proId", process.getProcessId());
@@ -141,13 +201,69 @@ public class ProcessService {
 		if(("审核").equals(name)){
 			result.put("username", process.getUserId().getUserName());//提单人员
 			result.put("deptname", ddao.findname(process.getUserId().getDept().getDeptId()));//部门
-		}else{
+		}else if(("申请").equals(name)){
 			result.put("username", user.getUserName());
 			result.put("deptname", ddao.findname(process.getUserId().getDept().getDeptId()));
 		}
 		result.put("applytime", process.getApplyTime());
 		result.put("file", process.getProFileid());
+		result.put("name", name);
+		result.put("typename", process.getTypeNmae());
+		result.put("startime", process.getStartTime());
+		result.put("endtime", process.getEndTime());
+		result.put("tianshu", process.getProcseeDays());
 		return result;
+	}
+	/**
+	 * 公用
+	 */
+	public void  index6(Model model,Long id,int page,int size){
+		User lu=udao.findOne(id);//申请人
+		Pageable pa=new PageRequest(page, size);
+		List<SystemTypeList> harrylist=tydao.findByTypeModel("aoa_process_list");
+		//查看用户并分页
+				Page<User> pageuser=udao.findAll(pa);
+				List<User> userlist=pageuser.getContent();
+				// 查询部门表
+				Iterable<Dept> deptlist = ddao.findAll();
+				// 查职位表
+				Iterable<Position> poslist = pdao.findAll();
+				model.addAttribute("page", pageuser);
+				model.addAttribute("emplist", userlist);
+				model.addAttribute("deptlist", deptlist);
+				model.addAttribute("poslist", poslist);
+				model.addAttribute("url", "names");
+				model.addAttribute("username", lu.getUserName());
+				model.addAttribute("harrylist", harrylist);
+	}
+	/**
+	 * 存表
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	public void index5(ProcessList pro,String val,User lu,MultipartFile filePath) throws IllegalStateException, IOException{
+		
+		pro.setTypeNmae(val);
+		pro.setApplyTime(new Date());
+		pro.setUserId(lu);
+		pro.setStatusId(23L);
+		Attachment attaid=null;
+		if(!StringUtil.isEmpty(filePath.getOriginalFilename())){
+			attaid=mservice.upload(filePath, lu);
+			attaid.setModel("aoa_bursement");
+			AttDao.save(attaid);
+			pro.setProFileid(attaid);
+		}
+	}
+	/**
+	 * 存审核表
+	 */
+	public void index7(User reuser,ProcessList pro){
+		Reviewed revie=new Reviewed();
+		revie.setUserId(reuser);
+		revie.setStatusId(23L);
+		revie.setProId(pro);
+		redao.save(revie);
 	}
 	/**
 	      * 把输入的金额转换为汉语中人民币的大写

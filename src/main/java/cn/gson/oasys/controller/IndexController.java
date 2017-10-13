@@ -92,7 +92,7 @@ public class IndexController {
 	public String index(HttpServletRequest req,Model model) {
 		menuService.findMenuSys(req);
 		HttpSession session = req.getSession();
-		session.setAttribute("userId", "1");
+		session.setAttribute("userId", "6");
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
 		model.addAttribute("user", user);

@@ -1,4 +1,5 @@
 <#include "/common/commoncss.ftl">
+<link rel="stylesheet" href="css/common/tanchuang.css" />
 <style>
 .box-header{
   text-align: center;
@@ -17,9 +18,9 @@
 	display:inline-block;
 	font-weight: 400;
 }
-.table{
+.bo{
 	margin: 0px auto;
-	width: 66%;
+	width: 80%;
 }
 
 
@@ -30,20 +31,20 @@ font-weight: 400;
 .inside{
 width: 100%;
 }
-.table thead{
+.inside thead{
 background-color: rgba(76, 175, 95, 0.06);
 }
-.table>tbody>tr>td{
+.inside>tbody>tr>td{
  border-top: 0px solid #ddd;
 }
-.table>tbody>tr>td{
+.inside>tbody>tr>td{
 border-bottom: 1px solid #ddd;
 border-left: 1px solid #ddd;
 }
 .tdrig{
 border-right: 1px solid #ddd;
 }
-.bo>tbody>tr>td,.table>thead>tr>th {
+.bo>tbody>tr>td,.inside>thead>tr>th {
     border-top: 0px solid #ddd;
     border-bottom: 0px solid #ddd;
     border-left: 0px solid #ddd;
@@ -53,6 +54,13 @@ border-right: 1px solid #ddd;
 }
 .shuoming{
 min-height: 120px;
+}
+.reciver{
+	position: relative;
+    float: right;
+    margin-top: -28px;
+    right: 5px;
+    cursor: pointer;
 }
 </style>
 <div class="row" style="padding-top: 10px;">
@@ -82,42 +90,51 @@ min-height: 120px;
 					
 				<tr >
 					<td class="title"><label class="control-label">标题</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu" name="proId.processName"/></td>
 					
 					<td class="title"><span >紧急程度</span></td>
 					<td colspan="6">
-						<select class="form-control inpu">
-							<option>22</option>
+						<select class="form-control inpu" name="proId.deeply">
+							<#list harrylist as harry>
+							<option value="${harry.typeId}">${harry.typeName}</option>
+							</#list>
 						</select>
 					</td>
 					
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">申请人</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu"
+					readonly="readonly" style="background-color:#fff;" value="${username}"/></td>
 					<td class="title" ><label class="control-label">审核人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input name="nameuser" type="text" id="recive_list"
+								class="form-control " readonly="readonly" style="background-color:#fff;"/>
+							<div class="reciver">
+								<span class="label label-success glyphicon glyphicon-plus"
+									data-toggle="modal" data-target="#myModal">通讯录</span>
+							</div>
+					</td>
 				</tr>
 				
 				<tr >
 					<td class="title" ><label class="control-label">实习/试用心得</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="experience"></textarea></td>
 					<td class="title" ><label class="control-label">本岗位职责理解</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="understand"></textarea></td>
 				</tr>
 					
 				
 				<tr >
 					<td class="title" ><label class="control-label">实习/试用成长</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="pullulate"></textarea></td>
 					<td class="title" ><label class="control-label">目前存在的不足</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="deficiency"></textarea></td>
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">如何作得更好</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="dobetter"></textarea></td>
 					<td class="title" ><label class="control-label">对公司建议及意见</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="advice"></textarea></td>
 				</tr>
 				<tr >
 
@@ -134,3 +151,6 @@ min-height: 120px;
 		</div>
 	</div>
 </div>
+<#include "/common/reciver.ftl">
+<script type="text/javascript" src="js/common/data.js"></script>
+<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>

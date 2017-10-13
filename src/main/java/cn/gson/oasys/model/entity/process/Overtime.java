@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table
 @Entity(name="aoa_overtime")
@@ -26,6 +27,18 @@ public class Overtime {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	@Transient
+	private String nameuser;
+	
+	
+
+	public String getNameuser() {
+		return nameuser;
+	}
+
+	public void setNameuser(String nameuser) {
+		this.nameuser = nameuser;
+	}
 
 	public Long getOvertimeId() {
 		return overtimeId;
@@ -53,8 +66,10 @@ public class Overtime {
 
 	@Override
 	public String toString() {
-		return "Overtime [overtimeId=" + overtimeId + ", typeId=" + typeId + "]";
+		return "Overtime [overtimeId=" + overtimeId + ", typeId=" + typeId + ", nameuser=" + nameuser + "]";
 	}
+
+	
 
 	
 	

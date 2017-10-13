@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table
 @Entity(name="aoa_regular")
@@ -39,8 +40,17 @@ public class Regular {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	@Transient
+	private String nameuser;
 	
 	
+	public String getNameuser() {
+		return nameuser;
+	}
+
+	public void setNameuser(String nameuser) {
+		this.nameuser = nameuser;
+	}
 
 	public ProcessList getProId() {
 		return proId;
@@ -118,8 +128,10 @@ public class Regular {
 	public String toString() {
 		return "Regular [regularId=" + regularId + ", experience=" + experience + ", understand=" + understand
 				+ ", pullulate=" + pullulate + ", deficiency=" + deficiency + ", dobetter=" + dobetter + ", advice="
-				+ advice + ", personnelAdvice=" + personnelAdvice + "]";
+				+ advice + ", personnelAdvice=" + personnelAdvice + ", nameuser=" + nameuser + "]";
 	}
+
+
 
 	
 

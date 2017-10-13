@@ -1,4 +1,5 @@
 <#include "/common/commoncss.ftl">
+<link rel="stylesheet" href="css/common/tanchuang.css" />
 <style>
 .box-header{
   text-align: center;
@@ -17,9 +18,9 @@
 	display:inline-block;
 	font-weight: 400;
 }
-.table{
+.bo{
 	margin: 0px auto;
-	width: 66%;
+	width: 80%;
 }
 
 
@@ -30,20 +31,20 @@ font-weight: 400;
 .inside{
 width: 100%;
 }
-.table thead{
+.inside thead{
 background-color: rgba(76, 175, 95, 0.06);
 }
-.table>tbody>tr>td{
+.inside>tbody>tr>td{
  border-top: 0px solid #ddd;
 }
-.table>tbody>tr>td{
+.inside>tbody>tr>td{
 border-bottom: 1px solid #ddd;
 border-left: 1px solid #ddd;
 }
 .tdrig{
 border-right: 1px solid #ddd;
 }
-.bo>tbody>tr>td,.table>thead>tr>th {
+.bo>tbody>tr>td,.inside>thead>tr>th {
     border-top: 0px solid #ddd;
     border-bottom: 0px solid #ddd;
     border-left: 0px solid #ddd;
@@ -53,6 +54,13 @@ border-right: 1px solid #ddd;
 }
 .shuoming{
 min-height: 120px;
+}
+.reciver{
+	position: relative;
+    float: right;
+    margin-top: -28px;
+    right: 5px;
+    cursor: pointer;
 }
 </style>
 <div class="row" style="padding-top: 10px;">
@@ -82,37 +90,50 @@ min-height: 120px;
 					
 				<tr >
 					<td class="title"><label class="control-label">标题</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu" name="proId.processName"/></td>
 					
 					<td class="title"><span >紧急程度</span></td>
 					<td colspan="6">
-						<select class="form-control inpu">
-							<option>22</option>
+						<select class="form-control inpu" name="proId.deeply">
+							<#list harrylist as harry>
+							<option value="${harry.typeId}">${harry.typeName}</option>
+							</#list>
 						</select>
 					</td>
 					
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">申请人</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu"
+					readonly="readonly" style="background-color:#fff;" value="${username}"/></td>
 					<td class="title" ><label class="control-label">交接人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu cheng" 
+					readonly="readonly" style="background-color:#fff;" name="handuser"/>
+						<div class="reciver">
+						<span class="label label-success glyphicon glyphicon-plus">通讯录</span>
+					</div>
+					</td>
 				</tr>
 				
 			
 				
 				<tr >
 					<td class="title" ><label class="control-label">未完成事宜</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="nofinish"></textarea></td>
 					<td class="title" ><label class="control-label">离职原因</label></td>
-					<td  colspan="6"><textarea class="form-control text" name="taskDescribe"></textarea></td>
+					<td  colspan="6"><textarea class="form-control text" name="proId.processDescribe"></textarea></td>
 				</tr>
 				
 					<tr >
 					<td class="title" ><label class="control-label">审核人员</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu"/></td>
+					<td  colspan="6"><input type="text" class="form-control inpu cheng" 
+						readonly="readonly" style="background-color:#fff;" name="nameuser"/>
+							<div class="reciver">
+							<span class="label label-success glyphicon glyphicon-plus">通讯录</span>
+						</div>
+					</td>
 					<td class="title" ><label class="control-label">是否有费用报销未完成</label></td>
-					<td  colspan="6" style="text-align:left;"><span class="labels"><label><input type="checkbox" name="top" class="val" ><i>✓</i></label></span></td>
+					<td  colspan="6" style="text-align:left;"><span class="labels"><label><input type="checkbox" name="finish" class="val" ><i>✓</i></label></span></td>
 					
 				</tr>
 					
@@ -132,3 +153,22 @@ min-height: 120px;
 		</div>
 	</div>
 </div>
+<input type="text" class="recive_list" style="display:none;">
+<script>
+$(function(){
+	$('.reciver').on('click',function(){
+		$('#myModal').modal("toggle");
+		$(this).siblings("input").val("");
+		$('.reciver').removeClass("qu");
+		$(this).addClass("qu");
+	});
+	$(".recive_list").change(function(){
+		var	$val=$(this).val();
+		$(".qu").siblings("input").val($val);
+	
+	});
+});
+</script>
+<#include "/common/reciver.ftl">
+<script type="text/javascript" src="js/common/data.js"></script>
+<script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>

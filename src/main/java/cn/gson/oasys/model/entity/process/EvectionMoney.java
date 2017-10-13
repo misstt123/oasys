@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="aoa_evectionmoney")
@@ -23,7 +24,7 @@ public class EvectionMoney {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long evectionmoneyId;
 	
-	private double money; //申请总金额
+	private Double money; //申请总金额
 	
 	private String name; //关联客户
 	
@@ -42,4 +43,92 @@ public class EvectionMoney {
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="evemoney")
 	List<Stay> stay;
+	
+	@Transient
+	private String shenname;//审核人员
+	
+	
+
+	public String getShenname() {
+		return shenname;
+	}
+
+	public void setShenname(String shenname) {
+		this.shenname = shenname;
+	}
+
+	public Long getEvectionmoneyId() {
+		return evectionmoneyId;
+	}
+
+	public void setEvectionmoneyId(Long evectionmoneyId) {
+		this.evectionmoneyId = evectionmoneyId;
+	}
+
+	public Double getMoney() {
+		return money;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getManagerAdvice() {
+		return managerAdvice;
+	}
+
+	public void setManagerAdvice(String managerAdvice) {
+		this.managerAdvice = managerAdvice;
+	}
+
+	public String getFinancialAdvice() {
+		return financialAdvice;
+	}
+
+	public void setFinancialAdvice(String financialAdvice) {
+		this.financialAdvice = financialAdvice;
+	}
+
+	public ProcessList getProId() {
+		return proId;
+	}
+
+	public void setProId(ProcessList proId) {
+		this.proId = proId;
+	}
+
+	public List<Traffic> getTraffic() {
+		return traffic;
+	}
+
+	public void setTraffic(List<Traffic> traffic) {
+		this.traffic = traffic;
+	}
+
+	public List<Stay> getStay() {
+		return stay;
+	}
+
+	public void setStay(List<Stay> stay) {
+		this.stay = stay;
+	}
+
+	@Override
+	public String toString() {
+		return "EvectionMoney [evectionmoneyId=" + evectionmoneyId + ", money=" + money + ", name=" + name
+				+ ", managerAdvice=" + managerAdvice + ", financialAdvice=" + financialAdvice + ", shenname=" + shenname
+				+ "]";
+	}
+
+	
+	
+	
 }

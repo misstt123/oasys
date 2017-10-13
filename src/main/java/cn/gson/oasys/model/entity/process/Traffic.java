@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -44,11 +45,23 @@ public class Traffic {
 	private String seatType;//座位类型
 	
 	@Column(name="traffic_money")
-	private double trafficMoney;//交通标准
+	private Double trafficMoney;//交通标准
 	
 	@ManyToOne()
 	@JoinColumn(name="evection_id")
 	private  EvectionMoney  evection;
+	
+	@Transient
+	private String username;
+	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public Long getTrafficId() {
 		return trafficId;
@@ -106,11 +119,11 @@ public class Traffic {
 		this.seatType = seatType;
 	}
 
-	public double getTrafficMoney() {
+	public Double getTrafficMoney() {
 		return trafficMoney;
 	}
 
-	public void setTrafficMoney(double trafficMoney) {
+	public void setTrafficMoney(Double trafficMoney) {
 		this.trafficMoney = trafficMoney;
 	}
 
@@ -126,8 +139,10 @@ public class Traffic {
 	public String toString() {
 		return "Traffic [trafficId=" + trafficId + ", departTime=" + departTime + ", departName=" + departName
 				+ ", reachName=" + reachName + ", trafficName=" + trafficName + ", seatType=" + seatType
-				+ ", trafficMoney=" + trafficMoney + "]";
+				+ ", evection=" + evection + ", username=" + username + "]";
 	}
+
+	
 	
 	
 	

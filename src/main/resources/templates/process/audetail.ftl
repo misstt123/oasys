@@ -16,7 +16,7 @@ a:hover {
 }
 .reciver{
 	position: relative;
-    top: -27px;
+    top: -23px;
     float: right;
     right: 4px;
     cursor: pointer;
@@ -45,19 +45,23 @@ a:hover {
 }
 .content{
 	display: inline-block;
-   background-color: #eee;
+    background-color: #eee;
     width: 95%;
     min-height: 80px;
     border-radius: 5px;
 }
+.pa{
+	padding-left: 13px;
+    
+}
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
-		<h1 style="font-size: 24px; margin: 0;" class="">费用报销</h1>
+		<h1 style="font-size: 24px; margin: 0;" class="">${typename}</h1>
 	</div>
 	<div class="col-md-10 text-right">
 		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
-			disabled="disabled">费用报销</a>
+			disabled="disabled">${typename}</a>
 	</div>
 </div>
 <div class="row" style="padding-top: 15px;">
@@ -73,14 +77,56 @@ a:hover {
 					</a>
 				</h3>
 			</div>
-			
+		<form action="susave">
+		
 			<div class="box-body">
-				<div class="shuxian"></div>
+				<#if statusid==25 ||statusid==26>
+					<div>
+						<i class="glyphicon glyphicon-record" style="color:#9E9E9E;padding-left: 13px;"></i> 结束审核
+					</div>
+					<div class="shuxian"></div>
+				</#if>
+				<#list revie as list>
+				
 				<div class="shen">
-					<p>申请人：盖茨<span class="pull-right">2017-10-10 11:20:30</span></p>
+					<p>${(list.poname)!''}：${(list.username)!''}<span class="pull-right">${(list.retime)!''}</span></p>
 					<div >
-					<img src="images/handsome.JPG" style="width: 50px;height: 50px;border-radius: 72px;margin-top: -102px;"/>
-					<div class="content"></div>
+					<#if list.img?? && list.img!=''>
+						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+							src="/image/${list.img}" />
+						<#else>
+						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+							src="images/timg.jpg" alt="images"/>
+					</#if>	
+					<div class="content">
+						<p class="pa" style="padding-top: 9px;">审核状态:<i class="label ${list.statuscolor}">${(list.restatus)!''}</i></p>
+						<p class="pa" >审核意见：${(list.des)!''}</p>
+					</div>
+					</div>
+				</div>
+				<div class="shuxian"></div>
+				</#list>
+				<div class="shen">
+					<p>申请人：${(process.userId.userName)!''}<span class="pull-right">${(process.applyTime)!''}</span></p>
+					<div >
+					<#if process.userId.imgPath?? && process.userId.imgPath!=''>
+						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+							src="/image/${process.userId.imgPath}" />
+						<#else>
+						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+							src="images/timg.jpg" alt="images"/>
+					</#if>	
+					
+					<div class="content">
+					<#if typename=="费用报销">
+					<p class="pa" style="padding-top: 9px;">报销总金额：${(bu.allMoney)!''}</p>
+					<p class="pa" >报销理由：${(process.processDescribe)!''}</p>
+					</#if>
+					<#if typename=="出差费用申请">
+					<p class="pa" style="padding-top: 9px;">申请总金额：${(bu.money)!''}</p>
+					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
+					</#if>
+					</div>
 					</div>
 				</div>
 				<div class="shuxian"></div>
@@ -88,16 +134,16 @@ a:hover {
 					<i class="glyphicon glyphicon-record" style="color:#9E9E9E;padding-left: 13px;"></i> 开始申请
 				</div>
 				<div class="page-header page"></div>
-				<div class="col-md-6 form-group">
+				<div class="col-md-6 form-group" style="z-index: 1;">
 					<label class="control-label">审核状态</label>
-						 <select class="form-control" name="typeId" style="z-index: 1;">
-							<option value="1">已批准</option>
-							<option value="2">未通过</option>
+						 <select class="form-control" name="statusId" >
+							<option value="25">已批准</option>
+							<option value="26">未通过</option>
 						</select>
 				</div>
 				<div class="col-md-6 form-group" style="position: relative;">
 					<label class="control-label" data-toggle="modal" data-target="#myModal">下一步审核人</label>
-						<input name="reciverlist" type="text" id="recive_list"
+						<input name="username" type="text" id="recive_list"
 							   class="form-control " readonly="readonly" style="background-color:#fff;"/>
 							<div class="reciver">
 								<span class="label label-success glyphicon glyphicon-plus"
@@ -106,16 +152,24 @@ a:hover {
 				</div>
 				 <div class="col-md-6 form-group" style="float: none;">
 					<label class="control-label">审核理由</label>
-					<textarea class="form-control text" name="taskDescribe"></textarea>
+					<textarea class="form-control text" name="advice"></textarea>
 				</div> 
-				
+				<input type="text" hidden="hidden" name=proId value="${(bu.proId.processId)!''}"/>
 			</div>
 			<div class="box-footer" style="padding-left: 26px;">
-				<input class="btn btn-info" id="save" type="submit" value="审核并流转" name="liuzhuan"/>
-				<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+			<input type="text" hidden="hidden" value="{typename}" name=typename/>
+			<#if statusid ==23>
+				<#if positionid==5||positionid==7>
+					<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+				  <#else>
+					<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
+				</#if>
+			</#if>	
 				<input class="btn btn-default" id="cancel" type="submit" value="取消"
 					onclick="window.history.back();" />
 			</div>
+			</form>
+			
 		</div>
 	</div>
 </div>

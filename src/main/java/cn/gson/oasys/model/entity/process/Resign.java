@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -43,7 +44,29 @@ public class Resign {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	@Transient
+	private String nameuser;
 	
+	@Transient
+	private String handuser;
+	
+	
+
+	public String getNameuser() {
+		return nameuser;
+	}
+
+	public void setNameuser(String nameuser) {
+		this.nameuser = nameuser;
+	}
+
+	public String getHanduser() {
+		return handuser;
+	}
+
+	public void setHanduser(String handuser) {
+		this.handuser = handuser;
+	}
 
 	public ProcessList getProId() {
 		return proId;
@@ -112,14 +135,9 @@ public class Resign {
 	@Override
 	public String toString() {
 		return "Resign [resignId=" + resignId + ", suggest=" + suggest + ", finish=" + finish + ", nofinish=" + nofinish
-				+ ", financialAdvice=" + financialAdvice + ", personnelAdvice=" + personnelAdvice + "]";
+				+ ", financialAdvice=" + financialAdvice + ", personnelAdvice=" + personnelAdvice + ", nameuser="
+				+ nameuser + ", handuser=" + handuser + "]";
 	}
-
-
-
-	
-	
 	
 
-	
 }
