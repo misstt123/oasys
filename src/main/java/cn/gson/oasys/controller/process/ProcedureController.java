@@ -29,8 +29,13 @@ import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.plandao.TrafficDao;
 import cn.gson.oasys.model.dao.processdao.BursementDao;
 import cn.gson.oasys.model.dao.processdao.DetailsBurseDao;
+import cn.gson.oasys.model.dao.processdao.EvectionDao;
 import cn.gson.oasys.model.dao.processdao.EvectionMoneyDao;
+import cn.gson.oasys.model.dao.processdao.HolidayDao;
+import cn.gson.oasys.model.dao.processdao.OvertimeDao;
 import cn.gson.oasys.model.dao.processdao.ProcessListDao;
+import cn.gson.oasys.model.dao.processdao.RegularDao;
+import cn.gson.oasys.model.dao.processdao.ResignDao;
 import cn.gson.oasys.model.dao.processdao.ReviewedDao;
 import cn.gson.oasys.model.dao.processdao.StayDao;
 import cn.gson.oasys.model.dao.processdao.SubjectDao;
@@ -44,8 +49,13 @@ import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.process.AubUser;
 import cn.gson.oasys.model.entity.process.Bursement;
 import cn.gson.oasys.model.entity.process.DetailsBurse;
+import cn.gson.oasys.model.entity.process.Evection;
 import cn.gson.oasys.model.entity.process.EvectionMoney;
+import cn.gson.oasys.model.entity.process.Holiday;
+import cn.gson.oasys.model.entity.process.Overtime;
 import cn.gson.oasys.model.entity.process.ProcessList;
+import cn.gson.oasys.model.entity.process.Regular;
+import cn.gson.oasys.model.entity.process.Resign;
 import cn.gson.oasys.model.entity.process.Reviewed;
 import cn.gson.oasys.model.entity.process.Stay;
 import cn.gson.oasys.model.entity.process.Subject;
@@ -92,6 +102,16 @@ public class ProcedureController {
 	private TrafficDao tdao;
 	@Autowired
 	private StayDao sadao;
+	@Autowired
+	private EvectionDao edao;
+	@Autowired
+	private OvertimeDao odao;
+	@Autowired
+	private HolidayDao hdao;
+	@Autowired
+	private RegularDao rgdao;
+	@Autowired
+	private ResignDao rsdao;
 	//新增页面
 	@RequestMapping("xinxeng")
 	public String index(){
@@ -197,7 +217,7 @@ public class ProcedureController {
 		model.addAttribute("page", pagelist);
 		model.addAttribute("prolist", prolist);
 		model.addAttribute("url", "serch");
-		System.out.println(prolist);
+		
 		return "process/auditing";
 	}
 	/**
@@ -275,6 +295,7 @@ public class ProcedureController {
 				Double	staymoney=0.0;
 				Double	tramoney=0.0;
 				EvectionMoney emoney=emdao.findByProId(process);
+				
 				String money=ProcessService.numbertocn(emoney.getMoney());
 				List<Stay> staylist=sadao.findByEvemoney(emoney);
 				for (Stay stay : staylist) {
@@ -292,6 +313,35 @@ public class ProcedureController {
 				model.addAttribute("tralist", tralist);
 				model.addAttribute("map", map);
 				return "process/evemonserch";
+			}else if(("出差/外出申请").equals(typename)){
+				Evection eve=edao.findByProId(process);
+				model.addAttribute("eve", eve);
+				model.addAttribute("map", map);
+				return "process/eveserach";
+			}else if(("加班申请").equals(typename)){
+				Overtime eve=odao.findByProId(process);
+				String type=tydao.findname(eve.getTypeId());
+				model.addAttribute("eve", eve);
+				model.addAttribute("map", map);
+				model.addAttribute("type", type);
+				return "process/overserch";
+			}else if(("请假申请").equals(typename)){
+				Holiday eve=hdao.findByProId(process);
+				String type=tydao.findname(eve.getTypeId());
+				model.addAttribute("eve", eve);
+				model.addAttribute("map", map);
+				model.addAttribute("type", type);
+				return "process/holiserch";
+			}else if(("转正申请").equals(typename)){
+				Regular eve=rgdao.findByProId(process);
+				model.addAttribute("eve", eve);
+				model.addAttribute("map", map);
+				return "process/reguserch";
+			}else if(("离职申请").equals(typename)){
+				Resign eve=rsdao.findByProId(process);
+				model.addAttribute("eve", eve);
+				model.addAttribute("map", map);
+				return "process/resserch";
 			}
 		}
 		
@@ -324,6 +374,9 @@ public class ProcedureController {
 		}else if(("出差费用申请").equals(typename)){
 			EvectionMoney emoney=emdao.findByProId(process);
 			model.addAttribute("bu", emoney);
+		}else if(("转正申请").equals(typename)||("离职申请").equals(typename)){
+			User zhuan=udao.findOne(process.getUserId().getUserId());
+			model.addAttribute("position", zhuan);
 		}
 		proservice.user(page, size, model);
 		List<Map<String, Object>> list=proservice.index4(process);
@@ -331,7 +384,9 @@ public class ProcedureController {
 		model.addAttribute("statusid", process.getStatusId());
 		model.addAttribute("process", process);
 		model.addAttribute("revie", list);
-		model.addAttribute("statusid", re.getStatusId());
+		model.addAttribute("size", list.size());
+		model.addAttribute("statusid", process.getStatusId());
+		model.addAttribute("ustatusid", re.getStatusId());
 		model.addAttribute("positionid",u.getPosition().getId());
 		model.addAttribute("typename", typename);
 		
@@ -343,14 +398,16 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("susave")
-	public String save(HttpSession session,Model model,HttpServletRequest req,
-		Reviewed reviewed){
+	public String save(HttpSession session,Model model,HttpServletRequest req,Reviewed reviewed){
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		User u=udao.findOne(userid);
 		String name=null;
-		String typename=req.getParameter("typename");
-		ProcessList pro=prodao.findOne(reviewed.getProId().getProcessId());//找到该条流程
+		String typename=req.getParameter("type");
+		Long proid=Long.parseLong(req.getParameter("proId"));
+		
+		ProcessList pro=prodao.findOne(proid);//找到该条流程
+		
 		User shen=udao.findOne(pro.getUserId().getUserId());//申请人
 		if(!StringUtil.isEmpty(req.getParameter("liuzhuan"))){
 			name=req.getParameter("liuzhuan");
@@ -360,7 +417,7 @@ public class ProcedureController {
 			User u2=udao.findByUserName(reviewed.getUsername());//找到下一个审核人
 			
 			if(u2.getPosition().getId()==5||u2.getPosition().getId().equals(7L)){
-				Reviewed re=redao.findByProIdAndUserId(reviewed.getProId().getProcessId(),u);
+				Reviewed re=redao.findByProIdAndUserId(proid,u);
 				re.setAdvice(reviewed.getAdvice());
 				re.setStatusId(reviewed.getStatusId());
 				re.setReviewedTime(new Date());
@@ -381,7 +438,7 @@ public class ProcedureController {
 			}
 		}else{
 			//审核并结案
-			Reviewed re=redao.findByProIdAndUserId(reviewed.getProId().getProcessId(),u);
+			Reviewed re=redao.findByProIdAndUserId(proid,u);
 			re.setAdvice(reviewed.getAdvice());
 			re.setStatusId(reviewed.getStatusId());
 			re.setReviewedTime(new Date());
@@ -389,6 +446,7 @@ public class ProcedureController {
 			pro.setStatusId(reviewed.getStatusId());//改变主表的状态
 			prodao.save(pro);
 		}
+		
 		if(("费用报销").equals(typename)){
 			Bursement  bu=budao.findByProId(pro);
 			if(shen.getFatherId().equals(u.getUserId())){
@@ -404,12 +462,68 @@ public class ProcedureController {
 		}else if(("出差费用申请").equals(typename)){
 			EvectionMoney emoney=emdao.findByProId(pro);
 			if(shen.getFatherId().equals(u.getUserId())){
+				
 				emoney.setManagerAdvice(reviewed.getAdvice());
 				emdao.save(emoney);
 			}
 			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
 				emoney.setFinancialAdvice(reviewed.getAdvice());
 				emdao.save(emoney);
+			}
+		}else if(("出差/外出申请").equals(typename)){
+			Evection ev=edao.findByProId(pro);
+			if(shen.getFatherId().equals(u.getUserId())){
+				ev.setManagerAdvice(reviewed.getAdvice());
+				edao.save(ev);
+			}
+			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+				ev.setPersonnelAdvice(reviewed.getAdvice());
+				edao.save(ev);
+			}
+		}else if(("加班申请").equals(typename)){
+			 Overtime over=odao.findByProId(pro);
+			if(shen.getFatherId().equals(u.getUserId())){
+				over.setManagerAdvice(reviewed.getAdvice());
+				odao.save(over);
+			}
+			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+				over.setPersonnelAdvice(reviewed.getAdvice());
+				odao.save(over);
+			}
+		}else if(("请假申请").equals(typename)){
+			 Holiday over=hdao.findByProId(pro);
+			if(shen.getFatherId().equals(u.getUserId())){
+				over.setManagerAdvice(reviewed.getAdvice());
+				hdao.save(over);
+			}
+			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+				over.setPersonnelAdvice(reviewed.getAdvice());
+				hdao.save(over);
+			}
+		}else if(("转正申请").equals(typename)){
+			 Regular over=rgdao.findByProId(pro);
+			if(shen.getFatherId().equals(u.getUserId())){
+				over.setManagerAdvice(reviewed.getAdvice());
+				rgdao.save(over);
+			}
+			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+				over.setPersonnelAdvice(reviewed.getAdvice());
+				rgdao.save(over);
+			}
+		}else if(("离职申请").equals(typename)){
+			
+			Resign over=rsdao.findByProId(pro);
+			if(shen.getFatherId().equals(u.getUserId())){
+				
+				over.setManagerAdvice(reviewed.getAdvice());
+				rsdao.save(over);
+			}
+			if(u.getPosition().getId()==5){
+				over.setPersonnelAdvice(reviewed.getAdvice());
+				rsdao.save(over);
+			}else if(u.getPosition().getId().equals(7L)){
+				over.setFinancialAdvice(reviewed.getAdvice());
+				rsdao.save(over);
 			}
 		}
 		return "redirect:/audit";
@@ -491,6 +605,88 @@ public class ProcedureController {
 		model.addAttribute("outtype", outtype);
 		return "process/evection";
 	}
+	/**
+	 * 出差申请表单接收
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@RequestMapping("evec")
+	public String evec(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Evection eve,BindingResult br,
+			HttpSession session) throws IllegalStateException, IOException{
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long lid=Long.parseLong(userId);
+		User lu=udao.findOne(lid);//申请人
+		User shen=udao.findByUserName(eve.getNameuser());//审核人
+		Long roleid=lu.getRole().getRoleId();//申请人角色id
+		Long fatherid=lu.getFatherId();//申请人父id
+		Long userid=shen.getUserId();//审核人userid
+		String val=req.getParameter("val");
+		if(roleid>=3L && fatherid==userid){
+			//set主表
+			ProcessList pro=eve.getProId();
+			proservice.index5(pro, val, lu, filePath);
+			edao.save(eve);
+			//存审核表
+			proservice.index7(shen, pro);
+		}else{
+			return "common/proce";
+		}
+		
+		return "redirect:/xinxeng";
+	}
+	//加班申请
+		@RequestMapping("overtime")
+		public String overtime(Model model, HttpSession session,HttpServletRequest request,
+				@RequestParam(value = "page", defaultValue = "0") int page,
+				@RequestParam(value = "size", defaultValue = "10") int size){
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long lid=Long.parseLong(userId);
+			//查找类型
+			List<SystemTypeList> overtype=tydao.findByTypeModel("aoa_overtime");
+			proservice.index6(model, lid, page, size);
+			model.addAttribute("overtype", overtype);
+			return "process/overtime";
+		}
+	/**
+	 * 加班申请接收
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+		@RequestMapping("over")
+		public String over(HttpServletRequest req,@Valid Overtime eve,BindingResult br,
+				HttpSession session) throws IllegalStateException, IOException{
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long lid=Long.parseLong(userId);
+			User lu=udao.findOne(lid);//申请人
+			User shen=udao.findByUserName(eve.getNameuser());//审核人
+			Long roleid=lu.getRole().getRoleId();//申请人角色id
+			Long fatherid=lu.getFatherId();//申请人父id
+			Long userid=shen.getUserId();//审核人userid
+			String val=req.getParameter("val");
+			if(roleid>=3L && fatherid==userid){
+				//set主表
+				ProcessList pro=eve.getProId();
+				proservice.index8(pro, val, lu);
+				odao.save(eve);
+				//存审核表
+				proservice.index7(shen, pro);
+			}else{
+				return "common/proce";
+			}
+			
+			return "redirect:/xinxeng";
+			
+		}
 	//请假申请
 	@RequestMapping("holiday")
 	public String holiday(Model model, HttpSession session,HttpServletRequest request,
@@ -504,18 +700,56 @@ public class ProcedureController {
 		model.addAttribute("overtype", overtype);
 		return "process/holiday";
 	}
-	//加班申请
-	@RequestMapping("overtime")
-	public String overtime(Model model, HttpSession session,HttpServletRequest request,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "10") int size){
+	/**
+	 * 请假申请接收
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping("holi")
+	public String holi(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Holiday eve,BindingResult br,
+			HttpSession session,Model model) throws IllegalStateException, IOException{
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long lid=Long.parseLong(userId);
-		//查找类型
-		List<SystemTypeList> overtype=tydao.findByTypeModel("aoa_overtime");
-		proservice.index6(model, lid, page, size);
-		model.addAttribute("overtype", overtype);
-		return "process/overtime";
+		User lu=udao.findOne(lid);//申请人
+		User shen=udao.findByUserName(eve.getNameuser());//审核人
+		Long roleid=lu.getRole().getRoleId();//申请人角色id
+		Long fatherid=lu.getFatherId();//申请人父id
+		Long userid=shen.getUserId();//审核人userid
+		String val=req.getParameter("val");
+		if(roleid>=3L && fatherid==userid){
+			SystemTypeList  type=tydao.findOne(eve.getTypeId());
+			if(eve.getTypeId()==40){
+				if(type.getTypeSortValue()<eve.getLeaveDays()){
+					model.addAttribute("error", "婚假必须小于10天。");
+					return "common/proce";
+				}
+			}else if(eve.getTypeId()==38){
+				if(type.getTypeSortValue()<eve.getLeaveDays()){
+					model.addAttribute("error", "单次事假必须小于4天。");
+					return "common/proce";
+				}
+			}else if(eve.getTypeId()==42){
+				if(type.getTypeSortValue()<eve.getLeaveDays()){
+					model.addAttribute("error", "陪产假必须小于10天。");
+					return "common/proce";
+				}
+			}else{
+				//set主表
+				ProcessList pro=eve.getProId();
+				proservice.index5(pro, val, lu, filePath);
+				hdao.save(eve);
+				//存审核表
+				proservice.index7(shen, pro);
+			}
+		}else{
+			return "common/proce";
+		}
+		
+		return "redirect:/xinxeng";
 	}
 	//转正申请
 	@RequestMapping("regular")
@@ -527,6 +761,46 @@ public class ProcedureController {
 		proservice.index6(model, lid, page, size);
 		return "process/regular";
 	}
+	/**
+	 * 转正申请接收
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+		@RequestMapping("regu")
+		public String regu(HttpServletRequest req,@Valid Regular eve,BindingResult br,
+				HttpSession session,Model model) throws IllegalStateException, IOException{
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long lid=Long.parseLong(userId);
+			User lu=udao.findOne(lid);//申请人
+			User shen=udao.findByUserName(eve.getNameuser());//审核人
+			Long roleid=lu.getRole().getRoleId();//申请人角色id
+			Long fatherid=lu.getFatherId();//申请人父id
+			Long userid=shen.getUserId();//审核人userid
+			String val=req.getParameter("val");
+			if(roleid>=3L && fatherid==userid){
+				if(lu.getRole().getRoleId()==6 ||lu.getRole().getRoleId()==7){
+					
+					//set主表
+					ProcessList pro=eve.getProId();
+					proservice.index8(pro, val, lu);
+					rgdao.save(eve);
+					//存审核表
+					proservice.index7(shen, pro);
+				}else{
+					model.addAttribute("error", "你不需要转正。。。");
+					return "common/proce";
+				}
+			}else{
+				return "common/proce";
+			}
+			
+			return "redirect:/xinxeng";
+			
+		}
 	//离职申请
 	@RequestMapping("resign")
 	public String resign(Model model, HttpSession session,HttpServletRequest request,
@@ -537,5 +811,39 @@ public class ProcedureController {
 		proservice.index6(model, lid, page, size);
 		return "process/resign";
 	}
-	
+	/**
+	 * 离职申请接收
+	 * @param model
+	 * @param session
+	 * @param request
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+		@RequestMapping("res")
+		public String res(HttpServletRequest req,@Valid Resign eve,BindingResult br,
+				HttpSession session,Model model) throws IllegalStateException, IOException{
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long lid=Long.parseLong(userId);
+			User lu=udao.findOne(lid);//申请人
+			User shen=udao.findByUserName(eve.getNameuser());//审核人
+			Long roleid=lu.getRole().getRoleId();//申请人角色id
+			Long fatherid=lu.getFatherId();//申请人父id
+			Long userid=shen.getUserId();//审核人userid
+			String val=req.getParameter("val");
+			if(roleid>=3L && fatherid==userid){
+				//set主表
+				ProcessList pro=eve.getProId();
+				proservice.index8(pro, val, lu);
+				eve.setHandUser(udao.findByUserName(eve.getHanduser()));
+				rsdao.save(eve);
+				//存审核表
+				proservice.index7(shen, pro);
+			}else{
+				return "common/proce";
+			}
+			
+			return "redirect:/xinxeng";
+			
+		}
 }

@@ -33,8 +33,13 @@ public class Regular {
 	
 	private String advice;//对公司产品的意见及建议
 	
+	private Double days;//实习天数
+	
 	@Column(name="personnel_advice")
 	private String personnelAdvice;//人事部意见及说明
+	
+	@Column(name="manager_advice")
+	private String managerAdvice;//经理意见及说明
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="pro_id")
@@ -43,7 +48,22 @@ public class Regular {
 	@Transient
 	private String nameuser;
 	
+	public Double getDays() {
+		return days;
+	}
+
+	public void setDays(Double days) {
+		this.days = days;
+	}
 	
+	public String getManagerAdvice() {
+		return managerAdvice;
+	}
+
+	public void setManagerAdvice(String managerAdvice) {
+		this.managerAdvice = managerAdvice;
+	}
+
 	public String getNameuser() {
 		return nameuser;
 	}
@@ -128,9 +148,12 @@ public class Regular {
 	public String toString() {
 		return "Regular [regularId=" + regularId + ", experience=" + experience + ", understand=" + understand
 				+ ", pullulate=" + pullulate + ", deficiency=" + deficiency + ", dobetter=" + dobetter + ", advice="
-				+ advice + ", personnelAdvice=" + personnelAdvice + ", nameuser=" + nameuser + "]";
+				+ advice + ", days=" + days + ", personnelAdvice=" + personnelAdvice + ", managerAdvice="
+				+ managerAdvice + ", nameuser=" + nameuser + "]";
 	}
 
+
+	
 
 
 	

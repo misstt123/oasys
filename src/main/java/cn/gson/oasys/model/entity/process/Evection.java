@@ -28,6 +28,12 @@ public class Evection {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	@Column(name="personnel_advice")
+	private String personnelAdvice;//人事部意见及说明
+	
+	@Column(name="manager_advice")
+	private String managerAdvice;//经理意见及说明
+	
 	@Transient
 	private String  nameuser;//审核人员
 	
@@ -64,10 +70,30 @@ public class Evection {
 		this.proId = proId;
 	}
 
+	
+	public String getPersonnelAdvice() {
+		return personnelAdvice;
+	}
+
+	public void setPersonnelAdvice(String personnelAdvice) {
+		this.personnelAdvice = personnelAdvice;
+	}
+
+	public String getManagerAdvice() {
+		return managerAdvice;
+	}
+
+	public void setManagerAdvice(String managerAdvice) {
+		this.managerAdvice = managerAdvice;
+	}
+
 	@Override
 	public String toString() {
-		return "Evection [evectionId=" + evectionId + ", typeId=" + typeId + ", nameuser=" + nameuser + "]";
+		return "Evection [evectionId=" + evectionId + ", typeId=" + typeId + ", personnelAdvice=" + personnelAdvice
+				+ ", managerAdvice=" + managerAdvice + ", nameuser=" + nameuser + "]";
 	}
+
+	
 
 
 

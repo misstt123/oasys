@@ -255,6 +255,13 @@ public class ProcessService {
 			pro.setProFileid(attaid);
 		}
 	}
+	public void index8(ProcessList pro,String val,User lu) {
+		pro.setTypeNmae(val);
+		pro.setApplyTime(new Date());
+		pro.setUserId(lu);
+		pro.setStatusId(23L);
+		
+	}
 	/**
 	 * 存审核表
 	 */

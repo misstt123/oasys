@@ -42,6 +42,7 @@ a:hover {
 	border:0px solid red;
 	margin-left: 13px;
     margin-right: 17px;
+    position: relative;
 }
 .content{
 	display: inline-block;
@@ -49,6 +50,7 @@ a:hover {
     width: 95%;
     min-height: 80px;
     border-radius: 5px;
+    margin-left: 54px;
 }
 .pa{
 	padding-left: 13px;
@@ -91,13 +93,15 @@ a:hover {
 				<div class="shen">
 					<p>${(list.poname)!''}：${(list.username)!''}<span class="pull-right">${(list.retime)!''}</span></p>
 					<div >
+					<div style="display:inline-block;position:absolute;">
 					<#if list.img?? && list.img!=''>
-						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
 							src="/image/${list.img}" />
 						<#else>
-						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
 							src="images/timg.jpg" alt="images"/>
 					</#if>	
+					</div>
 					<div class="content">
 						<p class="pa" style="padding-top: 9px;">审核状态:<i class="label ${list.statuscolor}">${(list.restatus)!''}</i></p>
 						<p class="pa" >审核意见：${(list.des)!''}</p>
@@ -109,14 +113,15 @@ a:hover {
 				<div class="shen">
 					<p>申请人：${(process.userId.userName)!''}<span class="pull-right">${(process.applyTime)!''}</span></p>
 					<div >
+					<div style="display:inline-block;position:absolute;">
 					<#if process.userId.imgPath?? && process.userId.imgPath!=''>
-						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
 							src="/image/${process.userId.imgPath}" />
 						<#else>
-						<img style="width: 50px;height: 50px;border-radius: 72px;margin-top: -46px;"
+						<img style="width: 50px;height: 50px;border-radius: 72px; position: relative;bottom:0px;right:0px;"
 							src="images/timg.jpg" alt="images"/>
 					</#if>	
-					
+					</div>
 					<div class="content">
 					<#if typename=="费用报销">
 					<p class="pa" style="padding-top: 9px;">报销总金额：${(bu.allMoney)!''}</p>
@@ -125,6 +130,20 @@ a:hover {
 					<#if typename=="出差费用申请">
 					<p class="pa" style="padding-top: 9px;">申请总金额：${(bu.money)!''}</p>
 					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
+					</#if>
+					<#if typename=="出差/外出申请" || typename=="加班申请" ||typename=="请假申请">
+					<p class="pa" style="padding-top: 9px;">开始时间：${(process.startTime)!''}</p>
+					<p class="pa" >结束时间：${(process.endTime)!''}</p>
+					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
+					</#if>
+					<#if typename=="转正申请">
+					<p class="pa" style="padding-top: 9px;">试用/实习职位：${(position.position.name)!''}</p>
+					<p class="pa" >开始时间：${(process.startTime)!''}</p>
+					<p class="pa" >结束时间：${(process.endTime)!''}</p>
+					</#if>
+					<#if typename=="离职申请">
+					<p class="pa" style="padding-top: 9px;">在职岗位：${(position.position.name)!''}</p>
+					<p class="pa" >离职理由：${(process.processDescribe)!''}</p>
 					</#if>
 					</div>
 					</div>
@@ -154,17 +173,26 @@ a:hover {
 					<label class="control-label">审核理由</label>
 					<textarea class="form-control text" name="advice"></textarea>
 				</div> 
-				<input type="text" hidden="hidden" name=proId value="${(bu.proId.processId)!''}"/>
+				
 			</div>
 			<div class="box-footer" style="padding-left: 26px;">
-			<input type="text" hidden="hidden" value="{typename}" name=typename/>
-			<#if statusid ==23>
-				<#if positionid==5||positionid==7>
+			<input type="text" style="display:none;" value="${typename}" name="type"/>
+			<input type="text" style="display:none;" name="proId" value="${(process.processId)!''}"/>
+			<#if typename=="离职申请">
+				<#if size!=3>
+					<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
+					<#else>
+					<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+				</#if>
+			<#else>
+			<#if ustatusid ==23>
+				<#if positionid==5 || positionid==7>
 					<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
 				  <#else>
 					<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
 				</#if>
 			</#if>	
+			</#if>
 				<input class="btn btn-default" id="cancel" type="submit" value="取消"
 					onclick="window.history.back();" />
 			</div>

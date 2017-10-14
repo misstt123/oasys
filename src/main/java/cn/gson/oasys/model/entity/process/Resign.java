@@ -40,17 +40,28 @@ public class Resign {
 	@Column(name="personnel_advice")
 	private String personnelAdvice;//人事部意见及说明
 	
+	@Column(name="manager_advice")
+	private String managerAdvice;//经理意见及说明
+	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
 	@Transient
-	private String nameuser;
+	private String nameuser;//审核人员
 	
 	@Transient
-	private String handuser;
+	private String handuser;//交接人员
 	
 	
+
+	public String getManagerAdvice() {
+		return managerAdvice;
+	}
+
+	public void setManagerAdvice(String managerAdvice) {
+		this.managerAdvice = managerAdvice;
+	}
 
 	public String getNameuser() {
 		return nameuser;
@@ -134,10 +145,13 @@ public class Resign {
 
 	@Override
 	public String toString() {
-		return "Resign [resignId=" + resignId + ", suggest=" + suggest + ", finish=" + finish + ", nofinish=" + nofinish
-				+ ", financialAdvice=" + financialAdvice + ", personnelAdvice=" + personnelAdvice + ", nameuser="
-				+ nameuser + ", handuser=" + handuser + "]";
+		return "Resign [resignId=" + resignId + ", suggest=" + suggest + ", finish=" + finish + ", handUser=" + handUser
+				+ ", nofinish=" + nofinish + ", financialAdvice=" + financialAdvice + ", personnelAdvice="
+				+ personnelAdvice + ", managerAdvice=" + managerAdvice + ", nameuser=" + nameuser + ", handuser="
+				+ handuser + "]";
 	}
+
+	
 	
 
 }

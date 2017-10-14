@@ -93,6 +93,34 @@ Date.prototype.Format = function(fmt) { //author: meizz
 			var start=$(".clic").val();
 			WdatePicker({ minDate:addDate(start,0),maxDate:addDate(start,60),dateFmt:'yyyy-MM-dd HH:mm:ss'});
 		});
+		
+		$('.holistart').val(startime);
+		
+		$(".holistart").click(function(){
+			var start=$(this).val();
+			WdatePicker({ minDate:addDate(start,0),maxDate:addDate(start,180),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		
+		$('.holiend').val(startime);
+		
+		$(".holiend").click(function(){
+			var start=$(this).val();
+			WdatePicker({ minDate:addDate(start,0),maxDate:addDate(start,180),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		
+		$('.zhuanstart').val(startime);
+		
+		$(".zhuanstart").click(function(){
+			var start=$(this).val();
+			WdatePicker({ minDate:addDate(-90,0),maxDate:addDate(start,5),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
+		
+		$('.zhuanend').val(startime);
+		
+		$(".zhuanend").click(function(){
+			var start=$(this).val();
+			WdatePicker({ minDate:addDate(start,0),maxDate:addDate(start,5),dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		});
 	});
 	
 	

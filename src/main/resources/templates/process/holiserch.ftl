@@ -164,7 +164,7 @@ border-top: 1px solid #2196F3;
 				</tr>
 				
 				<tr class="top ss">
-					<td colspan="14" class="wi "><div class="bottom" ><label class="control-label font">差旅信息</label></div></td>
+					<td colspan="14" class="wi "><div class="bottom" ><label class="control-label font">申请明细</label></div></td>
 				</tr>
 				
 				<tr class="rile two">
@@ -172,143 +172,30 @@ border-top: 1px solid #2196F3;
 					<td  style="width:170px;"><div class="bottom">${map.startime}</div></td>
 					<td class="css"style="width:30px;"></td>
 					<td class="wi" style="width:90px;"><label class="control-label">结束日期</label></td>
-					<td colspan="4" style="width:44px;"><div class="bottom">${map.endtime}</div></td>
+					<td colspan="4" style="width:100px;"><div class="bottom">${map.endtime}</div></td>
 					<td class="css" style="width:30px;"></td>
-					<td class="wi"><label class="control-label">出差天数</label></td>
-					<td colspan="4" ><div class="bottom">${(map.tianshu)!''}</div></td>
+					<td class="wi"><label class="control-label">请假天数</label></td>
+					<td colspan="4" ><div class="bottom">${(map.tianshu)!''}天</div></td>
 				</tr>
 				
 				<tr class="rile">
-					<td class="wi" style="width:100px;"><label class="control-label">相关客户</label></td>
-					<td  style="width:140px;"><div class="bottom">${(emoney.name)!''}</div></td>
-					<td class="css"style="width:30px;"></td>
-					<td class="wi" style="width:90px;"><label class="control-label">相关票据</label></td>
-					<td colspan="4" style="width:44px;"><div class="bottom">${(map.file.attachmentId)!''}   ${(map.file.attachmentName)!''}</div></td>
+					<td class="wi" style="width:100px;"><label class="control-label">请假类型</label></td>
+					<td  style="width:140px;"><div class="bottom">${(type)!''}</div></td>
+					<td class="css" style="width:30px;"></td>
+					<td class="wi"><label class="control-label">相关资料</label></td>
+					<td colspan="4" ><div class="bottom">${(map.file.attachmentId)!''}   ${(map.file.attachmentName)!''}</div></td>
 					<td class="css" colspan="6" ></td>
 					
 				</tr>
-				<tr class="top">
-					<td colspan="14" class="wi "><div class="bottom" ><label class="control-label font">差旅交通明细</label></div></td>
-				</tr>
-				<tr class="rile">
-					<td colspan="14" >
-					<div >
-						<table class="table inside">
-							<thead>
-								<tr>
-									 <th style="width: 57.6px;">序号</th>
-									 <th colspan="2" style="width: 96px;">出差人员</th>
-									 <th colspan="2" style="width: 193.6px;">出发日期</th>
-									 <th colspan="2" style="width: 193.6px;">出发城市</th>
-									 <th colspan="2" style="width: 96px;">到达城市</th>
-									 <th colspan="2" style="width: 96.8px;">交通工具</th>
-									 <th colspan="2" style="width: 96.8px;">座位类型</th>
-									 <th  class="mm" style="width: 121.6px;">交通标准</th>
-								</tr>
-							</thead>
-							<tbody class="tbody">
-							<#list tralist as tra>
-							<tr class="tr">
-									<td style="border-left: 0px ;"><span>${tra_index+1}</span></td>
-									<td colspan="2"><span>${tra.user.userName}</span></td>
-									<td colspan="2"><span>${tra.departTime}</span></td>
-									<td colspan="2"><span>${tra.departName}</span></td>
-									<td colspan="2"><span>${tra.reachName}</span></td>
-									<td colspan="2"><span>${tra.trafficName}</span></td>
-									<td colspan="2"><span>${tra.seatType}</span></td>
-									<td ><span>${tra.trafficMoney}</span></td>
-									
-							</tr>
-							</#list>
-						   </tbody> 
-						   <tfoot>
-						   	<tr>
-						   			<td><span>合计</span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td  class="mm"><span>${tramoney}</span></td>
-						   	</tr>
-						   </tfoot>
-						</table>
-					</div>
-					</td>
-				</tr>
-				<tr class="top">
-					<td colspan="14" class="wi "><div class="bottom" ><label class="control-label font">差旅住宿明细</label></div></td>
-				</tr>
-				<tr class="rile">
-					<td colspan="14" >
-					<div >
-						<table class="table inside">
-							<thead>
-								<tr>
-									 <th style="width: 57.6px;">序号</th>
-									 <th colspan="2" style="width: 96px;">出差人员</th>
-									 <th colspan="2" style="width: 193.6px;">入住日期</th>
-									 <th colspan="2" style="width: 193.6px;">离店日期</th>
-									 <th colspan="2" style="width: 96px;">入住城市</th>
-									 <th colspan="2" style="width: 96.8px;">入住酒店</th>
-									 <th colspan="2" style="width: 96.8px;">入住天数</th>
-									 <th  class="mm" style="width: 121.6px;">住宿标准/天</th>
-								</tr>
-							</thead>
-							<tbody class="tbody">
-							<#list staylist as stay>
-							<tr class="tr">
-									<td style="border-left: 0px ;"><span>${stay_index+1}</span></td>
-									<td colspan="2"><span>${stay.user.userName}</span></td>
-									<td colspan="2"><span>${stay.stayTime}</span></td>
-									<td colspan="2"><span>${stay.leaveTime}</span></td>
-									<td colspan="2"><span>${stay.stayCity}</span></td>
-									<td colspan="2"><span>${stay.hotelName}</span></td>
-									<td colspan="2"><span>${stay.day}</span></td>
-									<td ><span>${stay.stayMoney}</span></td>
-									
-							</tr>
-							</#list>
-						   </tbody> 
-						   <tfoot>
-						   	<tr>
-						   			<td><span>合计</span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td colspan="2"><span></span></td>
-									<td  class="mm"><span>${staymoney}</span></td>
-						   	</tr>
-						   </tfoot>
-						</table>
-					</div>
-					</td>
-				</tr>
 				<tr class="rile" style="height:70px;">
 					<td colspan="14"  >
-						<div  class="out">
+						<div  class="out" style="height:84px;">
 							<table class="table ob ">
 								<tr>
 									<td style="width:130px;text-align:center;background-color:#6d9eeb;">
 										<div class="mon">
-											<p style="height:10px;"></p>
-											<span>合计金额</span>
-											<br>
-											<span>(大写)</span>
-										</div>
-									</td>
-									<td colspan="13"><p style="margin-top: 20px;font-size:16px;">${(allmoney)!''}</p></td>
-								</tr>
-								
-								<tr>
-									<td style="width:130px;text-align:center;background-color:#6d9eeb;">
-										<div class="mon">
 											<p style="height:20px;"></p>
-											<span>报销事由</span>
-											
+											<span>请假事由</span>
 										</div>
 									</td>
 									<td colspan="13"><p style="margin-top: 20px;font-size:16px;">${(map.processDescribe)!''}</p></td>
@@ -331,18 +218,18 @@ border-top: 1px solid #2196F3;
 											<span>经理意见</span>
 										</div>
 									</td>
-									<td colspan="13"><p style="margin-top: 20px;font-size:16px;">${(emoney.managerAdvice)!''}</p></td>
+									<td colspan="13"><p style="margin-top: 20px;font-size:16px;">${(eve.managerAdvice)!''}</p></td>
 								</tr>
 								
 								<tr>
 									<td style="width:130px;text-align:center;background-color:#6d9eeb;">
 										<div class="mon">
 											<p style="height:20px;"></p>
-											<span>财务经理意见</span>
+											<span>人事经理意见</span>
 											
 										</div>
 									</td>
-									<td colspan="13"><p style="margin-top: 20px;font-size:16px;">${(emoney.financialAdvice)!''}</p></td>
+									<td colspan="13"><p style="margin-top: 20px;font-size:16px;">${(eve.personnelAdvice)!''}</p></td>
 								</tr>
 							</table>
 						</div>
