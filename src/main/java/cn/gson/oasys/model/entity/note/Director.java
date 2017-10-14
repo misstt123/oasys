@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -19,7 +20,6 @@ import javax.persistence.Table;
 import cn.gson.oasys.model.entity.user.User;
 
 /**
-
  * user_id
  * 外键没有连
  * @author admin
@@ -34,65 +34,95 @@ public class Director {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long  directorId; //主键
 	
+	@Column(name="user_name")
+	private String userName;	//通讯录名称
+	
+	private String pinyin;		//通讯录名称的拼音
+	
 	private String  sex;		//性别
-	
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User myuser;
-	
-	@Column(name="type_id")
-	private Long typeId; //类型id
-	
-	@Column(name="status_id")
-	private Long statusId; //状态id
-	
-	@Column(name="addr_name")
-	private String  addrName;   //联系人姓名
 	
 	@Column(name="phone_number")
 	private String  phoneNumber;  //电话号码
 	
-	private String  tell;       //座机
-	
-	private String  email;		//邮件
-	
-	private String  address;	//地址
+	@Column(name="image_path")
+	private String  imagePath;	 //头像路径
 	
 	private String  remark;     //备注
 	
-	@Column(name="image_path")
-	private String  imagePath; 
+	private String  address;	//用户住址
 	
-	@ManyToOne
-	@JoinColumn(name="director_catalog_id")
-	private Catalog  catalogId;
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User myuser;		//由哪个用户创建的
 	
-	@ManyToMany(mappedBy="director")
-	private Set<User> user;
+	private String  email;		//邮件
+	
+	@Column(name="company_number")
+	private String companyNumber;	//公司号码
+	
+	private String companyname;		//公司名称
 	
 	
 	
-	public User getMyuser() {
-		return myuser;
-	}
-
-	public void setMyuser(User myuser) {
-		this.myuser = myuser;
-	}
-
-	public void setImagePath(String imagePath) {
+	public Director(Long directorId, String userName, String pinyin, String sex, String phoneNumber, String imagePath,
+			String remark, String address, User myuser, String email) {
+		super();
+		this.directorId = directorId;
+		this.pinyin = pinyin;
+		this.sex = sex;
+		this.phoneNumber = phoneNumber;
 		this.imagePath = imagePath;
+		this.remark = remark;
+		this.address = address;
+		this.myuser = myuser;
+		this.email = email;
 	}
-	
-	public String getImagePath() {
-		return imagePath;
+
+	public Director() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+
 	public Long getDirectorId() {
 		return directorId;
+	}
+	
+	
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
+	public String getCompanyNumber() {
+		return companyNumber;
+	}
+
+	public void setCompanyNumber(String companyNumber) {
+		this.companyNumber = companyNumber;
 	}
 
 	public void setDirectorId(Long directorId) {
 		this.directorId = directorId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
 	}
 
 	public String getSex() {
@@ -103,14 +133,6 @@ public class Director {
 		this.sex = sex;
 	}
 
-	public String getAddrName() {
-		return addrName;
-	}
-
-	public void setAddrName(String addrName) {
-		this.addrName = addrName;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -119,28 +141,12 @@ public class Director {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getTell() {
-		return tell;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setTell(String tell) {
-		this.tell = tell;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	public String getRemark() {
@@ -151,49 +157,42 @@ public class Director {
 		this.remark = remark;
 	}
 
-
-	
-	public Long getTypeId() {
-		return typeId;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setTypeId(Long typeId) {
-		this.typeId = typeId;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public Long getStatusId() {
-		return statusId;
+
+	public User getMyuser() {
+		return myuser;
 	}
 
-	public void setStatusId(Long statusId) {
-		this.statusId = statusId;
+	public void setMyuser(User myuser) {
+		this.myuser = myuser;
 	}
 
-	public Catalog getCatalogId() {
-		return catalogId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCatalogId(Catalog catalogId) {
-		this.catalogId = catalogId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
-	public Set<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Set<User> user) {
-		this.user = user;
-	}
-
-	
-	public Director() {}
 
 	@Override
 	public String toString() {
-		return "Director [directorId=" + directorId + ", sex=" + sex + ", typeId=" + typeId + ", statusId=" + statusId
-				+ ", addrName=" + addrName + ", phoneNumber=" + phoneNumber + ", tell=" + tell + ", email=" + email
-				+ ", address=" + address + ", remark=" + remark + ", imagePath=" + imagePath + "]";
+		return "Director [directorId=" + directorId + ", userName=" + userName + ", pinyin=" + pinyin + ", sex=" + sex
+				+ ", phoneNumber=" + phoneNumber + ", imagePath=" + imagePath + ", remark=" + remark + ", address="
+				+ ", companyNumber=" + companyNumber + ",companyname="+companyname+"]";
 	}
+
+
+	
+	
+	
 
 	
 }

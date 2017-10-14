@@ -43,10 +43,41 @@ li.activee>a {
 	border: none;
 	color: #9e9e9e;
 }
+#thisul li a{
+	padding:10px;
+}
+.thisbox-header:HOVER{
+	background-color: #eee;
+	color:#337ab7;
+}
+#thispills:HOVER{
+	cursor: pointer;
+}
+#thispills li{
+	border:1px solid #ccc;
+	border-left: none;
+}
+#thispills li a:HOVER{
+	background-color: #337ab7;
+	color:#fff;
+}
+#thispills li a{
+	padding:8px;
+}
+.ulfather .collapsed{
+	cursor: pointer;
+}
+.nav>li>a {
+	padding:15px;
+}
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
-		<h1 style="font-size: 24px; margin: 0;" class="">通讯录</h1>
+		<h1 style="font-size: 24px; margin: 0;" class="">通讯录
+		<a href="" class="label xinzeng" style="padding: 5px;margin-left:5px;">
+						<span class="glyphicon glyphicon-refresh"></span> 刷新
+					</a>
+		</h1>
 	</div>
 	<div class="col-md-10 text-right">
 		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
@@ -55,7 +86,7 @@ li.activee>a {
 </div>
 <div class="row" style="padding-top: 15px;">
 	<div class="col-md-3">
-		<a class="btn btn-primary" href="##"
+		<a class="btn btn-primary addaddress" href="javascript:void(0);"
 			style="width: 100%; margin-bottom: 20px;"><span
 			class="glyphicon glyphicon-edit"></span> 新建联系人</a>
 		<div class="bgc-w box box-solid">
@@ -65,13 +96,19 @@ li.activee>a {
 					class="glyphicon glyphicon-minus"></i>
 				</span>
 			</div>
-			<ul class="nav nav-pills nav-stacked mm">
-				<li class="activee"><a href="##"> <span
-						class="glyphicon glyphicon-time"> 最近</span></a></li>
-				<li><a href="##"><span
-						class="glyphicon glyphicon-folder-close"></span> ssss</a></li>
-				<li><a href="##"><span
-						class="glyphicon glyphicon-folder-close"></span> aaaaa</a></li>
+			<ul class="nav nav-pills nav-stacked mm" id="navpills">
+				<li class="activee notfather">
+					<a href="##"> <span	class="glyphicon glyphicon-user"> 内部通讯录</span>
+					</a>
+				</li>
+				<li class="ulfather">
+					<a href="#"><span class="glyphicon glyphicon-user"> 外部通讯录</span> 
+						<i class="glyphicon pull-right glyphicon-menu-left collapsed" href="#thisul"  data-toggle="collapse" ></i>
+					</a>
+				</li>
+				<ul id="thisul" class="nav nav-pills nav-stacked panel-collapse collapse">
+					<#include "addtypename.ftl"/>
+				</ul>
 			</ul>
 		</div>
 
@@ -81,196 +118,245 @@ li.activee>a {
 			</div>
 			<div class="box-body">
 				<div class="input-group">
-					<input type="text" class="form-control" name="" value=""
-						placeholder="通讯录分类" />
+					<input type="text" class="form-control addtypename" name="" value="" placeholder="新增外部分类" />
 					<div class="input-group-btn">
-						<input type="submit" class="btn btn-primary" name="" id=""
-							value="新增" />
+						<input type="submit" class="btn btn-primary addtype" name="" id="" style="padding:6px;" value="新增" />
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="bgc-w box box-solid">
-			<div class="box-header">
-				<h3 class="box-title">类型</h3>
-				<span class="btn btn-default pull-right btn-xs des"> <i
-					class="glyphicon glyphicon-minus"></i>
-				</span>
+		<a href="#">
+			<div class="box-header thisbox-header">
+				<h3 class="box-title">我的消息</h3>
+				<span class="badge pull-right" style="background:#337ab7;">10</span>
 			</div>
-			<ul class="nav nav-pills nav-stacked">
-				<li><a href="##"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> 我的文件
-				</a></li>
-				<li><a href="##"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> 公司文件
-				</a></li>
-				<li><a href="##"> <svg class="icon" aria-hidden="true">
-											<use xlink:href="#icon-kongxinquan"></use>
-										</svg> 共享
-				</a></li>
-			</ul>
+		</a>
 		</div>
 	</div>
 	<div class="col-md-9">
 		<!--id="container"-->
-		<div class="bgc-w box box-primary">
-			<!--盒子头-->
-			<div class="box-header">
-				<h3 class="box-title">最近</h3>
-				<div class="box-tools">
-					<div class="input-group" style="width: 150px;">
-						<input type="text" class="form-control input-sm"
-							placeholder="查找..." />
-						<div class="input-group-btn">
-							<a class="btn btn-sm btn-default"><span
-								class="glyphicon glyphicon-search"></span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--盒子身体-->
-			<div class="box-body no-padding">
-				<div style="padding: 5px;">
-					<a class="btn btn-sm btn-default chec" href="" title="全选/反选"><span
-						class="glyphicon glyphicon-unchecked"></span></a>
-					<div class="btn-group">
-						<a class="btn btn-sm btn-default" href="" title="删除"><span
-							class="glyphicon glyphicon-trash"></span></a> <a
-							class="btn btn-sm btn-default" href="" title="标为星标"><span
-							class="glyphicon glyphicon-star"></span></a>
-					</div>
-					<a class="btn btn-sm btn-default" href="" title="刷新"><span
-						class="glyphicon glyphicon-refresh"></span></a>
-				</div>
-				<div class="table-responsive">
-					<table class="table table-hover table-striped">
-						<tr>
-							<th scope="col">选择</th>
-							<th scope="col">&nbsp;</th>
-							<th scope="col">类型</th>
-							<th scope="col">&nbsp;</th>
-							<th scope="col">联系人</th>
-							<th scope="col">手机号码</th>
-							<th scope="col">性别</th>
-							<th scope="col">分类</th>
-							<th scope="col">状态</th>
-							<th scope="col">操作</th>
-						</tr>
-						<tr>
-							<td style="text-align: center;"><span class="labels"><label><input
-										name="items" type="checkbox"><i>✓</i></label></span></td>
-							<td><span class="glyphicon glyphicon-star-empty"
-								style="color: #f39c12;"></span></td>
-							<td><span>我的通讯录</span></td>
-							<td><a href="#"><img src="img/1.jpg" class="img-circle"
-									style="width: 25px; height: 25px;"></a></td>
-							<td><span>哈哈哈</span></td>
-							<td><span>111122223333</span></td>
-							<td><span>男</span></td>
-							<td><span>ssss</span></td>
-							<td>
-								<div class="label label-info">一般</div>
-							</td>
-							<td><a  href="##" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a>
-								<a href="##" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> 
-								<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-								href="##" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-						<tr>
-							<td style="text-align: center;"><span class="labels"><label><input
-										name="items" type="checkbox"><i>✓</i></label></span></td>
-							<td><span class="glyphicon glyphicon-star"
-								style="color: #f39c12;"></span></td>
-							<td><span>我的通讯录</span></td>
-							<td><a href="#"><img src="img/1.jpg" class="img-circle"
-									style="width: 25px; height: 25px;"></a></td>
-							<td><span>嘿嘿嘿</span></td>
-							<td><span>111122223333</span></td>
-							<td><span>男</span></td>
-							<td><span>aaaa</span></td>
-							<td>
-								<div class="label label-warning">重要</div>
-							</td>
-							<!--style="padding: 0.4em .6em .3em;"-->
-							<td><a title="修改" href="" class="label xiugai"><span
-									class="glyphicon glyphicon-edit"></span> 修改</a> 
-								<a href="##" class="label xiugai"><span
-									class="glyphicon glyphicon-search"></span> 查看</a> <a
-								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-								href="" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<!--盒子尾-->
-			<div class="box-footer no-padding" style="margin-top: -20px;">
-				<div style="padding: 5px;">
-					<div id="page"
-						style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-						<div style="width: 40%; float: left;">
-							<div class="pageInfo" style="margin-left: 5px;">
-								共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-							</div>
-						</div>
-						<div style="width: 60%; float: left;">
-							<div class="pageOperation">
-								<a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-backward"></span>
-								</a> <a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-triangle-left"></span>
-								</a> <a disabled="disabled" class="btn btn-default no-padding"
-									style="width: 30px; height: 20px;"> 1 </a> <a
-									class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-triangle-right"></span>
-								</a> <a class="btn btn-sm btn-default no-padding"
-									style="width: 30px; height: 20px;"> <span
-									class="glyphicon glyphicon-forward"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		<ul class="nav nav-pills nav-justified" id="thispills" style="margin-bottom: 14px;">
+		  <li role="presentation" class="active" style="border-left:1px solid #ccc;border-radius: 5px 0px 0px 5px;"><a href="javascript:void(0);">ALL</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">A</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">B</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">C</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">D</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">E</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">F</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">G</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">H</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">I</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">J</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">K</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">L</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">M</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">N</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">O</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">P</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">Q</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">R</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">S</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">T</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">U</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">V</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">W</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">X</a></li>
+		  <li role="presentation"><a href="javascript:void(0);">Y</a></li>
+		  <li role="presentation" style="border-radius: 0px 5px 5px 0px;"><a href="javascript:void(0);">Z</a></li>
+		</ul>
+		<div class="bgc-w box box-primary thistable">
+			<#include "inaddrss.ftl"/>
 		</div>
 	</div>
 </div>
+<#include "/common/modalTip.ftl"/>
+<#include "changetypename.ftl"/> 
+<#include "/common/reciver.ftl">
 <script src="js/common/iconfont.js"></script>
 <script type="text/javascript">
 		$(function() {
-			//			$('.pjax').bind('click', function() {
-			//				$('.select').removeClass('select');
-			//				$(this).addClass('select');
-			//				$.ajax({
-			//					type: 'GET',
-			//					url: this.href,
-			//					success: function(data) {
-			//						$('#container').html(data);
-			//					}
-			//				});
-			//				window.history.pushState({
-			//					url: this.href
-			//				}, null, this.href);
-			//				return false;
-			//			});
-			//			window.addEventListener("popstate", function() {
-			//				$.ajax({
-			//					type: 'GET',
-			//					url: location.href,
-			//					success: function(data) {
-			//						$('#container').html(data);
-			//					}
-			//				});
-			//			});
+			/*分享。。。*/
+			$('.thistable').on('click','.thisshare',function(){
+				$('#myModal').modal("toggle");
+			}
+			
+			/* 用户删除某个联系人 */
+			$('.thistable').on('click','.thisdelete',function(){
+				var did=$(this).attr('did');
+				console.log(did);
+				if(confirm("确定删除吗？")){
+					$('.thistable').load('deletedirector',{did:did});
+				}
+			})
+			
+			/* 新建外部联系人分类 */
+			$('.addtype').on('click',function(){
+				var typename=$('.addtypename').val().trim();
+				console.log(typename);
+				var count=1;
+				$('#thisul li a').each(function(index){
+					if($(this).text().trim()==typename){
+						console.log("分类名字已存在");
+						count=0;
+						$('.modal-error-mess').text("该分类名字已经存在,请重新命名!");
+						modalShow(0);
+						return false;
+					}
+				})
+				if(count==0){
+					console.log("分类名字已存在————————不会往下执行了");
+					return false;
+				}
+				console.log("会继续往下面走，执行ajax");
+				$('#thisul').load("addtypename",{typename:typename},function(response,status,xhr){
+					modalShow(1);
+					$('.addtypename').val("");
+					/* console.log("听说这是执行成功会返回的的？？？");
+					console.log("response:"+response);
+					console.log("status:"+status);
+					console.log("xhr:"+xhr); */
+				});
+			})
+			
+			/* 新建联系人 */
+			$('.addaddress').on('click',function(){
+				$('.thistable').load('addaddress');
+			})
+			/* 修改外部联系人 */
+			$('.thistable').on('click','.thischange',function(){
+				var did=$(this).attr('did');
+				console.log(did);
+				$('.thistable').load('addaddress',{did:did});
+			})
+			/* 刷新按钮 */
+			$('.thistable').on('click','.thisrefresh',function(){
+				var alph=$('#thispills .active a').text().trim();	//获取字母表中的值
+				var baseKey=$('.baseKey').val().trim();				//获取搜索关键字
+				var type=$('#navpills .activee').text().trim();		//获取内部或外部的类型值
+				var outtype=$('#thisul .activee').text().trim();	//获取外部通讯录的分类名称
+				if(type=="内部通讯录"){
+					$('.thistable').load('inaddresspaging',{alph:alph});
+				}else{
+					/* 就是进入外部通讯录了， */
+					$('.thistable').load('outaddresspaging',{alph:alph,outtype:outtype});
+				}
+			})
+			
+			/* 查找关键字事件， */
+			$('.thistable').on('click','.baseKeySumbit',function(){
+				var alph=$('#thispills .active a').text().trim();	//获取字母表中的值
+				var baseKey=$('.baseKey').val().trim();				//获取搜索关键字
+				var type=$('#navpills .activee').text().trim();		//获取内部或外部的类型值
+				var outtype=$('#thisul .activee').text().trim();	//获取外部通讯录的分类名称
+				if(type=="内部通讯录"){
+					$('.thistable').load('inaddresspaging',{alph:alph,baseKey:baseKey});
+				}else{
+					/* 就是进入外部通讯录了， */
+					
+					$('.thistable').load('outaddresspaging',{alph:alph,outtype:outtype,baseKey:baseKey});
+				}
+			})
+			
+			/*字母表的字母点击事件  */
+			$('#thispills a').on('click',function(){
+				/* 这里获取到的是上一次active的那一个， */
+				console.log("外部通讯录值："+$('#thisul .activee').text().trim());
+				console.log("关键字："+$('.baseKey').val());
+				var alph=$(this).text().trim();
+				var type=$('#navpills .activee').text().trim();
+				var baseKey=$('.baseKey').val().trim();
+				var outtype=$('#thisul .activee').text().trim();
+				if(type=="内部通讯录"){
+					console.log("是内部通讯录");
+					$('.thistable').load('inaddresspaging',{alph:alph,baseKey:baseKey});
+				}else{
+					/*还要进行判断，是否为空；不为空说明是在外部的分类里面进行；为空说明查找所有的外部通讯录  */
+					console.log("是外部通讯录");
+					$('.thistable').load('outaddresspaging',{alph:alph,outtype:outtype,baseKey:baseKey});
+				}
+			})
+			
+			/* 外部通讯录的点击事件，只需要知道字母表的值就ok了*/
+			$('.ulfather').on('click',function(){
+				var alph=$('#thispills .active a').text().trim();
+				$('.thistable').load('outaddresspaging',{alph:alph});			
+			})
+			/* 内部通讯录的点击事件，只需要知道字母表的值就ok了 */
+			$('.notfather').on('click',function(){
+				var alph=$('#thispills .active a').text().trim();
+				$('.thistable').load('inaddresspaging',{alph:alph});			
+			})
+			/* 外部的分类点击事件 */
+			$('#thisul').on('click','li a',function(){
+				var alph=$('#thispills .active a').text().trim();
+				var outtype=$(this).text().trim();
+				console.log(outtype);
+				$('.thistable').load('outaddresspaging',{alph:alph,outtype:outtype});	
+			})
+			/* 外部通讯录分类的编辑与删除 */
+			$('#thisul').on('click','.thisxiugai',function(){
+				var typename=$(this).parent().parent('a').text().trim();
+				$('#typenameModal').modal("toggle");
+				$('#typenameModal .form-control').val(typename);
+				$('#typenameModal #commentid').val(typename);
+			})
+			/* 分类名称的删除 */
+			$('#thisul').on('click','.thisshanchu',function(){
+				if(confirm("确定删除该分类吗？该分类将被移到外部通讯录哟")){
+					var typename=$(this).parent().parent('a').text().trim();
+					$('#thisul').load('addtypename',{typename:'',oldtypename:typename});
+					$('.thistable').load('deletetypename',{typename:typename});
+				}
+				
+				
+			})
+			/* 修改分类的保存按钮 */
+			$('#commentsave').on('click',function(){
+				var typename=$('#typenameModal .form-control').val();
+				var oldtypename=$('#typenameModal #commentid').val();
+				console.log("typename:"+typename);
+				console.log("oldtypename:"+oldtypename);
+				$('.thistable').load('changetypename',{typename:typename,oldtypename:oldtypename});
+				$('#thisul').load("addtypename",{typename:typename,oldtypename:oldtypename});
+			})
+			
+			/* 外部的分类的鼠标移入事件，显示修改和删除的图标 */
+			$('#thisul').on('mouseover','li a',function(){
+				$(this).children('.pull-right').css("display","block");
+			})
+			$('#thisul').on('mouseout','li a',function(){
+				$(this).children('.pull-right').css("display","none");
+			})
+			
+			/* 外部通讯录的点击事件，去掉内部通讯录的active，给外部通讯录加active */
+			$('#thisul li').on('click',function(){
+				$('#navpills li').removeClass('activee');
+				$('.ulfather').addClass('activee');
+			})
+			$('.ulfather .collapsed').on('click',function(){
+				if($(this).hasClass('glyphicon-menu-down')){
+					$(this).removeClass('glyphicon-menu-down').addClass('glyphicon glyphicon-menu-left');
+				}else{
+					$(this).removeClass('glyphicon-menu-left').addClass('glyphicon glyphicon-menu-down');
+				}
+			})
+			
+			/* 内部通讯录的点击事件，去掉外部通讯录的active并同时去掉外部通讯录分类的active */
+			$('.notfather').on('click',function(){
+				$('#thisul li').removeClass('activee');
+			})
+			
+			$('.ulfather').on('click',function(){
+				$('#thisul li').removeClass('activee');
+			})
+			
+			/* 字母表的点击事件，将用来处理load方法  */
+			$("#thispills li").on('click',function(){
+				$("#thispills li").removeClass('active');
+				$(this).addClass('active');
+			})
 			/*
 			 * 收縮
 			 */
