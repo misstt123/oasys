@@ -1,14 +1,10 @@
 var yearmonth,days,date,year,month;
-$(".col-md-5").removeAttr("position")
+
 $(function(){
 		
 		//改一下这个表格事件
 		//去掉
 	
-		
-	
-		
-		
 		//设置表格头部的年月
 		date=new Date();
 		year=date.getFullYear();
@@ -125,9 +121,7 @@ $(function(){
 				if(event.type=="mouseover"){
 					$(this).css({
 						"background-color":"#005E33",
-						"border":"1px solid Silver",
 					})
-					console.log(event.pageX+";"+event.pageY)
 					//显示数字
 					var last,next;
 					var month=$(".yearmonth").text().substring(5,$(".yearmonth").text().length-1);

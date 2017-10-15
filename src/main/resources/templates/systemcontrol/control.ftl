@@ -1,4 +1,5 @@
 <#include "/common/commoncss.ftl" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 .thiscolor{
 	display: inline-block;
@@ -128,6 +129,37 @@
 	style="margin-top: 20px;  margin-bottom: 50px;">
 	<div class="row ">
 		<div class="col-md-7 gridly">
+		<!-- 统计 -->
+		<div class="panel panel-default box-show green-box">
+				<div class="panel-heading box-show-heading"
+					style="background: white;">
+					<div class="panel-title" style="display: inline-block;">
+						<h4>本周系统使用统计</h4>
+					</div>
+					<div class="pull-right right-btn-group dropdown"
+						style="display: inline-block;">
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="">历史记录</a></li>
+							</ul>
+						</div>
+						<a href="#panelone" data-toggle="collapse"><button>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
+							</button></a>
+						<button>
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				
+				<div id="panelone" class="panel-collapse collapse in">
+				</div>
+			</div>
+		
+		
 			<!--第一个公告通知-->
 			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
@@ -153,6 +185,7 @@
 						</button>
 					</div>
 				</div>
+				
 				<div id="panelone" class="panel-collapse collapse in">
 					<table class="table table-hover">
 						<tr>
@@ -297,6 +330,40 @@
 
 		<!--内容右侧5个格子；-->
 		<div class="rightcolmd">
+		<!-- 任务完成排行 -->
+		<div class="panel panel-default box-show green-box">
+				<div class="panel-heading box-show-heading"
+					style="background: white;">
+					<div class="panel-title" style="display: inline-block;">
+						<h4>
+							任务完成排行
+						</h4>
+					</div>
+					<div class="pull-right right-btn-group btn-color dropdown"
+						style="display: inline-block;">
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="">我的任务</a></li>
+							</ul>
+						</div>
+						<a href="#panelfive" data-toggle="collapse"><button >
+								<span class="glyphicon glyphicon-minus shousuo"></span>
+							</button></a>
+						<button >
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				
+				<div id="column" class="panel-collapse collapse in">
+				 
+				</div>
+				
+			</div>
+		
 			<!--第四个格子-->
 			<!-- 行事历 -->
 			<div class="panel" style="background-color: #00c86c;color: white;">
@@ -325,7 +392,7 @@
 				</div>
 				<div id="panelfour" class="panel-collapse collapse in"  style="height: 280px;padding: 10px;">
 				  
-				   <table cellpadding="2" style="border-collapse: collapse;" class="calendar" id="calendar">
+				   <table cellpadding="2" style="border-collapse: collapse;width:100%;" class="calendar" id="calendar">
 			
 						<div >
 						<span class="glyphicon glyphicon-chevron-left month left" style="cursor:pointer;"></span>
@@ -480,9 +547,11 @@
 	
 	$(".shousuo").on('click',function(){
 		if($(this).hasClass("glyphicon-plus")){
+			console.log("0000")
 			$(this).removeClass("glyphicon-plus").addClass("glyphicon-minus")
 		}
 		else{
+			console.log("1111")
 				$(this).removeClass("glyphicon-minus").addClass("glyphicon-plus")
 			}
 	})
@@ -501,4 +570,9 @@
 			})
 		})
 </script>
+
 <script src="js/littlecalendar.js"></script>
+<script src="js/highcharts/jquery.js"></script>
+<script src="js/highcharts/highcharts.js"></script>
+
+<script src="js/tongji.js"></script>
