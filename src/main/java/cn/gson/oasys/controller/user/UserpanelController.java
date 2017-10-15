@@ -143,12 +143,17 @@ public class UserpanelController {
 	 * 存便签
 	 */
 	@RequestMapping("writep")
-	public String savepaper(Notepaper npaper,HttpSession session){
+	public String savepaper(Notepaper npaper,HttpSession session,@RequestParam(value="concent",required=false)String concent){
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		User user=udao.findOne(userid);
 		npaper.setCreateTime(new Date());
 		npaper.setUserId(user);
+		System.out.println("内容"+npaper.getConcent());
+		if(npaper.getTitle()==null||npaper.getTitle()=="")
+			npaper.setTitle("无标题");
+		if(npaper.getConcent()==null||npaper.getConcent()=="")
+			npaper.setConcent(concent);
 		ndao.save(npaper);
 		
 		return "redirect:/userpanel";

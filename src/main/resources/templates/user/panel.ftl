@@ -12,14 +12,14 @@
 
 							<div class="post" style="border: dashed 1px #eee; padding: 10px 10px 0 10px; background: #FFFFE0; margin: 0 5px 10px 5px;">
 								<div class="user-block">
-									<span class="papertitle" style="color: #8e8e8e;margin-right: 8px;">${notepaper.title}</span>
+									<span class="papertitle" style="color: #8e8e8e;margin-right: 8px;">${(notepaper.title)!''}</span>
 										<a href="notepaper?id=${notepaper.notepaperId}" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
 											id="paperdelete" class="pull-right " > 
 												<i class='glyphicon glyphicon-remove-sign'></i></a>
 												<span class="papertime" style="font-size: 8pt; color: #999;">${notepaper.createTime}</span>
 											</div>
 											<p class="title" style="display:none;">
-												<span class="papertitle">${notepaper.title}</span>
+												<span class="papertitle">${(notepaper.title)!''}</span>
 											</p>
 											<p class="concent" style="margin-top: 8px;width: 93%;">
 												<span class="papercontent">${notepaper.concent}</span>

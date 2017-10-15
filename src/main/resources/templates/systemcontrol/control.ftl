@@ -142,12 +142,11 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="infrommanage">公告通知</a></li>
 							</ul>
 						</div>
 						<a href="#panelone" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
 							<span class="glyphicon glyphicon-remove"></span>
@@ -191,12 +190,12 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="xinxeng">新建流程</a></li>
+								<li><a href="flowmanage">流程管理</a></li>
 							</ul>
 						</div>
 						<a href="#paneltwo" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
 							<span class="glyphicon glyphicon-remove"></span>
@@ -213,31 +212,22 @@
 							<th></th>
 						</tr>
 						
-						
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin blueskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin yellowskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin redskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
+							<#list processlist as pro>
+							<tr>
+								<td>${(pro.typeNmae)!''}
+								</td>
+								<td>${(pro.applyTime)!''}</td>
+								<td><#list prostatuslist as pros>
+								<#if pros.statusId==pro.statusId>
+								<span class="label ${(pros.statusColor)!''}">${(pros.statusName)!''}</span>
+								</#if>
+								</#list>
+								</td>
+								<td><span>${(pro.processName)!''}</span></td>
+								<td><a href="" class="look-xiangxi"><span
+										class="glyphicon glyphicon-search"> </span> 查看 </a></td>
+							</tr>
+						</#list>
 					</table>
 				</div>
 			</div>
@@ -255,12 +245,12 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="planview">计划管理</a></li>
+								<li><a href="planedit?pid=-1">新增计划</a></li>
 							</ul>
 						</div>
 						<a href="#panelthree" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
 							<span class="glyphicon glyphicon-remove"></span>
@@ -317,18 +307,18 @@
 					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown" >
+							<button data-toggle="dropdown" style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="daymanage">日程管理</a></li>
+								<li><a href="daycalendar">我的日历</a></li>
 							</ul>
 						</div>
-						<a href="#panelfour" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+						<a href="#panelfour" data-toggle="collapse" ><button style="background: #18e89d !important;">
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
-						<button>
+						<button style="background: #18e89d !important;">
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
@@ -427,18 +417,17 @@
 					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown">
+							<button data-toggle="dropdown" style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="userpanel">我的便签</a></li>
 							</ul>
 						</div>
-						<a href="#panelfive" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+						<a href="#panelfive" data-toggle="collapse"><button style="background: #18e89d !important;">
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
-						<button>
+						<button style="background: #18e89d !important;">
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
@@ -459,8 +448,8 @@
 							</#list>
 					</ul>
 					<div class="input-group input-div">
-						<input type="text" placeholder="便签内容" style="outline: none;" /> <a
-							href="#"><span class="glyphicon glyphicon-plus"
+						<input type="text" placeholder="便签内容" style="outline: none;" class="concent"/> <a
+							id="writep" style="cursor: pointer;"><span class="glyphicon glyphicon-plus"
 							style="margin-top: 6px;"></span></a>
 					</div>
 				</div>
@@ -486,6 +475,30 @@
 		}
 		console.log($(this).parents('.box-show'));
 		$(this).parents('.box-show').css('display','none');
+		
 	});
+	
+	$(".shousuo").on('click',function(){
+		if($(this).hasClass("glyphicon-plus")){
+			$(this).removeClass("glyphicon-plus").addClass("glyphicon-minus")
+		}
+		else{
+				$(this).removeClass("glyphicon-minus").addClass("glyphicon-plus")
+			}
+	})
+	
+		$("#writep").click(function(){
+			var $concent=$(".concent").val();
+			if($concent==null||$concent=="")
+				return confirm("您输入为空 请重新输入");
+			$.ajax({
+				url:'writep',
+				data:{concent:$concent},
+				type:"get",
+				success:function(){
+					window.location.reload();
+				}
+			})
+		})
 </script>
 <script src="js/littlecalendar.js"></script>

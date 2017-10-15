@@ -230,3 +230,7 @@
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;}
+    
+    .right-btn-group button{
+     background: #337ab7 !important; 
+    }

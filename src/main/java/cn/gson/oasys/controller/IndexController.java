@@ -32,6 +32,7 @@ import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.notedao.DirectorDao;
 import cn.gson.oasys.model.dao.plandao.PlanDao;
 import cn.gson.oasys.model.dao.processdao.NotepaperDao;
+import cn.gson.oasys.model.dao.processdao.ProcessListDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -39,6 +40,7 @@ import cn.gson.oasys.model.dao.user.UserLogDao;
 import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.process.Notepaper;
+import cn.gson.oasys.model.entity.process.ProcessList;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
@@ -84,6 +86,8 @@ public class IndexController {
 	private NotepaperDao notepaperDao;
 	@Autowired
 	private UserLogDao userLogDao;
+	@Autowired
+	private ProcessListDao processListDao;
 
 	// 格式转化导入
 	DefaultConversionService service = new DefaultConversionService();
@@ -140,6 +144,7 @@ public class IndexController {
 		request.setAttribute("filenum", filedao.count());
 		request.setAttribute("directornum", directorDao.count());
 		request.setAttribute("discussnum", discussDao.count());
+		
 		List<Map<String, Object>> list = nm.findMyNoticeLimit(userId);
 		model.addAttribute("user", user);
 		for (Map<String, Object> map : list) {
@@ -167,6 +172,12 @@ public class IndexController {
 		//列举便签
 		List<Notepaper> notepapers=notepaperDao.findByUserIdOrderByCreateTimeDesc(userId);
 		model.addAttribute("notepaperList", notepapers);
+		
+		//列举几个流程记录
+		List<ProcessList> pList=processListDao.findlastthree(userId);
+		model.addAttribute("processlist", pList);
+		List<SystemStatusList> processstatus = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_process_list");
+		model.addAttribute("prostatuslist", processstatus);
 		
 		return "systemcontrol/control";
 	}
