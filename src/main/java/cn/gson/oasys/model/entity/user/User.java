@@ -96,7 +96,7 @@ public class User {
 	private Date hireTime;		//入职时间
 	
 	@Column(name="is_lock")
-	private Integer isLock;		//该用户是否被禁用
+	private Integer isLock=0;		//该用户是否被禁用
 	
 	@Column(name="last_login_ip")
 	private String lastLoginIp;	//用户最后登录ip；

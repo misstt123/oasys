@@ -24,6 +24,10 @@ public class Position {
 	private String name;	//职位名称。
 	
 	private Integer level;	//职位层级
+	
+	private String describtion;//职位描述
+	
+	private Long deptid;
 
 	public Position() {
 
@@ -58,12 +62,27 @@ public class Position {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
+	
+	public String getDescribtion() {
+		return describtion;
+	}
+
+	public void setDescribtion(String describtion) {
+		this.describtion = describtion;
+	}
+
+	public Long getDeptid() {
+		return deptid;
+	}
+
+	public void setDeptid(Long deptid) {
+		this.deptid = deptid;
+	}
 
 	@Override
 	public String toString() {
-		return "Position [id=" + id + ", name=" + name + ", level=" + level + "]";
+		return "Position [id=" + id + ", name=" + name + ", level=" + level + ", describtion=" + describtion
+				+ ", deptid=" + deptid + "]";
 	}
-	
-	
 	
 }

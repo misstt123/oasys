@@ -1,4 +1,5 @@
 <#include "/common/commoncss.ftl">
+<#include "/common/modalTip.ftl"/>
 <style type="text/css">
 a {
 	color: black;
@@ -29,7 +30,7 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="##" class="label label-success" style="padding: 5px;">
+					<a href="positionedit" class="label label-success" style="padding: 5px;">
 						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
@@ -52,16 +53,18 @@ a:hover {
 							
 							<th scope="col">名称</th>
 							<th scope="col">层级</th>
+							<th scope="col">描述</th>
 							<th scope="col">操作</th>
 						</tr>
 						<#list positions as position>
 							<tr>
 								<td><span>${position.name}</span></td>
 								<td><span>${position.level}</span></td>
-								<td><a  href="##" class="label xiugai"><span
+								<td><span>${(position.describtion)!''}</span></td>
+								<td><a  href="positionedit?positionid=${position.id}" class="label xiugai"><span
 										class="glyphicon glyphicon-edit"></span> 修改</a> <a
 									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-									href="" class="label shanchu"><span
+									href="removeposition?positionid=${position.id}" class="label shanchu"><span
 										class="glyphicon glyphicon-remove"></span> 删除</a></td>
 							</tr>
 						</#list>

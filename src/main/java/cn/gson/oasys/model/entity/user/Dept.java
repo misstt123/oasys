@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 部门实体类
  * @author Administrator
@@ -22,10 +25,11 @@ public class Dept {
 	private Long deptId;	//部门id
 	
 	@Column(name = "dept_name")
+	@NotEmpty(message="部门名称不为空")
 	private String deptName;	//部门名字  非空 唯一
 	
 	@Column(name = "dept_tel")
-	private String deptTel;		//部门电话  正则校验
+	private String deptTel;		//部门电话  
 	
 	@Column(name = "dept_fax")
 	private String deptFax;		//部门传真
@@ -35,11 +39,13 @@ public class Dept {
 	@Column(name = "dept_addr")
 	private String deptAddr;	//部门地址
 	
-	@Column(name = "start_time")
-	private Date startTime;		//部门上班时间
+	private Long deptmanager;
 	
-	@Column(name = "end_time")
-	private Date endTime;		//部门下班时间
+//	@Column(name = "start_time")
+//	private Date startTime;		//部门上班时间
+	
+//	@Column(name = "end_time")
+//	private Date endTime;		//部门下班时间
 
 	public Dept() {
 
@@ -93,28 +99,35 @@ public class Dept {
 		this.deptAddr = deptAddr;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Long getDeptmanager() {
+		return deptmanager;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setDeptmanager(Long deptmanager) {
+		this.deptmanager = deptmanager;
 	}
 
 	@Override
 	public String toString() {
 		return "Dept [deptId=" + deptId + ", deptName=" + deptName + ", deptTel=" + deptTel + ", deptFax=" + deptFax
-				+ ", email=" + email + ", deptAddr=" + deptAddr + ", startTime=" + startTime + ", endTime=" + endTime
-				+ "]";
+				+ ", email=" + email + ", deptAddr=" + deptAddr + ", deptmanager=" + deptmanager + "]";
 	}
+
 	
+//	public Date getStartTime() {
+//		return startTime;
+//	}
+//
+//	public void setStartTime(Date startTime) {
+//		this.startTime = startTime;
+//	}
+
+//	public Date getEndTime() {
+//		return endTime;
+//	}
+//
+//	public void setEndTime(Date endTime) {
+//		this.endTime = endTime;
+//	}
 	
 }

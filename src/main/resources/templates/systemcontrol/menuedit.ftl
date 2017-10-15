@@ -107,7 +107,7 @@ a:hover {
 	</div>
 </div>
 
-<#include "/common/modalTip.ftl"> 
+<#include "/common/modalTip.ftl"/> 
 <script type="text/javascript">
 
 $('.successToUrl').on('click',function(){
@@ -130,7 +130,7 @@ function check() {
 				
 			}
 			// 获取到input框的兄弟的文本信息，并对应提醒；
-			 var brother = $(this).siblings('.control-label').text();
+			var brother = $(this).siblings('.control-label').text();
 			var errorMess = "[" + brother + "输入框信息不能为空]";
 			// 对齐设置错误信息提醒；红色边框
 			$(this).parent().addClass("has-error has-feedback");

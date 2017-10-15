@@ -39,49 +39,20 @@ a:hover {
 				<form action="deptedit" method="post" onsubmit="return check();">
 					<!--盒子头-->
 					<div class="box-header">
-						<h3 class="box-title">
-							<a href="##" class="label label-default" style="padding: 5px;">
-								<i class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
-							</a>
+						<h3 class="box-title" style="font-size: 12px;">
+							部门详细信息
 						</h3>
 					</div>
 					<!--盒子身体-->
 					<div class="box-body no-padding">
 						<div class="box-body">
-							<div class="alert alert-danger alert-dismissable" role="alert"
-								style="display: none;">
-								错误信息:<button class="close thisclose" type="button">&times;</button>
-								<span class="error-mess"></span>
-							</div>
 							<div class="row">
-								<div class="col-md-6 form-group">
-									<label class="control-label"><span>名称</span></label> 
-									<input name="deptName" class="form-control" value="${(dept.deptName)!''}"/>
+								<div class="col-md-12 form-group">
+									${dept.deptName}
 								</div>
-								<div class="col-md-6 form-group">
-									<label class="control-label"><span>电话</span></label> 
-									<input name="deptTel" class="form-control" value="${(dept.deptTel)!''}"/>
+								<div class="col-md-12 form-group">
+									部门经理：${(deptmanage.realName)!'暂无'}
 								</div>
-								<div class="col-md-6 form-group">
-									<label class="control-label"><span>传真</span></label>
-									<input name="deptFax" class="form-control" value="${(dept.deptFax)!''}" />
-								</div>
-								<div class="col-md-6 form-group">
-									<label class="control-label"><span>邮箱</span></label> 
-									<input name="email" class="form-control" value="${(dept.email)!''}"/>
-								</div>
-								<div class="col-md-6 form-group">
-									<label class="control-label"><span>地址</span></label> 
-									<input name="deptAddr" class="form-control" value="${(dept.deptAddr)!''}"/>
-								</div>
-							<!-- 	<div class="col-md-6 form-group">
-									<label class="control-label"><span>上班时间</span></label> 
-									<input name="startTime" class="form-control" value="${(dept.startTime)!''}"/>
-								</div>
-								<div class="col-md-6 form-group">
-									<label class="control-label"><span>下班时间</span></label> 
-									<input name="endTime" class="form-control" value="${(dept.endTime)!''}"/>
-								</div> -->
 								<input type="hidden" name="deptId" value="${(dept.deptId)!''}">
 							</div>
 							<#if isread??>
@@ -91,6 +62,8 @@ a:hover {
 										<th scope="col">&nbsp;</th>
 										<th scope="col">真实姓名</th>
 										<th scope="col">用户名</th>
+										<th scope="col">职位</th>
+										<th scope="col">角色</th>
 										<th scope="col">操作</th>
 									</tr>
 									<#list deptuser as user>
@@ -99,7 +72,9 @@ a:hover {
 												style="width: 25px; height: 25px;" /></td>
 											<td><span>${user.realName}</span></td>
 											<td><span>${user.userName}</span></td>
-											<td><a  href="useredit?userid=${user.userId}" class="label xiugai"><span
+											<td><span>${user.position.name}</span></td>
+											<td><span>${user.role.roleName}</span></td>
+											<td><a class="usermanagechange label xiugai"><span
 													class="glyphicon glyphicon-edit"></span> 人事调动</a> 
 										</tr>
 									</#list>
@@ -123,19 +98,74 @@ a:hover {
 			</div>
 		</div>
 	</div>
+	<div class="modal fade in" id="thismodal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body box no-padding" style="display: none;">
+					<div class="box-header">
+						<h3 class="box-title mc-title" style="font-size:15px;">人事变动</h3>
+					</div>
+					<div class="box-body no-padding">
+						<form action="" method="post">
+						
+							<div class="row">
+								
+								<div class="col-md-6">
+									<label class="control-label"> <span>部门</span></label>
+									<select class="deptselect form-control" name="deptid">
+										<#list depts as dept>
+											<option value="${dept.deptId}">${dept.deptName}</option>
+										</#list>
+									</select>
+								</div>
+								<div class="col-md-6">
+									<label class="control-label"> <span>职位</span></label>
+									<select class="positionselect form-control" name="deptid">
+										<#list positions as position>
+											<option value="${position.id}">${position.name}</option>
+										</#list>
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="box-footer" style="text-align:right;">
+						<button type="submit" class="btn btn-primary"
+							>确定</button>
+						<button type="button" class="btn btn-default mcmodalcancle"
+							data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 <#include "/common/modalTip.ftl"/> 
-<#if isread??>
-	<script type="text/javascript">
-		$('.form-control').attr("readOnly","true");
-	</script>
-</#if>
 <script type="text/javascript">
 
-/* $('.successToUrl').on('click',function(){
-	window.location.href='/testsysmenu';
+$(".deptselect").on("change",function(){
+	//alert("部门选择变化");
+	var selectdeptid = $(this).val();
+	
+	$.post("selectdept",{selectdeptid:selectdeptid},function(data){
+		$(".positionselect").empty();
+		
+		//console.log(data);
+		$.each(data,function(i,item){
+			var potion = $("<option value="+item.id+">"+item.name+"</option>");
+			$(".positionselect").append(potion);
+		});
+	});
+	
 });
- */
+
+/*  $('.successToUrl').on('click',function(){
+	window.location.href='/testsysmenu';
+}); */
+$(".usermanagechange").click(function(){
+	$("#thismodal").modal("toggle");
+	$('#thismodal .modal-body').css('display', 'block');
+});
 function alertCheck(errorMess){
 	
 	$('.alert-danger').css('display', 'block');

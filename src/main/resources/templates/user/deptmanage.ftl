@@ -1,4 +1,5 @@
 <#include "/common/commoncss.ftl">
+<#include "/common/modalTip.ftl"/> 
 <style type="text/css">
 a {
 	color: black;
@@ -28,7 +29,7 @@ a:hover {
 			<!--盒子头-->
 			<div class="box-header">
 				<h3 class="box-title">
-					<a href="adddept" class="label label-success" style="padding: 5px;">
+					<a href="deptedit" class="label label-success" style="padding: 5px;">
 						<span class="glyphicon glyphicon-plus"></span> 新增
 					</a>
 				</h3>
@@ -59,15 +60,16 @@ a:hover {
 								<td><span>${dept.deptTel}</span></td>
 								<td><span>${dept.email}</span></td>
 								<td>
-									<a href="##" class="label xiugai">
+									<a href="deptedit?dept=${dept.deptId}" class="label xiugai">
 									<span class="glyphicon glyphicon-edit"></span> 修改</a> 
+									<a href="readdept?deptid=${dept.deptId}" class="label xiugai">
+										<span class="glyphicon glyphicon-search"></span> 查看
+									</a>
 									<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
 									href="" class="label shanchu"><span
 										class="glyphicon glyphicon-remove"></span> 删除</a></td>
 							</tr>
-						
 						</#list>
-						
 					</table>
 				</div>
 			</div>
