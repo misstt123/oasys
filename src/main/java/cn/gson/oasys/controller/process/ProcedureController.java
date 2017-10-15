@@ -1,6 +1,8 @@
 package cn.gson.oasys.controller.process;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,10 +11,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
 
+import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.plandao.TrafficDao;
 import cn.gson.oasys.model.dao.processdao.BursementDao;
@@ -45,6 +50,7 @@ import cn.gson.oasys.model.dao.system.TypeDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.process.AubUser;
 import cn.gson.oasys.model.entity.process.Bursement;
@@ -61,10 +67,12 @@ import cn.gson.oasys.model.entity.process.Stay;
 import cn.gson.oasys.model.entity.process.Subject;
 import cn.gson.oasys.model.entity.process.Traffic;
 import cn.gson.oasys.model.entity.role.Role;
+import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.file.FileServices;
 import cn.gson.oasys.services.mail.MailServices;
 import cn.gson.oasys.services.process.ProcessService;
 
@@ -101,6 +109,8 @@ public class ProcedureController {
 	@Autowired
 	private TrafficDao tdao;
 	@Autowired
+	private AttachmentDao AttDao;
+	@Autowired
 	private StayDao sadao;
 	@Autowired
 	private EvectionDao edao;
@@ -112,6 +122,11 @@ public class ProcedureController {
 	private RegularDao rgdao;
 	@Autowired
 	private ResignDao rsdao;
+	@Autowired
+	private FileListdao fldao;
+	
+	@Value("${attachment.roopath}")
+	private String rootpath;
 	//新增页面
 	@RequestMapping("xinxeng")
 	public String index(){
@@ -176,7 +191,7 @@ public class ProcedureController {
 		bu.setUsermoney(zhuti);
 		//set主表
 		ProcessList pro=bu.getProId();
-		proservice.index5(pro, val, lu, filePath);
+		proservice.index5(pro, val, lu, filePath,reuser.getUserName());
 		budao.save(bu);
 		
 		//存审核表
@@ -197,9 +212,55 @@ public class ProcedureController {
 		Pageable pa=new PageRequest(page, size);
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
-		
-		
+		Page<ProcessList> pagelist=prodao.findByuserId(userid,pa);
+		List<ProcessList> prolist=pagelist.getContent();
+		System.out.println(prolist);
+		Iterable<SystemStatusList>  statusname=sdao.findByStatusModel("aoa_process_list");
+		Iterable<SystemTypeList> typename=tydao.findByTypeModel("aoa_process_list");
+		model.addAttribute("typename", typename);
+		model.addAttribute("page", pagelist);
+		model.addAttribute("prolist", prolist);
+		model.addAttribute("statusname", statusname);
+		model.addAttribute("url", "shenser");
 		return "process/flowmanage";
+	}
+	/**
+	 * 申请人查看流程条件查询
+	 */
+	@RequestMapping("shenser")
+	public String ser(HttpSession session,Model model,HttpServletRequest req,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		String userId = ((String) session.getAttribute("userId")).trim();
+		Long userid = Long.parseLong(userId);
+		String val=null;
+		if(!StringUtil.isEmpty(req.getParameter("val"))){
+			val=req.getParameter("val");
+		}
+		Page<ProcessList> pagelist=null;
+		List<ProcessList> prolist=null;
+		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_process_list", val);
+		if(StringUtil.isEmpty(val)){
+			//空查询
+			pagelist=prodao.findByuserId(userid,pa);
+		}else if(!Objects.isNull(status)){
+			//根据状态和申请人查找流程
+			pagelist=prodao.findByuserIdandstatus(userid,status.getStatusId(),pa);
+		}else{
+			//根据审核人，类型，标题模糊查询
+			pagelist=prodao.findByuserIdandstr(userid,val,pa);
+		}
+		prolist=pagelist.getContent();
+		Iterable<SystemStatusList>  statusname=sdao.findByStatusModel("aoa_process_list");
+		Iterable<SystemTypeList> typename=tydao.findByTypeModel("aoa_process_list");
+		model.addAttribute("typename", typename);
+		model.addAttribute("page", pagelist);
+		model.addAttribute("prolist", prolist);
+		model.addAttribute("statusname", statusname);
+		model.addAttribute("url", "shenser");
+		model.addAttribute("sort", "&val="+val);
+		return "process/managetable";
 	}
 	/**
 	 * 流程审核
@@ -265,32 +326,32 @@ public class ProcedureController {
 		Map<String, Object> map=new HashMap<>();
 		ProcessList process=prodao.findOne(proid);//查看该条申请
 		Boolean flag=process.getUserId().getUserId().equals(userid);//判断是申请人还是审核人
-		System.out.println(flag);
+		
 		if(!flag){
 			name="审核";
 		}else{
 			name="申请";
 		}
-		map=proservice.index3(proid,name,user,typename,process);
+		map=proservice.index3(name,user,typename,process);
+		System.out.println(map+"sss");
 		
-		if(!flag){ //user就是审核人
 			if(("费用报销").equals(typename)){
-			Bursement bu=budao.findByProId(process);
-			User prove=udao.findOne(bu.getUsermoney().getUserId());//证明人
+				Bursement bu=budao.findByProId(process);
+				User prove=udao.findOne(bu.getUsermoney().getUserId());//证明人
 			if(!Objects.isNull(bu.getOperation())){
 				audit=udao.findOne(bu.getOperation().getUserId());//最终审核人
 			}
-			List<DetailsBurse> detaillist=dedao.findByBurs(bu);
-			String type=tydao.findname(bu.getTypeId());
-			String money=ProcessService.numbertocn(bu.getAllMoney());
-			model.addAttribute("prove", prove);
-			model.addAttribute("audit", audit);
-			model.addAttribute("type", type);
-			model.addAttribute("bu", bu);
-			model.addAttribute("money", money);
-			model.addAttribute("detaillist", detaillist);
-			model.addAttribute("map", map);
-			return "process/serch";
+				List<DetailsBurse> detaillist=dedao.findByBurs(bu);
+				String type=tydao.findname(bu.getTypeId());
+				String money=ProcessService.numbertocn(bu.getAllMoney());
+				model.addAttribute("prove", prove);
+				model.addAttribute("audit", audit);
+				model.addAttribute("type", type);
+				model.addAttribute("bu", bu);
+				model.addAttribute("money", money);
+				model.addAttribute("detaillist", detaillist);
+				model.addAttribute("map", map);
+				return "process/serch";
 			}else if(("出差费用申请").equals(typename)){
 				Double	staymoney=0.0;
 				Double	tramoney=0.0;
@@ -343,7 +404,7 @@ public class ProcedureController {
 				model.addAttribute("map", map);
 				return "process/resserch";
 			}
-		}
+		
 		
 		
 		return "process/serch";
@@ -415,27 +476,32 @@ public class ProcedureController {
 		if(!StringUtil.isEmpty(name)){
 			//审核并流转
 			User u2=udao.findByUserName(reviewed.getUsername());//找到下一个审核人
-			
-			if(u2.getPosition().getId()==5||u2.getPosition().getId().equals(7L)){
-				Reviewed re=redao.findByProIdAndUserId(proid,u);
-				re.setAdvice(reviewed.getAdvice());
-				re.setStatusId(reviewed.getStatusId());
-				re.setReviewedTime(new Date());
-				re.setStatusId(reviewed.getStatusId());
-				redao.save(re);
+			if(("离职申请").equals(typename)){
+				if(u.getUserId().equals(pro.getUserId().getFatherId())){
+					if(u2.getPosition().getId().equals(5L)){
+						proservice.save(proid, u, reviewed, pro, u2);
+					}else{
+						model.addAttribute("error", "请选财务经理。");
+						return "common/proce";
+					}
+				}else{
+					if(u2.getPosition().getId().equals(7L)){
+						proservice.save(proid, u, reviewed, pro, u2);
+					}else{
+						model.addAttribute("error", "请选人事经理。");
+						return "common/proce";
+					}
+				}
 				
+			}else if(!("离职申请").equals(typename)){
 				
-				Reviewed re2=new  Reviewed();
-				re2.setProId(pro);
-				re2.setUserId(u2);
-				re2.setStatusId(23L);
-				redao.save(re2);
-				
-				pro.setStatusId(24L);//改变主表的状态
-				prodao.save(pro);
-			}else{
-				return "common/proce";
+				if(u2.getPosition().getId()==5||u2.getPosition().getId().equals(7L)){
+					proservice.save(proid, u, reviewed, pro, u2);
+				}else{
+					return "common/proce";
+				}
 			}
+			
 		}else{
 			//审核并结案
 			Reviewed re=redao.findByProIdAndUserId(proid,u);
@@ -446,6 +512,7 @@ public class ProcedureController {
 			pro.setStatusId(reviewed.getStatusId());//改变主表的状态
 			prodao.save(pro);
 		}
+		
 		
 		if(("费用报销").equals(typename)){
 			Bursement  bu=budao.findByProId(pro);
@@ -537,8 +604,10 @@ public class ProcedureController {
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long lid=Long.parseLong(userId);
+		List<ProcessList> prolist=prodao.findbyuseridandtitle(lid, "出差/外出申请");
 		proservice.index6(model, lid, page, size);
-		
+		model.addAttribute("prolist", prolist);
+		model.addAttribute("list", prolist.size());
 		return "process/evectionmoney";
 	}
 	/**
@@ -552,7 +621,7 @@ public class ProcedureController {
 	 */
 	@RequestMapping("moneyeve")
 	public String moneyeve(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid EvectionMoney eve,BindingResult br,
-			HttpSession session) throws IllegalStateException, IOException{
+			HttpSession session,Model model) throws IllegalStateException, IOException{
 			String userId = ((String) session.getAttribute("userId")).trim();
 			Long lid=Long.parseLong(userId);
 			User lu=udao.findOne(lid);//申请人
@@ -562,31 +631,51 @@ public class ProcedureController {
 			Long userid=shen.getUserId();//审核人userid
 			String val=req.getParameter("val");
 			Double allmoney=0.0;
-			if(roleid>=3L && fatherid==userid){
-				List<Traffic> ss=eve.getTraffic();
-				for (Traffic traffic : ss) {
-					allmoney+=traffic.getTrafficMoney();
-					User u=udao.findByUserName(traffic.getUsername());
-					traffic.setUser(u);
-					traffic.setEvection(eve);
+			
+			if(eve.getPro()!=null){
+				ProcessList  pros=prodao.findOne(eve.getPro());
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+				String chumon1=sdf.format(eve.getProId().getStartTime());
+				String chumon2=sdf.format(eve.getProId().getEndTime());
+				String chuchai1=sdf.format(pros.getStartTime());
+				String chuchai2=sdf.format(pros.getEndTime());
+				
+				if(chumon1.equals(chuchai1) && chumon2.equals(chuchai2)){
 					
-				}
-				List<Stay> mm=eve.getStay();
-				for (Stay stay : mm) {
-					allmoney+=stay.getStayMoney()*stay.getDay();
-					User u=udao.findByUserName(stay.getNameuser());
-					stay.setUser(u);
-					stay.setEvemoney(eve);
+					if(roleid>=3L && fatherid==userid){
+						List<Traffic> ss=eve.getTraffic();
+						for (Traffic traffic : ss) {
+							allmoney+=traffic.getTrafficMoney();
+							User u=udao.findByUserName(traffic.getUsername());
+							traffic.setUser(u);
+							traffic.setEvection(eve);
+							
+						}
+						List<Stay> mm=eve.getStay();
+						for (Stay stay : mm) {
+							allmoney+=stay.getStayMoney()*stay.getDay();
+							User u=udao.findByUserName(stay.getNameuser());
+							stay.setUser(u);
+							stay.setEvemoney(eve);
+						}
+						
+						eve.setMoney(allmoney);
+						//set主表
+						ProcessList pro=eve.getProId();
+						proservice.index5(pro, val, lu, filePath,shen.getUserName());
+						emdao.save(eve);
+						//存审核表
+						proservice.index7(shen, pro);
+					}else{
+						return "common/proce";
+					}
+				}else{
+					model.addAttribute("error", "请核对出差的时间。");
+					return "common/proce";
 				}
 				
-				eve.setMoney(allmoney);
-				//set主表
-				ProcessList pro=eve.getProId();
-				proservice.index5(pro, val, lu, filePath);
-				emdao.save(eve);
-				//存审核表
-				proservice.index7(shen, pro);
 			}else{
+				model.addAttribute("error", "请先提交对应的出差申请。");
 				return "common/proce";
 			}
 				return "redirect:/xinxeng";
@@ -630,7 +719,7 @@ public class ProcedureController {
 		if(roleid>=3L && fatherid==userid){
 			//set主表
 			ProcessList pro=eve.getProId();
-			proservice.index5(pro, val, lu, filePath);
+			proservice.index5(pro, val, lu, filePath,shen.getUserName());
 			edao.save(eve);
 			//存审核表
 			proservice.index7(shen, pro);
@@ -676,7 +765,7 @@ public class ProcedureController {
 			if(roleid>=3L && fatherid==userid){
 				//set主表
 				ProcessList pro=eve.getProId();
-				proservice.index8(pro, val, lu);
+				proservice.index8(pro, val, lu,shen.getUserName());
 				odao.save(eve);
 				//存审核表
 				proservice.index7(shen, pro);
@@ -740,7 +829,7 @@ public class ProcedureController {
 			}else{
 				//set主表
 				ProcessList pro=eve.getProId();
-				proservice.index5(pro, val, lu, filePath);
+				proservice.index5(pro, val, lu, filePath,shen.getUserName());
 				hdao.save(eve);
 				//存审核表
 				proservice.index7(shen, pro);
@@ -786,7 +875,7 @@ public class ProcedureController {
 					
 					//set主表
 					ProcessList pro=eve.getProId();
-					proservice.index8(pro, val, lu);
+					proservice.index8(pro, val, lu,shen.getUserName());
 					rgdao.save(eve);
 					//存审核表
 					proservice.index7(shen, pro);
@@ -834,7 +923,7 @@ public class ProcedureController {
 			if(roleid>=3L && fatherid==userid){
 				//set主表
 				ProcessList pro=eve.getProId();
-				proservice.index8(pro, val, lu);
+				proservice.index8(pro, val, lu,shen.getUserName());
 				eve.setHandUser(udao.findByUserName(eve.getHanduser()));
 				rsdao.save(eve);
 				//存审核表
@@ -845,5 +934,55 @@ public class ProcedureController {
 			
 			return "redirect:/xinxeng";
 			
+		}
+		
+		/**
+		 * 删除
+		 */
+		@RequestMapping("sdelete")
+		public String dele(HttpServletRequest req,HttpSession session,Model model){
+			String userId = ((String) session.getAttribute("userId")).trim();
+			Long lid=Long.parseLong(userId);
+			User lu=udao.findOne(lid);//审核人
+			Long proid=Long.parseLong(req.getParameter("id"));
+			Reviewed rev=redao.findByProIdAndUserId(proid, lu);
+			if(!Objects.isNull(rev)){
+				rev.setDel(true);
+				redao.save(rev);
+			}else{
+				return "common/proce";
+			}
+			return "redirect:/audit";
+			
+		}
+		
+		/**
+		 * 下载文件
+		 * @param response
+		 * @param fileid
+		 */
+		@RequestMapping("file")
+		public void downFile(HttpServletResponse response, @RequestParam("fileid") Long fileid) {
+			try {
+				Attachment attd = AttDao.findOne(fileid);
+				File file = new File(rootpath,attd.getAttachmentPath());
+				response.setContentLength(attd.getAttachmentSize().intValue());
+				response.setContentType(attd.getAttachmentType());
+				response.setHeader("Content-Disposition","attachment;filename=" + new String(attd.getAttachmentName().getBytes("UTF-8"), "ISO8859-1"));
+				proservice.writefile(response, file);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		/**
+		 * 图片预览
+		 * @param response
+		 * @param fileid
+		 */
+		@RequestMapping("show")
+		public void imgshow(HttpServletResponse response, @RequestParam("fileid") Long fileid) {
+			Attachment attd = AttDao.findOne(fileid);
+			File file = new File(rootpath,attd.getAttachmentPath());
+			proservice.writefile(response, file);
 		}
 }

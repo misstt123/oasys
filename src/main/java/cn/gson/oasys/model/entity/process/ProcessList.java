@@ -63,6 +63,18 @@ public class ProcessList{
 	@JoinColumn(name="pro_file_id")
 	private Attachment proFileid;   //流程附件id
 	
+	private String shenuser;
+	
+	
+	
+	public String getShenuser() {
+		return shenuser;
+	}
+
+	public void setShenuser(String shenuser) {
+		this.shenuser = shenuser;
+	}
+
 	public Long getProcessId() {
 		return processId;
 	}
@@ -167,14 +179,15 @@ public class ProcessList{
 		this.proFileid = proFileid;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "ProcessList [processId=" + processId + ", typeNmae=" + typeNmae + ", statusId=" + statusId + ", deeply="
-				+ deeply + ", processName=" + processName + ", processDescribe=" + processDescribe + ", userId="
-				+ userId + ", applyTime=" + applyTime + ", rejected=" + rejected + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", procseeDays=" + procseeDays + "]";
+				+ deeply + ", processName=" + processName + ", processDescribe=" + processDescribe + ", applyTime="
+				+ applyTime + ", rejected=" + rejected + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", procseeDays=" + procseeDays + ", shenuser=" + shenuser + "]";
 	}
+
+	
 
 
 

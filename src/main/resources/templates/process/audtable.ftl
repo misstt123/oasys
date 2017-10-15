@@ -45,8 +45,8 @@
 								 <a href="particular?id=${pro.proid}&typename=${pro.typename}" class="label xiugai"><span
 									class="glyphicon glyphicon-search"></span> 查看</a> 
 								<#if pro.statusname=="未通过"	|| pro.statusname=="已批准">
-								 <a href="useredit?id=${pro.proid}" class="label shanchu"><span
-									class="glyphicon glyphicon-remove"></span> 删除</a>	
+								 <a href="sdelete?id=${pro.proid}" onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" class="label shanchu">
+								 	<span class="glyphicon glyphicon-remove"></span> 删除</a>	
 									</#if>
 									</td>
 						</tr>

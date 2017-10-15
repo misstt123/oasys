@@ -159,6 +159,16 @@ cursor: pointer;
 				<tr >
 					<td class="titleleft" ><label class="control-label">申请理由</label></td>
 					<td  colspan="6"><textarea class="form-control text" name="proId.processDescribe"></textarea></td>
+					<td class="titleleft" ><label class="control-label">出差申请</label></td>
+					
+					<td colspan="6">
+						<select class="form-control inpu" name="pro">
+							<#list prolist as pro>
+							<option value="${(pro.processId)!''}">${(pro.processName)!''}</option>
+							</#list>
+						</select>
+					</td>
+					
 				</tr>
 				<tr >
 					<td class="titleleft"   ><label class="control-label">差旅交通明细</label></td>
@@ -271,7 +281,7 @@ cursor: pointer;
 <input type="text" class="ject" style="display:none;">
 <#include "/common/modalTip.ftl"> 
 <script>
-
+	
 //表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
 function check() {
 	console.log("开始进入了");

@@ -24,31 +24,8 @@ a:hover {
 	</div>
 
 	<div class="row" style="padding-top: 15px;">
-		<div class="col-md-12">
+		<div class="col-md-12 thistable">
 			<!--id="container"-->
-			<div class="bgc-w box box-primary">
-				<!--盒子头-->
-				<div class="box-header">
-					<h3 class="box-title">
-						<a href="" class="label label-success" style="padding: 5px;">
-							<span class="glyphicon glyphicon-refresh"></span> 刷新
-						</a> 
-					</h3>
-					<div class="box-tools">
-						<div class="input-group" style="width: 150px;">
-							<input type="text" class="form-control input-sm"
-								placeholder="查找..." />
-							<div class="input-group-btn">
-								<a class="btn btn-sm btn-default"><span
-									class="glyphicon glyphicon-search"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="thistable">
-				<#inclue "/process/managetable.ftl">
-				</div>
-			</div>
+		  <#include "/process/managetable.ftl">
 		</div>
 	</div>

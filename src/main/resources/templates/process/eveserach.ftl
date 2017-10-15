@@ -180,7 +180,16 @@ border-top: 1px solid #2196F3;
 				
 				<tr class="rile">
 					<td class="wi" style="width:100px;"><label class="control-label">相关资料</label></td>
-					<td  style="width:140px;"><div class="bottom">${(map.file.attachmentId)!''}   ${(map.file.attachmentName)!''}</div></td>
+					<td  style="width:140px;"><div class="bottom">
+						<#if map.file.attachmentId??>
+						<#if map.filetype=="img">
+						<a href="show?fileid=${(map.file.attachmentId)!''}" class="label xiugai yulan">
+						<span class="glyphicon glyphicon-search"></span> 预览</a>
+						</#if>
+						<a href="file?fileid=${(map.file.attachmentId)!''}" class="label xiugai">
+						<span class="glyphicon glyphicon-search"></span> 下载</a>
+						</#if>
+					</div></td>
 					<td class="css" colspan="12" ></td>
 					
 				</tr>
@@ -253,3 +262,15 @@ border-top: 1px solid #2196F3;
 		</div>
 	</div>
 </div>
+<script>
+	$(function(){
+		/*  $(".yulan").click(function (event) {
+				event.preventDefault();   // 如果<a>定义了 target="_blank“ 需要这句来阻止打开新页面
+			}); */
+		$(".yulan").mouseover(function(){
+			console.log("jin");
+			
+			$(this).attr("href","show?fileid=${(map.file.attachmentId)!''}");
+		});
+	});
+</script>

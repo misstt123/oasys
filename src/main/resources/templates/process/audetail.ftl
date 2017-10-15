@@ -179,10 +179,12 @@ a:hover {
 			<input type="text" style="display:none;" value="${typename}" name="type"/>
 			<input type="text" style="display:none;" name="proId" value="${(process.processId)!''}"/>
 			<#if typename=="离职申请">
-				<#if size!=3>
-					<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
-					<#else>
-					<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+				<#if  ustatusid ==23>
+					<#if size!=3 >
+						<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
+						<#else>
+						<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
+					</#if>
 				</#if>
 			<#else>
 			<#if ustatusid ==23>
