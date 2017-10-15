@@ -19,7 +19,7 @@ a:hover {
 }
 .reciver{
 	position: relative;
-    top: -27px;
+    top: -24px;
     float: right;
     right: 4px;
     cursor: pointer;

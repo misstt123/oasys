@@ -27,6 +27,12 @@ public class Overtime {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	@Column(name="personnel_advice")
+	private String personnelAdvice;//人事部意见及说明
+	
+	@Column(name="manager_advice")
+	private String managerAdvice;//经理意见及说明
+	
 	@Transient
 	private String nameuser;
 	
@@ -63,10 +69,29 @@ public class Overtime {
 	public void setProId(ProcessList proId) {
 		this.proId = proId;
 	}
+	
+	
+
+	public String getPersonnelAdvice() {
+		return personnelAdvice;
+	}
+
+	public void setPersonnelAdvice(String personnelAdvice) {
+		this.personnelAdvice = personnelAdvice;
+	}
+
+	public String getManagerAdvice() {
+		return managerAdvice;
+	}
+
+	public void setManagerAdvice(String managerAdvice) {
+		this.managerAdvice = managerAdvice;
+	}
 
 	@Override
 	public String toString() {
-		return "Overtime [overtimeId=" + overtimeId + ", typeId=" + typeId + ", nameuser=" + nameuser + "]";
+		return "Overtime [overtimeId=" + overtimeId + ", typeId=" + typeId + ", personnelAdvice=" + personnelAdvice
+				+ ", managerAdvice=" + managerAdvice + ", nameuser=" + nameuser + "]";
 	}
 
 	

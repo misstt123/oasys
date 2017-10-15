@@ -1,5 +1,7 @@
 package cn.gson.oasys.services.process;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -9,12 +11,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -98,6 +106,42 @@ public class ProcessService {
      * 特殊字符：零元整
     */
   private static final String CN_ZEOR_FULL = "零元" + CN_FULL;
+  
+
+	/**
+	 * 写文件 方法
+	 * 
+	 * @param response
+	 * @param file
+	 * @throws IOException 
+	 */
+	public void writefile(HttpServletResponse response, File file) {
+		ServletOutputStream sos = null;
+		FileInputStream aa = null;
+		try {
+			aa = new FileInputStream(file);
+			sos = response.getOutputStream();
+			// 读取文件问字节码
+			byte[] data = new byte[(int) file.length()];
+			IOUtils.readFully(aa, data);
+			// 将文件流输出到浏览器
+			IOUtils.write(data, sos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				sos.close();
+				aa.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+	
+	}
   /**
    * 用户封装
    * @param user
@@ -125,18 +169,22 @@ public class ProcessService {
 		Pageable pa=new PageRequest(page, size);
 		Page<AubUser> pagelist=null;
 		Page<AubUser> pagelist2=null;
+		List<Order> orders = new ArrayList<>();
 		User  u=udao.findByUserName(val);//找用户
 		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_process_list", val);
 		if(StringUtil.isEmpty(val)){
-			pagelist=redao.findByUserIdOrderByStatusId(user, pa);
+			orders.add(new Order(Direction.DESC, "applyTime"));
+			Sort sort = new Sort(orders);
+			pa=new PageRequest(page, size,sort);
+			pagelist=redao.findByUserIdOrderByStatusId(user,false, pa);
 		}else if(!Objects.isNull(u)){
-			pagelist=redao.findprocesslist(user,u,pa);
+			pagelist=redao.findprocesslist(user,u,false,pa);
 		}else if(!Objects.isNull(status)){
-			pagelist=redao.findbystatusprocesslist(user,status.getStatusId(),pa);
+			pagelist=redao.findbystatusprocesslist(user,status.getStatusId(),false,pa);
 		}else{
-			pagelist2=redao.findbytypenameprocesslist(user, val, pa);
+			pagelist2=redao.findbytypenameprocesslist(user, val,false, pa);
 			if(!pagelist2.hasContent()){
-				pagelist2=redao.findbyprocessnameprocesslist(user, val, pa);
+				pagelist2=redao.findbyprocessnameprocesslist(user, val,false, pa);
 			}
 			return pagelist2;
 		}
@@ -190,7 +238,7 @@ public class ProcessService {
 	 * process数据封装
 	 */
 	
-	public Map<String,Object> index3(Long proid,String name,User user,String typename,ProcessList process){
+	public Map<String,Object> index3(String name,User user,String typename,ProcessList process){
 		System.out.println(name);
 		Map<String,Object> result=new HashMap<>();
 		String harryname=tydao.findname(process.getDeeply());
@@ -212,6 +260,11 @@ public class ProcessService {
 		result.put("startime", process.getStartTime());
 		result.put("endtime", process.getEndTime());
 		result.put("tianshu", process.getProcseeDays());
+		if(process.getProFileid().getAttachmentType().startsWith("image")){
+			result.put("filetype", "img");
+		}else{
+			result.put("filetype", "appli");
+		}
 		return result;
 	}
 	/**
@@ -241,12 +294,13 @@ public class ProcessService {
 	 * @throws IOException 
 	 * @throws IllegalStateException 
 	 */
-	public void index5(ProcessList pro,String val,User lu,MultipartFile filePath) throws IllegalStateException, IOException{
+	public void index5(ProcessList pro,String val,User lu,MultipartFile filePath,String name) throws IllegalStateException, IOException{
 		
 		pro.setTypeNmae(val);
 		pro.setApplyTime(new Date());
 		pro.setUserId(lu);
 		pro.setStatusId(23L);
+		pro.setShenuser(name);
 		Attachment attaid=null;
 		if(!StringUtil.isEmpty(filePath.getOriginalFilename())){
 			attaid=mservice.upload(filePath, lu);
@@ -254,6 +308,36 @@ public class ProcessService {
 			AttDao.save(attaid);
 			pro.setProFileid(attaid);
 		}
+	}
+	public void index8(ProcessList pro,String val,User lu,String name) {
+		pro.setTypeNmae(val);
+		pro.setApplyTime(new Date());
+		pro.setUserId(lu);
+		pro.setStatusId(23L);
+		pro.setShenuser(name);
+	}
+	/**
+	 * 存主表
+	 */
+	public void save(Long proid,User u,Reviewed reviewed,ProcessList pro,User u2){
+		Reviewed re=redao.findByProIdAndUserId(proid,u);
+		re.setAdvice(reviewed.getAdvice());
+		re.setStatusId(reviewed.getStatusId());
+		re.setReviewedTime(new Date());
+		re.setStatusId(reviewed.getStatusId());
+		redao.save(re);
+		
+		
+		Reviewed re2=new  Reviewed();
+		re2.setProId(pro);
+		re2.setUserId(u2);
+		re2.setStatusId(23L);
+		redao.save(re2);
+		
+		pro.getShenuser();
+		pro.setShenuser(pro.getShenuser()+";"+u2.getUserName());
+		pro.setStatusId(24L);//改变主表的状态
+		prodao.save(pro);
 	}
 	/**
 	 * 存审核表

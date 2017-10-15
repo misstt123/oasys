@@ -76,10 +76,9 @@ min-height: 120px;
 	<div class="col-md-12">
 		
 		<div class="bgc-w box">
-			
+			<form action="regu" method="post" onsubmit="return check();" >
 			<div class="box-header">
 				<table class="bo table ">
-			
 				<tr >
 					<td colspan="14" class="title"><h2>转正申请单</h2></td>
 			
@@ -87,7 +86,15 @@ min-height: 120px;
 				<tr style="opacity: 0;">
 					<td colspan="14">11</td>
 				</tr>
-					
+				<tr >
+					<td colspan="14" style="text-align: left;">
+						<!--錯誤信息提示  -->
+					<div class="alert alert-danger alert-dismissable" style="display:none;" role="alert">
+						错误信息:<button class="thisclose close" type="button">&times;</button>
+						<span class="error-mess"></span>
+					</div>
+					</td>
+				</tr>	
 				<tr >
 					<td class="title"><label class="control-label">标题</label></td>
 					<td  colspan="6"><input type="text" class="form-control inpu" name="proId.processName"/></td>
@@ -101,6 +108,12 @@ min-height: 120px;
 						</select>
 					</td>
 					
+				</tr>
+				<tr >
+					<td class="title" ><label class="control-label">开始日期</label></td>
+					<td  colspan="6"><input type="text" class="form-control inpu zhuanstart"  name="proId.startTime"/></td>
+					<td class="title" ><label class="control-label">结束日期</label></td>
+					<td  colspan="6"><input type="text" class="form-control inpu zhuanend" name="proId.endTime"/></td>
 				</tr>
 				<tr >
 					<td class="title" ><label class="control-label">申请人</label></td>
@@ -139,6 +152,9 @@ min-height: 120px;
 				<tr >
 
 					<td colspan="14" style="text-align: right;" >
+						<input   type="text" class="days" name="days" hidden="hidden"/>
+						<input   type="text" class="day" name="proId.procseeDays" hidden="hidden"/>
+						<input   type="text" value="转正申请" name="val" hidden="hidden"/>
 						<input class="btn btn-primary" id="save" type="submit" value="保存" />
 						<input class="btn btn-default" id="cancel" type="submit" value="取消"
 						onclick="window.history.back();" />
@@ -147,10 +163,65 @@ min-height: 120px;
 				</tr>
 				</table>
 			</div>
-			
+		 </form>	
 		</div>
 	</div>
 </div>
+<script>
+
+$(function(){
+	$(".days").focus(function(){
+		var $star=new Date($(".holistart").val());
+		var $end=new Date($(".holiend").val());
+		tt=$end.getTime()-$star.getTime();
+		$(".days").val(Math.ceil(tt/ (24*60*60*1000)));
+		$(".day").val(Math.ceil(tt/ (24*60*60*1000)));
+	});
+})
+//表单提交前执行的onsubmit()方法；返回false时，执行相应的提示信息；返回true就提交表单到后台校验与执行
+function check() {
+	console.log("开始进入了");
+	//提示框可能在提交之前是block状态，所以在这之前要设置成none
+	$('.alert-danger').css('display', 'none');
+	var isRight = 1;
+	$('.form-control').each(function(index) {
+		// 如果在这些input框中，判断是否能够为空
+		if ($(this).val() == "") {
+			if($(this).hasClass("cha")){
+				return true;
+			}
+			// 排除哪些字段是可以为空的，在这里排除
+			/* if (index == 5||index == 6) {
+				return true;
+			}  */
+			
+			// 获取到input框的兄弟的文本信息，并对应提醒；
+			console.log(index);
+			var errorMess = "红色提示框不能为空!";
+			// 对齐设置错误信息提醒；红色边框
+			$(this).parent().addClass("has-error has-feedback");
+			$('.alert-danger').css('display', 'block');
+			// 提示框的错误信息显示
+			$('.error-mess').text(errorMess);
+			
+			isRight = 0;
+			return false;
+			
+		} else {
+			return true;
+		}
+	});
+	
+	if (isRight == 0) {
+		//modalShow(0);
+		 return false;
+	} else if (isRight == 1) {
+		//modalShow(1);
+		 return true;
+	}
+//	return false;
+}
+</script>
 <#include "/common/reciver.ftl">
 <script type="text/javascript" src="js/common/data.js"></script>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>

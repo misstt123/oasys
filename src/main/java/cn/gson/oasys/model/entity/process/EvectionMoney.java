@@ -38,6 +38,8 @@ public class EvectionMoney {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	private Long pro;
+	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="evection")
 	List<Traffic> traffic;
 	
@@ -120,13 +122,25 @@ public class EvectionMoney {
 	public void setStay(List<Stay> stay) {
 		this.stay = stay;
 	}
+	
+	
+
+	public Long getPro() {
+		return pro;
+	}
+
+	public void setPro(Long pro) {
+		this.pro = pro;
+	}
 
 	@Override
 	public String toString() {
 		return "EvectionMoney [evectionmoneyId=" + evectionmoneyId + ", money=" + money + ", name=" + name
-				+ ", managerAdvice=" + managerAdvice + ", financialAdvice=" + financialAdvice + ", shenname=" + shenname
-				+ "]";
+				+ ", managerAdvice=" + managerAdvice + ", financialAdvice=" + financialAdvice + ", pro=" + pro
+				+ ", shenname=" + shenname + "]";
 	}
+
+	
 
 	
 	

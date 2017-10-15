@@ -31,9 +31,40 @@ public class Holiday {
 	@JoinColumn(name="pro_id")
 	private ProcessList proId;
 	
+	@Column(name="personnel_advice")
+	private String personnelAdvice;//人事部意见及说明
+	
+	@Column(name="manager_advice")
+	private String managerAdvice;//经理意见及说明
+	
 	@Transient
 	private String nameuser;
 	
+
+	
+	public String getPersonnelAdvice() {
+		return personnelAdvice;
+	}
+
+	public void setPersonnelAdvice(String personnelAdvice) {
+		this.personnelAdvice = personnelAdvice;
+	}
+
+	public String getManagerAdvice() {
+		return managerAdvice;
+	}
+
+	public void setManagerAdvice(String managerAdvice) {
+		this.managerAdvice = managerAdvice;
+	}
+
+	public String getNameuser() {
+		return nameuser;
+	}
+
+	public void setNameuser(String nameuser) {
+		this.nameuser = nameuser;
+	}
 
 	public Long getHolidayId() {
 		return holidayId;
@@ -69,7 +100,9 @@ public class Holiday {
 
 	@Override
 	public String toString() {
-		return "Holiday [holidayId=" + holidayId + ", typeId=" + typeId + ", leaveDays=" + leaveDays + "]";
+		return "Holiday [holidayId=" + holidayId + ", typeId=" + typeId + ", leaveDays=" + leaveDays
+				+ ", personnelAdvice=" + personnelAdvice + ", managerAdvice=" + managerAdvice + ", nameuser=" + nameuser
+				+ "]";
 	}
 
 	

@@ -117,6 +117,9 @@ border-top: 1px solid #2196F3;
 	border-top: 1px solid #2196F3;
    
 }
+.label{
+    cursor: pointer;
+}
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
@@ -180,12 +183,20 @@ border-top: 1px solid #2196F3;
 				
 				<tr class="rile">
 					<td class="wi" style="width:100px;"><label class="control-label">相关客户</label></td>
-					<td  style="width:140px;"><div class="bottom"></div></td>
+					<td  style="width:140px;"><div class="bottom">${(emoney.name)!''}</div></td>
 					<td class="css"style="width:30px;"></td>
 					<td class="wi" style="width:90px;"><label class="control-label">相关票据</label></td>
 					<td colspan="4" style="width:44px;"><div class="bottom">${(map.file.attachmentId)!''}   ${(map.file.attachmentName)!''}</div></td>
-					<td class="css" colspan="6" ></td>
 					
+					<#if emoney.pro??>
+					<td class="css" style="width:30px;"></td>
+					<td class="wi"><label class="control-label">出差相关</label></td>
+					<td colspan="4" ><div class="bottom">
+						<a href="particular?id=${emoney.pro}&typename=出差/外出申请" class="label xiugai">
+						<span class="glyphicon glyphicon-search"></span> 查看</a> </div></td>
+						<#else>
+						<td class="css" colspan="6"></td>
+					</#if>
 				</tr>
 				<tr class="top">
 					<td colspan="14" class="wi "><div class="bottom" ><label class="control-label font">差旅交通明细</label></div></td>
