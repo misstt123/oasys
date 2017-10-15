@@ -14,7 +14,6 @@ maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="css/common/skintheme.css" />
 	<script type="text/javascript">
 		$(function(){
-			
 			var themeSkin='${user.themeSkin}';
 			if(themeSkin=="blue"){
 				toblue();

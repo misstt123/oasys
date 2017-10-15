@@ -13,8 +13,12 @@ import cn.gson.oasys.model.entity.user.UserLog;
 
 @Repository
 public interface UserLogDao extends JpaRepository<UserLog, Long>{
-
-	//限制10条
+	
+	//查找出最新一条记录
+	@Query(nativeQuery=true,value=("SELECT * from aoa_user_log where aoa_user_log.user_id=?1 ORDER BY aoa_user_log.log_time DESC LIMIT 0,1"))
+	UserLog findByUserlaset(long userid);
+	
+	//限制13条
 	@Query(nativeQuery=true,value=("SELECT * from aoa_user_log where aoa_user_log.user_id=?1 ORDER BY aoa_user_log.log_time DESC LIMIT 0,13"))
 	List<UserLog> findByUser(long userid);
 	

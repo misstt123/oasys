@@ -1,4 +1,5 @@
 <#include "/common/commoncss.ftl" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
 .thiscolor{
 	display: inline-block;
@@ -125,9 +126,40 @@
 </div>
 <!--右侧刷新的内容块-->
 <div class="container-fluid"
-	style="margin-top: 20px; position: relative; margin-bottom: 50px;">
-	<div class="row">
+	style="margin-top: 20px;  margin-bottom: 50px;">
+	<div class="row ">
 		<div class="col-md-7 gridly">
+		<!-- 统计 -->
+		<div class="panel panel-default box-show green-box">
+				<div class="panel-heading box-show-heading"
+					style="background: white;">
+					<div class="panel-title" style="display: inline-block;">
+						<h4>本周系统使用统计</h4>
+					</div>
+					<div class="pull-right right-btn-group dropdown"
+						style="display: inline-block;">
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="">历史记录</a></li>
+							</ul>
+						</div>
+						<a href="#panelone" data-toggle="collapse"><button>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
+							</button></a>
+						<button>
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				
+				<div id="panelone" class="panel-collapse collapse in">
+				</div>
+			</div>
+		
+		
 			<!--第一个公告通知-->
 			<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
@@ -138,22 +170,22 @@
 					<div class="pull-right right-btn-group dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown">
+							<button data-toggle="dropdown" >
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="infrommanage">公告通知</a></li>
 							</ul>
 						</div>
 						<a href="#panelone" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
 				</div>
+				
 				<div id="panelone" class="panel-collapse collapse in">
 					<table class="table table-hover">
 						<tr>
@@ -191,12 +223,12 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="xinxeng">新建流程</a></li>
+								<li><a href="flowmanage">流程管理</a></li>
 							</ul>
 						</div>
 						<a href="#paneltwo" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
 							<span class="glyphicon glyphicon-remove"></span>
@@ -212,30 +244,23 @@
 							<th>标题</th>
 							<th></th>
 						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin blueskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin yellowskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
-						<tr>
-							<td>总公司</td>
-							<td>2015-10-22</td>
-							<td><span class="basicskin redskin">一般</span></td>
-							<td>元旦放假3天</td>
-							<td><a href="#" class="look-xiangxi"><span
-									class="glyphicon glyphicon-search"> </span> 查看 </a></td>
-						</tr>
+						
+							<#list processlist as pro>
+							<tr>
+								<td>${(pro.typeNmae)!''}
+								</td>
+								<td>${(pro.applyTime)!''}</td>
+								<td><#list prostatuslist as pros>
+								<#if pros.statusId==pro.statusId>
+								<span class="label ${(pros.statusColor)!''}">${(pros.statusName)!''}</span>
+								</#if>
+								</#list>
+								</td>
+								<td><span>${(pro.processName)!''}</span></td>
+								<td><a href="" class="look-xiangxi"><span
+										class="glyphicon glyphicon-search"> </span> 查看 </a></td>
+							</tr>
+						</#list>
 					</table>
 				</div>
 			</div>
@@ -253,12 +278,12 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="planview">计划管理</a></li>
+								<li><a href="planedit?pid=-1">新增计划</a></li>
 							</ul>
 						</div>
 						<a href="#panelthree" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
 							<span class="glyphicon glyphicon-remove"></span>
@@ -304,36 +329,148 @@
 		</div>
 
 		<!--内容右侧5个格子；-->
-		<div class="col-md-5">
-			<!--第四个格子-->
-			<div class="panel panel-default box-show green-box">
+		<div class="rightcolmd">
+		<!-- 任务完成排行 -->
+		<div class="panel panel-default box-show green-box">
 				<div class="panel-heading box-show-heading"
 					style="background: white;">
 					<div class="panel-title" style="display: inline-block;">
-						<h4>公告通知</h4>
+						<h4>
+							任务完成排行
+						</h4>
 					</div>
 					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown">
+							<button data-toggle="dropdown" >
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="">我的任务</a></li>
 							</ul>
 						</div>
-						<a href="#panelfour" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+						<a href="#panelfive" data-toggle="collapse"><button >
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
-						<button>
+						<button >
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
 				</div>
-				<div id="panelfour" class="panel-collapse collapse in">
-					<div style="height: 240px;"></div>
+				
+				<div id="column" class="panel-collapse collapse in">
+				 
 				</div>
+				
+			</div>
+		
+			<!--第四个格子-->
+			<!-- 行事历 -->
+			<div class="panel" style="background-color: #00c86c;color: white;">
+				<div class="" style="border-bottom: 1px solid green;">
+					<div class="panel-title" style="display: inline-block;">
+						<h4><span class="glyphicon glyphicon-calendar"></span>行事历</h4>
+					</div>
+					<div class="pull-right right-btn-group btn-color dropdown"
+						style="display: inline-block;">
+						<div style="display: inline-block;">
+							<button data-toggle="dropdown" style="background: #18e89d !important;">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="daymanage">日程管理</a></li>
+								<li><a href="daycalendar">我的日历</a></li>
+							</ul>
+						</div>
+						<a href="#panelfour" data-toggle="collapse" ><button style="background: #18e89d !important;">
+								<span class="glyphicon glyphicon-minus shousuo"></span>
+							</button></a>
+						<button style="background: #18e89d !important;">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				<div id="panelfour" class="panel-collapse collapse in"  style="height: 280px;padding: 10px;">
+				  
+				   <table cellpadding="2" style="border-collapse: collapse;width:100%;" class="calendar" id="calendar">
+			
+						<div >
+						<span class="glyphicon glyphicon-chevron-left month left" style="cursor:pointer;"></span>
+						<span class="glyphicon glyphicon-chevron-right month right" style="float:right;cursor:pointer;"></span>
+						<div class="yearmonth" style="text-align:center;width:70%;display:inline;margin-left: 154px;"><div>
+						</div>
+			<tbody>
+			
+			<tr style="color:white;">
+				<th>一</th>
+				<th>二</th>
+				<th>三</th>
+				<th>四</th>
+				<th>五</th>
+				<th>六</th>
+				<th>日</th>
+			</tr>
+			<tr>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+			</tr>
+			<tr>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+			</tr>
+			<tr>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+			</tr>
+			<tr>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+			</tr>
+			<tr>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+			</tr>
+			<tr>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+			</tr>
+			</tbody>
+		</table>	
+				<div id="blockdiv" style="
+				background-color: white; display: none; z-index: 999; border: 1px solid rgb(105, 103, 103); 
+				position: absolute; color: rgb(105, 103, 103);text-align: center; ">dfdfdf</div>
+				</div>
+				
 			</div>
 			<!--第五个格子-->
 			<div class="panel panel-default box-show green-box">
@@ -347,18 +484,17 @@
 					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">
 						<div style="display: inline-block;">
-							<button data-toggle="dropdown">
+							<button data-toggle="dropdown" style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">下拉菜单项</a></li>
-								<li><a href="#">下拉菜单项</a></li>
+								<li><a href="userpanel">我的便签</a></li>
 							</ul>
 						</div>
-						<a href="#panelfive" data-toggle="collapse"><button>
-								<span class="glyphicon glyphicon-minus"></span>
+						<a href="#panelfive" data-toggle="collapse"><button style="background: #18e89d !important;">
+								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
-						<button>
+						<button style="background: #18e89d !important;">
 							<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</div>
@@ -379,12 +515,12 @@
 							</#list>
 					</ul>
 					<div class="input-group input-div">
-						<input type="text" placeholder="便签内容" style="outline: none;" /> <a
-							href="#"><span class="glyphicon glyphicon-plus"
+						<input type="text" placeholder="便签内容" style="outline: none;" class="concent"/> <a
+							id="writep" style="cursor: pointer;"><span class="glyphicon glyphicon-plus"
 							style="margin-top: 6px;"></span></a>
 					</div>
 				</div>
-
+				
 			</div>
 			<!--5个格子栅格系统end-->
 		</div>
@@ -406,5 +542,37 @@
 		}
 		console.log($(this).parents('.box-show'));
 		$(this).parents('.box-show').css('display','none');
+		
 	});
+	
+	$(".shousuo").on('click',function(){
+		if($(this).hasClass("glyphicon-plus")){
+			console.log("0000")
+			$(this).removeClass("glyphicon-plus").addClass("glyphicon-minus")
+		}
+		else{
+			console.log("1111")
+				$(this).removeClass("glyphicon-minus").addClass("glyphicon-plus")
+			}
+	})
+	
+		$("#writep").click(function(){
+			var $concent=$(".concent").val();
+			if($concent==null||$concent=="")
+				return confirm("您输入为空 请重新输入");
+			$.ajax({
+				url:'writep',
+				data:{concent:$concent},
+				type:"get",
+				success:function(){
+					window.location.reload();
+				}
+			})
+		})
 </script>
+
+<script src="js/littlecalendar.js"></script>
+<script src="js/highcharts/jquery.js"></script>
+<script src="js/highcharts/highcharts.js"></script>
+
+<script src="js/tongji.js"></script>
