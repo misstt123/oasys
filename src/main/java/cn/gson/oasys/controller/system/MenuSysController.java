@@ -120,7 +120,6 @@ public class MenuSysController {
 				req.setAttribute("getName", getName);
 				log.info("getAdd:{}", getAdd);
 			} else {
-				
 				session.setAttribute("getId", getId);
 				log.info("getId:{}", getId);
 				req.setAttribute("menuObj", menuObj);

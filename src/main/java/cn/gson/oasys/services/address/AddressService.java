@@ -18,6 +18,9 @@ public class AddressService {
 	public Director sava(Director director){
 		return addressDao.save(director);
 	}
-	
+	public void deleteDirector(Director director){
+		addressDao.delete(director);
+		System.out.println("删除一个外部联系人");
+	}
 
 }

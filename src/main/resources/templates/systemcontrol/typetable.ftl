@@ -4,7 +4,7 @@
 			<th scope="col">模块</th>
 			<th scope="col">类型</th>
 			<th scope="col">排序值</th>
-			<th scope="col">颜色</th>
+			<!-- <th scope="col">颜色</th> -->
 			<th scope="col">操作</th>
 		</tr>
 		<#list typeList as type>
@@ -12,7 +12,7 @@
 			<td><span>${(type.typeModel)!''}</span></td>
 			<td><span>${(type.typeName)!''}</span></td>
 			<td><span>${(type.typeSortValue)!''}</span></td>
-			<td><span>${(type.typeColor)!''}</span></td>
+			<!-- <td><span>${(type.typeColor)!''}</span></td> -->
 			<td><a href="typeedit?typeid=${type.typeId}"
 				class="label xiugai"><span class="glyphicon glyphicon-edit"></span>
 					修改</a> <a title="查看详细信息" href="##" class="label xiugai"><span

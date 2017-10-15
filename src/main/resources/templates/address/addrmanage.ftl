@@ -1,7 +1,7 @@
-<#include "/common/commoncss.ftl">
+<#include "/common/commoncss.ftl"/>
 <link rel="stylesheet" type="text/css" href="css/common/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
-
+<link rel="stylesheet" type="text/css" href="css/common/tanchuang.css" />
 <style type="text/css">
 .icon {
 	width: 1em;
@@ -127,12 +127,26 @@ li.activee>a {
 		</div>
 
 		<div class="bgc-w box box-solid">
-		<a href="#">
-			<div class="box-header thisbox-header">
-				<h3 class="box-title">我的消息</h3>
-				<span class="badge pull-right" style="background:#337ab7;">10</span>
+			<div class="box-header">
+				<h3 class="box-title">共享消息</h3>
+				<span class="btn btn-default pull-right btn-xs des mm"> <i
+					class="glyphicon glyphicon-minus"></i>
+				</span>
 			</div>
-		</a>
+			<ul class="nav nav-pills nav-stacked mm">
+				<li class="activee">
+					<a href="javascript:void(0);" class="meshareother"> <span class="glyphicon glyphicon-new-window"> 我共享的</span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" class="sharewithme">
+					<span class="glyphicon glyphicon-log-in"> 共享与我</span> 
+					<#if count gt 0>
+						<span class="badge pull-right showcount" style="background-color: #286090;">${count}</span>
+					</#if>
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 	<div class="col-md-9">
@@ -169,25 +183,142 @@ li.activee>a {
 		<div class="bgc-w box box-primary thistable">
 			<#include "inaddrss.ftl"/>
 		</div>
+		<input type="hidden" class="sharehidden"/>
 	</div>
 </div>
 <#include "/common/modalTip.ftl"/>
 <#include "changetypename.ftl"/> 
-<#include "/common/reciver.ftl">
 <script src="js/common/iconfont.js"></script>
 <script type="text/javascript">
 		$(function() {
+			/* 移动分类的保存事件 */
+			$('#thischangetypesubmit').on('click',function(){
+				var did=$("#thischangetype").attr('thisdid');
+				var catalog=$('#thisselectvalue').val();
+				console.log("did:"+did)
+				console.log("fdsfsdfdaffd");
+				$.ajax({
+					url:'/changethistype',
+					type:'post',
+					async:false,
+					cache:false,
+					data:{'did':did,'catalog':catalog},
+					datatype:'json',
+					success:function(data){
+						console.log("执行成功了么?");
+						console.log(data);
+						 if(data){
+							var alph=$('#thispills .active a').text().trim();	//获取字母表中的值
+							$('.thistable').load('outaddresspaging',{alph:alph});
+							modalShow(1);	
+						}	 
+					}
+				})
+				
+			})
+			
+			/* 点击移动的事件 */
+			$('.thistable').on('click','.thismove',function(){
+				//设置id
+				$("#thischangetype").attr('thisdid',$(this).attr("thisdid"));				
+				//设置名字
+				$("#thischangetype").attr('title',$(this).attr("thisuserName"));
+				console.log($("#thischangetype").attr('title'));
+				$("#thischangetypename").text($(this).attr("thisuserName"));
+				//设置电话号码
+				$("#thischangetype").attr('thistel',$(this).attr("thisphoneNumber"));
+				$("#thischangetypetel").text($(this).attr("thisphoneNumber"));
+				//设置头像
+				$("#thischangetypeimg").attr("src",$(this).attr("thisimgpath"));
+				//设置性别
+				$("#thischangetype").attr('thissex',$(this).attr("thissex"));
+				//设置email
+				$("#thischangetype").attr('thisemail',$(this).attr("thisemail"));
+				//设置公司
+				$("#thischangetype").attr('thiscompany',$(this).attr("thiscompany"));
+				
+				$('#changetypenameModal').modal("toggle");
+			})
+			
+			/* 外部通讯录分会的点击事件 */
+			$('.thistable').on('click','.returnoutaddress',function(){
+				var alph=$('#thispills .active a').text().trim();	//获取字母表中的值
+				var outtype=$('#thisul .activee').text().trim();	//获取外部通讯录的分类名称
+				$('.thistable').load('outaddresspaging',{alph:alph,outtype:outtype});
+			})
+			/*内部通讯录返回点击事件  */
+			$('.thistable').on('click','.returninaddress',function(){
+				var alph=$('#thispills .active a').text().trim();	//获取字母表中的值
+				$('.thistable').load('inaddresspaging',{alph:alph});
+			})
+			/* 查看外部联系人详情 */
+			$('.thistable').on('click','.outlookthis',function(){
+				var director=$(this).attr('director');
+				$('.thistable').load('outmessshow',{director:director});
+			})
+			/* 查看内部联系人详情 */
+			$('.thistable').on('click','.inlookthis',function(){
+				var userId=$(this).attr('userId');
+				console.log(userId);
+				$('.thistable').load('inmessshow',{userId:userId});
+			})
+			/* 我的分享的消息记录 */
+			$('.meshareother').on('click',function(){
+				console.log("我的分享点击了么？");
+				$('.thistable').load('mesharemess');
+			})
+			/* 分享信息按钮的点击事件 */
+			$('.sharewithme').on('click',function(){
+				$('.thistable').load('sharemess');
+			})
+			/*模态框关闭的按钮和确定按钮；都要将模态框里面的内容替换成分享时的内容*/
+			$('.thistable').on('click','#shareModal .closemodal',function(){
+				$("#shareModal .modal-1").load("modalshare");
+			})
+			
+			/* 模态框中的点击 */
+			$('.thistable').on('click','.thisshareuser',function(){
+				console.log("分享点击了么？");
+				var sharedirector=$('.sharehidden').val();
+				console.log("分享的通讯录:"+sharedirector);
+				var length=$('#shareModal .table-r tbody input[type="checkbox"]:checked').length;
+				if(length<1){
+					console.log("长度小于1");
+					$('#shareModal .alert-dismissable').css("display","block");
+					$('.error-mess').text("没有选择要分享的人");
+					return false;
+				}
+				var directors=new Array();
+				$('#shareModal .table-r tbody input[type="checkbox"]:checked').each(function(index){
+					console.log("下标："+index);
+					console.log("用户："+$(this).attr("userId"));
+					directors[index]=$(this).attr("userId");
+				})
+				console.log(directors);
+				/*传值给后台：1、要分享的通讯录id；2、要接收的userid的数组；  */
+				$("#shareModal .modal-1").load("shareother",{'directors[]':directors,sharedirector:sharedirector});
+			})
+			
+			$('.thistable').on('click','.thisclose', function() {
+				$(this).parent().css('display', 'none');
+			});
 			/*分享。。。*/
 			$('.thistable').on('click','.thisshare',function(){
-				$('#myModal').modal("toggle");
-			}
+				var sharedirector=$(this).attr("directorId");
+				console.log("分享的通讯录:"+sharedirector);
+				$('.sharehidden').val(sharedirector);
+				$('#shareModal').modal("toggle");
+				$("#shareModal .modal-1").load("modalshare");
+			})
 			
 			/* 用户删除某个联系人 */
 			$('.thistable').on('click','.thisdelete',function(){
 				var did=$(this).attr('did');
 				console.log(did);
 				if(confirm("确定删除吗？")){
-					$('.thistable').load('deletedirector',{did:did});
+					$('.thistable').load('deletedirector',{did:did},function(){
+						modalShow(1);
+					});
 				}
 			})
 			

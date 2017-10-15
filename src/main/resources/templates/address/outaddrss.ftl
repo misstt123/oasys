@@ -24,6 +24,7 @@
 				<th scope="col">所属公司</th>
 				<th scope="col">头像</th>
 				<th scope="col">姓名</th>
+				<th scope="col">性别</th>
 				<th scope="col">Tel</th>
 				<th scope="col">E-mail</th>
 				<th scope="col">操作</th>
@@ -42,21 +43,42 @@
 						style="width: 25px; height: 25px;">
 				</a></td>
 				<td><span>${(d.user_name)!''}</span></td>
+				<td><span>
+				<#if d.sex=="男">
+					<img src="images/male.png" alt="男" style="width: 20px;height: 20px" />
+				<#else>
+					<img src="images/female.png" alt="女" style="width: 20px;height: 20px" />
+				</#if>
+				</span></td>
 				<td><span>${d.phone_number}</span></td>
-				<td><span>${d.email}</span></td>
+				<td><span>${(d.email)!''}</span></td>
 				<td>
-					<a href="javascript:void(0);" class="label xinzeng thisshare">
+					<a href="javascript:void(0);" class="label xinzeng thisshare" directorId="${d.director_id}"> 
 						<span class="glyphicon glyphicon-new-window"></span> 分享
 					</a> 
-					<a href="#" class="label xiugai">
+					<a href="javascript:void(0);" director="${d.director_id}" class="label xiugai outlookthis">
 						<span class="glyphicon glyphicon-search"></span> 查看
 					</a> 
 					<a did="${d.director_users_id}"  href="javascript:void(0);" class="label shanchu thisdelete">
 						<span class="glyphicon glyphicon-remove"></span> 删除
 					</a>
+					<#if userId==d.user_id>
 					<a title="修改" did="${d.director_id}" href="javascript:void(0);" class="label xiugai thischange">
 						<span class="glyphicon glyphicon-edit"></span> 修改
 					</a> 
+					<#else>
+					<a title="移动" 
+					thisdid="${(d.director_id)!''}" 
+					thisuserName="${(d.user_name)!''}" 
+					thisimgpath="images/touxiang/${(d.image_path)!'timg.jpg'}"
+					 thisphoneNumber="${d.phone_number}"
+					 thissex="${d.sex}"
+					 thisemail="${(d.email)!''}"
+					 thiscompany="${(d.companyname)!''}"
+					   href="javascript:void(0);" class="label sheding thismove">
+						<span class="glyphicon glyphicon-retweet"></span> 移动
+					</a>
+					</#if>
 				</td>
 			</tr>
 			</#list>
@@ -70,3 +92,4 @@
 </div>
 <!--盒子尾-->
 <#include "/common/pagingmybatis.ftl"/>
+<#include "/address/sharemodal.ftl"/>

@@ -1,5 +1,7 @@
 package cn.gson.oasys.model.entity.note;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,6 +36,18 @@ public class DirectorUser {
 	@Column(name="catelog_name")
 	private String catalogName;
 	
+	private Date sharetime=new Date();
+	
+	
+	
+	public Date getSharetime() {
+		return sharetime;
+	}
+
+	public void setSharetime(Date sharetime) {
+		this.sharetime = sharetime;
+	}
+
 	@Column(name="is_handle")
 	private Boolean handle=false;
 
@@ -100,7 +114,7 @@ public class DirectorUser {
 	@Override
 	public String toString() {
 		return "DirectorUser [directorUserId=" + directorUserId + ", catalogName=" + catalogName + ", handle=" + handle
-				+ "]";
+				+ ",sharetime"+sharetime+"]";
 	}
 	
 	

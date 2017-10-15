@@ -1,7 +1,7 @@
 
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/checkbox.css" />
-<link rel="stylesheet" href="css/common/tanchuang.css" />
+<link rel="stylesheet" type="text/css" href="css/common/tanchuang.css" />
 <script type="text/javascript" src="js/task/task.js" ></script>
 <style type="text/css">
 a {

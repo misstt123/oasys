@@ -24,13 +24,13 @@ a:hover {
 <!--盒子头-->
 <div class="box-header">
 	<h3 class="box-title">
-		<a href="javascript:history.back();" class="label label-default"
+		<a href="javascript:void(0);" class="label label-default returnoutaddress"
 			style="padding: 5px;"> <i
 			class="glyphicon glyphicon-chevron-left"></i> <span>返回</span>
 		</a>
 	</h3>
 </div>
-<form action="savaaddress" method="post" enctype="multipart/form-data" onsubmit="return check();">
+<form action="savaaddress" method="post" id="addressform" enctype="multipart/form-data" onsubmit="return check();">
 	<!--盒子身体-->
 	<div class="box-body no-padding">
 		<div class="box-body">
@@ -44,7 +44,7 @@ a:hover {
 				<div class="col-md-6 form-group">
 					<label class="control-label"><span>分类</span></label> 
 					<select class="form-control" name="catalogName">
-					<#if du?? & du.catalogName!="">
+					<#if du?? & du.catalogName?? & du.catalogName!="">
 						<option value="${(du.catalogName)!''}">${(du.catalogName)!'外部通讯录'}</option>
 					<#else>
 						<option value="${(du.catalogName)!''}">外部通讯录</option>
@@ -111,8 +111,7 @@ a:hover {
 	<!--盒子尾-->
 	<div class="box-footer">
 		<input class="btn btn-primary" id="save" type="submit" value="保存" />
-		<input class="btn btn-default" id="cancel" type="button" value="取消"
-			onclick="window.history.back();" />
+		<input class="btn btn-default returnoutaddress" id="cancel" type="button" value="取消" />
 	</div>
 </form>
 
@@ -127,13 +126,12 @@ a:hover {
 		//提示框可能在提交之前是block状态，所以在这之前要设置成none
 		$('.alert-danger').css('display', 'none');
 		var isRight = 1;
-		$('form .form-control').each(function(index) {
+		$('#addressform .form-control').each(function(index) {
 			// 如果在这些input框中，判断是否能够为空
 			if ($(this).val() == "") {
 				// 排除哪些字段是可以为空的，在这里排除
-				if (index == 0||index == 9 || index == 5 ||index == 6 || index == 7 ||index == 8) {
-					return true;
-				}
+				if (index == 2 || index == 3|| index == 4) {
+				console.log(index);
 				// 获取到input框的兄弟的文本信息，并对应提醒；
 				var brother = $(this).siblings('.control-label').text();
 				var errorMess = "[" + brother + "输入框信息不能为空]";
@@ -146,6 +144,7 @@ a:hover {
 				$('.modal-error-mess').text(errorMess);
 				isRight = 0;
 				return false;
+				}
 			} else {
 				if(index==3){
 					if(isPhoneNo($(this).val())==false){

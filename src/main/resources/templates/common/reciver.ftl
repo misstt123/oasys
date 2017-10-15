@@ -59,7 +59,7 @@ $(function(){
 	$(".chazhao").click(function() {
 		var $qufen=$(".mi").text();
 		var con = $(".cha").val();
-		$(".thistable").load("names",{title:con,qufen:$qufen});
+		$("#myModal .thistable").load("names",{title:con,qufen:$qufen});
 	});
 });
 function addvalue(){
