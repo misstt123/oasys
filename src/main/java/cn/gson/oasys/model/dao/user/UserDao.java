@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.User;
 
 public interface UserDao extends JpaRepository<User, Long>{
@@ -32,8 +33,6 @@ public interface UserDao extends JpaRepository<User, Long>{
 	//根据名字找用户
 	User findByUserName(String title);
 	
-	
-	
 	//根据用户名模糊查找
 	@Query("from User u where u.userName like %:name% or u.realName like %:name%")
 	Page<User> findbyUserNameLike(@Param("name")String name,Pageable pa);
@@ -50,4 +49,18 @@ public interface UserDao extends JpaRepository<User, Long>{
 	//根据姓名首拼+查找关键字查找(部门、姓名、电话号码)，并分页
 	@Query("from User u where u.userName like ?1 or u.dept.deptName like ?1 or u.userTel like ?1 or u.position.name like ?1 or u.pinyin like ?2")
 	Page<User> findUsers(String baseKey,String baseKey2,Pageable pa);
+	/**
+	 * 用户管理查询可用用户
+	 * @param isLock
+	 * @param pa
+	 * @return
+	 */
+	Page<User> findByIsLock(Integer isLock,Pageable pa);
+	
+	
+	@Query("from User u where u.dept.deptName like %?1% or u.userName like %?1% or u.realName like %?1% or u.userTel like %?1% or u.role.roleName like %?1%")
+	Page<User> findnamelike(String name,Pageable pa);
+	
+	List<User> findByDept(Dept dept);
+	
 }
