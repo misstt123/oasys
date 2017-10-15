@@ -3,7 +3,7 @@
             //曲线图初始化
             chart = new Highcharts.Chart({
                 chart: {
-                    renderTo: 'container1',
+                    renderTo: 'line',
                     type: 'line',
                     marginRight: 220,
                     marginBottom: 25

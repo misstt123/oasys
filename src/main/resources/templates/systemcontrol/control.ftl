@@ -155,7 +155,7 @@
 					</div>
 				</div>
 				
-				<div id="panelone" class="panel-collapse collapse in">
+				<div id="line" class="panel-collapse collapse in">
 				</div>
 			</div>
 		
