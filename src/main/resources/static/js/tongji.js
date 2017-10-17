@@ -11,31 +11,31 @@
           	   }
              ,success:function(data){
             	var string=JSON.stringify(data);
-            	 string=string.substring(1,string.length-1);
+            	string=string.substring(1,string.length-1);
             	 var str=string.split(",");
             	 for(var i=0;i<str.length;i++){
             		 str[i]=str[i].substring(1,str[i].length-1)
             		var sp=str[i].split(":");
             		arrayname[i]=sp[0].substring(1,sp[0].length-1);
-            		var num=parseInt(sp[1].substring(1,sp[1].length-1));
+            		var num=parseInt(sp[1]);
             		arraynum.push(num);
             	 }
+            	 console.log(arrayname+";"+arraynum)
           	//柱形图初始化
             chart = new Highcharts.Chart({
                 chart: {
                     renderTo: 'column',
                     type: 'column',
-                    gridLineWidth: 0,
-                    bordercolor:'#ffffff',
-                    'stroke-width': 0,
                 },
                 title: {
                     text: null
                 },
                 xAxis: {
-                	 lineWidth: 2,
+                	
+                	gridLineWidth:1,
+                	 lineWidth: 1,
                     lineColor: "#1a96ef",
-                    tickWidth: 10,
+                    tickWidth: 1,
                    categories:arrayname,
                      labels:{
                     	formatter:function(){
@@ -44,8 +44,10 @@
                     }
                 },
                 yAxis: {
+                	 gridLineDashStyle:'Dash',
+                	gridLineWidth:1,
+               	 lineWidth: 1,
                     min: 0,
-                  
                     title: {
                         text: null
                     },labels:{
@@ -67,8 +69,7 @@
                 series: [{
                 	name:'完成任务',
                     data: arraynum,
-                        color: 'red',
-                        lineWidth:0
+                    color: '#B0171F',
                     },
                 ]
             });
@@ -98,10 +99,16 @@
                            text: null,
                        },
                        xAxis: {
+                    	  
+                    	   gridLineWidth:1,
+                      	 lineWidth: 1,
                            categories: ['周一', '周二', '周三', '周四', '周五', '周六',
        				'周日']
                        },
                        yAxis: {
+                    	   gridLineDashStyle:'Dash',
+                    	   gridLineWidth:1,
+                      	 lineWidth: 1,
                        	 tickPixelInterval:30,
                        	 title: {
                                text: null

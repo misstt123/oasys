@@ -15,8 +15,8 @@
 <script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/controlpanel.css" />
 <link rel="stylesheet" href="css/common/skintheme.css" />
-<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"> 
-<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+<!-- <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"> 
+ --><link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<script type="text/javascript">
 		$(function(){
 			var themeSkin='${user.themeSkin}';
@@ -157,7 +157,7 @@
 					</div>
 				</div>
 				
-				<div id="line" class="shrink" style="min-width: 100px; height: 280px; margin: 0 auto">
+				<div id="line" class="shrink" style="min-width: 100px; height: 280px; border-top:solid 1px #eee; margin: 0 auto">
 				</div>
 			</div>
 		
@@ -189,7 +189,7 @@
 				</div>
 				
 				<div id="" class="shrink">
-					<table class="table table-hover">
+					<table class="table table-hover" >
 						<tr>
 							<th>发布</th>
 							<th>日期</th>
@@ -238,7 +238,7 @@
 					</div>
 				</div>
 				<div id="" class="shrink">
-					<table class="table table-hover">
+					<table class="table table-hover" >
 						<tr>
 							<th>类型</th>
 							<th>日期</th>
@@ -293,7 +293,7 @@
 					</div>
 				</div>
 				<div id="" class="shrink">
-					<table class="table table-hover">
+					<table class="table table-hover" >
 						<tr>
 							<th>类型</th>
 							<th>结束日期</th>
@@ -360,7 +360,7 @@
 					</div>
 				</div>
 				
-				<div id="column" class="shrink" style="min-width: 100px; height: 280px; margin: 0 auto">
+				<div id="column" class="shrink" style="min-width: 100px; height: 280px; margin: 0 auto;border-top:solid 1px #eee; ">
 				 
 				</div>
 				
@@ -369,7 +369,7 @@
 			<!--第四个格子-->
 			<!-- 行事历 -->
 			<div class="panel" style="background-color: #00c86c;color: white;">
-				<div class="" style="border-bottom: 1px solid green;">
+				<div class="" style="border-bottom: 1px solid #94d294;;">
 					<div class="panel-title" style="display: inline-block;">
 						<h4><span class="glyphicon glyphicon-calendar"></span>行事历</h4>
 					</div>
@@ -403,29 +403,29 @@
 						</div>
 			<tbody>
 			
-			<tr style="color:white;">
-				<th>一</th>
-				<th>二</th>
-				<th>三</th>
-				<th>四</th>
-				<th>五</th>
-				<th>六</th>
-				<th>日</th>
+			<tr style="color:white;  text-align: center !important;">
+				<th style="text-align: center !important;">一</th>
+				<th style="text-align: center !important;">二</th>
+				<th style="text-align: center !important;">三</th>
+				<th style="text-align: center !important;">四</th>
+				<th style="text-align: center !important;">五</th>
+				<th style="text-align: center !important;">六</th>
+				<th style="text-align: center !important;">日</th>
+			</tr>
+			<tr>
+				<td><span id="span"></span> <span class="icon" ></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
 				<td><span id="span"></span><span class="icon"></span></td>
 				<td><span id="span"></span><span class="icon"></span></td>
 				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-			</tr>
-			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon" ></span></td>
 				<td><span id="span"></span><span class="icon"></span></td>
 				<td><span id="span"></span><span class="icon"></span></td>
 				<td><span id="span"></span><span class="icon"></span></td>
@@ -529,7 +529,6 @@
 	</div>
 </div>
 <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-
 <script>
 //基础图标放大缩小
 	$('.jichu').on('mouseover', function() {
@@ -575,9 +574,14 @@
 				}
 			})
 		})
-		
 		$("rect").attr("stroke","#ffffff")
-		 /* $(".col-md-7 ").children("div").addClass("drag-item");
+		$(".icon").css({
+			"right":"0px",
+			"top":"-10px",
+			"height":"5px"
+		})
+		
+		 $(".col-md-7 ").children("div").addClass("drag-item");
 		$(".rightcolmd ").children("div").addClass("drag-item");
 		
 			$(".drag-item").draggable({
@@ -588,7 +592,7 @@
 				onDrop:function(e,source){
 					$(source).insertAfter(this);
 				}
-			});  */
+			});  
 </script>
 
 <script src="js/littlecalendar.js"></script>

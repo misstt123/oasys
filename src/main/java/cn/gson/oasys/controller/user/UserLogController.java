@@ -24,12 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.gson.oasys.model.dao.scheduledao.ScheduleDao;
 import cn.gson.oasys.model.dao.taskdao.TaskDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.dao.user.UserLogDao;
 import cn.gson.oasys.model.dao.user.UserLogRecordDao;
 import cn.gson.oasys.model.dao.user.UserLogService;
 import cn.gson.oasys.model.dao.user.UserService;
+import cn.gson.oasys.model.entity.schedule.ScheduleList;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.model.entity.user.UserLog;
 
@@ -46,6 +48,8 @@ public class UserLogController {
 	private TaskDao taskDao;
 	@Autowired
 	private UserLogRecordDao userLogRecordDao;
+	@Autowired
+	private ScheduleDao scheduleDao;
 	
 	//显示本周的每天的记录
 	@RequestMapping("countweeklogin")
@@ -96,9 +100,9 @@ public class UserLogController {
 		}
 		hashMap.put("我1", 3);
 		hashMap.put("我2", 4);
-		hashMap.put("我3", 5);
-		hashMap.put("我2", 8);
-		hashMap.put("我3", 10);
+		hashMap.put("我9", 5);
+		hashMap.put("我", 8);
+		hashMap.put("我5", 19);
 		 ArrayList<Map.Entry<String,Integer>> entries= sortMap(hashMap);
 		 ArrayList<Map.Entry<String,Integer>> entries2=new ArrayList<Map.Entry<String,Integer>>();
 		
@@ -120,8 +124,19 @@ public class UserLogController {
 	
 	//日历的数据显示
 	@RequestMapping("littlecalendar")
-	public String test3df(HttpSession session,HttpServletResponse response) {
-		
+	public String test3df(HttpSession session,HttpServletResponse response) throws IOException {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		long userid=Long.valueOf(session.getAttribute("userId")+"");
+		List list=new ArrayList<>();
+		List<ScheduleList>  dates=scheduleDao.findstart(userid);
+		for (ScheduleList scheduleList : dates) {
+			list.add(sdf.format(scheduleList.getStartTime()));
+		}
+		String json=JSONObject.toJSONString(list);
+		System.out.println(json);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=UTF-8");
+		response.getWriter().write(json);
 		return null;
 	}
 	
