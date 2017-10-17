@@ -15,6 +15,8 @@
 <script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/controlpanel.css" />
 <link rel="stylesheet" href="css/common/skintheme.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"> 
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<script type="text/javascript">
 		$(function(){
 			var themeSkin='${user.themeSkin}';
@@ -143,10 +145,10 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="">历史记录</a></li>
+								<li><a href="morelog">历史记录</a></li>
 							</ul>
 						</div>
-						<a href="#panelone" data-toggle="collapse"><button>
+						<a href="#line" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -155,7 +157,7 @@
 					</div>
 				</div>
 				
-				<div id="line" class="panel-collapse collapse in">
+				<div id="line" class="shrink" style="min-width: 100px; height: 280px; margin: 0 auto">
 				</div>
 			</div>
 		
@@ -177,7 +179,7 @@
 								<li><a href="infrommanage">公告通知</a></li>
 							</ul>
 						</div>
-						<a href="#panelone" data-toggle="collapse"><button>
+						<a href="" ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -186,7 +188,7 @@
 					</div>
 				</div>
 				
-				<div id="panelone" class="panel-collapse collapse in">
+				<div id="" class="shrink">
 					<table class="table table-hover">
 						<tr>
 							<th>发布</th>
@@ -227,7 +229,7 @@
 								<li><a href="flowmanage">流程管理</a></li>
 							</ul>
 						</div>
-						<a href="#paneltwo" data-toggle="collapse"><button>
+						<a href="" ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -235,7 +237,7 @@
 						</button>
 					</div>
 				</div>
-				<div id="paneltwo" class="panel-collapse collapse in">
+				<div id="" class="shrink">
 					<table class="table table-hover">
 						<tr>
 							<th>类型</th>
@@ -282,7 +284,7 @@
 								<li><a href="planedit?pid=-1">新增计划</a></li>
 							</ul>
 						</div>
-						<a href="#panelthree" data-toggle="collapse"><button>
+						<a href="" ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -290,7 +292,7 @@
 						</button>
 					</div>
 				</div>
-				<div id="panelthree" class="panel-collapse collapse in">
+				<div id="" class="shrink">
 					<table class="table table-hover">
 						<tr>
 							<th>类型</th>
@@ -346,10 +348,10 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="">我的任务</a></li>
+								<li><a href="mytask">我的任务</a></li>
 							</ul>
 						</div>
-						<a href="#panelfive" data-toggle="collapse"><button >
+						<a href="#column" data-toggle="collapse"><button >
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button >
@@ -358,7 +360,7 @@
 					</div>
 				</div>
 				
-				<div id="column" class="panel-collapse collapse in">
+				<div id="column" class="shrink" style="min-width: 100px; height: 280px; margin: 0 auto">
 				 
 				</div>
 				
@@ -382,7 +384,7 @@
 								<li><a href="daycalendar">我的日历</a></li>
 							</ul>
 						</div>
-						<a href="#panelfour" data-toggle="collapse" ><button style="background: #18e89d !important;">
+						<a   ><button style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button style="background: #18e89d !important;">
@@ -390,7 +392,7 @@
 						</button>
 					</div>
 				</div>
-				<div id="panelfour" class="panel-collapse collapse in"  style="height: 280px;padding: 10px;">
+				<div  class="shrink"  style="height: 280px;padding: 10px;">
 				  
 				   <table cellpadding="2" style="border-collapse: collapse;width:100%;" class="calendar" id="calendar">
 			
@@ -491,7 +493,7 @@
 								<li><a href="userpanel">我的便签</a></li>
 							</ul>
 						</div>
-						<a href="#panelfive" data-toggle="collapse"><button style="background: #18e89d !important;">
+						<a href="" ><button style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button style="background: #18e89d !important;">
@@ -500,7 +502,7 @@
 					</div>
 				</div>
 				
-				<div id="panelfive" class="panel-collapse collapse in">
+				<div  class="shrink">
 					<ul class="list-group">
 						<#list  notepaperList as np>
 						<li class="list-group-item list-group-item-li" style=""><img
@@ -526,6 +528,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+
 <script>
 //基础图标放大缩小
 	$('.jichu').on('mouseover', function() {
@@ -549,14 +553,16 @@
 		if($(this).hasClass("glyphicon-plus")){
 			console.log("0000")
 			$(this).removeClass("glyphicon-plus").addClass("glyphicon-minus")
+			$(this).parents(".panel").children(".shrink").slideToggle(100);
 		}
 		else{
 			console.log("1111")
 				$(this).removeClass("glyphicon-minus").addClass("glyphicon-plus")
+				$(this).parents(".panel").children(".shrink").slideToggle(100);
 			}
 	})
 	
-		$("#writep").click(function(){
+		$("#writep").click(function(){ 
 			var $concent=$(".concent").val();
 			if($concent==null||$concent=="")
 				return confirm("您输入为空 请重新输入");
@@ -569,10 +575,23 @@
 				}
 			})
 		})
+		
+		$("rect").attr("stroke","#ffffff")
+		 /* $(".col-md-7 ").children("div").addClass("drag-item");
+		$(".rightcolmd ").children("div").addClass("drag-item");
+		
+			$(".drag-item").draggable({
+				revert:true,
+			}).droppable({
+				onDragOver:function(e,source){
+				},
+				onDrop:function(e,source){
+					$(source).insertAfter(this);
+				}
+			});  */
 </script>
 
 <script src="js/littlecalendar.js"></script>
 <script src="js/highcharts/jquery.js"></script>
 <script src="js/highcharts/highcharts.js"></script>
-
 <script src="js/tongji.js"></script>

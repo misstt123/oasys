@@ -84,6 +84,7 @@ $(function(){
 		}
 		
 		$("#calendar td").each(function(e){
+			//在这里获取日期
 			if($(".yearmonth").text()+$(this).children("#span").text()+"日"=="2017年10月14日"){
 			$(this).children(".icon").addClass("glyphicon glyphicon-tags");
 		}

@@ -22,7 +22,9 @@ public interface TaskDao extends JpaRepository<Tasklist, Long>{
 	
 	Page<Tasklist> findByUsersId(User userId,Pageable page);
 	
-	
+	//查找任务完成的用户
+	@Query(nativeQuery=true, value="SELECT COUNT(*) from aoa_task_list where aoa_task_list.status_id=?1 and aoa_task_list.task_push_user_id=?2 ")
+	Integer countfinish(Long status,Long userid);
 	
 	
 	@Query("update Tasklist ta set ta.statusId=:statusid where ta.taskId=:taskid")
