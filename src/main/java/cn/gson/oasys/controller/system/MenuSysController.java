@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.alibaba.fastjson.JSONArray;
 
@@ -23,7 +24,9 @@ import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.IndexDao;
+import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.system.SystemMenu;
+import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.system.MenuSysService;
 
 @Controller
@@ -36,6 +39,8 @@ public class MenuSysController {
 	private IndexDao iDao;
 	@Autowired
 	private MenuSysService menuService;
+	@Autowired
+	private UserDao uDao;
 
 	/**
 	 *  显示菜单管理界面
@@ -68,7 +73,8 @@ public class MenuSysController {
 	 * @return
 	 */
 	@RequestMapping("changeSortId")
-	public String changeSortId(HttpServletRequest req) {
+	public String changeSortId(HttpServletRequest req,@SessionAttribute("userId")Long userId) {
+		User user=uDao.findOne(userId);
 		Long parentId = Long.parseLong(req.getParameter("parentid"));
 		Long menuId = Long.parseLong(req.getParameter("menuid"));
 		Integer sortId = Integer.parseInt(req.getParameter("sortid"));
@@ -88,7 +94,7 @@ public class MenuSysController {
 			log.info("a1：{}", a1);
 			log.info("a2：{}", a2);
 		}
-		menuService.findMenuSys(req);
+		menuService.findMenuSys(req,user);
 		return "systemcontrol/menumanage";
 	}
 	

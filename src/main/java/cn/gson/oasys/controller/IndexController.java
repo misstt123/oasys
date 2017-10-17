@@ -94,11 +94,11 @@ public class IndexController {
 
 	@RequestMapping("index")
 	public String index(HttpServletRequest req,Model model) {
-		menuService.findMenuSys(req);
 		HttpSession session = req.getSession();
-		session.setAttribute("userId", "11");
+		session.setAttribute("userId", "4");
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
+		menuService.findMenuSys(req,user);
 		model.addAttribute("user", user);
 		//展示用户操作记录 由于现在没有登陆 不能获取用户id
 		List<UserLog> userLogs=userLogDao.findByUser(1);
