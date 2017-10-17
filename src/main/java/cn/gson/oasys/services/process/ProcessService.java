@@ -260,10 +260,13 @@ public class ProcessService {
 		result.put("startime", process.getStartTime());
 		result.put("endtime", process.getEndTime());
 		result.put("tianshu", process.getProcseeDays());
-		if(process.getProFileid().getAttachmentType().startsWith("image")){
-			result.put("filetype", "img");
-		}else{
-			result.put("filetype", "appli");
+		if( process.getProFileid()!=null){
+		   result.put("filepath", process.getProFileid().getAttachmentPath());
+			if(process.getProFileid().getAttachmentType().startsWith("image")){
+				result.put("filetype", "img");
+			}else{
+				result.put("filetype", "appli");
+			}
 		}
 		return result;
 	}

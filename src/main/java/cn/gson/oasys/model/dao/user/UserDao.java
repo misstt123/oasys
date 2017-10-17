@@ -62,5 +62,7 @@ public interface UserDao extends JpaRepository<User, Long>{
 	Page<User> findnamelike(String name,Pageable pa);
 	
 	List<User> findByDept(Dept dept);
+	@Query("select u from User u where u.role.roleId=?1")
+	List<User> findrole(Long lid);
 	
 }

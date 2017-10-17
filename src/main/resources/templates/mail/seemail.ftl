@@ -26,7 +26,19 @@
 							<p>${mail.content}</p>
 						</div>
 					</span>
-
+					<span id="ctl00_cphMain_lblDescription">附件信息：</span> 
+					<span id="ctl00_cphMain_lblFeedback">
+						<div style="padding-left: 64px;">
+							<p><#if mail.mailFileid??>
+							<#if filetype=="img">
+							<a href="javacript:void(0);" class="label xiugai yulan" title="图片预览">
+							<span class="glyphicon glyphicon-search"></span> 预览</a>
+							</#if>
+							<a href="file?fileid=${(mail.mailFileid.attachmentId)!''}" class="label xiugai">
+							<span class="glyphicon glyphicon-search"></span> 下载</a>
+							</#if></p>
+						</div>
+					</span>
 				</div>
 			</div>
 
@@ -55,6 +67,14 @@
 </div>
 <script>
 	$(function(){
+		//预览图片
+		$('.yulan').popover({
+    		html:true,
+    		placement:'auto right',
+				trigger: 'hover click',
+    		template:'<div class="popover" role="tooltip"><div class="arrow"></div>'
+    		+'<h3 class="popover-title"></h3><div><img src="show/${(filepath)!''}"style="max-width: 200px;"/></div><div class="popover-content"></div></div>'
+    	})
 		//回复
 		$(".huifu").click(function(){
 			var id=${mail.mailId};

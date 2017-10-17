@@ -181,9 +181,9 @@ border-top: 1px solid #2196F3;
 				<tr class="rile">
 					<td class="wi" style="width:100px;"><label class="control-label">相关资料</label></td>
 					<td  style="width:140px;"><div class="bottom">
-						<#if map.file.attachmentId??>
+						<#if map.file??>
 						<#if map.filetype=="img">
-						<a href="show?fileid=${(map.file.attachmentId)!''}" class="label xiugai yulan">
+						<a href="javacript:void(0);" class="label xiugai yulan" title="图片预览">
 						<span class="glyphicon glyphicon-search"></span> 预览</a>
 						</#if>
 						<a href="file?fileid=${(map.file.attachmentId)!''}" class="label xiugai">
@@ -264,13 +264,13 @@ border-top: 1px solid #2196F3;
 </div>
 <script>
 	$(function(){
-		/*  $(".yulan").click(function (event) {
-				event.preventDefault();   // 如果<a>定义了 target="_blank“ 需要这句来阻止打开新页面
-			}); */
-		$(".yulan").mouseover(function(){
-			console.log("jin");
-			
-			$(this).attr("href","show?fileid=${(map.file.attachmentId)!''}");
-		});
+	
+		$('.yulan').popover({
+    		html:true,
+    		placement:'auto right',
+				trigger: 'hover click',
+    		template:'<div class="popover" role="tooltip"><div class="arrow"></div>'
+    		+'<h3 class="popover-title"></h3><div><img src="show/${(map.filepath)!''}"style="max-width: 200px;"/></div><div class="popover-content"></div></div>'
+    	})
 	});
 </script>

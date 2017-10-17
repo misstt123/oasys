@@ -1,7 +1,9 @@
 package cn.gson.oasys.controller.process;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,11 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -247,9 +251,11 @@ public class ProcedureController {
 		}else if(!Objects.isNull(status)){
 			//根据状态和申请人查找流程
 			pagelist=prodao.findByuserIdandstatus(userid,status.getStatusId(),pa);
+			model.addAttribute("sort", "&val="+val);
 		}else{
 			//根据审核人，类型，标题模糊查询
 			pagelist=prodao.findByuserIdandstr(userid,val,pa);
+			model.addAttribute("sort", "&val="+val);
 		}
 		prolist=pagelist.getContent();
 		Iterable<SystemStatusList>  statusname=sdao.findByStatusModel("aoa_process_list");
@@ -259,7 +265,7 @@ public class ProcedureController {
 		model.addAttribute("prolist", prolist);
 		model.addAttribute("statusname", statusname);
 		model.addAttribute("url", "shenser");
-		model.addAttribute("sort", "&val="+val);
+		
 		return "process/managetable";
 	}
 	/**
@@ -979,10 +985,23 @@ public class ProcedureController {
 		 * @param response
 		 * @param fileid
 		 */
-		@RequestMapping("show")
-		public void imgshow(HttpServletResponse response, @RequestParam("fileid") Long fileid) {
-			Attachment attd = AttDao.findOne(fileid);
-			File file = new File(rootpath,attd.getAttachmentPath());
-			proservice.writefile(response, file);
+		@RequestMapping("show/**")
+		public void image(Model model, HttpServletResponse response, HttpSession session, HttpServletRequest request)
+				throws IOException {
+
+			String startpath = new String(URLDecoder.decode(request.getRequestURI(), "utf-8"));
+			
+			String path = startpath.replace("/show", "");
+			
+			File f = new File(rootpath, path);
+			
+			ServletOutputStream sos = response.getOutputStream();
+			FileInputStream input = new FileInputStream(f.getPath());
+			byte[] data = new byte[(int) f.length()];
+			IOUtils.readFully(input, data);
+			// 将文件流输出到浏览器
+			IOUtils.write(data, sos);
+			input.close();
+			sos.close();
 		}
 }

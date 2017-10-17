@@ -4,7 +4,7 @@
 
 <script>
 	$(function() {
-		$(function() {
+		
 			$(".widths").each(
 					function() {
 						var $val = $(this).text();
@@ -31,8 +31,26 @@
 					$(this).css("color", "#9e9e9e");
 				}
 			})
-		})
-	})
+			
+			 $("[name=show]:checkbox").click(function(){
+				var $roleid=${roleid}
+				var menu;
+				var content;
+				 if(this.checked){
+					menu=$(this).parents("td").siblings(".menuid").text();
+					content="选中"
+				}else{
+					 menu=$(this).parents("td").siblings(".menuid").text();
+					 content="未选中"
+				}
+				 console.log(menu); console.log(content);
+				 $.post("powerss",{roleid:$roleid,content:content,menuid:menu},function(){
+					 
+				 }) 
+			 })
+			
+		});
+	
 </script>
 <style>
 .table>tbody>tr>td{
@@ -74,40 +92,41 @@
 										<th scope="col" class="widths">路径</th>
 										<th scope="col">类型</th>
 										<th scope="col">开启权限</th>
-										<th scope="col">管理模式</th>
+										
 
 									</tr>
 									<#list oneMenuAll as par>
 									<tr style="background-color:rgba(255, 235, 59, 0.19);" >
-										<td>${par.menuId}</td>
+										<td class="menuid">${par.menuId}</td>
 										<td><span>${par.menuName}</span></td>
-										<#if par.menuUrl??>
 										<td><span class="widths">${par.menuUrl}</span></td>
-										<#else>
-										<td><span class="widths">#3</span></td>
-										</#if>
-										<td><span class="menus" style="color:">菜单</span></td>
-										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
-										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
+										<td><span class="menus">菜单</span></td>
+										<td>
+										<#if par.check==true>
+											<span class="labels">
+												<label><input type="checkbox" name="show" class="val" checked><i>✓</i></label></span>
+													<#else>
+											<span class="labels">
+												<label><input type="checkbox" name="show" class="val"><i>✓</i></label></span>
+										</#if></td>
+										
 
 									</tr>
 									<#list twoMenuAll as son>
 									<#if par.menuId==son.parentId>
 									<tr >
-										<td>${son.menuId}</td>
-										<td><span>${son.menuName}</span></td>
-										<#if son.menuUrl??>
-										<td><span class="widths">${son.menuUrl}</span></td>
-										<#else>
-										<td><span class="widths">#3</span></td>
-										</#if>
-										<td><span class="menus" style="color:">菜单</span></td>
-										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
-										<td><span class="labels"><label><input
-													type="checkbox"><i>✓</i></label></span></td>
+										<td class="menuid">${(son.menuId)!''}</td>
+										<td><span>${(son.menuName)!''}</span></td>
+										<td><span class="widths">${(son.menuUrl)!''}</span></td>
+										<td><span class="menus" >菜单</span></td>
+										<td><#if par.check==true>
+											<span class="labels">
+												<label><input type="checkbox" name="show" class="val" checked><i>✓</i></label></span>
+													<#else>
+											<span class="labels">
+												<label><input type="checkbox" name="show" class="val"><i>✓</i></label></span>
+										</#if></td>
+										
 
 									</tr>
 									</#if>

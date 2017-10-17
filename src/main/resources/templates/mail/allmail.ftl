@@ -28,13 +28,7 @@ $(function(){
 		  
 		   $(".thistable").load("mailtitle",{val:con,title:title});
 	   });
-	
-	
-	 
-	 
-	 
-	 
-	 /**
+	/**
     	 * checkebox的全选与反选
     	 */
     	

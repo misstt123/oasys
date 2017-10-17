@@ -850,10 +850,26 @@ public class MailController {
 		
 		//找到该邮件信息
 		Inmaillist mail=imdao.findOne(id);
+		String filetype=null;
+		if(!Objects.isNull(mail.getMailFileid())){
+			String filepath= mail.getMailFileid().getAttachmentPath();
+			System.out.println(filepath);
+				if(mail.getMailFileid().getAttachmentType().startsWith("image")){
+					
+					filetype="img";
+				}else{
+					filetype="appli";
+					
+				}
+		model.addAttribute("filepath", filepath);
+		model.addAttribute("filetype", filetype);
+		}
+		
 		User pushuser=udao.findOne(mail.getMailUserid().getUserId());
 		model.addAttribute("pushname", pushuser.getUserName());
 		model.addAttribute("mail", mail);
 		model.addAttribute("mess", title);
+		model.addAttribute("file", mail.getMailFileid());
 		
 		return "mail/seemail";
 	}
