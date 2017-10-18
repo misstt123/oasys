@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/box.css" />
 <link href='plugins/fullcalendar/fullcalendar/fullcalendar.css' rel='stylesheet' />
 <link href='plugins/fullcalendar/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />

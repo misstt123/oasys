@@ -92,7 +92,7 @@ public class DaymanageController {
 	
 	@RequestMapping("daycalendar")
 	private String daycalendar() {
-		return "daymanage/daycalendarindex";
+		return "daymanage/daycalendar";
 	}
 	
 	@RequestMapping("dayedit")
