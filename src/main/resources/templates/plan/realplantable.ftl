@@ -53,7 +53,7 @@
 											</span>
 											</a>
 											<div>【${user.userName}】
-											<#if uMap["${userName}"].planComment??>${uMap["${userName}"].planComment}</#if>
+											<#if uMap["${userName}"].planComment??>${(uMap["${userName}"].planComment)!''}</#if>
 											</div>
 											</#if></td>
 											

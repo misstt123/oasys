@@ -197,9 +197,9 @@
 			#calendar{
 			font-size: 25px;
 			}
-			.rightcolmd #calendar td,th{
+			 #calendar td,th{
 				        width: 14%;
-    padding: 9px 0;
+    padding: 9px 0 !important;
     text-align: center !important;
     /* padding-left: 23px; */
     /* padding-right: 20px; */

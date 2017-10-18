@@ -150,7 +150,7 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label class="control-label">评价</label>
-						<textarea  disabled="disabled" class="form-control text" name="planComment" ><#if plan??>${plan.planComment}</#if></textarea>
+						<textarea  disabled="disabled" class="form-control text" name="planComment" ><#if plan??>${(plan.planComment)!''}</#if></textarea>
 					</div>
 				</div>
 				<div class="row">
