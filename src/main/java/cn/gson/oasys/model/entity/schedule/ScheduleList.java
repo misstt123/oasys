@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import cn.gson.oasys.model.entity.user.User;
 
 @Entity
@@ -39,7 +41,8 @@ public class ScheduleList {
 	private Date endTime;	//结束时间
 	
 	@Column(name = "create_time")
-	private Date createTime;	//开始时间
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date createTime = new Date();	//发布时间
 	
 	private String title;	//日程标题
 	
@@ -47,7 +50,7 @@ public class ScheduleList {
 	private String describe;	//日程描述
 
 	@Column(name = "is_remind")
-	private Integer isRemind;	//是否提醒
+	private Boolean isRemind = false;	//是否提醒
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -132,11 +135,11 @@ public class ScheduleList {
 		this.describe = describe;
 	}
 
-	public Integer getIsRemind() {
+	public Boolean getIsRemind() {
 		return isRemind;
 	}
 
-	public void setIsRemind(Integer isRemind) {
+	public void setIsRemind(Boolean isRemind) {
 		this.isRemind = isRemind;
 	}
 	

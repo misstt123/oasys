@@ -165,6 +165,8 @@ public class ProcessService {
 		model.addAttribute("poslist", poslist);
 		model.addAttribute("url", "names");
 	}
+	
+	
 	public Page<AubUser> index(User user,int page,int size,String val){
 		Pageable pa=new PageRequest(page, size);
 		Page<AubUser> pagelist=null;

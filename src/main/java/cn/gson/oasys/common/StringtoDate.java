@@ -40,5 +40,4 @@ public class StringtoDate implements Converter<String, Date> {
 			this.patterns = patterns;
 		}
 
-
 }

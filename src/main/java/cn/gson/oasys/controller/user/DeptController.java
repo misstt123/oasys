@@ -72,7 +72,7 @@ public class DeptController {
 	}
 	
 	@RequestMapping("readdept")
-	public String readdept(@RequestParam(value = "deptid",required=false) Long deptId,Model model){
+	public String readdept(@RequestParam(value = "deptid") Long deptId,Model model){
 		
 		Dept dept = deptdao.findOne(deptId);
 		User deptmanage = udao.findOne(dept.getDeptmanager());
@@ -84,6 +84,7 @@ public class DeptController {
 		
 		for (User deptuser : deptusers) {
 			Position position = deptuser.getPosition();
+			System.out.println(deptuser.getRealName()+":"+position.getName());
 			if(!position.getName().endsWith("经理")){
 				formaluser.add(deptuser);
 			}
@@ -98,5 +99,54 @@ public class DeptController {
 		
 		return "user/deptread";
 		
+	}
+	
+	@RequestMapping("deptandpositionchange")
+	public String deptandpositionchange(@RequestParam("positionid") Long positionid,
+			@RequestParam("changedeptid") Long changedeptid,
+			@RequestParam("userid") Long userid,
+			@RequestParam("deptid") Long deptid,
+			Model model){
+		User user = udao.findOne(userid);
+		Dept changedept = deptdao.findOne(changedeptid);
+		Position position = pdao.findOne(positionid);
+		user.setDept(changedept);
+		user.setPosition(position);
+		udao.save(user);
+		System.out.println(deptid);
+		
+		model.addAttribute("deptid",deptid);
+		return "/readdept";
+	}
+	
+	@RequestMapping("deptmanagerchange")
+	public String deptmanagerchange(@RequestParam(value="positionid",required=false) Long positionid,
+			@RequestParam(value="changedeptid",required=false) Long changedeptid,
+			@RequestParam(value="oldmanageid",required=false) Long oldmanageid,
+			@RequestParam("newmanageid") Long newmanageid,
+			@RequestParam("deptid") Long deptid,
+			Model model){
+		System.out.println("oldmanageid:"+oldmanageid);
+		System.out.println("newmanageid:"+newmanageid);
+		Dept deptnow = deptdao.findOne(deptid);
+		User oldmanage = udao.findOne(oldmanageid);
+		User newmanage = udao.findOne(newmanageid);
+		
+		Position namage = oldmanage.getPosition();
+		
+		Dept changedept = deptdao.findOne(changedeptid);
+		Position changeposition = pdao.findOne(positionid);
+		
+		oldmanage.setDept(changedept);
+		oldmanage.setPosition(changeposition);
+		udao.save(oldmanage);
+		
+		newmanage.setPosition(namage);
+		deptnow.setDeptmanager(newmanageid);
+		udao.save(newmanage);
+		
+		
+		model.addAttribute("deptid",deptid);
+		return "/readdept";
 	}
 }
