@@ -51,9 +51,9 @@ a:hover {
 									${dept.deptName}
 								</div>
 								<div class="col-md-12 form-group">
-									部门经理：${(deptmanage.realName)!'暂无'}
+									部门经理：${(deptmanage.realName)!'暂无'}  <a class="changemanage label xiugai">更换</a>
 								</div>
-								<input type="hidden" name="deptId" value="${(dept.deptId)!''}">
+								<input type="hidden" name="deptid" value="${(dept.deptId)!''}">
 							</div>
 							<#if isread??>
 								<table class="table table-hover table-striped">
@@ -74,8 +74,13 @@ a:hover {
 											<td><span>${user.userName}</span></td>
 											<td><span>${user.position.name}</span></td>
 											<td><span>${user.role.roleName}</span></td>
-											<td><a class="usermanagechange label xiugai"><span
-													class="glyphicon glyphicon-edit"></span> 人事调动</a> 
+											<td>
+												<a class="usermanagechange label xiugai">
+													<span class="glyphicon glyphicon-edit"></span> 人事调动
+												</a>
+												<input class="deptuserid" type="hidden" value="${user.userId}"/>
+												<input class="realname" type="hidden" value="${user.realName}"/>
+											</td>
 										</tr>
 									</#list>
 								</table>
@@ -98,21 +103,23 @@ a:hover {
 			</div>
 		</div>
 	</div>
-	<div class="modal fade in" id="thismodal" data-backdrop="static">
+	<div class="modal fade in userchange" id="thismodal" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body box no-padding" style="display: none;">
-					<div class="box-header">
-						<h3 class="box-title mc-title" style="font-size:15px;">人事变动</h3>
-					</div>
-					<div class="box-body no-padding">
-						<form action="" method="post">
-						
+					<form action="deptandpositionchange" method="post">
+						<div class="box-header">
+							<h3 class="box-title mc-title" style="font-size:15px;">人事变动</h3>
+						</div>
+						<div class="box-body no-padding">
 							<div class="row">
-								
+								<div class="changeuser"> 
+									<input class="changeuserid" type="hidden" name="userid" value=""/>
+									<input type="hidden" name="deptid" value="${(dept.deptId)!''}">
+								</div> 
 								<div class="col-md-6">
 									<label class="control-label"> <span>部门</span></label>
-									<select class="deptselect form-control" name="deptid">
+									<select class="deptselect form-control" name="changedeptid">
 										<#list depts as dept>
 											<option value="${dept.deptId}">${dept.deptName}</option>
 										</#list>
@@ -120,21 +127,78 @@ a:hover {
 								</div>
 								<div class="col-md-6">
 									<label class="control-label"> <span>职位</span></label>
-									<select class="positionselect form-control" name="deptid">
+									<select class="positionselect form-control" name="positionid">
 										<#list positions as position>
 											<option value="${position.id}">${position.name}</option>
 										</#list>
 									</select>
 								</div>
 							</div>
-						</form>
-					</div>
-					<div class="box-footer" style="text-align:right;">
-						<button type="submit" class="btn btn-primary"
-							>确定</button>
-						<button type="button" class="btn btn-default mcmodalcancle"
-							data-dismiss="modal">取消</button>
-					</div>
+							
+						</div>
+						<div class="box-footer" style="text-align:right;">
+							<button type="submit" class="btn btn-primary"
+								>确定</button>
+							<button type="button" class="btn btn-default mcmodalcancle"
+								data-dismiss="modal">取消</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade in managechangemodel" id="thismodal" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body box no-padding" style="display: none;">
+					<form action="deptmanagerchange" method="post">
+						<div class="box-header">
+							<h3 class="box-title mc-title" style="font-size:15px;">人事变动</h3>
+						</div>
+						<div class="box-body no-padding">
+							<div class="row">
+								
+								<#if deptmanage??>
+									<div class="col-md-12">
+										<label class="control-label" style="margin-top: 5px"> <span>当前经理去向：</span></label> 
+										<input type="hidden" name="deptid" value="${(dept.deptId)!''}">
+										<input type="hidden" name="oldmanageid" value="${deptmanage.userId}" />
+									</div> 
+									<div class="col-md-6">
+										<label class="control-label"> <span>部门</span></label>
+										<select class="deptselect form-control" name="changedeptid">
+											<#list depts as dept>
+												<option value="${dept.deptId}">${dept.deptName}</option>
+											</#list>
+										</select>
+									</div>
+									<div class="col-md-6">
+										<label class="control-label"> <span>职位</span></label>
+										<select class="positionselect form-control" name="positionid">
+											<#list positions as position>
+												<option value="${position.id}">${position.name}</option>
+											</#list>
+										</select>
+									</div>
+								</#if>
+								
+								<div class="col-md-6">
+									<label class="control-label" style="margin-top: 5px"> <span>新任部门经理：</span></label>
+									<select class="form-control" name="newmanageid">
+										<#list deptuser as user>
+											<option value="${user.userId}">${user.realName}</option>
+										</#list>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="box-footer" style="text-align:right;">
+							<button type="submit" class="btn btn-primary"
+								>确定</button>
+							<button type="button" class="btn btn-default mcmodalcancle"
+								data-dismiss="modal">取消</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -159,13 +223,27 @@ $(".deptselect").on("change",function(){
 	
 });
 
+$(".usermanagechange").click(function(){
+	var userid = $(this).siblings(".deptuserid").val();
+	console.log(userid);
+	$("#thismodal.userchange").modal("toggle");
+	$('#thismodal.userchange .modal-body').css('display', 'block');
+	$("#thismodal .changeuser .changeuserid").val(userid);
+	
+});
+
+$(".changemanage").click(function(){
+	$("#thismodal.managechangemodel").modal("toggle");
+	$('#thismodal.managechangemodel .modal-body').css('display', 'block');
+});
+
+
+
+
 /*  $('.successToUrl').on('click',function(){
 	window.location.href='/testsysmenu';
 }); */
-$(".usermanagechange").click(function(){
-	$("#thismodal").modal("toggle");
-	$('#thismodal .modal-body').css('display', 'block');
-});
+
 function alertCheck(errorMess){
 	
 	$('.alert-danger').css('display', 'block');
