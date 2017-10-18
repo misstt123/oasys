@@ -324,14 +324,22 @@ public class TaskController {
 	public String index5(HttpSession session, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-
+		Pageable pa=new PageRequest(page, size);
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		
 		Page<Tasklist> tasklist= tservice.index3(userid, null, page, size);
-		List<Map<String, Object>> list=tservice.index4(tasklist, userid);
-		model.addAttribute("tasklist", list);
-		model.addAttribute("page", tasklist);
+		
+		Page<Tasklist> tasklist2=tdao.findByTickingIsNotNull(pa);
+		if(tasklist!=null){
+			List<Map<String, Object>> list=tservice.index4(tasklist, userid);
+			model.addAttribute("page", tasklist);
+			model.addAttribute("tasklist", list);
+		}else{
+			List<Map<String, Object>> list2=tservice.index4(tasklist2, userid);
+			model.addAttribute("page", tasklist2);
+			model.addAttribute("tasklist", list2);
+		}
 		model.addAttribute("url", "mychaxun");
 		return "task/mytask";
 

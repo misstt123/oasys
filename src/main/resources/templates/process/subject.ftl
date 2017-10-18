@@ -5,9 +5,9 @@ list-style-type:none;
 .cur{
 cursor: pointer;
 }
-.cur:hover{
+/* .cur:hover{
 color:blue;
-}
+} */
 .panel {
     margin-bottom: 0px;
     background-color: #fff; 
@@ -41,8 +41,7 @@ color:blue;
 				<ul id="one${sub.subjectId}" class="panel-collapse collapse">
 					<#list sublist as list> 
 					<#if list.parentId==sub.subjectId>
-					<li class="cur" ><i><img
-							src="images/Tplus.png" /></i><i><img src="images/subject.gif" /></i>${list.name}</li>
+					<li class="cur" style="margin-bottom: 5px;padding-left: 54px; margin-left: -40px;"><i><img src="images/fangzi.gif" /></i>${list.name}</li>
 					</#if> 
 					</#list>
 
@@ -61,6 +60,8 @@ color:blue;
 
 <script>
 	$(function(){
+		
+
 		$(".subjec").click(function(){
 			if($(".ones").attr("src")=="images/Lminus.png"){
 				
@@ -87,6 +88,9 @@ color:blue;
 		$(".cur").click(function(){
 			var $text=$(this).text();
 			$(".ject").val($text);
+			$(".cur").css("background-color","#fff");
+			console.log('sssssssssss');
+			$(this).css("background-color","rgba(0, 188, 212, 0.06)");
 			
 		});
 		$(".save").click(function(){

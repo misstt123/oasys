@@ -8,7 +8,7 @@
 				<div class="box-tools">
 					<div class="input-group" style="width: 150px;">
 						<input type="text" class="form-control input-sm cha"
-							placeholder="查找..." />
+							placeholder="账号名查询" />
 						<div class="input-group-btn chazhao">
 							<a class="btn btn-sm btn-default"><span
 								class="glyphicon glyphicon-search"></span></a>
@@ -23,8 +23,7 @@
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th scope="col" class="commen mm">类型<span class="block"><img
-							id="img" src="images/desc.gif" /></span></th>
+					<th scope="col" class="commen co">类型<span class="block"></span></th>
 					<th scope="col">账号名</th>
 					<th scope="col" class="co commen">创建时间<span class="block"></span></th>
 					<th scope="col" class="co commen">状态<span class="block"></span></th>
@@ -56,31 +55,9 @@
 <#include "/common/paging.ftl">
 
 <script>
-/* 分页插件按钮的点击事件 */
-$('.tablefirst').on('click',function(){
-	$('.thistable').load('/mailpaixu?page=0');
-});
-$('.tableup').on('click',function(){
-	$('.thistable').load('/mailpaixu?page=${(page.number)-1}');
-});
-$('.tabledown').on('click',function(){
-	$('.thistable').load('mailpaixu?page=${(page.number)+1}');
-});
-$('.tablelast').on('click',function(){
-	$('.thistable').load('mailpaixu?page=${(page.totalPages)-1}');
-});
-$('.baseKetsubmit').on('click',function(){
-	var baseKey=$('.baseKey').val();
-	$('.thistable').load('mailpaixu?baseKey=baseKey');
-});
+
 $(function(){
 	$(".commen").click(function(){
-		//寻找指定兄弟节点并去除class
-		var $else=$(this).addClass("mm").siblings(".commen").removeClass("mm");
-		//点击变换字体颜色
-		var $color=$(this).addClass("bl").removeClass("co").siblings(".commen").addClass("co").removeClass("bl");
-		//切换img
-		$("#img").appendTo(".mm span");
 		var $val=$(this).text();
 		$(".thistable").load("mailpaixu",{val:$val});
 	

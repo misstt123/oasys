@@ -167,7 +167,7 @@ public class ProcessService {
 	}
 	
 	
-	public Page<AubUser> index(User user,int page,int size,String val){
+	public Page<AubUser> index(User user,int page,int size,String val,Model model){
 		Pageable pa=new PageRequest(page, size);
 		Page<AubUser> pagelist=null;
 		Page<AubUser> pagelist2=null;
@@ -181,13 +181,16 @@ public class ProcessService {
 			pagelist=redao.findByUserIdOrderByStatusId(user,false, pa);
 		}else if(!Objects.isNull(u)){
 			pagelist=redao.findprocesslist(user,u,false,pa);
+			model.addAttribute("sort", "&val="+val);
 		}else if(!Objects.isNull(status)){
 			pagelist=redao.findbystatusprocesslist(user,status.getStatusId(),false,pa);
+			model.addAttribute("sort", "&val="+val);
 		}else{
 			pagelist2=redao.findbytypenameprocesslist(user, val,false, pa);
 			if(!pagelist2.hasContent()){
 				pagelist2=redao.findbyprocessnameprocesslist(user, val,false, pa);
 			}
+			model.addAttribute("sort", "&val="+val);
 			return pagelist2;
 		}
 		return pagelist;
@@ -262,10 +265,13 @@ public class ProcessService {
 		result.put("startime", process.getStartTime());
 		result.put("endtime", process.getEndTime());
 		result.put("tianshu", process.getProcseeDays());
-		if(process.getProFileid().getAttachmentType().startsWith("image")){
-			result.put("filetype", "img");
-		}else{
-			result.put("filetype", "appli");
+		if( process.getProFileid()!=null){
+		   result.put("filepath", process.getProFileid().getAttachmentPath());
+			if(process.getProFileid().getAttachmentType().startsWith("image")){
+				result.put("filetype", "img");
+			}else{
+				result.put("filetype", "appli");
+			}
 		}
 		return result;
 	}

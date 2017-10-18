@@ -265,7 +265,7 @@ cursor: pointer;
 					<input   type="text" value="出差费用申请" name="val" hidden="hidden"/>
 					<input type="text" class="days" hidden="hidden" name="proId.procseeDays"/>
 						<input class="btn btn-primary" id="save" type="submit" value="保存" />
-						<input class="btn btn-default" id="cancel" type="submit" value="取消"
+						<input class="btn btn-default" id="cancel" type="button" value="取消"
 						onclick="window.history.back();" />
 					</td>
 					

@@ -23,8 +23,7 @@
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						<th scope="col" class="commen mm ">类型<span class="block">
-							<img id="img" src="images/desc.gif" /></span></th>
+						<th scope="col" class="co commen ">类型<span class="block"></span></th>
 						<th scope="col">标题</th>
 						<th scope="col" class="co commen ">发布时间<span class="block"></span></th>
 						<th scope="col">发布人</th>
