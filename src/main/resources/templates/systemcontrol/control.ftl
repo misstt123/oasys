@@ -148,7 +148,7 @@
 								<li><a href="morelog">历史记录</a></li>
 							</ul>
 						</div>
-						<a href="#line" data-toggle="collapse"><button>
+						<a  data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -157,7 +157,7 @@
 					</div>
 				</div>
 				
-				<div id="line" class="shrink" style="min-width: 100px; height: 280px; border-top:solid 1px #eee; margin: 0 auto">
+				<div class="shrink" style="min-width: 100px; height: 280px; border-top:solid 1px #eee; margin: 0 auto">
 				</div>
 			</div>
 		
@@ -179,7 +179,7 @@
 								<li><a href="infrommanage">公告通知</a></li>
 							</ul>
 						</div>
-						<a href="" ><button>
+						<a  ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -229,7 +229,7 @@
 								<li><a href="flowmanage">流程管理</a></li>
 							</ul>
 						</div>
-						<a href="" ><button>
+						<a  ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -259,7 +259,7 @@
 								</#list>
 								</td>
 								<td><span>${(pro.processName)!''}</span></td>
-								<td><a href="" class="look-xiangxi"><span
+								<td><a  class="look-xiangxi"><span
 										class="glyphicon glyphicon-search"> </span> 查看 </a></td>
 							</tr>
 						</#list>
@@ -284,7 +284,7 @@
 								<li><a href="planedit?pid=-1">新增计划</a></li>
 							</ul>
 						</div>
-						<a href="" ><button>
+						<a  ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -413,58 +413,58 @@
 				<th style="text-align: center !important;">日</th>
 			</tr>
 			<tr>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
-				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span"></span><span class="icon"></span></td>
 			</tr>
 			</tbody>
 		</table>	
@@ -493,7 +493,7 @@
 								<li><a href="userpanel">我的便签</a></li>
 							</ul>
 						</div>
-						<a href="" ><button style="background: #18e89d !important;">
+						<a  ><button style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button style="background: #18e89d !important;">
@@ -528,7 +528,10 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script src="js/littlecalendar.js"></script>
+<script src="js/highcharts/jquery.js"></script>
+<script src="js/highcharts/highcharts.js"></script>
+<script src="js/tongji.js"></script>
 <script>
 //基础图标放大缩小
 	$('.jichu').on('mouseover', function() {
@@ -574,18 +577,17 @@
 				}
 			})
 		})
-		$("rect").attr("stroke","#ffffff")
 		$(".icon").css({
 			"right":"0px",
 			"top":"-10px",
 			"height":"5px"
 		})
 		
-		 $(".col-md-7 ").children("div").addClass("drag-item");
-		$(".rightcolmd ").children("div").addClass("drag-item");
-		$("#calendar td").css({
+		/*  $(".col-md-7 ").children("div").addClass("drag-item");
+		$(".rightcolmd ").children("div").addClass("drag-item"); */
+		/* $("#calendar td").css({
 			"text-align":"center"
-		})
+		}) */
 			/* $(".drag-item").draggable({
 				revert:true,
 			}).droppable({
@@ -598,7 +600,3 @@
 			});   */
 </script>
 
-<script src="js/littlecalendar.js"></script>
-<script src="js/highcharts/jquery.js"></script>
-<script src="js/highcharts/highcharts.js"></script>
-<script src="js/tongji.js"></script>

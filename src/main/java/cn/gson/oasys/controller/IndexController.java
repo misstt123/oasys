@@ -96,7 +96,7 @@ public class IndexController {
 	public String index(HttpServletRequest req,Model model) {
 		menuService.findMenuSys(req);
 		HttpSession session = req.getSession();
-		session.setAttribute("userId", "2");
+		session.setAttribute("userId", "1");
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
 		model.addAttribute("user", user);
@@ -178,9 +178,6 @@ public class IndexController {
 		model.addAttribute("processlist", pList);
 		List<SystemStatusList> processstatus = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_process_list");
 		model.addAttribute("prostatuslist", processstatus);
-		
-		model.addAttribute("t", 6);
-		model.addAttribute("t2", 7);
 		return "systemcontrol/control";
 	}
 	

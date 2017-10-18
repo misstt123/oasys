@@ -1,6 +1,6 @@
        var chart;
       
-        $(document).ready(function () {
+        $(function () {
         	 var arrayname=new Array();
              var arraynum=new Array();
         	 $.ajax({
