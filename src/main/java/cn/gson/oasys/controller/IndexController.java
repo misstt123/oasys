@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -26,7 +23,6 @@ import com.github.pagehelper.PageInfo;
 
 import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
-import cn.gson.oasys.model.dao.attendcedao.AttendceService;
 import cn.gson.oasys.model.dao.discuss.DiscussDao;
 import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.notedao.DirectorDao;
@@ -45,7 +41,6 @@ import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.model.entity.user.UserLog;
-import cn.gson.oasys.services.inform.InformRelationService;
 import cn.gson.oasys.services.system.MenuSysService;
 
 @Controller
@@ -67,10 +62,6 @@ public class IndexController {
 	@Autowired
 	private AttendceDao attendceDao;
 	@Autowired
-	private AttendceService attendceService;
-	@Autowired
-	private InformRelationService informRService;
-	@Autowired
 	private DirectorDao directorDao;
 	@Autowired
 	private DiscussDao discussDao;
@@ -78,10 +69,6 @@ public class IndexController {
 	private FileListdao filedao;
 	@Autowired
 	private PlanDao planDao;
-	@Autowired
-	private TypeDao typedao;
-	@Autowired
-	private StatusDao statusdao;
 	@Autowired
 	private NotepaperDao notepaperDao;
 	@Autowired

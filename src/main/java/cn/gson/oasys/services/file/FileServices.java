@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +28,6 @@ import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.filedao.FilePathdao;
 import cn.gson.oasys.model.dao.notedao.AttachService;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
-import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.file.FilePath;
 import cn.gson.oasys.model.entity.note.Attachment;
@@ -48,8 +46,6 @@ public class FileServices {
 	private AttachmentDao AttDao;
 	@Autowired
 	private AttachService AttachService;
-	@Autowired
-	private UserDao udao;
 	
 	
 	@Value("${file.root.path}")

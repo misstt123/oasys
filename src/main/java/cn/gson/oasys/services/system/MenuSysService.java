@@ -1,7 +1,6 @@
 package cn.gson.oasys.services.system;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;

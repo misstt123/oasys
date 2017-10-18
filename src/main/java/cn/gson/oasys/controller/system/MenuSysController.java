@@ -1,13 +1,11 @@
 package cn.gson.oasys.controller.system;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.alibaba.fastjson.JSONArray;
 
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;

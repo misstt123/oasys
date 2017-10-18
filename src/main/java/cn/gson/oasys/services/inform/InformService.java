@@ -85,7 +85,6 @@ public class InformService {
 		int size=10;
 		Sort sort = getSort();
 		Pageable pa = new PageRequest(page, size, sort);
-		Pageable b=new PageRequest(page, size);
 		return informDao.findByUserId(userId, pa);
 	}
 
