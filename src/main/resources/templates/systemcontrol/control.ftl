@@ -15,6 +15,8 @@
 <script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/controlpanel.css" />
 <link rel="stylesheet" href="css/common/skintheme.css" />
+<!-- <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css"> -->
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
 	<script type="text/javascript">
 		$(function(){
 			var themeSkin='${user.themeSkin}';
@@ -143,10 +145,10 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="">历史记录</a></li>
+								<li><a href="morelog">历史记录</a></li>
 							</ul>
 						</div>
-						<a href="#panelone" data-toggle="collapse"><button>
+						<a href="#line" data-toggle="collapse"><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -155,7 +157,7 @@
 					</div>
 				</div>
 				
-				<div id="panelone" class="panel-collapse collapse in">
+				<div id="line" class="shrink" style="min-width: 100px; height: 280px; border-top:solid 1px #eee; margin: 0 auto">
 				</div>
 			</div>
 		
@@ -177,7 +179,7 @@
 								<li><a href="infrommanage">公告通知</a></li>
 							</ul>
 						</div>
-						<a href="#panelone" data-toggle="collapse"><button>
+						<a href="" ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -186,8 +188,8 @@
 					</div>
 				</div>
 				
-				<div id="panelone" class="panel-collapse collapse in">
-					<table class="table table-hover">
+				<div id="" class="shrink">
+					<table class="table table-hover" >
 						<tr>
 							<th>发布</th>
 							<th>日期</th>
@@ -227,7 +229,7 @@
 								<li><a href="flowmanage">流程管理</a></li>
 							</ul>
 						</div>
-						<a href="#paneltwo" data-toggle="collapse"><button>
+						<a href="" ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -235,8 +237,8 @@
 						</button>
 					</div>
 				</div>
-				<div id="paneltwo" class="panel-collapse collapse in">
-					<table class="table table-hover">
+				<div id="" class="shrink">
+					<table class="table table-hover" >
 						<tr>
 							<th>类型</th>
 							<th>日期</th>
@@ -282,7 +284,7 @@
 								<li><a href="planedit?pid=-1">新增计划</a></li>
 							</ul>
 						</div>
-						<a href="#panelthree" data-toggle="collapse"><button>
+						<a href="" ><button>
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button>
@@ -290,8 +292,8 @@
 						</button>
 					</div>
 				</div>
-				<div id="panelthree" class="panel-collapse collapse in">
-					<table class="table table-hover">
+				<div id="" class="shrink">
+					<table class="table table-hover" >
 						<tr>
 							<th>类型</th>
 							<th>结束日期</th>
@@ -346,10 +348,10 @@
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="">我的任务</a></li>
+								<li><a href="mytask">我的任务</a></li>
 							</ul>
 						</div>
-						<a href="#panelfive" data-toggle="collapse"><button >
+						<a href="#column" data-toggle="collapse"><button >
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button >
@@ -358,7 +360,7 @@
 					</div>
 				</div>
 				
-				<div id="column" class="panel-collapse collapse in">
+				<div id="column" class="shrink" style="min-width: 100px; height: 280px; margin: 0 auto;border-top:solid 1px #eee; ">
 				 
 				</div>
 				
@@ -367,7 +369,7 @@
 			<!--第四个格子-->
 			<!-- 行事历 -->
 			<div class="panel" style="background-color: #00c86c;color: white;">
-				<div class="" style="border-bottom: 1px solid green;">
+				<div class="" style="border-bottom: 1px solid #94d294;;">
 					<div class="panel-title" style="display: inline-block;">
 						<h4><span class="glyphicon glyphicon-calendar"></span>行事历</h4>
 					</div>
@@ -382,7 +384,7 @@
 								<li><a href="daycalendar">我的日历</a></li>
 							</ul>
 						</div>
-						<a href="#panelfour" data-toggle="collapse" ><button style="background: #18e89d !important;">
+						<a   ><button style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button style="background: #18e89d !important;">
@@ -390,7 +392,7 @@
 						</button>
 					</div>
 				</div>
-				<div id="panelfour" class="panel-collapse collapse in"  style="height: 280px;padding: 10px;">
+				<div  class="shrink"  style="height: 280px;padding: 10px;">
 				  
 				   <table cellpadding="2" style="border-collapse: collapse;width:100%;" class="calendar" id="calendar">
 			
@@ -401,68 +403,68 @@
 						</div>
 			<tbody>
 			
-			<tr style="color:white;">
-				<th>一</th>
-				<th>二</th>
-				<th>三</th>
-				<th>四</th>
-				<th>五</th>
-				<th>六</th>
-				<th>日</th>
+			<tr style="color:white;  text-align: center !important;">
+				<th style="text-align: center !important;">一</th>
+				<th style="text-align: center !important;">二</th>
+				<th style="text-align: center !important;">三</th>
+				<th style="text-align: center !important;">四</th>
+				<th style="text-align: center !important;">五</th>
+				<th style="text-align: center !important;">六</th>
+				<th style="text-align: center !important;">日</th>
 			</tr>
 			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
 			</tr>
 			<tr>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
-				<td><span id="span"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
+				<td><span id="span" style="padding: 9px 0 !important;text-align: center !important;"></span><span class="icon"></span></td>
 			</tr>
 			</tbody>
 		</table>	
@@ -491,7 +493,7 @@
 								<li><a href="userpanel">我的便签</a></li>
 							</ul>
 						</div>
-						<a href="#panelfive" data-toggle="collapse"><button style="background: #18e89d !important;">
+						<a href="" ><button style="background: #18e89d !important;">
 								<span class="glyphicon glyphicon-minus shousuo"></span>
 							</button></a>
 						<button style="background: #18e89d !important;">
@@ -500,7 +502,7 @@
 					</div>
 				</div>
 				
-				<div id="panelfive" class="panel-collapse collapse in">
+				<div  class="shrink">
 					<ul class="list-group">
 						<#list  notepaperList as np>
 						<li class="list-group-item list-group-item-li" style=""><img
@@ -526,6 +528,7 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 <script>
 //基础图标放大缩小
 	$('.jichu').on('mouseover', function() {
@@ -549,14 +552,16 @@
 		if($(this).hasClass("glyphicon-plus")){
 			console.log("0000")
 			$(this).removeClass("glyphicon-plus").addClass("glyphicon-minus")
+			$(this).parents(".panel").children(".shrink").slideToggle(100);
 		}
 		else{
 			console.log("1111")
 				$(this).removeClass("glyphicon-minus").addClass("glyphicon-plus")
+				$(this).parents(".panel").children(".shrink").slideToggle(100);
 			}
 	})
 	
-		$("#writep").click(function(){
+		$("#writep").click(function(){ 
 			var $concent=$(".concent").val();
 			if($concent==null||$concent=="")
 				return confirm("您输入为空 请重新输入");
@@ -569,10 +574,31 @@
 				}
 			})
 		})
+		$("rect").attr("stroke","#ffffff")
+		$(".icon").css({
+			"right":"0px",
+			"top":"-10px",
+			"height":"5px"
+		})
+		
+		 $(".col-md-7 ").children("div").addClass("drag-item");
+		$(".rightcolmd ").children("div").addClass("drag-item");
+		$("#calendar td").css({
+			"text-align":"center"
+		})
+			/* $(".drag-item").draggable({
+				revert:true,
+			}).droppable({
+				onDragOver:function(e,source){
+				},
+				onDrop:function(e,source){
+					$(source).insertAfter(this);
+					$(source).insertBefore(this);
+				}
+			});   */
 </script>
 
 <script src="js/littlecalendar.js"></script>
 <script src="js/highcharts/jquery.js"></script>
 <script src="js/highcharts/highcharts.js"></script>
-
 <script src="js/tongji.js"></script>

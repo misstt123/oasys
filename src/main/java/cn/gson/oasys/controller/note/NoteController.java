@@ -310,7 +310,6 @@ public class NoteController {
 			@RequestParam(value = "icon", required = false) String icon) {
 		Long userid = Long.parseLong(session.getAttribute("userId") + "");
 		cataloglist = (List<Catalog>) catalogDao.findcatauser(userid);
-		
 		setSomething(baseKey, type, status, time, icon, model,null,null);
 		Page<Note> upage=NoteService.sortpage(page, baseKey, userid,null,null,null, type, status, time);
 		model.addAttribute("sort", "&userid="+userid);
@@ -509,15 +508,14 @@ public class NoteController {
 		// 目录
 		long userid = Long.valueOf(session.getAttribute("userId") + "");
 		
-		List<Catalog> cataloglist2 = (List<Catalog>) catalogDao.findcatauser(userid);
+		cataloglist = (List<Catalog>) catalogDao.findcatauser(userid);
 		//将根目录放在第一
 		if(cataloglist.size()==0)
 			cataloglist.add(catalogDao.findOne(33l));
 		else
 		cataloglist.set(0, catalogDao.findOne(33l));
-		for (Catalog catalog : cataloglist2) {
-			cataloglist.add(catalog);
-		}
+		
+		System.out.println("目录"+cataloglist);
 		// 用户 就是联系人
 		List<User> users = (List<User>) userDao.findAll();
 		String nId = Request.getParameter("id");
