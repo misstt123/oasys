@@ -279,7 +279,7 @@ public class ProcedureController {
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long userid = Long.parseLong(userId);
 		User user=udao.findOne(userid);
-		Page<AubUser> pagelist=proservice.index(user, page, size,null);
+		Page<AubUser> pagelist=proservice.index(user, page, size,null,model);
 		List<Map<String, Object>> prolist=proservice.index2(pagelist,user);
 		model.addAttribute("page", pagelist);
 		model.addAttribute("prolist", prolist);
@@ -303,12 +303,12 @@ public class ProcedureController {
 		if(!StringUtil.isEmpty(req.getParameter("val"))){
 			val=req.getParameter("val");
 		}
-		Page<AubUser> pagelist=proservice.index(user, page, size,val);
+		Page<AubUser> pagelist=proservice.index(user, page, size,val,model);
 		List<Map<String, Object>> prolist=proservice.index2(pagelist,user);
 		model.addAttribute("page", pagelist);
 		model.addAttribute("prolist", prolist);
 		model.addAttribute("url", "serch");
-		model.addAttribute("sort", "&val="+val);
+		
 		return "process/audtable";
 	}
 	

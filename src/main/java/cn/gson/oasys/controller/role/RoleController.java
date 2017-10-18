@@ -109,14 +109,14 @@ public class RoleController {
 	
 		Long roleid=Long.parseLong(req.getParameter("id"));
 		
-		
+		Role role=rdao.findOne(roleid);
 		List<Rolemenu> oneMenuAll=rpdao.findbyparentall(0L, roleid);
 		List<Rolemenu> twoMenuAll=rpdao.findbyparents(0L, roleid);
 		
 		model.addAttribute("oneMenuAll", oneMenuAll);
 		model.addAttribute("twoMenuAll", twoMenuAll);
 		model.addAttribute("roleid", roleid);
-	
+		model.addAttribute("rolename", role.getRoleName());
 		return "role/roleset";
 		
 	}

@@ -444,11 +444,12 @@ public class MailController {
 		// 通过邮箱建立用户id找用户对象
 		User tu = udao.findOne(userid);
 		
-		Page<Mailnumber> pagelist=mservice.index(page, size, tu, null);
+		Page<Mailnumber> pagelist=mservice.index(page, size, tu, null,model);
 		List<Map<String, Object>> list=mservice.up(pagelist);
 		
 		model.addAttribute("account", list);
 		model.addAttribute("page", pagelist);
+		model.addAttribute("url", "mailpaixu");
 		return "mail/mailmanage";
 	}
 	/**
@@ -470,12 +471,12 @@ public class MailController {
 			
 		 val = request.getParameter("val");
 		}
-		Page<Mailnumber> pagelist=mservice.index(page, size, tu, val);
+		Page<Mailnumber> pagelist=mservice.index(page, size, tu, val,model);
 		List<Map<String, Object>> list=mservice.up(pagelist);
 		model.addAttribute("account", list);
 		model.addAttribute("page", pagelist);
 		model.addAttribute("url", "mailpaixu");
-		model.addAttribute("sort", "&val="+val);
+		
 		return "mail/mailtable";
 	}
 

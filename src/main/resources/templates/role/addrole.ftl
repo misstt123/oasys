@@ -69,7 +69,7 @@ a:hover {
 			<!--盒子尾-->
 			<div class="box-footer">
 				<input class="btn btn-primary" id="save" type="submit" value="保存"/>
-				<input class="btn btn-default" id="cancel" type="submit"  value="取消" onclick="window.history.back();" />
+				<input class="btn btn-default" id="cancel" type="button"  value="取消" onclick="window.history.back();" />
 			</div>
 			</form>
 		</div>

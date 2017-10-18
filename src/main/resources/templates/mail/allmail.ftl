@@ -7,7 +7,7 @@
 			<div class="box-tools">
 				<div class="input-group" style="width: 150px; margin-top: 0px;">
 					<input type="text" class="form-control input-sm cha"
-						placeholder="查找..." />
+						placeholder="类型，主题查询" />
 					<div class="input-group-btn chazhao">
 						<a class="btn btn-sm btn-default"><span
 							class="glyphicon glyphicon-search"></span></a>

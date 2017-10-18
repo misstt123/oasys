@@ -132,7 +132,7 @@ h1, h3 {
 					<li class=""><b>我的消息</b> <a href="##" class="pull-right me" ><span
 							id="ctl00_cphMain_lblMsgCount">${noticelist}</span></a></li>
 					<hr class="pa" />
-					<li class=""><b>我的邮件</b> <a href="##" class="pull-right me"><span
+					<li class=""><b>我的邮件</b> <a href="mail" class="pull-right me"><span
 							id="ctl00_cphMain_lblMailCount">${maillist}</span></a></li>
 					<hr class="pa" />
 				</ul>
