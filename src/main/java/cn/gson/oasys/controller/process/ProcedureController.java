@@ -27,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
@@ -195,12 +196,11 @@ public class ProcedureController {
 	 */
 	@RequestMapping("flowmanage")
 	public String flowManage(HttpSession session,Model model,
+			@SessionAttribute("userId")Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		Pageable pa=new PageRequest(page, size);
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		Page<ProcessList> pagelist=prodao.findByuserId(userid,pa);
+		Page<ProcessList> pagelist=prodao.findByuserId(userId,pa);
 		List<ProcessList> prolist=pagelist.getContent();
 		
 		Iterable<SystemStatusList>  statusname=sdao.findByStatusModel("aoa_process_list");
@@ -491,14 +491,6 @@ public class ProcedureController {
 			}
 
 		}else{
-			if(("出差申请").equals(typename)||("请假申请").equals(typename)){
-				if(reviewed.getStatusId()==25){
-					Attends attend=new Attends();
-					/*attend.set*/
-					adao.save(attend);
-				}
-			}
-			
 			//审核并结案
 			Reviewed re=redao.findByProIdAndUserId(proid,u);
 			re.setAdvice(reviewed.getAdvice());
@@ -507,6 +499,22 @@ public class ProcedureController {
 			redao.save(re);
 			pro.setStatusId(reviewed.getStatusId());//改变主表的状态
 			prodao.save(pro);
+			if(("请假申请").equals(typename)||("出差申请").equals(typename)){
+			if(reviewed.getStatusId()==25){
+				Attends attend=new Attends();
+				attend.setHolidayStart(pro.getStartTime());
+				attend.setHolidayEnd(pro.getEndTime());
+				attend.setUser(pro.getUserId());
+				if(("请假申请").equals(typename)){
+					attend.setStatusId(46L);
+				}else if(("出差申请").equals(typename)){
+					attend.setStatusId(47L);
+				}
+				adao.save(attend);
+			}
+			}
+			
+			
 		}
 		
 		

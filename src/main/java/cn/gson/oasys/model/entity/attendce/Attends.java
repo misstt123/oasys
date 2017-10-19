@@ -52,10 +52,10 @@ public class Attends {
 	private String attendsRemark;  //考勤备注
 	
 	@Column(name="holiday_start")//请假开始时间
-	private String holidayStart;
+	private Date holidayStart;
 	
 	@Column(name="holiday_end")//请假结束时间
-	private String holidayEnd;
+	private Date holidayEnd;
 	
 	@ManyToOne
 	@JoinColumn(name = "attends_user_id")
@@ -136,6 +136,23 @@ public class Attends {
 
 	public void setStatusId(Long statusId) {
 		this.statusId = statusId;
+	}
+
+	
+	public Date getHolidayStart() {
+		return holidayStart;
+	}
+
+	public void setHolidayStart(Date holidayStart) {
+		this.holidayStart = holidayStart;
+	}
+
+	public Date getHolidayEnd() {
+		return holidayEnd;
+	}
+
+	public void setHolidayEnd(Date holidayEnd) {
+		this.holidayEnd = holidayEnd;
 	}
 
 	public Attends() {
