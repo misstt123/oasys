@@ -1,3 +1,4 @@
+<#include "/common/commoncss.ftl">
 <link rel="stylesheet" type="text/css" href="css/common/box.css" />
 <link href='plugins/fullcalendar/fullcalendar/fullcalendar.css' rel='stylesheet' />
 <link href='plugins/fullcalendar/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -88,9 +89,9 @@
 				right: 'next'
 			},
 
-			dayClick: function(date, allDay, jsEvent, view) {
+			/* dayClick: function(date, allDay, jsEvent, view) {
 				$('#myModal').modal('show');
-			},
+			}, */
 
 			eventClick: function() {
 				$('#myModal').modal('show');
@@ -98,7 +99,7 @@
 
 			editable: false,
 
-			events: [{
+			/* events: [{
 
 				title: 'Long Event',
 
@@ -110,7 +111,45 @@
 
 				end: new Date(y, m, d - 2)
 
-			}, ]
+			}, ]  */
+			
+			events:function(start, end, callback){
+				$.ajax({
+					 url: "/mycalendarload",
+					 cache:false,
+					 datatype:'json',
+					 success:function(data){
+						 console.log(data);
+						 var events = [];
+						 $.each(data,function(i,item){
+							 console.log(item);
+							 var color;
+							 if(item.typeId==27){
+								 color="blue";
+							 }
+							 if(item.typeId==28){
+								 color="#f0ad4e";
+							 }
+							 if(item.typeId==29){
+								 color="red";
+							 }
+							 events.push({
+								 title: item.title,
+
+								 start: item.startTime,
+ 
+								 backgroundColor: color,
+
+								 borderColor: color,
+
+								 end: item.endTime
+							 });
+						 });
+						 callback(events);
+					 }
+				})
+				
+			},
 
 		});
 	});

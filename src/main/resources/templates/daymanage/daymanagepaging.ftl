@@ -29,7 +29,9 @@
 					<th scope="col">发布人</th>
 					<th scope="col">部门</th>
 					<th scope="col">状态</th>
-					<th scope="col">操作</th>
+					<#if ismyday??>
+						<th scope="col">操作</th>
+					</#if>
 				</tr>
 				<#list schedules as schedule>
 					<tr>
@@ -51,11 +53,15 @@
 								</#if>
 							</#list>
 						</td>
-						<td><a  href="dayedit?rcid=${schedule.rcId}" class="label xiugai"><span
-								class="glyphicon glyphicon-edit"></span> 修改</a> <a
-							onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-							href="dayremove?rcid=${schedule.rcId}" class="label shanchu"><span
-								class="glyphicon glyphicon-remove"></span> 删除</a></td>
+						<#if ismyday??>
+							<td>
+								<a  href="dayedit?rcid=${schedule.rcId}" class="label xiugai"><span
+									class="glyphicon glyphicon-edit"></span> 修改</a> <a
+								onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
+								href="dayremove?rcid=${schedule.rcId}" class="label shanchu"><span
+									class="glyphicon glyphicon-remove"></span> 删除</a>
+							</td>
+						</#if>
 					</tr>
 				</#list>
 			</table>

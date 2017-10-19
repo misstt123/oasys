@@ -1,8 +1,11 @@
 package cn.gson.oasys.controller.daymanage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +20,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
+import com.alibaba.fastjson.JSONObject;
 
 import cn.gson.oasys.model.dao.daymanagedao.DaymanageDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
@@ -56,15 +62,17 @@ public class DaymanageController {
 		
 		Sort sort=new Sort(new Order(Direction.ASC,"user"));
 		Pageable pa=new PageRequest(page, size,sort);
-		Page<ScheduleList> aboutmepage = dayser.aboutmeschedule(userid, pa);
+		User user = udao.findOne(userid);
+		Page<ScheduleList> myday = daydao.findByUser(user, pa);
 		
-		List<ScheduleList> scheduleLists = aboutmepage.getContent();
+		List<ScheduleList> scheduleLists = myday.getContent();
 		
 		model.addAttribute("schedules",scheduleLists);
 		model.addAttribute("types",types);
 		model.addAttribute("statuses",statuses);
-		model.addAttribute("page", aboutmepage);
+		model.addAttribute("page", myday);
 		model.addAttribute("url", "daymanagepaging");
+		model.addAttribute("ismyday", 1);
 		return "daymanage/daymanage";
 	}
 	
@@ -79,20 +87,71 @@ public class DaymanageController {
 		
 		Sort sort=new Sort(new Order(Direction.ASC,"user"));
 		Pageable pa=new PageRequest(page, size,sort);
-		Page<ScheduleList> aboutmepage = dayser.aboutmeschedule(userid, pa);
+		User user = udao.findOne(userid);
+		Page<ScheduleList> myday = daydao.findByUser(user, pa);
 		
-		List<ScheduleList> scheduleLists = aboutmepage.getContent();
+		List<ScheduleList> scheduleLists = myday.getContent();
 		model.addAttribute("types",types);
 		model.addAttribute("statuses",statuses);
 		model.addAttribute("schedules",scheduleLists);
-		model.addAttribute("page", aboutmepage);
+		model.addAttribute("page", myday);
 		model.addAttribute("url", "daymanagepaging");
+		model.addAttribute("ismyday", 1);
 		return "daymanage/daymanagepaging";
 	}
+	@RequestMapping("aboutmeday")
+	private String aboutmeday(@SessionAttribute("userId") Long userid,
+			Model model,@RequestParam(value="page",defaultValue="0") int page,
+			@RequestParam(value="size",defaultValue="10") int size
+			){
+		
+		List<SystemTypeList> types = typedao.findByTypeModel("aoa_schedule_list");
+		List<SystemStatusList> statuses = statusdao.findByStatusModel("aoa_schedule_list");
+		
+		Sort sort=new Sort(new Order(Direction.ASC,"user"));
+		Pageable pa=new PageRequest(page, size,sort);
+		User user = udao.findOne(userid);
+		List<User> users = new ArrayList<>();
+		users.add(user);
+		Page<ScheduleList> aboutmeday = daydao.findByUsers(users, pa);
+		
+		List<ScheduleList> scheduleLists = aboutmeday.getContent();
+		
+		model.addAttribute("schedules",scheduleLists);
+		model.addAttribute("types",types);
+		model.addAttribute("statuses",statuses);
+		model.addAttribute("page", aboutmeday);
+		model.addAttribute("url", "aboutmedaypaging");
+		
+		return "daymanage/daymanage";
+	}
 	
-	@RequestMapping("daycalendar")
-	private String daycalendar() {
-		return "daymanage/daycalendarindex";
+	@RequestMapping("aboutmedaypaging")
+	public String aboutmedaypaging(@SessionAttribute("userId") Long userid,
+			Model model,@RequestParam(value="page",defaultValue="0") int page,
+			@RequestParam(value="size",defaultValue="10") int size
+			){
+		
+		List<SystemTypeList> types = typedao.findByTypeModel("aoa_schedule_list");
+		List<SystemStatusList> statuses = statusdao.findByStatusModel("aoa_schedule_list");
+		
+		Sort sort=new Sort(new Order(Direction.ASC,"user"));
+		Pageable pa=new PageRequest(page, size,sort);
+		User user = udao.findOne(userid);
+		List<User> users = new ArrayList<>();
+		users.add(user);
+		Page<ScheduleList> aboutmeday = daydao.findByUsers(users, pa);
+		
+		List<ScheduleList> scheduleLists = aboutmeday.getContent();
+		
+		model.addAttribute("schedules",scheduleLists);
+		model.addAttribute("types",types);
+		model.addAttribute("statuses",statuses);
+		model.addAttribute("page", aboutmeday);
+		
+		model.addAttribute("url", "aboutmedaypaging");
+		
+		return "daymanage/daymanagepaging";
 	}
 	
 	@RequestMapping("dayedit")
@@ -147,5 +206,23 @@ public class DaymanageController {
 		daydao.delete(rc);
 		
 		return "/daymanage";
+	}
+	
+	/**
+	 * 一下是日历controller
+	 * @return
+	 */
+	@RequestMapping("daycalendar")
+	private String daycalendar() {
+		return "daymanage/daycalendar";
+		
+	}
+	
+	@RequestMapping("mycalendarload")
+	public void mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
+		User user = udao.findOne(userid);
+		String json = JSONObject.toJSONString(daydao.findByUser(user));
+		response.getWriter().println(json);
+		
 	}
 }
