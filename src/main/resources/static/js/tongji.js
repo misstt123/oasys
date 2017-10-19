@@ -93,7 +93,6 @@
                        chart: {
                            renderTo: 'line',
                            type: 'line',
-                          
                        },
                        title: {
                            text: null,

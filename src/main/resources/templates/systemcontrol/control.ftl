@@ -157,7 +157,7 @@
 					</div>
 				</div>
 				
-				<div class="shrink" style="min-width: 100px; height: 280px; border-top:solid 1px #eee; margin: 0 auto">
+				<div id="line" class="shrink" style="min-width: 100px; height: 280px; border-top:solid 1px #eee; margin: 0 auto">
 				</div>
 			</div>
 		
@@ -528,10 +528,7 @@
 		</div>
 	</div>
 </div>
-<script src="js/littlecalendar.js"></script>
-<script src="js/highcharts/jquery.js"></script>
-<script src="js/highcharts/highcharts.js"></script>
-<script src="js/tongji.js"></script>
+
 <script>
 //基础图标放大缩小
 	$('.jichu').on('mouseover', function() {
@@ -599,4 +596,7 @@
 				}
 			});   */
 </script>
-
+<script src="js/littlecalendar.js"></script>
+<script src="js/highcharts/jquery.js"></script>
+<script src="js/highcharts/highcharts.js"></script>
+<script src="js/tongji.js"></script>

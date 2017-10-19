@@ -53,6 +53,12 @@ public class Attends {
 	@Column(name="attends_remark")
 	private String attendsRemark;  //考勤备注
 	
+	@Column(name="holiday_start")//请假开始时间
+	private String holidayStart;
+	
+	@Column(name="holiday_end")//请假结束时间
+	private String holidayEnd;
+	
 	@ManyToOne
 	@JoinColumn(name = "attends_user_id")
 	private User user;
