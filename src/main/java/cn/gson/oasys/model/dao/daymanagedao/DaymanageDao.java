@@ -15,5 +15,9 @@ public interface DaymanageDao extends JpaRepository<ScheduleList,Long>{
 	
 	List<ScheduleList> findByUsers(List<User> users);
 	
-	//Page<ScheduleList> findByUserAndUsers(User user,List<User> users,Pageable pa);
+	Page<ScheduleList> findByUsers(List<User> users,Pageable pa);
+	
+	Page<ScheduleList> findByUser(User user,Pageable pa);
+	
+	Page<ScheduleList> findByUserAndUsers(User user,List<User> users,Pageable pa);
 }
