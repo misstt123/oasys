@@ -164,9 +164,6 @@ public class IndexController {
 		model.addAttribute("processlist", pList);
 		List<SystemStatusList> processstatus = (List<SystemStatusList>) statusDao.findByStatusModel("aoa_process_list");
 		model.addAttribute("prostatuslist", processstatus);
-		
-		model.addAttribute("t", 6);
-		model.addAttribute("t2", 7);
 		return "systemcontrol/control";
 	}
 	

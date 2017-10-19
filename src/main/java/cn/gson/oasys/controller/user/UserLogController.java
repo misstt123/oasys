@@ -67,7 +67,6 @@ public class UserLogController {
 			response.setHeader("Cache-Control", "no-cache");
 			response.setContentType("text/json;charset=UTF-8");
 			response.getWriter().write(json);
-		
 		return null;
 	}
 	private static void setToFirstDay(Calendar calendar) {
