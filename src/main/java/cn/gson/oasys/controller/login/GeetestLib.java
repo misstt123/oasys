@@ -24,9 +24,8 @@ import javax.servlet.descriptor.JspConfigDescriptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
 
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Java SDK
@@ -228,7 +227,7 @@ public class GeetestLib {
 			}
 			
 			gtlog("result:" + result_str);
-			JSONObject jsonObject = new JSONObject();
+			JSONObject jsonObject = new JSONObject(result_str);
 		    String return_challenge = jsonObject.getString("challenge");
 		
 			gtlog("return_challenge:" + return_challenge);
@@ -378,7 +377,7 @@ public class GeetestLib {
 		
 		try {
 			
-			JSONObject return_map = new JSONObject();
+			JSONObject return_map = new JSONObject(response);
 			return_seccode = return_map.getString("seccode");
 			gtlog("md5: " + md5Encode(return_seccode));
 

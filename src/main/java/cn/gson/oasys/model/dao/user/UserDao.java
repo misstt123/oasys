@@ -63,6 +63,9 @@ public interface UserDao extends JpaRepository<User, Long>{
 	
 	List<User> findByDept(Dept dept);
 	@Query("select u from User u where u.role.roleId=?1")
-	List<User> findrole(Long lid);
+	List<User> findrole(Long lid); 
 	
+	/*通过（用户名或者电话号码）+密码查找用户*/
+	@Query("from User u where (u.userName = ?1 or u.userTel = ?1) and u.password =?2")
+	User findOneUser(String userName,String password);
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import cn.gson.oasys.common.Tool;
@@ -35,7 +36,9 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
 		HttpSession session=request.getSession();
+		if(!StringUtils.isEmpty(session.getAttribute("userId"))){
 		//导入dao类
 		UserDao udao=tool.getBean(UserDao.class, request);
 		RolepowerlistDao rpdao=tool.getBean(RolepowerlistDao.class, request);
@@ -64,6 +67,10 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 				}
 				
 			}
+			
+		}else{
+			response.sendRedirect("/logins");
+		}
 		
 		return super.preHandle(request, response, handler);
 	}

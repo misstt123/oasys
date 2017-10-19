@@ -43,7 +43,7 @@
 						thistel="" 
 						thissex="" 
 						thisemail=""
-						thiscompany=""  style="color:#337ab7;">
+						thiscompany=""  style="color:#337ab7;line-height: 40px;">
 					<img class="img-circle" id="thischangetypeimg" src="images/touxiang/timg.jpg" alt="联系人" style="width: 24px;height:24px;"/>
 					<span id="thischangetypename"></span>,<span id="thischangetypetel"></span>
 				</a>移动到:

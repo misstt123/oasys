@@ -32,7 +32,7 @@
 						<a href="javascript:changepath('userpanel');" class="btn btn-default">用户面板</a>
 					</div>
 					<div class="pull-right">
-						<a href="#" class="btn btn-danger">退出登录</a>
+						<a href="loginout" class="btn btn-danger">退出登录</a>
 					</div>
 				</li>
 			</ul>

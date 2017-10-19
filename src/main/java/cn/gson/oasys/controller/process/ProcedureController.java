@@ -276,7 +276,7 @@ public class ProcedureController {
 	public String auding(HttpSession session,Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
+		String userId = (session.getAttribute("userId")+"").trim();
 		Long userid = Long.parseLong(userId);
 		User user=udao.findOne(userid);
 		Page<AubUser> pagelist=proservice.index(user, page, size,null,model);

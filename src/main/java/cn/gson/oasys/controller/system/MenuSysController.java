@@ -93,7 +93,7 @@ public class MenuSysController {
 			log.info("a2：{}", a2);
 		}
 		menuService.findMenuSys(req,user);
-		return "systemcontrol/menumanage";
+		return "redirect:/testsysmenu";
 	}
 	
 	/**

@@ -21,6 +21,7 @@ public class YanzhengController {
 	
 	@RequestMapping("startCaptcha")
 	public @ResponseBody void startCaptchaServlet(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		System.out.println("开始进图了！");
 		GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(), 
 				GeetestConfig.isnewfailback());
 
@@ -52,6 +53,7 @@ public class YanzhengController {
 	@RequestMapping(value = "/verifyCaptchaCode")
 	@ResponseBody
 	public void verifyCaptchaCode(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		System.out.println("开始验证了了！");
 		GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(), 
 				GeetestConfig.isnewfailback());
 			

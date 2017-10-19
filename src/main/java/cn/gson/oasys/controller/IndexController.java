@@ -82,7 +82,6 @@ public class IndexController {
 	@RequestMapping("index")
 	public String index(HttpServletRequest req,Model model) {
 		HttpSession session = req.getSession();
-		session.setAttribute("userId", "2");
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
 		menuService.findMenuSys(req,user);
