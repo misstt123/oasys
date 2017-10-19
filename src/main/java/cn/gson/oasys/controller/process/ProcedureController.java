@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
 
-import cn.gson.oasys.model.dao.filedao.FileListdao;
+import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.plandao.TrafficDao;
 import cn.gson.oasys.model.dao.processdao.BursementDao;
@@ -48,13 +46,10 @@ import cn.gson.oasys.model.dao.processdao.ResignDao;
 import cn.gson.oasys.model.dao.processdao.ReviewedDao;
 import cn.gson.oasys.model.dao.processdao.StayDao;
 import cn.gson.oasys.model.dao.processdao.SubjectDao;
-import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
-import cn.gson.oasys.model.dao.user.DeptDao;
-import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
-import cn.gson.oasys.model.entity.file.FileList;
+import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.process.AubUser;
 import cn.gson.oasys.model.entity.process.Bursement;
@@ -70,14 +65,9 @@ import cn.gson.oasys.model.entity.process.Reviewed;
 import cn.gson.oasys.model.entity.process.Stay;
 import cn.gson.oasys.model.entity.process.Subject;
 import cn.gson.oasys.model.entity.process.Traffic;
-import cn.gson.oasys.model.entity.role.Role;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
-import cn.gson.oasys.model.entity.user.Dept;
-import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
-import cn.gson.oasys.services.file.FileServices;
-import cn.gson.oasys.services.mail.MailServices;
 import cn.gson.oasys.services.process.ProcessService;
 
 @Controller
@@ -86,10 +76,6 @@ public class ProcedureController {
 	
 	@Autowired
 	private UserDao udao;
-	@Autowired
-	private DeptDao ddao;
-	@Autowired
-	private RoleDao rdao;
 	@Autowired
 	private SubjectDao sudao;
 	@Autowired
@@ -102,8 +88,6 @@ public class ProcedureController {
 	private EvectionMoneyDao emdao;
 	@Autowired
 	private BursementDao budao;
-	@Autowired
-	private PositionDao pdao;
 	@Autowired
 	private ProcessListDao prodao;
 	@Autowired
@@ -127,7 +111,7 @@ public class ProcedureController {
 	@Autowired
 	private ResignDao rsdao;
 	@Autowired
-	private FileListdao fldao;
+	private AttendceDao adao;
 	
 	@Value("${attachment.roopath}")
 	private String rootpath;
@@ -218,7 +202,7 @@ public class ProcedureController {
 		Long userid = Long.parseLong(userId);
 		Page<ProcessList> pagelist=prodao.findByuserId(userid,pa);
 		List<ProcessList> prolist=pagelist.getContent();
-		System.out.println(prolist);
+		
 		Iterable<SystemStatusList>  statusname=sdao.findByStatusModel("aoa_process_list");
 		Iterable<SystemTypeList> typename=tydao.findByTypeModel("aoa_process_list");
 		model.addAttribute("typename", typename);
@@ -339,8 +323,6 @@ public class ProcedureController {
 			name="申请";
 		}
 		map=proservice.index3(name,user,typename,process);
-		System.out.println(map+"sss");
-		
 			if(("费用报销").equals(typename)){
 				Bursement bu=budao.findByProId(process);
 				User prove=udao.findOne(bu.getUsermoney().getUserId());//证明人
@@ -358,7 +340,7 @@ public class ProcedureController {
 				model.addAttribute("detaillist", detaillist);
 				model.addAttribute("map", map);
 				return "process/serch";
-			}else if(("出差费用申请").equals(typename)){
+			}else if(("出差费用").equals(typename)){
 				Double	staymoney=0.0;
 				Double	tramoney=0.0;
 				EvectionMoney emoney=emdao.findByProId(process);
@@ -380,7 +362,7 @@ public class ProcedureController {
 				model.addAttribute("tralist", tralist);
 				model.addAttribute("map", map);
 				return "process/evemonserch";
-			}else if(("出差/外出申请").equals(typename)){
+			}else if(("出差申请").equals(typename)){
 				Evection eve=edao.findByProId(process);
 				model.addAttribute("eve", eve);
 				model.addAttribute("map", map);
@@ -438,7 +420,7 @@ public class ProcedureController {
 			Bursement bu=budao.findByProId(process);
 			model.addAttribute("bu", bu);
 			
-		}else if(("出差费用申请").equals(typename)){
+		}else if(("出差费用").equals(typename)){
 			EvectionMoney emoney=emdao.findByProId(process);
 			model.addAttribute("bu", emoney);
 		}else if(("转正申请").equals(typename)||("离职申请").equals(typename)){
@@ -507,8 +489,16 @@ public class ProcedureController {
 					return "common/proce";
 				}
 			}
-			
+
 		}else{
+			if(("出差申请").equals(typename)||("请假申请").equals(typename)){
+				if(reviewed.getStatusId()==25){
+					Attends attend=new Attends();
+					/*attend.set*/
+					adao.save(attend);
+				}
+			}
+			
 			//审核并结案
 			Reviewed re=redao.findByProIdAndUserId(proid,u);
 			re.setAdvice(reviewed.getAdvice());
@@ -526,30 +516,30 @@ public class ProcedureController {
 				bu.setManagerAdvice(reviewed.getAdvice());
 				budao.save(bu);
 			}
-			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			if(u.getPosition().getId()==5){
 				bu.setFinancialAdvice(reviewed.getAdvice());
 				bu.setBurseTime(new Date());
 				bu.setOperation(u);
 				budao.save(bu);
 			}
-		}else if(("出差费用申请").equals(typename)){
+		}else if(("出差费用").equals(typename)){
 			EvectionMoney emoney=emdao.findByProId(pro);
 			if(shen.getFatherId().equals(u.getUserId())){
 				
 				emoney.setManagerAdvice(reviewed.getAdvice());
 				emdao.save(emoney);
 			}
-			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			if(u.getPosition().getId()==5){
 				emoney.setFinancialAdvice(reviewed.getAdvice());
 				emdao.save(emoney);
 			}
-		}else if(("出差/外出申请").equals(typename)){
+		}else if(("出差申请").equals(typename)){
 			Evection ev=edao.findByProId(pro);
 			if(shen.getFatherId().equals(u.getUserId())){
 				ev.setManagerAdvice(reviewed.getAdvice());
 				edao.save(ev);
 			}
-			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			if(u.getPosition().getId().equals(7L)){
 				ev.setPersonnelAdvice(reviewed.getAdvice());
 				edao.save(ev);
 			}
@@ -559,7 +549,7 @@ public class ProcedureController {
 				over.setManagerAdvice(reviewed.getAdvice());
 				odao.save(over);
 			}
-			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			if(u.getPosition().getId().equals(7L)){
 				over.setPersonnelAdvice(reviewed.getAdvice());
 				odao.save(over);
 			}
@@ -569,7 +559,7 @@ public class ProcedureController {
 				over.setManagerAdvice(reviewed.getAdvice());
 				hdao.save(over);
 			}
-			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			if(u.getPosition().getId().equals(7L)){
 				over.setPersonnelAdvice(reviewed.getAdvice());
 				hdao.save(over);
 			}
@@ -579,7 +569,7 @@ public class ProcedureController {
 				over.setManagerAdvice(reviewed.getAdvice());
 				rgdao.save(over);
 			}
-			if(u.getPosition().getId()==5||u.getPosition().getId().equals(7L)){
+			if(u.getPosition().getId().equals(7L)){
 				over.setPersonnelAdvice(reviewed.getAdvice());
 				rgdao.save(over);
 			}
@@ -603,21 +593,21 @@ public class ProcedureController {
 		
 	}
 	
-	//出差费用申请
+	//出差费用
 	@RequestMapping("evemoney")
-	public String evemoney(Model model, HttpSession session,HttpServletRequest request,
+	public String evemoney(Model model, HttpSession session,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		String userId = ((String) session.getAttribute("userId")).trim();
 		Long lid=Long.parseLong(userId);
-		List<ProcessList> prolist=prodao.findbyuseridandtitle(lid, "出差/外出申请");
+		Long proid=Long.parseLong(req.getParameter("id"));//出差申请的id
+		ProcessList prolist=prodao.findbyuseridandtitle(lid, proid);//找这个用户的出差申请
 		proservice.index6(model, lid, page, size);
 		model.addAttribute("prolist", prolist);
-		model.addAttribute("list", prolist.size());
 		return "process/evectionmoney";
 	}
 	/**
-	 * 出差费用申请表单接收
+	 * 出差费用表单接收
 	 * @param model
 	 * @param session
 	 * @param request
@@ -637,18 +627,7 @@ public class ProcedureController {
 			Long userid=shen.getUserId();//审核人userid
 			String val=req.getParameter("val");
 			Double allmoney=0.0;
-			
-			if(eve.getPro()!=null){
-				ProcessList  pros=prodao.findOne(eve.getPro());
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-				String chumon1=sdf.format(eve.getProId().getStartTime());
-				String chumon2=sdf.format(eve.getProId().getEndTime());
-				String chuchai1=sdf.format(pros.getStartTime());
-				String chuchai2=sdf.format(pros.getEndTime());
-				
-				if(chumon1.equals(chuchai1) && chumon2.equals(chuchai2)){
-					
-					if(roleid>=3L && fatherid==userid){
+			if(roleid>=3L && fatherid==userid){
 						List<Traffic> ss=eve.getTraffic();
 						for (Traffic traffic : ss) {
 							allmoney+=traffic.getTrafficMoney();
@@ -668,6 +647,7 @@ public class ProcedureController {
 						eve.setMoney(allmoney);
 						//set主表
 						ProcessList pro=eve.getProId();
+						System.out.println(pro+"mmmmmm");
 						proservice.index5(pro, val, lu, filePath,shen.getUserName());
 						emdao.save(eve);
 						//存审核表
@@ -675,16 +655,8 @@ public class ProcedureController {
 					}else{
 						return "common/proce";
 					}
-				}else{
-					model.addAttribute("error", "请核对出差的时间。");
-					return "common/proce";
-				}
-				
-			}else{
-				model.addAttribute("error", "请先提交对应的出差申请。");
-				return "common/proce";
-			}
-				return "redirect:/xinxeng";
+			
+				return "redirect:/flowmanage";
 		
 	}
 	//出差申请

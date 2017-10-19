@@ -135,14 +135,14 @@ a:hover {
 						<#if replyList?? &&replyList?size gt 0>
 							<tr>
 								<th scope="col" style="background-color: #EEEEEE;">
-								<span>回复</span>
-								<div class="pull-right" style="display: inline-block;margin-right:50px;">
-								<select name="selecttype" id="selecttype" class="selectthis" style="display: inline-block;margin-right: 10px;">
+								<span style="line-height: 35px;">回复</span>
+								<div class="pull-right" style="display: inline-block;margin-right:50px;font-weight: 400;">
+								<select name="selecttype" id="selecttype" class="selectthis  form-control" style="display: inline-block;margin-right: 10px;width: 115px;font-size: 13px;">
 									<option value="">查看所有</option>
 									<option value="${discuss.user.userId}">只看楼主</option>
 									<option value="${userId}">只看我的</option>
 								</select>
-								<select name="selectsort" id="selectsort" class="selectthis" style="display: inline-block;">
+								<select name="selectsort" id="selectsort" class="selectthis  form-control" style="display: inline-block;width: 115px;font-size: 13px;">
 									<option value="0">时间升序</option>
 									<option value="1">时间降序</option>
 								</select>

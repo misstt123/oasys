@@ -54,7 +54,7 @@
 						<#if mail.read==true>
 						<td><span>${(mail.title)!''}</span></td>
 						<#else>
-						<td><span><strong>${(mail.title)!''}</strong></span></td>
+						<td><span><strong class="read">${(mail.title)!''}</strong></span></td>
 						</#if>
 						<td><span>${(mail.time)!''}</span></td>
 						<#if mail.fileid??>
@@ -110,6 +110,10 @@
 	    				//获取被选中了的邮件id
 					 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
 	    				arry.push($mailid);
+	    				 var $mail=$(this).parents("td").siblings().find(".read").text();
+	    				 if($mail!=""){
+	    					 parent.changeemail();
+	    				 }
 	    			}
 			 })
 			 if(arry.length==0||title=="发件箱"||title=="草稿箱"){
@@ -142,7 +146,13 @@
 		 $('.lab').on('click',function(){
 			 var $mailid=$(this).parents("td").siblings(".mailid").children("span").text();
 			 var title=$(".titles").text();
+			 var $mail=$(this).parents("td").siblings().find(".read").text();
+			 if($mail!=""){
+				 parent.changeemail();
+			 }
+			
 				$('.set').load('smail',{id:$mailid,title:title});
+				/* parent.changeemail(); */
 			});
 		 //重新编辑
 		 $('.edit').on('click',function(){

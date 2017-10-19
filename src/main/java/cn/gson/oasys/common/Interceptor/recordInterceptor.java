@@ -62,7 +62,6 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 					
 					return true;
 				}else{
-					
 					request.getRequestDispatcher(zhuan).forward(request, response);
 				}
 				

@@ -265,6 +265,7 @@ public class ProcessService {
 		result.put("startime", process.getStartTime());
 		result.put("endtime", process.getEndTime());
 		result.put("tianshu", process.getProcseeDays());
+		result.put("statusid", process.getStatusId());
 		if( process.getProFileid()!=null){
 		   result.put("filepath", process.getProFileid().getAttachmentPath());
 			if(process.getProFileid().getAttachmentType().startsWith("image")){
@@ -283,19 +284,19 @@ public class ProcessService {
 		Pageable pa=new PageRequest(page, size);
 		List<SystemTypeList> harrylist=tydao.findByTypeModel("aoa_process_list");
 		//查看用户并分页
-				Page<User> pageuser=udao.findAll(pa);
-				List<User> userlist=pageuser.getContent();
-				// 查询部门表
-				Iterable<Dept> deptlist = ddao.findAll();
-				// 查职位表
-				Iterable<Position> poslist = pdao.findAll();
-				model.addAttribute("page", pageuser);
-				model.addAttribute("emplist", userlist);
-				model.addAttribute("deptlist", deptlist);
-				model.addAttribute("poslist", poslist);
-				model.addAttribute("url", "names");
-				model.addAttribute("username", lu.getUserName());
-				model.addAttribute("harrylist", harrylist);
+		Page<User> pageuser=udao.findAll(pa);
+		List<User> userlist=pageuser.getContent();
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
+		model.addAttribute("page", pageuser);
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("poslist", poslist);
+		model.addAttribute("url", "names");
+		model.addAttribute("username", lu.getUserName());
+		model.addAttribute("harrylist", harrylist);
 	}
 	/**
 	 * 存表

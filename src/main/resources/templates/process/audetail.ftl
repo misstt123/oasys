@@ -129,11 +129,11 @@ a:hover {
 					<p class="pa" style="padding-top: 9px;">报销总金额：${(bu.allMoney)!''}</p>
 					<p class="pa" >报销理由：${(process.processDescribe)!''}</p>
 					</#if>
-					<#if typename=="出差费用申请">
+					<#if typename=="出差费用">
 					<p class="pa" style="padding-top: 9px;">申请总金额：${(bu.money)!''}</p>
 					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
 					</#if>
-					<#if typename=="出差/外出申请" || typename=="加班申请" ||typename=="请假申请">
+					<#if typename=="出差申请" || typename=="加班申请" ||typename=="请假申请">
 					<p class="pa" style="padding-top: 9px;">开始时间：${(process.startTime)!''}</p>
 					<p class="pa" >结束时间：${(process.endTime)!''}</p>
 					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>

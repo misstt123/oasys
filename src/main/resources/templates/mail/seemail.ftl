@@ -35,7 +35,7 @@
 							<span class="glyphicon glyphicon-search"></span> 预览</a>
 							</#if>
 							<a href="file?fileid=${(mail.mailFileid.attachmentId)!''}" class="label xiugai">
-							<span class="glyphicon glyphicon-search"></span> 下载</a>
+							<span class="glyphicon glyphicon-download-alt"></span> 下载</a>
 							</#if></p>
 						</div>
 					</span>

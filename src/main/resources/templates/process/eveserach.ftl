@@ -187,7 +187,7 @@ border-top: 1px solid #2196F3;
 						<span class="glyphicon glyphicon-search"></span> 预览</a>
 						</#if>
 						<a href="file?fileid=${(map.file.attachmentId)!''}" class="label xiugai">
-						<span class="glyphicon glyphicon-search"></span> 下载</a>
+						<span class="glyphicon glyphicon-download-alt"></span> 下载</a>
 						</#if>
 					</div></td>
 					<td class="css" colspan="12" ></td>
@@ -253,6 +253,11 @@ border-top: 1px solid #2196F3;
 			   				<#if map.name="审核">
 							<a class="btn btn-primary huifu" href="auditing?id=${map.proId}">
 							<span class="glyphicon glyphicon-zoom-in"></span> 审核</a> 
+							<#else>
+								<#if map.statusid==25>
+								<a class="btn btn-primary huifu" href="evemoney?id=${map.proId}">
+							       <span class="glyphicon glyphicon-zoom-in"></span> 出差费用申请</a> 
+								</#if>
 							</#if>
 						</div>
 				 </td>
