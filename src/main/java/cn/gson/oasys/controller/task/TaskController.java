@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.util.StringUtil;
@@ -77,14 +78,12 @@ public class TaskController {
 	 */
 	@RequestMapping("taskmanage")
 	public String index(HttpSession session, Model model,
+			@SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-
 		// 通过发布人id找用户
-		User tu = udao.findOne(userid);
+		User tu = udao.findOne(userId);
 		// 根据发布人id查询任务
 		Page<Tasklist> tasklist=tservice.index(page, size, null, tu);
 		List<Map<String, Object>> list=tservice.index2(tasklist, tu);
@@ -101,14 +100,12 @@ public class TaskController {
 	@RequestMapping("paixu")
 	public String paixu(HttpServletRequest request, 
 			HttpSession session, Model model,
+			@SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		
+	
 		// 通过发布人id找用户
-		User tu = udao.findOne(userid);
+		User tu = udao.findOne(userId);
 		String val=null;
 		if(!StringUtil.isEmpty(request.getParameter("val"))){
 			val = request.getParameter("val").trim();
@@ -130,10 +127,9 @@ public class TaskController {
 	 */
 	@RequestMapping("addtask")
 	public ModelAndView index2(HttpSession session,
+			@SessionAttribute("userId")Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		Pageable pa=new PageRequest(page, size);
 		ModelAndView mav = new ModelAndView("task/addtask");
 		// 查询类型表
@@ -141,7 +137,7 @@ public class TaskController {
 		// 查询状态表
 		Iterable<SystemStatusList> statuslist = sdao.findAll();
 		// 查询部门下面的员工
-		Page<User> pagelist = udao.findByFatherId(userid,pa);
+		Page<User> pagelist = udao.findByFatherId(userId,pa);
 		List<User> emplist=pagelist.getContent();
 		// 查询部门表
 		Iterable<Dept> deptlist = ddao.findAll();
@@ -162,10 +158,8 @@ public class TaskController {
 	 * 新增任务保存
 	 */
 	@RequestMapping("addtasks")
-	public String addtask(HttpSession session, HttpServletRequest request) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User userlist = udao.findOne(userid);
+	public String addtask(HttpSession session, HttpServletRequest request,@SessionAttribute("userId")Long userId) {
+		User userlist = udao.findOne(userId);
 		Tasklist list = (Tasklist) request.getAttribute("tasklist");
 		request.getAttribute("success");
 		list.setUsersId(userlist);
@@ -193,10 +187,9 @@ public class TaskController {
 	 */
 	@RequestMapping("edittasks")
 	public ModelAndView index3(HttpServletRequest req, HttpSession session,
+			@SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		Pageable pa=new PageRequest(page, size);
 		ModelAndView mav = new ModelAndView("task/edittask");
 		// 得到链接中的任务id
@@ -214,7 +207,7 @@ public class TaskController {
 		SystemTypeList type = tydao.findOne(typeid);
 
 		// 查询部门下面的员工
-		Page<User> pagelist = udao.findByFatherId(userid,pa);
+		Page<User> pagelist = udao.findByFatherId(userId,pa);
 		List<User> emplist=pagelist.getContent();
 
 		// 查询部门表
@@ -300,10 +293,8 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("tasklogger")
-	public String tasklogger(Tasklogger logger, HttpSession session) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User userlist = udao.findOne(userid);
+	public String tasklogger(Tasklogger logger, HttpSession session,@SessionAttribute("userId")Long userId) {
+		User userlist = udao.findOne(userId);
 		logger.setCreateTime(new Date());
 		logger.setUsername(userlist.getUserName());
 		// 存日志
@@ -322,21 +313,19 @@ public class TaskController {
 	 */
 	@RequestMapping("mytask")
 	public String index5(HttpSession session, Model model,
+			@SessionAttribute("userId")Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Pageable pa=new PageRequest(page, size);
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		
-		Page<Tasklist> tasklist= tservice.index3(userid, null, page, size);
+		Page<Tasklist> tasklist= tservice.index3(userId, null, page, size);
 		
 		Page<Tasklist> tasklist2=tdao.findByTickingIsNotNull(pa);
 		if(tasklist!=null){
-			List<Map<String, Object>> list=tservice.index4(tasklist, userid);
+			List<Map<String, Object>> list=tservice.index4(tasklist, userId);
 			model.addAttribute("page", tasklist);
 			model.addAttribute("tasklist", list);
 		}else{
-			List<Map<String, Object>> list2=tservice.index4(tasklist2, userid);
+			List<Map<String, Object>> list2=tservice.index4(tasklist2, userId);
 			model.addAttribute("page", tasklist2);
 			model.addAttribute("tasklist", list2);
 		}
@@ -352,17 +341,16 @@ public class TaskController {
 	 */
 	@RequestMapping("mychaxun")
 	public String select(HttpServletRequest request, HttpSession session, Model model,
+			@SessionAttribute("userId")Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) throws ParseException {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		
+	
 		String title =null;
 		if(!StringUtil.isEmpty(request.getParameter("title"))){
 			 title = request.getParameter("title").trim();
 		}
-		Page<Tasklist> tasklist= tservice.index3(userid, title, page, size);
-		List<Map<String, Object>> list=tservice.index4(tasklist, userid);
+		Page<Tasklist> tasklist= tservice.index3(userId, title, page, size);
+		List<Map<String, Object>> list=tservice.index4(tasklist, userId);
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
 		model.addAttribute("url", "mychaxun");
@@ -372,9 +360,7 @@ public class TaskController {
 
 
 	@RequestMapping("myseetasks")
-	public ModelAndView myseetask(HttpServletRequest req, HttpSession session) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
+	public ModelAndView myseetask(HttpServletRequest req, HttpSession session,@SessionAttribute("userId")Long userId) {
 
 		ModelAndView mav = new ModelAndView("task/myseetask");
 		// 得到任务的 id
@@ -387,7 +373,7 @@ public class TaskController {
 		// 查看状态表
 		Iterable<SystemStatusList> statuslist = sdao.findAll();
 		// 查询接收人的任务状态
-		Long ustatus = tudao.findByuserIdAndTaskId(userid, ltaskid);
+		Long ustatus = tudao.findByuserIdAndTaskId(userId, ltaskid);
 
 		SystemStatusList status = sdao.findOne(ustatus);
 		/*System.out.println(status);*/
@@ -410,13 +396,12 @@ public class TaskController {
 	 * 从我的任务查看里面修改状态和日志
 	 */
 	@RequestMapping("uplogger")
-	public String updatelo(Tasklogger logger, HttpSession session) {
+	public String updatelo(Tasklogger logger, HttpSession session,@SessionAttribute("userId")Long userId) {
 		System.out.println(logger.getLoggerStatusid());
 		// 获取用户id
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
+		
 		// 查找用户
-		User user = udao.findOne(userid);
+		User user = udao.findOne(userId);
 		// 查任务
 		Tasklist task = tdao.findOne(logger.getTaskId().getTaskId());
 		logger.setCreateTime(new Date());
@@ -425,7 +410,7 @@ public class TaskController {
 		tldao.save(logger);
 
 		// 修改任务中间表状态
-		Long pkid = udao.findpkId(logger.getTaskId().getTaskId(), userid);
+		Long pkid = udao.findpkId(logger.getTaskId().getTaskId(), userId);
 		Taskuser tasku = new Taskuser();
 		tasku.setPkId(pkid);
 		tasku.setTaskId(task);
@@ -469,10 +454,8 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("shanchu")
-	public String delete(HttpServletRequest req, HttpSession session) {
+	public String delete(HttpServletRequest req, HttpSession session,@SessionAttribute("userId")Long userId) {
 		// 获取用户id
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		
 		// 得到任务的 id
 		String taskid = req.getParameter("id");
@@ -480,7 +463,7 @@ public class TaskController {
 		Long ltaskid = Long.parseLong(taskid);
 		// 根据任务id找出这条任务
 		Tasklist task = tdao.findOne(ltaskid);
-		if(task.getUsersId().getUserId().equals(userid)){
+		if(task.getUsersId().getUserId().equals(userId)){
 			// 删除日志表
 			tservice.detelelogger(ltaskid);
 			// 分割任务接收人 还要查找联系人的主键并删除接收人中间表
@@ -508,14 +491,12 @@ public class TaskController {
 	 * 接收人这边删除
 	 */
 	@RequestMapping("myshanchu")
-	public String mydelete(HttpServletRequest req, HttpSession session) {
+	public String mydelete(HttpServletRequest req, HttpSession session,@SessionAttribute("userId")Long userId) {
 		// 用户id
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		// 得到任务的 id
 		String taskid = req.getParameter("id");
 		Long ltaskid = Long.parseLong(taskid);
-		Long pkid = udao.findpkId(ltaskid, userid);
+		Long pkid = udao.findpkId(ltaskid, userId);
 		tservice.delete(pkid);
 
 		return "redirect:/mytask";

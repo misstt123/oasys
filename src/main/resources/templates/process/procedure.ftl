@@ -85,13 +85,8 @@ margin-bottom: 48px;
 					<div class="col-md-3 form-group">
 					<label class="control-label" style="float:left;"><img src="images/chuchai.jpg" style="width:100px;height:100px;"></label>
 						<div>
-<<<<<<< HEAD
-						<h4>出差/外出申请</h4><br>
-						<h5>指出差/外出申请单</h5>
-=======
 						<h4>出差申请单</h4><br>
 						<h5>指出差申请单</h5>
->>>>>>> refs/remotes/origin/sj
 						</div>
 					</div>
 					</a>
