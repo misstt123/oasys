@@ -36,5 +36,13 @@ public interface RolepowerlistDao extends PagingAndSortingRepository<Rolepowerli
 				+ "from Rolepowerlist as role,SystemMenu as menu where role.menuId.menuId=menu.menuId "
 				+ "and menu.parentId!=?1 and role.roleId.roleId=?2 and menu.show=?3 and role.check=?4")
 		List<Rolemenu> findbyparentsxian(Long id,Long roleid,Boolean bo,Boolean le);
+		
+		//条件查找父菜单
+		@Query("select new cn.gson.oasys.model.entity.role.Rolemenu(menu.menuId,menu.menuName,menu.menuUrl,menu.show,role.check,menu.parentId,menu.menuIcon,menu.sortId,menu.menuGrade) "
+				+ "from Rolepowerlist as role,SystemMenu as menu where role.menuId.menuId=menu.menuId "
+				+ "and menu.parentId=?1 and role.roleId.roleId=?2 and menu.show=?3 and role.check=?4 and menu.menuName like %?5%")
+		List<Rolemenu> findname(Long id,Long roleid,Boolean bo,Boolean le,String name);
+		
+		
 
 }

@@ -27,7 +27,7 @@ public interface ProcessListDao extends PagingAndSortingRepository<ProcessList, 
 	@Query("select pro from ProcessList as pro where pro.userId.userId=?1 and (pro.typeNmae like %?2% or pro.processName like %?2% or pro.shenuser like %?2%) order by pro.applyTime desc")
 	Page<ProcessList> findByuserIdandstr(Long userid, String val, Pageable pa);
 
-	@Query("select pro from ProcessList as pro where pro.userId.userId=?1 and pro.typeNmae=?2")
-	List<ProcessList> findbyuseridandtitle(Long userid,String typename);
+	@Query("select pro from ProcessList as pro where pro.userId.userId=?1 and pro.processId=?2")
+	ProcessList findbyuseridandtitle(Long userid,Long proid);
 	
 }

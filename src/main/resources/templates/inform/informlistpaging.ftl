@@ -45,20 +45,17 @@
 				</tr>
 				<#list list as this>
 				<tr>
-					<#if this.is_read==0>
-					<td class="c">${this.type}</td>
-					<td class="c"><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
-					<td class="c"><span>${(this.title)!''}</span></td>
-					<td class="c"><span>${this.notice_time}</span></td>
-					<td class="c"><span>${this.userName}</span></td>
-					<td class="c"><span>${this.deptName}</span></td>
-					<#else>
+					
 					<td>${this.type}</td>
 					<td><span class="label ${(this.statusColor)!''}">${this.status}</span></td>
+					<#if this.is_read==0>
+					<td class="c"><span>${(this.title)!''}</span></td>
+					<#else>
 					<td><span>${(this.title)!''}</span></td>
+					</#if>
 					<td><span>${this.notice_time}</span></td>
 					<td><span>${this.userName}</span></td>
-					<td><span>${this.deptName}</span></td></#if>
+					<td><span>${this.deptName}</span></td>
 					<#if this.is_top==1>
 					<td><span class="labels"><label><input
 								type="checkbox" checked disabled><i>✓</i></label></span></td>
@@ -69,9 +66,8 @@
 					<td><span class="glyphicon glyphicon-link"></span></td>
 					<#else>
 					<td><span class="labels"></span></td></#if>
-					<td><a
-						href="informshow?id=${this.notice_id}&read=${this.is_read}&relationid=${this.relatin_id}"
-						class="label xiugai"><span class="glyphicon glyphicon-search"></span>
+					<td><a href="informshow?id=${this.notice_id}&read=${this.is_read}&relationid=${this.relatin_id}"
+						class="label xiugai chakan"><span class="glyphicon glyphicon-search"></span>
 							查看</a> <#if this.is_read==0> <#else> <a
 							onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
 							href="informlistdelete?id=${this.notice_id}"
@@ -86,3 +82,13 @@
 	<!--盒子尾-->
 	<#include "/common/pagingmybatis.ftl">
 </div>
+<script>
+	$(function(){
+		$(".chakan").click(function(){
+			var $information=$(this).parents("td").siblings(".c").find("span").text();
+			if( $information!=""){
+				parent.changeinformation();
+			}
+		});
+	});
+</script>
