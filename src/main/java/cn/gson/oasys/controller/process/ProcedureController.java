@@ -974,7 +974,7 @@ public class ProcedureController {
 			String path = startpath.replace("/show", "");
 			
 			File f = new File(rootpath, path);
-			
+			System.out.println(f.getAbsolutePath());
 			ServletOutputStream sos = response.getOutputStream();
 			FileInputStream input = new FileInputStream(f.getPath());
 			byte[] data = new byte[(int) f.length()];

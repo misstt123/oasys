@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,10 +61,6 @@ public class LoginsController {
 		String password=req.getParameter("password");
 		String ca=req.getParameter("code");
 		String sesionCode = (String) req.getSession().getAttribute(CAPTCHA_KEY);
-		System.out.println(userName);
-		System.out.println(password);
-		System.out.println(ca);
-		System.out.println(sesionCode);
 		model.addAttribute("userName", userName);
 		if(!ca.equals(sesionCode)){
 			System.out.println("验证码输入错误!");
@@ -74,7 +71,6 @@ public class LoginsController {
 		/*
 		 * 将用户名分开查找；用户名或者电话号码；
 		 * */
-		System.out.println("执行到这里了么？");
 		User user=uDao.findOneUser(userName, password);
 		if(Objects.isNull(user)){
 			System.out.println(user);
@@ -88,9 +84,32 @@ public class LoginsController {
 			model.addAttribute("errormess", "账号已被冻结!");
 			return "login/login";
 		}
+		Object sessionId=session.getAttribute("userId");
 		System.out.println(user);
-		session.setAttribute("userId", user.getUserId());
+		if(sessionId==user.getUserId()){
+			System.out.println("当前用户已经登录了；不能重复登录");
+			model.addAttribute("hasmess", "当前用户已经登录了；不能重复登录");
+			session.setAttribute("thisuser", user);
+			return "login/login";
+		}else{
+			session.setAttribute("userId", user.getUserId());
+		}
 		return "redirect:/index";
+	}
+	
+	@RequestMapping("handlehas")
+	public String handleHas(HttpSession session){
+		if(!StringUtils.isEmpty(session.getAttribute("thisuser"))){
+			User user=(User) session.getAttribute("thisuser");
+			System.out.println(user);
+			session.removeAttribute("userId");
+			session.setAttribute("userId", user.getUserId());
+		}else{
+			System.out.println("有问题！");
+			return "login/login";
+		}
+		return "redirect:/index";
+		
 	}
 	
 	

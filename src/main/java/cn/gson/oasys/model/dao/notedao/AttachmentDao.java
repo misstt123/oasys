@@ -3,6 +3,7 @@ package cn.gson.oasys.model.dao.notedao;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -12,7 +13,7 @@ import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Note;
 
 @Repository
-public interface AttachmentDao  extends PagingAndSortingRepository<Attachment, Long>{
+public interface AttachmentDao  extends JpaRepository<Attachment, Long>{
 
 	Attachment findByAttachmentPath(String AttachmentPath);
 	

@@ -1,18 +1,12 @@
 package cn.gson.oasys.model.entity.note;
 
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -45,7 +39,7 @@ public class Director {
 	private String  phoneNumber;  //电话号码
 	
 	@Column(name="image_path")
-	private String  imagePath;	 //头像路径
+	private Long  attachment;	 //头像路径
 	
 	private String  remark;     //备注
 	
@@ -64,14 +58,14 @@ public class Director {
 	
 	
 	
-	public Director(Long directorId, String userName, String pinyin, String sex, String phoneNumber, String imagePath,
+	public Director(Long directorId, String userName, String pinyin, String sex, String phoneNumber, Long attachment,
 			String remark, String address, User myuser, String email) {
 		super();
 		this.directorId = directorId;
 		this.pinyin = pinyin;
 		this.sex = sex;
 		this.phoneNumber = phoneNumber;
-		this.imagePath = imagePath;
+		this.attachment = attachment;
 		this.remark = remark;
 		this.address = address;
 		this.myuser = myuser;
@@ -141,12 +135,14 @@ public class Director {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	
+
+	public Long getAttachment() {
+		return attachment;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setAttachment(Long attachment) {
+		this.attachment = attachment;
 	}
 
 	public String getRemark() {
@@ -185,7 +181,7 @@ public class Director {
 	@Override
 	public String toString() {
 		return "Director [directorId=" + directorId + ", userName=" + userName + ", pinyin=" + pinyin + ", sex=" + sex
-				+ ", phoneNumber=" + phoneNumber + ", imagePath=" + imagePath + ", remark=" + remark + ", address="
+				+ ", phoneNumber=" + phoneNumber + ", attachment=" + attachment + ", remark=" + remark + ", address="
 				+ ", companyNumber=" + companyNumber + ",companyname="+companyname+"]";
 	}
 

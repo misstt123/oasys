@@ -14,7 +14,7 @@
 			<td >	${d.userName}</td>
 			<td rowspan="3" colspan="2">
 				<div id="">
-					<img src="images/touxiang/${(d.imagePath)!'timg.jpg'}" style="width: 120px;height: 120px;border-radius: 50%;margin-left: 15%;"/>
+					<img src="/image${(imgpath)!'/timg.jpg'}" style="width: 120px;height: 120px;border-radius: 50%;margin-left: 15%;"/>
 				</div>
 			</td>
 		</tr>

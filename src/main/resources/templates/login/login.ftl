@@ -58,6 +58,48 @@
 		.test:FOCUS {
 		border-color: #66afe9 !important;
 	}
+	.modal-dialog {
+				width: 500px;
+			}
+			
+			.modal-body .icon {
+				height: 80px;
+				width: 80px;
+				margin: 20px auto;
+				border-radius: 50%;
+				color: #aad6aa;
+				border: 3px solid #d9ead9;
+				text-align: center;
+				font-size: 44px;
+			}
+			
+			.modal-body .icon .glyphicon {
+				top: 11px;
+			}
+			
+			.modal-p {
+				margin: 20px auto;
+			}
+			
+			.modal-body .modal-p h2 {
+				text-align: center;
+			}
+			
+			.modal-body .modal-p p {
+				text-align: center;
+				color: #666;
+				font-size: 16px;
+				padding-top: 8px;
+				font-weight: 300;
+			}
+			
+			.modal-p .btn {
+				width: 100px;
+				height: 40px;
+			}
+			.modal-error .icon{
+				color: #f27474;
+				border: 3px solid #f27474;
     </style>
 </head>
 
@@ -93,9 +135,38 @@
     
   </div>
 </div>
+<div class="modal fade in" id="mymodal" data-backdrop="static" >
+			<div class="modal-dialog" style="top: 20%;">
+				<div class="modal-content">
+					<div class="modal-body modal-error">
+						<div class="icon">
+							<span class="glyphicon">!</span>
+						</div>
+						<div class="modal-p">
+							<!--<h2 style="text-align: center;">提示信息</h2>-->
+							<p class="modal-error-mess">该用户已经登录了，是否继续 ？</p>
+							<div class="modal-p">
+								<button type="button" class="btn btn-default" data-dismiss="modal" >取消</button>
+								<button type="button" class="btn btn-primary contiue" data-dismiss="modal">继续</button>
+							</div>
+						</div>
+					</div>
 
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<#if hasmess??>
+<script type="text/javascript">
+	$(function(){
+		$('#mymodal').modal('show');
+	})
+</script>
+</#if>
 <#if errormess??>
 <script>
 $(function(){
@@ -109,6 +180,10 @@ $(function(){
  $('.test').on('click',function(){
 	$(this).css('border',"1px solid transparent");
 }) 
+$('.contiue').on('click',function(){
+		location.href="/handlehas";
+})
+
 
 function check() {
 	var userName=$('.userName').val().trim();

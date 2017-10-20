@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +41,10 @@ import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.mappers.AddressMapper;
 import cn.gson.oasys.model.dao.address.AddressDao;
 import cn.gson.oasys.model.dao.address.AddressUserDao;
+import cn.gson.oasys.model.dao.notedao.AttachService;
+import cn.gson.oasys.model.dao.notedao.AttachmentDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Director;
 import cn.gson.oasys.model.entity.note.DirectorUser;
 import cn.gson.oasys.model.entity.user.User;
@@ -69,6 +73,10 @@ public class AddrController {
 	ProcessService proservice;
 	@Autowired
 	FileServices fileServices;
+	@Autowired
+	 AttachService attachService;
+	@Autowired
+	AttachmentDao atDao;
 	
 	/**
 	 * 通讯录管理
@@ -147,7 +155,7 @@ public class AddrController {
 	}
 	
 	/**
-	 * 查看内部联系人
+	 * 查看外部联系人
 	 */
 	@RequestMapping("outmessshow")
 	public String outMessShow(Model model,@RequestParam("director") Long director,@SessionAttribute("userId") Long userId){
@@ -158,7 +166,15 @@ public class AddrController {
 			System.out.println("权限不匹配，不能操作");
 			return "redirect:/notlimit";
 		}
+		System.out.println(d.getAttachment());
+		System.out.println(atDao.findOne(d.getAttachment()));
+		if(!Objects.isNull(atDao.findOne(d.getAttachment()))){
+			model.addAttribute("imgpath", atDao.findOne(d.getAttachment()).getAttachmentPath());
+		}else{
+			model.addAttribute("imgpath", "/timg.jpg");
+		}
 		model.addAttribute("d", d);
+		
 		return "address/outmessshow";
 	}
 	
@@ -210,14 +226,19 @@ public class AddrController {
 				Long did=Long.parseLong(session.getAttribute("did")+"");
 				Director di=addressDao.findOne(did);
 				director.setDirectorId(di.getDirectorId());
+				director.setAttachment(di.getAttachment());
 				DirectorUser dc=auDao.findByDirectorAndUser(director, user);
 				directorUser.setDirectorUserId(dc.getDirectorUserId());
 				session.removeAttribute("did");
 			}
+			if(file.getSize()>0){
+				Attachment att= (Attachment) fileServices.savefile(file, user, null, false);
+				director.setAttachment(att.getAttachmentId());
+			}
+			
 			directorUser.setHandle(true);
 			directorUser.setDirector(director);
 			directorUser.setUser(user);
-			director.setAddress(file.getOriginalFilename());
 			addressService.sava(director);
 			addressUserService.save(directorUser);
 		}
@@ -454,16 +475,18 @@ public class AddrController {
 	public String outAddress(@RequestParam(value="pageNum",defaultValue="1") int page,Model model,
 			@RequestParam(value="baseKey",required=false) String baseKey,
 			@RequestParam(value="outtype",required=false) String outtype,
-			@RequestParam(value="alph",required=false) String alph,
+			@RequestParam(value="alph",defaultValue="ALL") String alph,
 			@SessionAttribute("userId") Long userId
 			){
 		PageHelper.startPage(page, 10);
 		List<Map<String, Object>> directors=am.allDirector(userId, alph, outtype, baseKey);
+		List<Map<String, Object>> adds=addressService.fengzhaung(directors);
 		PageInfo<Map<String, Object>> pageinfo=new PageInfo<>(directors);
 		if(!StringUtils.isEmpty(outtype)){
 			model.addAttribute("outtype", outtype);
-		}
+		}	
 		Pageable pa=new PageRequest(0, 10);
+		
 		Page<User> userspage=uDao.findAll(pa);
 		List<User> users=userspage.getContent();
 		model.addAttribute("modalurl", "modalpaging");
@@ -471,7 +494,7 @@ public class AddrController {
 		model.addAttribute("users", users);
 		model.addAttribute("userId", userId);
 		model.addAttribute("baseKey", baseKey);
-		model.addAttribute("directors", directors);
+		model.addAttribute("directors", adds);
 		model.addAttribute("page", pageinfo);
 		model.addAttribute("url", "outaddresspaging");
 		return "address/outaddrss";
@@ -485,7 +508,7 @@ public class AddrController {
 	public String inAddress(@RequestParam(value="page",defaultValue="0") int page,Model model,
 			@RequestParam(value="size",defaultValue="10") int size,
 			@RequestParam(value="baseKey",required=false) String baseKey,
-			@RequestParam(value="alph",required=false) String alph
+			@RequestParam(value="alph",defaultValue="ALL") String alph
 			){
 		Page<User> userspage=null;
 		Pageable pa=new PageRequest(page, size);
@@ -502,9 +525,13 @@ public class AddrController {
 				userspage=uDao.findSelectUsers("%"+baseKey+"%", alph+"%",pa);
 			}
 		}
+		if(!StringUtils.isEmpty(baseKey)){
+			model.addAttribute("baseKey", baseKey);
+			model.addAttribute("sort", "&alph="+alph+"&baseKey="+baseKey);
+		}else{
+			model.addAttribute("sort", "&alph="+alph);
+		}
 		List<User> users=userspage.getContent();
-		model.addAttribute("sort", "&alph="+alph+"&baseKey="+baseKey);
-		model.addAttribute("baseKey", baseKey);
 		model.addAttribute("users", users);
 		model.addAttribute("page", userspage);
 		model.addAttribute("url", "inaddresspaging");
