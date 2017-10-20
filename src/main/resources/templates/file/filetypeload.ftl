@@ -3,6 +3,8 @@
 		<#if isload??>
 			<#if istrash??>
 				<li><a class="filereturnback">还原</a></li>
+			<#elseif isshare??>
+				<li><a class="downloadfile">下载</a></li>
 			<#else>
 				<li><a class="downloadfile">下载</a></li>
 				<li><a>分享</a></li>
@@ -12,7 +14,7 @@
 		<#else>
 			<li><a class="open">打开</a></li>
 			<li><a class="downloadfile">下载</a></li>
-			<li><a>分享</a></li>
+			<li><a class="doshare">分享</a></li>
 			<li><a class="movefile">移动到</a></li>
 			<li><a class="copyfile">复制到</a></li>
 			<li><a class="menurename">重命名</a></li>
@@ -39,9 +41,11 @@
 			<#elseif type=="yasuo">
 				<h3 class="box-title" style="font-size: 12px;">压缩包</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
-				trash
 			<#elseif type=="trash">
 				<h3 class="box-title" style="font-size: 12px;">回收站</h3>
+				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+			<#elseif type=="share">
+				<h3 class="box-title" style="font-size: 12px;">分享文件</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
 			</#if>
 		<#else>
@@ -82,7 +86,9 @@
 					<#if istrash??>
 						<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loaddelete" title="删除">
 							<span class="iconfont icon-lajitong"></span>
-						</a> 
+						</a>
+					<#elseif isshare??>
+					
 					<#else>
 						<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loadtrash" title="删除">
 							<span class="iconfont icon-lajitong"></span>

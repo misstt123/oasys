@@ -71,12 +71,12 @@ a:hover {
 	
 							<div class="col-md-6 form-group">
 								<label class="control-label">开始日期</label>
-								<input name="startTime" class="form-control" id="start" onclick="WdatePicker()"
+								<input name="startTime" class="form-control" id="starTime" 
 									value="${(rc.startTime?string('yyyy-MM-dd HH:mm:ss'))!''}"/>
 							</div>
 							<div class="col-md-6 form-group">
 								<label class="control-label">结束日期</label> <input
-									name="endTime" class="form-control" id="end" onclick="WdatePicker()" 
+									name="endTime" class="form-control" id="endTime" 
 									value="${(rc.endTime?string('yyyy-MM-dd HH:mm:ss'))!''}"/>
 							</div>
 	
@@ -127,6 +127,7 @@ a:hover {
 	</div>
 </div>
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/common/data.js"></script>
 <#include "/common/reciver.ftl">
 <#include "/common/modalTip.ftl"/> 
 

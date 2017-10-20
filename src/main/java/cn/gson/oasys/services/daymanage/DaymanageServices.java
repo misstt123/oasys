@@ -21,13 +21,21 @@ public class DaymanageServices {
 	@Autowired
 	DaymanageDao daydao;
 
-	public Page<ScheduleList> aboutmeschedule(Long userid, Pageable pa) {
-		User user = udao.findOne(userid);
+	
+	public List<ScheduleList> aboutmeschedule(Long userId){
+		
+		User user = udao.findOne(userId);
 		List<User> users = new ArrayList<>();
 		users.add(user);
+		List<ScheduleList> aboutmerc = new ArrayList<>();
+		
+		
 		List<ScheduleList> myschedule = daydao.findByUser(user);
 		List<ScheduleList> otherschedule = daydao.findByUsers(users);
-		myschedule.addAll(otherschedule);
-		return new PageImpl<>(myschedule, pa,myschedule.size());
+		
+		aboutmerc.addAll(myschedule);
+		aboutmerc.addAll(otherschedule);
+		
+		return aboutmerc;
 	}
 }
