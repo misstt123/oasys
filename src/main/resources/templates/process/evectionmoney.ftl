@@ -131,9 +131,13 @@ cursor: pointer;
 				
 				<tr >
 					<td class="titleleft" ><label class="control-label">开始日期</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu" id="starTime" name="proId.startTime"/></td>
+					<td  colspan="6">
+					<input type="text" class="form-control inpu start"  name="proId.startTime"
+					readonly="readonly" style="background-color:#fff;" value="${(prolist.startTime)!''}"/></td>
 					<td class="title" ><label class="control-label">结束日期</label></td>
-					<td  colspan="6"><input type="text" class="form-control inpu" id="endTime" name="proId.endTime"/></td>
+					<td  colspan="6">
+					<input type="text" class="form-control inpu end" name="proId.endTime"
+					readonly="readonly" style="background-color:#fff;" value="${(prolist.endTime)!''}"/></td>
 				
 				</tr>
 					<tr >
@@ -161,13 +165,13 @@ cursor: pointer;
 					<td  colspan="6"><textarea class="form-control text" name="proId.processDescribe"></textarea></td>
 					<td class="titleleft" ><label class="control-label">出差申请</label></td>
 					
-					<td colspan="6">
-						<select class="form-control inpu" name="pro">
-							<#list prolist as pro>
-							<option value="${(pro.processId)!''}">${(pro.processName)!''}</option>
-							</#list>
-						</select>
+					
+					<td  colspan="6">
+					<input type="text" class="form-control inpu"  value="${(prolist.processName)!''}"/>
+					<input type="text" style="display:none;" name="pro" value="${(prolist.processId)!''}"/>
 					</td>
+						
+					
 					
 				</tr>
 				<tr >
@@ -262,10 +266,10 @@ cursor: pointer;
 				<tr >
 
 					<td colspan="14" style="text-align: right;" >
-					<input   type="text" value="出差费用申请" name="val" hidden="hidden"/>
+					<input   type="text" value="出差费用" name="val" hidden="hidden"/>
 					<input type="text" class="days" hidden="hidden" name="proId.procseeDays"/>
 						<input class="btn btn-primary" id="save" type="submit" value="保存" />
-						<input class="btn btn-default" id="cancel" type="submit" value="取消"
+						<input class="btn btn-default" id="cancel" type="button" value="取消"
 						onclick="window.history.back();" />
 					</td>
 					
@@ -337,8 +341,8 @@ function check() {
 			var min=$date2.getTime()-$date1.getTime();
 			var  tianshu = Math.ceil(min / (24*60*60*1000));
 			$(this).parents(".date").siblings(".day").children().val(tianshu);
-			var $star=new Date($("#starTime").val());
-			var $end=new Date($("#endTime").val());
+			var $star=new Date($(".start").val());
+			var $end=new Date($(".end").val());
 			tt=$end.getTime()-$star.getTime();
 			$(".days").val(Math.ceil(tt/ (24*60*60*1000)))
 		});

@@ -39,6 +39,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
@@ -214,7 +215,7 @@ public class MailServices {
 	 * @param val
 	 * @return
 	 */
-	public Page<Mailnumber> index(int page,int size,User tu,String val){
+	public Page<Mailnumber> index(int page,int size,User tu,String val,Model model){
 		Page<Mailnumber> account=null;
 		List<Order> orders = new ArrayList<>();
 		Pageable pa=new PageRequest(page, size);
@@ -225,13 +226,17 @@ public class MailServices {
 			account=mdao.findByMailUserId(tu,pa);
 		}else if (("类型").equals(val)) {
 			account=mdao.findByMailUserIdOrderByMailType(tu,pa);
+			model.addAttribute("sort", "&val="+val);
 		}else if(("状态").equals(val)){
 			account=mdao.findByMailUserIdOrderByStatus(tu,pa);
+			model.addAttribute("sort", "&val="+val);
 		}else if(("创建时间").equals(val)){
 			account=mdao.findByMailUserIdOrderByMailCreateTimeDesc(tu,pa);
+			model.addAttribute("sort", "&val="+val);
 		}else{
 			//名字的模糊查询
 			account = mdao.findByMailUserNameLikeAndMailUserId(val,tu,pa);
+			model.addAttribute("sort", "&val="+val);
 		}
 		return account;
 	}

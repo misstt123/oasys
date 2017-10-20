@@ -1,5 +1,5 @@
 <#include "/common/commoncss.ftl">
-<script type="text/javascript" src="js/mail/mailmanage.js" ></script>
+
 <style type="text/css">
 a {
 	color: black;

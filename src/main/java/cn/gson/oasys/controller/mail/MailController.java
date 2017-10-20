@@ -444,11 +444,12 @@ public class MailController {
 		// 通过邮箱建立用户id找用户对象
 		User tu = udao.findOne(userid);
 		
-		Page<Mailnumber> pagelist=mservice.index(page, size, tu, null);
+		Page<Mailnumber> pagelist=mservice.index(page, size, tu, null,model);
 		List<Map<String, Object>> list=mservice.up(pagelist);
 		
 		model.addAttribute("account", list);
 		model.addAttribute("page", pagelist);
+		model.addAttribute("url", "mailpaixu");
 		return "mail/mailmanage";
 	}
 	/**
@@ -470,12 +471,12 @@ public class MailController {
 			
 		 val = request.getParameter("val");
 		}
-		Page<Mailnumber> pagelist=mservice.index(page, size, tu, val);
+		Page<Mailnumber> pagelist=mservice.index(page, size, tu, val,model);
 		List<Map<String, Object>> list=mservice.up(pagelist);
 		model.addAttribute("account", list);
 		model.addAttribute("page", pagelist);
 		model.addAttribute("url", "mailpaixu");
-		model.addAttribute("sort", "&val="+val);
+		
 		return "mail/mailtable";
 	}
 
@@ -850,10 +851,26 @@ public class MailController {
 		
 		//找到该邮件信息
 		Inmaillist mail=imdao.findOne(id);
+		String filetype=null;
+		if(!Objects.isNull(mail.getMailFileid())){
+			String filepath= mail.getMailFileid().getAttachmentPath();
+			System.out.println(filepath);
+				if(mail.getMailFileid().getAttachmentType().startsWith("image")){
+					
+					filetype="img";
+				}else{
+					filetype="appli";
+					
+				}
+		model.addAttribute("filepath", filepath);
+		model.addAttribute("filetype", filetype);
+		}
+		
 		User pushuser=udao.findOne(mail.getMailUserid().getUserId());
 		model.addAttribute("pushname", pushuser.getUserName());
 		model.addAttribute("mail", mail);
 		model.addAttribute("mess", title);
+		model.addAttribute("file", mail.getMailFileid());
 		
 		return "mail/seemail";
 	}

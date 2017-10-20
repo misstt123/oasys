@@ -174,7 +174,7 @@ ${(out.typeColor)!''}
 					<input   type="text" class="day" name="proId.procseeDays" hidden="hidden"/>
 					<input   type="text" value="请假申请" name="val" hidden="hidden"/>
 						<input class="btn btn-primary" id="save" type="submit" value="保存" />
-						<input class="btn btn-default" id="cancel" type="submit" value="取消"
+						<input class="btn btn-default" id="cancel" type="button" value="取消"
 						onclick="window.history.back();" />
 					</td>
 					

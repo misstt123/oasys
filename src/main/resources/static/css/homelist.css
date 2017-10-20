@@ -3,9 +3,9 @@ a:hover{
 }
 .moredeep li .badge {
 	position: absolute;
-	margin-top: -10px;
-	margin-left: -4px;
-	padding: 2px 4px;
+    margin-top: -29px;
+    margin-left: 10px;
+    padding: 2px 4px;
 }
 .yellow-badge{
 	background-color: #43da8d;

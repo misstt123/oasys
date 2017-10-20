@@ -1,6 +1,7 @@
 package cn.gson.oasys.common.Interceptor;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,13 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import cn.gson.oasys.common.Tool;
+import cn.gson.oasys.model.dao.IndexDao;
+import cn.gson.oasys.model.dao.roledao.RolepowerlistDao;
 import cn.gson.oasys.model.dao.system.SystemMenuDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.dao.user.UserLogDao;
+import cn.gson.oasys.model.entity.role.Rolemenu;
 import cn.gson.oasys.model.entity.system.SystemMenu;
+import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.model.entity.user.UserLog;
 
 @Component
@@ -27,13 +33,46 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 
 
 
-//	@Override
-//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-//			throws Exception {
-//		HttpSession session=request.getSession();
-//		System.out.println("获取到"+session.getAttribute("uu"));
-//		return super.preHandle(request, response, handler);
-//	}
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		
+		HttpSession session=request.getSession();
+		if(!StringUtils.isEmpty(session.getAttribute("userId"))){
+		//导入dao类
+		UserDao udao=tool.getBean(UserDao.class, request);
+		RolepowerlistDao rpdao=tool.getBean(RolepowerlistDao.class, request);
+		Long uid=Long.parseLong(session.getAttribute("userId")+"");
+		User user=udao.findOne(uid);
+		List<Rolemenu> oneMenuAll=rpdao.findbyparentxianall(0L, user.getRole().getRoleId(), true,false);
+		List<Rolemenu> twoMenuAll=rpdao.findbyparentsxian(0L, user.getRole().getRoleId(), true,false);
+		List<Rolemenu>  all=new ArrayList<>();
+		//获取当前访问的路径
+		String url = request.getRequestURL().toString();
+		String zhuan="notlimit";
+		
+		if(oneMenuAll.size()>0){
+				all.addAll(oneMenuAll);
+			}
+			if(twoMenuAll.size()>0){
+				all.addAll(twoMenuAll);
+			}
+			for (Rolemenu rolemenu : all) {
+				if(!rolemenu.getMenuUrl().equals(url)){
+					
+					return true;
+				}else{
+					request.getRequestDispatcher(zhuan).forward(request, response);
+				}
+				
+			}
+			
+		}else{
+			response.sendRedirect("/logins");
+		}
+		
+		return super.preHandle(request, response, handler);
+	}
 
 
 	@Override

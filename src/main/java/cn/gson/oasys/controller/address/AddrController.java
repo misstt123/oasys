@@ -1,5 +1,6 @@
 package cn.gson.oasys.controller.address;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ import cn.gson.oasys.model.entity.note.DirectorUser;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.address.AddreddUserService;
 import cn.gson.oasys.services.address.AddressService;
+import cn.gson.oasys.services.file.FileServices;
 import cn.gson.oasys.services.process.ProcessService;
 
 @Controller
@@ -65,6 +67,8 @@ public class AddrController {
 	AddressUserDao auDao;
 	@Autowired
 	ProcessService proservice;
+	@Autowired
+	FileServices fileServices;
 	
 	/**
 	 * 通讯录管理
@@ -185,10 +189,13 @@ public class AddrController {
 	
 	/**
 	 * 保存外部联系人
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("savaaddress")
 	public String savaAddress(@Valid Director director,DirectorUser directorUser,BindingResult br,@RequestParam("file")MultipartFile file,HttpSession session,
-			Model model,@SessionAttribute("userId") Long userId,HttpServletRequest req) throws PinyinException{
+			Model model,@SessionAttribute("userId") Long userId,HttpServletRequest req) throws PinyinException, IllegalStateException, IOException{
+
 		User user=uDao.findOne(userId);
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
 		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
@@ -210,6 +217,7 @@ public class AddrController {
 			directorUser.setHandle(true);
 			directorUser.setDirector(director);
 			directorUser.setUser(user);
+			director.setAddress(file.getOriginalFilename());
 			addressService.sava(director);
 			addressUserService.save(directorUser);
 		}

@@ -15,7 +15,7 @@
 				<#if alist??>
 						${type}
 					<#else>
-						请到考勤管理签到
+						签到
 				</#if>
 			</p>
 	</div>

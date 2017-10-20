@@ -57,6 +57,8 @@ a:hover {
     
 }
 </style>
+
+
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
 		<h1 style="font-size: 24px; margin: 0;" class="">${typename}</h1>
@@ -127,11 +129,11 @@ a:hover {
 					<p class="pa" style="padding-top: 9px;">报销总金额：${(bu.allMoney)!''}</p>
 					<p class="pa" >报销理由：${(process.processDescribe)!''}</p>
 					</#if>
-					<#if typename=="出差费用申请">
+					<#if typename=="出差费用">
 					<p class="pa" style="padding-top: 9px;">申请总金额：${(bu.money)!''}</p>
 					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
 					</#if>
-					<#if typename=="出差/外出申请" || typename=="加班申请" ||typename=="请假申请">
+					<#if typename=="出差申请" || typename=="加班申请" ||typename=="请假申请">
 					<p class="pa" style="padding-top: 9px;">开始时间：${(process.startTime)!''}</p>
 					<p class="pa" >结束时间：${(process.endTime)!''}</p>
 					<p class="pa" >申请理由：${(process.processDescribe)!''}</p>
@@ -155,7 +157,7 @@ a:hover {
 				<div class="page-header page"></div>
 				<div class="col-md-6 form-group" style="z-index: 1;">
 					<label class="control-label">审核状态</label>
-						 <select class="form-control" name="statusId" >
+						 <select class="form-control" name="statusId" class="sele">
 							<option value="25">已批准</option>
 							<option value="26">未通过</option>
 						</select>
@@ -191,8 +193,11 @@ a:hover {
 				<#if positionid==5 || positionid==7>
 					<input class="btn btn-success" id="save" type="submit" value="审核并结案" />
 				  <#else>
-					<input class="btn btn-info" id="saves" type="submit" value="审核并流转" name="liuzhuan"/>
+					<input class="btn btn-info liu" id="saves" type="submit" value="审核并流转" name="liuzhuan" />
 				</#if>
+				
+				<input class="btn btn-success jie" id="save" type="submit" value="审核并结案"  style="display:none;"/>
+				
 			</#if>	
 			</#if>
 				<input class="btn btn-default" id="cancel" type="submit" value="取消"
@@ -203,6 +208,23 @@ a:hover {
 		</div>
 	</div>
 </div>
-
+<script>
+	$(function(){
+		$(".text").click(function(){
+			var se=$("select").find("option:selected").text();
+			if(se=="未通过" && (${positionid}!=5 || ${positionid}!=7)){
+				$(".liu").css("display","none");
+				$(".jie").css("display","inline-block");
+			}
+		});
+		
+		$("select").each(function(){
+			console.log("ss");
+			var se=$("select").find("option:selected").text();
+			console.log(se);
+		});
+		
+	})
+</script>
 
 <#include "/common/reciver.ftl">

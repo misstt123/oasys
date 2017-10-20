@@ -51,7 +51,7 @@ $(function(){
 		//在生成之前清空所有的数据不然会出事
 		for (var i = 0; i <42; i++) {
 			$(".calendar td #span").eq(i).text('');
-			$(".calendar td .icon").eq(i).removeClass("glyphicon glyphicon-tags");
+			$(".calendar td .icon").eq(i).removeClass("glyphicon glyphicon-flag");
 		}
 		
 		
@@ -83,11 +83,62 @@ $(function(){
 			$(".calendar td #span").eq(i).text(i+1-(nowdays+week-1)).addClass("nextMonth").removeClass("currentday");
 		}
 		
-		$("#calendar td").each(function(e){
-			if($(".yearmonth").text()+$(this).children("#span").text()+"日"=="2017年10月14日"){
-			$(this).children(".icon").addClass("glyphicon glyphicon-tags");
-		}
-	})
+		
+		$.ajax({
+			dataType:"json",
+			 url:'littlecalendar',
+          	   traditional: true,
+          	   error:function(){
+          	   }
+             ,success:function(data){
+            	 var a=JSON.stringify(data).substring(1,JSON.stringify(data).length-1);
+            	 a=a.replace(/\"/g, "");a=a.split(",");
+            	
+            	 $("#calendar td").each(function(e){
+            	//每个表格里面的值
+            		 var date2;
+            		 //在这里获取日期
+					var last,next;
+					var month=$(".yearmonth").text().substring(5,$(".yearmonth").text().length-1);
+					month=parseInt(month);
+					if(month==1)
+					{ last=12; next=month+1;}
+					if(month==12)
+					{ last=month-1; next=1;}	
+					else{
+					 last=month-1; next=month+1;
+					}
+					
+					var $riqi=$(this).children("#span");
+					var $tomonth=$(".yearmonth").text().substring(5,$(".yearmonth").text().length-1)
+					var $toyear=$(".yearmonth").text().substring(0,4)
+					if($riqi.text()<10)
+						var $day="0"+$riqi.text()
+					else
+						var $day=$riqi.text()
+					if($riqi.hasClass("nextMonth"))
+						date2=$toyear+"-"+next+"-"+$day;
+					if($riqi.hasClass("currentday"))
+						date2=$toyear+"-"+$tomonth+"-"+$day;
+					if($riqi.hasClass("today"))
+						date2=$toyear+"-"+$tomonth+"-"+date.getDate();
+					if($riqi.hasClass("lastMonth"))
+						date2=$toyear+"-"+last+"-"+$day;
+					 for(var i=0;i<a.length;i++){
+            			 if(date2==a[i]){
+            				  console.log(date2)
+                   			$(this).children(".icon").addClass("glyphicon glyphicon-flag");
+                   		}
+            		 }
+            		})
+            		
+            	 }
+            	
+             
+		})
+		
+	
+	
 		}
 		initcalendar(year,month)
 		
@@ -134,12 +185,17 @@ $(function(){
 					 last=month-1; next=month+1;
 					}
 					
-					if($(this).children("#span").hasClass("nextMonth"))
-						$("#blockdiv").text(next+"月"+$(this).children("#span").text()+"日")
-					if($(this).children("#span").hasClass("currentday"))
-					$("#blockdiv").text($(".yearmonth").text().substring(5,$(".yearmonth").text().length)+$(this).children("#span").text()+"日")
-					if($(this).children("#span").hasClass("lastMonth")){
-						$("#blockdiv").text(last+"月"+$(this).children("#span").text()+"日")}
+					var $riqi=$(this).children("#span");
+					var $tomonth=$(".yearmonth").text().substring(5,$(".yearmonth").text().length-1)
+					if($riqi.hasClass("nextMonth"))
+						$("#blockdiv").text(next+"月"+$riqi.text()+"日")
+					if($riqi.hasClass("currentday"))
+					$("#blockdiv").text($tomonth+"月"+$riqi.text()+"日")
+					if($riqi.hasClass("today"))
+					$("#blockdiv").text($tomonth+"月"+date.getDate()+"日")
+					if($riqi.hasClass("lastMonth")){
+						$("#blockdiv").text(last+"月"+$riqi.text()+"日")}
+					
 					$("#blockdiv").css({
 						"display":"block",
 						"left":event.pageX+5,

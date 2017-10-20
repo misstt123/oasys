@@ -1,6 +1,5 @@
 package cn.gson.oasys.model.dao.address;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

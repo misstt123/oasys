@@ -7,14 +7,32 @@
 	<!--右侧导航栏-->
 	<ul class="nav navbar-nav navbar-right moredeep">
 
-		<li><a href="#" class="green-none white"><span
-				class="glyphicon glyphicon-bell"></span><span class="badge blue-badge">3</span></a>
+		<li><a href="javascript:changepath('/infromlist');" class="green-none white"><span
+				class="glyphicon glyphicon-bell"></span>
+				<#if notice==0>
+					<span class="badge blue-badge badge-notice"></span>
+				<#else>
+					<span class="badge blue-badge badge-notice">${(notice)!''}</span>
+				</#if>
+				</a>
 		</li>
-		<li><a href="#" class="green-none white"><span
-				class="glyphicon glyphicon-envelope"></span><span class="badge yellow-badge">3</span></a>
+		<li><a href="javascript:changepath('/mail');" class="green-none white"><span
+				class="glyphicon glyphicon-envelope"></span>
+				<#if mail==0>
+					<span class="badge yellow-badge badge-mail"></span>
+				<#else>
+					<span class="badge yellow-badge badge-mail">${(mail)!''}</span>
+				</#if>
+				</a>
 		</li>
-		<li><a href="#" class="green-none white"><span
-				class="glyphicon glyphicon-flag"></span><span class="badge red-badge">3</span></a>
+		<li><a href="javascript:changepath('/mytask');" class="green-none white"><span
+				class="glyphicon glyphicon-flag"></span>
+				<#if task==0>
+					<span class="badge red-badge"></span>
+				<#else>
+					<span class="badge red-badge">${(task)!''}</span>
+				</#if>
+				</a>
 		</li>
 		<li class="dropdown">
 		<!--设置导航栏头像面板--> 
@@ -32,7 +50,7 @@
 						<a href="javascript:changepath('userpanel');" class="btn btn-default">用户面板</a>
 					</div>
 					<div class="pull-right">
-						<a href="#" class="btn btn-danger">退出登录</a>
+						<a href="loginout" class="btn btn-danger">退出登录</a>
 					</div>
 				</li>
 			</ul>
@@ -49,6 +67,24 @@
 </ul>
 </div>
 <script>
+	function changeemail(){
+		var email=$('.badge-mail').text().trim();
+		var emailNum=parseInt(email);
+		if(emailNum>1){
+			$('.badge-mail').text((emailNum-1));
+		}else{
+			$('.badge-mail').text("");
+		}
+	}
+	function changeinformation(){
+		var email=$('.badge-notice').text().trim();
+		var emailNum=parseInt(email);
+		if(emailNum>1){
+			$('.badge-notice').text((emailNum-1));
+		}else{
+			$('.badge-notice').text("");
+		}
+	}
 	//从右往左滑动效果
 	$(function() {
 		var num = 1;

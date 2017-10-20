@@ -8,12 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.gson.oasys.mappers.NoticeMapper;
-import cn.gson.oasys.model.dao.informdao.InformDao;
 import cn.gson.oasys.model.dao.informdao.InformRelationDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
-import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.notice.NoticeUserRelation;
 
@@ -29,26 +26,9 @@ public class InformRelationService {
 	@Autowired
 	private TypeDao typeDao;
 
-	@Autowired
-	private InformDao informDao;
-
-	@Autowired
-	private InformService informService;
 
 	@Autowired
 	private UserDao uDao;
-
-	@Autowired
-	private DeptDao deptDao;
-
-	@Autowired
-	private InformRelationDao informrelationDao;
-
-	@Autowired
-	private InformRelationService informrelationservice;
-
-	@Autowired
-	private NoticeMapper nm;
 
 	// 保存一个对象
 	public NoticeUserRelation save(NoticeUserRelation noticeRelation) {

@@ -197,15 +197,18 @@
 			#calendar{
 			font-size: 25px;
 			}
-			#calendar td,th{
+			 #calendar td,th{
 				        width: 14%;
-    padding: 9px 0;
-    text-align: center;
+    padding: 9px 0 !important;
+    text-align: center !important;
     /* padding-left: 23px; */
     /* padding-right: 20px; */
     /* padding-top: 9px; */
     /* padding-bottom: 9px; */
     cursor: pointer;
+			}
+			.col-md-7  td,th{
+			text-align: left !important;
 			}
 			.tdhuifu {
 			 padding-left: 13px !important;
@@ -236,3 +239,10 @@
     .right-btn-group button{
      background: #337ab7 !important; 
     }
+    .glyphicon-flag{
+     color: #EE2C2C !important;
+    }
+    .col-md-7 th{
+    padding-left: 10px !important;
+    }
+   

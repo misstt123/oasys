@@ -184,7 +184,8 @@ public class UserpanelController {
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("saveuser")
-	public String saveemp(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest request,@Valid User user,BindingResult br,HttpSession session) throws IllegalStateException, IOException{
+	public String saveemp(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest request,@Valid User user,
+			BindingResult br,HttpSession session) throws IllegalStateException, IOException{
 		String imgpath=nservice.upload(filePath);
 		
 		String userId = ((String) session.getAttribute("userId")).trim();

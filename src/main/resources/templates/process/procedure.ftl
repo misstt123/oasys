@@ -31,7 +31,7 @@ a:hover {
    box-shadow: #666 0px 0px 10px;  
    border-radius:5px; 
    margin-right: 48px;
-   margin-left: 38px;
+   margin-left: 27px;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 20px;
@@ -67,26 +67,26 @@ margin-bottom: 48px;
 					<div class="col-md-3 form-group">
 					<label class="control-label" style="float:left;"><img src="images/money.jpg" style="width:100px;height:100px;"></label>
 						<div>
-						<h4>费用报销申请单</h4><br>
+						<h4>费用报销单</h4><br>
 						<h5>指报销申请单据</h5>
 						</div>
 					</div>
 					</a>
-					<a href="evemoney">
+					<!-- <a href="evemoney">
 					<div class="col-md-3 form-group">
 					<label class="control-label" style="float:left;"><img src="images/chuchaimoney.jpg" style="width:100px;height:100px;"></label>
 						<div>
-						<h4>出差费用申请单</h4><br>
-						<h5>指出差费用申请单据</h5>
+						<h4>出差费用单</h4><br>
+						<h5>指出差费用单据</h5>
 						</div>
 					</div>
-					</a>
+					</a> -->
 					<a href="evection">
 					<div class="col-md-3 form-group">
 					<label class="control-label" style="float:left;"><img src="images/chuchai.jpg" style="width:100px;height:100px;"></label>
 						<div>
-						<h4>出差/外出申请单</h4><br>
-						<h5>指出差/外出申请单</h5>
+						<h4>出差申请单</h4><br>
+						<h5>指出差申请单</h5>
 						</div>
 					</div>
 					</a>

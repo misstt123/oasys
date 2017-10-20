@@ -67,9 +67,10 @@
 					<td><span class="labels"></span></td></#if>
 					<td><a href="informedit?id=${this.noticeId}"
 						class="label xiugai"><span class="glyphicon glyphicon-edit"></span>
-							修改</a> <a href="informshow?id=${this.noticeId}" class="label xiugai"><span
-							class="glyphicon glyphicon-search"></span> 查看</a> <a
-						onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+							修改</a> 
+							<a href="informshow?id=${this.noticeId}" class="label xiugai "><span
+							class="glyphicon glyphicon-search"></span> 查看</a> 
+							<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
 						href="infromdelete?id=${this.noticeId}" class="label shanchu"><span
 							class="glyphicon glyphicon-remove"></span> 删除</a></td> 
 				</tr>
@@ -80,4 +81,5 @@
 	<!--盒子尾-->
 	<#include "/common/paging.ftl"/>
 </div>
+
 <!-- <script type="text/javascript" src="js/common/sort.js" charset='utf-8'></script> -->

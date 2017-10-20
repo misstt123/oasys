@@ -16,11 +16,8 @@ a:hover {
 </style>
 		<script>
 			$(function(){
-				
-				
 				$(".ddlstatus").each(function(){
 				var options=$(".ddlstatus option:selected");
-					
 				
 				if(options.val()=="6"||options.val()=="7"){
 					$("#save").prop("disabled",true);
@@ -28,13 +25,10 @@ a:hover {
 				}else{
 					$("#save").removeAttr("disabled");
 				}
-				
-				
-				
 			});
 				
-			
-			})
+				
+		})
 		</script>
 
 	<body>
@@ -58,13 +52,14 @@ a:hover {
 				<button type="button" class="btn btn-xs btn-primary out">
 					<span class="glyphicon glyphicon-print print">打印</span>
 				</button>
+				
 				<div class="page-header"></div>
 				<form action="uplogger">
 					<div class="row">
 						<div class="box-body" style="margin-left:20px;margin-right: 20px;">
 							<div class=" mailbox-read-info">
 								<h3>
-									<span id="ctl00_cphMain_lblTitle">${task.title}</span></h3>
+									<span id="ctl00_cphMain_lblTitle">任务主题：${task.title}</span></h3>
 								<#if task.reciverlist??>
 								<h5 class="fonts">
 								
@@ -75,7 +70,7 @@ a:hover {
 								</#if>
 							</div>
 							<div class="mailbox-read-message">
-								<span id="ctl00_cphMain_lblDescription">${task.taskDescribe}</span>
+								<span id="ctl00_cphMain_lblDescription">任务描述：${task.taskDescribe}</span>
 								<span id="ctl00_cphMain_lblFeedback">
 									<h5 style="margin-top: 20px;">
 										任务进度（${task.starTime}至 ${task.endTime}）

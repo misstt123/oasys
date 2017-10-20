@@ -17,6 +17,8 @@ import cn.gson.oasys.model.entity.user.Position;
 //角色权限中间表
 public class Rolepowerlist {
 
+	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="pk_id")
@@ -33,7 +35,14 @@ public class Rolepowerlist {
 	
 	
 	@Column(name="is_show")
-	private Integer isShow;
+	private Boolean check=false;
+	
+	public Rolepowerlist(Role roleId, SystemMenu menuId) {
+		
+		this.roleId = roleId;
+		this.menuId = menuId;
+		
+	}
 	
 	public Rolepowerlist(){}
 
@@ -46,13 +55,6 @@ public class Rolepowerlist {
 	}
 
 
-	public Integer getIsShow() {
-		return isShow;
-	}
-
-	public void setIsShow(Integer isShow) {
-		this.isShow = isShow;
-	}
 
 	public Role getRoleId() {
 		return roleId;
@@ -70,18 +72,21 @@ public class Rolepowerlist {
 		this.menuId = menuId;
 	}
 
-	@Override
-	public String toString() {
-		return "Rolepowerlist [pkId=" + pkId + ", isShow=" + isShow + "]";
+	public Boolean getCheck() {
+		return check;
 	}
 
-	public Rolepowerlist(Long pkId, Role roleId, SystemMenu menuId, Integer isShow) {
-		super();
-		this.pkId = pkId;
-		this.roleId = roleId;
-		this.menuId = menuId;
-		this.isShow = isShow;
+	public void setCheck(Boolean check) {
+		this.check = check;
 	}
+
+	@Override
+	public String toString() {
+		return "Rolepowerlist [pkId=" + pkId + ", roleId=" + roleId + ", check=" + check + "]";
+	}
+
+
+
 
 	
 	
