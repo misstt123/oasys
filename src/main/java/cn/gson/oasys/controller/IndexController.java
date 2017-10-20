@@ -92,6 +92,8 @@ public class IndexController {
 	private TaskuserDao  tadao;
 	@Autowired
 	private RolepowerlistDao rdao;
+	
+	
 	// 格式转化导入
 	DefaultConversionService service = new DefaultConversionService();
 
@@ -101,6 +103,9 @@ public class IndexController {
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
 		menuService.findMenuSys(req,user);
+		
+		
+		
 		List<NoticeUserRelation> notice=irdao.findByReadAndUserId(false,user);//通知
 		List<Mailreciver> mail=mdao.findByReadAndDelAndReciverId(false, false, user);//邮件
 		List<Taskuser>  task=tadao.findByUserIdAndStatusId(user, 3);//新任务

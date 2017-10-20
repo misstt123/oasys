@@ -215,21 +215,11 @@ public class DaymanageController {
 	@RequestMapping("daycalendar")
 	private String daycalendar() {
 		return "daymanage/daycalendar";
-		
 	}
-	
-//	@RequestMapping("mycalendarload")
-//	public @ResponseBody List<ScheduleList> mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
-//		User user = udao.findOne(userid);
-//		String json = JSONObject.toJSONString(daydao.findByUser(user));
-//		response.getWriter().println(json);
-//		return daydao.findByUser(user);
-//	}
-	
+
 	@RequestMapping("mycalendarload")
 	public void mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
-		User user = udao.findOne(userid);
-		List<ScheduleList> se = daydao.findByUser(user);
+		List<ScheduleList> se = dayser.aboutmeschedule(userid);
 		for (ScheduleList scheduleList : se) {
 			System.out.println(scheduleList);
 		}
