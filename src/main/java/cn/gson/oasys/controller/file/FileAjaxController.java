@@ -106,6 +106,13 @@ public class FileAjaxController {
 			model.addAttribute("isload",1);
 			break;
 			
+		case "share":
+			fileLists = fldao.findByFileIsshareAndFileIstrash(1L, 0L);
+			model.addAttribute("files", fileLists);
+			model.addAttribute("isshare", 1);
+			model.addAttribute("isload",1);
+			break;
+			
 
 		default:
 			break;
@@ -139,7 +146,6 @@ public class FileAjaxController {
 			break;
 			
 		case "picture":
-			System.out.println("图片来了");
 			contenttype = "image/%";
 			fileLists = fldao.findByUserAndFileIstrashAndContentTypeLikeAndFileNameLike(user, 0L, contenttype, findlike);
 			model.addAttribute("files", fileLists);
@@ -174,6 +180,12 @@ public class FileAjaxController {
 			model.addAttribute("isload",1);
 			model.addAttribute("paths", filePaths);
 			model.addAttribute("files", fileLists);
+			break;
+		case "share":
+			fileLists = fldao.findByFileIsshareAndFileNameLike(1L, findlike);
+			model.addAttribute("files", fileLists);
+			model.addAttribute("isshare", 1);
+			model.addAttribute("isload",1);
 			break;
 			
 

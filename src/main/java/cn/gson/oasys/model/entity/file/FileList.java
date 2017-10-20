@@ -47,6 +47,9 @@ public class FileList {
 	
 	@Column(name = "file_istrash")
 	private Long fileIstrash = 0L;
+	
+	@Column(name = "file_isshare")
+	private Long fileIsshare = 0L;
 
 	
 	@ManyToOne
@@ -151,11 +154,22 @@ public class FileList {
 		this.fpath = fpath;
 	}
 
+	
+	public Long getFileIsshare() {
+		return fileIsshare;
+	}
+
+	public void setFileIsshare(Long fileIsshare) {
+		this.fileIsshare = fileIsshare;
+	}
+
 	@Override
 	public String toString() {
 		return "FileList [fileId=" + fileId + ", fileName=" + fileName + ", filePath=" + filePath + ", size=" + size
 				+ ", contentType=" + contentType + ", uploadTime=" + uploadTime + ", model=" + model + ", fileShuffix="
-				+ fileShuffix + ", fileIstrash=" + fileIstrash + "]";
+				+ fileShuffix + ", fileIstrash=" + fileIstrash + ", fileIsshare=" + fileIsshare + "]";
 	}
+
+	
 	
 }

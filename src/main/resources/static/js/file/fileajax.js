@@ -83,6 +83,9 @@ $(".filetypeyasuo").click(function(){
 $(".filetypetrash").click(function(){
 	$(".loadfiletype").load("filetypeload",{type:"trash"});
 });
+$(".filetypeshare").click(function(){
+	$(".loadfiletype").load("filetypeload",{type:"share"});
+});
 
 /**
  * 搜索js

@@ -313,7 +313,6 @@ public class FileController {
 		}
 		
 		
-	
 	}
 
 	// @RequestMapping(value = "pathin",method = RequestMethod.POST)

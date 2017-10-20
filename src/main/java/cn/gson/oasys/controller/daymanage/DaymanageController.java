@@ -218,11 +218,25 @@ public class DaymanageController {
 		
 	}
 	
+//	@RequestMapping("mycalendarload")
+//	public @ResponseBody List<ScheduleList> mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
+//		User user = udao.findOne(userid);
+//		String json = JSONObject.toJSONString(daydao.findByUser(user));
+//		response.getWriter().println(json);
+//		return daydao.findByUser(user);
+//	}
+	
 	@RequestMapping("mycalendarload")
 	public void mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
 		User user = udao.findOne(userid);
-		String json = JSONObject.toJSONString(daydao.findByUser(user));
-		response.getWriter().println(json);
+		List<ScheduleList> se = daydao.findByUser(user);
+		for (ScheduleList scheduleList : se) {
+			System.out.println(scheduleList);
+		}
+		String json = JSONObject.toJSONString(se);
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json;charset=UTF-8");
+		response.getWriter().write(json);
 		
 	}
 }

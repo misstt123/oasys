@@ -16,7 +16,7 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">
-					<a class="label label-success" href=""><span
+					<a class="label label-success" href="dayedit"><span
 						class="glyphicon glyphicon-plus"></span> 新增</a>
 				</h3>
 			</div>
@@ -47,7 +47,25 @@
 										class="glyphicon glyphicon-print"></span> 打印</a>
 								</h3>
 							</div>
-							<div class="box-body">xxxx</div>
+							<div class="box-body">
+								<div style="border-bottom: 1px solid #f4f4f4;">
+									<h3>
+										<span class="rctitle" style="font-size:16px;">ddddd</span>
+									</h3>
+									<h5 style="color: #999;font-size: 13px;">
+										<span>发布：<span class="rcusername">aaa茨</span>   类型：<span class="rctype">日程提醒</span></span>
+										<span style="float:right;"><span class="rcstarttime">2017-10-20 20:44</span> 至 <span class="rcendtime">2017-10-20 21:44</span></span>
+									</h5>
+								</div>
+								<div style="padding:10px;">
+									<span class="rcdescription">
+										盛大手机看的啥借口
+									</span>
+								</div>
+							</div>
+							<div class="box-footer">
+								<input class="modelokclose btn btn-primary" id="save" type="button" value="确定" />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -59,6 +77,10 @@
 <script src='plugins/fullcalendar/lib/jquery-ui.custom.min.js'></script>
 <script src='plugins/fullcalendar/fullcalendar/fullcalendar.min.js'></script>
 <script>
+	$(".modelokclose").click(function(){
+		$('#myModal').modal('hide');
+	});
+	
 	$(document).ready(function() {
 
 		var date = new Date();
@@ -82,19 +104,39 @@
 			dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
 			dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
 			header: {
-				left: 'prev, today',
-
+				left: 'prev,next today',
 				center: 'title',
-
-				right: 'next'
+				right: 'month,basicWeek,basicDay'
 			},
 
 			/* dayClick: function(date, allDay, jsEvent, view) {
 				$('#myModal').modal('show');
 			}, */
 
-			eventClick: function() {
+			eventClick: function(event) {
+				var title = event.title;
+				var starttime = dateformat(event.start);
+				var endtime = dateformat(event.end);
+				var username = event.user;
+				var des = event.des;
+				var typeid = event.rctype;
+				console.log(typeid); 
+				var typename;
+				if(typeid=='44'){
+					typename='日程提醒';
+				}else if(typeid=='45'){
+					typename='假日安排';
+				}
+				
+				$('#myModal .rctitle').html(title);
+				$('#myModal .rcusername').html(username);
+				$('#myModal .rctype').html(typename);
+				$('#myModal .rcstarttime').html(starttime);
+				$('#myModal .rcendtime').html(endtime);
+				$('#myModal .rcdescription').html(des);
+				
 				$('#myModal').modal('show');
+				console.log(event.id);
 			},
 
 			editable: false,
@@ -115,34 +157,44 @@
 			
 			events:function(start, end, callback){
 				$.ajax({
-					 url: "/mycalendarload",
+					 url: "mycalendarload",
 					 cache:false,
 					 datatype:'json',
+					 
 					 success:function(data){
-						 console.log(data);
 						 var events = [];
 						 $.each(data,function(i,item){
 							 console.log(item);
 							 var color;
-							 if(item.typeId==27){
-								 color="blue";
+							 var starttime =dateformat(new Date(item.startTime));
+							 var endtime = dateformat(new Date(item.endTime));
+							 if(item.statusId=='27'){
+								 color="#00c0ef";
 							 }
-							 if(item.typeId==28){
+							 if(item.statusId=='28'){
 								 color="#f0ad4e";
 							 }
-							 if(item.typeId==29){
-								 color="red";
+							 if(item.statusId=='29'){
+								 color="#dd4b39";
 							 }
 							 events.push({
 								 title: item.title,
 
-								 start: item.startTime,
+								 start: starttime,
  
 								 backgroundColor: color,
 
 								 borderColor: color,
 
-								 end: item.endTime
+								 end: endtime,
+								 
+								 id:item.rcId,
+								 
+								 user:item.user.userName,
+								 
+								 des:item.describe,
+								 
+								 rctype:item.typeId
 							 });
 						 });
 						 callback(events);
@@ -153,4 +205,8 @@
 
 		});
 	});
+	var dateformat = function(a) {
+        return a.getFullYear() + "-" + (a.getMonth() + 1) + "-" + a.getDate() + " " + a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds();
+    };
+	
 </script>

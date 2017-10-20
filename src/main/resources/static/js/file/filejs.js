@@ -67,9 +67,11 @@ $(".loadfiletype").on("mousedown",".file-one",function(e){
 	    	$(".menu .open").removeClass("disabled");
 	    	$(".menu .rename").removeClass("disabled");
 	    	$(".menu .downloadfile").addClass("disabled");
+	    	$(".menu .doshare").addClass("disabled");
 	    }else{
 	    	$(".menu .open").addClass("disabled");
 	    	$(".menu .rename").removeClass("disabled");
+	    	$(".menu .doshare").removeClass("disabled");
 	    	
 	    	/**
 	    	 *  给下载a链接添加 href 地址目标
