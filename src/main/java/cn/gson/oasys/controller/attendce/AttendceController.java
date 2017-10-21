@@ -99,8 +99,8 @@ public class AttendceController {
 
 		// 时分秒
 		String hourminsec = sdf5.format(date);
-		System.out.println("星期" + weekofday + "时分" + hourmin + "时分秒" + hourminsec);
-		System.out.println(date);
+		//System.out.println("星期" + weekofday + "时分" + hourmin + "时分秒" + hourminsec);
+		//System.out.println(date);
 		Long aid = null;
 
 		// 查找用户当天的所有记录
@@ -131,7 +131,6 @@ public class AttendceController {
 				}
 				attends = new Attends(typeId, statusId, date, hourmin, weekofday, attendip, user);
 				attenceDao.save(attends);
-				System.out.println("000");
 			}
 		}
 		if (count == 1) {
@@ -148,7 +147,6 @@ public class AttendceController {
 			}
 			attends = new Attends(typeId, statusId, date, hourmin, weekofday, attendip, user);
 			attenceDao.save(attends);
-			System.out.println("111");
 		}
 		if (count >= 2) {
 			// 已经是下班的状态了 大于2就是修改考勤时间了
@@ -186,7 +184,6 @@ public class AttendceController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
-		System.out.println(baseKey);
 		signsortpaging(request, model, session, page, null, type, status, time, icon);
 		return "attendce/attendcelist";
 	}
@@ -199,7 +196,6 @@ public class AttendceController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "time", required = false) String time,
 			@RequestParam(value = "icon", required = false) String icon) {
-		System.out.println(baseKey);
 		signsortpaging(request, model, session, page, baseKey, type, status, time, icon);
 		return "attendce/attendcelisttable";
 	}
@@ -317,7 +313,6 @@ public class AttendceController {
 		String remark = request.getParameter("remark");
 		String statusname=request.getParameter("status");
 		SystemStatusList statusList=  statusDao.findByStatusModelAndStatusName("aoa_attends_list", statusname);
-		System.out.println(statusList);
 		long id = Long.parseLong(request.getParameter("id"));
 		Attends attends=attenceDao.findOne(id);
 		attends.setAttendsRemark(remark);
@@ -376,7 +371,6 @@ public class AttendceController {
 		Page<Attends> page2 = attendceService.singlepage(page, baseKey, userid,type, status, time);
 		typestatus(request);
 		request.setAttribute("alist", page2.getContent());
-		//System.out.println(page2.getContent());
 		for (Attends attends :page2.getContent()) {
 			System.out.println(attends);
 		}
@@ -414,7 +408,6 @@ public class AttendceController {
 		//用来查找该用户下面管理的所有用户信息
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		List<Long> ids = new ArrayList<>();
-		System.out.println(baseKey);
 		Page<User> userspage =userService.findmyemployuser(page, baseKey, userId);
 		for (User user : userspage) {
 			ids.add(user.getUserId());
@@ -440,8 +433,6 @@ public class AttendceController {
 			user.setaSet(attenceset);
 		}
 		String[] weekday = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
-		System.out.println("第"+page+"页; 内容"+userspage.getContent());
-		System.out.println("考勤记录"+alist);
 		request.setAttribute("ulist", userspage.getContent());
 		request.setAttribute("page", userspage);
 		request.setAttribute("weekday", weekday);
@@ -476,7 +467,6 @@ public class AttendceController {
 			offnum=attenceDao.countoffwork(month, user.getUserId());
 			//当月该用户上班次数
 			toworknum=attenceDao.counttowork(month, user.getUserId());
-			System.out.println("上班次数"+toworknum+"下班次数"+offnum);
 			for (long statusId = 10; statusId < 13; statusId++) {
 				//这里面记录了正常迟到早退等状态
 				if(statusId==12)
@@ -485,8 +475,15 @@ public class AttendceController {
 				result.add(attenceDao.countnum(month, statusId, user.getUserId()));
 			}
 			//添加请假和出差的记录//应该是查找 使用sql的sum（）函数来统计出差和请假的次数
-			result.add(attenceDao.countnum(month, 46L, user.getUserId()));
-			result.add(attenceDao.countnum(month, 47L, user.getUserId()));
+			System.out.println("请假天数"+attenceDao.countothernum(month, 46L, user.getUserId()));
+			if(attenceDao.countothernum(month, 46L, user.getUserId())!=null)
+			result.add(attenceDao.countothernum(month, 46L, user.getUserId()));
+			else
+				result.add(0);
+			if(attenceDao.countothernum(month, 47L, user.getUserId())!=null)
+			result.add(attenceDao.countothernum(month, 47L, user.getUserId()));
+			else
+				result.add(0);
 			//这里记录了旷工的次数 还有请假天数没有记录 旷工次数=30-8-请假次数-某天签到次数
 			//这里还有请假天数没有写
 			Date date=new Date();

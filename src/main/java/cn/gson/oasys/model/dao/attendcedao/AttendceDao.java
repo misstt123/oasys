@@ -87,6 +87,8 @@ Page<Attends> findonemohu(String baseKey,long userid,Pageable pa);
   @Query("SELECT count(*) from Attends a where DATE_FORMAT(a.attendsTime,'%Y-%m') like %?1% and a.statusId=?2 and a.user.userId=?3")
   Integer countnum(String month,long statusId,long userid);
   
+  @Query("SELECT sum(a.holidayDays) from Attends a where DATE_FORMAT(a.holidayStart,'%Y-%m') like %?1% and a.statusId=?2 and a.user.userId=?3")
+  Integer countothernum(String month,long statusId,long userid);
   
   //统计当月上班次数
   @Query("SELECT count(*) from Attends a where DATE_FORMAT(a.attendsTime,'%Y-%m') like %?1%  and a.user.userId=?2 and a.typeId=8")
