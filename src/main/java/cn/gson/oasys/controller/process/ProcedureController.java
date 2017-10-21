@@ -125,18 +125,15 @@ public class ProcedureController {
 	
 	//费用报销表单
 	@RequestMapping("burse")
-	public String bursement(Model model, HttpSession session,HttpServletRequest request,
+	public String bursement(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
-		
 		//查找类型
 		List<SystemTypeList> uplist=tydao.findByTypeModel("aoa_bursement");
 		//查找费用科目生成树
 		List<Subject> second=sudao.findByParentId(1L);
 		List<Subject> sublist=sudao.findByParentIdNot(1L);
-		proservice.index6(model, lid, page, size);
+		proservice.index6(model, userId, page, size);
 		
 		model.addAttribute("second", second);
 		model.addAttribute("sublist", sublist);
@@ -151,10 +148,8 @@ public class ProcedureController {
 	 */
 	@RequestMapping("apply")
 	public String apply(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Bursement bu,BindingResult br,
-			HttpSession session) throws IllegalStateException, IOException{
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
-		User lu=udao.findOne(lid);//申请人
+			@SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
+		User lu=udao.findOne(userId);//申请人
 		User reuser=udao.findByUserName(bu.getUsername());//审核人
 		User zhuti=udao.findByUserName(bu.getNamemoney());//证明人
 		Integer allinvoice=0;
@@ -195,8 +190,7 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("flowmanage")
-	public String flowManage(HttpSession session,Model model,
-			@SessionAttribute("userId")Long userId,
+	public String flowManage(@SessionAttribute("userId") Long userId,Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		Pageable pa=new PageRequest(page, size);
@@ -216,12 +210,10 @@ public class ProcedureController {
 	 * 申请人查看流程条件查询
 	 */
 	@RequestMapping("shenser")
-	public String ser(HttpSession session,Model model,HttpServletRequest req,
+	public String ser(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		Pageable pa=new PageRequest(page, size);
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		String val=null;
 		if(!StringUtil.isEmpty(req.getParameter("val"))){
 			val=req.getParameter("val");
@@ -231,14 +223,14 @@ public class ProcedureController {
 		SystemStatusList status=sdao.findByStatusModelAndStatusName("aoa_process_list", val);
 		if(StringUtil.isEmpty(val)){
 			//空查询
-			pagelist=prodao.findByuserId(userid,pa);
+			pagelist=prodao.findByuserId(userId,pa);
 		}else if(!Objects.isNull(status)){
 			//根据状态和申请人查找流程
-			pagelist=prodao.findByuserIdandstatus(userid,status.getStatusId(),pa);
+			pagelist=prodao.findByuserIdandstatus(userId,status.getStatusId(),pa);
 			model.addAttribute("sort", "&val="+val);
 		}else{
 			//根据审核人，类型，标题模糊查询
-			pagelist=prodao.findByuserIdandstr(userid,val,pa);
+			pagelist=prodao.findByuserIdandstr(userId,val,pa);
 			model.addAttribute("sort", "&val="+val);
 		}
 		prolist=pagelist.getContent();
@@ -257,12 +249,10 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("audit")
-	public String auding(HttpSession session,Model model,
+	public String auding(@SessionAttribute("userId") Long userId,Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = (session.getAttribute("userId")+"").trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		Page<AubUser> pagelist=proservice.index(user, page, size,null,model);
 		List<Map<String, Object>> prolist=proservice.index2(pagelist,user);
 		model.addAttribute("page", pagelist);
@@ -276,12 +266,10 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("serch")
-	public String serch(HttpSession session,Model model,HttpServletRequest req,
+	public String serch(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		
 		String val=null;
 		if(!StringUtil.isEmpty(req.getParameter("val"))){
@@ -302,11 +290,8 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("particular")
-	public String particular(HttpSession session,Model model,HttpServletRequest req){
-		
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);//审核人或者申请人
+	public String particular(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req){
+		User user=udao.findOne(userId);//审核人或者申请人
 		User audit=null;//最终审核人
 		String id=req.getParameter("id");
 		Long proid=Long.parseLong(id);
@@ -315,7 +300,7 @@ public class ProcedureController {
 		
 		Map<String, Object> map=new HashMap<>();
 		ProcessList process=prodao.findOne(proid);//查看该条申请
-		Boolean flag=process.getUserId().getUserId().equals(userid);//判断是申请人还是审核人
+		Boolean flag=process.getUserId().getUserId().equals(userId);//判断是申请人还是审核人
 		
 		if(!flag){
 			name="审核";
@@ -402,12 +387,10 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("auditing")
-	public String auditing(HttpSession session,Model model,HttpServletRequest req,
+	public String auditing(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User u=udao.findOne(userid);
+		User u=udao.findOne(userId);
 		
 		//流程id
 		Long id=Long.parseLong(req.getParameter("id"));
@@ -447,10 +430,8 @@ public class ProcedureController {
 	 * @return
 	 */
 	@RequestMapping("susave")
-	public String save(HttpSession session,Model model,HttpServletRequest req,Reviewed reviewed){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User u=udao.findOne(userid);
+	public String save(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req,Reviewed reviewed){
+		User u=udao.findOne(userId);
 		String name=null;
 		String typename=req.getParameter("type");
 		Long proid=Long.parseLong(req.getParameter("proId"));
@@ -603,14 +584,12 @@ public class ProcedureController {
 	
 	//出差费用
 	@RequestMapping("evemoney")
-	public String evemoney(Model model, HttpSession session,HttpServletRequest req,
+	public String evemoney(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
 		Long proid=Long.parseLong(req.getParameter("id"));//出差申请的id
-		ProcessList prolist=prodao.findbyuseridandtitle(lid, proid);//找这个用户的出差申请
-		proservice.index6(model, lid, page, size);
+		ProcessList prolist=prodao.findbyuseridandtitle(userId, proid);//找这个用户的出差申请
+		proservice.index6(model, userId, page, size);
 		model.addAttribute("prolist", prolist);
 		return "process/evectionmoney";
 	}
@@ -625,10 +604,8 @@ public class ProcedureController {
 	 */
 	@RequestMapping("moneyeve")
 	public String moneyeve(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid EvectionMoney eve,BindingResult br,
-			HttpSession session,Model model) throws IllegalStateException, IOException{
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long lid=Long.parseLong(userId);
-			User lu=udao.findOne(lid);//申请人
+			@SessionAttribute("userId") Long userId,Model model) throws IllegalStateException, IOException{
+			User lu=udao.findOne(userId);//申请人
 			User shen=udao.findByUserName(eve.getShenname());//审核人
 			Long roleid=lu.getRole().getRoleId();//申请人角色id
 			Long fatherid=lu.getFatherId();//申请人父id
@@ -669,14 +646,12 @@ public class ProcedureController {
 	}
 	//出差申请
 	@RequestMapping("evection")
-	public String evection(Model model, HttpSession session,HttpServletRequest request,
+	public String evection(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
 		//查找类型
 		List<SystemTypeList> outtype=tydao.findByTypeModel("aoa_evection");
-		proservice.index6(model, lid, page, size);
+		proservice.index6(model, userId, page, size);
 		model.addAttribute("outtype", outtype);
 		return "process/evection";
 	}
@@ -693,10 +668,8 @@ public class ProcedureController {
 	 */
 	@RequestMapping("evec")
 	public String evec(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Evection eve,BindingResult br,
-			HttpSession session) throws IllegalStateException, IOException{
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
-		User lu=udao.findOne(lid);//申请人
+			@SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
+		User lu=udao.findOne(userId);//申请人
 		User shen=udao.findByUserName(eve.getNameuser());//审核人
 		Long roleid=lu.getRole().getRoleId();//申请人角色id
 		Long fatherid=lu.getFatherId();//申请人父id
@@ -717,14 +690,12 @@ public class ProcedureController {
 	}
 	//加班申请
 		@RequestMapping("overtime")
-		public String overtime(Model model, HttpSession session,HttpServletRequest request,
+		public String overtime(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 				@RequestParam(value = "page", defaultValue = "0") int page,
 				@RequestParam(value = "size", defaultValue = "10") int size){
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long lid=Long.parseLong(userId);
 			//查找类型
 			List<SystemTypeList> overtype=tydao.findByTypeModel("aoa_overtime");
-			proservice.index6(model, lid, page, size);
+			proservice.index6(model, userId, page, size);
 			model.addAttribute("overtype", overtype);
 			return "process/overtime";
 		}
@@ -739,10 +710,8 @@ public class ProcedureController {
 	 */
 		@RequestMapping("over")
 		public String over(HttpServletRequest req,@Valid Overtime eve,BindingResult br,
-				HttpSession session) throws IllegalStateException, IOException{
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long lid=Long.parseLong(userId);
-			User lu=udao.findOne(lid);//申请人
+				@SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
+			User lu=udao.findOne(userId);//申请人
 			User shen=udao.findByUserName(eve.getNameuser());//审核人
 			Long roleid=lu.getRole().getRoleId();//申请人角色id
 			Long fatherid=lu.getFatherId();//申请人父id
@@ -764,14 +733,12 @@ public class ProcedureController {
 		}
 	//请假申请
 	@RequestMapping("holiday")
-	public String holiday(Model model, HttpSession session,HttpServletRequest request,
+	public String holiday(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
 		//查找类型
 		List<SystemTypeList> overtype=tydao.findByTypeModel("aoa_holiday");
-		proservice.index6(model, lid, page, size);
+		proservice.index6(model, userId, page, size);
 		model.addAttribute("overtype", overtype);
 		return "process/holiday";
 	}
@@ -786,10 +753,8 @@ public class ProcedureController {
 	 */
 	@RequestMapping("holi")
 	public String holi(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Holiday eve,BindingResult br,
-			HttpSession session,Model model) throws IllegalStateException, IOException{
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
-		User lu=udao.findOne(lid);//申请人
+			@SessionAttribute("userId") Long userId,Model model) throws IllegalStateException, IOException{
+		User lu=udao.findOne(userId);//申请人
 		User shen=udao.findByUserName(eve.getNameuser());//审核人
 		Long roleid=lu.getRole().getRoleId();//申请人角色id
 		Long fatherid=lu.getFatherId();//申请人父id
@@ -828,12 +793,10 @@ public class ProcedureController {
 	}
 	//转正申请
 	@RequestMapping("regular")
-	public String regular(Model model, HttpSession session,HttpServletRequest request,
+	public String regular(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
-		proservice.index6(model, lid, page, size);
+		proservice.index6(model, userId, page, size);
 		return "process/regular";
 	}
 	/**
@@ -847,10 +810,8 @@ public class ProcedureController {
 	 */
 		@RequestMapping("regu")
 		public String regu(HttpServletRequest req,@Valid Regular eve,BindingResult br,
-				HttpSession session,Model model) throws IllegalStateException, IOException{
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long lid=Long.parseLong(userId);
-			User lu=udao.findOne(lid);//申请人
+				@SessionAttribute("userId") Long userId,Model model) throws IllegalStateException, IOException{
+			User lu=udao.findOne(userId);//申请人
 			User shen=udao.findByUserName(eve.getNameuser());//审核人
 			Long roleid=lu.getRole().getRoleId();//申请人角色id
 			Long fatherid=lu.getFatherId();//申请人父id
@@ -878,12 +839,10 @@ public class ProcedureController {
 		}
 	//离职申请
 	@RequestMapping("resign")
-	public String resign(Model model, HttpSession session,HttpServletRequest request,
+	public String resign(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long lid=Long.parseLong(userId);
-		proservice.index6(model, lid, page, size);
+		proservice.index6(model, userId, page, size);
 		return "process/resign";
 	}
 	/**
@@ -897,10 +856,8 @@ public class ProcedureController {
 	 */
 		@RequestMapping("res")
 		public String res(HttpServletRequest req,@Valid Resign eve,BindingResult br,
-				HttpSession session,Model model) throws IllegalStateException, IOException{
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long lid=Long.parseLong(userId);
-			User lu=udao.findOne(lid);//申请人
+				@SessionAttribute("userId") Long userId,Model model) throws IllegalStateException, IOException{
+			User lu=udao.findOne(userId);//申请人
 			User shen=udao.findByUserName(eve.getNameuser());//审核人
 			Long roleid=lu.getRole().getRoleId();//申请人角色id
 			Long fatherid=lu.getFatherId();//申请人父id
@@ -926,10 +883,8 @@ public class ProcedureController {
 		 * 删除
 		 */
 		@RequestMapping("sdelete")
-		public String dele(HttpServletRequest req,HttpSession session,Model model){
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long lid=Long.parseLong(userId);
-			User lu=udao.findOne(lid);//审核人
+		public String dele(HttpServletRequest req,@SessionAttribute("userId") Long userId,Model model){
+			User lu=udao.findOne(userId);//审核人
 			Long proid=Long.parseLong(req.getParameter("id"));
 			Reviewed rev=redao.findByProIdAndUserId(proid, lu);
 			if(!Objects.isNull(rev)){
@@ -966,7 +921,7 @@ public class ProcedureController {
 		 * @param fileid
 		 */
 		@RequestMapping("show/**")
-		public void image(Model model, HttpServletResponse response, HttpSession session, HttpServletRequest request)
+		public void image(Model model, HttpServletResponse response, @SessionAttribute("userId") Long userId, HttpServletRequest request)
 				throws IOException {
 
 			String startpath = new String(URLDecoder.decode(request.getRequestURI(), "utf-8"));

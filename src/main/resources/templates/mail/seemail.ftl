@@ -50,7 +50,7 @@
 			href="mail"><span
 			class="glyphicon glyphicon-chevron-left"></span> 返回</a>
 		<div class="pull-right foot">
-			<a class="btn btn-default fault">
+			<a class="btn btn-default fault" onclick="javascript:window.print();">
 			   <span class="glyphicon glyphicon glyphicon-print"></span> 打印</a>
 			 <#if mess=="垃圾箱"||mess=="草稿箱"> 
 			 <#else>
