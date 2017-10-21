@@ -26,23 +26,22 @@
 					<table class="table table-hover table-striped">
 						<tr>
 							
-							<th scope="col">标题</th>
-							<th scope="col"><span class="paixu thistime">时间
+							<th scope="col">用户</th>
+							<th scope="col"><span class="paixu thistime">登陆时间
 								<#if time?? && icon??>
 									<span class="glyphicon ${icon}"></span>
 								</#if>
 							</span></th>
 							<th scope="col">IP</th>
-							<th scope="col">操作</th>
+							<th scope="col">使用浏览器</th>
 						</tr>
 						
 						<#list userloglist as ulog>
 							<tr>
-								<td><span>${(ulog.title)!''}</span></td>
-								<td><span>${(ulog.logTime)!''}</span></td>
+								<td><span>${(ulog.user.userName)!''}</span></td>
+								<td><span>${(ulog.loginTime)!''}</span></td>
 								<td><span>${(ulog.ipAddr)!''}</span></td>
-								<td><a href="${(ulog.url)!''};" class="label xiugai info"><span
-												class="glyphicon glyphicon-search "></span> 查看</a> </td>
+								<td><span>${(ulog.browser)!''}</span></td>
 							</tr>
 						</#list>
 					</table>

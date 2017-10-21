@@ -45,7 +45,7 @@
 								${note.content}
 								<#if att??>
 								<div>
-									<img src="" />
+									<img src="down" />
 								</div>
 								</#if>
 								<hr>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="box-footer">
 						<div class="pull-right">
-							<a id="ctl00_cphMain_lnbDraft" class="btn btn-default glyphicon glyphicon-print">打印</a>
+							<a onclick="javascript:window.print();"  id="ctl00_cphMain_lnbDraft" class="btn btn-default glyphicon glyphicon-print">打印</a>
 							<a id="ctl00_cphMain_lnbSend"  onclick="notejump('noteedit',${note.noteId})" class="btn btn-primary glyphicon glyphicon-edit ">编辑</a>	
 						</div>
 						<a class="btn btn-default"  onclick="notejump('notewrite','-2')"> 

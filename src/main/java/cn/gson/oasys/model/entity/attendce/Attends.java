@@ -54,8 +54,8 @@ public class Attends {
 	@Column(name="holiday_start")//请假开始时间
 	private Date holidayStart;
 	
-	@Column(name="holiday_end")//请假结束时间
-	private Date holidayEnd;
+	@Column(name="holiday_days")//请假开始时间
+	private Double holidayDays;
 	
 	@ManyToOne
 	@JoinColumn(name = "attends_user_id")
@@ -138,21 +138,22 @@ public class Attends {
 		this.statusId = statusId;
 	}
 
+	public Double getHolidayDays() {
+		return holidayDays;
+	}
+
+	public void setHolidayDays(Double holidayDays) {
+		this.holidayDays = holidayDays;
+	}
 	
+	
+
 	public Date getHolidayStart() {
 		return holidayStart;
 	}
 
 	public void setHolidayStart(Date holidayStart) {
 		this.holidayStart = holidayStart;
-	}
-
-	public Date getHolidayEnd() {
-		return holidayEnd;
-	}
-
-	public void setHolidayEnd(Date holidayEnd) {
-		this.holidayEnd = holidayEnd;
 	}
 
 	public Attends() {

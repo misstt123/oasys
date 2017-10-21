@@ -165,7 +165,7 @@ public class IndexController {
 		model.addAttribute("task", task.size());
 		model.addAttribute("user", user);
 		//展示用户操作记录 由于现在没有登陆 不能获取用户id
-		List<UserLog> userLogs=userLogDao.findByUser(1);
+		List<UserLog> userLogs=userLogDao.findByUser(userId);
 		req.setAttribute("userLogList", userLogs);
 		return "index/index";
 	}
@@ -200,7 +200,7 @@ public class IndexController {
 	}
 	@RequestMapping("userlogs")
 	public String usreLog(@SessionAttribute("userId") Long userId,HttpServletRequest req){
-		List<UserLog> userLogs=userLogDao.findByUser(1L);
+		List<UserLog> userLogs=userLogDao.findByUser(userId);
 		req.setAttribute("userLogList", userLogs);
 		return "user/userlog";
 	}

@@ -502,8 +502,8 @@ public class ProcedureController {
 			if(("请假申请").equals(typename)||("出差申请").equals(typename)){
 			if(reviewed.getStatusId()==25){
 				Attends attend=new Attends();
+				attend.setHolidayDays(pro.getProcseeDays());
 				attend.setHolidayStart(pro.getStartTime());
-				attend.setHolidayEnd(pro.getEndTime());
 				attend.setUser(pro.getUserId());
 				if(("请假申请").equals(typename)){
 					attend.setStatusId(46L);

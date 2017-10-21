@@ -3,8 +3,10 @@ package cn.gson.oasys.controller.note;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -358,22 +360,6 @@ public class NoteController {
 		if (note.getAttachId() != null) {
 			att = attDao.findByAttachmentId(note.getAttachId());
 		}
-
-		// 读取文件流并且关闭
-		// File file=new File("F:/OAFILE"+att.getAttachmentPath());
-		// fis =new FileInputStream(file);
-		// byte[] data = new byte[att.getAttachmentSize().intValue()];
-		// fis.read(data);
-		// fis.close();
-		// os.close();
-		// 读取文件流
-		// ServletOutputStream sos = response.getOutputStream();
-		// byte[] data = new byte[att.getAttachmentSize().intValue()];
-		// IOUtils.readFully(new
-		// FileInputStream("F:/OAFILE"+att.getAttachmentPath()), data);
-		// IOUtils.write(data, sos);
-		// sos.flush();
-		// IOUtils.closeQuietly(sos);
 
 		Request.setAttribute("note", note);
 		Request.setAttribute("user", user);
