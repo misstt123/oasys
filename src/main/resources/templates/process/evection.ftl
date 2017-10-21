@@ -63,11 +63,11 @@ border-right: 1px solid #ddd;
 </style>
 <div class="row" style="padding-top: 10px;">
 	<div class="col-md-2">
-		<h1 style="font-size: 24px; margin: 0;" class="">出差/外出申请</h1>
+		<h1 style="font-size: 24px; margin: 0;" class="">出差申请</h1>
 	</div>
 	<div class="col-md-10 text-right">
 		<a href="##"><span class="glyphicon glyphicon-home"></span> 首页</a> > <a
-			disabled="disabled">出差/外出申请</a>
+			disabled="disabled">出差申请</a>
 	</div>
 </div>
 <div class="row" style="padding-top: 15px;">
@@ -79,7 +79,7 @@ border-right: 1px solid #ddd;
 				<table class="bo table ">
 			
 				<tr >
-					<td colspan="14" class="title"><h2>出差/外出申请单</h2></td>
+					<td colspan="14" class="title"><h2>出差申请单</h2></td>
 			
 				</tr>
 				<tr style="opacity: 0;">
@@ -136,7 +136,7 @@ border-right: 1px solid #ddd;
     							margin-top: -6px;">
 							<i class="glyphicon glyphicon-open"></i> 上传资料
 							<input type="file" name="filePath" style="opacity: 0; position: absolute;
-								 top: 0; right: 0; " class='inpu'>
+								     top: 12px; right: 0; " class='inpu'>
 						</div>
 					</td>
 					<td class="title" ><label class="control-label">审核人员</label></td>

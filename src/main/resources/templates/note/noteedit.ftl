@@ -2,8 +2,10 @@
 <html>
 <head>
 <#include "/common/commoncss.ftl">
+
 <link rel="stylesheet" href="plugins/kindeditor/themes/default/default.css" />
 <link rel="stylesheet" href="css/tc.css" />
+<link rel="stylesheet" type="text/css" href="css/common/tanchuang.css" />
 <script charset="utf-8" src="plugins/kindeditor/kindeditor-min.js"></script>
 <script charset="utf-8" src="plugins/kindeditor/lang/zh_CN.js"></script>
 <script type="text/javascript" src="js/note/noteedit.js"></script>
@@ -213,113 +215,6 @@ textarea {
 </form>
 
 
-			<!-- 接收人弹窗-->
-			<div class="modal fade" id="myModal" tabindex="-1">
-
-				<!--第二步，窗口声明-->
-				<div class="modal-dialog modal-lg">
-					<!--第三步、内容区的声明-->
-					<div class="modal-content" style="background: #F9F9F9;">
-						<div class="modal-1">
-
-							<div class="modal-2">
-
-								<div class="modal-header" style="margin: 10px;">
-									<button class="close close2" data-dismiss="modal"
-										style="display: block; background-color: black; margin: -90px -82px 0 0; border-radius: 60%;">
-										<span class="glyphicon glyphicon-remove-circle"
-											style="color: white; font-size: 30px;"></span>
-									</button>
-									<div class="row">
-										<div class="col-xs-12" style="height: 30px; margin: 10px 0px;">
-											<h4 style="float: left;">
-												<a class="btn btn-success glyphicon glyphicon-plus btn-sm"
-													onclick="addvalue()" data-dismiss="modal"> 新增接收人</a> <a
-													class="btn btn-success glyphicon glyphicon-plus btn-sm"
-													onclick="addvalue2()" data-dismiss="modal"> 追加接收人</a>
-											</h4>
-
-											<div class="input-group"
-												style="width: 150px; float: right; top: -5px;">
-												<input type="text" class="form-control input-sm pull-right"
-													placeholder="查找..." />
-												<div class="input-group-btn" style="top: -1px;">
-													<a
-														class="btn-sm btn-default glyphicon glyphicon-search btn-change"
-														href=""></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="modal-body" style="margin: 10px;">
-									<table class="table  table-hover  container-fluid">
-										<tr class="row">
-											<th class=" col-xs-2">选择</th>
-											<th class=" col-xs-2 b">部门</th>
-											<th class=" col-xs-2 b">真实姓名</th>
-											<th class="col-xs-2 b">用户名</th>
-											<th class="col-xs-2 b">角色</th>
-											<th class=" col-xs-2">电话</th>
-										</tr>
-										
-										<#if users??>
-										<#list users as user>
-										<tr class="row">
-											<th class=" col-xs-2"><input type="checkbox" name="id"
-												value=${user.userName}  style="display: block" /></th>
-											<th class="col-xs-2">${user.dept.deptName}</th>
-											<th class=" col-xs-2">${user.realName}</th>
-											<th class="col-xs-2">${user.userName}</th>
-											<th class=" col-xs-2">${user.role.roleName}</th>
-											<th class=" col-xs-2">${user.userTel}</th>
-
-										</tr>
-										</#list>
-										</#if>
-									</table>
-									<div class="box-footer no-padding"
-										style="margin-top: -20px; background: #FAFAFA; border-top: solid 1px #F5F5F5;">
-										<div style="padding: 5px;">
-											<div id="page"
-												style="background: #fff; border: 0px; margin-top: 0px; padding: 2px; height: 25px;">
-												<div style="width: 40%; float: left;">
-													<div class="pageInfo" style="margin-left: 5px;">
-														共<span>2</span>条 | 每页<span>20</span>条 | 共<span>1</span>页
-													</div>
-												</div>
-												<div style="width: 60%; float: left;">
-													<div class="pageOperation">
-														<a class="btn btn-sm btn-default no-padding"
-															style="width: 30px; height: 20px;"> <span
-															class="glyphicon glyphicon-backward"></span>
-														</a> <a class="btn btn-sm btn-default no-padding"
-															style="width: 30px; height: 20px;"> <span
-															class="glyphicon glyphicon-triangle-left"></span>
-														</a> <a disabled="disabled" class="btn btn-default no-padding"
-															style="width: 30px; height: 20px;"> 1 </a> <a
-															class="btn btn-sm btn-default no-padding"
-															style="width: 30px; height: 20px;"> <span
-															class="glyphicon glyphicon-triangle-right"></span>
-														</a> <a class="btn btn-sm btn-default no-padding"
-															style="width: 30px; height: 20px;"> <span
-															class="glyphicon glyphicon-forward"></span>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
 	
 	
 	
@@ -379,3 +274,4 @@ textarea {
 	</script>
 </body>
 </html>
+<#include "/common/reciver.ftl">

@@ -130,13 +130,16 @@ public class RoleController {
 	String content=	req.getParameter("content").trim();
 	Long menuid=Long.parseLong(	req.getParameter("menuid"));
 	Rolepowerlist rolepower=rpdao.findbyroleidandmenuid(roleid,menuid);
-	
+	System.out.println(rolepower);
 	if(content.equals("选中")){
 		rolepower.setCheck(true);
+		System.out.println("xuanzhong");
 	}else{
 		rolepower.setCheck(false);
+		System.out.println("not ok");
 	}
-		rpdao.save(rolepower);
+		
+		rservice.sava(rolepower);
 		return true;
 	}
 	/**

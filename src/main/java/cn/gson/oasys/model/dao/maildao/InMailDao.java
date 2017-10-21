@@ -25,9 +25,9 @@ public interface InMailDao extends PagingAndSortingRepository<Inmaillist, Long>{
 	Page<Inmaillist> findByMailUseridAndMailStatusidAndPushAndDelOrderByMailCreateTimeDesc( User mu,Long statusid,Boolean b,Boolean bo,Pageable pa);
 
 	//根据发件主题或者收件人模糊查找
-	@Query("from Inmaillist as mail where mail.mailUserid=?1 and mail.push=?2 and mail.mailTitle like %?3% or mail.inReceiver like %?3% "
+	@Query("from Inmaillist as mail where mail.mailUserid=?1 and mail.push=?2 and (mail.mailTitle like %?4% or mail.inReceiver like %?4%)"
 			+ "order by mail.mailCreateTime desc")
-	Page<Inmaillist> findbyMailUseridAndPushAndDelAndMailTitleLikeOrderByMailCreateTimeDesc( User mu,Boolean b,Boolean bo,String title,Pageable pa);
+	Page<Inmaillist> findbymailUseridAndPushAndDel( User mu,Boolean b,Boolean bo,String title,Pageable pa);
 
 	Inmaillist findByMailUseridAndMailId(User user,Long id);
 

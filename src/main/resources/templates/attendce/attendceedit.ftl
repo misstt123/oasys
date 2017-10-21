@@ -101,7 +101,7 @@
 						</label>
 						<select class="form-control" name="status" disabled="disabled">
 							<#list typelist as t>
-									<option ${(attends??&&attends.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
+									<option ${(attends??&&attends.typeId??&&attends.typeId==t.typeId)?string('selected','')}>${t.typeName}</option>
 								</#list>
 						</select>
 					</div>

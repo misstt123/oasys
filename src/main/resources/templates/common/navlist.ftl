@@ -37,10 +37,10 @@
 		<li class="dropdown">
 		<!--设置导航栏头像面板--> 
 		<a href="#" class="green-none white" data-toggle="dropdown">
-				<img src="images/touxiang/${(user.imgPath)!'timg.jpg'}" class="user-image" /> <span>${user.userName}</span>
+				<img src="/image/${(user.imgPath)!'/timg.jpg'}" class="user-image" /> <span>${user.userName}</span>
 		</a> <!--设置点击按钮弹出用户面板层-->
 			<ul class="dropdown-menu" style="padding:0;">
-				<li class="user-header green"><img src="images/touxiang/${(user.imgPath)!'timg.jpg'}"
+				<li class="user-header green"><img src="/image/${(user.imgPath)!'/timg.jpg'}"
 					class="img-circle" style="width: 100px;height:100px;" />
 					<p class="white" style="">
 						<span>${user.dept.deptName} </span> / <span> ${user.role.roleName}</span><br> <small>${user.position.name}</small>

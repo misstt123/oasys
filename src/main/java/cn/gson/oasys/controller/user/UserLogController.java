@@ -170,9 +170,13 @@ public class UserLogController {
 						String icon) {
 					long userid=Long.valueOf(session.getAttribute("userId")+"");
 					setTwo(model, basekey, time,icon);
-					Page<LoginRecord> page3=userLogRecordService.ulogpaging(page, basekey, userid, time);
-					model.addAttribute("page", page3);
-					model.addAttribute("userloglist", page3.getContent());
+					Page<LoginRecord> page4=userLogRecordService.ulogpaging(page, basekey, userid, time);
+					model.addAttribute("page", page4);
+					model.addAttribute("userloglist", page4.getContent());
+					System.out.println("debug");
+					for (LoginRecord loginRecord :  page4.getContent()) {
+						System.out.println("000"+loginRecord);
+					}
 					model.addAttribute("url", "morelogrecordtable");
 				}
 	
@@ -212,6 +216,7 @@ public class UserLogController {
 				Page<UserLog> page3=userLogService.ulogpaging(page, basekey, userid, time);
 				model.addAttribute("page", page3);
 				model.addAttribute("userloglist", page3.getContent());
+				
 				model.addAttribute("url", "morelogtable");
 			}
 			

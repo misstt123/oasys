@@ -148,7 +148,7 @@ cursor: pointer;
     							margin-top: -6px;">
 							<i class="glyphicon glyphicon-open"></i> 上传票据
 							<input type="file" name="filePath" style="opacity: 0; position: absolute;
-								 top: 0; right: 0; " class='inpu'>
+								 top: 12px; right: 0; " class='inpu'>
 						</div>
 					</td>
 					<td class="title" ><label class="control-label">审核人员</label></td>

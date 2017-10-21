@@ -56,6 +56,7 @@ import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.file.FileServices;
+import cn.gson.oasys.services.process.ProcessService;
 
 @Controller
 @RequestMapping("/")
@@ -83,6 +84,8 @@ public class NoteController {
 	private AttachmentDao attDao;
 	@Autowired
 	private NoteUserDao noteUserDao;
+	@Autowired
+	private ProcessService pservice;
 	
 	Attachment att;
 	List<Note> noteList;
@@ -482,7 +485,9 @@ public class NoteController {
 	
 	// 编辑
 	@RequestMapping(value = "noteedit")
-	public String test4(HttpServletRequest Request, HttpSession session) {
+	public String test4(HttpServletRequest Request, HttpSession session,Model model,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size) {
 		//验证的重载
 		if (!StringUtils.isEmpty(Request.getAttribute("errormess"))) {
 			Request.setAttribute("errormess", Request.getAttribute("errormess"));
@@ -534,6 +539,7 @@ public class NoteController {
 			}
 			// Request.setAttribute("id", nid);
 		}
+		pservice.user(page, size, model);
 		Request.setAttribute("users", users);
 		Request.setAttribute("calist", cataloglist);
 		typestatus(Request);

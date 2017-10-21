@@ -52,7 +52,7 @@
 		style="background: #222d32; height: 845px">
 		<div class="user-panel">
 			<div class="pull-left">
-				<img src="images/touxiang/${(user.imgPath)!'timg.jpg'}" class="img-circle user-image-left" />
+				<img src="/image/${(user.imgPath)!'/timg.jpg'}" class="img-circle user-image-left" />
 			</div>
 			<div class="pull-left info">
 				<p style="color: #fff; line-height: 1.5;">

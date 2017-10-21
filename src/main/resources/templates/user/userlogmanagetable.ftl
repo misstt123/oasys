@@ -35,7 +35,7 @@
 							<th scope="col">IP</th>
 							<th scope="col">操作</th>
 						</tr>
-						
+						<#if userloglist?? & userloglist?size gt 0>
 						<#list userloglist as ulog>
 							<tr>
 								<td><span>${(ulog.title)!''}</span></td>
@@ -45,6 +45,11 @@
 												class="glyphicon glyphicon-search "></span> 查看</a> </td>
 							</tr>
 						</#list>
+						<#else>
+							<tr>
+								<td colspan="4"><span>暂无更多信息</span></td>
+							</tr>
+						</#if>
 					</table>
 				</div>
 			</div>

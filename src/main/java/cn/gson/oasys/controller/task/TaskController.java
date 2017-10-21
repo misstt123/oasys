@@ -108,6 +108,7 @@ public class TaskController {
 		String val=null;
 		if(!StringUtil.isEmpty(request.getParameter("val"))){
 			val = request.getParameter("val").trim();
+			model.addAttribute("sort", "&val="+val);
 		}
 		
 		Page<Tasklist> tasklist=tservice.index(page, size, val, tu);
@@ -115,7 +116,7 @@ public class TaskController {
 		model.addAttribute("tasklist", list);
 		model.addAttribute("page", tasklist);
 		model.addAttribute("url", "paixu");
-		model.addAttribute("sort", "&val="+val);
+		
 		return "task/managetable";
 
 	}

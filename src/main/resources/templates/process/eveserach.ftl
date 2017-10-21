@@ -181,7 +181,7 @@ border-top: 1px solid #2196F3;
 				<tr class="rile">
 					<td class="wi" style="width:100px;"><label class="control-label">相关资料</label></td>
 					<td  style="width:140px;"><div class="bottom">
-						<#if map.file??>
+						<#if map.file!="file">
 						<#if map.filetype=="img">
 						<a href="javacript:void(0);" class="label xiugai yulan" title="图片预览">
 						<span class="glyphicon glyphicon-search"></span> 预览</a>

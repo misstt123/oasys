@@ -391,7 +391,7 @@ public class MailController {
 			maillist=mservice.mail(pagelist);
 			
 		}else if(("发件箱").equals(title)){
-			
+			System.out.println(title+"asdfghjkl;kjhgrf"+val);
 			pagemail=mservice.inmail(page, size, user, val,title);
 			maillist=mservice.maillist(pagemail);
 		}else if(("草稿箱").equals(title)){
@@ -558,7 +558,8 @@ public class MailController {
 		}else{
 			return "redirect:/notlimit";
 		}
-		return "redirect:/mailmanage";
+		System.out.println("ffffffff");
+		return "redirect:/accountmanage";
 	}
 	
 	/**

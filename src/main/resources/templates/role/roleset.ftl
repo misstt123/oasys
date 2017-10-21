@@ -119,7 +119,7 @@
 										<td><span>${(son.menuName)!''}</span></td>
 										<td><span class="widths">${(son.menuUrl)!''}</span></td>
 										<td><span class="menus" >菜单</span></td>
-										<td><#if par.check==true>
+										<td><#if son.check==true>
 											<span class="labels">
 												<label><input type="checkbox" name="show" class="val" checked><i>✓</i></label></span>
 													<#else>

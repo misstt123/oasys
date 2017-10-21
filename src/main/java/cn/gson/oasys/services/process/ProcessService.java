@@ -259,7 +259,11 @@ public class ProcessService {
 			result.put("deptname", ddao.findname(process.getUserId().getDept().getDeptId()));
 		}
 		result.put("applytime", process.getApplyTime());
-		result.put("file", process.getProFileid());
+		if(!Objects.isNull(process.getProFileid())){
+			result.put("file", process.getProFileid());
+		}else{
+			result.put("file", "file");
+		}
 		result.put("name", name);
 		result.put("typename", process.getTypeNmae());
 		result.put("startime", process.getStartTime());

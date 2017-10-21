@@ -115,7 +115,6 @@ public class User {
 	@Column(name="father_id")
 	private Long fatherId;		//上司id
 	
-	
 	private Integer holiday;   //请假天数
 
 	@ManyToOne()

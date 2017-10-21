@@ -54,7 +54,7 @@ $(function(){
 	
 	$('.baseKetsubmit').on('click',function(){
 		var baseKey=$('.baseKey').val();
-		$('.thistable').load('names?baseKey=baseKey');
+		$('#myModal .thistable').load('names?baseKey=baseKey');
 	});
 	$(".chazhao").click(function() {
 		var $qufen=$(".mi").text();

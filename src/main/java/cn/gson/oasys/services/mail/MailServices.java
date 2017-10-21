@@ -161,7 +161,7 @@ public class MailServices {
 		}else if(!Objects.isNull(type)){
 			pagemail=imdao.findByMailUseridAndMailTypeAndPushAndDelOrderByMailCreateTimeDesc(tu, type.getTypeId(),true,false, pa);
 		}else{
-			pagemail=imdao.findbyMailUseridAndPushAndDelAndMailTitleLikeOrderByMailCreateTimeDesc(tu,true,false,val,pa);
+			pagemail=imdao.findbymailUseridAndPushAndDel(tu,true,false,val,pa);
 		}
 		}else{
 			//草稿箱
@@ -175,7 +175,7 @@ public class MailServices {
 			}else if(!Objects.isNull(type)){
 				pagemail=imdao.findByMailUseridAndMailTypeAndPushAndDelOrderByMailCreateTimeDesc(tu, type.getTypeId(),true,false, pa);
 			}else{
-				pagemail=imdao.findbyMailUseridAndPushAndDelAndMailTitleLikeOrderByMailCreateTimeDesc(tu,false,false,val,pa);
+				pagemail=imdao.findbymailUseridAndPushAndDel(tu,false,false,val,pa);
 			}
 		}
 		return pagemail;

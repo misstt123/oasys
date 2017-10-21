@@ -85,6 +85,7 @@
 	$(function(){
 
 		 $(".sdelete").click(function(){
+			 if(confirm("确定删除么？")){
 			 var  arry=new Array();
 			 var title=$(".titles").text();
 			 $("[name=items]:checkbox").each(function(){
@@ -99,6 +100,7 @@
 			 }
 			 var values=arry.toString();
 			 $(".thistable").load("alldelete",{ids:values,title:title}); 
+			 }
 		 });
 		 //批量查看
 		 $(".looked").click(function(){

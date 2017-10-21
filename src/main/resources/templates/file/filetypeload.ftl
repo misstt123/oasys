@@ -215,7 +215,7 @@
 								<div class="file-img">
 									<img src="images/fileimg/Music.png" />
 								</div>
-							<#elseif file.fileShuffix == "jpg" || file.fileShuffix == "png" || file.fileShuffix == "gif">
+							<#elseif file.fileShuffix == "jpeg" || file.fileShuffix == "png" || file.fileShuffix == "gif" || file.fileShuffix == "jpg" >
 								<div class="file-img">
 									<img src="imgshow?fileid=${file.fileId}" style="height:71px;width:56px;"/>
 								</div>
