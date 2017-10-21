@@ -217,16 +217,25 @@ public class DaymanageController {
 		return "daymanage/daycalendar";
 	}
 
+//	@RequestMapping("mycalendarload")
+//	public void mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
+//		List<ScheduleList> se = dayser.aboutmeschedule(userid);
+//		
+//		for (ScheduleList scheduleList : se) {
+//			System.out.println(scheduleList);
+//		}
+//		
+//		String json = JSONObject.toJSONString(se);
+//		response.setHeader("Cache-Control", "no-cache");
+//		response.setContentType("text/json;charset=UTF-8");
+//		response.getWriter().write(json);
+//		
+//	}
+	
 	@RequestMapping("mycalendarload")
-	public void mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
+	public @ResponseBody List<ScheduleList> mycalendarload(@SessionAttribute("userId") Long userid,HttpServletResponse response) throws IOException{
 		List<ScheduleList> se = dayser.aboutmeschedule(userid);
-		for (ScheduleList scheduleList : se) {
-			System.out.println(scheduleList);
-		}
-		String json = JSONObject.toJSONString(se);
-		response.setHeader("Cache-Control", "no-cache");
-		response.setContentType("text/json;charset=UTF-8");
-		response.getWriter().write(json);
 		
+		return se;
 	}
 }

@@ -190,7 +190,7 @@
 								 
 								 id:item.rcId,
 								 
-								 user:item.user.userName,
+								 user:item.username,
 								 
 								 des:item.describe,
 								 

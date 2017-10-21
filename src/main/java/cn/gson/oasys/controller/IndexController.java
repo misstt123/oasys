@@ -1,5 +1,6 @@
 package cn.gson.oasys.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ import com.github.pagehelper.PageInfo;
 
 import cn.gson.oasys.mappers.NoticeMapper;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
+import cn.gson.oasys.model.dao.daymanagedao.DaymanageDao;
 import cn.gson.oasys.model.dao.discuss.DiscussDao;
 import cn.gson.oasys.model.dao.filedao.FileListdao;
 import cn.gson.oasys.model.dao.informdao.InformRelationDao;
@@ -41,15 +43,20 @@ import cn.gson.oasys.model.dao.user.UserLogDao;
 import cn.gson.oasys.model.entity.attendce.Attends;
 import cn.gson.oasys.model.entity.mail.Mailreciver;
 import cn.gson.oasys.model.entity.notice.NoticeUserRelation;
+import cn.gson.oasys.model.entity.notice.NoticesList;
 import cn.gson.oasys.model.entity.plan.Plan;
 import cn.gson.oasys.model.entity.process.Notepaper;
 import cn.gson.oasys.model.entity.process.ProcessList;
 import cn.gson.oasys.model.entity.role.Rolemenu;
+import cn.gson.oasys.model.entity.schedule.ScheduleList;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
 import cn.gson.oasys.model.entity.task.Taskuser;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.model.entity.user.UserLog;
+import cn.gson.oasys.services.daymanage.DaymanageServices;
+import cn.gson.oasys.services.inform.InformRelationService;
+import cn.gson.oasys.services.inform.InformService;
 import cn.gson.oasys.services.system.MenuSysService;
 
 @Controller
@@ -92,7 +99,14 @@ public class IndexController {
 	private TaskuserDao  tadao;
 	@Autowired
 	private RolepowerlistDao rdao;
-	
+	@Autowired
+	private DaymanageServices dayser;
+	@Autowired
+	private InformService informService;
+	@Autowired
+	private DaymanageDao daydao;
+	@Autowired
+	private InformRelationService informrelationservice;
 	
 	// 格式转化导入
 	DefaultConversionService service = new DefaultConversionService();
@@ -106,6 +120,42 @@ public class IndexController {
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
 		menuService.findMenuSys(req,user);
+		
+		List<ScheduleList> aboutmenotice = dayser.aboutmeschedule(userId);
+		for (ScheduleList scheduleList : aboutmenotice) {
+			if(!scheduleList.getIsreminded()){
+				System.out.println(scheduleList.getStartTime());
+				
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");//24小时制 
+//				simpleDateFormat.parse(scheduleList.getStartTime()).getTime();  
+				String start = simpleDateFormat.format(scheduleList.getStartTime());
+				String now = simpleDateFormat.format(new Date());
+				try {
+					long now2 = simpleDateFormat.parse(now).getTime();
+					long start2 = simpleDateFormat.parse(start).getTime();  
+					long cha = start2-now2;
+					if(0<cha && cha <86400000){
+						NoticesList remindnotices = new NoticesList();
+						remindnotices.setTypeId(11l);
+						remindnotices.setStatusId(15l);
+						remindnotices.setTitle("您有一个日程即将开始");
+						remindnotices.setUrl("/daycalendar");
+						remindnotices.setUserId(userId);
+						remindnotices.setNoticeTime(new Date());
+						
+						NoticesList remindnoticeok = informService.save(remindnotices);
+						
+						informrelationservice.save(new NoticeUserRelation(remindnoticeok, user, false));
+						
+						scheduleList.setIsreminded(true);
+						daydao.save(scheduleList);
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		List<NoticeUserRelation> notice=irdao.findByReadAndUserId(false,user);//通知
 		List<Mailreciver> mail=mdao.findByReadAndDelAndReciverId(false, false, user);//邮件
@@ -222,9 +272,6 @@ public class IndexController {
 		model.addAttribute("prostatuslist", processstatus);
 		return "systemcontrol/control";
 	}
-	
-	
-	
 	
 	@RequestMapping("test3")
 	public String test3() {

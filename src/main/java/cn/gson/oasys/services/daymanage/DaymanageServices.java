@@ -29,12 +29,25 @@ public class DaymanageServices {
 		users.add(user);
 		List<ScheduleList> aboutmerc = new ArrayList<>();
 		
-		
 		List<ScheduleList> myschedule = daydao.findByUser(user);
 		List<ScheduleList> otherschedule = daydao.findByUsers(users);
 		
-		aboutmerc.addAll(myschedule);
-		aboutmerc.addAll(otherschedule);
+		for (ScheduleList scheduleList : myschedule) {
+			aboutmerc.add(scheduleList);
+		}
+		
+		for (ScheduleList scheduleList : otherschedule) {
+			aboutmerc.add(scheduleList);
+		}
+		
+//		aboutmerc.addAll(myschedule);
+//		aboutmerc.addAll(otherschedule);
+		
+		for (ScheduleList scheduleList : aboutmerc) {
+			User user1 = scheduleList.getUser();
+			scheduleList.setUsername(user1.getRealName());
+			
+		}
 		
 		return aboutmerc;
 	}

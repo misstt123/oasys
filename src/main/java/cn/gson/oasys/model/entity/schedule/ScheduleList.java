@@ -13,8 +13,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import cn.gson.oasys.model.entity.user.User;
 
@@ -52,11 +55,18 @@ public class ScheduleList {
 	@Column(name = "is_remind")
 	private Boolean isRemind = false;	//是否提醒
 	
+	@Transient
+	private String username;
+	
+	private Boolean isreminded = false;
+	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "user_id")
 	private User user;			//日程所属人
 	
 	@ManyToMany
+	@JsonIgnore
 	@JoinTable(
 		name = "aoa_schedule_user",			//日程联系人关联表
 		joinColumns = {
@@ -159,11 +169,27 @@ public class ScheduleList {
 		this.users = users;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public Boolean getIsreminded() {
+		return isreminded;
+	}
+
+	public void setIsreminded(Boolean isreminded) {
+		this.isreminded = isreminded;
+	}
+
 	@Override
 	public String toString() {
 		return "ScheduleList [rcId=" + rcId + ", typeId=" + typeId + ", statusId=" + statusId + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", createTime=" + createTime + ", title=" + title + ", describe="
-				+ describe + ", isRemind=" + isRemind + "]";
+				+ describe + ", isRemind=" + isRemind + ", username=" + username + ", isreminded=" + isreminded + "]";
 	}
 	
 }
