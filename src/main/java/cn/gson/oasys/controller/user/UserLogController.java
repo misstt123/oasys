@@ -29,9 +29,11 @@ import cn.gson.oasys.model.dao.taskdao.TaskDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.dao.user.UserLogDao;
 import cn.gson.oasys.model.dao.user.UserLogRecordDao;
+import cn.gson.oasys.model.dao.user.UserLogRecordService;
 import cn.gson.oasys.model.dao.user.UserLogService;
 import cn.gson.oasys.model.dao.user.UserService;
 import cn.gson.oasys.model.entity.schedule.ScheduleList;
+import cn.gson.oasys.model.entity.user.LoginRecord;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.model.entity.user.UserLog;
 
@@ -50,6 +52,8 @@ public class UserLogController {
 	private UserLogRecordDao userLogRecordDao;
 	@Autowired
 	private ScheduleDao scheduleDao;
+	@Autowired
+	private UserLogRecordService userLogRecordService;
 	
 	//显示本周的每天的记录
 	@RequestMapping("countweeklogin")
@@ -134,6 +138,43 @@ public class UserLogController {
 		response.getWriter().write(json);
 		return null;
 	}
+	
+	//用来查找用户记录
+			@RequestMapping("morelogrecord")
+			public String test3df342(@RequestParam(value="page",defaultValue = "0")int page,
+					HttpSession session,Model model,
+					@RequestParam(value="baseKey",required=false)String basekey,
+					@RequestParam(value="time",required=false)String time,
+					@RequestParam(value="icon",required=false)String icon
+					) {
+				System.out.println("11"+basekey);
+				getuserlogrecord(page, session, model, basekey, time, icon);
+				return "user/userlogrecordmanage";
+			}
+
+			
+			
+			//用来查找用户记录
+				@RequestMapping("morelogrecordtable")
+				public String test3dfrt342(@RequestParam(value="page",defaultValue = "0")int page,
+						HttpSession session,Model model,
+						@RequestParam(value="baseKey",required=false)String basekey,
+						@RequestParam(value="time",required=false)String time,
+						@RequestParam(value="icon",required=false)String icon) {
+					getuserlogrecord(page, session, model, basekey, time, icon);
+					return "user/userlogrecordmanagetable"; 
+					
+				}
+	
+				public void getuserlogrecord(int page, HttpSession session, Model model, String basekey, String time,
+						String icon) {
+					long userid=Long.valueOf(session.getAttribute("userId")+"");
+					setTwo(model, basekey, time,icon);
+					Page<LoginRecord> page3=userLogRecordService.ulogpaging(page, basekey, userid, time);
+					model.addAttribute("page", page3);
+					model.addAttribute("userloglist", page3.getContent());
+					model.addAttribute("url", "morelogrecordtable");
+				}
 	
 	//用来查找用户记录
 		@RequestMapping("morelog")
