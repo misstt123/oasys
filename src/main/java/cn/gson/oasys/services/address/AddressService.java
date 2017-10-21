@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.transaction.Transactional;
 
@@ -44,7 +45,8 @@ public class AddressService {
 			result.put("sex", addressList.get(i).get("sex"));
 			result.put("phone_number", addressList.get(i).get("phone_number"));
 			result.put("email", addressList.get(i).get("email"));
-			if(atDao.findOne(Long.parseLong((addressList.get(i).get("image_path")+"")))!=null){
+//			!Objects.isNull(atDao.findOne(d.getAttachment()))
+			if(addressList.get(i).get("image_path")!=null){
 				result.put("image_path", atDao.findOne(Long.parseLong((addressList.get(i).get("image_path")+""))).getAttachmentPath());
 			}else{
 				result.put("image_path", "timg.jpg");

@@ -8,7 +8,7 @@
 		</h3>
 		<div class="box-tools">
 			<div class="input-group" style="width: 150px;">
-				<input type="text" class="form-control input-sm baseKey" placeholder="查找..."  value="${(baseKey)!''}"/>
+				<input type="text" class="form-control input-sm baseKey" placeholder="按标题查找"  value="${(baseKey)!''}"/>
 				<div class="input-group-btn">
 					<a class="btn btn-sm btn-default baseKetsubmit"><span
 						class="glyphicon glyphicon-search"></span></a>

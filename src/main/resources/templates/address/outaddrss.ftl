@@ -39,7 +39,7 @@
 				</#if>
 				
 				<td><span>${(d.companyname)!''}</span></td>
-				<td><a href="#"> <img src="/image${(d.image_path)!'timg.jpg'}" class="img-circle"
+				<td><a href="#"> <img src="/image/${(d.image_path)!'timg.jpg'}" class="img-circle"
 						style="width: 25px; height: 25px;">
 				</a></td>
 				<td><span>${(d.user_name)!''}</span></td>

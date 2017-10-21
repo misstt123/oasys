@@ -25,5 +25,9 @@ public class RoleService {
 			rldao.save(new Rolepowerlist(rolep,systemMenu));
 		}
 	}
+	//保存一个对象；	
+	public Rolepowerlist sava(Rolepowerlist rolepower){
+		return rldao.save(rolepower);
+	}
 
 }

@@ -142,13 +142,13 @@ border-radius: 5px;
 		<div class="form-group">
 			<textarea name="content" placeholder="在此处填写内容...." class="form-control tent" style="width: 100%; height: 360px; visibility: hidden; font-size: 20px;">${(discuss.content)!''}</textarea>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<div class="btn btn-default ">
 				<span class="glyphicon glyphicon-paperclip">增加附件</span> 
 				<input type="file" name="file" class="file">
 			</div>
 			<p class="help-block">5MB以内</p>
-		</div>
+		</div> -->
 
 	</div>
 	<!--盒子尾-->

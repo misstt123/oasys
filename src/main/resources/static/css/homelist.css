@@ -253,9 +253,9 @@ body{
     color: #337ab7;
     text-decoration: none;
 }
-.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover,.nav .open>a:LINK,.nav .open>a:VISITED{
 	border-color: #337ab7;
-	background-color:transparent;
+	background-color:transparent!important;
 }
 			
 			

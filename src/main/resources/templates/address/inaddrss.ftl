@@ -7,7 +7,7 @@
 	</a>
 	<div class="box-tools">
 		<div class="input-group" style="width: 150px;">
-			<input type="text" class="form-control input-sm baseKey" placeholder="查找..." value="${(baseKey)!''}"/>
+			<input type="text" class="form-control input-sm baseKey" placeholder="按部门/角色/用户名/电话号码/拼音" value="${(baseKey)!''}" style="width: 220px;"/>
 			<div class="input-group-btn">
 				<a class="btn btn-sm btn-default baseKeySumbit"> 
 					<span class="glyphicon glyphicon-search"></span>

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.user.User;
 
@@ -59,10 +56,10 @@ public class LoginsController {
 	public String loginCheck(HttpSession session,HttpServletRequest req,Model model){
 		String userName=req.getParameter("userName").trim();
 		String password=req.getParameter("password");
-		String ca=req.getParameter("code");
+		String ca=req.getParameter("code").toLowerCase();
 		String sesionCode = (String) req.getSession().getAttribute(CAPTCHA_KEY);
 		model.addAttribute("userName", userName);
-		if(!ca.equals(sesionCode)){
+		if(!ca.equals(sesionCode.toLowerCase())){
 			System.out.println("验证码输入错误!");
 			model.addAttribute("errormess", "验证码输入错误!");
 			req.setAttribute("errormess","验证码输入错误!");

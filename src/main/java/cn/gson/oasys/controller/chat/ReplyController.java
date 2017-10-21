@@ -1,11 +1,7 @@
 package cn.gson.oasys.controller.chat;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -72,12 +69,24 @@ public class ReplyController {
 			@SessionAttribute("userId") Long userId,Model model){
 		System.out.println(size);
 		Long num=null;
+		
 		Long discussId=Long.parseLong(req.getParameter("replyId"));
 		String module=req.getParameter("module");	//用来判断是保存在哪个表
-		String comment=req.getParameter("comment");
+		
 		User user=uDao.findOne(userId);
 		System.out.println(discussId);
 		System.out.println(module);
+		Discuss dis=null;
+		if("discuss".equals(module)){
+			dis=discussDao.findOne(discussId);
+			num=dis.getDiscussId();
+		}else{
+			Reply replyyy=replyDao.findOne(discussId);
+			dis=replyyy.getDiscuss();
+			num=dis.getDiscussId();
+		}
+		if(!StringUtils.isEmpty(req.getParameter("comment"))){
+		String comment=req.getParameter("comment");
 		System.out.println(comment);
 		
 		if("discuss".equals(module)){
@@ -102,9 +111,8 @@ public class ReplyController {
 				model.addAttribute("manage", "具有管理权限");
 			}
 		}
+		}
 		disService.setDiscussMess(model, num,userId,page,size);
-//		return "chat/replaymanage";
-//		disService.setDiscussMess(model, num,userId,page,size);
 		return "chat/replytable";
 	}
 	

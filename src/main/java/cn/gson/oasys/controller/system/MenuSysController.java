@@ -22,9 +22,14 @@ import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
 import cn.gson.oasys.common.formValid.ResultVO;
 import cn.gson.oasys.model.dao.IndexDao;
+import cn.gson.oasys.model.dao.roledao.RoleDao;
+import cn.gson.oasys.model.dao.roledao.RolepowerlistDao;
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.role.Role;
+import cn.gson.oasys.model.entity.role.Rolepowerlist;
 import cn.gson.oasys.model.entity.system.SystemMenu;
 import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.role.RoleService;
 import cn.gson.oasys.services.system.MenuSysService;
 
 @Controller
@@ -39,6 +44,12 @@ public class MenuSysController {
 	private MenuSysService menuService;
 	@Autowired
 	private UserDao uDao;
+	@Autowired
+	private RoleDao rdao;
+	@Autowired
+	private RolepowerlistDao rldao;
+	@Autowired
+	private RoleService roleService;
 
 	/**
 	 *  显示菜单管理界面
@@ -170,9 +181,22 @@ public class MenuSysController {
 				menu.setMenuId(menuId);
 				log.info("getId:{}", session.getAttribute("getId"));
 				session.removeAttribute("getId");
+				menuService.save(menu);
+			}else{
+				//执行新增 的代码；
+				menuService.save(menu);
+				List<Role> roles=rdao.findAll();
+				for (Role role : roles) {
+					if(role.getRoleId()==1){
+						roleService.sava(new Rolepowerlist(role, menu, true));
+					}else{
+						roleService.sava(new Rolepowerlist(role, menu, false));
+					}
+				}
+				
 			}
 			//执行业务代码
-			menuService.save(menu);
+			
 			System.out.println("此操作是正确的");
 			req.setAttribute("success", "后台验证成功");
 		}

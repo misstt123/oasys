@@ -166,9 +166,7 @@ public class AddrController {
 			System.out.println("权限不匹配，不能操作");
 			return "redirect:/notlimit";
 		}
-		System.out.println(d.getAttachment());
-		System.out.println(atDao.findOne(d.getAttachment()));
-		if(!Objects.isNull(atDao.findOne(d.getAttachment()))){
+		if(d.getAttachment()!=null){
 			model.addAttribute("imgpath", atDao.findOne(d.getAttachment()).getAttachmentPath());
 		}else{
 			model.addAttribute("imgpath", "/timg.jpg");

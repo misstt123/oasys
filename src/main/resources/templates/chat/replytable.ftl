@@ -90,13 +90,13 @@ $('.addmore').on('click',function(){
 
 /* 回复与评论的提交 */
 $('#commentsave').on('click',function() {
-	console.log($('.replyId').val());
-	console.log($('.replyModule').val());
+	console.log($("#hiddenreplyId").val());
+	console.log($("#hiddenreplyModule").val());
 	console.log($("#comment").val());
 	var size=${page.size};
 	console.log("size:"+size);
-	var replyId = $('.replyId').val();
-	var module = $('.replyModule').val();
+	var replyId = $("#hiddenreplyId").val();
+	var module = $("#hiddenreplyModule").val();
 	var comment = $("#comment").val();
 	$('.repay').load('/replyhandle?size='+size, {
 		replyId : replyId,

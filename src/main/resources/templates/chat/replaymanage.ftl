@@ -155,7 +155,8 @@ a:hover {
 							<#include "replytable.ftl"/>
 							</tbody>
 						</table>
-						
+						<input type="hidden" id="hiddenreplyId"/>
+						<input type="hidden" id="hiddenreplyModule"/>
 					</div>
 				</div>
 				<!--盒子尾-->
@@ -221,11 +222,9 @@ $('.chat-box').off('click','.likethis').on('click','.likethis',function(){
 	});
 /* 回复与评论的处理，模态框显示，假如是点击评论进入的，则在前面加@那个的名字 */	
 	$("#thisreply").on('click',function(){
-		var replyId = $(this).attr('replyId');
-		var module = $(this).attr('replyModule');
+		$("#hiddenreplyId").val($(this).attr('replyId'));
+		$("#hiddenreplyModule").val($(this).attr('replyModule'));
 		var name = $(this).attr('replyName');
-		$('.replyId').val(replyId);
-		$('.replyModule').val(module);
 		$('.replyName').val(name);
 		if(typeof(name) != 'undefined' ){
 			$("#comment").val("@"+name);
@@ -234,11 +233,9 @@ $('.chat-box').off('click','.likethis').on('click','.likethis',function(){
 	});
 /*  */
 	$('.repay').on('click', '.thisreply',function() {
-		var replyId = $(this).attr('replyId');
-		var module = $(this).attr('replyModule');
+		$("#hiddenreplyId").val($(this).attr('replyId'));
+		$("#hiddenreplyModule").val($(this).attr('replyModule'));
 		var name = $(this).attr('replyName');
-		$('.replyId').val(replyId);
-		$('.replyModule').val(module);
 		$('.replyName').val(name);
 		console.log(typeof(name));
 		if(typeof(name) != 'undefined' ){

@@ -100,11 +100,12 @@ public class IndexController {
 	@RequestMapping("index")
 	public String index(HttpServletRequest req,Model model) {
 		HttpSession session = req.getSession();
+		if(StringUtils.isEmpty(session.getAttribute("userId"))){
+			return "login/login";
+		}
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		User user=uDao.findOne(userId);
 		menuService.findMenuSys(req,user);
-		
-		
 		
 		List<NoticeUserRelation> notice=irdao.findByReadAndUserId(false,user);//通知
 		List<Mailreciver> mail=mdao.findByReadAndDelAndReciverId(false, false, user);//邮件

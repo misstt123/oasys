@@ -44,6 +44,15 @@ public class Rolepowerlist {
 		
 	}
 	
+	
+	public Rolepowerlist(Role roleId, SystemMenu menuId, Boolean check) {
+		super();
+		this.roleId = roleId;
+		this.menuId = menuId;
+		this.check = check;
+	}
+
+
 	public Rolepowerlist(){}
 
 	public Long getPkId() {

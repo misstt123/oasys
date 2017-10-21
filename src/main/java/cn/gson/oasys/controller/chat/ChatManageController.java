@@ -287,7 +287,7 @@ public class ChatManageController {
 	 * 新增+修改
 	 */
 	@RequestMapping("adddiscuss")
-	public String addDiscuss(HttpServletRequest req, @Valid Discuss menu,VoteList voteList,BindingResult br,@RequestParam("file")MultipartFile file){
+	public String addDiscuss(HttpServletRequest req, @Valid Discuss menu,VoteList voteList,BindingResult br){
 		
 		HttpSession session=req.getSession();
 		Long userId=Long.parseLong(session.getAttribute("userId")+"");

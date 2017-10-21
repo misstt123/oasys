@@ -30,8 +30,10 @@
 .blue-b{
 	background:#19a8cc;
 }
+.blue-none:focus,
 .blue-none:HOVER,
-.blue-none:visited{
+.blue-none:visited
+{
 	background: #19a8cc!important;
 	color: white;
 }
