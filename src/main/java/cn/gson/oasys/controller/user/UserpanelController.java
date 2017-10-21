@@ -26,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -70,13 +71,11 @@ public class UserpanelController {
 	private String rootpath;
 	
 	@RequestMapping("userpanel")
-	public String index(HttpSession session,Model model,HttpServletRequest req,
+	public String index(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		
 		Pageable pa=new PageRequest(page, size);
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		User user=null;
 		if(!StringUtil.isEmpty((String) req.getAttribute("errormess"))){
 			 user=(User) req.getAttribute("users");
@@ -88,7 +87,7 @@ public class UserpanelController {
 		}
 		else{
 			//找到这个用户
-			user=udao.findOne(userid);
+			user=udao.findOne(userId);
 		}
 		
 		//找到部门名称
@@ -124,13 +123,11 @@ public class UserpanelController {
 	 * 上下页
 	 */
 	@RequestMapping("panel")
-	public String index(HttpSession session,Model model,
+	public String index(@SessionAttribute("userId") Long userId,Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
 		Pageable pa=new PageRequest(page, size);
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		//找便签
 		Page<Notepaper> list=ndao.findByUserIdOrderByCreateTimeDesc(user,pa);
 		List<Notepaper> notepaperlist=list.getContent();
@@ -143,10 +140,8 @@ public class UserpanelController {
 	 * 存便签
 	 */
 	@RequestMapping("writep")
-	public String savepaper(Notepaper npaper,HttpSession session,@RequestParam(value="concent",required=false)String concent){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);
+	public String savepaper(Notepaper npaper,@SessionAttribute("userId") Long userId,@RequestParam(value="concent",required=false)String concent){
+		User user=udao.findOne(userId);
 		npaper.setCreateTime(new Date());
 		npaper.setUserId(user);
 		System.out.println("内容"+npaper.getConcent());
@@ -162,10 +157,8 @@ public class UserpanelController {
 	 * 删除便签
 	 */
 	@RequestMapping("notepaper")
-	public String deletepaper(HttpServletRequest request,HttpSession session){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);
+	public String deletepaper(HttpServletRequest request,@SessionAttribute("userId") Long userId){
+		User user=udao.findOne(userId);
 		String paperid=request.getParameter("id");
 		Long lpid = Long.parseLong(paperid);
 		Notepaper note=ndao.findOne(lpid);
@@ -185,12 +178,9 @@ public class UserpanelController {
 	 */
 	@RequestMapping("saveuser")
 	public String saveemp(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest request,@Valid User user,
-			BindingResult br,HttpSession session) throws IllegalStateException, IOException{
+			BindingResult br,@SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
 		String imgpath=nservice.upload(filePath);
-		
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User users=udao.findOne(userid);
+		User users=udao.findOne(userId);
 		
 		//重新set用户
 		users.setRealName(user.getRealName());
@@ -235,7 +225,7 @@ public class UserpanelController {
 		
 	}
 	@RequestMapping("image/**")
-	public void image(Model model, HttpServletResponse response, HttpSession session, HttpServletRequest request)
+	public void image(Model model, HttpServletResponse response, @SessionAttribute("userId") Long userId, HttpServletRequest request)
 			throws IOException {
 
 		String startpath = new String(URLDecoder.decode(request.getRequestURI(), "utf-8"));

@@ -49,9 +49,7 @@ a:hover {
 				<a href="javascript:history.back();">
 					<span class="glyphicon glyphicon-chevron-left back">返回</span></a>
 				</button>
-				<button type="button" class="btn btn-xs btn-primary out">
-					<span class="glyphicon glyphicon-print print">打印</span>
-				</button>
+				
 				
 				<div class="page-header"></div>
 				<form action="uplogger">

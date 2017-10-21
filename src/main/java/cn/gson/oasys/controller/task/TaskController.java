@@ -77,7 +77,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("taskmanage")
-	public String index(HttpSession session, Model model,
+	public String index(Model model,
 			@SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
@@ -99,8 +99,7 @@ public class TaskController {
 	 */
 	@RequestMapping("paixu")
 	public String paixu(HttpServletRequest request, 
-			HttpSession session, Model model,
-			@SessionAttribute("userId") Long userId,
+			@SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 	
@@ -126,8 +125,7 @@ public class TaskController {
 	 * 点击新增任务
 	 */
 	@RequestMapping("addtask")
-	public ModelAndView index2(HttpSession session,
-			@SessionAttribute("userId")Long userId,
+	public ModelAndView index2(@SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Pageable pa=new PageRequest(page, size);
@@ -158,7 +156,7 @@ public class TaskController {
 	 * 新增任务保存
 	 */
 	@RequestMapping("addtasks")
-	public String addtask(HttpSession session, HttpServletRequest request,@SessionAttribute("userId")Long userId) {
+	public String addtask(@SessionAttribute("userId") Long userId, HttpServletRequest request) {
 		User userlist = udao.findOne(userId);
 		Tasklist list = (Tasklist) request.getAttribute("tasklist");
 		request.getAttribute("success");
@@ -186,8 +184,7 @@ public class TaskController {
 	 * 修改任务
 	 */
 	@RequestMapping("edittasks")
-	public ModelAndView index3(HttpServletRequest req, HttpSession session,
-			@SessionAttribute("userId") Long userId,
+	public ModelAndView index3(HttpServletRequest req, @SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Pageable pa=new PageRequest(page, size);
@@ -293,7 +290,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("tasklogger")
-	public String tasklogger(Tasklogger logger, HttpSession session,@SessionAttribute("userId")Long userId) {
+	public String tasklogger(Tasklogger logger, @SessionAttribute("userId") Long userId) {
 		User userlist = udao.findOne(userId);
 		logger.setCreateTime(new Date());
 		logger.setUsername(userlist.getUserName());
@@ -312,8 +309,7 @@ public class TaskController {
 	 * 我的任务
 	 */
 	@RequestMapping("mytask")
-	public String index5(HttpSession session, Model model,
-			@SessionAttribute("userId")Long userId,
+	public String index5(@SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
 		Pageable pa=new PageRequest(page, size);
@@ -340,8 +336,7 @@ public class TaskController {
 	 * @throws ParseException
 	 */
 	@RequestMapping("mychaxun")
-	public String select(HttpServletRequest request, HttpSession session, Model model,
-			@SessionAttribute("userId")Long userId,
+	public String select(HttpServletRequest request, @SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) throws ParseException {
 	
@@ -360,7 +355,7 @@ public class TaskController {
 
 
 	@RequestMapping("myseetasks")
-	public ModelAndView myseetask(HttpServletRequest req, HttpSession session,@SessionAttribute("userId")Long userId) {
+	public ModelAndView myseetask(HttpServletRequest req, @SessionAttribute("userId") Long userId) {
 
 		ModelAndView mav = new ModelAndView("task/myseetask");
 		// 得到任务的 id
@@ -396,7 +391,7 @@ public class TaskController {
 	 * 从我的任务查看里面修改状态和日志
 	 */
 	@RequestMapping("uplogger")
-	public String updatelo(Tasklogger logger, HttpSession session,@SessionAttribute("userId")Long userId) {
+	public String updatelo(Tasklogger logger, @SessionAttribute("userId") Long userId) {
 		System.out.println(logger.getLoggerStatusid());
 		// 获取用户id
 		
@@ -454,7 +449,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping("shanchu")
-	public String delete(HttpServletRequest req, HttpSession session,@SessionAttribute("userId")Long userId) {
+	public String delete(HttpServletRequest req, @SessionAttribute("userId") Long userId) {
 		// 获取用户id
 		
 		// 得到任务的 id
@@ -491,7 +486,7 @@ public class TaskController {
 	 * 接收人这边删除
 	 */
 	@RequestMapping("myshanchu")
-	public String mydelete(HttpServletRequest req, HttpSession session,@SessionAttribute("userId")Long userId) {
+	public String mydelete(HttpServletRequest req, @SessionAttribute("userId") Long userId) {
 		// 用户id
 		// 得到任务的 id
 		String taskid = req.getParameter("id");

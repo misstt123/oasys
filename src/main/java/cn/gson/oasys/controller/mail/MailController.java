@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
@@ -86,13 +87,11 @@ public class MailController {
 	 * @return
 	 */
 	@RequestMapping("mail")
-	public  String index(HttpSession session, Model model,
+	public  String index(@SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		//查找用户
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		//查找未读邮件
 		List<Mailreciver> noreadlist=mrdao.findByReadAndDelAndReciverId(false, false, user);
 		//查找创建了但是却没有发送的邮件
@@ -118,16 +117,14 @@ public class MailController {
 	}
 	
 	/**
-	 * 删除邮件
+	 * 删除邮件@SessionAttribute("userId") Long userId
 	 */
 	@RequestMapping("alldelete")
-	public String delete(HttpServletRequest req,HttpSession session, Model model,
+	public String delete(HttpServletRequest req,@SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		//查找用户
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		String title=req.getParameter("title");
 		Page<Pagemail> pagelist=null;
 		Page<Inmaillist> pagemail=null;
@@ -235,12 +232,10 @@ public class MailController {
 	 * 批量查看
 	 */
 	@RequestMapping("watch")
-	public String watch(HttpSession session, Model model,HttpServletRequest req,
+	public String watch(@SessionAttribute("userId") Long userId, Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long userid = Long.parseLong(userId);
-			User user=udao.findOne(userid);
+			User user=udao.findOne(userId);
 			String title=req.getParameter("title");
 			String ids=req.getParameter("ids");
 			Page<Pagemail> pagelist=null;
@@ -292,12 +287,10 @@ public class MailController {
 	 * 批量标星
 	 */
 	@RequestMapping("star")
-	public String star(HttpSession session, Model model,HttpServletRequest req,
+	public String star(@SessionAttribute("userId") Long userId, Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-			String userId = ((String) session.getAttribute("userId")).trim();
-			Long userid = Long.parseLong(userId);
-			User user=udao.findOne(userid);
+			User user=udao.findOne(userId);
 			String title=req.getParameter("title");
 			String ids=req.getParameter("ids");
 			Page<Pagemail> pagelist=null;
@@ -380,12 +373,10 @@ public class MailController {
 	 *邮箱条件查找
 	 */
 	@RequestMapping("mailtitle")
-	public String serch(HttpSession session, Model model,HttpServletRequest req,
+	public String serch(@SessionAttribute("userId") Long userId, Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		String title=req.getParameter("title");
 		String val=null;
 		Page<Pagemail> pagelist=null;
@@ -434,15 +425,11 @@ public class MailController {
 	 * 账号管理
 	 */
 	@RequestMapping("accountmanage")
-	public String account(HttpSession session, Model model,
+	public String account(@SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		
 		// 通过邮箱建立用户id找用户对象
-		User tu = udao.findOne(userid);
+		User tu = udao.findOne(userId);
 		
 		Page<Mailnumber> pagelist=mservice.index(page, size, tu, null,model);
 		List<Map<String, Object>> list=mservice.up(pagelist);
@@ -457,14 +444,11 @@ public class MailController {
 	 * 和查询
 	 */
 	@RequestMapping("mailpaixu")
-	public String paixu(HttpServletRequest request, HttpSession session, Model model,
+	public String paixu(HttpServletRequest request, @SessionAttribute("userId") Long userId, Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		// 通过发布人id找用户
-		User tu = udao.findOne(userid);
+		User tu = udao.findOne(userId);
 		//得到传过来的值
 		String val =null;
 		if(!StringUtil.isEmpty(request.getParameter("val"))){
@@ -485,11 +469,9 @@ public class MailController {
 	 * 修改账号
 	 */
 	@RequestMapping("addaccount")
-	public String add(HttpSession session, Model model,HttpServletRequest req){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
+	public String add(@SessionAttribute("userId") Long userId, Model model,HttpServletRequest req){
 		// 通过用户id找用户
-		User tu = udao.findOne(userid);
+		User tu = udao.findOne(userId);
 		
 		Mailnumber mailn=null;
 		if(StringUtil.isEmpty(req.getParameter("id"))){
@@ -529,10 +511,8 @@ public class MailController {
 	 * 存邮箱账号
 	 */
 	@RequestMapping("saveaccount")
-	public String save(HttpServletRequest request,@Valid Mailnumber mail,BindingResult br, HttpSession session){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User tu=udao.findOne(userid);
+	public String save(HttpServletRequest request,@Valid Mailnumber mail,BindingResult br, @SessionAttribute("userId") Long userId){
+		User tu=udao.findOne(userId);
 		request.setAttribute("mail", mail);
 		ResultVO res = BindingResultVOUtil.hasErrors(br);
 		if (!ResultEnum.SUCCESS.getCode().equals(res.getCode())) {
@@ -569,13 +549,11 @@ public class MailController {
 	 * 删除账号
 	 */
 	@RequestMapping("dele")
-	public String edit(HttpServletRequest request,HttpSession session){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
+	public String edit(HttpServletRequest request,@SessionAttribute("userId") Long userId){
 		//得到账号id
 		Long accountid=Long.parseLong(request.getParameter("id"));
 		Mailnumber mail=mndao.findOne(accountid);
-		if(mail.getMailUserId().getUserId().equals(userid)){
+		if(mail.getMailUserId().getUserId().equals(userId)){
 			mservice.dele(accountid);
 		}else{
 			return "redirect:/notlimit";
@@ -587,13 +565,11 @@ public class MailController {
 	 * 写信
 	 */
 	@RequestMapping("wmail")
-	public  String index2(Model model, HttpSession session,HttpServletRequest request,
+	public  String index2(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		String userId = ((String) session.getAttribute("userId")).trim();
 		Pageable pa=new PageRequest(page, size);
-		Long userid = Long.parseLong(userId);
-		User mu=udao.findOne(userid);
+		User mu=udao.findOne(userId);
 		//得到编辑过来的id
 		String id=null;
 		if(!StringUtil.isEmpty(request.getParameter("id"))){
@@ -651,10 +627,8 @@ public class MailController {
 	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("pushmail")
-	public String push(@RequestParam("file")MultipartFile file,HttpServletRequest request,@Valid Inmaillist mail,BindingResult br,HttpSession session) throws IllegalStateException, IOException{
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User tu=udao.findOne(userid);
+	public String push(@RequestParam("file")MultipartFile file,HttpServletRequest request,@Valid Inmaillist mail,BindingResult br,@SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
+		User tu=udao.findOne(userId);
 		
 		String name=null;
 		Attachment attaid=null;
@@ -733,11 +707,9 @@ public class MailController {
 	 * 用户姓名查找
 	 */
 	@RequestMapping("names")
-	public String serch(Model model,HttpServletRequest req, HttpSession session,
+	public String serch(Model model,HttpServletRequest req, @SessionAttribute("userId") Long userId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		Pageable pa=new PageRequest(page, size);
 		String name=null;
 		String qufen=null;
@@ -753,10 +725,10 @@ public class MailController {
 			System.out.println("111");
 			if(StringUtil.isEmpty(name)){
 				// 查询部门下面的员工
-				pageuser = udao.findByFatherId(userid,pa);
+				pageuser = udao.findByFatherId(userId,pa);
 			}else{
 				// 查询名字模糊查询员工
-				pageuser = udao.findbyFatherId(name,userid,pa);
+				pageuser = udao.findbyFatherId(name,userId,pa);
 			}
 			
 		}else{
@@ -787,13 +759,11 @@ public class MailController {
 	 * 最近邮件
 	 */
 	@RequestMapping("amail")
-	public  String index3(HttpServletRequest req,HttpSession session,Model model,
+	public  String index3(HttpServletRequest req,@SessionAttribute("userId") Long userId,Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		String userId = ((String) session.getAttribute("userId")).trim();
 		Pageable pa=new PageRequest(page, size);
-		Long userid = Long.parseLong(userId);
-		User mu=udao.findOne(userid);
+		User mu=udao.findOne(userId);
 		String mess=req.getParameter("title");
 		
 		Page<Pagemail> pagelist=null;
@@ -834,10 +804,8 @@ public class MailController {
 	 * 查看邮件
 	 */
 	@RequestMapping("smail")
-	public  String index4(HttpServletRequest req,HttpSession session,Model model) {
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
-		User mu=udao.findOne(userid);
+	public  String index4(HttpServletRequest req,@SessionAttribute("userId") Long userId,Model model) {
+		User mu=udao.findOne(userId);
 		//邮件id
 		Long id=Long.parseLong(req.getParameter("id"));
 		//title
@@ -879,13 +847,11 @@ public class MailController {
 	 * 
 	 */
 	@RequestMapping("refresh")
-	public String refresh(HttpServletRequest req,HttpSession session,Model model,
+	public String refresh(HttpServletRequest req,@SessionAttribute("userId") Long userId,Model model,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size){
-		String userId = ((String) session.getAttribute("userId")).trim();
-		Long userid = Long.parseLong(userId);
 		//查找用户
-		User user=udao.findOne(userid);
+		User user=udao.findOne(userId);
 		String title=req.getParameter("title");
 		Page<Pagemail> pagelist=null;
 		List<Map<String, Object>> maillist=null;
