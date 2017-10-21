@@ -371,7 +371,7 @@
 			<div class="panel" style="background-color: #00c86c;color: white;">
 				<div class="" style="border-bottom: 1px solid #94d294;;">
 					<div class="panel-title" style="display: inline-block;">
-						<h4><span class="glyphicon glyphicon-calendar"></span>行事历</h4>
+						<h4><span class="glyphicon glyphicon-calendar"></span> 行事历</h4>
 					</div>
 					<div class="pull-right right-btn-group btn-color dropdown"
 						style="display: inline-block;">

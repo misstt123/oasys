@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ch.qos.logback.core.joran.action.IADataForComplexProperty;
+import ch.qos.logback.core.net.SyslogOutputStream;
 import cn.gson.oasys.common.StringtoDate;
 import cn.gson.oasys.model.dao.attendcedao.AttendceDao;
 import cn.gson.oasys.model.dao.attendcedao.AttendceService;
@@ -483,9 +484,21 @@ public class AttendceController {
 				else
 				result.add(attenceDao.countnum(month, statusId, user.getUserId()));
 			}
+			//添加请假和出差的记录//应该是查找 使用sql的sum（）函数来统计出差和请假的次数
+			result.add(attenceDao.countnum(month, 46L, user.getUserId()));
+			result.add(attenceDao.countnum(month, 47L, user.getUserId()));
 			//这里记录了旷工的次数 还有请假天数没有记录 旷工次数=30-8-请假次数-某天签到次数
 			//这里还有请假天数没有写
-			result.add(30-8-offnum);
+			Date date=new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
+			String date_month=sdf.format(date);
+			if(month!=null){
+				if(month.compareTo(date_month)>=0)
+					result.add(0);
+				else
+				result.add(30-8-offnum);
+			}
+			
 			uMap.put(user.getUserName(), result);
 		}
 		model.addAttribute("uMap", uMap);

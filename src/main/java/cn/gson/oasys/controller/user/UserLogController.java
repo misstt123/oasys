@@ -69,6 +69,7 @@ public class UserLogController {
 			response.getWriter().write(json);
 		return null;
 	}
+	
 	private static void setToFirstDay(Calendar calendar) {
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
             calendar.add(Calendar.DATE, -1);
@@ -92,16 +93,11 @@ public class UserLogController {
 		HashMap< String, Integer> hashMap=new HashMap<>();
 		int i=0;
 		for (User user : uList) {
-			if(taskDao.countfinish(5l, user.getUserId())>0){
-				hashMap.put(user.getUserName(), taskDao.countfinish(5l, user.getUserId()));
+			if(taskDao.countfinish(7l, user.getUserId())>0){
+				hashMap.put(user.getUserName(), taskDao.countfinish(7l, user.getUserId()));
 				i++;
 			}
 		}
-		hashMap.put("我1", 3);
-		hashMap.put("我2", 4);
-		hashMap.put("我9", 5);
-		hashMap.put("我", 8);
-		hashMap.put("我5", 19);
 		 ArrayList<Map.Entry<String,Integer>> entries= sortMap(hashMap);
 		 ArrayList<Map.Entry<String,Integer>> entries2=new ArrayList<Map.Entry<String,Integer>>();
 		
