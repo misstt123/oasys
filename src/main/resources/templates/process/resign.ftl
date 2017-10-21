@@ -1,6 +1,9 @@
 <#include "/common/commoncss.ftl">
 <link rel="stylesheet" href="css/common/tanchuang.css" />
 <style>
+.modal-open {
+    overflow: auto;
+}
 .box-header{
   text-align: center;
   border-bottom: 0px solid #f4f4f4;

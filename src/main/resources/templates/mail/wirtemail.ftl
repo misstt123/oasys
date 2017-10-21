@@ -33,7 +33,7 @@ border-radius: 5px;
 			<div class="form-group">
 				<select name="mailType" id="ctl00_cphMain_ddlType"
 					class="select2 form-control">
-					<#if id??>
+					<#if id=="回复">
 					<option value="${type.typeId}">${type.typeName}</option>
 						<#if type.typeId==16>
 						<#else>
@@ -57,7 +57,7 @@ border-radius: 5px;
 			<div class="form-group">
 				<select name="mailStatusid" id="ctl00_cphMain_ddlStatus"
 					class="select2 form-control">
-					<#if id??>
+					<#if id=="回复">
 						<option value="${status.statusId}">${status.statusName}</option>
 						<#if type.typeId==20>
 						<#else>
@@ -106,7 +106,7 @@ border-radius: 5px;
 		</div>
 
 		<div class="form-group">
-			<#if id??>
+			<#if id=="回复">
 			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;"><br/><hr/>${(content)!''}</textarea>
 			<#else>
 			<textarea name="content" class="form-control tent" style="width: 100%; height: 300px; visibility: hidden; font-size: 20px;">${(content)!''}</textarea>

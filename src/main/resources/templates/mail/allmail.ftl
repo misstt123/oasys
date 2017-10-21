@@ -5,9 +5,9 @@
 		<div class="box-header">
 			<h3 class="box-title titles">${mess}</h3>
 			<div class="box-tools">
-				<div class="input-group" style="width: 190px; margin-top: 0px;">
+				<div class="input-group" style="width: 220px; margin-top: 0px;">
 					<input type="text" class="form-control input-sm cha"
-						placeholder="类型，主题，状态查询" />
+						placeholder="类型，主题，状态，收件人查询" />
 					<div class="input-group-btn chazhao">
 						<a class="btn btn-sm btn-default"><span
 							class="glyphicon glyphicon-search"></span></a>
