@@ -1,6 +1,9 @@
 package cn.gson.oasys.controller.login;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 
@@ -16,7 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.user.LoginRecord;
 import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.user.UserLongRecordService;
+import eu.bitwalker.useragentutils.Browser;
+import eu.bitwalker.useragentutils.UserAgent;
+import eu.bitwalker.useragentutils.Version;
 
 
 
@@ -26,6 +34,8 @@ public class LoginsController {
 	
 	@Autowired
 	private UserDao uDao;
+	@Autowired
+	UserLongRecordService ulService;
 	
 	public static final String CAPTCHA_KEY = "session_captcha";
 
@@ -51,9 +61,10 @@ public class LoginsController {
 	 * 1、根据(用户名或电话号码)+密码进行查找
 	 * 2、判断使用是否被冻结；
 	 * @return
+	 * @throws UnknownHostException 
 	 */
 	@RequestMapping(value="logins",method = RequestMethod.POST)
-	public String loginCheck(HttpSession session,HttpServletRequest req,Model model){
+	public String loginCheck(HttpSession session,HttpServletRequest req,Model model) throws UnknownHostException{
 		String userName=req.getParameter("userName").trim();
 		String password=req.getParameter("password");
 		String ca=req.getParameter("code").toLowerCase();
@@ -90,6 +101,12 @@ public class LoginsController {
 			return "login/login";
 		}else{
 			session.setAttribute("userId", user.getUserId());
+			Browser browser = UserAgent.parseUserAgentString(req.getHeader("User-Agent")).getBrowser();
+			Version version = browser.getVersion(req.getHeader("User-Agent"));
+			String info = browser.getName() + "/" + version.getVersion();
+			String ip=InetAddress.getLocalHost().getHostAddress();
+			/*新增登录记录*/
+			ulService.save(new LoginRecord(ip, new Date(), info, user));
 		}
 		return "redirect:/index";
 	}

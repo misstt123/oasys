@@ -45,6 +45,16 @@ public class LoginRecord {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	
+	
+	public LoginRecord(String ipAddr, Date loginTime, String browser, User user) {
+		super();
+		this.ipAddr = ipAddr;
+		this.loginTime = loginTime;
+		this.browser = browser;
+		this.user = user;
+	}
+
 	public LoginRecord() {
 
 	}

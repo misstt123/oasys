@@ -33,6 +33,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/eu.bitwalker/UserAgentUtils -->
+		<dependency>
+			<groupId>eu.bitwalker</groupId>
+			<artifactId>UserAgentUtils</artifactId>
+			<version>1.20</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.github.stuxuhai/jpinyin -->
 		<!-- 导入Jpinyin；汉字转拼音的包 -->
 		<dependency>
