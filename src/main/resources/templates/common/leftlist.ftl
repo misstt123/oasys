@@ -6,7 +6,7 @@
 	<div class="list-left"
 		style="width: 100%; background: rgb(34, 45, 50);">
 		<div style="padding: 10px 0 20px 6px;">
-			<img src="images/touxiang/${(user.imgPath)!'timg.jpg'}"
+			<img src="/image/${(user.imgPath)!'/timg.jpg'}"
 				style="width: 32px; height: 32px; border-radius: 50%;" />
 		</div>
 		<ul class="list-group">

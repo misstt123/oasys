@@ -78,6 +78,7 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,  Object handler, Exception ex)
 			throws Exception {
+		HttpSession session=request.getSession();
 		//导入dao类
 		UserDao userDao=tool.getBean(UserDao.class, request);
 		SystemMenuDao systemMenuDao=tool.getBean(SystemMenuDao.class, request);
@@ -92,8 +93,9 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 		//System.out.println(request.getRequestedSessionId());
 		uLog.setUrl(request.getServletPath());
 		uLog.setLogTime(new Date());
-		HttpSession session=request.getSession();
+	
 		//还没有登陆不能获取session
+		
 		uLog.setUser(userDao.findOne(Long.valueOf(session.getAttribute("userId")+"")));
 //		uLog.setUser(userDao.findOne(1l));
 		//从菜单表里面匹配

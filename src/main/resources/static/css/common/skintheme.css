@@ -8,6 +8,7 @@
 .yellow-y{
 	background: #d69325;
 }
+.yellow-none:focus,
 .yellow-none:HOVER,
 .yellow-none:visited{
 	background: #d69325!important;;
@@ -53,6 +54,7 @@
 .red-r{
 	background:#c54030 !important;
 }
+.red-none:focus,
 .red-none:HOVER,
 .red-none:visited{
 	background: #c54030 !important;
@@ -74,6 +76,7 @@
 .green-g{
 	background: #008d4c;
 }
+.green-none:focus,
 .green-none:HOVER,
 .green-none:visited{
 	background: #008d4c!important;;

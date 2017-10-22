@@ -35,7 +35,7 @@
 			<tr>
 				<td><span>${user.dept.deptName}</span></td>
 				<td><span>${user.position.name}</span></td>
-				<td><a href="#"> <img src="images/touxiang/${(user.imgPath)!'timg.jpg'}" class="img-circle"
+				<td><a href="#"> <img src="image/${(user.imgPath)!'timg.jpg'}" class="img-circle"
 						style="width: 24px; height: 24px;">
 				</a></td>
 				<td><span>${user.userName}</span></td>

@@ -5,6 +5,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,
 maximum-scale=1, user-scalable=no">
+<link href="images/favicon1.ico" rel="icon" type="image/x-icon"/>
+<link href="images/favicon1.ico" rel="shortcut icon" type="image/x-icon"/>
 <title>控制面板主页</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 <script type="text/javascript" src="easyui/jquery.min.js"></script>
@@ -12,6 +14,7 @@ maximum-scale=1, user-scalable=no">
 <script type="text/javascript" src="js/common/tocolor.js"></script>
 <link rel="stylesheet" href="css/homelist.css" />
 <link rel="stylesheet" href="css/common/skintheme.css" />
+
 	<script type="text/javascript">
 		$(function(){
 			var themeSkin='${user.themeSkin}';
