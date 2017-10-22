@@ -17,20 +17,20 @@
 						<div class="table-responsive">
 										<table class="table table-hover table-striped">
 											<tr class="table-header">
-												<th scope="col" class="paixu thistype">类型
+												<th scope="col" class="paixu thistype" style="color:blue;">类型
 										<#if type?? && icon??>
 										<span class="glyphicon ${icon}"></span>
 										</#if>
 									</th>
 												<th scope="col">标题</th>
-												<th scope="col"><span class="paixu thistime">发布时间
+												<th scope="col"><span class="paixu thistime" style="color:blue;">发布时间
 						<#if time?? && icon??>
 							<span class="glyphicon ${icon}"></span>
 						</#if>
 						</span></th>
 												<th scope="col">发布人</th>
 												<th scope="col">部门</th>
-												<th scope="col"><span class="paixu thisstatus">状态
+												<th scope="col"><span class="paixu thisstatus" style="color:blue;">状态
 						<#if status?? && icon??>
 							<span class="glyphicon ${icon}"></span>
 						</#if>

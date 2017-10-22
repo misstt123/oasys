@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -32,7 +34,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.github.pagehelper.util.StringUtil;
 
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
@@ -47,6 +52,8 @@ import cn.gson.oasys.model.dao.notedao.NoteService;
 import cn.gson.oasys.model.dao.notedao.NoteUserDao;
 import cn.gson.oasys.model.dao.system.StatusDao;
 import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.DeptDao;
+import cn.gson.oasys.model.dao.user.PositionDao;
 import cn.gson.oasys.model.dao.user.UserDao;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.note.Catalog;
@@ -54,6 +61,8 @@ import cn.gson.oasys.model.entity.note.Note;
 import cn.gson.oasys.model.entity.note.Noteuser;
 import cn.gson.oasys.model.entity.system.SystemStatusList;
 import cn.gson.oasys.model.entity.system.SystemTypeList;
+import cn.gson.oasys.model.entity.user.Dept;
+import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.file.FileServices;
 import cn.gson.oasys.services.process.ProcessService;
@@ -86,6 +95,10 @@ public class NoteController {
 	private NoteUserDao noteUserDao;
 	@Autowired
 	private ProcessService pservice;
+	@Autowired
+	private DeptDao ddao;
+	@Autowired
+	private PositionDao pdao;
 	
 	Attachment att;
 	List<Note> noteList;
@@ -539,11 +552,77 @@ public class NoteController {
 			}
 			// Request.setAttribute("id", nid);
 		}
-		pservice.user(page, size, model);
+		userget(page, size, model);
+		
 		Request.setAttribute("users", users);
 		Request.setAttribute("calist", cataloglist);
 		typestatus(Request);
 		return "note/noteedit";
+	}
+	
+	public void userget(int page,int size,Model model){
+		Pageable pa=new PageRequest(page, size);
+		//查看用户并分页
+		Page<User> pageuser=userDao.findAll(pa);
+		List<User> userlist=pageuser.getContent();
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
+		model.addAttribute("page", pageuser);
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("poslist", poslist);
+		model.addAttribute("url", "namereceive");
+	}
+	
+	@RequestMapping("namereceive")
+	public String serch(Model model,HttpServletRequest req, @SessionAttribute("userId") Long userId,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int size){
+		Pageable pa=new PageRequest(page, size);
+		String name=null;
+		String qufen=null;
+		Page<User> pageuser=null;
+		List<User> userlist=null;
+		
+		if(!StringUtil.isEmpty(req.getParameter("title"))){
+			name=req.getParameter("title").trim();
+		}
+		if(!StringUtil.isEmpty(req.getParameter("qufen"))){
+			qufen=req.getParameter("qufen").trim();
+			
+			System.out.println("111");
+			if(StringUtil.isEmpty(name)){
+				// 查询部门下面的员工
+				pageuser = userDao.findByFatherId(userId,pa);
+			}else{
+				// 查询名字模糊查询员工
+				pageuser = userDao.findbyFatherId(name,userId,pa);
+			}
+			
+		}else{
+			System.out.println("222");
+			if(StringUtil.isEmpty(name)){
+				//查看用户并分页
+				pageuser=userDao.findAll(pa);
+			}else{
+				pageuser=userDao.findbyUserNameLike(name, pa);
+			}
+		}
+		userlist=pageuser.getContent();
+		// 查询部门表
+		Iterable<Dept> deptlist = ddao.findAll();
+		// 查职位表
+		Iterable<Position> poslist = pdao.findAll();
+		model.addAttribute("emplist", userlist);
+		model.addAttribute("page", pageuser);
+		model.addAttribute("deptlist", deptlist);
+		model.addAttribute("poslist", poslist);
+		model.addAttribute("url", "namereceive");
+		
+		return "common/noterecivers";
+		
 	}
 	private void notedelete(long realuserId, long noteid) {
 		//删除共享笔记就是只删除中间表noteid对应的那个userid
