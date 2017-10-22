@@ -52,6 +52,7 @@ import cn.gson.oasys.model.entity.user.Dept;
 import cn.gson.oasys.model.entity.user.Position;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.mail.MailServices;
+import cn.gson.oasys.services.process.ProcessService;
 
 @Controller
 @RequestMapping("/")
@@ -81,6 +82,8 @@ public class MailController {
 	private AttachmentDao AttDao;
 	@Autowired
 	private MailServices mservice;
+	@Autowired
+	private ProcessService proservice;
 	
 	/**
 	 * 邮件管理主页
@@ -391,7 +394,7 @@ public class MailController {
 			maillist=mservice.mail(pagelist);
 			
 		}else if(("发件箱").equals(title)){
-			System.out.println(title+"asdfghjkl;kjhgrf"+val);
+			
 			pagemail=mservice.inmail(page, size, user, val,title);
 			maillist=mservice.maillist(pagemail);
 		}else if(("草稿箱").equals(title)){
@@ -569,7 +572,7 @@ public class MailController {
 	public  String index2(Model model, @SessionAttribute("userId") Long userId,HttpServletRequest request,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size) {
-		Pageable pa=new PageRequest(page, size);
+		
 		User mu=udao.findOne(userId);
 		//得到编辑过来的id
 		String id=null;
@@ -592,34 +595,24 @@ public class MailController {
 				model.addAttribute("title",mail.getMailTitle());
 				model.addAttribute("content", mail.getContent());
 			}
-			
-			
 			model.addAttribute("status", sdao.findOne(mail.getMailStatusid()));
 			model.addAttribute("type", tydao.findOne(mail.getMailType()));
-			model.addAttribute("id", id);
+			model.addAttribute("id", "回复");
+			
 		}else{
 		
 		List<SystemTypeList> typelist=tydao.findByTypeModel("aoa_in_mail_list");
 		List<SystemStatusList>  statuslist=sdao.findByStatusModel("aoa_in_mail_list");
 		model.addAttribute("typelist", typelist);
 		model.addAttribute("statuslist", statuslist);
+		model.addAttribute("id", "新发");
+		
 		}
 		//查看该用户所创建的有效邮箱账号
 		List<Mailnumber> mailnum=mndao.findByStatusAndMailUserId(1L, mu);
-		//查看用户并分页
-		Page<User> pageuser=udao.findAll(pa);
-		List<User> userlist=pageuser.getContent();
-		// 查询部门表
-		Iterable<Dept> deptlist = ddao.findAll();
-		// 查职位表
-		Iterable<Position> poslist = pdao.findAll();
-	
+		proservice.user(page, size, model);
 		model.addAttribute("mailnum", mailnum);
-		model.addAttribute("page", pageuser);
-		model.addAttribute("emplist", userlist);
-		model.addAttribute("deptlist", deptlist);
-		model.addAttribute("poslist", poslist);
-		model.addAttribute("url", "names");
+		
 		return "mail/wirtemail";
 	}
 	/**

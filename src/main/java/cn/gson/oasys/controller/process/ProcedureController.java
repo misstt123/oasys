@@ -462,11 +462,19 @@ public class ProcedureController {
 					}
 				}
 				
-			}else if(!("离职申请").equals(typename)){
+			}else if(("费用报销").equals(typename)){
 				
-				if(u2.getPosition().getId()==5||u2.getPosition().getId().equals(7L)){
+				if(u2.getPosition().getId().equals(5L)){
 					proservice.save(proid, u, reviewed, pro, u2);
 				}else{
+					model.addAttribute("error", "请选财务经理。");
+					return "common/proce";
+				}
+			}else{
+				if(u2.getPosition().getId().equals(7L)){
+					proservice.save(proid, u, reviewed, pro, u2);
+				}else{
+					model.addAttribute("error", "请选人事经理。");
 					return "common/proce";
 				}
 			}
@@ -514,7 +522,6 @@ public class ProcedureController {
 		}else if(("出差费用").equals(typename)){
 			EvectionMoney emoney=emdao.findByProId(pro);
 			if(shen.getFatherId().equals(u.getUserId())){
-				
 				emoney.setManagerAdvice(reviewed.getAdvice());
 				emdao.save(emoney);
 			}

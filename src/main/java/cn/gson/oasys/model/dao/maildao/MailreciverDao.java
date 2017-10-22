@@ -32,7 +32,7 @@ public interface MailreciverDao extends PagingAndSortingRepository<Mailreciver, 
 	
 	//邮件主题或者接收人的模糊查询
 	@Query("select new cn.gson.oasys.model.entity.mail.Pagemail(list.mailId,list.mailType,list.mailStatusid,list.mailTitle,list.inReceiver,list.mailFileid.attachmentId,list.mailCreateTime,mr.star,mr.read) "
-			+ "from Mailreciver as mr ,Inmaillist as list where list.mailId=mr.mailId.mailId and mr.reciverId=?1 and mr.del=?2 and list.mailTitle like %?3% order by list.mailCreateTime DESC")
+			+ "from Mailreciver as mr ,Inmaillist as list where list.mailId=mr.mailId.mailId and mr.reciverId=?1 and mr.del=?2 and (list.mailTitle like %?3% or list.inReceiver like %?3%) order by list.mailCreateTime DESC")
 	Page<Pagemail> findmails(User user,Boolean bo,String title,Pageable pa);
 	
 	//根据状态查询接收邮件
