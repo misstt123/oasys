@@ -59,8 +59,10 @@ public class DaymanageController {
 			) {
 		List<SystemTypeList> types = typedao.findByTypeModel("aoa_schedule_list");
 		List<SystemStatusList> statuses = statusdao.findByStatusModel("aoa_schedule_list");
-		
-		Sort sort=new Sort(new Order(Direction.ASC,"user"));
+		List<Order> orders=new ArrayList<>();
+		orders.add(new Order(Direction.DESC, "statusId"));
+		orders.add(new Order(Direction.DESC, "createTime"));
+		Sort sort=new Sort(orders);
 		Pageable pa=new PageRequest(page, size,sort);
 		User user = udao.findOne(userid);
 		Page<ScheduleList> myday = daydao.findByUser(user, pa);

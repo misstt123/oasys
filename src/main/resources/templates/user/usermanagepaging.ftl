@@ -5,10 +5,10 @@
 			<a href="useredit" class="label label-success" style="padding: 5px;">
 				<span class="glyphicon glyphicon-plus"></span> 新增
 			</a> 
-			<a href="daycalendar" class="label label-primary"
+			<!-- <a href="daycalendar" class="label label-primary"
 				style="padding: 5px; margin-left: 5px;"> <span
 				class="glyphicon glyphicon-gift"></span> 生日
-			</a>
+			</a> -->
 		</h3>
 		<div class="box-tools">
 			<div class="input-group" style="width: 150px;">

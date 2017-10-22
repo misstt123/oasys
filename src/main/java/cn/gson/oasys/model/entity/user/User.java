@@ -42,7 +42,6 @@ public class User {
 	
 	@Column(name="user_tel")
 	@NotEmpty(message="电话不能为空")
-	@Pattern(regexp="^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message="请填写正确手机号")
 	private String userTel;		//用户电话
 	
 	@Column(name="real_name")
