@@ -397,6 +397,7 @@ public class AttendceController {
 		request.setAttribute("page", page2);
 		request.setAttribute("url", "attendcetable");
 	}
+	
 	//周报表分页
 	private void weektablepaging(HttpServletRequest request, HttpSession session, int page, String baseKey) {
 		String starttime = request.getParameter("starttime");
@@ -405,6 +406,7 @@ public class AttendceController {
 		service.addConverter(new StringtoDate());
 		Date startdate = service.convert(starttime, Date.class);
 		Date enddate = service.convert(endtime, Date.class);
+		
 		//用来查找该用户下面管理的所有用户信息
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		List<Long> ids = new ArrayList<>();
@@ -421,7 +423,7 @@ public class AttendceController {
 			{start=startdate;end=enddate;}
 		if(startdate==null&&enddate==null)
 			startdate=start;enddate=end;
-			
+			System.out.println("再次获取"+startdate+"结束"+enddate);
 		List<Attends> alist = attenceDao.findoneweek(startdate, enddate, ids);
 		Set<Attends> attenceset = new HashSet<>();
 		for (User user : userspage) {
