@@ -116,7 +116,6 @@ h1, h3 {
 				<img style="width: 110px;height: 110px;"
 					class="profile-user-img img-responsive img-circle"
 					src="images/timg.jpg" alt="images"/>
-				
 				</#if>	
 					</span>
 				<h3 class="profile-username text-center">

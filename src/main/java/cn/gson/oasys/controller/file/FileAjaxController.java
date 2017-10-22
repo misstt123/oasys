@@ -111,6 +111,7 @@ public class FileAjaxController {
 			model.addAttribute("files", fileLists);
 			model.addAttribute("isshare", 1);
 			model.addAttribute("isload",1);
+			model.addAttribute("userid",userid);
 			break;
 			
 
@@ -127,7 +128,7 @@ public class FileAjaxController {
 	@RequestMapping("findfileandpath")
 	public String findfileandpath(@SessionAttribute("userId") Long userid,
 			@RequestParam(value = "findfileandpath",required=false) String findfileandpath,
-			@RequestParam("type") String type,
+			@RequestParam(value = "type",defaultValue="all") String type,
 			Model model){
 		System.out.println("查找！~~~~~~");
 		String findlike = "%" +findfileandpath+ "%";
@@ -174,13 +175,14 @@ public class FileAjaxController {
 			break;
 			
 		case "trash":
-			filePaths = fpdao.findByPathUserIdAndPathIstrashAndPathNameLikeAndParentIdNot(user, 1L, findlike, fpath.getId());
-			fileLists = fldao.findByUserAndFileIstrashAndContentTypeLikeAndFileNameLike(user, 1L, null, findlike);
+			filePaths = fpdao.findByPathUserIdAndPathIstrashAndPathNameLikeAndParentIdNot(userid, 1L, findlike, 1L);
+			fileLists = fldao.findByUserAndFileIstrashAndContentTypeLikeAndFileNameLike(user, 1L, "%%", findlike);
 			model.addAttribute("istrash", 1);
 			model.addAttribute("isload",1);
 			model.addAttribute("paths", filePaths);
 			model.addAttribute("files", fileLists);
 			break;
+			
 		case "share":
 			fileLists = fldao.findByFileIsshareAndFileNameLike(1L, findlike);
 			model.addAttribute("files", fileLists);
@@ -188,9 +190,12 @@ public class FileAjaxController {
 			model.addAttribute("isload",1);
 			break;
 			
-
 		default:
 			System.out.println("什么都不是");
+			filePaths = fpdao.findByPathUserIdAndPathIstrashAndPathNameLikeAndParentIdNot(userid, 0L, findlike, 1L);
+			fileLists = fldao.findByUserAndFileIstrashAndFileNameLike(user, 0L,findlike);
+			model.addAttribute("files", fileLists);
+			model.addAttribute("paths", filePaths);
 			model.addAttribute("isload",1);
 			break;
 		}
@@ -198,6 +203,20 @@ public class FileAjaxController {
 		model.addAttribute("type", type);
 		return "file/filetypeload";
 		
+	}
+	
+	@RequestMapping("fileloadshare")
+	public String fileloadshare(@RequestParam("type") String type,
+			@RequestParam(value="checkfileids[]",required=false) List<Long> checkfileids,
+			Model model
+			){
+		if (checkfileids!=null) {
+			fs.doshare(checkfileids);
+		}
+		
+		model.addAttribute("message","分享成功");
+		model.addAttribute("type", type);
+		return "forward:/filetypeload";
 	}
 	
 	/**

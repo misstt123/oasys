@@ -45,12 +45,23 @@ public class DeptController {
 	}
 	
 	@RequestMapping(value = "deptedit" ,method = RequestMethod.POST)
-	public String adddept(@Valid Dept dept,BindingResult br,Model model){
+	public String adddept(@Valid Dept dept,@RequestParam("xg") String xg,BindingResult br,Model model){
 		System.out.println(br.hasErrors());
 		System.out.println(br.getFieldError());
 		if(!br.hasErrors()){
 			System.out.println("没有错误");
 			Dept adddept = deptdao.save(dept);
+			if("add".equals(xg)){
+				System.out.println("新增拉");
+				Position jinli = new Position();
+				jinli.setDeptid(adddept.getDeptId());
+				jinli.setName("经理");
+				Position wenyuan = new Position();
+				wenyuan.setDeptid(adddept.getDeptId());
+				wenyuan.setName("文员");
+				pdao.save(jinli);
+				pdao.save(wenyuan);
+			}
 			if(adddept!=null){
 				System.out.println("插入成功");
 				model.addAttribute("success",1);
@@ -75,7 +86,11 @@ public class DeptController {
 	public String readdept(@RequestParam(value = "deptid") Long deptId,Model model){
 		
 		Dept dept = deptdao.findOne(deptId);
-		User deptmanage = udao.findOne(dept.getDeptmanager());
+		User deptmanage = null;
+		if(dept.getDeptmanager()!=null){
+			deptmanage = udao.findOne(dept.getDeptmanager());
+			model.addAttribute("deptmanage",deptmanage);
+		}
 		List<Dept> depts = (List<Dept>) deptdao.findAll();
 		List<Position> positions = pdao.findByDeptidAndNameNotLike(1L, "%经理");
 		System.out.println(deptmanage);
@@ -93,7 +108,7 @@ public class DeptController {
 		model.addAttribute("positions",positions);
 		model.addAttribute("depts",depts);
 		model.addAttribute("deptuser",formaluser);
-		model.addAttribute("deptmanage",deptmanage);
+		
 		model.addAttribute("dept",dept);
 		model.addAttribute("isread",1);
 		
@@ -119,31 +134,61 @@ public class DeptController {
 		return "/readdept";
 	}
 	
+	@RequestMapping("deletdept")
+	public String deletdept(@RequestParam("deletedeptid") Long deletedeptid){
+		Dept dept = deptdao.findOne(deletedeptid);
+		List<Position> ps = pdao.findByDeptid(deletedeptid);
+		for (Position position : ps) {
+			System.out.println(position);
+			pdao.delete(position);
+		}
+		deptdao.delete(dept);
+		return "/deptmanage";
+		
+	}
+	
 	@RequestMapping("deptmanagerchange")
 	public String deptmanagerchange(@RequestParam(value="positionid",required=false) Long positionid,
 			@RequestParam(value="changedeptid",required=false) Long changedeptid,
 			@RequestParam(value="oldmanageid",required=false) Long oldmanageid,
-			@RequestParam("newmanageid") Long newmanageid,
+			@RequestParam(value="newmanageid",required=false) Long newmanageid,
 			@RequestParam("deptid") Long deptid,
 			Model model){
 		System.out.println("oldmanageid:"+oldmanageid);
 		System.out.println("newmanageid:"+newmanageid);
 		Dept deptnow = deptdao.findOne(deptid);
-		User oldmanage = udao.findOne(oldmanageid);
-		User newmanage = udao.findOne(newmanageid);
+		if(oldmanageid!=null){
+			User oldmanage = udao.findOne(oldmanageid);
+			
+			Position namage = oldmanage.getPosition();
+			
+			Dept changedept = deptdao.findOne(changedeptid);
+			Position changeposition = pdao.findOne(positionid);
+			
+			oldmanage.setDept(changedept);
+			oldmanage.setPosition(changeposition);
+			udao.save(oldmanage);
+			
+			if(newmanageid!=null){
+				User newmanage = udao.findOne(newmanageid);
+				newmanage.setPosition(namage);
+				deptnow.setDeptmanager(newmanageid);
+				deptdao.save(deptnow);
+				udao.save(newmanage);
+			}else{
+				deptnow.setDeptmanager(null);
+				deptdao.save(deptnow);
+			}
+			
+		}else{
+			User newmanage = udao.findOne(newmanageid);
+			Position manage = pdao.findByDeptidAndNameLike(deptid, "%经理").get(0);
+			newmanage.setPosition(manage);
+			deptnow.setDeptmanager(newmanageid);
+			deptdao.save(deptnow);
+			udao.save(newmanage);
+		}
 		
-		Position namage = oldmanage.getPosition();
-		
-		Dept changedept = deptdao.findOne(changedeptid);
-		Position changeposition = pdao.findOne(positionid);
-		
-		oldmanage.setDept(changedept);
-		oldmanage.setPosition(changeposition);
-		udao.save(oldmanage);
-		
-		newmanage.setPosition(namage);
-		deptnow.setDeptmanager(newmanageid);
-		udao.save(newmanage);
 		
 		
 		model.addAttribute("deptid",deptid);
