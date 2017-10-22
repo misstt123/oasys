@@ -58,6 +58,9 @@ var starttime,endtime;
 				 else
 				 dayDistance=date.getDay()-1;
 				//距离该周的星期日有多少天
+				if(date.getDay()==0)
+					dayDistance2=0;
+				else
 				var dayDistance2=7-date.getDay();
 				//先获得该日期的年 月
 				var year = date.getFullYear();  
@@ -65,7 +68,6 @@ var starttime,endtime;
     			var day=date.getDate();
     			//今天的日期
     			var today=year+"-"+month+"-"+day;
-    			
     			//该周的星期一
 				var day1=changeSomeday(today,-dayDistance);
 				//该周的星期日
