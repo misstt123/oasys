@@ -45,7 +45,7 @@
 								${note.content}
 								<#if att??>
 								<div>
-									<img src="down" />
+									<img src="down?nid=${note.noteId}" />
 								</div>
 								</#if>
 								<hr>
