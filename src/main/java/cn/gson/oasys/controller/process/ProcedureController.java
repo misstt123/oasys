@@ -462,7 +462,7 @@ public class ProcedureController {
 					}
 				}
 				
-			}else if(("费用报销").equals(typename)){
+			}else if(("费用报销").equals(typename)||("出差费用").equals(typename)){
 				
 				if(u2.getPosition().getId().equals(5L)){
 					proservice.save(proid, u, reviewed, pro, u2);

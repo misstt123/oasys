@@ -122,6 +122,11 @@ public class UserController {
 			String pinyin=PinyinHelper.convertToPinyinString(user.getUserName(), "", PinyinFormat.WITHOUT_TONE);
 			user.setPinyin(pinyin);
 			user.setPassword("123456");
+			user.setDept(dept);
+			user.setRole(role);
+			user.setPosition(position);
+			user.setFatherId(dept.getDeptmanager());
+			udao.save(user);
 		}else{
 			User user2 = udao.findOne(user.getUserId());
 			user2.setUserTel(user.getUserTel());
@@ -134,15 +139,17 @@ public class UserController {
 			user2.setBank(user.getBank());
 			user2.setThemeSkin(user.getThemeSkin());
 			user2.setSalary(user.getSalary());
+			user2.setFatherId(dept.getDeptmanager());
 			if(isbackpassword){
 				user2.setPassword("123456");
 			}
+			user2.setDept(dept);
+			user2.setRole(role);
+			user2.setPosition(position);
+			udao.save(user2);
 		}
 		
-		user.setDept(dept);
-		user.setRole(role);
-		user.setPosition(position);
-		udao.save(user);
+		
 		
 		model.addAttribute("success",1);
 		return "/usermanage";

@@ -172,7 +172,7 @@ border-top: 1px solid #2196F3;
 					<td  style="width:170px;"><div class="bottom">${map.startime}</div></td>
 					<td class="css"style="width:30px;"></td>
 					<td class="wi" style="width:90px;"><label class="control-label">结束日期</label></td>
-					<td colspan="4" style="width:44px;"><div class="bottom">${map.endtime}</div></td>
+					<td colspan="4" style="width:108px;"><div class="bottom">${map.endtime}</div></td>
 					<td class="css" style="width:30px;"></td>
 					<td class="wi"><label class="control-label">出差天数</label></td>
 					<td colspan="4" ><div class="bottom">${(map.tianshu)!''}</div></td>

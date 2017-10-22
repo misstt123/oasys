@@ -107,7 +107,7 @@
 
 <body>
 <div class="cotn_principal">
-  <div class="cont_centrar" style="top:10%;">
+  <div class="cont_centrar" style="top:5%;">
     <div class="cont_login">
       <div class="cont_forms cont_forms_active_login" style="height: 480px;width: 400px;border-radius: 15px;">
         <div class="cont_img_back_"> <img src="images/timg.jpeg" alt="背景图片" /> </div>
