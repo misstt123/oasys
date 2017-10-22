@@ -227,9 +227,9 @@ public class NoteController {
 				if (note.getAttachId() != null)
 					fs.updateatt(file, user, null, note.getAttachId());
 
-				NoteService.updatenote(catalogId, typeId, statusId, note2.getTitle(), note2.getContent(), nid);
+			
 
-			}
+			
 			// 判断是否共享
 			if (request.getParameter("receiver") != null && (request.getParameter("receiver").trim().length() > 0)) {
 				userss = new HashSet<>();
@@ -252,6 +252,8 @@ public class NoteController {
 				// 保存为该用户的笔记 绑定用户id
 				userss = new HashSet<>();
 				userss.add(user);
+			}
+			NoteService.updatenote(catalogId, typeId, statusId, note2.getTitle(), note2.getContent(), nid);
 			}
 			request.setAttribute("success", "后台验证成功");
 		}
@@ -375,11 +377,10 @@ public class NoteController {
 		User user = userDao.findOne(note.getCreatemanId());
 		if (note.getAttachId() != null) {
 			att = attDao.findByAttachmentId(note.getAttachId());
+			Request.setAttribute("att", att);
 		}
-
 		Request.setAttribute("note", note);
 		Request.setAttribute("user", user);
-		Request.setAttribute("att", att);
 		return "note/noteinfo";
 	}
 
