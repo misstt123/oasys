@@ -24,6 +24,7 @@ $(".loadfiletype").on("click",".file-check",function(){
 		$(this).parent(".file-one").addClass("file-one-check");
 	}
 	changedeletehref();
+	changesharehref();
 });
 
 /**
@@ -43,6 +44,7 @@ $(".loadfiletype").on("click",".allcheck",function(){
 		$(this).addClass("allchecked");
 	}
 	changedeletehref();
+	changesharehref();
 });
 
 /**
@@ -60,6 +62,7 @@ $(".loadfiletype").on("mousedown",".file-one",function(e){
 	    	$(this).addClass("file-one-check");
 	    	$(this).siblings(".file-one").removeClass("file-one-check");
 	    	changedeletehref();
+	    	changesharehref();
 	    }
 	    if($(this).find(".file-img").hasClass("path")){
 	    	var href = $(this).find(".path a").attr("href");
@@ -188,9 +191,6 @@ $("#thismodal .box-footer").on("click",".mcmodalcancle",function(){
 	$("#thismodal .box-footer .mctoid").val($("#thismodal .box-footer .userrootpath").val());
 });
 
-
-
-
 /**
  * 创建文件夹
  */
@@ -248,4 +248,23 @@ function changedeletehref(){
 		$(".menu .delete").attr("href",newhref);
 	}
 
+}
+/**
+ * 改变分享得地址
+ * @returns
+ */
+function changesharehref(){
+	var checkpathids = new Array();
+	var checkfileids = new Array();
+	checkedpaths(checkpathids,checkfileids);
+	console.log("checkfileids:"+checkfileids);
+	
+	var href = $(".menu .doshare").attr("href");
+	var newhref;
+	if(href!=undefined){
+		//var href = "doshare?checkfileids="+checkfileids;
+		href = href.split("&");
+		newhref = href[0] + "&checkfileids="+checkfileids;
+		$(".menu .doshare").attr("href",newhref);
+	}
 }

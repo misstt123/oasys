@@ -163,6 +163,18 @@ public class FileServices {
 		return 0;
 	}
 	
+	@Transactional
+	public void doshare(List<Long> fileids){
+		for (Long fileid : fileids) {
+			
+			FileList filelist = fldao.findOne(fileid);
+			
+			filelist.setFileIsshare(1L);
+			fldao.save(filelist);
+		}
+		
+	}
+	
 	
 	/**
 	 * 根据文件id 批量 删除文件  同时删除 数据库以及本地文件
@@ -370,7 +382,7 @@ public class FileServices {
 	 * @param fromwhere  1为移动  2 为复制
 	 */
 	@Transactional
-	public void moveAndcopy(List<Long> mcfileids,List<Long> mcpathids,Long topathid,boolean fromwhere){
+	public void moveAndcopy(List<Long> mcfileids,List<Long> mcpathids,Long topathid,boolean fromwhere,Long userid){
 		FilePath topath = fpdao.findOne(topathid);
 		if(fromwhere){
 			System.out.println("这里是移动！！~~");
@@ -406,14 +418,13 @@ public class FileServices {
 			if(!mcpathids.isEmpty()){
 				System.out.println("pathid is not null");
 				for (Long mcpathid : mcpathids) {
-					copypath(mcpathid, topathid, true);
-					
+					copypath(mcpathid, topathid, true, userid);
 				}
 			}
 		}
 	}
 	
-	public void copypath(Long mcpathid,Long topathid,boolean isfirst){
+	public void copypath(Long mcpathid,Long topathid,boolean isfirst,Long userid){
 		FilePath filepath = fpdao.findOne(mcpathid);
 
 		//第一个文件夹的复制
@@ -424,6 +435,7 @@ public class FileServices {
 			copypathname = "拷贝 "+filepath.getPathName().replace("拷贝 ", "");
 		}
 		copypath.setPathName(copypathname);
+		copypath.setPathUserId(userid);
 		copypath = fpdao.save(copypath);
 		
 		//这一个文件夹下的文件的复制
@@ -436,7 +448,7 @@ public class FileServices {
 		
 		if(!filepathsons.isEmpty()){
 			for (FilePath filepathson : filepathsons) {
-				copypath(filepathson.getId(),copypath.getId(),false);
+				copypath(filepathson.getId(),copypath.getId(),false,userid);
 			}
 		}
 		

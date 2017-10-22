@@ -72,11 +72,13 @@ public class TaskService {
 		}
 	
 	//删除任务中间表
-	public void delete(Long pkid){
+	public int delete(Long pkid){
+		int i=0;
 		if (!Objects.isNull(pkid)){
 			tudao.delete(pkid);
-			
+			i=1;
 		}
+		return i;
 		
 	}
 	
@@ -85,11 +87,16 @@ public class TaskService {
 		tdao.delete(task);
 	}
 	//删除日志表
-	public void detelelogger(Long taskid){
-		Tasklogger taskLogger = tldao.findOne(taskid);
-		if (!Objects.isNull(taskLogger)) {
-			tldao.delete(taskid);
-		}
+	public int detelelogger(Long taskid){
+		int i=0;
+		 List<Tasklogger> taskLogger = tldao.findByTaskId(taskid);
+		 if(taskLogger.size()!=0){
+			 for (Tasklogger tasklogger2 : taskLogger) {
+				tldao.delete(tasklogger2);
+			}
+			 i=1;
+		 }
+		return i;
 	}
 	
 	

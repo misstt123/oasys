@@ -34,6 +34,8 @@ public class InformController {
 	
 	@Autowired
 	private InformRelationService informRelationService;
+	
+	
 
 	/**
 	 * 通知管理面板分页
@@ -78,6 +80,9 @@ public class InformController {
 		List<Map<String, Object>> list=nm.sortMyNotice(userId, baseKey, type, status, time);
 		PageInfo<Map<String, Object>> pageinfo=new PageInfo<Map<String, Object>>(list);
 		List<Map<String, Object>> list2=informRelationService.setList(list);
+		for (Map<String, Object> map : list2) {
+			System.out.println(map);
+		}
 		model.addAttribute("url", "informlistpaging");
 		model.addAttribute("list", list2);
 		model.addAttribute("page", pageinfo);

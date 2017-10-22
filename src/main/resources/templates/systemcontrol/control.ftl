@@ -506,7 +506,7 @@
 					<ul class="list-group">
 						<#list  notepaperList as np>
 						<li class="list-group-item list-group-item-li" style=""><img
-							src="images/touxiang/${user.imgPath}" alt="photo" title="wowoowo"
+							src="/image/${(user.imgPath)!'/timg.jpg'}" alt="photo" title="wowoowo"
 							class="item-li-img" />
 							<p class="item-li-p">
 								<a href="userpanel">${(np.title)!''} <small class="pull-right"

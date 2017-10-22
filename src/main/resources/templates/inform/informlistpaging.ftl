@@ -68,11 +68,21 @@
 					<td><span class="labels"></span></td></#if>
 					<td><a href="informshow?id=${this.notice_id}&read=${this.is_read}&relationid=${this.relatin_id}"
 						class="label xiugai chakan"><span class="glyphicon glyphicon-search"></span>
-							查看</a> <#if this.is_read==0> <#else> <a
-							onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-							href="informlistdelete?id=${this.notice_id}"
-							class="label shanchu"> <span
-							class="glyphicon glyphicon-remove"></span> 删除
+							查看</a> 
+							<#if this.contain!=1>
+								<#if this.contain==3>
+									<a href="forwardother?noticeId=${this.notice_id}" onclick="{return confirm('确定转发给自己的下属吗？');};" class="label xinzeng chakan forwardthis"><span class="glyphicon glyphicon-log-out"></span>
+									转发</a> 
+								<#else>
+									<a href="javascript:void(0);" class="label sheding chakan"><span class="glyphicon glyphicon-log-out"></span>
+									已转发</a> 
+								</#if>
+							</#if>
+							<#if this.is_read==0> 
+							<#else> 
+							<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
+							href="informlistdelete?id=${this.notice_id}" class="label shanchu"> 
+							<span class="glyphicon glyphicon-remove"></span> 删除
 						</a></#if></td>
 				</tr>
 				</#list>

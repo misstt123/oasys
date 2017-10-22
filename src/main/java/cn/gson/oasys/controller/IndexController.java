@@ -123,7 +123,7 @@ public class IndexController {
 		
 		List<ScheduleList> aboutmenotice = dayser.aboutmeschedule(userId);
 		for (ScheduleList scheduleList : aboutmenotice) {
-			if(!scheduleList.getIsreminded()){
+			if(scheduleList.getIsreminded()!=null&&!scheduleList.getIsreminded()){
 				System.out.println(scheduleList.getStartTime());
 				
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");//24小时制 

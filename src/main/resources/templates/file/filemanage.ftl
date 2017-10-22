@@ -256,6 +256,11 @@ li.activee>a {
 		</div>
 	</div>
 </body>
+<#if message??>
+	<script type="text/javascript">
+		alert("${message}");
+	</script>
+</#if>
 <script src="js/common/iconfont.js"></script>
 <script src="js/file/filejs.js"></script>
 <script src="js/file/fileajax.js"></script>

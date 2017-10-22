@@ -2,6 +2,8 @@
 <html >
 <head>
 <meta charset="UTF-8">
+<link href="images/favicon1.ico" rel="icon" type="image/x-icon"/>
+<link href="images/favicon1.ico" rel="shortcut icon" type="image/x-icon"/>
 <title>OA办公自动化系统</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/login.css">

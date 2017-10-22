@@ -63,13 +63,13 @@
 						<a href="/writechat?id=${this.id}" class="label xiugai"><span
 							class="glyphicon glyphicon-edit"></span> 修改</a> 
 						</#if>
+						<a href="/seediscuss?id=${this.id}&pageNumber=${page.number}" class="label xiugai"> <span
+							class="glyphicon glyphicon-search"></span>查看</a>
 						<#if manage??>
 						 <a href="javascript:void(0);" discussId="${this.id}"
 						class="label shanchu deletethis"><span class="glyphicon glyphicon-remove"></span>
 							删除</a>
 						</#if>
-						<a href="/seediscuss?id=${this.id}&pageNumber=${page.number}" class="label xiugai"> <span
-							class="glyphicon glyphicon-search"></span>查看</a>
 					</td>
 				</tr>
 				</#list>

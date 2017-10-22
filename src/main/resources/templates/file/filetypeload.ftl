@@ -7,14 +7,14 @@
 				<li><a class="downloadfile">下载</a></li>
 			<#else>
 				<li><a class="downloadfile">下载</a></li>
-				<li><a>分享</a></li>
+				<li><a class="loadokshare">分享</a></li>
 				<li><a class="menurename">重命名</a></li>
 				<li><a onclick="{return confirm('确定删除吗？');};" class="loadtrash">删除</a></li>
 			</#if>
 		<#else>
 			<li><a class="open">打开</a></li>
 			<li><a class="downloadfile">下载</a></li>
-			<li><a class="doshare">分享</a></li>
+			<li><a class="doshare" href="doshare?pathid=${nowpath.id}&">分享</a></li>
 			<li><a class="movefile">移动到</a></li>
 			<li><a class="copyfile">复制到</a></li>
 			<li><a class="menurename">重命名</a></li>
@@ -46,6 +46,9 @@
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
 			<#elseif type=="share">
 				<h3 class="box-title" style="font-size: 12px;">分享文件</h3>
+				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
+			<#elseif type=="all">
+				<h3 class="box-title" style="font-size: 12px;">全部文件查找</h3>
 				<input class="loadfilestype" name="type" type="hidden" value="${type}"/>
 			</#if>
 		<#else>
@@ -227,6 +230,8 @@
 						<div class="file-name">
 							<div class="filename">
 								<a>${file.fileName}</a>
+								<input type="hidden" class="fileuserid" id="${(file.user.userId)!''}"/>
+								<input type="hidden" class="nowuserid" id="${(userid)!''}"/>
 							</div>
 							<div class="pathtextarea rename diplaynone" style="position: absolute;top: 97px;left: -5px;z-index:100;">
 								<#if isload??>

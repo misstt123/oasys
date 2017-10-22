@@ -451,23 +451,23 @@ public class TaskController {
 	 */
 	@RequestMapping("shanchu")
 	public String delete(HttpServletRequest req, @SessionAttribute("userId") Long userId) {
-		// 获取用户id
-		
 		// 得到任务的 id
 		String taskid = req.getParameter("id");
-		
 		Long ltaskid = Long.parseLong(taskid);
+		
 		// 根据任务id找出这条任务
 		Tasklist task = tdao.findOne(ltaskid);
 		if(task.getUsersId().getUserId().equals(userId)){
 			// 删除日志表
-			tservice.detelelogger(ltaskid);
+			int i=tservice.detelelogger(ltaskid);
+			System.out.println(i+"mmmmmmmmmmmm");
 			// 分割任务接收人 还要查找联系人的主键并删除接收人中间表
 			StringTokenizer st = new StringTokenizer(task.getReciverlist(), ";");
 			while (st.hasMoreElements()) {
 				User reciver = udao.findid(st.nextToken());
 				Long pkid = udao.findpkId(task.getTaskId(), reciver.getUserId());
-				tservice.delete(pkid);
+				int m=tservice.delete(pkid);
+				System.out.println(m+"sssssssssss");
 				
 			}
 			// 删除这条任务
@@ -477,9 +477,7 @@ public class TaskController {
 			return "redirect:/notlimit";
 
 		}
-
-
-		return "forword:/taskmanage";
+		return "redirect:/taskmanage";
 
 	}
 

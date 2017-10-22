@@ -98,6 +98,18 @@ public class InformManageController {
 		model.addAttribute("url", "infrommanagepaging");
 		return "inform/informmanage";
 	}
+	
+	@RequestMapping("forwardother")
+	public String forwardOther(@SessionAttribute("userId")Long userId,@RequestParam(value="noticeId")Long noticeId){
+		List<User> users=uDao.findByFatherId(userId);
+		NoticesList nl=informDao.findOne(noticeId);
+		List<NoticeUserRelation> nurs=new  ArrayList<>();
+		for (User user : users) {
+			nurs.add(new NoticeUserRelation(nl, user, false));
+		}
+		informrelationservice.saves(nurs);
+		return "redirect:/infromlist";
+	}
 
 	// demo
 //	@RequestMapping("cccc")
@@ -175,6 +187,9 @@ public class InformManageController {
 		List<Map<String, Object>> list = nm.findMyNotice(userId);
 		PageInfo<Map<String, Object>> pageinfo=new PageInfo<Map<String, Object>>(list);
 		List<Map<String, Object>> list2=informrelationservice.setList(list);
+		for (Map<String, Object> map : list2) {
+			System.out.println(map);
+		}
 		model.addAttribute("url", "informlistpaging");
 		model.addAttribute("list", list2);
 		model.addAttribute("page", pageinfo);

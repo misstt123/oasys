@@ -4,7 +4,7 @@
 	<td>
 		<div class="post">
 			<div class="user-block">
-				<span> <a href="#"> <img src="/images/touxiang/${(reply.user.imgPath)!'timg.jpg'}"
+				<span> <a href="#"> <img src="/image/${(reply.user.imgPath)!'/timg.jpg'}"
 						class="big-img" />
 				</a>
 				</span> <span class="username"> <a href="#"
@@ -28,7 +28,7 @@
 							 <#if comment.reply == reply.replyId>
 							<tr>
 								<td class="comment-td"><a href="#"> <img
-										src="/images/touxiang/${(comment.user.imgPath)!'timg.jpg'}" class="big-img" />
+										src="/image/${(comment.user.imgPath)!'/timg.jpg'}" class="big-img" />
 								</a></td>
 								<td>
 									<div class="user-block">
