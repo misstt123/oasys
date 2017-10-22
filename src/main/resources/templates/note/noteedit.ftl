@@ -162,9 +162,9 @@ textarea {
 			   
 			   <div id="MoreDiv" >
 					<input name="receiver" type="text" data-title="用户"
-						id="ctl00_cphMain_txtReceiver" class="form-control" readonly="readonly"
+						id="recive_list" class="form-control" readonly="readonly"
 						placeholder="分享给：" value="<#if note??><#if note.receiver??>${note.receiver}</#if></#if>"/>
-					<div class="reciver">
+					<div class="reciver" >
 						<a data-toggle="modal" data-target="#myModal"
 							data-backdrop="static"> <span
 							class="label label-success glyphicon glyphicon-share-alt">分享</span>
@@ -274,4 +274,4 @@ textarea {
 	</script>
 </body>
 </html>
-<#include "/common/reciver.ftl">
+<#include "/common/notereciver.ftl">
