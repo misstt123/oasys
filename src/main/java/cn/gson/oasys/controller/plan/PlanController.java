@@ -140,6 +140,9 @@ public class PlanController {
 		plantablepaging(request, model, session, page, baseKey);
 		if(!StringUtils.isEmpty(pid)){
 		Plan plan = planDao.findOne(Long.valueOf(pid));
+		if(plan.getPlanComment()==null)
+			plan.setPlanComment(comment);
+		else
 		plan.setPlanComment(plan.getPlanComment() + comment);
 		planDao.save(plan);}
 		return "plan/realplantable";
