@@ -43,10 +43,19 @@ a:hover {
 							<span class="error-mess"></span>
 						</div>
 						<div class="row">
-							<div class="col-md-6 form-group">
-								<label class="control-label"><span>用户名</span></label> <input
-									name="userName" class="form-control" value="${(user.userName)!''}"/>
-							</div>
+							<#if where??>
+								<div class="col-md-6 form-group">
+									<label class="control-label"><span>用户名</span></label> <input
+										name="userName" readonly="readonly" class="form-control" value="${(user.userName)!''}"/>
+								</div>
+							<#else>
+								<div class="col-md-6 form-group">
+									<label class="control-label"><span>用户名</span></label> <input
+										name="userName" class="form-control usernameonliy" value="${(user.userName)!''}"/>
+										<input type="hidden" class="usernameonliyvalue" value=""/>
+								</div>
+							</#if>
+							
 							<div class="col-md-6 form-group">
 								<label class="control-label"><span>电话</span></label> <input
 									name="userTel" class="form-control" value="${(user.userTel)!''}"/>
@@ -123,16 +132,20 @@ a:hover {
 								<label class="control-label"><span>工资</span></label> <input
 									name="salary" class="form-control" value="${(user.salary)!''}"/>
 							</div>
-	
-							<div class="col-md-6 form-group">
-								<span> <label class="control-label">入职时间</label>
-								</span> <input name="hireTime" class="form-control" id="start" onclick="WdatePicker()"
-									value="${(user.hireTime)!''}"/>
-							</div>
-							<div class="col-md-6 form-group">
+							
+							
+							<#if where??>
+							<#else>
+								<div class="col-md-6 form-group">
+									<span> <label class="control-label">入职时间</label>
+									</span> <input name="hireTime" class="form-control" id="start" onclick="WdatePicker()"
+										value="${(user.hireTime)!''}"/>
+								</div>
+							</#if>
+							<!-- <div class="col-md-6 form-group">
 								<label class="control-label">生日</label> <input
 									name="birth" class="form-control" id="start" onclick="WdatePicker()" value="${(user.birth)!''}"/>
-							</div>
+							</div> -->
 							<div class="col-md-6 form-group">
 								<label class="control-label"> <span>皮肤</span>
 								</label> <select class="form-control" name="themeSkin" value="${(user.themeSkin)!''}">
@@ -149,7 +162,7 @@ a:hover {
 						<#if where??>
 							<div class="row">
 								<hr />
-								<div class="col-md-6">
+								<!-- <div class="col-md-6">
 									<label class="control-label"><span>头像</span></label>
 									<div style="padding: 10px;">
 										<img src="img/1.jpg"
@@ -161,10 +174,10 @@ a:hover {
 											name="file"
 											style="opacity: 0; position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%;" />
 									</div>
-								</div>
+								</div> -->
 								<div class="col-md-6">
 									<label class="control-label"><span>重置密码</span></label> <br>
-									<span class="labels"><label><input type="checkbox"><i>✓</i></label></span>
+									<span class="labels"><label><input name="isbackpassword" type="checkbox"><i>✓</i></label></span>
 								</div>
 							</div>
 						</#if>
@@ -183,6 +196,33 @@ a:hover {
 <script type="text/javascript" src="plugins/My97DatePicker/WdatePicker.js"></script>
 <#include "/common/modalTip.ftl"/> 
 <script type="text/javascript">
+$(".usernameonliy").on("blur",function(){
+	console.log("改变了！！~~");
+	$.post("useronlyname",{"username":$(this).val()},function(data){
+		console.log(data);
+		$(".usernameonliyvalue").val(data);
+	});
+}); 
+$(".usernameonliy").focus(function(){
+	$(this).parent().removeClass("has-error has-feedback");
+	$('.alert-danger').css('display', 'none');
+});
+
+
+/* if(index == 0){
+	var $username = $(this).val();
+	
+	$.ajax(url:"useronlyname",{"username",$username},success:function(data){
+		console.log(data)
+		if(!data){
+			$(".usernameonliy").parent().addClass("has-error has-feedback");
+				alertCheck("用户名已存在");
+				isRight = 0;
+	 			return false;
+		}
+	});
+	
+} */
 
 $(".deptselect").on("change",function(){
 	//alert("部门选择变化");
@@ -222,7 +262,7 @@ function check() {
 		// 如果在这些input框中，判断是否能够为空
 		if ($(this).val() == "") {
 			// 排除哪些字段是可以为空的，在这里排除
-			if (index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 || index == 15 || index == 16) {
+			if (index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 15) {
 				return true;
 			}
 			// 获取到input框的兄弟的文本信息，并对应提醒；
@@ -238,6 +278,23 @@ function check() {
 			isRight = 0;
 			return false;
 		} else {
+			if(index == 0){
+				
+				var aaa= $(".usernameonliyvalue").val();
+				console.log("aaaa");
+				console.log(aaa);
+				console.log("aaaa");
+				if(aaa=="false"){
+					console.log("进来了0");
+					$(this).parent().addClass("has-error has-feedback");
+ 					alertCheck("用户名已存在");
+ 					isRight = 0;
+ 		 			return false;
+				}
+				
+			}
+			
+			
 			if(index == 1){
 				var $tel = $(this).val();
 				

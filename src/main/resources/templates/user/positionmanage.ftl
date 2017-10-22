@@ -62,10 +62,7 @@ a:hover {
 								<td><span>${position.level}</span></td>
 								<td><span>${(position.describtion)!''}</span></td>
 								<td><a  href="positionedit?positionid=${position.id}" class="label xiugai"><span
-										class="glyphicon glyphicon-edit"></span> 修改</a> <a
-									onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-									href="removeposition?positionid=${position.id}" class="label shanchu"><span
-										class="glyphicon glyphicon-remove"></span> 删除</a></td>
+										class="glyphicon glyphicon-edit"></span> 修改</a> 
 							</tr>
 						</#list>
 					</table>

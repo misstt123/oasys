@@ -49,9 +49,20 @@ a:hover {
 							<div class="row">
 								<div class="col-md-12 form-group">
 									${dept.deptName}
+									<#if (deptuser?? & deptuser?size gt 0) || deptmanage??>
+										<a class="label sheding" href="javascript:void(0);">删除</a>
+									<#else>
+										<a class="label shanchu" href="deletdept?deletedeptid=${dept.deptId}">删除</a>
+									</#if>
 								</div>
 								<div class="col-md-12 form-group">
-									部门经理：${(deptmanage.realName)!'暂无'}  <a class="changemanage label xiugai">更换</a>
+									部门经理：${(deptmanage.realName)!'暂无'}  
+									
+									<#if (deptuser?? & deptuser?size gt 0) || deptmanage??>
+										<a class="changemanage label xiugai">更换</a>
+									<#else>
+										<a class="label sheding" href="javascript:void(0);">更换</a>
+									</#if>
 								</div>
 								<input type="hidden" name="deptid" value="${(dept.deptId)!''}">
 							</div>
@@ -63,7 +74,6 @@ a:hover {
 										<th scope="col">真实姓名</th>
 										<th scope="col">用户名</th>
 										<th scope="col">职位</th>
-										<th scope="col">角色</th>
 										<th scope="col">操作</th>
 									</tr>
 									<#list deptuser as user>
@@ -73,7 +83,6 @@ a:hover {
 											<td><span>${user.realName}</span></td>
 											<td><span>${user.userName}</span></td>
 											<td><span>${user.position.name}</span></td>
-											<td><span>${user.role.roleName}</span></td>
 											<td>
 												<a class="usermanagechange label xiugai">
 													<span class="glyphicon glyphicon-edit"></span> 人事调动
@@ -180,16 +189,28 @@ a:hover {
 											</#list>
 										</select>
 									</div>
+									<div class="col-md-6">
+										<#if deptuser?? & deptuser?size gt 0>
+											<label class="control-label" style="margin-top: 5px"> <span>新任部门经理：</span></label>
+											<select class="form-control" name="newmanageid">
+												<#list deptuser as user>
+													<option value="${user.userId}">${user.realName}</option>
+												</#list>
+											</select>
+										</#if>
+									</div>
+								<#else>
+									<div class="col-md-6">
+										<input type="hidden" name="deptid" value="${(dept.deptId)!''}">
+										<label class="control-label" style="margin-top: 5px"> <span>新任部门经理：</span></label>
+										<select class="form-control" name="newmanageid">
+											<#list deptuser as user>
+												<option value="${user.userId}">${user.realName}</option>
+											</#list>
+										</select>
+									</div>
 								</#if>
 								
-								<div class="col-md-6">
-									<label class="control-label" style="margin-top: 5px"> <span>新任部门经理：</span></label>
-									<select class="form-control" name="newmanageid">
-										<#list deptuser as user>
-											<option value="${user.userId}">${user.realName}</option>
-										</#list>
-									</select>
-								</div>
 							</div>
 						</div>
 						<div class="box-footer" style="text-align:right;">

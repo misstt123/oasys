@@ -52,6 +52,7 @@ a:hover {
 							<th scope="col">名称</th>
 							<th scope="col">电话</th>
 							<th scope="col">邮箱</th>
+							<th scope="col">地址</th>
 							<th scope="col">操作</th>
 						</tr>
 						<#list depts as dept>
@@ -59,14 +60,14 @@ a:hover {
 								<td><span>${dept.deptName}</span></td>
 								<td><span>${dept.deptTel}</span></td>
 								<td><span>${dept.email}</span></td>
+								<td><span>${dept.deptAddr}</span></td>
 								<td>
 									<a href="deptedit?dept=${dept.deptId}" class="label xiugai">
 									<span class="glyphicon glyphicon-edit"></span> 修改</a> 
 									<a href="readdept?deptid=${dept.deptId}" class="label xiugai">
-										<span class="glyphicon glyphicon-search"></span> 查看
+										<span class="glyphicon glyphicon-search"></span> 人事调动
 									</a>
-									<a onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};"
-									href="" class="label shanchu"><span
+									<a href="readdept?deptid=${dept.deptId}" class="label shanchu"><span
 										class="glyphicon glyphicon-remove"></span> 删除</a></td>
 							</tr>
 						</#list>

@@ -38,18 +38,27 @@
 				</tr>
 				<#list users as user>
 					<tr>
-						<td><img src="images/handsome.jpg" class="img-circle"
-							style="width: 25px; height: 25px;" /></td>
-						<td><span>${user.dept.deptName}</span></td>
-						<td><span>${user.realName}</span></td>
-						<td><span>${user.userName}</span></td>
-						<td><span>${user.role.roleName}</span></td>
-						<td><span>${user.userTel}</span></td>
-						<td><span>${user.salary}</span></td>
+						<td>
+						<!-- <img src="images/handsome.jpg" class="img-circle"
+							style="width: 25px; height: 25px;" /> -->
+							<#if user.imgPath?? && user.imgPath!=''  >
+								<img style="width: 25px;height: 25px;"
+									class="profile-user-img img-responsive img-circle"
+									src="/image/${user.imgPath}" />
+								<#else>
+								<img style="width: 25px;height: 25px;"
+									class="profile-user-img img-responsive img-circle"
+									src="images/timg.jpg" alt="images"/>
+							</#if>
+						</td>
+						<td><span>${(user.dept.deptName)!''}</span></td>
+						<td><span>${(user.realName)!''}</span></td>
+						<td><span>${(user.userName)!''}</span></td>
+						<td><span>${(user.role.roleName)!''}</span></td>
+						<td><span>${(user.userTel)!''}</span></td>
+						<td><span>${(user.salary)!''}</span></td>
 						<td><a  href="useredit?userid=${user.userId}" class="label xiugai"><span
 								class="glyphicon glyphicon-edit"></span> 修改</a> <a
-							href="##" class="label xiugai"><span
-								class="glyphicon glyphicon-search"></span> 查看</a> <a
 							onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
 							href="" class="label shanchu"><span
 								class="glyphicon glyphicon-remove"></span> 删除</a></td>

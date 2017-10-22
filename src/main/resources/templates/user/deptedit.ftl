@@ -37,6 +37,11 @@ a:hover {
 			<!--id="container"-->
 			<div class="bgc-w box">
 				<form action="deptedit" method="post" onsubmit="return check();">
+					<#if dept??>
+						<input type="hidden" name="xg" value="xg"/>	
+					<#else>
+						<input type="hidden" name="xg" value="add"/>				
+					</#if>
 					<!--盒子头-->
 					<div class="box-header">
 						<h3 class="box-title">

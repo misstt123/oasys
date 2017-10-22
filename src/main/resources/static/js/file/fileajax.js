@@ -114,7 +114,15 @@ $(".loadfiletype").on("click",".loaddelete",function(){
 		$(".loadfiletype").load("fileloaddeletefile",{type:loadtype,'checkpathids[]':checkpathids,'checkfileids[]':checkfileids});
 	
 });
-
+$(".loadfiletype").on("click",".loadokshare",function(){
+	var checkpathids = new Array();
+	var checkfileids = new Array();
+	checkedpaths2(checkpathids,checkfileids);
+	var loadtype = $(".loadfiletype .box-header .loadfilestype").val();
+	
+	$(".loadfiletype").load("fileloadshare",{type:loadtype,'checkfileids[]':checkfileids});
+	
+});
 /**
  * 回收战load js
  */

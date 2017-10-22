@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.util.StringUtil;
+import com.github.stuxuhai.jpinyin.PinyinException;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
+
 import cn.gson.oasys.model.dao.roledao.RoleDao;
 import cn.gson.oasys.model.dao.user.DeptDao;
 import cn.gson.oasys.model.dao.user.PositionDao;
@@ -66,7 +71,7 @@ public class UserController {
 		Sort sort=new Sort(new Order(Direction.ASC,"dept"));
 		Pageable pa=new PageRequest(page, size,sort);
 		Page<User> userspage = null;
-		if(usersearch.isEmpty()){
+		if(StringUtil.isEmpty(usersearch)){
 			userspage =  udao.findByIsLock(0, pa);
 		}else{
 			System.out.println(usersearch);
@@ -104,7 +109,8 @@ public class UserController {
 			@RequestParam("deptid") Long deptid,
 			@RequestParam("positionid") Long positionid,
 			@RequestParam("roleid") Long roleid,
-			Model model) {
+			@RequestParam(value = "isbackpassword",required=false) boolean isbackpassword,
+			Model model) throws PinyinException {
 		System.out.println(user);
 		System.out.println(deptid);
 		System.out.println(positionid);
@@ -112,15 +118,46 @@ public class UserController {
 		Dept dept = ddao.findOne(deptid);
 		Position position = pdao.findOne(positionid);
 		Role role = rdao.findOne(roleid);
+		if(user.getUserId()==null){
+			String pinyin=PinyinHelper.convertToPinyinString(user.getUserName(), "", PinyinFormat.WITHOUT_TONE);
+			user.setPinyin(pinyin);
+			user.setPassword("123456");
+		}else{
+			User user2 = udao.findOne(user.getUserId());
+			user2.setUserTel(user.getUserTel());
+			user2.setRealName(user.getRealName());
+			user2.setEamil(user.getEamil());
+			user2.setAddress(user.getAddress());
+			user2.setUserEdu(user.getUserEdu());
+			user2.setSchool(user.getSchool());
+			user2.setIdCard(user.getIdCard());
+			user2.setBank(user.getBank());
+			user2.setThemeSkin(user.getThemeSkin());
+			user2.setSalary(user.getSalary());
+			if(isbackpassword){
+				user2.setPassword("123456");
+			}
+		}
+		
 		user.setDept(dept);
 		user.setRole(role);
 		user.setPosition(position);
-		user.setPassword("123456");
 		udao.save(user);
 		
 		model.addAttribute("success",1);
 		return "/usermanage";
 	}
+	
+	@RequestMapping("useronlyname")
+    public @ResponseBody boolean useronlyname(@RequestParam("username") String username){
+		System.out.println(username);
+		User user = udao.findByUserName(username);
+		System.out.println(user);
+		if(user==null){
+			return true;
+		}
+		return false;
+    }
 	
 	@RequestMapping("selectdept")
 	public @ResponseBody List<Position> selectdept(@RequestParam("selectdeptid") Long deptid){

@@ -14,5 +14,8 @@ public interface PositionDao extends PagingAndSortingRepository<Position, Long>{
 	String findById(@Param("id")Long id);
 	
 	List<Position> findByDeptidAndNameNotLike(Long deptid,String name);
+	
+	List<Position> findByDeptidAndNameLike(Long deptid,String name);
 
+	List<Position> findByDeptid(Long deletedeptid);
 }

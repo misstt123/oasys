@@ -36,4 +36,6 @@ public interface FileListdao extends PagingAndSortingRepository<FileList, Long>{
 	
 	List<FileList> findByUserAndFileIsshareAndFileIstrash(User user,Long isshare,Long istrash);
 	
+	List<FileList> findByUserAndFileIstrashAndFileNameLike(User user,Long istrash,String likefile);
+	
 }

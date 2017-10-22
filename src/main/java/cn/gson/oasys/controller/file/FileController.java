@@ -139,6 +139,27 @@ public class FileController {
 	}
 	
 	/**
+	 * 文件分享
+	 * @param pathid
+	 * @param checkfileids
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("doshare")
+	public String doshare(@RequestParam("pathid") Long pathid,
+			@RequestParam("checkfileids") List<Long> checkfileids, 
+			Model model
+			){
+		if (!checkfileids.isEmpty()) {
+			System.out.println(checkfileids);
+			fs.doshare(checkfileids);
+		}
+		model.addAttribute("pathid", pathid);
+		model.addAttribute("message","分享成功");
+		return "forward:/filetest";
+	}
+	
+	/**
 	 * 删除前台选择的文件以及文件夹
 	 * 
 	 * @param pathid
@@ -202,7 +223,8 @@ public class FileController {
 	 * @return
 	 */
 	@RequestMapping("mcto")
-	public String mcto(@RequestParam("morc") boolean morc,
+	public String mcto(@SessionAttribute("userId") Long userid,
+			@RequestParam("morc") boolean morc,
 			@RequestParam("mctoid") Long mctoid,
 			@RequestParam("pathid") Long pathid,
 			@RequestParam("mcfileids")List<Long> mcfileids,
@@ -214,10 +236,10 @@ public class FileController {
 	
 		if(morc){
 			System.out.println("这里是移动！~~");
-			fs.moveAndcopy(mcfileids,mcpathids,mctoid,true);
+			fs.moveAndcopy(mcfileids,mcpathids,mctoid,true,userid);
 		}else{
 			System.out.println("这里是复制！~~");
-			fs.moveAndcopy(mcfileids,mcpathids,mctoid,false);
+			fs.moveAndcopy(mcfileids,mcpathids,mctoid,false,userid);
 		}
 		
 		model.addAttribute("pathid", pathid);
@@ -314,6 +336,8 @@ public class FileController {
 		
 		
 	}
+	
+	
 
 	// @RequestMapping(value = "pathin",method = RequestMethod.POST)
 	// public @ResponseBody Map<Integer, Object>

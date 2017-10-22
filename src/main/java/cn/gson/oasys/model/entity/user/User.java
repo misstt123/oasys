@@ -89,7 +89,7 @@ public class User {
 	
 	private String password;	//用户密码
 	
-	private Float salary;		//用户薪水
+	private String salary;		//用户薪水
 	
 	@Column(name="img_path")
 	private String imgPath;		//用户头像路径
@@ -303,11 +303,11 @@ public void setSuperman(Boolean superman) {
 		this.password = password;
 	}
 
-	public Float getSalary() {
+	public String getSalary() {
 		return salary;
 	}
 
-	public void setSalary(Float salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 
