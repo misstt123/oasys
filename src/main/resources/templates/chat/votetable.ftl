@@ -78,7 +78,7 @@
 										thisrole="${user.user.role.roleName}" 
 										thistel="${(user.user.userTel)!'空的'}"
 										thisemail="${(user.user.eamil)!'空的'}" 
-										href="javascript:void(0);" style="color: #888;font-size: 12px;"><img src="/images/touxiang/${(user.user.imgPath)!'timg.jpg'}" title="${user.user.userName}" alt="${user.user.userName}" class="small-img"/></a> 
+										href="javascript:void(0);" style="color: #888;font-size: 12px;"><img src="/image/${(user.user.imgPath)!'timg.jpg'}" title="${user.user.userName}" alt="${user.user.userName}" class="small-img"/></a> 
 									</#list>
 								<!-- <span style="color: #888;font-size: 13px;">共${voteTitle.count}人已投票</span> -->
 							</span>

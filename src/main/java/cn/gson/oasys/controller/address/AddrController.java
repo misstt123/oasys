@@ -51,6 +51,7 @@ import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.address.AddreddUserService;
 import cn.gson.oasys.services.address.AddressService;
 import cn.gson.oasys.services.file.FileServices;
+import cn.gson.oasys.services.mail.MailServices;
 import cn.gson.oasys.services.process.ProcessService;
 
 @Controller
@@ -77,6 +78,10 @@ public class AddrController {
 	 AttachService attachService;
 	@Autowired
 	AttachmentDao atDao;
+	@Autowired
+	private MailServices mservice;
+	@Autowired
+	private AttachmentDao AttDao;
 	
 	/**
 	 * 通讯录管理
@@ -229,8 +234,12 @@ public class AddrController {
 				directorUser.setDirectorUserId(dc.getDirectorUserId());
 				session.removeAttribute("did");
 			}
+			//试一下
 			if(file.getSize()>0){
-				Attachment att= (Attachment) fileServices.savefile(file, user, null, false);
+				Attachment attaid=mservice.upload(file, user);
+				attaid.setModel("aoa_bursement");
+				Attachment att=AttDao.save(attaid);
+				/*Attachment att= (Attachment) fileServices.savefile(file, user, null, false);*/
 				director.setAttachment(att.getAttachmentId());
 			}
 			

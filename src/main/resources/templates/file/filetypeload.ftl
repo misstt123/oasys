@@ -9,7 +9,7 @@
 				<li><a class="downloadfile">下载</a></li>
 				<li><a class="loadokshare">分享</a></li>
 				<li><a class="menurename">重命名</a></li>
-				<li><a onclick="{return confirm('确定删除吗？');};" class="loadtrash">删除</a></li>
+				<li><a onclick="{return confirm('文件将放入回收站，确定删除吗？');};" class="loadtrash">删除</a></li>
 			</#if>
 		<#else>
 			<li><a class="open">打开</a></li>
@@ -18,7 +18,7 @@
 			<li><a class="movefile">移动到</a></li>
 			<li><a class="copyfile">复制到</a></li>
 			<li><a class="menurename">重命名</a></li>
-			<li><a onclick="{return confirm('确定删除吗？');};" class="delete">删除</a></li>
+			<li><a onclick="{return confirm('文件将放入回收站，确定删除吗？');};" class="delete">删除</a></li>
 		</#if>
 	</ul>
 </div>
@@ -87,18 +87,18 @@
 			<div class="btn-group">
 				<#if isload??>
 					<#if istrash??>
-						<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loaddelete" title="删除">
+						<a onclick="{return confirm('文件将无法复原，确定删除吗？');};" class="btn btn-sm btn-default loaddelete" title="删除">
 							<span class="iconfont icon-lajitong"></span>
 						</a>
 					<#elseif isshare??>
 					
 					<#else>
-						<a onclick="{return confirm('确定删除吗？');};" class="btn btn-sm btn-default loadtrash" title="删除">
+						<a onclick="{return confirm('文件将放入回收站，确定删除吗？');};" class="btn btn-sm btn-default loadtrash" title="删除">
 							<span class="iconfont icon-lajitong"></span>
 						</a> 
 					</#if>
 				<#else>
-					<a onclick="{return confirm('确定删除吗？');};"  class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除">
+					<a onclick="{return confirm('文件将放入回收站，确定删除吗？');};"  class="btn btn-sm btn-default topdelete" href="deletefile?pathid=${nowpath.id}&checkpathids=&checkfileids=" title="删除">
 						<span class="iconfont icon-lajitong"></span>
 					</a> 
 					<a class="btn btn-sm btn-default topcreatepath" href="javascript:void(0);" title="新建文件夹">

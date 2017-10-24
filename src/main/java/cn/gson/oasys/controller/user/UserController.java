@@ -149,10 +149,22 @@ public class UserController {
 			udao.save(user2);
 		}
 		
+		model.addAttribute("success",1);
+		return "/usermanage";
+	}
+	
+	
+	@RequestMapping("deleteuser")
+	public String deleteuser(@RequestParam("userid") Long userid,Model model){
+		User user = udao.findOne(userid);
 		
+		user.setIsLock(1);
+		
+		udao.save(user);
 		
 		model.addAttribute("success",1);
 		return "/usermanage";
+		
 	}
 	
 	@RequestMapping("useronlyname")

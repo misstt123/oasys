@@ -92,6 +92,7 @@ $("#commentsave").click(function(){
 			 choose:'${(choose)!''}'
 		 },
 		 success:function(dates){
+			 $(".fade").hide();
 			 $(".close").click();
 			 $("#refresh").html(dates);
 		},

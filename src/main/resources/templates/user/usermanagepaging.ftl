@@ -60,7 +60,7 @@
 						<td><a  href="useredit?userid=${user.userId}" class="label xiugai"><span
 								class="glyphicon glyphicon-edit"></span> 修改</a> <a
 							onclick="{return confirm('删除该记录将不能恢复，确定删除吗？');};" 
-							href="" class="label shanchu"><span
+							href="deleteuser?userid=${user.userId}" class="label shanchu"><span
 								class="glyphicon glyphicon-remove"></span> 删除</a></td>
 					</tr>
 				

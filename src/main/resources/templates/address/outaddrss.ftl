@@ -39,7 +39,7 @@
 				</#if>
 				
 				<td><span>${(d.companyname)!''}</span></td>
-				<td><a href="#"> <img src="/image/${(d.image_path)!'timg.jpg'}" class="img-circle"
+				<td><a href="#"> <img src="/image/${(d.image_path)!'/timg.jpg'}" class="img-circle"
 						style="width: 25px; height: 25px;">
 				</a></td>
 				<td><span>${(d.user_name)!''}</span></td>
@@ -52,7 +52,7 @@
 				</span></td>
 				<td><span>${d.phone_number}</span></td>
 				<td><span>${(d.email)!''}</span></td>
-				<td>
+				<td style="width: 252px;">
 					<a href="javascript:void(0);" class="label xinzeng thisshare" directorId="${d.director_id}"> 
 						<span class="glyphicon glyphicon-new-window"></span> 分享
 					</a> 

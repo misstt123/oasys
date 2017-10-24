@@ -212,6 +212,29 @@ public class NoteController {
 				// 0l表示新建的时候默认为没有收藏
 				note = new Note(note2.getTitle(), note2.getContent(), catalogId, typeId, statusId, attid, new Date(),
 						0l);
+				// 判断是否共享
+				if (request.getParameter("receiver") != null && (request.getParameter("receiver").trim().length() > 0)) {
+					userss = new HashSet<>();
+					String receivers = request.getParameter("receiver");
+					note.setReceiver(receivers);
+
+					String[] receiver = receivers.split(";");
+					// 先绑定自己再
+					userss.add(user);
+					// 再绑定其他人
+					for (String re : receiver) {
+						System.out.println(re);
+						User user2 = userDao.findid(re);
+						if (user2 == null) {
+						} else
+							userss.add(user2);
+					}
+
+				} else {
+					// 保存为该用户的笔记 绑定用户id
+					userss = new HashSet<>();
+					userss.add(user);
+				}
 			}
 			// nid大于0就是修改某个对象
 			if (nid > 0) {
@@ -227,9 +250,6 @@ public class NoteController {
 				if (note.getAttachId() != null)
 					fs.updateatt(file, user, null, note.getAttachId());
 
-			
-
-			
 			// 判断是否共享
 			if (request.getParameter("receiver") != null && (request.getParameter("receiver").trim().length() > 0)) {
 				userss = new HashSet<>();
