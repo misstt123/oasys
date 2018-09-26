@@ -3,6 +3,8 @@
 ###	1.项目介绍
 oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于springboot框架开发的项目，mysql底层数据库，前端采用freemarker模板引擎，Bootstrap作为前端UI框架，集成了jpa、mybatis等框架。作为初学springboot的同学是一个很不错的项目，如果想在此基础上面进行OA的增强，也是一个不错的方案。
 ### 2.框架介绍
+#### 项目结构
+![项目结构](https://images.gitee.com/uploads/images/2018/0926/164310_e781580c_1277461.png "项目结构目录.png")
 #### 前端
 
 | 技术      |    名称| 版本|	官网|
@@ -39,24 +41,13 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 
 ###  5.项目截图
 
+![演示1.gif](https://i.loli.net/2018/09/26/5bab4564b93af.gif)
+![演示4.gif](https://i.loli.net/2018/09/26/5bab4565b121e.gif)
+![演示3.gif](https://i.loli.net/2018/09/26/5bab4564b1469.gif)
 
-
-
-
-# oa_system
-办公自动化（OA）是面向组织的日常运作和管理，员工及管理者使用频率最高的应用系统，极大提高公司的办公效率。![富士达](https://images.gitee.com/uploads/images/2018/0926/110634_4b26994c_1277461.jpeg "l.jpg")
-###  使用Maven来进行项目管理，数据库文件为tr18lx.sql；
-### 请先记得把数据库文件中的数据到你所对应的数据库，在application.properties文件里面修改数据源，把数据库名字改成你的
-[![主页面.png](https://i.loli.net/2018/03/02/5a98ec4da6bb0.png)](https://i.loli.net/2018/03/02/5a98ec4da6bb0.png)
-[![用户面板.png](https://i.loli.net/2018/03/02/5a98ec4da96b4.png)](https://i.loli.net/2018/03/02/5a98ec4da96b4.png)
-
-[![登录界面.png](https://i.loli.net/2018/03/02/5a98ec4e28dcb.png)](https://i.loli.net/2018/03/02/5a98ec4e28dcb.png)
-
-[![流程_费用报销详情.png](https://i.loli.net/2018/03/02/5a98ec4d7aec0.png)](https://i.loli.net/2018/03/02/5a98ec4d7aec0.png)
-[![笔记管理.png](https://i.loli.net/2018/03/02/5a98ec4d7edc2.png)](https://i.loli.net/2018/03/02/5a98ec4d7edc2.png)
-[![日程管理_查看.png](https://i.loli.net/2018/03/02/5a98ec4d8b86c.png)](https://i.loli.net/2018/03/02/5a98ec4d8b86c.png)
-[![文件管理.png](https://i.loli.net/2018/03/02/5a98ec4d8eb92.png)](https://i.loli.net/2018/03/02/5a98ec4d8eb92.png)
-[![邮件管理.png](https://i.loli.net/2018/03/02/5a98ec4d9c10b.png)](https://i.loli.net/2018/03/02/5a98ec4d9c10b.png)
-[![讨论区_投票.png](https://i.loli.net/2018/03/02/5a98ec4d9d689.png)](https://i.loli.net/2018/03/02/5a98ec4d9d689.png)
-
-[![通讯录.png](https://i.loli.net/2018/03/02/5a98ec4dab825.png)](https://i.loli.net/2018/03/02/5a98ec4dab825.png)
+![主页面.png](https://i.loli.net/2018/09/26/5bab46225db21.png)
+![登陆页面.png](https://i.loli.net/2018/09/26/5bab46228ed27.png)
+![文件管理.png](https://i.loli.net/2018/09/26/5bab46224f849.png)
+![讨论区.png](https://i.loli.net/2018/09/26/5bab4622599ae.png)
+![新建流程.png](https://i.loli.net/2018/09/26/5bab46226122e.png)
+![通讯录.png](https://i.loli.net/2018/09/26/5bab462261e3d.png)
