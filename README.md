@@ -36,7 +36,7 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 		
 ### 4. 演示地址
 
-#####     演示地址链接：http://oa.lxsir.cn:8088/index
+#####     演示地址链接：http://oa.lxsir.cn:8088/index (维护中，暂时将关闭)
 #####     账号：test      密码：test
 #####     账号：soli      密码：123456
 
