@@ -44,7 +44,7 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 
 如果对项目感兴趣，请Watch、Star项目
 
-### 5.友链
+<!-- ### 5.友链
 
 1. ##### AgileBPM 敏捷工作流开发平台 https://gitee.com/agile-bpm/agile-bpm-basic
     ###### 后续OA系统流程模块将采用该工作流
@@ -53,7 +53,7 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 
 2. ##### Spring boot2 脚手架项目V1.x https://gitee.com/bdj/SpringBoot_v2
     ###### 该项目会进行模块化改造、前后端分离、与 AgileBPM 底层 API 一致化改造，也会适时会增加一些新的可选模块（如组织架构） 
-    AgileBPM 的相关组件可以自由依附于该软件，并基于该 springboot 应用起步软件为基础不断 构建更多应用组件
+    AgileBPM 的相关组件可以自由依附于该软件，并基于该 springboot 应用起步软件为基础不断 构建更多应用组件 -->
 
 
 ###  6.项目截图
