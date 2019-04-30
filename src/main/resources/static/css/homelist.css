@@ -150,8 +150,8 @@ li {
 	/*padding: 6px;*/
 }
 #accordion .panel .panel-collapse li{
-	padding: 2px;
-}
+	 padding: 6px;
+ }
 
 .panel-default {
 	border: none;

@@ -1,37 +1,5 @@
 package cn.gson.oasys.controller.user;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.util.Date;
-import java.util.List;
-
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.github.pagehelper.util.StringUtil;
-
 import cn.gson.oasys.common.formValid.BindingResultVOUtil;
 import cn.gson.oasys.common.formValid.MapToList;
 import cn.gson.oasys.common.formValid.ResultEnum;
@@ -47,6 +15,32 @@ import cn.gson.oasys.model.entity.notice.NoticeUserRelation;
 import cn.gson.oasys.model.entity.process.Notepaper;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.services.user.NotepaperService;
+import com.github.pagehelper.util.StringUtil;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -226,8 +220,9 @@ public class UserpanelController {
 	}
 	@RequestMapping("image/**")
 	public void image(Model model, HttpServletResponse response, @SessionAttribute("userId") Long userId, HttpServletRequest request)
-			throws IOException {
-
+			throws Exception {
+		String projectPath = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+		System.out.println(projectPath);
 		String startpath = new String(URLDecoder.decode(request.getRequestURI(), "utf-8"));
 		
 		String path = startpath.replace("/image", "");

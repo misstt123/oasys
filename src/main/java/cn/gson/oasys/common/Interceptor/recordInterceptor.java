@@ -1,20 +1,6 @@
 package cn.gson.oasys.common.Interceptor;
 
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import cn.gson.oasys.common.Tool;
-import cn.gson.oasys.model.dao.IndexDao;
 import cn.gson.oasys.model.dao.roledao.RolepowerlistDao;
 import cn.gson.oasys.model.dao.system.SystemMenuDao;
 import cn.gson.oasys.model.dao.user.UserDao;
@@ -23,6 +9,17 @@ import cn.gson.oasys.model.entity.role.Rolemenu;
 import cn.gson.oasys.model.entity.system.SystemMenu;
 import cn.gson.oasys.model.entity.user.User;
 import cn.gson.oasys.model.entity.user.UserLog;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class recordInterceptor extends HandlerInterceptorAdapter{
@@ -69,6 +66,7 @@ public class recordInterceptor extends HandlerInterceptorAdapter{
 			
 		}else{
 			response.sendRedirect("/logins");
+			return false;
 		}
 		
 		return super.preHandle(request, response, handler);
