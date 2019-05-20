@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.annotation.PostConstruct;
 import javax.mail.BodyPart;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -40,6 +41,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.util.StringUtil;
@@ -72,9 +74,19 @@ public class MailServices {
 	
 	@Autowired
 	private InMailDao imdao;
-	
-	@Value("${attachment.roopath}")
+
 	private String rootpath;
+
+	@PostConstruct
+	public void UserpanelController(){
+		try {
+			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/attachment");
+			System.out.println(rootpath);
+
+		}catch (IOException e){
+			System.out.println("获取项目路径异常");
+		}
+	}
 	/**
 	 * 收件箱
 	 */

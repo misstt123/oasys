@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,8 +116,20 @@ public class ProcedureController {
 	@Autowired
 	private AttendceDao adao;
 	
-	@Value("${attachment.roopath}")
+//	@Value("${attachment.roopath}")
 	private String rootpath;
+
+	@PostConstruct
+	public void UserpanelController(){
+		try {
+			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","");
+			System.out.println(rootpath);
+
+		}catch (IOException e){
+			System.out.println("获取项目路径异常");
+		}
+	}
+
 	//新增页面
 	@RequestMapping("xinxeng")
 	public String index(){

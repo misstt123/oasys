@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.gson.oasys.model.dao.filedao.FileListdao;
@@ -32,6 +33,8 @@ import cn.gson.oasys.model.entity.file.FileList;
 import cn.gson.oasys.model.entity.file.FilePath;
 import cn.gson.oasys.model.entity.note.Attachment;
 import cn.gson.oasys.model.entity.user.User;
+
+import javax.annotation.PostConstruct;
 
 @Service
 public class FileServices {
@@ -48,9 +51,18 @@ public class FileServices {
 	private AttachService AttachService;
 	
 	
-	@Value("${file.root.path}")
+//	@Value("${file.root.path}")
 	private String rootPath;
-	
+
+	@PostConstruct
+	public void UserpanelController(){
+		try {
+			rootPath= ResourceUtils.getURL("classpath:").getPath().replace("target/classes/","static/file");
+			System.out.println(rootPath);
+		}catch (IOException e){
+			System.out.println("获取项目路径异常");
+		}
+	}
 	/**
 	 * 根据父	ID 查询 显示的 路径
 	 * @param parentId

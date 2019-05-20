@@ -25,15 +25,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Soundbank;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,9 +64,20 @@ public class UserpanelController {
 	@Autowired
 	private NotepaperService nservice;
 	
-	@Value("${img.rootpath}")
+//	@Value("${img.rootpath}")
 	private String rootpath;
-	
+
+	@PostConstruct
+	public void UserpanelController(){
+		try {
+			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/image");
+			System.out.println(rootpath);
+
+		}catch (IOException e){
+			System.out.println("获取项目路径异常");
+		}
+	}
+
 	@RequestMapping("userpanel")
 	public String index(@SessionAttribute("userId") Long userId,Model model,HttpServletRequest req,
 			@RequestParam(value = "page", defaultValue = "0") int page,
