@@ -107,7 +107,7 @@ public class ReplyController {
 		if(user.getSuperman()){
 			model.addAttribute("manage", "具有管理权限");
 		}else{
-			if(user.getUserId()==discuss.getUser().getUserId()){
+			if(Objects.equals(user.getUserId(), discuss.getUser().getUserId())){
 				model.addAttribute("manage", "具有管理权限");
 			}
 		}
@@ -208,7 +208,7 @@ public class ReplyController {
 		if(user.getSuperman()){
 		}
 		else{
-			if(user.getUserId()==discuss.getUser().getUserId()){
+			if(Objects.equals(user.getUserId(), discuss.getUser().getUserId())){
 			}
 			else{
 				System.out.println("权限不匹配，不能删除");

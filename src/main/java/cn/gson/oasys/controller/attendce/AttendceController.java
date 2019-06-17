@@ -3,13 +3,7 @@ package cn.gson.oasys.controller.attendce;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -428,7 +422,7 @@ public class AttendceController {
 		Set<Attends> attenceset = new HashSet<>();
 		for (User user : userspage) {
 			for (Attends attence : alist) {
-				if (attence.getUser().getUserId() == user.getUserId()) {
+				if (Objects.equals(attence.getUser().getUserId(), user.getUserId())) {
 					attenceset.add(attence);
 				}
 			}

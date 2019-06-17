@@ -153,9 +153,9 @@ public class UserpanelController {
 		npaper.setCreateTime(new Date());
 		npaper.setUserId(user);
 		System.out.println("内容"+npaper.getConcent());
-		if(npaper.getTitle()==null||npaper.getTitle()=="")
+		if(npaper.getTitle()==null|| npaper.getTitle().equals(""))
 			npaper.setTitle("无标题");
-		if(npaper.getConcent()==null||npaper.getConcent()=="")
+		if(npaper.getConcent()==null|| npaper.getConcent().equals(""))
 			npaper.setConcent(concent);
 		ndao.save(npaper);
 		
