@@ -130,7 +130,7 @@ public class ChatManageController {
 		User user=uDao.findOne(userId);
 		if(user.getSuperman()){
 		}else{
-			if(discuss.getUser().getUserId()==user.getUserId()){
+			if(Objects.equals(discuss.getUser().getUserId(), user.getUserId())){
 			}else{
 				System.out.println("权限不匹配，不能删除");
 				return "redirect:/notlimit";
@@ -240,7 +240,7 @@ public class ChatManageController {
 		if(user.getSuperman()){
 			model.addAttribute("manage", "具有管理权限");
 		}else{
-			if(user.getUserId()==discuss.getUser().getUserId()){
+			if(Objects.equals(user.getUserId(), discuss.getUser().getUserId())){
 				model.addAttribute("manage", "具有管理权限");
 			}
 		}

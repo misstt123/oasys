@@ -147,7 +147,7 @@ public class InformManageController {
 		Long noticeId = Long.parseLong(req.getParameter("id"));
 		Long userId = Long.parseLong(session.getAttribute("userId") + "");
 		NoticesList notice = informDao.findOne(noticeId);
-		if (userId != notice.getUserId()) {
+		if (!Objects.equals(userId, notice.getUserId())) {
 			System.out.println("权限不匹配，不能删除");
 			return "redirect:/notlimit";
 		}

@@ -194,7 +194,7 @@ public class AddrController {
 		if(!StringUtils.isEmpty(did)){
 			Director director=addressDao.findOne(did);
 			System.out.println();
-			if(Objects.isNull(director)||director.getMyuser().getUserId()!=userId){
+			if(Objects.isNull(director)|| !Objects.equals(director.getMyuser().getUserId(), userId)){
 				System.out.println("权限不匹配，不能操作");
 				return "redirect:/notlimit";
 			}
@@ -261,7 +261,7 @@ public class AddrController {
 		Director director=du.getDirector();
 		List<DirectorUser> dires=auDao.findByDirector(director);
 		User user=uDao.findOne(userId);
-		if(du.getUser().getUserId()!=userId){
+		if(!Objects.equals(du.getUser().getUserId(), userId)){
 			System.out.println("权限不匹配，不能删除");
 			return "redirect:/notlimit";
 		}

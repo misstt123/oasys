@@ -1,13 +1,7 @@
 package cn.gson.oasys.controller.plan;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -322,7 +316,7 @@ public class PlanController {
 			if(plans.size()==0)
 				uMap.put(user.getUserName(), null);
 			for (Plan plan : plans) {
-				if (user.getUserId() == plan.getUser().getUserId()) {
+				if (Objects.equals(user.getUserId(), plan.getUser().getUserId())) {
 					uMap.put(user.getUserName(), plan);
 					break;
 				} else {

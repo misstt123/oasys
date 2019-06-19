@@ -174,7 +174,7 @@ public class ProcedureController {
 		
 		String val=req.getParameter("val");
 		
-		if(roleid>=3L && fatherid==userid){
+		if(roleid>=3L && Objects.equals(fatherid, userid)){
 			
 		
 		List<DetailsBurse> mm=bu.getDetails();
@@ -633,7 +633,7 @@ public class ProcedureController {
 			Long userid=shen.getUserId();//审核人userid
 			String val=req.getParameter("val");
 			Double allmoney=0.0;
-			if(roleid>=3L && fatherid==userid){
+			if(roleid>=3L && Objects.equals(fatherid, userid)){
 						List<Traffic> ss=eve.getTraffic();
 						for (Traffic traffic : ss) {
 							allmoney+=traffic.getTrafficMoney();
@@ -696,7 +696,7 @@ public class ProcedureController {
 		Long fatherid=lu.getFatherId();//申请人父id
 		Long userid=shen.getUserId();//审核人userid
 		String val=req.getParameter("val");
-		if(roleid>=3L && fatherid==userid){
+		if(roleid>=3L && Objects.equals(fatherid, userid)){
 			//set主表
 			ProcessList pro=eve.getProId();
 			proservice.index5(pro, val, lu, filePath,shen.getUserName());
@@ -738,7 +738,7 @@ public class ProcedureController {
 			Long fatherid=lu.getFatherId();//申请人父id
 			Long userid=shen.getUserId();//审核人userid
 			String val=req.getParameter("val");
-			if(roleid>=3L && fatherid==userid){
+			if(roleid>=3L && Objects.equals(fatherid, userid)){
 				//set主表
 				ProcessList pro=eve.getProId();
 				proservice.index8(pro, val, lu,shen.getUserName());
@@ -781,7 +781,7 @@ public class ProcedureController {
 		Long fatherid=lu.getFatherId();//申请人父id
 		Long userid=shen.getUserId();//审核人userid
 		String val=req.getParameter("val");
-		if(roleid>=3L && fatherid==userid){
+		if(roleid>=3L && Objects.equals(fatherid, userid)){
 			SystemTypeList  type=tydao.findOne(eve.getTypeId());
 			if(eve.getTypeId()==40){
 				if(type.getTypeSortValue()<eve.getLeaveDays()){
@@ -838,7 +838,7 @@ public class ProcedureController {
 			Long fatherid=lu.getFatherId();//申请人父id
 			Long userid=shen.getUserId();//审核人userid
 			String val=req.getParameter("val");
-			if(roleid>=3L && fatherid==userid){
+			if(roleid>=3L && Objects.equals(fatherid, userid)){
 				if(lu.getRole().getRoleId()==6 ||lu.getRole().getRoleId()==7){
 					
 					//set主表
@@ -884,7 +884,7 @@ public class ProcedureController {
 			Long fatherid=lu.getFatherId();//申请人父id
 			Long userid=shen.getUserId();//审核人userid
 			String val=req.getParameter("val");
-			if(roleid>=3L && fatherid==userid){
+			if(roleid>=3L && Objects.equals(fatherid, userid)){
 				//set主表
 				ProcessList pro=eve.getProId();
 				proservice.index8(pro, val, lu,shen.getUserName());
