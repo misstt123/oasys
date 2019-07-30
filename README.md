@@ -1,5 +1,31 @@
 ##	oasys(OA自动化办公系统)
  办公自动化（OA）是面向组织的日常运作和管理，员工及管理者使用频率最高的应用系统，极大提高公司的办公效率。
+
+---
+### 最近做了一个微信小程序 —— 垃圾识别精灵
+#### 大家感兴趣的话 可以微信扫码体验一下,也可以在微信当中搜索小程序：垃圾识别精灵。 
+#### 后面我会把相关功能再完善完善，大概在 8月底到9月初 会开源出来的。 敬请期待哟。
+
+<img src="https://images.gitee.com/uploads/images/2019/0730/130939_1e21447e_1277461.jpeg" width="300"  align=center />
+
+<!-- <img src="https://images.gitee.com/uploads/images/2019/0730/114215_38a24a48_1277461.jpeg" width="300"  align=center /> -->
+
+| 首页 | 分类页 | 分类详情 | 搜索页 |
+| :--------: | :--------:| :--: |:--:|
+| <img src="https://images.gitee.com/uploads/images/2019/0730/125242_4777d3fa_1277461.png" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125250_8275848e_1277461.png" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125301_35954171_1277461.png" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125317_7272a96b_1277461.png" width="300"  align=center />|
+
+
+| 语音识别 | 挑战赛 | 挑战赛等级 | 挑战赛详情 |
+| :--------: | :--------:| :--: |:--:|
+| <img src="https://images.gitee.com/uploads/images/2019/0730/125349_348ed5a1_1277461.png" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125325_0eac19a1_1277461.png" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125333_20a7ed64_1277461.png" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125341_350f0101_1277461.png" width="300"  align=center />|
+
+
+| 加个好友吧 | 欢迎来一起交流哟 | 
+| :--------: | :--------:| 
+| <img src="https://images.gitee.com/uploads/images/2019/0730/125216_76c77d92_1277461.jpeg" width="300"  align=center />|<img src="https://images.gitee.com/uploads/images/2019/0730/125230_2a8b47dd_1277461.jpeg" width="300"  align=center />|
+
+---
+
 ###	1.项目介绍
 oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于springboot框架开发的项目，mysql底层数据库，前端采用freemarker模板引擎，Bootstrap作为前端UI框架，集成了jpa、mybatis等框架。作为初学springboot的同学是一个很不错的项目，如果想在此基础上面进行OA的增强，也是一个不错的方案。
 ### 2.框架介绍
