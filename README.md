@@ -5,9 +5,11 @@
 ### 最近做了一个微信小程序 —— 垃圾识别精灵
 #### 大家感兴趣的话 可以微信扫码体验一下,也可以在微信当中搜索小程序：垃圾识别精灵。 
 #### ~~后面我会把相关功能再完善完善，大概在 8月底到9月初 会开源出来的。 敬请期待哟~~。
-#### 现已开源，去看看吧——>  https://gitee.com/aaluoxiang/GarbageSort
-
+#### 现已开源，去看看吧.可以加我微信好友一起交流——>  https://gitee.com/aaluoxiang/GarbageSort
+ 
 <img src="https://images.gitee.com/uploads/images/2019/0730/130939_1e21447e_1277461.jpeg" width="300"  align=center />
+
+<img src="https://images.gitee.com/uploads/images/2019/0927/141027_4b404d3b_1277461.jpeg" width="300"  align=center />
 
 <!-- <img src="https://images.gitee.com/uploads/images/2019/0730/114215_38a24a48_1277461.jpeg" width="300"  align=center /> -->
 
@@ -89,13 +91,13 @@ oasys是一个OA办公自动化系统，使用Maven进行项目管理，基于sp
 
 ###  6.项目截图
 
-![演示1.gif](https://i.loli.net/2018/09/26/5bab4564b93af.gif)
+![演示1.gif](https://images.gitee.com/uploads/images/2019/0927/141250_aeec4d38_1277461.gif)
 ![演示4.gif](https://i.loli.net/2018/09/26/5bab4565b121e.gif)
-![演示3.gif](https://i.loli.net/2018/09/26/5bab4564b1469.gif)
+![演示3.gif](https://images.gitee.com/uploads/images/2019/0927/141251_4ef0327c_1277461.gif)
 
-![主页面.png](https://i.loli.net/2018/09/26/5bab46225db21.png)
-![登陆页面.png](https://i.loli.net/2018/09/26/5bab46228ed27.png)
-![文件管理.png](https://i.loli.net/2018/09/26/5bab46224f849.png)
-![讨论区.png](https://i.loli.net/2018/09/26/5bab4622599ae.png)
-![新建流程.png](https://i.loli.net/2018/09/26/5bab46226122e.png)
-![通讯录.png](https://i.loli.net/2018/09/26/5bab462261e3d.png)
+![主页面.png](https://images.gitee.com/uploads/images/2019/0927/141250_2286d104_1277461.png)
+![登陆页面.png](https://images.gitee.com/uploads/images/2019/0927/141250_f5277aa8_1277461.png)
+![文件管理.png](https://images.gitee.com/uploads/images/2019/0927/141250_491ce25d_1277461.png)
+![讨论区.png](https://images.gitee.com/uploads/images/2019/0927/141251_d4992cd4_1277461.png)
+![新建流程.png](https://images.gitee.com/uploads/images/2019/0927/141251_c7d89853_1277461.png)
+![通讯录.png](https://images.gitee.com/uploads/images/2019/0927/141251_bcf9cbda_1277461.png)
