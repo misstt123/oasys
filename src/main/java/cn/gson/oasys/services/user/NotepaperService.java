@@ -2,6 +2,7 @@ package cn.gson.oasys.services.user;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
@@ -35,7 +36,8 @@ public class NotepaperService {
 	@PostConstruct
 	public void UserpanelController(){
 		try {
-			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("target/classes/","static/image");
+			String temp= ResourceUtils.getURL("classpath:").getPath().replace("target/classes/","static/image");
+            rootpath=URLDecoder.decode(temp, "utf-8");
 			System.out.println(rootpath);
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");
@@ -67,7 +69,7 @@ public class NotepaperService {
 			
 			System.out.println(imgpath);
 			
-			return imgpath;
+			return newFileName;
 		}else{
 			return null;
 		}

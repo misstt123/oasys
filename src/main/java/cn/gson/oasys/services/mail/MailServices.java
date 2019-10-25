@@ -2,6 +2,7 @@ package cn.gson.oasys.services.mail;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,8 +81,9 @@ public class MailServices {
 	@PostConstruct
 	public void UserpanelController(){
 		try {
-			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/attachment");
-			System.out.println(rootpath);
+			String temp= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/attachment");
+            rootpath = URLDecoder.decode(temp, "utf-8");
+            System.out.println(rootpath);
 
 		}catch (IOException e){
 			System.out.println("获取项目路径异常");

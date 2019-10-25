@@ -7,6 +7,7 @@ package cn.gson.oasys.exception;
  */
 
 import org.hibernate.service.spi.ServiceException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,8 @@ public class WebControllerException {
         ex.printStackTrace();
         System.out.println("异常处理："+ex.getMessage());
     }
+
+
 
 
 }

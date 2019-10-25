@@ -70,7 +70,8 @@ public class UserpanelController {
 	@PostConstruct
 	public void UserpanelController(){
 		try {
-			rootpath= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/image");
+			String temp= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/image");
+			rootpath=URLDecoder.decode(temp,"utf-8");
 			System.out.println(rootpath);
 
 		}catch (IOException e){
@@ -244,13 +245,17 @@ public class UserpanelController {
 		File f = new File(rootpath, path);
 		
 		ServletOutputStream sos = response.getOutputStream();
-		FileInputStream input = new FileInputStream(f.getPath());
-		byte[] data = new byte[(int) f.length()];
-		IOUtils.readFully(input, data);
-		// 将文件流输出到浏览器
-		IOUtils.write(data, sos);
-		input.close();
-		sos.close();
-	}
+        try {
+            FileInputStream input = new FileInputStream(f.getPath());
+            byte[] data = new byte[(int) f.length()];
+            IOUtils.readFully(input, data);
+            // 将文件流输出到浏览器
+            IOUtils.write(data, sos);
+            input.close();
+            sos.close();
+        } catch (IOException e) {
+
+        }
+    }
 
 }

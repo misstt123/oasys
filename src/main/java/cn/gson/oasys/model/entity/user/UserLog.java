@@ -15,12 +15,12 @@ import javax.persistence.Table;
 @Table(name = "aoa_user_log")
 public class UserLog {
 
-	@Id
-	@Column(name = "log_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;	//logid
-	
-	@Column(name = "ip_addr")
+    @Id
+    @Column(name = "log_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;	//logid
+
+    @Column(name = "ip_addr")
 	private String ipAddr;	//ip地址
 	
 	private String title;	//操作菜单名字
