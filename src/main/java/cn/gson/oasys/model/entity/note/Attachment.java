@@ -35,8 +35,8 @@ public class Attachment {
 	
 	@Column(name="attachment_size")
 	private Long attachmentSize; //附件大小
-	
-	@Column(name="attachment_type")
+
+    @Column(name="attachment_type")
 	private String attachmentType;  //附件类型
 	
 	@Column(name="upload_time")

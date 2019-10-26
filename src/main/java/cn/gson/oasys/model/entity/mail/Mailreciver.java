@@ -17,8 +17,8 @@ import cn.gson.oasys.model.entity.user.User;
 public  class Mailreciver {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="pk_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="pk_id")
 	private Long pkId;
 	
 	

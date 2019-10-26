@@ -279,8 +279,8 @@ public class MailServices {
 	 */
 	public Attachment upload(MultipartFile file,User mu) throws IllegalStateException, IOException{
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
-		File root = new File(rootpath,simpleDateFormat.format(new Date()));
-		File savepath = new File(root,mu.getUserName());
+		String tmp=simpleDateFormat.format(new Date())+"/"+mu.getUserName();
+		File savepath = new File(rootpath,tmp);
 		
 		if (!savepath.exists()) {
 			savepath.mkdirs();
@@ -289,12 +289,13 @@ public class MailServices {
 		if(!StringUtil.isEmpty(fileName)){
 			String suffix=FilenameUtils.getExtension(fileName);
 			String newFileName = UUID.randomUUID().toString().toLowerCase()+"."+suffix;
+			tmp=tmp+"/"+newFileName;
 			File targetFile = new File(savepath,newFileName);
 			file.transferTo(targetFile);
 			
 			Attachment attachment=new Attachment();
 			attachment.setAttachmentName(file.getOriginalFilename());
-			attachment.setAttachmentPath(targetFile.getAbsolutePath().replace("\\", "/").replace(rootpath, ""));
+			attachment.setAttachmentPath(tmp);
 			attachment.setAttachmentShuffix(suffix);
 			attachment.setAttachmentSize(file.getSize());
 			attachment.setAttachmentType(file.getContentType());

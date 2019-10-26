@@ -1,16 +1,14 @@
 package cn.gson.oasys.model.dao.maildao;
 
-import java.util.List;
-
+import cn.gson.oasys.model.entity.mail.Mailreciver;
+import cn.gson.oasys.model.entity.mail.Pagemail;
+import cn.gson.oasys.model.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
 
-import cn.gson.oasys.model.entity.mail.Mailreciver;
-import cn.gson.oasys.model.entity.mail.Pagemail;
-import cn.gson.oasys.model.entity.user.User;
+import java.util.List;
 
 public interface MailreciverDao extends PagingAndSortingRepository<Mailreciver, Long>{
 

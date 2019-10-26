@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link href="images/favicon1.ico" rel="icon" type="image/x-icon"/>
 <link href="images/favicon1.ico" rel="shortcut icon" type="image/x-icon"/>
-<title>OA办公自动化系统</title>
+<title>OA人事办公系统</title>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/login.css">
  <style>
@@ -131,7 +131,7 @@
         </form>
       </div>
      <div style="border: 1px solid transparent;">
-      	<p style="margin-top: 550px;font-weight: 400;color: #757575;font-size: 22px;letter-spacing:1px ;">欢迎使用OA办公自动化系统</p>
+      	<p style="margin-top: 550px;font-weight: 400;color: #757575;font-size: 22px;letter-spacing:1px ;">欢迎使用OA办公系统</p>
       </div>
     </div>
     
