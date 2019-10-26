@@ -539,8 +539,7 @@ public class NoteController {
 			cataloglist.add(catalogDao.findOne(33l));
 		else
 		cataloglist.set(0, catalogDao.findOne(33l));
-		
-		System.out.println("目录"+cataloglist);
+
 		// 用户 就是联系人
 		List<User> users = (List<User>) userDao.findAll();
 		String nId = Request.getParameter("id");

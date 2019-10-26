@@ -1,19 +1,20 @@
 package cn.gson.oasys.controller.chat;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import cn.gson.oasys.common.formValid.BindingResultVOUtil;
+import cn.gson.oasys.common.formValid.ResultEnum;
+import cn.gson.oasys.common.formValid.ResultVO;
+import cn.gson.oasys.model.dao.discuss.*;
+import cn.gson.oasys.model.dao.system.TypeDao;
+import cn.gson.oasys.model.dao.user.UserDao;
+import cn.gson.oasys.model.entity.discuss.Discuss;
+import cn.gson.oasys.model.entity.discuss.VoteList;
+import cn.gson.oasys.model.entity.discuss.VoteTitles;
+import cn.gson.oasys.model.entity.system.SystemTypeList;
+import cn.gson.oasys.model.entity.user.User;
+import cn.gson.oasys.services.discuss.DiscussService;
+import cn.gson.oasys.services.discuss.ReplyService;
+import cn.gson.oasys.services.discuss.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -23,29 +24,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 
-import cn.gson.oasys.common.formValid.BindingResultVOUtil;
-import cn.gson.oasys.common.formValid.MapToList;
-import cn.gson.oasys.common.formValid.ResultEnum;
-import cn.gson.oasys.common.formValid.ResultVO;
-import cn.gson.oasys.model.dao.discuss.CommentDao;
-import cn.gson.oasys.model.dao.discuss.DiscussDao;
-import cn.gson.oasys.model.dao.discuss.ReplyDao;
-import cn.gson.oasys.model.dao.discuss.VoteTitleListDao;
-import cn.gson.oasys.model.dao.discuss.VoteTitlesUserDao;
-import cn.gson.oasys.model.dao.system.TypeDao;
-import cn.gson.oasys.model.dao.user.UserDao;
-import cn.gson.oasys.model.entity.discuss.Comment;
-import cn.gson.oasys.model.entity.discuss.Discuss;
-import cn.gson.oasys.model.entity.discuss.Reply;
-import cn.gson.oasys.model.entity.discuss.VoteList;
-import cn.gson.oasys.model.entity.discuss.VoteTitles;
-import cn.gson.oasys.model.entity.system.SystemTypeList;
-import cn.gson.oasys.model.entity.user.User;
-import cn.gson.oasys.services.discuss.DiscussService;
-import cn.gson.oasys.services.discuss.ReplyService;
-import cn.gson.oasys.services.discuss.VoteService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.*;
 
 @Controller
 @RequestMapping("/")
