@@ -125,7 +125,7 @@ public class FileServices {
         String shuffix = FilenameUtils.getExtension(file.getOriginalFilename());
         log.info("shuffix:{}", shuffix);
         String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + shuffix;
-        tmp = tmp +"/"+ newFileName;
+        tmp = tmp + "/" + newFileName;
         File targetFile = new File(savepath, newFileName);
         file.transferTo(targetFile);
 
@@ -161,9 +161,8 @@ public class FileServices {
     //修改附件
     public Integer updateatt(MultipartFile file, User user, FilePath nowpath, long attid) throws IllegalStateException, IOException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
-        File root = new File(this.rootPath, simpleDateFormat.format(new Date()));
-
-        File savepath = new File(root, user.getUserName());
+        String tmp = simpleDateFormat.format(new Date()) + "/" + user.getUserName();
+        File savepath = new File(this.rootPath, tmp);
         //System.out.println(savePath.getPath());
 
         if (!savepath.exists()) {
@@ -175,10 +174,10 @@ public class FileServices {
             String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + shuffix;
             File targetFile = new File(savepath, newFileName);
             file.transferTo(targetFile);
-
+            tmp="/"+tmp+"/"+newFileName;
 
             return AttachService.updateatt(file.getOriginalFilename(),
-                    targetFile.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""), shuffix, file.getSize(),
+                    tmp, shuffix, file.getSize(),
                     file.getContentType(), new Date(), attid);
         }
         return 0;
