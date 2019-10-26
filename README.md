@@ -2,16 +2,6 @@
  办公自动化（OA）是面向组织的日常运作和管理，员工及管理者使用频率最高的应用系统，极大提高公司的办公效率。
 
 ---
-### 最近做了一个微信小程序 —— 垃圾识别精灵
-#### 大家感兴趣的话 可以微信扫码体验一下,也可以在微信当中搜索小程序：垃圾识别精灵。 
-#### ~~后面我会把相关功能再完善完善，大概在 8月底到9月初 会开源出来的。 敬请期待哟~~。
-#### 现已开源，去看看吧.可以加我微信好友一起交流——>  https://gitee.com/aaluoxiang/GarbageSort
- 
-<img src="https://images.gitee.com/uploads/images/2019/0730/130939_1e21447e_1277461.jpeg" width="300"  align=center />
-
-<img src="https://images.gitee.com/uploads/images/2019/0927/141027_4b404d3b_1277461.jpeg" width="300"  align=center />
-
-<!-- <img src="https://images.gitee.com/uploads/images/2019/0730/114215_38a24a48_1277461.jpeg" width="300"  align=center /> -->
 
 | 首页 | 分类页 | 分类详情 | 搜索页 |
 | :--------: | :--------:| :--: |:--:|
