@@ -1,0 +1,154 @@
+*{
+	font-size: 14px;
+}
+.box {
+	position: relative;
+	border-radius: 3px;
+	background: #ffffff;
+	border-top: 3px solid #d2d6de;
+	margin-bottom: 20px;
+	width: 100%;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.box-header {
+	color: #444;
+	display: block;
+	padding: 12px;
+	position: relative;
+	border-bottom: 1px solid #f4f4f4;
+}
+
+.box-header .box-title {
+	display: inline-block;
+	font-size: 18px;
+	margin: 0;
+	line-height: 1;
+}
+
+.box-header>.box-tools {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+.box-body {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	padding: 10px;
+}
+
+.box-footer {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-top: 1px solid #f4f4f4;
+	padding: 10px;
+	background-color: #fff;
+}
+.box-footer  .btn-primary{
+	margin-left: 16px;
+}
+
+.box .box-primary {
+	border-top-color: #3c8dbc;
+}
+
+.box.box-solid {
+	border-top: 0;
+}
+
+.table .label {
+	padding: 0.4em .6em .3em;
+	line-height: 22px;
+}
+.label{
+	font-weight:400;
+}
+
+.no-padding {
+	padding: 0 !important;
+}
+
+#page {
+	border-top: solid 1px #F5F5F5;
+	padding: 10px 0;
+	margin-top: -10px;
+	background: #FAFAFA;
+	overflow: hidden;
+}
+
+#page .pageInfo {
+	text-align: left;
+}
+
+#page .pageOperation {
+	text-align: right;
+}
+
+#page .pageInfo>span {
+	color: #000;
+	font-weight: bold;
+	padding: 5px;
+}
+
+/*label样式变换  */
+.sheding {
+	color: #6d7b8a !important;
+}
+
+.sheding:hover {
+	background-color: #6d7b8a;
+	color: #fff !important;
+}
+
+.xiugai {
+	color: #337ab7 !important;
+}
+.xiugai:visited {
+	color: #337ab7 !important;
+}
+.xiugai:hover{
+	background-color: #337ab7;
+	color: #fff !important;
+}
+
+
+.shanchu {
+	color: #d9534f !important;
+}
+
+.shanchu:hover {
+	background-color: #d9534f;
+	color: #fff !important;
+}
+
+
+.xinzeng {
+	color: #5cb85c !important;
+}
+
+.xinzeng:hover {
+	background-color: #5cb85c;
+	color: #fff !important;
+}
+.row{
+	margin-right: 0px;
+	margin-left:0px;
+}
+body{
+	background:none;
+}
+.input-group-btn .btn{
+	padding:7px;
+}
+
+.input-group-btn .btn-change{
+	padding:5px;
+}
+::-webkit-scrollbar {
+    width: 0;
+}

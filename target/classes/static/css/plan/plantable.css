@@ -1,0 +1,80 @@
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+	.label-back {
+    background-color: #6C7B8B;
+    color: white;
+   }
+
+  .label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: .25em;
+    margin-left: 10px;
+    
+}
+
+    .label-back:hover{
+    	color: white !important;
+    }
+   .box-header {
+    color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+        font-size: 18px;
+}
+.box-header .vary {
+    background: #E7E7E7;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 10pt;
+    margin-left: 3px;
+    display: inline-block;
+}
+
+   .box-header .time{
+   	    position: absolute;
+    top: 10px;
+    right: 170px;
+   }
+   
+  .box-header .time a{
+  text-decoration: none;
+  }
+  
+  .box-header #start{
+  font-size: 16px;
+  margin-left: 10px;
+  margin-top: 4px;
+  font-family: 'Source Sans Pro',sans-serif;
+  }
+  
+  .box-header #end{
+  font-size: 16px;
+  margin-left: 5px;
+  font-family: 'Source Sans Pro',sans-serif;
+  }
+  .box{
+      margin-top: 10px !important;
+  }
+  .row .col-md-10 h1{
+  font-size:24px;margin: 0;
+  }
+  
+
+.modal-header .close {
+    margin-top: -13px;
+    margin-right: -12px;
+}

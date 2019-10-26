@@ -1,0 +1,130 @@
+		.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow: hidden;
+			}
+			
+			a {
+				color: black;
+			}
+			
+			a:hover {
+				text-decoration: none;
+			}
+			
+			
+			.bgc-w {
+				background-color: #fff;
+			}
+			
+			.nav-stacked>li {
+				border-bottom: 1px solid #f4f4f4;
+			}
+			
+			.bac{
+				background-color: #eee;
+			}
+			.em{
+				color:#ff9800;
+			}
+			
+			.des{
+				border:none;
+				color:#9e9e9e;
+			}
+			
+			.uncheck{
+				margin-right: 10px;
+				padding-top: 8px;
+			}
+			
+			.fff>li,.files>li{
+				border-left: 3px solid transparent;
+				cursor: pointer;
+				
+				height: 40px;
+				line-height: 40px;
+				
+			}
+			.bgc-w .nav>li:hover{
+				background-color: #eee;
+				border-left: 3px solid #eee;
+			}
+			.nav-stacked>li+li {
+				margin-top: 0px;
+			}
+			li .le{
+				margin-left: 16px;
+				
+				
+			}
+			.files li .le{
+			padding-top: 11px;
+			} 
+			.outside{
+				margin-top: 20px;
+			}
+			.la {
+				margin-top: 4px;
+				font-size: 16px;
+			}
+			
+			
+			#MoreDiv {
+				display: none;
+				top: 5px;
+			}
+			
+			.reciver {
+				position: relative;
+				top: -24px;
+				float: right;
+				right: 4px;
+				cursor: pointer;
+			}
+			
+			form {
+				margin: 0;
+			}
+			
+			textarea {
+				display: block;
+				font-size: 16px;
+			}
+			
+			#ss .ke-container {
+				border-radius: 5px;
+				width: 770px;
+			}
+			
+			.form-group .btn {
+				background-color: #eee;
+				width: 100px;
+				height: 34px;
+			}
+			
+			#ctl00_cphMain_fuAttachment {
+				opacity: 0;
+				position: relative;
+				top: -22px;
+			}
+			
+			.left1,
+			.right1 {
+				display: inline-block;
+				
+			}
+			
+			.foots{
+				padding-bottom:10px
+				
+			}
+			.right1 .btn-default,
+			.left1 .btn-default {
+				background-color: #eee;
+			}
+	
+	  
+	

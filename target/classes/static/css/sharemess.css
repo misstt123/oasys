@@ -1,0 +1,87 @@
+a{
+	color:#337ab7;
+}
+.sharemess {
+	margin: auto;
+	padding: 15px;
+	min-width: 600px;
+}
+
+.sharemess p {
+	text-align: center;
+}
+
+.sharecontent {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 15px;
+}
+
+.sharecontent-left {
+	display: inline-block;
+	width: 60%;
+	height: 80px;
+}
+
+.sharecontent-left .share-top {
+	height: 40px;
+}
+
+.share-top img {
+	height: 30px;
+	width: 30px;
+}
+
+.share-bottom {
+	border: height: 60px;
+}
+
+.share-bottom img {
+	height: 24px;
+	width: 24px;
+}
+
+.share-right {
+	display: inline-block;
+	width: 38%;
+	height: 100px;
+	float: right;
+}
+
+.share-choose {
+	height: 100px;
+	width: 65%;
+	display: inline-block;
+}
+
+.share-choose span {
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.share-choose select {
+	width: 150px;
+}
+
+.share-button {
+	height: 100px;
+	width: 28%;
+	display: inline-block;
+	float: right;
+	text-align: center;
+}
+
+.share-button .btn-primary {
+	margin-top: 30px;
+	margin-bottom: 5px;
+	width: 90%;
+}
+.sharecontent-left img{
+	height: 30px;width: 30px;
+}
+.share-bottom img{
+	height: 24px;width: 24px;
+}
+.table>tbody>tr>td{
+	padding: 4px;
+}

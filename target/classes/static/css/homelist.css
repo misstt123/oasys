@@ -1,0 +1,261 @@
+a:hover{
+	text-decoration: none;
+}
+.moredeep li .badge {
+	position: absolute;
+    margin-top: -29px;
+    margin-left: 10px;
+    padding: 2px 4px;
+}
+.yellow-badge{
+	background-color: #43da8d;
+}
+.red-badge{
+	background-color: #d20000;
+}
+.blue-badge{
+	background-color: #00a4d6;
+}
+
+.white {
+	color: white;
+}
+
+/* .nav .open>a,
+.nav .open>a:focus,
+.nav .open>a:hover {
+	background: #008d4c;
+} */
+
+
+.user-header {
+	height: 175px;
+	width: 280px;
+	padding: 10px;
+	text-align: center;
+	/* background-color: #00a65a; */
+}
+/*左边的鼠标移入  */
+#accordion .open-menu:hover,
+#accordion .open-menu:focus,
+#accordion .open-menu:visited {
+	background: #18252b;
+	color: white;
+}
+.user-footer div {
+	padding: 10px;
+}
+
+.user-image {
+	width: 30px;
+	height: 30px;
+	float: left;
+	border-radius: 50%;
+	margin-right: 10px;
+	margin-top: -5px;
+}
+
+.user-panel {
+	height: 60px;
+	margin-top: 5px;
+	padding: 15px 5px 15px 5px;
+}
+
+.user-image-left {
+	max-width: 45px;
+	height: 45px;
+	width: 45px;
+	border-radius: 50%;
+}
+
+.info {
+	padding: 5px 5px 5px 15px;
+}
+
+.search-input {
+	border: 1px solid transparent;
+	height: 35px;
+	width: 85%;
+	border-bottom-left-radius: 2px;
+	border-top-left-radius: 2px;
+	background: #374850;
+	text-indent: 10px;
+	font-size: 13px;
+	outline: none;
+}
+
+.search-input:focus {
+	background: white;
+}
+
+.panel-heading {
+	padding: 0;
+	;
+}
+
+.open-menu {
+	display: block;
+	border: 0px solid red;
+	height: 40px;
+	padding: 10px 0 10px 20px;
+}
+
+.open-menu span {
+	margin-right: 5px;
+}
+
+li {
+	list-style: none;
+	text-align: left;
+}
+
+#accordion li a .glyphicon {
+	margin-right: 5px;
+}
+
+#accordion li a {
+	display: block;
+	height: 26px;
+	width: 160px;
+	border: 0px solid green;
+}
+
+#accordion ul {
+	margin-bottom: -6px;
+}
+
+#accordion a:hover,
+#accordion a:focus {
+	text-decoration: none;
+}
+
+#accordion .panel-default>.panel-heading,
+.panel {
+	background-color: #222d32;
+}
+
+#accordion a {
+	color: #b8c7ce;
+	font-size: 13px;
+}
+
+#accordion a:hover,
+#accordion .panel-collapse a:hover {
+	color: white;
+	font-size: 13px;
+}
+
+#accordion .panel .panel-collapse {
+	background: #2c3b41;
+	/*padding: 6px;*/
+}
+#accordion .panel .panel-collapse li{
+	 padding: 6px;
+ }
+
+.panel-default {
+	border: none;
+}
+
+.panel-heading .open-menu{
+	border-left: 3px solid transparent!important;
+}
+
+/* 表格中的抽出来的部分 */
+.menutable .btn {
+	padding: 3px 10px;
+	font-size: 12px;
+}
+
+.right-btn-group .search-btn {
+	background-color: #ccc;
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	padding: 5px 0 0 7px;
+	margin-left: -5px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	color:white;
+}
+
+.right-btn-group input:focus {
+	border: 1px solid #80abd0;
+}
+
+.right-btn-group input {
+	height: 30px;
+	outline: none;
+	color: #666;
+	text-indent: 10px;
+}
+
+.head-show {
+	position: relative;
+	height: 76px;
+}
+
+.head-show h3 {
+	display: inline-block;
+	float: left;
+	margin-left: 16px;
+}
+
+.head-show ol {
+	float: right;
+	margin-top: 20px;
+	background: transparent;
+}
+#smallDiv li {
+	text-align: center;
+	border: 3px solid transparent;
+	display: block;
+	width: 100%;
+	height: 40px;
+	padding: 6px;
+	margin-bottom: 2px;
+}
+
+#smallDiv a {
+	color: #b8c7ce;
+	font-size: 16px;
+}
+/* 
+#smallDiv li:hover {
+	border-left: 3px solid #00a65a;
+} */
+body{
+	overflow-x:hidden;
+}
+.dropdown-menu>li>a {
+    color: #fff;
+     padding: 10px 15px;
+}
+/* .dropdown-menu>li>a:HOVER {
+   background: red !important;
+} */
+.center{
+   text-align: center;
+}
+.center a:HOVER{
+	background-color:transparent !important;
+	color:#fff!important;
+}
+#historypanel .left a:HOVER{
+    background: #18252b !important;
+    color:#fff;
+}
+#historypanel .left a{
+   background: #222d32 !important;
+   color:#fff;
+}
+.left a small{
+    color: #337ab7;
+    text-decoration: none;
+}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover,.nav .open>a:LINK,.nav .open>a:VISITED{
+	border-color: #337ab7;
+	background-color:transparent!important;
+}
+			
+			

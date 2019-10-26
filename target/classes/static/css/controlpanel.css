@@ -1,0 +1,248 @@
+/*四个栅格系统，签到管理等*/
+.jichu {
+	position: relative;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3)
+}
+
+.kaoqin {
+	background: #00c0ef !important;
+}
+
+.filecolor {
+	background-color: #00a65a !important;
+}
+
+.tongxun {
+	background-color: #f39c12 !important;
+}
+
+.chat {
+	background-color: #dd4b39 !important;
+}
+
+.wenzi {
+	color: whitesmoke;
+	padding: 10px;
+}
+
+.iconfont .glyphicon{
+	margin-top: -100px;
+	margin-left: 156px;
+	font-size: 76px;
+	color: rgba(0, 0, 0, 0.15);
+}
+.iconfont .glyphicon:hover{
+	font-size: 86px;
+}
+
+.moreduo {
+	display: block;
+	line-height: 26px;
+	background: rgba(0, 0, 0, 0.1);
+	height: 26px;
+	color: whitesmoke;
+	text-align: center;
+}
+
+.moreduo:hover {
+	text-decoration: none;
+}
+/*盒子模型基本css*/
+.right-btn-group {
+	color: white;
+	border-color: #367fa9;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+.right-btn-group button {
+	background: #e6e6e6;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	outline-style: none;
+	height: 25px;
+}
+
+.right-btn-group button:hover {
+	background: #adadad;
+}
+
+.right-btn-group a {
+	color: white;
+}
+
+.basicskin {
+	font-size: 9pt;
+	color: #fff;
+	padding: 2px 4px;
+	border-radius: 3px;
+}
+
+.blueskin {
+	background-color: #00C0EF;
+}
+
+.yellowskin {
+	background: #F39C12;
+}
+
+.redskin {
+	background: #DD4B39;
+}
+
+.look-xiangxi {
+	background-color: #f4f4f4;
+	color: #444;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	padding: 4px 8px;
+	font-size: 9pt;
+}
+
+.look-xiangxi:hover {
+	text-decoration: none;
+}
+
+.box-show {
+	border-top: 3px solid #ccc;
+	background: white;
+}
+
+.box-show-heading {
+	background: white;
+	border: 0px;
+	height: 40px;
+	padding:0px;
+}
+
+.btn-color button {
+	color: #fff;
+}
+
+.btn-color button:hover {
+	background: #adadad;
+}
+/*右边五个格子的盒子，我的便签*/
+.list-group-item-li {
+	position: relative;
+	margin-bottom: -26px;
+}
+
+.item-li-img {
+	position: absolute;
+	line-height: 100%;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+}
+
+.item-li-p {
+	display: inline-block;
+	margin-top: -10px;
+	margin-left: 40px;
+	width: 94%;
+	padding: 10px;
+}
+
+.input-div {
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+}
+
+.input-div input {
+	width: 90%;
+	height: 32px;
+	text-indent: 10px;
+}
+
+.input-div input:focus {
+	border: 1px solid green;
+}
+
+.input-div a {
+	border: 1px solid #4cae4c;
+	background: #00a65a;
+	color: white;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.panel-title h4 {
+	margin-left: 12px;
+}
+
+.container-fluid {
+	padding: 0px;
+}
+
+.dropdown-menu>li>a {
+	padding: 3px 13px;
+	color: #6f6f6f;
+}
+
+.dropdown-menu {
+	min-width: 110px;
+	border: 1px solid #eaecec;
+	margin-left: -80px;
+}
+
+
+			#calendar{
+			font-size: 25px;
+			}
+			 #calendar td,th{
+				        width: 14%;
+    padding: 9px 0 !important;
+    text-align: center !important;
+    /* padding-left: 23px; */
+    /* padding-right: 20px; */
+    /* padding-top: 9px; */
+    /* padding-bottom: 9px; */
+    cursor: pointer;
+			}
+			.col-md-7  td,th{
+			text-align: left !important;
+			}
+			.tdhuifu {
+			 padding-left: 13px !important;
+    		padding-right: 10px !important;
+			}
+			/*当前天*/
+			.today{
+				color:red;
+			}
+			/*本月 文字颜色*/
+			.currentday{
+				color: white;
+			}
+			/*其他月颜色*/
+			.lastMonth{
+				color: black;
+			}
+			.nextMonth{
+				color: black;
+			}
+			.rightcolmd{
+			float:left;
+			width:41.66666667%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;}
+    
+    .right-btn-group button{
+     background: #337ab7 !important; 
+    }
+    .glyphicon-flag{
+     color: #EE2C2C !important;
+    }
+    .col-md-7 th{
+    padding-left: 10px !important;
+    }
+   

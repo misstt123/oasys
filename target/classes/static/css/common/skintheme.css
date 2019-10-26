@@ -1,0 +1,89 @@
+/* 这里将是黄色主题的内容 */
+.yellow {
+	background: #f39c12 !important;
+}
+.yellow-box{
+	border-top: 3px solid #f39c12;
+}
+.yellow-y{
+	background: #d69325;
+}
+.yellow-none:focus,
+.yellow-none:HOVER,
+.yellow-none:visited{
+	background: #d69325!important;;
+	color: white;
+}
+.yellow-left:hover,
+.yellow-left:focus,
+.yellow-left:visited{
+	border-left: 3px solid #f39c12!important;
+}
+
+
+/* 这里将是蓝色主题的内容 */
+.blue {
+	background: #00c0ef !important;
+}
+.blue-box{
+	border-top: 3px solid #00c0ef;
+}
+.blue-b{
+	background:#19a8cc;
+}
+.blue-none:focus,
+.blue-none:HOVER,
+.blue-none:visited
+{
+	background: #19a8cc!important;
+	color: white;
+}
+.blue-left:hover,
+.blue-left:focus,
+.blue-left:visited{
+	border-left: 3px solid #00c0ef!important;
+}
+
+/* 这里将是红色主题的内容 */
+.red {
+	background: #dd4b39 !important;
+}
+.red-box{
+	border-top: 3px solid #dd4b39;
+}
+.red-r{
+	background:#c54030 !important;
+}
+.red-none:focus,
+.red-none:HOVER,
+.red-none:visited{
+	background: #c54030 !important;
+	color: white;
+}
+.red-left:hover,
+.red-left:focus,
+.red-left:visited{
+	border-left: 3px solid #dd4b39 !important;
+}
+
+/* 这里将是绿色主题的内容 */
+.green{
+	background: #00a65a !important;
+}
+.green-box{
+	border-top: 3px solid #00a65a;
+}
+.green-g{
+	background: #008d4c;
+}
+.green-none:focus,
+.green-none:HOVER,
+.green-none:visited{
+	background: #008d4c!important;;
+	color: white;
+}
+.green-left:hover,
+.green-left:focus,
+.green-left:visited{
+	border-left: 3px solid #00a65a!important;
+}

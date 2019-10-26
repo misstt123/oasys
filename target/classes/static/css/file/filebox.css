@@ -1,0 +1,74 @@
+.file-box {
+	border-top: 1px solid #f4f4f4;
+	position: relative;
+	height: 600px;
+	overflow: hidden;
+}
+
+.file-one {
+	width: 120px;
+	height: 127px;
+	float: left;
+	margin: 4px 0 0 6px;
+	text-align: center;
+	border: 1px solid #fff;
+	position: relative;
+}
+
+.file-one-houver {
+	border: 1px solid #f1f5fa;
+	border-radius: 5px;
+	background: #f1f5fa;
+}
+
+.file-one-check {
+	border: 1px solid #90c3fd;;
+	border-radius: 5px;
+	background: #f1f5fa;
+}
+
+.file-img {
+	position: relative;
+	margin: 9px auto 0;
+	width: 84px;
+	height: 84px;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.file-img img {
+	padding-top: 15px;
+}
+
+.file-name {
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin: 6px 5px 5px;
+}
+
+.file-check {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	height: 21px;
+	width: 21px;
+	display: none;
+	cursor: pointer;
+	/*color: #0099CC;*/
+}
+
+.file-one-houver .file-check {
+	display: block;
+	color: #B9DEF0;
+}
+
+.file-one-check .file-check {
+	display: block;
+	color: #00BBEE;
+}
+
+.diplaynone{
+	display:none !important;
+}

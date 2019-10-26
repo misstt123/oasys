@@ -26,7 +26,7 @@ import cn.gson.oasys.model.entity.user.User;
 @Service
 @Transactional
 public class VoteService {
-	
+
 	@Autowired
 	DiscussDao discussDao;
 	@Autowired
@@ -39,19 +39,19 @@ public class VoteService {
 	VoteTitlesUserDao voteUserDao;
 	@Autowired
 	VoteTitleListDao voteTitlesDao;
-	
+
 	//保存一个投票
 	public VoteList savaVoteList(VoteList voteList){
 		return voteListDao.save(voteList);
 	}
-	
+
 	//保存投票标题与用户关联表
 	public VoteTitleUser savaVoteTitleUser(VoteTitleUser voteTitleUser){
 		return voteUserDao.save(voteTitleUser);
 	}
-	
+
 	public void voteServiceHandle(Model model, User user, Discuss discuss) {
-		
+
 		if(!Objects.isNull(discuss.getVoteList())){
 			List<VoteTitles> voteTitles=voteTitlesDao.findByVoteList(discuss.getVoteList());
 			List<Map<String, Object>> voteTitlesList=new ArrayList<>();
@@ -79,7 +79,7 @@ public class VoteService {
 			model.addAttribute("voteList", discuss.getVoteList());
 		}
 	}
-	
-	
+
+
 
 }

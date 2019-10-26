@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.oasys.mappers.AddressMapper">
+	<!-- 判断三个条件
+		1、外部分类是否为空
+		2、字母值是否为空
+		3、关键字是否为空
+	 -->
+	 <select id="allDirector" resultType="java.util.Map">
+		SELECT d.*,u.*
+		FROM aoa_director_users AS u LEFT JOIN aoa_director AS d ON 
+		d.director_id = u.director_id
+		WHERE u.user_id=#{userId} AND u.director_id is NOT null AND u.is_handle=1
+		<if test="pinyin !='ALL'">
+			AND d.pinyin LIKE '${pinyin}%'
+		</if>
+		<if test="outtype !=null and outtype !=''">
+			 AND u.catelog_name = '${outtype}'
+		</if>
+		<if test="baseKey !=null and baseKey !=''">
+		AND
+		(d.user_name LIKE '%${baseKey}%' 
+		OR d.phone_number LIKE '%${baseKey}%' 
+		OR d.companyname LIKE '%${baseKey}%'
+		OR d.pinyin LIKE '${baseKey}%'
+		OR u.catelog_name LIKE '%${baseKey}%'
+		)
+		</if>
+		order by u.catelog_name
+	 </select>
+	
+
+</mapper>

@@ -1,0 +1,101 @@
+	.outside {
+				border: 0px solid red;
+				margin-top: 20px;
+			
+			}
+			
+			.containers {
+				border-radius: 5px;
+				border: 0px solid black;
+				border-top: 3px solid rgba(158, 158, 158, 0.69);
+				margin-left: 18px;
+    			margin-right: 18px;
+				background-color: #FFFFFF;
+				
+			}
+			.ss{
+				margin-left: 20px;
+    			margin-right: 20px;
+			}
+			
+			.ols,
+			.ha {
+				display: inline-block;
+			}
+			
+			.ols {
+				margin-top: 38px;
+			}
+			
+			.ols li {
+				display: inline-block;
+				list-style: none;
+			}
+			
+			.ols .glyphicon {
+				cursor: pointer;
+			}
+			
+			.ols span a {
+				text-decoration: none;
+			}
+			
+			.containers .out {
+				margin-top: 10px;
+				margin-left: 10px;
+			}
+			
+			.containers .back,
+			.containers .print {
+				width: 50px;
+				height: 25px;
+				line-height:20px;
+			}
+			
+			.page-header {
+				margin: 0px 0 10px;
+			}
+			
+			.foot {
+				margin-left:7px;
+    			padding-bottom: 12px;
+			}
+			
+			.save,
+			.cancel {
+				width: 62px;
+				height: 27px;
+			}
+			
+			.containers .bs,.containers .bs:hover{
+				background-color: #607D8B;
+				color: white;
+			}
+			.mailbox-read-info{
+				border-bottom: 1px solid #f4f4f4;
+    			
+			}
+			
+			.mailbox-read-message{
+				margin-top: 10px;
+			}
+			.fonts{
+				color: #9E9E9E;
+			}
+			.progress-bar{
+				background-color: rgba(0, 188, 212, 0.68);
+			}
+			.progress {
+				height: 10px;
+			}
+		
+			.head{
+				    margin-bottom: 20px;
+			}
+			.right-me{
+				margin-top: 8px;
+			}
+			.right-me a{
+				color: black;
+				text-decoration: none;
+			}

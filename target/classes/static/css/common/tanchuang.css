@@ -1,0 +1,87 @@
+#myModal .b {
+	color: #72afd2;
+}
+
+#myModal .b:hover {
+	color: #23527c;
+}
+
+#myModal #pager {
+	border-top: solid 1px #F5F5F5;
+	padding: 10px 0;
+	margin-top: -10px;
+	background: #FAFAFA;
+	overflow: hidden;
+}
+
+#myModal div.Pager .CustomInfo span {
+	color: #000;
+	font-weight: bold;
+	padding: 5px;
+}
+
+#myModal .modal-1 {
+	margin: 20px;
+	padding: 20px;
+	background: #ECF0F5;
+}
+
+#myModal .modal-2 {
+	background: white;
+	border-top: 3px solid #D2D6DE;
+}
+
+#myModal .closespan {
+	color: white;
+	font-size: 45px;
+}
+
+#myModal .input-group {
+	width: 150px;
+	float: right;
+	margin-top: 13px;
+}
+
+#shareModal .b {
+	color: #72afd2;
+}
+
+#shareModal .b:hover {
+	color: #23527c;
+}
+
+#shareModal #pager {
+	border-top: solid 1px #F5F5F5;
+	padding: 10px 0;
+	margin-top: -10px;
+	background: #FAFAFA;
+	overflow: hidden;
+}
+
+#shareModal div.Pager .CustomInfo span {
+	color: #000;
+	font-weight: bold;
+	padding: 5px;
+}
+
+#shareModal .modal-1 {
+	margin: 20px;
+	padding: 20px;
+	background: #ECF0F5;
+}
+
+#shareModal .modal-2 {
+	background: white;
+	border-top: 3px solid #D2D6DE;
+}
+
+#shareModal .closespan {
+	color: white;
+	font-size: 45px;
+}
+
+#shareModal .input-group {
+	width: 150px;
+	float: right;
+	margin-top: 13px;
+}

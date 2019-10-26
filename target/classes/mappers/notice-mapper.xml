@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.oasys.mappers.NoticeMapper">
+	
+	<!--两个表联合查询得到本用户的所有通知列表  -->
+	<select id="findMyNotice" resultType="java.util.Map">
+		SELECT n.*,u.* FROM
+		aoa_notice_list AS n LEFT JOIN aoa_notice_user_relation AS u ON
+		n.notice_id=u.relatin_notice_id WHERE u.relatin_user_id=#{userId} ORDER BY
+		n.is_top DESC,u.is_read ASC ,n.modify_time DESC
+	</select>
+	
+	<!-- 在控制面板限制条数为5 -->
+	<select id="findMyNoticeLimit" resultType="java.util.Map">
+		SELECT n.*,u.* FROM
+		aoa_notice_list AS n LEFT JOIN aoa_notice_user_relation AS u ON
+		n.notice_id=u.relatin_notice_id WHERE u.relatin_user_id=#{userId} ORDER BY
+		n.is_top DESC,u.is_read ASC ,n.modify_time DESC LIMIT 5
+	</select>
+	
+	<select id="sortMyNotice" resultType="java.util.Map">
+		SELECT n.*,u.* FROM
+		aoa_notice_list AS n LEFT JOIN aoa_notice_user_relation AS u ON
+		n.notice_id=u.relatin_notice_id WHERE u.relatin_user_id=#{userId} 
+		<if test="baseKey !=null">
+			and n.title LIKE '%${baseKey}%'
+		</if>
+		ORDER BY
+		<choose>
+			<when test="type ==1">
+				n.type_id DESC
+			</when>
+			<when test="type ==0">
+				n.type_id ASC
+			</when>
+			<when test="status ==1">
+					n.status_id DESC
+			</when>
+			<when test="status ==0">
+					n.status_id ASC
+			</when>
+			<when test="time ==1">
+					n.modify_time DESC
+			</when>
+			<when test="time ==0">
+					n.modify_time ASC
+			</when>
+			<otherwise>
+				n.is_top DESC,u.is_read ASC ,n.modify_time DESC
+			</otherwise>
+		</choose>
+	</select>
+
+</mapper>

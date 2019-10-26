@@ -1,0 +1,49 @@
+	
+			a {
+				color: black;
+				text-decoration: none;
+			}
+			
+			a:hover {
+				text-decoration: none;
+			}
+			.outside{
+				margin-top: 20px;
+			}
+			table{
+				border-width: 0px;
+				border-collapse: collapse;
+				background-color: transparent;
+			}
+			.table{
+				width: 100%;
+				max-width: 100%;
+				margin-bottom: 20px;
+			}
+			tr{
+				height: 42px;
+			}
+			.co{
+				color: blue;
+			}
+			.bl{
+				color: black;
+			}
+			.commen{
+				cursor: pointer;
+			}
+			.block{
+				display: inline-block;
+				width: 20px;
+			}
+			.label-back {
+				background-color: #6C7B8B;
+				color: white;
+			}
+			
+			.label-back:hover {
+				color: white !important;
+			}
+			.widths{
+				width: 300px;
+			}

@@ -236,7 +236,7 @@ public class ChatManageController {
 		User user=uDao.findOne(userId);
 		Discuss discuss=discussDao.findOne(id);
 		//用来处理vote相关的数据
-		voteService.voteServiceHandle(model, user, discuss);
+		//voteService.voteServiceHandle(model, user, discuss);
 		if(user.getSuperman()){
 			model.addAttribute("manage", "具有管理权限");
 		}else{
