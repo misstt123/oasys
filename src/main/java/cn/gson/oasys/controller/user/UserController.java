@@ -166,7 +166,13 @@ public class UserController {
 		return "/usermanage";
 		
 	}
-	
+
+	/**
+	 * @Description:  查询用户名是否存在
+	 * @Author lyh-god
+	 * @Param [username]
+	 * @return boolean
+	 **/
 	@RequestMapping("useronlyname")
     public @ResponseBody boolean useronlyname(@RequestParam("username") String username){
 		System.out.println(username);

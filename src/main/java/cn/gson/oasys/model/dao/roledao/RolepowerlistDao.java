@@ -10,6 +10,11 @@ import cn.gson.oasys.model.entity.role.Rolemenu;
 import cn.gson.oasys.model.entity.role.Rolepowerlist;
 
 public interface RolepowerlistDao extends JpaRepository<Rolepowerlist, Long>{
+    //根据roleid查询所有的rolepower表
+    @Query(value = "from Rolepowerlist rp where rp.roleId.roleId=?1")
+    List<Rolepowerlist>  findByroleId(Long id);
+
+
 	//找所有的父菜单
 	@Query("select new cn.gson.oasys.model.entity.role.Rolemenu(menu.menuId,menu.menuName,menu.menuUrl,menu.show,role.check,menu.parentId,menu.menuIcon,menu.sortId,menu.menuGrade) "
 			+ "from Rolepowerlist as role,SystemMenu as menu where role.menuId.menuId=menu.menuId "

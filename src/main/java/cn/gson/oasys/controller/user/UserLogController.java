@@ -94,7 +94,7 @@ public class UserLogController {
 	@RequestMapping("counttasknum")
 	public String test3df(HttpServletResponse response) throws IOException {
 		List<User> uList= uDao.findAll();
-		HashMap< String, Integer> hashMap=new HashMap<>();
+		HashMap<String, Integer> hashMap=new HashMap<>();
 		int i=0;
 		for (User user : uList) {
 			if(taskDao.countfinish(7l, user.getUserId())>0){
