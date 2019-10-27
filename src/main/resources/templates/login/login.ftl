@@ -131,7 +131,8 @@
         </form>
       </div>
      <div style="border: 1px solid transparent;">
-      	<p style="margin-top: 550px;font-weight: 400;color: #757575;font-size: 22px;letter-spacing:1px ;">欢迎使用OA办公系统</p>
+      	 <p style="margin-top: 550px;font-weight: 400;color: #757575;font-size: 22px;letter-spacing:1px ;
+">欢迎使用OA人事管理系统</p>
       </div>
     </div>
     

@@ -125,7 +125,7 @@ public class FileServices {
         String shuffix = FilenameUtils.getExtension(file.getOriginalFilename());
         log.info("shuffix:{}", shuffix);
         String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + shuffix;
-        tmp = tmp + "/" + newFileName;
+        tmp = "/"+tmp + "/" + newFileName;
         File targetFile = new File(savepath, newFileName);
         file.transferTo(targetFile);
 
@@ -174,7 +174,7 @@ public class FileServices {
             String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + shuffix;
             File targetFile = new File(savepath, newFileName);
             file.transferTo(targetFile);
-            tmp="/"+tmp+"/"+newFileName;
+            tmp = "/" + tmp + "/" + newFileName;
 
             return AttachService.updateatt(file.getOriginalFilename(),
                     tmp, shuffix, file.getSize(),
@@ -490,8 +490,9 @@ public class FileServices {
         File s = getFile(filelist.getFilePath());
         User user = filelist.getUser();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
-        File root = new File(this.rootPath, simpleDateFormat.format(new Date()));
-        File savepath = new File(root, user.getUserName());
+
+        String tmp = simpleDateFormat.format(new Date()) + "/" + user.getUserName();
+        File savepath = new File(this.rootPath, tmp);
 
         if (!savepath.exists()) {
             savepath.mkdirs();
@@ -501,7 +502,7 @@ public class FileServices {
         log.info("shuffix:{}", shuffix);
         String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + shuffix;
         File t = new File(savepath, newFileName);
-
+        tmp = tmp + "/" + newFileName;
         copyfileio(s, t);
 
         FileList filelist1 = new FileList();
@@ -513,7 +514,7 @@ public class FileServices {
         }
         filename = onlyname(filename, topath, shuffix, 1, true);
         filelist1.setFileName(filename);
-        filelist1.setFilePath(t.getAbsolutePath().replace("\\", "/").replace(this.rootPath, ""));
+        filelist1.setFilePath(tmp);
         filelist1.setFileShuffix(shuffix);
         filelist1.setSize(filelist.getSize());
         filelist1.setUploadTime(new Date());

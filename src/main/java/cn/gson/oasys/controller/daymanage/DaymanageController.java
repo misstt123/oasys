@@ -62,7 +62,7 @@ public class DaymanageController {
 		List<Order> orders=new ArrayList<>();
 		orders.add(new Order(Direction.DESC, "statusId"));
 		orders.add(new Order(Direction.DESC, "createTime"));
-		Sort sort=new Sort(orders);
+        Sort sort=new Sort(orders);
 		Pageable pa=new PageRequest(page, size,sort);
 		User user = udao.findOne(userid);
 		Page<ScheduleList> myday = daydao.findByUser(user, pa);
