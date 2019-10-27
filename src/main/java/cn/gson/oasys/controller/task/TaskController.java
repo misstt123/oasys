@@ -229,7 +229,7 @@ public class TaskController {
 	 */
 	@RequestMapping("update")
 	public String update(Tasklist task, HttpSession session) {
-		String userId = ((String) session.getAttribute("userId")).trim();
+		String userId = (session.getAttribute("userId").toString()).trim();
 		Long userid = Long.parseLong(userId);
 		User userlist = udao.findOne(userid);
 		task.setUsersId(userlist);
@@ -318,10 +318,10 @@ public class TaskController {
 		
 		Page<Tasklist> tasklist2=tdao.findByTickingIsNotNull(pa);
 		if(tasklist!=null){
-			List<Map<String, Object>> list=tservice.index4(tasklist, userId);
-			model.addAttribute("page", tasklist);
-			model.addAttribute("tasklist", list);
-		}else{
+            List<Map<String, Object>> list=tservice.index4(tasklist, userId);
+            model.addAttribute("page", tasklist);
+            model.addAttribute("tasklist", list);
+        }else{
 			List<Map<String, Object>> list2=tservice.index4(tasklist2, userId);
 			model.addAttribute("page", tasklist2);
 			model.addAttribute("tasklist", list2);
@@ -446,7 +446,6 @@ public class TaskController {
 	/**
 	 * 根据发布人这边删除任务和相关联系
 	 * @param req
-	 * @param session
 	 * @return
 	 */
 	@RequestMapping("shanchu")

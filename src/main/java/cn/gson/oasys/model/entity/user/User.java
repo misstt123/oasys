@@ -73,7 +73,7 @@ public class User {
 	private String idCard;		//用户身份证
 	
 	@NotEmpty(message="卡号不能为空")
-	@Length(min=16, max=19,message="银行卡号长度必须在16到19之间!")
+	//@Length(min=16, max=19,message="银行卡号长度必须在16到19之间!")
 	private String bank;		//银行
 	
 	private String sex;			//性别

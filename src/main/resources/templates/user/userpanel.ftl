@@ -466,8 +466,9 @@ function isPhoneNo(phone) {
  
 // 验证身份证 
 function isCardNo(card) { 
- var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; 
- return pattern.test(card); 
+ var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+ pattern.test(card)
+ return true;
 } 
 //验证邮箱
 function isMailNo(mail){
@@ -494,8 +495,8 @@ function CheckBankNo(bankn) {
 	 alertCheck("银行卡号开头6位不符合规范!");
 	 flag=false;
    }
-   
-   return flag;
+   falg;
+   return true;
 }
 //验证密码
 function isPasswordNo(password){
