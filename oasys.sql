@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2019-10-28 18:26:10
+Date: 2019-10-28 23:16:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -103,7 +103,7 @@ CREATE TABLE `aoa_attends_list` (
   PRIMARY KEY (`attends_id`),
   KEY `FKaxgqsm98npnl1rxysh9upfjee` (`attends_user_id`),
   CONSTRAINT `FKaxgqsm98npnl1rxysh9upfjee` FOREIGN KEY (`attends_user_id`) REFERENCES `aoa_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_attends_list
@@ -161,6 +161,10 @@ INSERT INTO `aoa_attends_list` VALUES ('66', '192.168.56.1', null, '2019-10-28 0
 INSERT INTO `aoa_attends_list` VALUES ('67', '192.168.56.1', null, '2019-10-28 08:38:30', '12', '9', '36', '08:38', '星期一', null, null);
 INSERT INTO `aoa_attends_list` VALUES ('68', '192.168.56.1', null, '2019-10-28 10:23:54', '11', '8', '4', '10:23', '星期一', null, null);
 INSERT INTO `aoa_attends_list` VALUES ('69', '192.168.56.1', null, '2019-10-28 10:23:59', '12', '9', '4', '10:23', '星期一', null, null);
+INSERT INTO `aoa_attends_list` VALUES ('70', null, null, null, '46', null, '36', null, null, '1', '2019-10-28');
+INSERT INTO `aoa_attends_list` VALUES ('71', null, null, null, '46', null, '10', null, null, '3', '2019-10-19');
+INSERT INTO `aoa_attends_list` VALUES ('72', null, null, null, '46', null, '10', null, null, '3', '2019-10-19');
+INSERT INTO `aoa_attends_list` VALUES ('73', null, null, null, '46', null, '36', null, null, '0', '2019-10-28');
 
 -- ----------------------------
 -- Table structure for aoa_bursement
@@ -659,15 +663,16 @@ CREATE TABLE `aoa_holiday` (
   PRIMARY KEY (`holiday_id`),
   KEY `FK1glo2wpb4kuiop1ymjxs0knxj` (`pro_id`),
   CONSTRAINT `FK1glo2wpb4kuiop1ymjxs0knxj` FOREIGN KEY (`pro_id`) REFERENCES `aoa_process_list` (`process_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_holiday
 -- ----------------------------
 INSERT INTO `aoa_holiday` VALUES ('1', '2', '38', '16', '准假', null);
-INSERT INTO `aoa_holiday` VALUES ('2', '1', '37', '25', 'as电饭锅', 'as电饭锅和');
-INSERT INTO `aoa_holiday` VALUES ('3', '1', '37', '29', null, null);
-INSERT INTO `aoa_holiday` VALUES ('4', '0', '37', '30', null, null);
+INSERT INTO `aoa_holiday` VALUES ('2', '1', '37', '25', '', '');
+INSERT INTO `aoa_holiday` VALUES ('3', '1', '37', '29', '', null);
+INSERT INTO `aoa_holiday` VALUES ('4', '0', '37', '30', '批准，加把劲', '批准');
+INSERT INTO `aoa_holiday` VALUES ('5', '31', '41', '31', null, null);
 
 -- ----------------------------
 -- Table structure for aoa_in_mail_list
@@ -935,7 +940,7 @@ CREATE TABLE `aoa_notepaper` (
   PRIMARY KEY (`notepaper_id`),
   KEY `FKsavcqw29haox5bu7y90it8jb7` (`notepaper_user_id`),
   CONSTRAINT `FKsavcqw29haox5bu7y90it8jb7` FOREIGN KEY (`notepaper_user_id`) REFERENCES `aoa_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_notepaper
@@ -975,6 +980,8 @@ INSERT INTO `aoa_notepaper` VALUES ('39', '谷歌公司回归中国', '2019-10-2
 INSERT INTO `aoa_notepaper` VALUES ('40', '据韩网报道，预计于明日退伍的权志龙退伍场所改为龙仁，因为原本定的退伍地江原道铁原检测了出非洲猪瘟(ASF)病毒，所以不得已临时更换，据悉，今日（25日）权志龙前往了在龙仁的陆军地面作战司令部，退伍时间确定为明早8时（韩国时间），中国的迷妹看来得早上7点起来看欧巴退伍帅照啦！', '2019-10-27 00:46:00', 'GD权志龙回归', '8');
 INSERT INTO `aoa_notepaper` VALUES ('41', '习近平强调，要强化基础研究，提升原始创新能力，努力让我国在区块链这个新兴领域走在理论最前沿、占据创新制高点、取得产业新优势。要推动协同攻关，加快推进核心技术突破，为区块链应用发展提供安全可控的技术支撑。要加强区块链标准化研究，提升国际话语权和规则制定权。要加快产业发展，发挥好市场优势，进一步打通创新链、应用链、价值链。要构建区块链产业生态，加快区块链和人工智能、大数据、物联网等前沿信息技术的深度融合，推动集成创新和融合应用。要加强人才队伍建设，建立完善人才培养体系，打造多种形式的高层次人才培养平台，培育一批领军人物和高水平创新团队。', '2019-10-27 12:33:41', '习近平强调把区块链作为核心技术自主创新重要突破口 ', '8');
 INSERT INTO `aoa_notepaper` VALUES ('42', '由中国卫星海上测控部所属远望21号、22号船组成的火箭运输船队于10月22日从天津港启航，经过5昼夜航行，经受住了复杂海况环境考验，安全抵达海南文昌清澜港码头', '2019-10-28 08:25:37', '长征五号遥三运载火箭运抵海南文昌 将择机发射', '2');
+INSERT INTO `aoa_notepaper` VALUES ('43', '可能我这么说大多数果粉听了会不高兴，管理能力上面，库克比乔布斯成功，用事实说话。\r\n在苹果公司成立之初，乔布斯就没有被视为出色的商业领袖。毫无疑问，他作为领袖能够激发和说服听众的人的才能。因此，他有能力思考客户真正想要的尚未见过的产品。', '2019-10-28 22:06:21', '没有乔布斯的苹果，库克是救星还是罪', '7');
+INSERT INTO `aoa_notepaper` VALUES ('44', '电影插曲《不得了》由影视音乐战略合作伙伴：奔跑怪物（北京）文化娱乐有限公司营销推广，电影《受益人》11月8日全国上映，“真的骗你，也是真的爱你”，一起相约电影院，跟着音乐魔性循环！', '2019-10-28 22:34:09', '电影《受益人》将映 柳岩元气演绎插曲《不得了》', '24');
 
 -- ----------------------------
 -- Table structure for aoa_note_list
@@ -1379,7 +1386,7 @@ CREATE TABLE `aoa_process_list` (
   KEY `FKhtdg4du5ryotah5v1dgyjfh2t` (`process_user_id`),
   CONSTRAINT `FKhtdg4du5ryotah5v1dgyjfh2t` FOREIGN KEY (`process_user_id`) REFERENCES `aoa_user` (`user_id`),
   CONSTRAINT `FKiltoi9iw3vjixl6u4cd60fi1p` FOREIGN KEY (`pro_file_id`) REFERENCES `aoa_attachment_list` (`attachment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_process_list
@@ -1409,8 +1416,9 @@ INSERT INTO `aoa_process_list` VALUES ('25', '2019-10-19 23:43:29', '22', '2019-
 INSERT INTO `aoa_process_list` VALUES ('26', '2019-10-28 09:22:28', '22', null, '培训java后台', '培训费', null, '0', null, '23', '费用报销', null, '36', 'Bill');
 INSERT INTO `aoa_process_list` VALUES ('27', '2019-10-28 11:33:43', '22', '2019-10-29 11:31:06', '美团项目招标，大数据项目招标', '美团项目招标', '1', '0', '2019-10-28 11:31:06', '23', '出差申请', null, '4', 'Bill');
 INSERT INTO `aoa_process_list` VALUES ('28', '2019-10-28 16:08:16', '22', '2019-10-28 20:06:32', '测试加班申请。。。。。。', '测试加班申请', '0', '0', '2019-10-28 16:06:32', '23', '加班申请', null, '36', 'Bill');
-INSERT INTO `aoa_process_list` VALUES ('29', '2019-10-28 16:09:35', '22', '2019-10-29 16:08:24', '测试请假。。。。。。。。', '测试请假', '1', '0', '2019-10-28 16:08:24', '23', '请假申请', null, '36', 'Bill');
-INSERT INTO `aoa_process_list` VALUES ('30', '2019-10-28 16:46:20', '22', '2019-10-29 16:21:36', '测试请假.......', '测试请假', '0', '0', '2019-10-28 16:21:36', '23', '请假申请', '89', '36', 'Bill');
+INSERT INTO `aoa_process_list` VALUES ('29', '2019-10-28 16:09:35', '22', '2019-10-29 16:08:24', '测试请假。。。。。。。。', '测试请假', '1', '0', '2019-10-28 16:08:24', '25', '请假申请', null, '36', 'Bill');
+INSERT INTO `aoa_process_list` VALUES ('30', '2019-10-28 16:46:20', '22', '2019-10-29 16:21:36', '测试请假.......', '测试请假', '0', '0', '2019-10-28 16:21:36', '25', '请假申请', '89', '36', 'Bill;kuke');
+INSERT INTO `aoa_process_list` VALUES ('31', '2019-10-28 22:37:50', '22', '2019-11-28 22:36:02', '产假哺乳期', '产假', '31', '0', '2019-10-28 22:36:02', '23', '请假申请', null, '24', 'kuke');
 
 -- ----------------------------
 -- Table structure for aoa_receiver_note
@@ -1660,48 +1668,50 @@ CREATE TABLE `aoa_reviewed` (
   KEY `FK2iljei0wvy0cylwwyfh5dr9yk` (`user_id`),
   CONSTRAINT `FK2iljei0wvy0cylwwyfh5dr9yk` FOREIGN KEY (`user_id`) REFERENCES `aoa_user` (`user_id`),
   CONSTRAINT `FKevjvy6myxg1l0ibiuph3i7jw2` FOREIGN KEY (`pro_id`) REFERENCES `aoa_process_list` (`process_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_reviewed
 -- ----------------------------
 INSERT INTO `aoa_reviewed` VALUES ('1', null, null, '23', '1', '1', '0');
-INSERT INTO `aoa_reviewed` VALUES ('2', '防微杜渐返回为子发hi黯然无光狂热就', '2017-10-11 22:40:25', '25', '2', '5', '0');
+INSERT INTO `aoa_reviewed` VALUES ('2', '防微杜渐返回为子发hi黯然无光狂热就', '2019-10-11 22:40:25', '25', '2', '5', '0');
 INSERT INTO `aoa_reviewed` VALUES ('3', null, null, '23', '3', '5', '0');
 INSERT INTO `aoa_reviewed` VALUES ('4', null, null, '23', '4', '5', '0');
-INSERT INTO `aoa_reviewed` VALUES ('5', '范德萨地方大发地方撒大', '2017-10-11 22:31:50', '25', '5', '5', '0');
+INSERT INTO `aoa_reviewed` VALUES ('5', '范德萨地方大发地方撒大', '2019-10-11 22:31:50', '25', '5', '5', '0');
 INSERT INTO `aoa_reviewed` VALUES ('6', null, null, '23', '6', '6', '0');
-INSERT INTO `aoa_reviewed` VALUES ('7', '属实', '2017-10-12 13:15:53', '25', '7', '4', '1');
+INSERT INTO `aoa_reviewed` VALUES ('7', '属实', '2019-10-12 13:15:53', '25', '7', '4', '1');
 INSERT INTO `aoa_reviewed` VALUES ('8', null, null, '23', '7', '5', '0');
 INSERT INTO `aoa_reviewed` VALUES ('9', null, null, '23', '8', '6', '0');
 INSERT INTO `aoa_reviewed` VALUES ('10', null, null, '23', '9', '6', '0');
-INSERT INTO `aoa_reviewed` VALUES ('11', '去项目支持', '2017-10-14 00:04:05', '25', '10', '6', '0');
+INSERT INTO `aoa_reviewed` VALUES ('11', '去项目支持', '2019-10-14 00:04:05', '25', '10', '6', '0');
 INSERT INTO `aoa_reviewed` VALUES ('12', null, null, '23', '10', '5', '0');
-INSERT INTO `aoa_reviewed` VALUES ('13', '情况属实！！！！', '2017-10-14 00:32:44', '25', '11', '6', '0');
-INSERT INTO `aoa_reviewed` VALUES ('17', '批准', '2017-10-14 00:43:16', '25', '11', '5', '0');
-INSERT INTO `aoa_reviewed` VALUES ('18', '发发发', '2017-10-14 16:42:19', '25', '12', '4', '0');
-INSERT INTO `aoa_reviewed` VALUES ('19', '公司没人', '2017-10-14 20:34:45', '23', '12', '7', '0');
-INSERT INTO `aoa_reviewed` VALUES ('20', '公司没人', '2017-10-14 20:30:02', '26', '14', '3', '0');
+INSERT INTO `aoa_reviewed` VALUES ('13', '情况属实！！！！', '2019-10-14 00:32:44', '25', '11', '6', '0');
+INSERT INTO `aoa_reviewed` VALUES ('17', '批准', '2019-10-14 00:43:16', '25', '11', '5', '0');
+INSERT INTO `aoa_reviewed` VALUES ('18', '发发发', '2019-10-14 16:42:19', '25', '12', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('19', '公司没人', '2019-10-14 20:34:45', '23', '12', '7', '0');
+INSERT INTO `aoa_reviewed` VALUES ('20', '公司没人', '2019-10-14 20:30:02', '26', '14', '3', '0');
 INSERT INTO `aoa_reviewed` VALUES ('21', null, null, '23', '14', '7', '0');
-INSERT INTO `aoa_reviewed` VALUES ('22', '准假', '2017-10-14 21:38:03', '25', '16', '2', '0');
+INSERT INTO `aoa_reviewed` VALUES ('22', '准假', '2019-10-14 21:38:03', '25', '16', '2', '0');
 INSERT INTO `aoa_reviewed` VALUES ('23', null, null, '23', '16', '7', '0');
-INSERT INTO `aoa_reviewed` VALUES ('24', '经过实习期间观察，合格', '2017-10-14 23:02:48', '25', '17', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('24', '经过实习期间观察，合格', '2019-10-14 23:02:48', '25', '17', '4', '0');
 INSERT INTO `aoa_reviewed` VALUES ('26', null, null, '23', '17', '7', '0');
-INSERT INTO `aoa_reviewed` VALUES ('27', '准了', '2017-10-15 00:15:36', '25', '19', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('27', '准了', '2019-10-15 00:15:36', '25', '19', '4', '0');
 INSERT INTO `aoa_reviewed` VALUES ('28', null, null, '23', '19', '5', '0');
 INSERT INTO `aoa_reviewed` VALUES ('29', '多对多', '2017-10-15 16:17:18', '26', '20', '6', '0');
 INSERT INTO `aoa_reviewed` VALUES ('30', null, null, '23', '20', '5', '0');
 INSERT INTO `aoa_reviewed` VALUES ('31', null, null, '23', '21', '6', '0');
 INSERT INTO `aoa_reviewed` VALUES ('32', null, null, '23', '22', '4', '0');
 INSERT INTO `aoa_reviewed` VALUES ('33', null, null, '23', '23', '4', '0');
-INSERT INTO `aoa_reviewed` VALUES ('34', '', '2017-10-16 16:06:03', '26', '24', '4', '0');
-INSERT INTO `aoa_reviewed` VALUES ('35', 'as电饭锅', '2017-10-19 23:45:22', '25', '25', '4', '0');
-INSERT INTO `aoa_reviewed` VALUES ('36', 'as电饭锅和', '2017-10-19 23:46:32', '25', '25', '7', '0');
+INSERT INTO `aoa_reviewed` VALUES ('34', '', '2019-10-16 16:06:03', '26', '24', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('35', '', '2019-10-28 20:51:53', '25', '25', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('36', '', '2019-10-28 22:08:16', '25', '25', '7', '0');
 INSERT INTO `aoa_reviewed` VALUES ('37', null, null, '23', '26', '4', '0');
 INSERT INTO `aoa_reviewed` VALUES ('38', null, null, '23', '27', '4', '0');
 INSERT INTO `aoa_reviewed` VALUES ('39', null, null, '23', '28', '4', '0');
-INSERT INTO `aoa_reviewed` VALUES ('40', null, null, '23', '29', '4', '0');
-INSERT INTO `aoa_reviewed` VALUES ('41', null, null, '23', '30', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('40', '', '2019-10-28 20:50:30', '25', '29', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('41', '批准，加把劲', '2019-10-28 22:09:36', '25', '30', '4', '0');
+INSERT INTO `aoa_reviewed` VALUES ('42', '批准', '2019-10-28 22:10:12', '25', '30', '7', '0');
+INSERT INTO `aoa_reviewed` VALUES ('43', null, null, '23', '31', '7', '0');
 
 -- ----------------------------
 -- Table structure for aoa_role_
@@ -1855,7 +1865,7 @@ INSERT INTO `aoa_role_power_list` VALUES ('163', '0', '88', '2');
 INSERT INTO `aoa_role_power_list` VALUES ('164', '1', '89', '2');
 INSERT INTO `aoa_role_power_list` VALUES ('165', '0', '90', '2');
 INSERT INTO `aoa_role_power_list` VALUES ('166', '0', '1', '3');
-INSERT INTO `aoa_role_power_list` VALUES ('167', '1', '2', '3');
+INSERT INTO `aoa_role_power_list` VALUES ('167', '0', '2', '3');
 INSERT INTO `aoa_role_power_list` VALUES ('168', '1', '3', '3');
 INSERT INTO `aoa_role_power_list` VALUES ('169', '1', '4', '3');
 INSERT INTO `aoa_role_power_list` VALUES ('170', '1', '5', '3');
@@ -1910,7 +1920,7 @@ INSERT INTO `aoa_role_power_list` VALUES ('218', '0', '88', '3');
 INSERT INTO `aoa_role_power_list` VALUES ('219', '0', '89', '3');
 INSERT INTO `aoa_role_power_list` VALUES ('220', '1', '90', '3');
 INSERT INTO `aoa_role_power_list` VALUES ('221', '0', '1', '4');
-INSERT INTO `aoa_role_power_list` VALUES ('222', '1', '2', '4');
+INSERT INTO `aoa_role_power_list` VALUES ('222', '0', '2', '4');
 INSERT INTO `aoa_role_power_list` VALUES ('223', '0', '3', '4');
 INSERT INTO `aoa_role_power_list` VALUES ('224', '1', '4', '4');
 INSERT INTO `aoa_role_power_list` VALUES ('225', '1', '5', '4');
@@ -2705,7 +2715,7 @@ INSERT INTO `aoa_user` VALUES ('3', '中国广东', '6217002940101998752', '1995
 INSERT INTO `aoa_user` VALUES ('4', '清华大学', '62175555555555444', '1996-12-18 00:00:00', '164@qq.com', '4', '2013-09-19 16:52:40', '432524199612188018', '54b334d6-e4df-43dd-867b-5a6e8bf2328b.jpg', '0', null, null, null, null, '123456', '比尔盖茨', '8000', '清华大学', '男', 'blue', '硕士', 'Bill', '老子天下第一', '18173328888', '2', '4', '4', '0', null, 'biergaici');
 INSERT INTO `aoa_user` VALUES ('5', '中南大学', '7777', '1996-09-19 16:56:50', '173@126.com', '3', '2014-09-19 16:57:21', '432524199612188016', 'a.jpg', '0', null, null, null, null, '123456', '小罗', '4000', '中南大学', '男', 'blue', '博士', 'soli', 'iinteresting', '18173328976', '3', '5', '4', '0', null, 'soli');
 INSERT INTO `aoa_user` VALUES ('6', '泰山西路', '9999', '1997-09-19 16:59:29', '188@qq.com', '3', '2014-09-19 17:00:21', '432524199712188019', 'a.jpg', '0', null, null, null, null, '123456', '小红', '3700', '上海交大', '女', 'green', '本科', '红之花', '每天美一点', '18868688866', '4', '6', '4', '0', null, 'hongzhihua');
-INSERT INTO `aoa_user` VALUES ('7', '湖南工业大学', '6666', '2017-10-01 15:20:20', '188@qq.com', '3', '2017-10-05 15:20:39', '432524199712188020', 'a.jpg', '0', null, null, null, null, '123456', '小喻', '5000', '湖南工业大学', '男', 'yellow', '本科', '甄姬', null, '13117336953', '5', '7', '4', '0', null, 'zhengji');
+INSERT INTO `aoa_user` VALUES ('7', '湖南工业大学', '62175555555555444', '1997-12-18 00:00:00', '188@qq.com', '3', '2017-10-05 15:20:39', '432524199712188020', 'd91f65bb-c671-4e34-9a63-3170a3fc9da7.jpg', '0', null, null, null, null, '123456', '库克', '5000', '湖南工业大学', '男', 'blue', '本科', 'kuke', null, '13117336953', '5', '7', '4', '0', null, 'kuke');
 INSERT INTO `aoa_user` VALUES ('8', '中国广东', '62175555555555444', '1997-12-18 00:00:00', '188@qq.com', '4', '2017-10-02 15:20:39', '432524199712188021', '9181012b-3d4a-4de4-b440-d0cb9f2d1a35.jpg', '0', null, null, null, null, '123456', 'venom', '5000', '湖南工业大学', '女', 'blue', '本科', 'venom', 'i am venom', '13117336954', '20', '28', '5', '0', null, 'zhengji2');
 INSERT INTO `aoa_user` VALUES ('9', '中国广东', '5132141321351555', '1997-12-18 00:00:00', '55@qq.com', '4', '2017-10-11 14:23:32', '432524199712188021', 'bb393840-45fa-4981-ad01-8c700922d291.jpg', '0', null, null, null, null, '123456', '小花', '3111', '湖南工业大学', '女', 'blue', '本科', '垃圾', '甄姬甄姬真垃圾', '13034507214', '2', '11', '5', '0', null, 'zhenghuan');
 INSERT INTO `aoa_user` VALUES ('10', '清华大学', '4444', '2017-10-18 14:26:17', '66@qq.com', '4', '2017-10-07 14:26:37', '432524199712188021', 'a.jpg', '0', null, null, null, null, '123456', '花红', '2555', '湖大', '女', 'green', '本科', '无双', null, '13117336954', '2', '12', '5', '0', null, 'wushuang');
@@ -2722,7 +2732,7 @@ INSERT INTO `aoa_user` VALUES ('20', '中国广东', '5555444', '2017-10-03 14:2
 INSERT INTO `aoa_user` VALUES ('21', '中国广东', '4444', '2017-10-18 14:26:17', '88@qq.com', '6', '2014-09-19 16:57:21', '432524199712188021', 'fourman.jpeg', '0', null, null, null, null, '123456', '李发友', '2555', '湖大', '女', 'blue', '本科', '杨晓木', null, '18868688866', '4', '20', '5', '0', null, 'yangxiaomu');
 INSERT INTO `aoa_user` VALUES ('22', '清华大学', '6666', '2017-10-07 14:27:54', '1057@qq.com', '7', '2014-09-19 16:57:21', '5824566822688', 'nineman.jpeg', '0', null, null, null, null, '123456', '金燕西', '5000', '中南', '男', 'green', '硕士', '陈晓吉', null, '13117336953', '5', '8', '5', '0', null, 'chenxiaoji');
 INSERT INTO `aoa_user` VALUES ('23', '中南大学', '6666\r\n62175555555555444\r\n12345', '2017-10-07 14:27:54', 'aaluoxiang@foxmail.com', '7', '2014-09-19 16:57:21', '25852255', 'oneman.jpeg', '0', null, null, null, null, '123456', '修璃', '6000', '中南', '女', 'yellow', '博士', '刘恋', '', '13117336954', '5', '9', '5', '0', null, 'liulian');
-INSERT INTO `aoa_user` VALUES ('24', '中南大学', '6666\r\n62175555555555444\r\n12345', '2017-10-07 14:27:54', 'aaluoxiang@foxmail.com', '7', '2014-09-19 16:57:21', '25852255', 'fourman.jpeg', '0', null, null, null, null, '123456', '张柳', '6000', '中南', '女', 'yellow', '博士', '张柳', '', '13117336954', '5', '9', '5', '0', null, 'zhangliu');
+INSERT INTO `aoa_user` VALUES ('24', '中南大学', '66666217555555555544412345', '1986-02-03 00:00:00', 'aaluoxiang@foxmail.com', '7', '2014-09-19 16:57:21', '510322198602030429', '7a506f4b-ed4e-4175-8d14-dab63cc0094a.jpg', '0', null, null, null, null, '123456', '柳岩', '6000', '中南', '女', 'blue', '博士', 'liuyan', '', '13117336954', '5', '9', '5', '0', null, 'liuyan');
 INSERT INTO `aoa_user` VALUES ('25', '湖南工业大学', '62175555555555444', '2017-10-04 15:20:20', '55@qq.com', '6', '2014-09-19 16:57:21', '432524199712188021', '74c43897-d08b-409d-8b90-7fa3d681fef5.jpg', '0', null, null, null, null, '123456', '张秋', '5000', '湖南工业大学', '女', 'yellow', '本科', '张秋', null, '13117336953', '4', '18', '5', '0', null, 'zhangqiu');
 INSERT INTO `aoa_user` VALUES ('26', '清华大学', '7777', '1996-09-19 16:56:50', '188@qq.com', '5', '2017-10-11 14:23:32', '432524199612188016', 'sevenman.jpeg', '0', null, null, null, null, '123456', '张秋生', '4000', '中南大学', '男', 'red', '博士', '张秋生', null, '13117336954', '3', '23', '5', '0', null, 'zhangqiusheng');
 INSERT INTO `aoa_user` VALUES ('27', '中国广东', '4444', '2017-10-18 14:26:17', '88@qq.com', '6', '2014-09-19 16:57:21', '432524199712188021', 'fourman.jpeg', '0', null, null, null, null, '123456', '张宇', '2555', '湖大', '女', 'blue', '本科', '张宇', null, '18868688866', '4', '20', '5', '0', null, 'zhangyu');
@@ -2744,7 +2754,7 @@ CREATE TABLE `aoa_user_log` (
   PRIMARY KEY (`log_id`),
   KEY `FKherb88q97dxbtcge09ii875qm` (`user_id`),
   CONSTRAINT `FKherb88q97dxbtcge09ii875qm` FOREIGN KEY (`user_id`) REFERENCES `aoa_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3221 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3335 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_user_log
@@ -5234,7 +5244,7 @@ CREATE TABLE `aoa_user_login_record` (
   PRIMARY KEY (`record_id`),
   KEY `FKks6qpqj3ss4e4timjt0xok1p0` (`user_id`),
   CONSTRAINT `FKks6qpqj3ss4e4timjt0xok1p0` FOREIGN KEY (`user_id`) REFERENCES `aoa_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aoa_user_login_record
@@ -5440,6 +5450,14 @@ INSERT INTO `aoa_user_login_record` VALUES ('198', 'Chrome/75.0.3770.100', '192.
 INSERT INTO `aoa_user_login_record` VALUES ('199', 'Firefox 7/70.0', '192.168.56.1', '2019-10-28 17:44:57', null, '8');
 INSERT INTO `aoa_user_login_record` VALUES ('200', 'Firefox 7/70.0', '192.168.56.1', '2019-10-28 17:45:25', null, '4');
 INSERT INTO `aoa_user_login_record` VALUES ('201', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 18:10:48', null, '4');
+INSERT INTO `aoa_user_login_record` VALUES ('202', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 20:49:23', null, '4');
+INSERT INTO `aoa_user_login_record` VALUES ('203', 'Firefox 7/70.0', '192.168.56.1', '2019-10-28 20:52:48', null, '1');
+INSERT INTO `aoa_user_login_record` VALUES ('204', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 22:04:46', null, '7');
+INSERT INTO `aoa_user_login_record` VALUES ('205', 'Firefox 7/70.0', '192.168.56.1', '2019-10-28 22:08:53', null, '4');
+INSERT INTO `aoa_user_login_record` VALUES ('206', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 22:33:10', null, '24');
+INSERT INTO `aoa_user_login_record` VALUES ('207', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 22:50:40', null, '24');
+INSERT INTO `aoa_user_login_record` VALUES ('208', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 22:53:26', null, '24');
+INSERT INTO `aoa_user_login_record` VALUES ('209', 'Chrome/75.0.3770.100', '192.168.56.1', '2019-10-28 23:09:54', null, '1');
 
 -- ----------------------------
 -- Table structure for aoa_vote_list
