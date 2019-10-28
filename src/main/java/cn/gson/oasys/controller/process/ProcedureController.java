@@ -122,7 +122,7 @@ public class ProcedureController {
 	@PostConstruct
 	public void UserpanelController(){
 		try {
-			String temp= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","");
+			String temp= ResourceUtils.getURL("classpath:").getPath().replace("/target/classes/","/static/attachment");
 			rootpath=URLDecoder.decode(temp, "utf-8");
 			System.out.println(rootpath);
 
