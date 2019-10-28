@@ -21,9 +21,9 @@ import cn.gson.oasys.model.entity.user.User;
 public class Stay {
 
 	@Id
-	@Column(name="stay_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long stayId;
+    @Column(name="stay_id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long stayId;
 	
 	@OneToOne
 	@JoinColumn(name="user_name")

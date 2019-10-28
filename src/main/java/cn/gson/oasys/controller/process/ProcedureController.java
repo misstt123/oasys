@@ -679,18 +679,11 @@ public class ProcedureController {
 	}
 	/**
 	 * 出差申请表单接收
-	 * @param model
-	 * @param session
-	 * @param request
-	 * @param page
-	 * @param size
-	 * @return
-	 * @throws IOException 
-	 * @throws IllegalStateException 
 	 */
 	@RequestMapping("evec")
-	public String evec(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,@Valid Evection eve,BindingResult br,
-			@SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
+	public String evec(@RequestParam("filePath")MultipartFile filePath,HttpServletRequest req,
+                       @Valid Evection eve,BindingResult br,
+                       @SessionAttribute("userId") Long userId) throws IllegalStateException, IOException{
 		User lu=udao.findOne(userId);//申请人
 		User shen=udao.findByUserName(eve.getNameuser());//审核人
 		Long roleid=lu.getRole().getRoleId();//申请人角色id
