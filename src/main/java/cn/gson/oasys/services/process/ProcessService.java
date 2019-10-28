@@ -263,7 +263,7 @@ public class ProcessService {
 			result.put("file", process.getProFileid());
 		}else{
 			result.put("file", "file");
-		}
+    }
 		result.put("name", name);
 		result.put("typename", process.getTypeNmae());
 		result.put("startime", process.getStartTime());

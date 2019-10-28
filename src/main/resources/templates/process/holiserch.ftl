@@ -183,14 +183,15 @@ border-top: 1px solid #2196F3;
 					<td  style="width:140px;"><div class="bottom">${(type)!''}</div></td>
 					<td class="css" style="width:30px;"></td>
 					<td class="wi"><label class="control-label">相关资料</label></td>
-					<td colspan="4" ><div class="bottom"><#if map.file??>
-							<#if map.filetype=="img">
+					<td colspan="4" ><div class="bottom">
+<#--                            <#if map.file??>
+							<#if map.filetype == "img">
 							<a href="javacript:void(0);" class="label xiugai yulan" title="图片预览">
 							<span class="glyphicon glyphicon-search"></span> 预览</a>
 							</#if>
 							<a href="file?fileid=${(map.file.attachmentId)!''}" class="label xiugai">
 							<span class="glyphicon glyphicon-search"></span> 下载</a>
-							</#if>
+							</#if>-->
 						</div>
 					</td>
 					<td class="css" colspan="6" ></td>
