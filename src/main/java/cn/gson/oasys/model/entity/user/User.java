@@ -24,7 +24,7 @@ import cn.gson.oasys.model.entity.schedule.ScheduleList;
 		role_id		角色
 		dept_id		部门
 	以上三个外键没有完成
- * @author luoxiang
+ * @author lyh
  *
  */
 @Entity

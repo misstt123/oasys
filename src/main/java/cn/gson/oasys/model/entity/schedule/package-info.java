@@ -1,7 +1,7 @@
 /**
  * 日程模块
  * 
- * @author Administrator
+ * @author lyh
  *
  */
 package cn.gson.oasys.model.entity.schedule;

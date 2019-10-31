@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 /**
  * 系统菜单实体类表
  * 
- * @author luoxiang
+ * @author lyh
  *
  */
 @Entity

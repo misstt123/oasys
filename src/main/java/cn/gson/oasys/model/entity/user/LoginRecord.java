@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  * 用户登陆记录
- * @author Administrator
+ * @author lyh
  *
  */
 @Entity

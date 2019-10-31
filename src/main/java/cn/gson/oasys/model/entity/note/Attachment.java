@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 /**
  * 附件表
- * @author admin
+ * @author lyh
  *
  */
 @Entity

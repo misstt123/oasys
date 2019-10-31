@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 
 /**
  * 验证码
- * @author 郭华
+ * @author lyh
  *
  */
 public final class VerifyCodeUtils {

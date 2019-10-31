@@ -2,7 +2,7 @@
 
 /**
  * 通讯录service
- * @author luoxiang
+ * @author lyh
  *
  */
 package cn.gson.oasys.services.address;

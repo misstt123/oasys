@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import cn.gson.oasys.model.entity.user.User;
 /**
  * 此处有一个parentid需要连接
- * @author admin
+ * @author lyh
  * ---目录表----
  *
  */

@@ -22,7 +22,7 @@ import cn.gson.oasys.model.entity.user.User;
 /**
  * 用户id
  * 讨论id
- * @author admin
+ * @author lyh
  * 回复表
  */
 @Entity

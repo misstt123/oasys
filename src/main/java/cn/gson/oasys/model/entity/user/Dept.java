@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 部门实体类
- * @author Administrator
+ * @author lyh
  *
  */
 @Entity

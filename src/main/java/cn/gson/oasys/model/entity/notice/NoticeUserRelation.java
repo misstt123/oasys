@@ -8,7 +8,7 @@ import cn.gson.oasys.model.entity.user.User;
 /**
  * 通知与用户中间关联表，多一个字段，是否已读
  * 
- * @author luoxiang
+ * @author lyh
  *
  */
 @Entity

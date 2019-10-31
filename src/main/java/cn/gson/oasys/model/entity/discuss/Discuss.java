@@ -27,7 +27,7 @@ import cn.gson.oasys.model.entity.user.User;
  * 投票id
  * 没有外键
  * 讨论表
- * @author admin
+ * @author lyh
  *
  */
 @Entity

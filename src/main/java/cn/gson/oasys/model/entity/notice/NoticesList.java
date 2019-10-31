@@ -7,7 +7,7 @@ import javax.persistence.*;
 /**
  * 通知模块通知总表
  * 
- * @author luoxiang
+ * @author lyh
  *
  */
 @Entity

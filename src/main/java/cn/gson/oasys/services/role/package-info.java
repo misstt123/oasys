@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author 宋妈
+ * @author lyh
  *
  */
 package cn.gson.oasys.services.role;

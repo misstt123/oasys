@@ -169,7 +169,7 @@ public class UserController {
 
 	/**
 	 * @Description:  查询用户名是否存在
-	 * @Author lyh-god
+	 * @author lyh
 	 * @Param [username]
 	 * @return boolean
 	 **/

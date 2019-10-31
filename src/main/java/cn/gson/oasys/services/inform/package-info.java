@@ -1,7 +1,7 @@
 
 /**
  * 通知公告service
- * @author luoxiang
+ * @author lyh
  *
  */
 package cn.gson.oasys.services.inform;

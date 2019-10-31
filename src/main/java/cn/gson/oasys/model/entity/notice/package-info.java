@@ -1,7 +1,7 @@
 
 /**
  * 公告通知模块
- * @author luoxiang
+ * @author lyh
  *
  */
 package cn.gson.oasys.model.entity.notice;

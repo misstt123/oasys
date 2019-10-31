@@ -19,7 +19,7 @@ import cn.gson.oasys.model.entity.user.User;
 @Table(name="aoa_notepaper")
 /**
  * 便签表
- * @author 宋佳
+ * @author lyh
  *
  */
 public class Notepaper {
